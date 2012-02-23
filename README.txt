@@ -36,7 +36,7 @@ Until the modules directory is donated you should follow these steps to build th
     and a FlashPlayerTrust file must allow local SWFs to access local files.
 
 3.  Delete the frameworks directory from the files you just expanded and replace it with the contents of the frameworks directory from the ASF svn repository.  
-    The SVN-location is https://svn.apache.org/repos/asf/incubator/flex/whiteboard/frameworks
+    The SVN-location is https://svn.apache.org/repos/asf/incubator/flex/trunk/frameworks
 
 4.  To build the frameworks directory, from the frameworks directory, type:
 
