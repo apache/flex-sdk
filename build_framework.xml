@@ -704,7 +704,7 @@
         
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal.failure,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal.failure,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.2RC-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
@@ -720,7 +720,7 @@
 		<condition property="target11.1">
 			<equals arg1="${playerglobal.version}" arg2="11.1" />
 		</condition>
-		<!-- Change to target11.2beta or target11.1RC depending on vertion of 11.2 you want to target -->
+		<!-- Change to target11.2beta or target11.1RC depending on version of 11.2 you want to target -->
 		<condition property="target11.2RC">
 			<equals arg1="${playerglobal.version}" arg2="11.2" />
 		</condition>
