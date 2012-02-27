@@ -720,7 +720,8 @@
 		<condition property="target11.1">
 			<equals arg1="${playerglobal.version}" arg2="11.1" />
 		</condition>
-		<condition property="target11.2">
+		<!-- Change to target11.2beta or target11.1RC depending on vertion of 11.2 you want to target -->
+		<condition property="target11.2RC">
 			<equals arg1="${playerglobal.version}" arg2="11.2" />
 		</condition>
 	 </target>
@@ -749,10 +750,19 @@
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target> 
-
-    <target name="playerglobal11.2-download" if="target11.2">
+    
+	<!-- Flash Player 11.2 beta -->
+    <target name="playerglobal11.2-download" if="target11.2beta">
     	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
         <get src="http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11-2/flashplayer11-2_p5_playerglobal_013112.swc" 
+            dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+    
+	<!-- Flash Player 11.2 release condidate -->
+    <target name="playerglobal11.2RC-download" if="target11.2RC">
+    	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11-2/flashplayer11-2_p6_playerglobal_022712.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target> 
