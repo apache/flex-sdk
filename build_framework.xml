@@ -32,6 +32,7 @@
     <property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
     <property name="airframework.dir" value="${projects.dir}/airframework"/>
     <property name="airspark.dir" value="${projects.dir}/airspark"/>
+	<property name="apache.dir" value="${projects.dir}/apache"/>
     <property name="mobilecomponents.dir" value="${projects.dir}/mobilecomponents"/>
     <property name="charts.dir" value="${projects.dir}/charts"/>
     <property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
@@ -54,9 +55,9 @@
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-    <target name="main" depends="clean,thirdparty-downloads,prepare,flexconfig,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,authoringsupport,bundles,themes,sparkskins,spark_dmv"/>
+    <target name="main" depends="clean,thirdparty-downloads,prepare,flexconfig,framework,mx,spark,airframework,airspark,apache,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,authoringsupport,bundles,themes,sparkskins,spark_dmv"/>
 
-    <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb"/>
+    <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,apache_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb"/>
     
     <target name="prepare" depends="create-description" description="Copies manifests to project directories so the IDE can find them">
         <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${FLEX_HOME}/frameworks/projects/spark/manifest.xml" overwrite="true"/>
@@ -246,6 +247,40 @@
             output="${basedir}/locale/${locale}/airspark_rb.swc">
             <include-resource-bundles bundle="core"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
+            <source-path path-element="${framework.dir}/src"/>
+            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+        	<library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+	
+    <target name="apache" description="Builds apache.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            show-deprecation-warnings="false"
+            include-classes="ApacheClasses"
+             output="${basedir}/libs/apache.swc" 
+            resource-bundle-list="${apache.dir}/bundles.properties">
+            <namespace uri="http://www.adobe.org/flex" manifest="${apache.dir}/manifest.xml"/>
+            <include-namespaces uri="http://www.adobe.org/flex"/>
+            <source-path path-element="${apache.dir}/src"/>
+            <source-path path-element="${basedir}/projects/apache/src"/>
+            <library-path/>
+            <external-library-path dir="${basedir}/libs">
+            	<!-- Just an initial guess more will need to be added -->
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+            	<include name="framework.swc"/>
+            	<include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+             </external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+    
+    <target name="apache_rb" description="Builds locale apache_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
+            output="${basedir}/locale/${locale}/apache_rb.swc">          
+            <include-resource-bundles bundle="validators"/>
+            <source-path path-element="${apache.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
             <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         	<library-path/>
@@ -805,7 +840,7 @@
         <delete failonerror="false">
             <fileset dir="${basedir}/libs">
                 <include name="air/airframework.swc"/>
-                <include name="air/airspark.swc"/>
+            	<include name="air/airspark.swc"/>
                 <include name="mobile/mobilecomponents.swc"/>
                 <include name="spark_dmv.swc"/>
                 <include name="charts.swc"/>
@@ -816,7 +851,8 @@
                 <include name="sparkskins.swc"/>
                 <include name="spark.swc"/>
                 <include name="authoringsupport.swc"/>
-                <include name="flash-integration.swc"/>
+            	<include name="flash-integration.swc"/>
+            	<include name="apache.swc"/>
             </fileset>
             <fileset dir="${basedir}/themes/Halo" includes="halo.swc"/>
             <fileset dir="${basedir}/themes/Mobile" includes="mobile.swc"/>
@@ -838,6 +874,7 @@
                 <include name="mx_rb.swc"/>
                 <include name="rpc_rb.swc"/>
                 <include name="spark_rb.swc"/>
+            	<include name="apache_rb.swc"/>
             </fileset>
         </delete>
         <delete dir="${basedir}/projects" includes="*/bundles.properties"/>
