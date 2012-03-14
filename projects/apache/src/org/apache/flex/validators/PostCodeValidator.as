@@ -901,6 +901,9 @@ public class PostCodeValidator extends Validator
             case "NL":
                 formats = [ "NNNN AA" ];
                 break;
+			case "PT":
+				formats = [ "NNNN-NNN", "NNNN NNN", "NNNN" ];
+				break;
             case "RU":
                 formats = [ "NNNNNN" ];
                 break;
