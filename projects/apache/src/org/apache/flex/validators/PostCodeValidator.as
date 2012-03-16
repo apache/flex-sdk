@@ -79,7 +79,7 @@ import mx.validators.ValidationResult;
  *  /&gt;
  *  </pre>
  *
- *  @see mx.formatters.PostCodeFormatter
+ *  @see org.apache.flex.formatters.PostCodeFormatter
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.2

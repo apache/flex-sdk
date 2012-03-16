@@ -80,7 +80,7 @@ import mx.validators.ValidationResult;
  *  />
  *  </pre>
  *
- *  @see mx.validators.PostCodeValidator
+ *  @see org.apache.flex.validators.PostCodeValidator
  * 
  *  @includeExample PostCodeValidationExample.mxml
  *
