@@ -102,7 +102,7 @@
             <manifest>mxml-manifest.xml</manifest>
          </namespace>
          <namespace>
-            <uri>http://www.apache.org/flex</uri>
+            <uri>http://flex.apache.org/ns</uri>
             <manifest>apache-manifest.xml</manifest>
          </namespace>
       </namespaces>

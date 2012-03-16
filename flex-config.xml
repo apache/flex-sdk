@@ -101,6 +101,10 @@
             <uri>http://www.adobe.com/2006/mxml</uri>
             <manifest>mxml-manifest.xml</manifest>
          </namespace>
+         <namespace>
+            <uri>http://flex.apache.org/ns</uri>
+            <manifest>apache-manifest.xml</manifest>
+         </namespace>
       </namespaces>
 
       <!-- Enable post-link SWF optimization. -->
