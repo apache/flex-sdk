@@ -89,6 +89,12 @@ public class PostCodeValidator extends Validator
 {
     include "../../../../core/Version.as";
 
+	/**
+	 * Name of the bundle file error resource strings can be found.
+	 * Also defined in matadata tag [ResourceBundle("validators")]
+	 */
+	private static const BUNDLENAME:String = "validators";
+	
     /**
      * Value <code>errorCode</code> of a ValidationResult is set to when
      * the postcode contains an invalid charater.
@@ -622,7 +628,7 @@ public class PostCodeValidator extends Validator
         invalidCharErrorOverride = value;
 
         if (!value)
-            _invalidCharError = resourceManager.getString("validators", "invalidCharPostcodeError");
+            _invalidCharError = resourceManager.getString(BUNDLENAME, "invalidCharPostcodeError");
     }
 
 
@@ -668,7 +674,7 @@ public class PostCodeValidator extends Validator
         wrongLengthErrorOverride = value;
 
         if (!value)
-            _wrongLengthError = resourceManager.getString("validators", "wrongLengthPostcodeError");
+            _wrongLengthError = resourceManager.getString(BUNDLENAME, "wrongLengthPostcodeError");
     }
 
     //----------------------------------
@@ -713,7 +719,7 @@ public class PostCodeValidator extends Validator
         wrongFormatErrorOverride = value;
 
         if (!value)
-            _wrongFormatError = resourceManager.getString("validators", "wrongFormatPostcodeError");
+            _wrongFormatError = resourceManager.getString(BUNDLENAME, "wrongFormatPostcodeError");
     }
 
     //----------------------------------
@@ -759,7 +765,7 @@ public class PostCodeValidator extends Validator
 
         if (!value)
             _incorrectFormatError =
-                resourceManager.getString("validators", "incorrectFormatPostcodeError");
+                resourceManager.getString(BUNDLENAME, "incorrectFormatPostcodeError");
     }
 
     //--------------------------------------------------------------------------
@@ -844,6 +850,37 @@ public class PostCodeValidator extends Validator
 
         return localeID.getRegion();
     }
+	
+	/**
+	 *  Sets the error strings to be from a another locale.
+	 * 
+	 *  <p>When validating other countries postcode you may want to set the
+	 *  validation message to be from that country but not change the
+	 *  applications locale.</p>
+	 * 
+	 * <p>To work the locale must be in the locale chain.</p>
+	 *
+	 *  @param locale locale to obtain region from.
+	 * 
+	 *  @return True if error message have been changed otherwise false.
+	 *
+	 */
+	public function errorsToLocale(locale:String):Boolean
+	{
+		if (resourceManager.getResourceBundle(locale, BUNDLENAME) == null)
+			return false;
+		
+		invalidCharErrorOverride =
+			resourceManager.getString(BUNDLENAME, "invalidCharPostcodeError", null, locale);
+		wrongLengthErrorOverride =
+			resourceManager.getString(BUNDLENAME, "wrongLengthPostcodeError", null, locale);
+		wrongFormatErrorOverride =
+			resourceManager.getString(BUNDLENAME, "wrongFormatPostcodeError", null, locale);
+		incorrectFormatErrorOverride =
+			resourceManager.getString(BUNDLENAME, "incorrectFormatPostcodeError", null, locale);
+		
+		return true;
+	}
 
     /**
      *  Sets the suggested postcode formats for a given <code>locale</code>.
@@ -853,6 +890,7 @@ public class PostCodeValidator extends Validator
      *  <p>Currenly only a limited set of locales are supported.</p>
      *
      *  @param locale Locale to obtain formats for.
+	 *  @param changeError If true change error message to match local.
      *
      *  @return The suggested format (an array of strings) or an empty
      *  array if the locale is not supported.
@@ -861,7 +899,7 @@ public class PostCodeValidator extends Validator
      *  @playerversion Flash 10.2
      *  @productversion ApacheFlex 4.8
      */
-    public function suggestFormat(locale:String = null):Array
+    public function suggestFormat(locale:String = null, changeErrors:Boolean = false):Array
     {
         var region:String = getRegion(locale);
 
@@ -917,6 +955,9 @@ public class PostCodeValidator extends Validator
                 formats = [];
                 break;
         }
+		
+		if (changeErrors)
+			errorsToLocale(locale);
 
         return formats;
     }
