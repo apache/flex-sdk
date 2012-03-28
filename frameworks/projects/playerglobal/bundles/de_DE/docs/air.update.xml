@@ -352,7 +352,7 @@ function customFn (currentVersion:String, updateVersion:String):Boolean
 	
 	<p class="- topic/p ">Das AIR-Updateframework wird nur im Desktop-Profil unterstützt. Es wird weder für erweiterte Desktop-Anwendungen (Anwendungen, die mit einem nativen Installer installiert werden) noch im Mobil-Profil (iPhone-Anwendungen, die mit ActionScript 3.0 geschrieben werden) unterstützt. Überprüfen Sie zur Laufzeit die <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph>-Eigenschaft, um festzustellen, ob das Updateframework unterstützt wird.</p>
 	
-	<p product="flex" class="- topic/p ">Weitere Details zur Verwendung des AIR-Updateframeworks finden Sie im Kapitel „Updating AIR Applications“ (Aktualisieren von AIR-Anwendungen) in <xref href="http://www.adobe.com/go/learn_air_flex3_de" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Adobe Flex</xref>.</p> 
+	<p product="flex" class="- topic/p ">Weitere Details zur Verwendung des AIR-Updateframeworks finden Sie im Kapitel „Updating AIR Applications“ (Aktualisieren von AIR-Anwendungen) in <xref href="http://www.adobe.com/go/learn_air_flex3_de" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Apache Flex</xref>.</p> 
 	
 	<p product="flash" class="- topic/p ">Weitere Details zur Verwendung des AIR-Updateframeworks finden Sie im Kapitel „Aktualisieren von AIR-Anwendungen“ in <xref href="http://www.adobe.com/go/learn_air_flash_de" scope="external" class="- topic/xref ">Entwickeln von Adobe AIR 1.5-Anwendungen mit Adobe Flash</xref>.</p> 
 	

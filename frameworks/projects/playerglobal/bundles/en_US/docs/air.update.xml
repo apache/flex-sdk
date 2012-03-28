@@ -85,7 +85,7 @@
 	to see if the update framework is supported.</p>
 	
 	<p product="flex" class="- topic/p ">For details on using the AIR update framework, see the "Updating AIR Applications"
-	chapter of <xref href="http://www.adobe.com/go/learn_air_flex3_en" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Adobe Flex</xref>.</p> 
+	chapter of <xref href="http://www.adobe.com/go/learn_air_flex3_en" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Apache Flex</xref>.</p> 
 	
 	<p product="flash" class="- topic/p ">For details on using the AIR update framework, see the "Updating AIR Applications"
 	chapter of <xref href="http://www.adobe.com/go/learn_air_flash_en" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Adobe Flash</xref>.</p> 
@@ -548,7 +548,7 @@ function customFn (currentVersion:String, updateVersion:String):Boolean
 	to see if the update framework is supported.</p>
 	
 	<p product="flex" class="- topic/p ">For details on using the AIR update framework, see the "Updating AIR Applications"
-	chapter of <xref href="http://www.adobe.com/go/learn_air_flex3" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Adobe Flex</xref>.</p> 
+	chapter of <xref href="http://www.adobe.com/go/learn_air_flex3" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Apache Flex</xref>.</p> 
 	
 	<p product="flash" class="- topic/p ">For details on using the AIR update framework, see the "Updating AIR Applications"
 	chapter of <xref href="http://www.adobe.com/go/learn_air_flash" scope="external" class="- topic/xref ">Developing Adobe AIR Applications with Adobe Flash</xref>.</p> 

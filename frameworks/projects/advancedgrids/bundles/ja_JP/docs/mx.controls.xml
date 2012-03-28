@@ -167,7 +167,7 @@
       <p>セルの値が NaN の場合、NaN を最後の引数として関数が呼び出されます。</p>
       
       </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
- AdvancedDataGrid コントロールは、標準の DataGrid コントロールの機能を拡張したもので、Adobe Flex アプリケーションにデータ視覚化機能が追加されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+ AdvancedDataGrid コントロールは、標準の DataGrid コントロールの機能を拡張したもので、Apache Flex アプリケーションにデータ視覚化機能が追加されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
 <description>
  列ヘッダーのソートアイコンをレンダリングするために AdvancedDataGridSortItemRenderer クラスで使用されるフォントの太さです。
 

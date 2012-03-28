@@ -352,7 +352,7 @@ function customFn (currentVersion:String, updateVersion:String):Boolean
 	
 	<p class="- topic/p ">Структура обновления AIR поддерживается только в профиле рабочего стола. Ее не поддерживают приложения расширенного рабочего стола (которые устанавливаются с помощью собственной программы установки), а также профили мобильных устройств (например, приложения iPhone, написанные с использованием ActionScript 3.0). Во время выполнения проверьте свойство <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph>, чтобы узнать, поддерживается ли структура обновления.</p>
 	
-	<p product="flex" class="- topic/p ">Подробнее об использовании инфраструктуры обновления AIR см. в главе «Обновление приложений AIR» документа <xref href="http://www.adobe.com/go/learn_air_flex3_ru" scope="external" class="- topic/xref ">Разработка приложений Adobe AIR с помощью Adobe Flex</xref>.</p> 
+	<p product="flex" class="- topic/p ">Подробнее об использовании инфраструктуры обновления AIR см. в главе «Обновление приложений AIR» документа <xref href="http://www.adobe.com/go/learn_air_flex3_ru" scope="external" class="- topic/xref ">Разработка приложений Adobe AIR с помощью Apache Flex</xref>.</p> 
 	
 	<p product="flash" class="- topic/p ">Подробнее об использовании инфраструктуры обновления AIR см. в главе «Обновление приложений AIR» документа <xref href="http://www.adobe.com/go/learn_air_flash_ru" scope="external" class="- topic/xref ">Разработка приложений Adobe AIR с помощью Adobe Flash</xref>.</p> 
 	

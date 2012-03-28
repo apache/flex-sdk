@@ -61,7 +61,7 @@
 	
 	<p class="- topic/p ">仅桌面配置文件支持 AIR 更新框架。扩展桌面应用程序（使用本机安装程序安装的应用程序）和移动配置文件（使用 ActionScript 3.0 编写的 iPhone 应用程序）都不支持该更新框架。在运行时检查 <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph> 属性以查看是否支持更新框架。</p>
 	
-	<p product="flex" class="- topic/p ">有关使用 AIR 更新框架的详细信息，请参阅<xref href="http://www.adobe.com/go/learn_air_flex3_cn" scope="external" class="- topic/xref ">使用 Adobe Flex 开发 Adobe AIR 应用程序</xref>中的“更新 AIR 应用程序”一章。 </p> 
+	<p product="flex" class="- topic/p ">有关使用 AIR 更新框架的详细信息，请参阅<xref href="http://www.adobe.com/go/learn_air_flex3_cn" scope="external" class="- topic/xref ">使用 Apache Flex 开发 Adobe AIR 应用程序</xref>中的“更新 AIR 应用程序”一章。 </p> 
 	
 	<p product="flash" class="- topic/p ">有关使用 AIR 更新框架的详细信息，请参阅<xref href="http://www.adobe.com/go/learn_air_flash_cn" scope="external" class="- topic/xref ">使用 Adobe Flash 开发 Adobe AIR 应用程序</xref>中的“更新 AIR 应用程序”一章。</p> 
 	
@@ -352,7 +352,7 @@ function customFn (currentVersion:String, updateVersion:String):Boolean
 	
 	<p class="- topic/p ">仅桌面配置文件支持 AIR 更新框架。扩展桌面应用程序（使用本机安装程序安装的应用程序）和移动配置文件（使用 ActionScript 3.0 编写的 iPhone 应用程序）都不支持该更新框架。在运行时检查 <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph> 属性以查看是否支持更新框架。</p>
 	
-	<p product="flex" class="- topic/p ">有关使用 AIR 更新框架的详细信息，请参阅<xref href="http://www.adobe.com/go/learn_air_flex3_cn" scope="external" class="- topic/xref ">使用 Adobe Flex 开发 Adobe AIR 应用程序</xref>中的“更新 AIR 应用程序”一章。</p> 
+	<p product="flex" class="- topic/p ">有关使用 AIR 更新框架的详细信息，请参阅<xref href="http://www.adobe.com/go/learn_air_flex3_cn" scope="external" class="- topic/xref ">使用 Apache Flex 开发 Adobe AIR 应用程序</xref>中的“更新 AIR 应用程序”一章。</p> 
 	
 	<p product="flash" class="- topic/p ">有关使用 AIR 更新框架的详细信息，请参阅<xref href="http://www.adobe.com/go/learn_air_flash_cn" scope="external" class="- topic/xref ">使用 Adobe Flash 开发 Adobe AIR 应用程序</xref>中的“更新 AIR 应用程序”一章。</p> 
 	

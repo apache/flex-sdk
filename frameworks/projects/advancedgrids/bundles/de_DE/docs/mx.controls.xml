@@ -167,7 +167,7 @@
       <p>Wenn der Wert in der Zelle „NaN“ entspricht, wird die Funktion mit Nan als letztem Argument aufgerufen.</p>
       
       </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
- Das AdvancedDataGrid-Steuerelement erweitert die Funktion des normalen DataGrid-Steuerelements, indem es Adobe Flex-Funktionen zur Visualisierung von Daten hinzufügt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+ Das AdvancedDataGrid-Steuerelement erweitert die Funktion des normalen DataGrid-Steuerelements, indem es Apache Flex-Funktionen zur Visualisierung von Daten hinzufügt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
 <description>
  Die von der AdvancedDataGridSortItemRenderer-Klasse für die Darstellung des Sortierungssymbols in der Spaltenüberschrift verwendete Schriftstärke.
 

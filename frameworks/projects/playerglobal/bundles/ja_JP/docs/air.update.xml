@@ -61,7 +61,7 @@
 	
 	<p class="- topic/p ">AIR 更新フレームワークは、デスクトッププロファイルでのみサポートされます。AIR 更新フレームワークは、拡張デスクトップアプリケーション（ネイティブインストーラーによってインストールされるアプリケーション）ではサポートされません。また、モバイルプロファイル（ActionScript 3.0 で記述された iPhone アプリケーション）でもサポートされません。更新フレームワークがサポートされているかどうかを調べるには、実行時に <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph> プロパティを確認します。</p>
 	
-	<p product="flex" class="- topic/p ">AIR 更新フレームワークの使用について詳しくは、『<xref href="http://www.adobe.com/go/learn_air_flex3_jp" scope="external" class="- topic/xref ">Adobe Flex での Adobe AIR アプリケーションの開発</xref>』の「AIR アプリケーションのアップデート」の章を参照してください。</p> 
+	<p product="flex" class="- topic/p ">AIR 更新フレームワークの使用について詳しくは、『<xref href="http://www.adobe.com/go/learn_air_flex3_jp" scope="external" class="- topic/xref ">Apache Flex での Adobe AIR アプリケーションの開発</xref>』の「AIR アプリケーションのアップデート」の章を参照してください。</p> 
 	
 	<p product="flash" class="- topic/p ">AIR 更新フレームワークの使用について詳しくは、『<xref href="http://www.adobe.com/go/learn_air_flash_jp" scope="external" class="- topic/xref ">Adobe AIR アプリケーションの開発</xref>』の「AIR アプリケーションのアップデート」の章を参照してください。</p> 
 	
@@ -352,7 +352,7 @@ function customFn (currentVersion:String, updateVersion:String):Boolean
 	
 	<p class="- topic/p ">AIR 更新フレームワークは、デスクトッププロファイルでのみサポートされます。AIR 更新フレームワークは、拡張デスクトップアプリケーション（ネイティブインストーラーによってインストールされるアプリケーション）ではサポートされません。また、モバイルプロファイル（ActionScript 3.0 で記述された iPhone アプリケーション）でもサポートされません。更新フレームワークがサポートされているかどうかを調べるには、実行時に <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph> プロパティを確認します。</p>
 	
-	<p product="flex" class="- topic/p ">AIR 更新フレームワークの使用について詳しくは、『<xref href="http://www.adobe.com/go/learn_air_flex3_jp" scope="external" class="- topic/xref ">Adobe Flex での Adobe AIR アプリケーションの開発</xref>』の「AIR アプリケーションのアップデート」の章を参照してください。</p> 
+	<p product="flex" class="- topic/p ">AIR 更新フレームワークの使用について詳しくは、『<xref href="http://www.adobe.com/go/learn_air_flex3_jp" scope="external" class="- topic/xref ">Apache Flex での Adobe AIR アプリケーションの開発</xref>』の「AIR アプリケーションのアップデート」の章を参照してください。</p> 
 	
 	<p product="flash" class="- topic/p ">AIR 更新フレームワークの使用について詳しくは、『<xref href="http://www.adobe.com/go/learn_air_flash_jp" scope="external" class="- topic/xref ">Adobe Flash での Adobe AIR アプリケーションの開発</xref>』の「AIR アプリケーションのアップデート」の章を参照してください。</p> 
 	

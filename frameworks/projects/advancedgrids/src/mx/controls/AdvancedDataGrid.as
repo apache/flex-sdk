@@ -440,7 +440,7 @@ include "../styles/metadata/PaddingStyles.as";
 [ResourceBundle("datamanagement")]
 /**
 *  The AdvancedDataGrid control expands on the functionality of the standard DataGrid control 
-*  to add data visualization features to your Adobe Flex application. 
+*  to add data visualization features to your Apache Flex application. 
 *  These features provide greater control of data display, data aggregation, and data formatting.
 *
  *  The <code>AdvancedDataGrid</code> control is like a List control except that it can show 

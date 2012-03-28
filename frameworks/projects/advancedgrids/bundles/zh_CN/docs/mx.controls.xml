@@ -167,7 +167,7 @@
       <p>当单元格中的值为 NaN 时，将调用此函数，并将 NaN 作为最后一个参数</p>
       
       </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
- AdvancedDataGrid 控件扩展了标准 DataGrid 控件的功能，为 Adobe Flex 应用程序增添了数据可视化功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+ AdvancedDataGrid 控件扩展了标准 DataGrid 控件的功能，为 Apache Flex 应用程序增添了数据可视化功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
 <description>
  AdvancedDataGridSortItemRenderer 类在列标题中呈示排序图标使用的字体粗细。
 

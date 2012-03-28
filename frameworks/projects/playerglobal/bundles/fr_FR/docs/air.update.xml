@@ -352,7 +352,7 @@ function customFn (currentVersion:String, updateVersion:String):Boolean
 	
 	<p class="- topic/p ">La structure de mise à jour AIR est uniquement prise en charge dans le profil de bureau. Elle n’est prise en charge ni pour les applications de bureau étendu (applications installées avec un programme d’installation natif) ni sur le profil mobile (applications iPhone écrites avec ActionScript 3.0). Vérifiez la propriété <codeph class="+ topic/ph pr-d/codeph ">Updater.isSupported</codeph> à l’exécution pour savoir si la structure de mise à jour est prise en charge.</p>
 	
-	<p product="flex" class="- topic/p ">Pour plus d’informations sur l’utilisation de la structure de mise à jour AIR, voir le chapitre « Mise à jour d’applications AIR » du document <xref href="http://www.adobe.com/go/learn_air_flex3_fr" scope="external" class="- topic/xref ">Développement d’applications Adobe AIR avec Adobe Flex</xref>.</p> 
+	<p product="flex" class="- topic/p ">Pour plus d’informations sur l’utilisation de la structure de mise à jour AIR, voir le chapitre « Mise à jour d’applications AIR » du document <xref href="http://www.adobe.com/go/learn_air_flex3_fr" scope="external" class="- topic/xref ">Développement d’applications Adobe AIR avec Apache Flex</xref>.</p> 
 	
 	<p product="flash" class="- topic/p ">Pour plus d’informations sur l’utilisation de la structure de mise à jour AIR, voir le chapitre « Mise à jour d’applications AIR » du document <xref href="http://www.adobe.com/go/learn_air_flash_fr" scope="external" class="- topic/xref ">Développement d’applications Adobe AIR avec Adobe Flash</xref>.</p> 
 	

@@ -167,7 +167,7 @@
       <p>Si la valeur de la cellule est NaN, la fonction est appelée avec NaN comme dernier argument.</p>
       
       </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
- Le contrôle AdvancedDataGrid étend la fonctionnalité du contrôle DataGrid standard pour ajouter des fonctionnalités de visualisation des données à votre application Adobe Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+ Le contrôle AdvancedDataGrid étend la fonctionnalité du contrôle DataGrid standard pour ajouter des fonctionnalités de visualisation des données à votre application Apache Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
 <description>
  Poids de police utilisé par la classe AdvancedDataGridSortItemRenderer pour rendre d’icône de tri dans l’en-tête de colonne.
 
