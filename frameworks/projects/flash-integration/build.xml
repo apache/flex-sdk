@@ -24,7 +24,7 @@
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
 	<property file="${FLEX_HOME}/build.properties"/>
-  <property name="locale" value="en_US"/>
+    <property name="locale" value="en_US"/>
 	<property name="local.playerglobal.version" value="11.1"/>
 	
 	<macrodef name="bundle">
@@ -98,7 +98,11 @@
 
 	<target name="clean" depends="bundles-clean">
 		<delete failonerror="false">
-			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${basedir}">
+			    <include name="bundles.properties"/>
+			    <include name="bundles/*/empty.properties"/>
+			    <exclude name="bundles/en_US/empty.properties"/>
+			</fileset>
             <fileset dir="${basedir}/libs">
                 <include name="flash-integration.swc"/>
 				<include name="flash-integration.swc.incr"/>

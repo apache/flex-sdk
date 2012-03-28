@@ -142,6 +142,7 @@
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
+			    <include name="bundles/en_US/packages.dita"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs/mx">
 				<include name="mx.swc"/>

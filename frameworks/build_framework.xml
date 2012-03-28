@@ -53,6 +53,7 @@
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
+	<!-- This does not contain the automation jars but they could be added.  -->
     <target name="main" depends="clean,thirdparty-downloads,prepare,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,authoringsupport,bundles,themes,sparkskins,spark_dmv"/>
 
     <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb"/>
@@ -639,7 +640,7 @@
     <!-- Download thirdparty code -->
     
     <target name="thirdparty-downloads" 
-        depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download" 
+        depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download, swfobject-download" 
         description="Copies third-party software into place for build" />
     
     <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
@@ -658,6 +659,10 @@
         <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
     </target>
 
+    <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
+        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
+    </target>
+    
     <!-- Adobe AIR SDK  -->
     <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
     <!-- Regardless of platform use the win kit to get airglobal.swc. -->
@@ -717,6 +722,19 @@
         <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
     </target>
 
+    <!-- swfobject.js (Version 2.2) -->
+    <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
+    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" description="Copies SWFObject from code.google.com">
+        <mkdir dir="${FLEX_HOME}/in/downloads/swfobject"/>
+        <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip" 
+            dest="${FLEX_HOME}/in/downloads/swfobject_2_2.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/swfobject" src="${FLEX_HOME}/in/downloads/swfobject_2_2.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/swfobject/swfobject/expressInstall.swf" todir="${FLEX_HOME}/templates/swfobject"/>
+        <copy file="${FLEX_HOME}/in/downloads/swfobject/swfobject/swfobject.js" todir="${FLEX_HOME}/templates/swfobject"/>
+        <delete dir="${FLEX_HOME}/in/downloads/swfobject" failonerror="false"/>
+    </target>
+
     <target name="clean" depends="bundles-clean" description="Cleans all SWCs.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs">
@@ -758,6 +776,9 @@
         </delete>
         <delete dir="${basedir}/projects" includes="*/bundles.properties"/>
     </target>
+        <delete includeemptydirs="true">
+            <fileset dir="${FLEX_HOME}/templates" excludes="**/*" />
+        </delete>    
 
     <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
         <delete failonerror="false" verbose="true">
