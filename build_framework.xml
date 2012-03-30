@@ -258,12 +258,11 @@
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
             show-deprecation-warnings="false"
             include-classes="ApacheClasses"
-             output="${basedir}/libs/apache.swc" 
+            output="${basedir}/libs/apache.swc" 
             resource-bundle-list="${apache.dir}/bundles.properties">
             <namespace uri="http://www.adobe.org/flex" manifest="${apache.dir}/manifest.xml"/>
             <include-namespaces uri="http://www.adobe.org/flex"/>
             <source-path path-element="${apache.dir}/src"/>
-            <source-path path-element="${basedir}/projects/apache/src"/>
             <library-path/>
             <external-library-path dir="${basedir}/libs">
             	<!-- Just an initial guess more will need to be added -->
@@ -286,6 +285,22 @@
         	<library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
+
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${apache.dir}/src"/>
+			<doc-namespaces uri="http://www.apache.org/flex"/>
+		    <namespace uri="http://www.apache.org/flex" manifest="${basedir}/apache-manifest.xml"/>
+		    <jvmarg line="-Xmx512m"/>
+		</asdoc>
+
+		<zip destfile="${basedir}/locale/${locale}/apache_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.xml"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+  	
     </target>
 
     <target name="charts" description="Builds charts.swc">
