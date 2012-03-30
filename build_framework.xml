@@ -754,7 +754,7 @@
         
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal.failure,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.2RC-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal.failure,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
@@ -770,8 +770,7 @@
 		<condition property="target11.1">
 			<equals arg1="${playerglobal.version}" arg2="11.1" />
 		</condition>
-		<!-- Change to target11.2beta or target11.1RC depending on version of 11.2 you want to target -->
-		<condition property="target11.2RC">
+		<condition property="target11.2">
 			<equals arg1="${playerglobal.version}" arg2="11.2" />
 		</condition>
 	 </target>
@@ -787,7 +786,9 @@
             verbose="false"/>
     </target>
 	
+	<!-- Adobe URL for playerglobal11_0.swc is actually for 11.2 as of 30th March 2012 -->
     <target name="playerglobal11.0-download" if="target11.0">
+    	<fail message="There's no public download link for the Flash Player 11.0 playerglobal.swc. You will need to find your own copy." />
     	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
         <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
@@ -795,27 +796,19 @@
     </target> 
 	
     <target name="playerglobal11.1-download" if="target11.1">
+    	<fail message="There's no public download link for the Flash Player 11.1 playerglobal.swc. You will need to find your own copy." />
     	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
         <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target> 
     
-	<!-- Flash Player 11.2 beta -->
-    <target name="playerglobal11.2-download" if="target11.2beta">
+    <target name="playerglobal11.2-download" if="target11.2">
     	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
-        <get src="http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11-2/flashplayer11-2_p5_playerglobal_013112.swc" 
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
-    
-	<!-- Flash Player 11.2 release condidate -->
-    <target name="playerglobal11.2RC-download" if="target11.2RC">
-    	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
-        <get src="http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11-2/flashplayer11-2_p6_playerglobal_022712.swc" 
-            dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
-            verbose="false"/>
-    </target> 
 
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
