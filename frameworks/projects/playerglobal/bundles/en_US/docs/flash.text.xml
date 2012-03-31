@@ -3650,7 +3650,7 @@ package {
                                 + "font: Arial\n" + "indent: 20 pixels\n" + "italic:\n" + "leading: 5 spaces\n" 
                                 + "leftMargin: 20 pixels\n" + "letterSpacing: 4 pixels\n" + "rightMargin: 20 pixels\n" 
                                 + "size: 16 point\n" + "target: new window\n" + "tabStops: 50 and 150 pixel\n" 
-                                + "underline:\n" + "url: Adobe Flex page\n";
+                                + "underline:\n" + "url: Apache Flex page\n";
 
             formatTextField.addEventListener(MouseEvent.CLICK, formatTextFieldClickHandler);
             
