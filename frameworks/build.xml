@@ -333,10 +333,10 @@ tar -xjf "AIR Integration Kit.tbz2"
     </target>
 
     <target name="swfobject-clean" description="Deletes the swfobject directory">
-        <delete dir="${FLEX_HOME}/templates/swfobject" failonerror="false">
+        <delete failonerror="false">
             <fileset dir="${FLEX_HOME}/templates/swfobject">
                 <include name="**/**"/>
-                <exclude name="history"/>
+                <exclude name="history/*"/>
                 <exclude name="index.template.html"/>
             </fileset>
         </delete>

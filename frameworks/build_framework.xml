@@ -788,7 +788,14 @@
         </delete>
         <delete dir="${FLEX_HOME}/in/air" excludes="*.xml"/>
         <delete dir="${FLEX_HOME}/in/downloads"/>
-        
+        <delete file="${FLEX_HOME}/templates/swfobject" failonerror="false">
+            <fileset dir="${FLEX_HOME}/templates/swfobject">
+                <include name="**/**"/>
+                <exclude name="history/*"/>
+                <exclude name="index.template.html"/>
+            </fileset>
+        </delete>
+
         <!-- textLayout source -->
         <delete failonerror="false" verbose="false">
              <fileset dir="${basedir}/projects/textLayout">
