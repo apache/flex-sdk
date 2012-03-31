@@ -1,0 +1,84 @@
+Apache Flex (Flex)
+==================
+
+    Apache Flex is an application framework for easily building Flash-based applications 
+    for mobile devices, the browser and desktop.
+    
+    For detailed information about Apache Flex please visit 
+    http://incubator.apache.org/flex/
+
+    Apache Flex is a large project with many pieces.  The framework is implemented
+    in Actionscript and the compiler is implemented in Java.
+
+    Currently supported platforms include:
+
+        Microsoft Windows
+        Mac OS X
+        Apple iOS
+        Google Android
+        RIM BlackBerry
+
+    Apache Flex is the software evolution of the popular Adobe Flex SDK project.
+    
+    The community surrounding Flex is vast, diverse, distributed globally, and with all 
+    levels of proficiency in software development. It is estimated that there are between 
+    350,000 and 500,000 Flex developers worldwide. 
+
+Getting the latest sources via Subversion
+=========================================
+
+    You can always checkout the latest source via subversion using the following
+    command:
+
+    svn co https://svn.apache.org/repos/asf/incubator/flex/trunk flex
+
+    For further information visit http://incubator.apache.org/flex/source.html
+
+Building Apache Flex
+====================
+
+    Apache Flex is a large project and depends on several external libraries which
+    are downloaded as part of the build process.
+    
+    Before building Flex you must install:
+        Java SDK 1.5.0_13 or greater
+        Ant 1.7.0 or greater
+
+    The following environment variables must be set:
+    
+        JAVA_HOME
+        ANT_HOME
+
+    The PATH must include
+    
+        bin directory of Flex SDK
+        bin directory of Ant
+        bin directory of Java
+    
+    For testing, the Flash Player's mm.cfg file must have the following entries
+    
+        ErrorReportingEnable=1
+        TraceOutputFileEnable=1
+    
+    and a FlashPlayerTrust file must allow local SWFs to access local files.
+
+    With having all prerequisites in place, you can simply run
+
+        cd <top-level-flex-directory>
+        ant [main] (the default target is main)
+    
+        or
+        
+        ant release
+    
+    To generate a source distro, build the sources, and generate a binary-distro.
+    The output distros can be found in the out subdirectory.
+    
+    To clean the build, of everything other than the downloaded third-party code use
+    
+        ant clean 
+    
+    To clean the build, of everything, including than the downloaded third-party code use
+        
+        ant super-clean
+
