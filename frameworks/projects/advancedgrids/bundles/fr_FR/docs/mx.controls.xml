@@ -508,7 +508,7 @@
   </p>
  
   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGridBaseEx</apiBaseClassifier></apiClassifierDef><apiDesc>
- Le contrôle AdvancedDataGrid étend la fonctionnalité du contrôle DataGrid standard pour ajouter des fonctionnalités de visualisation des données à votre application Adobe Flex. Ces fonctionnalités renforcent le contrôle sur l’affichage des données, le regroupement des données et la mise en forme des données. Le contrôle <codeph>AdvancedDataGrid</codeph> ressemble à un contrôle List, mais il peut afficher plusieurs colonnes de données, ce qui le rend approprié pour afficher des objets dotés de plusieurs propriétés.
+ Le contrôle AdvancedDataGrid étend la fonctionnalité du contrôle DataGrid standard pour ajouter des fonctionnalités de visualisation des données à votre application Apache Flex. Ces fonctionnalités renforcent le contrôle sur l’affichage des données, le regroupement des données et la mise en forme des données. Le contrôle <codeph>AdvancedDataGrid</codeph> ressemble à un contrôle List, mais il peut afficher plusieurs colonnes de données, ce qui le rend approprié pour afficher des objets dotés de plusieurs propriétés.
   <p>
   Le contrôle AdvancedDataGrid offre les fonctionnalités suivantes :
   <ul>

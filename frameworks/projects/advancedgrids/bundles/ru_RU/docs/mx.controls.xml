@@ -167,7 +167,7 @@
       <p>Если значение ячейки равно NaN, то функция вызывается со значением NaN в качестве последнего аргумента</p>
       
       </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:AdvancedDataGrid"><apiName>AdvancedDataGrid</apiName><shortdesc>
- Элемент управления AdvancedDataGrid расширяет функциональные возможности стандартного элемента управления DataGrid для добавления функций визуализации данных к приложению Adobe Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
+ Элемент управления AdvancedDataGrid расширяет функциональные возможности стандартного элемента управления DataGrid для добавления функций визуализации данных к приложению Apache Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style enumeration="normal,bold" inherit="yes" name="sortFontWeight" owner="mx.controls:AdvancedDataGrid" playerVersion="Flash9" type="String">
 <description>
  Плотность шрифта, используемая классом AdvancedDataGridSortItemRenderer для отображения значка сортировки в заголовке столбца.
 

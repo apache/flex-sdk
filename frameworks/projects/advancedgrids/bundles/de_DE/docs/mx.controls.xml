@@ -508,7 +508,7 @@
   </p>
  
   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGridBaseEx</apiBaseClassifier></apiClassifierDef><apiDesc>
- Das AdvancedDataGrid-Steuerelement erweitert die Funktion des normalen DataGrid-Steuerelements, indem es Adobe Flex-Funktionen zur Visualisierung von Daten hinzufügt. Diese Funktionen bieten mehr Steuermöglichkeiten bei der Anzeige der Daten, der Datenaggregierung und -formatierung. Das <codeph>AdvancedDataGrid</codeph>-Steuerelement ist einem List-Steuerelement sehr ähnlich, allerdings kann mehr als eine Spalte mit Daten angezeigt werden, sodass auch Objekte mit mehreren Eigenschaften angezeigt werden können.
+ Das AdvancedDataGrid-Steuerelement erweitert die Funktion des normalen DataGrid-Steuerelements, indem es Apache Flex-Funktionen zur Visualisierung von Daten hinzufügt. Diese Funktionen bieten mehr Steuermöglichkeiten bei der Anzeige der Daten, der Datenaggregierung und -formatierung. Das <codeph>AdvancedDataGrid</codeph>-Steuerelement ist einem List-Steuerelement sehr ähnlich, allerdings kann mehr als eine Spalte mit Daten angezeigt werden, sodass auch Objekte mit mehreren Eigenschaften angezeigt werden können.
   <p>
   Das AdvancedDataGrid-Steuerelement weist die folgenden Merkmale auf:
   <ul>

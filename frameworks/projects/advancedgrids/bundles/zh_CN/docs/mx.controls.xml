@@ -508,7 +508,7 @@
   </p>
  
   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGridBaseEx</apiBaseClassifier></apiClassifierDef><apiDesc>
- AdvancedDataGrid 控件扩展了标准 DataGrid 控件的功能，为 Adobe Flex 应用程序增添了数据可视化功能。借助这些功能，可以更好地控制数据显示、数据聚合和数据格式设置。<codeph>AdvancedDataGrid</codeph> 控件与 List 控件类似，但前者能够显示多列数据，因而可显示具有多个属性的对象。
+ AdvancedDataGrid 控件扩展了标准 DataGrid 控件的功能，为 Apache Flex 应用程序增添了数据可视化功能。借助这些功能，可以更好地控制数据显示、数据聚合和数据格式设置。<codeph>AdvancedDataGrid</codeph> 控件与 List 控件类似，但前者能够显示多列数据，因而可显示具有多个属性的对象。
   <p>
   AdvancedDataGrid 控件提供下列功能：
   <ul>

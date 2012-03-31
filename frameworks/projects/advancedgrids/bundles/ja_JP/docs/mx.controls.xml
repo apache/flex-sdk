@@ -508,7 +508,7 @@
   </p>
  
   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:AdvancedDataGridBaseEx</apiBaseClassifier></apiClassifierDef><apiDesc>
- AdvancedDataGrid コントロールは、標準の DataGrid コントロールの機能を拡張したもので、Adobe Flex アプリケーションにデータ視覚化機能が追加されます。これらの機能によって、データ表示やデータ集計、データフォーマットについて、より高度な操作が可能になります。 <codeph>AdvancedDataGrid</codeph> コントロールは、List コントロールに似ていますが、複数の列のデータを表示でき、複数のプロパティを持つオブジェクトの表示に適している点が異なります。
+ AdvancedDataGrid コントロールは、標準の DataGrid コントロールの機能を拡張したもので、Apache Flex アプリケーションにデータ視覚化機能が追加されます。これらの機能によって、データ表示やデータ集計、データフォーマットについて、より高度な操作が可能になります。 <codeph>AdvancedDataGrid</codeph> コントロールは、List コントロールに似ていますが、複数の列のデータを表示でき、複数のプロパティを持つオブジェクトの表示に適している点が異なります。
   <p>
   AdvancedDataGrid コントロールには次の機能があります。
   <ul>
