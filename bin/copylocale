@@ -1,0 +1,64 @@
+#!/bin/sh
+
+################################################################################
+##
+##  Licensed to the Apache Software Foundation (ASF) under one or more
+##  contributor license agreements.  See the NOTICE file distributed with
+##  this work for additional information regarding copyright ownership.
+##  The ASF licenses this file to You under the Apache License, Version 2.0
+##  (the "License"); you may not use this file except in compliance with
+##  the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+##  Unless required by applicable law or agreed to in writing, software
+##  distributed under the License is distributed on an "AS IS" BASIS,
+##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+##  See the License for the specific language governing permissions and
+##  limitations under the License.
+##
+################################################################################
+
+#
+# copylocale launch script for unix.  On windows, copylocale.exe is used and
+# java settings are managed in jvm.config in this directory.
+#
+
+case `uname` in
+		CYGWIN*)
+			OS="Windows"
+		;;
+		*)
+			OS=Unix
+esac
+
+D32=''
+
+if [ $OS = "Windows" ]; then
+	# set FLEX_HOME relative to copylocale if not set
+	test "$FLEX_HOME" = "" && {
+	FLEX_HOME=`dirname $0`/..
+    	FLEX_HOME=`cygpath -m $FLEX_HOME`
+	}
+
+elif [ $OS = "Unix" ]; then
+
+	# set FLEX_HOME relative to copylocale if not set
+	test "$FLEX_HOME" = "" && {
+	FLEX_HOME=`dirname "$0"`/..
+	}
+
+	check64="`java -version 2>&1 | grep -i 64-Bit`"
+	isOSX="`uname | grep -i Darwin`"
+	
+	if [ "$isOSX" != "" -a "$HOSTTYPE" = "x86_64" -a "$check64" != "" ]; then
+		D32='-d32'
+	fi
+
+fi
+
+# don't use $FLEX_HOME in this variable because it may contain spaces,
+# instead put it on the java args directly, with double-quotes around it
+VMARGS="-Xmx384m -Dsun.io.useCanonCaches=false "
+
+java $VMARGS $D32 -Dapplication.home="$FLEX_HOME" -jar "$FLEX_HOME/lib/copylocale.jar" "$@"

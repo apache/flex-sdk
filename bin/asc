@@ -1,0 +1,56 @@
+#!/bin/sh
+
+################################################################################
+##
+##  Licensed to the Apache Software Foundation (ASF) under one or more
+##  contributor license agreements.  See the NOTICE file distributed with
+##  this work for additional information regarding copyright ownership.
+##  The ASF licenses this file to You under the Apache License, Version 2.0
+##  (the "License"); you may not use this file except in compliance with
+##  the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+##  Unless required by applicable law or agreed to in writing, software
+##  distributed under the License is distributed on an "AS IS" BASIS,
+##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+##  See the License for the specific language governing permissions and
+##  limitations under the License.
+##
+################################################################################
+
+#
+# fdb launch script for unix.  On windows, fdb.exe is used and
+# java settings are managed in jvm.config in this directory.
+#
+
+case `uname` in
+		CYGWIN*)
+		   OS="Windows"
+		   ;;
+		*)
+		   OS=Unix
+esac
+
+if [ $OS = "Windows" ]; then
+	# set FLEX_HOME relative to fdb if not set
+	test "$FLEX_HOME" = "" && {
+    	FLEX_HOME=`dirname $0`/..
+    	FLEX_HOME=`cygpath -m $FLEX_HOME`
+	}
+
+	VMARGS="-ea -Dapplication.home=$FLEX_HOME -Xms32m -Xmx384m"
+
+	java $VMARGS -jar $FLEX_HOME/lib/asc.jar "$@"
+fi
+
+if [ $OS = "Unix" ]; then
+	# set FLEX_HOME relative to fdb if not set
+	test "$FLEX_HOME" = "" && {
+    	FLEX_HOME=`dirname $0`/..
+	}
+
+	VMARGS="-ea -Dapplication.home=$FLEX_HOME -Xms32m -Xmx384m"
+
+	java $VMARGS -jar $FLEX_HOME/lib/asc.jar "$@"
+fi
