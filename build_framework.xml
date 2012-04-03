@@ -53,7 +53,7 @@
 	<!-- Set plyerglobal.version and locale -->
 	<loadproperties srcFile="${FLEX_HOME}/frameworks/build.properties"/>
     
-    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 
     <target name="main" depends="clean,thirdparty-downloads,prepare,flexconfig,framework,mx,spark,airframework,airspark,apache,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,authoringsupport,bundles,themes,sparkskins,spark_dmv"/>
 
@@ -805,7 +805,7 @@
     
     <target name="playerglobal11.2-download" if="target11.2">
     	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_2.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
