@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2006-2009 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="ASDocs" default="main" basedir=".">
+	<property name="FLEX_HOME" value="${basedir}/.."/>
+	<property name="lenient" value="true"/>
+	<property name="flexlib" location="${FLEX_HOME}/frameworks"/>
+
+	<target name="main" depends="clean,doc" description="Clean build of all ASDocs"/>
+
+	<target name="clean" description="Cleans all ASDocs">
+		<delete dir="${FLEX_HOME}/asdoc-output"/>
+	</target>
+
+	<target name="doc">
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx1024m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+	    <available property="flexTasksJar" value="${FLEX_HOME}/lib/flexTasks.jar" file="${FLEX_HOME}/lib/flexTasks.jar"/>
+	    <available property="flexTasksJar" value="${FLEX_HOME}/ant/lib/flexTasks.jar" file="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${flexTasksJar}"/>
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/asdoc-output" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true">
+			<!-- top level class to include in asdoc -->
+		    <doc-classes class="AIRFrameworkClasses"/>
+		    <doc-classes class="AIRSparkClasses"/>
+		    <doc-classes class="CoreClasses"/>
+		    <doc-classes class="SparkClasses"/>
+		    <doc-classes class="FrameworkClasses"/>
+			<doc-classes class="MxClasses"/>
+		    <doc-classes class="SparkSkinsClasses"/>
+		    <doc-classes class="RPCClasses"/>
+		    <doc-classes class="MobileComponentsClasses"/>		    
+		    <doc-classes class="SparkDmvClasses"/>
+	    		    
+			<doc-classes class="flashx.textLayout.CoreClasses"/>
+			<doc-classes class="flashx.textLayout.EditClasses"/>
+			<doc-classes class="flashx.textLayout.ConversionClasses"/>
+
+			<!-- source path for asdoc -->
+			<compiler.source-path path-element="${flexlib}/projects/airframework/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/airspark/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/core/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/spark/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/framework/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/mx/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/sparkskins/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/rpc/src"/>
+		    <compiler.source-path path-element="${flexlib}/projects/textLayout/src"/>
+		    <!-- ToDo: download osmf soures -->
+			<!--compiler.source-path path-element="${flexlib}/projects/osmf/src"/-->
+			<compiler.source-path path-element="${flexlib}/projects/advancedgrids/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/mobilecomponents/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/spark_dmv/src"/>
+						
+			<!-- namespaces to include in asdoc -->
+		    <doc-namespaces uri="http://www.adobe.com/2006/airmxml"/>
+		    <doc-namespaces uri="http://www.adobe.com/2006/airspark"/>
+		    <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
+		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
+		    <doc-namespaces uri="http://www.adobe.com/2006/rpcmxml"/>
+ 			<doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
+ 			<doc-namespaces uri="http://ns.adobe.com/2009/mx-mxml"/>
+ 			<doc-namespaces uri="http://www.adobe.com/2006/advancedgridsmxml"/>
+ 			<doc-namespaces uri="http://www.adobe.com/2006/charts"/>
+ 			<doc-namespaces uri="library://ns.adobe.com/flex/spark-mobilecomponents"/>
+ 			<doc-namespaces uri="library://ns.adobe.com/flex/spark-dmv"/>
+ 			
+		    <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/manifest.xml"/>
+
+			<!-- namespace declaration for asdoc -->
+		    <namespace uri="http://www.adobe.com/2006/airmxml" manifest="${flexlib}/projects/airframework/manifest.xml"/>
+		    <namespace uri="http://www.adobe.com/2006/airspark" manifest="${flexlib}/projects/airspark/manifest.xml"/>
+		    <namespace uri="http://www.adobe.com/2006/rpcmxml" manifest="${flexlib}/projects/rpc/manifest.xml"/>
+		    <namespace uri="http://ns.adobe.com/2009/mx-mxml" manifest="${flexlib}/projects/mx/manifest.xml"/>
+		    <namespace uri="http://www.adobe.com/2006/advancedgridsmxml" manifest="${flexlib}/projects/advancedgrids/manifest_advancedgrids.xml"/>
+		    <namespace uri="http://www.adobe.com/2006/charts" manifest="${flexlib}/projects/charts/manifest_charts.xml"/>
+		    		    
+		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${flexlib}/mxml-manifest.xml"/>
+		    <namespace uri="library://ns.adobe.com/flex/spark" manifest="${flexlib}/projects/spark/manifest.xml"/>
+		    <namespace uri="library://ns.adobe.com/flex/mx" manifest="${flexlib}/mxml-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark-mobilecomponents" manifest="${flexlib}/projects/mobilecomponents/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark-dmv" manifest="${flexlib}/projects/spark_dmv/manifest_spark_dmv.xml"/>
+
+			<library-path/>
+			<external-library-path dir="${flexlib}/libs/air">
+		    	<include name="airglobal.swc" />
+		    </external-library-path>
+			<external-library-path dir="${flexlib}/libs">
+		    	<include name="framework.swc" />
+		    	<!-- if no osfm sources -->
+		    	<include name="osmf.swc" />
+		    </external-library-path>
+
+
+			<jvmarg line="${asdoc.jvm.args}"/>
+
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::FLASH_10_1" value="false"/>
+            <define name="CONFIG::LOGGING" value="false"/>
+			<define name="CONFIG::performanceInstrumentation" value="false"/>            
+		</asdoc>
+	</target>
+</project>
