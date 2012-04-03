@@ -1,0 +1,75 @@
+This file contains the PGP keys of various developers.
+http://www.apache.org/dev/release-signing.html#keys-policy
+
+Users:  pgp < KEYS
+        or
+        gpg --import KEYS
+Developers:
+        pgp -kxa <your name> and append it to this file.
+        (pgpk -ll <your name> && pgpk -xa <your name>) >> this file.
+        or
+        (gpg --list-sigs <your name>
+             && gpg --armor --export <your name>) >> this file.
+
+        if your pgp does not generate the pub prefix when exporting
+        the key, you can find it by looking up your key at pgp.mit.edu
+------------------------------------------------------------------------
+
+pub   4096R/E9BBC3C4 2012-03-19
+uid                  Carol Lynn Frampton (CODE SIGNING KEY) <cframpton@apache.org>
+sig 3        E9BBC3C4 2012-03-19  Carol Lynn Frampton (CODE SIGNING KEY) <cframpton@apache.org>
+sub   4096R/51612C88 2012-03-19
+sig          E9BBC3C4 2012-03-19  Carol Lynn Frampton (CODE SIGNING KEY) <cframpton@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG/MacGPG2 v2.0.16 (Darwin)
+
+mQINBE9nS+0BEADEfHnWpfYmAQcOZjAaFOn24ueEzFfQjkjdv2CZ/iaAZlsBFq/E
+ZUAbkyoiNEPs4Aq1yTUDBQhlaF8cKzRRgnWDqxrzD/XLCSDWX/8aWVka6z/TT9eR
+FFNjQkaiVOcjP8/cnldKZu+22jLn5smJqyk+BygjdInhhN69Bi+tW4jzPeKaSpbT
+Sc07QV2dwcae1k8JlIxyCAZJBhpE6Qu+6UBM68vuVBovCooH33Z8a7sGfW/eQQlC
+qOWMKnDXNW8waDIJi3cYhQuPYmMJOqpbWCe6OZ2x1dSqPsKBZocl2esvTS3IEpyu
+XxtjSKQkDJ7NZoB4bhrU2feo+jcsSTQTue/OIax2SXizgXtx2dewaYOALBaM2tOB
+WsbLgPh/gQehFJAoE35oTBxMNV/MCUX84GfYu0NKEWkK70eR1snJCGH2DHLQMHSQ
+VQ1N6r7PufFfHbRJD4DfFwgbfWWpEgcR72S1r6iQdMf2T6jDGH9L4TWwukSNwOOY
+hDDJ+9cX+/M4QnYjsKVpZKJ3MPcqR+gVnnTAFolK1EwLSMLZ8rtTojmdLyU7B+qt
+T7bBiV5R4a6g1T7RVRDtKhP+r6+y71KtKCQwh6W1dKoKlCzCSfAe6fHd4n1yDdKO
+SYsUDSXDAEf1cNKIqfbudeEBUB7a+ajnK4R8ULPlR6bhyrlNUOPVFlmIZwARAQAB
+tD1DYXJvbCBMeW5uIEZyYW1wdG9uIChDT0RFIFNJR05JTkcgS0VZKSA8Y2ZyYW1w
+dG9uQGFwYWNoZS5vcmc+iQI3BBMBCgAhBQJPZ0vtAhsDBQsJCAcDBRUKCQgLBRYC
+AwEAAh4BAheAAAoJEEzlSHnpu8PE1WYP/ApjWHpHQqBjdd5bCKtDasGs4F2y8Tn0
+MsSfJnVy+aotEPgJqNC59RuCbNvsXuRljgshiS8bYBiaZUgdn7VByHAaYiK0OdId
+8+2Pho//u+fh5C1oevUwMRi/ITaVQammsUEtJnXFmVz1lca892RuuzYCGTF6dHlr
+w5iQqxGqY4QA9yS7TYkaJdZOknog94ozaO1WKfy+sJaGgZTBttTfsNzpcIdmNtIM
+f2S41P2vQyY+NJjF7PczwbZGcsQ+B8M7kChsT2BcZzIG44MPOMHXq+BnLCOR74lR
+MY1CYLAc2xA0k54R/sT70m/D/rbaTD2N04X17Wsc+aTEJS8lHe2nxNJXZ/MQv5aM
+m3cR4Qk3wdmJMbgI0+NmBer+VEuzIDisvewL5NAYgGhbEpbOoDKOy1yUcP6Q0ml5
+XRHS0Z73IDuw7+0O8iRxxj/DpBGcfUpvwSj+jyoh6Tb55OSc9FIbE/PqiNSc6oLc
+NNKDKRd3FhOr3Jj4B7l3Jo6MCcJ3X8r5hGIPBOFDa+gLKeHBpuNXm48oZTFY/HSp
+xLgJQqCl+fQN1+XmDbmYtHVRqpgi2Ull+kynGXugcq4iO3peIQw1VMq1Oi115AK4
+UAnQJtlMQeY8QbV39OhfSpKP/PLCNNXxCdbTHEPEUVF7lOCvHStxWE3d+O8HTSrg
+P4ILrqqmE0cVuQINBE9nS+0BEADPPxDAet/sUfB5T6sBBaPA5hVVdBGkdYASytAj
+Iaha4X8dq8rgJzmSYEuH3E4NADAljVhHH07e2Pd2ZixrsZom1W91R1Jm+3Jz6shq
+TuoWDQYBsaIOX56UALqw3Mo3iCEY8WV+mcRjro1RsiVMrIt2M+LYCAy+RIT0r57p
+V/C2nZMmZBNMV2BTCO9fSlwMIRVGtx7eCuDCz4cii5XXud3mQg+P9yvEn+GZrrJt
+x5i5M02Yh+XNLKO8bduddgQu2WpUdaV2TP70L4gLnQ78P6Ml5Fkw5FLdEdfX48z3
+NFA+48BS+mQT//8UIinqDZY9lgvkaYaGq23UbthpXCflf2trE0LHMGQ+QC18nJPP
+r5qIm9kpMw6PCR8cjy6O+XKwLZTidlg+5UtQ3QE65C46icBEVKvb2wKmci8Jb+Iu
+uguAx6NaisPJDeP2Zb0Ra1XdBSNguPDa8g+BGecQ8S0WQUC8GOU8bznXgBDNGiMW
+hr5ChLlkknyVeheCpjSFVGsL+JQcslh9qlp2AElZ2yB9NekFmf4sPV0L8kyrIxsi
+LDL1Rk6jRR6XLQWNlrdceNehGRmpAE+Hs2j+tU9T4R8rV6eRQhv1v2WczBSLg5gX
+BvwGJ/HYofW+QY8RkrAqjsSgS0PVkJkTmLC+/r7325wMwaq0CfW1TjDF5KSe50BQ
+ucpQcQARAQABiQIfBBgBCgAJBQJPZ0vtAhsMAAoJEEzlSHnpu8PEQKcP/3hZCyzj
+MmN1GMJDZjLX4ShwXdsN2BWPV/Oc6yyg/vBkzK9payJ0QZhM5M41t4BZGmyyRbqE
+PwLlDPnOTp8ym+8RmTujUeEZ4r4dDXmvfAFyyGfkGlHYZnWTncWzvU5uJFgMj3eQ
+F8zfN3TQyB1cRZuLLYfBmZ/RpnxevpTq6NM4TUYqc6fZrqqjxP54Gr+I2ebMeO55
+Xu/UyQtlvfC3P1nMpGGtRgkNS/2POn9/pvxgu+/hweoFRCYknHBqVQrKJP5OGM8i
+1Y3I5L6m1QbPv3Try33MZOjiXPd0yC+HFjQpGrdsR8cZ0f7Rv/8rHZVsxgfaFIfi
+wrOddqHYKnZkHzJHUk331i68bTx74BYHe+zWkC0GMG2UFUZiDR21x3fFRv1/i6GQ
+TaRfIChwYXWz0NjtGNmloYxqCeGnLJo9pXHVT/e69FGbQRuQWOWpDKooRZBb73CB
+C25Dm8ZmbK/GQe1bYWEhlz8SOf3U5jilLEiRQZLHQLkmrcsTqbA7D+ARRSl3aOvI
+hl6luqrOEOJ+36VXTjPtG5Wd6xcnSrms6SsnY2hjKBxZBBZGPQqBB/IxjKlQkBpp
+kPqzMZLTw/uk1KdVo+WnpOltbVs1UD3HzfwpCFQiBY2uszRu7dmjzQBTv8XYxF1c
+5PKk8lrSublOrqVjlP3nAaLcfopSWbOgjrHm
+=YPyf
+-----END PGP PUBLIC KEY BLOCK-----

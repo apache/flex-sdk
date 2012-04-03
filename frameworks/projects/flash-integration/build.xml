@@ -97,7 +97,7 @@
 	</target>
 
 	<target name="clean" depends="bundles-clean">
-		<delete failonerror="false">
+		<delete failonerror="false" includeemptydirs="true">
 			<fileset dir="${basedir}">
 			    <include name="bundles.properties"/>
 			    <include name="bundles/*/empty.properties"/>

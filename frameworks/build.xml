@@ -206,7 +206,7 @@
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         </delete>
-        <delete dir="${FLEX_HOME}/in/air" excludes="*.xml"/>
+        <delete dir="${FLEX_HOME}/in/air/**"/>
         <delete dir="${FLEX_HOME}/in/downloads"/>
         <!-- textLayout source -->
         <delete failonerror="false" verbose="false">

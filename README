@@ -43,6 +43,7 @@ Building Apache Flex
     Before building Flex you must install:
         Java SDK 1.5.0_13 or greater
         Ant 1.7.0 or greater
+        ant-contrib-1.0b2.jar in the lib directory of your ant installation
 
     The following environment variables must be set:
     
@@ -62,23 +63,39 @@ Building Apache Flex
     
     and a FlashPlayerTrust file must allow local SWFs to access local files.
 
-    With having all prerequisites in place, you can simply run
+    With you have all the prerequisites in place, use
 
-        cd <top-level-flex-directory>
-        ant [main] (the default target is main)
+        cd <flex.dir>
+        ant main        (or just ant since the default target is main)
     
-        or
-        
-        ant release
+    to download the thirdparty dependencies and build all the sources.  Since the thirdparty
+    dependencies take a little while to download and they don't change very often, they are not
+    cleaned with the regular clean target.  They thirdparty dependencies be found in the "in" 
+    directory.
     
-    To generate a source distro, build the sources, and generate a binary-distro.
-    The output distros can be found in the out subdirectory.
-    
-    To clean the build, of everything other than the downloaded third-party code use
+    To clean the build, of everything other than the downloaded third-party dependencies use
     
         ant clean 
     
-    To clean the build, of everything, including than the downloaded third-party code use
+    To clean the build, of everything, including the downloaded third-party dependencies use
         
-        ant super-clean
-
+        ant super-clean (which is just thirdparty-clean followed by clean)
+        
+    To generate a source distro and a binary distro use
+        
+        ant release
+    
+    The output distros can be found in the "out" subdirectory.
+    
+    To download the dependencies use
+    
+        ant thirdparty-downloads
+            
+    To clean the build ofjust the downloaded third-party dependencies use
+    
+        ant thirdparty-clean
+        
+    To get a brief listing of all the targets type
+    
+        ant help
+        
