@@ -41,10 +41,12 @@ Building Apache Flex
     are downloaded as part of the build process.
     
     Before building Flex you must install:
+    
         Java SDK 1.5.0_13 or greater
         Ant 1.7.0 or greater
         ant-contrib-1.0b2.jar in the lib directory of your ant installation
-
+        on Windows you need to run from a shell like Cygwin or git bash
+        
     The following environment variables must be set:
     
         JAVA_HOME
