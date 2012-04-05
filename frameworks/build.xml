@@ -47,7 +47,7 @@
 
     <property file="${FLEX_HOME}/build.properties"/>
         
-    <target name="main" depends="clean,thirdparty-downloads,prepare,javascript,compile" description="Clean build of all SWCs"/>
+    <target name="main" depends="clean,thirdparty-downloads,airsdk-prepare,javascript,compile" description="Clean build of all SWCs"/>
 
     <!-- Note:
        Removed osmf from build.  For now, just use the downloaded swc.
@@ -139,25 +139,7 @@
    
     <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
 
-    <target name="clean" description="Cleans all SWCs and their resource bundles">
-        
-        <!-- Delete AIR files and directories from 'prepare' target -->
-        <delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
-        <delete file="${FLEX_HOME}/SDK license.pdf"/>
-        <delete file="${FLEX_HOME}/bin/adl"/>
-        <delete file="${FLEX_HOME}/bin/adl.exe"/>
-        <delete file="${FLEX_HOME}/bin/adt"/>
-        <delete file="${FLEX_HOME}/bin/adt.bat"/>
-        <delete dir="${FLEX_HOME}/frameworks/libs/air"/>
-        <delete dir="${FLEX_HOME}/frameworks/projects/air"/>
-        <delete file="${FLEX_HOME}/lib/adt.jar"/>
-        <delete file="${FLEX_HOME}/lib/win/FlashRuntimeExtensions.lib"/>
-        <delete dir="${FLEX_HOME}/runtimes"/>
-        <delete dir="${FLEX_HOME}/samples/badge"/>
-        <delete file="${FLEX_HOME}/samples/descriptor-sample.xml"/>
-        <delete dir="${FLEX_HOME}/samples/icons"/>
-        <delete dir="${FLEX_HOME}/templates/air"/>
-        <delete dir="${FLEX_HOME}/templates/extensions"/>
+    <target name="clean" depends="airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/framework" target="clean"/>
         <ant dir="${basedir}/projects/mx" target="clean"/>
@@ -207,7 +189,12 @@
             <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         </delete>
         <delete dir="${FLEX_HOME}/in/air/**"/>
-        <delete dir="${FLEX_HOME}/in/downloads"/>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${FLEX_HOME}/in/downloads">
+                <include name="OSMF*/**"/>
+                <include name="textLayout*/**"/>
+            </fileset>
+        </delete>
         <!-- textLayout source -->
         <delete failonerror="false" verbose="false">
              <fileset dir="${basedir}/projects/textLayout">
@@ -221,8 +208,52 @@
          </delete>
      </target>
 
-    <target name="prepare" depends="airsdk-download" description="Prepares for building framework SWCs">
+    <target name="airsdk-clean" description="Delete files copied from the AIR SDK">
+        <!-- Delete AIR files and directories from 'prepare' target -->
+        <delete file="${FLEX_HOME}/AIR SDK*.pdf"/>
+        <delete file="${FLEX_HOME}/bin/adl"/>
+        <delete file="${FLEX_HOME}/bin/adl.exe"/>
+        <delete file="${FLEX_HOME}/bin/adt"/>
+        <delete file="${FLEX_HOME}/bin/adt.bat"/>
+        <delete dir="${FLEX_HOME}/include"/>
+        <delete dir="${FLEX_HOME}/install"/>
+        <delete dir="${FLEX_HOME}/frameworks/libs/air"/>
+        <delete dir="${FLEX_HOME}/frameworks/projects/air"/>
+        <delete file="${FLEX_HOME}/lib/adt.jar"/>
+        <delete file="${FLEX_HOME}/lib/win/FlashRuntimeExtensions.lib"/>
+        <delete dir="${FLEX_HOME}/runtimes"/>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${FLEX_HOME}/samples">
+                <include name="badges/**" />
+                <include name="descriptor-sample.xml" />
+                <include name="icons/**" />
+            </fileset>
+        </delete>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${FLEX_HOME}/templates">
+                <include name="air/**" />
+                <include name="extenstions/**" />
+            </fileset>
+        </delete>
+    </target>
+    
+    <!-- FixMe: what file should be used? -->
+    <target name="airsdk-prepare-mac-check">
+        <available file="${FLEX_HOME}/bin/adt" property="airsdk.prepare.mac.done"/>
+    </target>
+
+    <!-- FixMe: what file should be used? -->
+    <target name="airsdk-prepare-win-check">
+        <available file="${FLEX_HOME}/bin/adt.bat" property="airsdk.prepare.win.done"/>
+    </target>
+    
+    <!-- FixMe: Can we get rid of this exec? -->
+    <target name="airsdk-prepare-mac" depends="airsdk-mac-download,airsdk-prepare-mac-check" 
+        unless="airsdk.prepare.mac.done" 
+        description="Prepares for building framework SWCs">
+        
         <!-- Expand the Mac AIK on top of the SDK -->
+        <!-- Note: any symlinks in this package will be lost since ant tar doesn't support them. -->
         <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}" verbose="true"/>
         <echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
 tar -xjf "AIR Integration Kit.tbz2" 
@@ -232,8 +263,28 @@ tar -xjf "AIR Integration Kit.tbz2"
         </exec>
         <delete file="${FLEX_HOME}/air_unzip.sh"/>
         <delete file="${FLEX_HOME}/AIR Integration Kit.tbz2"/>
+    </target>
+
+    <target name="airsdk-prepare-win" depends="airsdk-win-download,airsdk-prepare-win-check" 
+        unless="airsdk.prepare.win.done" 
+        description="Prepares for building framework SWCs">
+        
         <!-- Expand the Win AIK on top of the SDK -->
         <unzip src="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" dest="${FLEX_HOME}"/>
+    </target>
+
+    <!-- 
+        FixMe:
+        For development can we just download the flavor that matches the system and
+        download the missing ones if/when building a binary kit?
+    -->
+    <target name="airsdk-prepare" depends="airsdk-prepare-mac,airsdk-prepare-win" 
+        description="Prepares for building framework SWCs">
+        
+        <!--
+            FixMe: Most of these files seem to be in the Adobe MPL kit.  If they should go in the
+            Apache binary distro they shouldn't be deleted here.
+        -->        
         <!-- Delete AIK files that we don't put in the SDK -->
         <delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
         <delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>

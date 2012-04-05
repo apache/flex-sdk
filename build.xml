@@ -99,7 +99,7 @@
     <target name="release" depends="source-release,binary-release"
         description="Creates source and binary kits for Apache Flex."/>
         
-    <target name="source-release" depends="source-distro" 
+    <target name="source-release" depends="clean,create-description,source-distro" 
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" depends="main,checkintests,asdoc,doc,other.locales,package,post-build" 
@@ -334,7 +334,9 @@
         FixMe: even if cleaned, this will package up unversioned files that happen
         to be in the tree.  Investigate an svn export.
     -->
-    <target name="source-distro" depends="clean" description="Sources required to build">
+    <target name="source-distro" 
+        description="Package source files required to build in zip file">
+        
         <antcall target="clean-temp"/>
 
         <!--
@@ -344,42 +346,6 @@
         
         <!-- frameworks -->
 
-        <!--
-        <copy todir="${basedir}/temp/frameworks">
-            <fileset dir="${basedir}/frameworks">
-                <include name="air-config.xml"/>
-                <include name="airmobile-config.xml"/>
-                <include name="flash-unicode-table.xml"/>
-                <include name="flex-config.xml"/>
-                <include name="metadata.xml"/>
-                <include name="mxml-manifest.xml"/>
-                <include name="spark-manifest.xml"/>
-                <include name="mx-manifest.xml"/>
-                <include name="mxml-2009-manifest.xml"/>
-                <include name="localFonts.ser"/>
-                <include name="macFonts.ser"/>
-                <include name="winFonts.ser"/>
-            </fileset>
-        </copy>
-        <replace file="${basedir}/temp/frameworks/flex-config.xml">
-            <replacefilter
-                token="&lt;warn-no-explicit-super-call-in-constructor&gt;true"
-                value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
-            <replacefilter
-                token="$${build.number}"
-                value="${release.version}.${build.number}"/>
-        </replace>
-        <replace file="${basedir}/temp/frameworks/air-config.xml">
-            <replacefilter
-                token="&lt;warn-no-explicit-super-call-in-constructor&gt;true"
-                value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
-            <replacefilter
-                token="$${build.number}"
-                value="${release.version}.${build.number}"/>
-        </replace>
-        <copy file="${basedir}/frameworks/build_framework.xml" tofile="${basedir}/temp/frameworks/build.xml"/>
-        -->
-        
         <mkdir dir="${basedir}/temp"/>
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
@@ -409,8 +375,20 @@
             </fileset>
         </copy>  
 
+        <!-- FixMe: 
+            either add this stuff in or just change the config files
+            does it have to be done in source-distro and binary-distro
+        -->
+        <!--antcall target="fix-config-files"/-->
+
+        <!-- FixMe: 
+                Use this or the build.xml files in the directories? 
+                If this then don't copy build.xml files to temp area
+        -->        
+        <!--copy file="${basedir}/frameworks/build_framework.xml" tofile="${basedir}/temp/frameworks/build.xml"/-->
+        
+
         <!-- ant -->
-        <!-- FixMe: do we want to still do this? -->
         <copy file="${basedir}/modules/antTasks/build.xml-distro"
               tofile="${basedir}/temp/ant/build.xml"/>
         <copy file="${basedir}/modules/antTasks/flexTasks.tasks"
@@ -430,10 +408,25 @@
         <antcall target="clean-temp"/>
     </target>
     
-    <target name="binary-distro">
+    <!-- 
+        NOTE:
+        
+        FlashBuilder needs to find these files in order to consider a directory structure
+        a valid Flex SDK:
+            frameworks/flex-config.xml
+            frameworks/mxml–manifest.xml
+            flex-sdk-description.xml or Version.as with version >= 3.
+            lib/mxmlc.jar
+    -->
+
+    <target name="binary-distro" description="Package binary files in zip file.">
+    
         <antcall target="clean-temp"/>
         <mkdir dir="${basedir}/temp"/>
         
+        <copy file="${basedir}/AIR SDK license.pdf" 
+            tofile="${basedir}/temp/Adobe AIR SDK license.pdf"/>
+
         <copy todir="${basedir}/temp">
             <fileset dir="${basedir}">
                 <include name="flex-sdk-description.xml"/>
@@ -462,10 +455,8 @@
         </copy>
 
         <!-- asdoc -->
-        <copy todir="${basedir}/temp">
-            <fileset dir="${basedir}">
-                <include name="asdoc-output/**"/>
-            </fileset>
+        <copy todir="${basedir}/temp/asdoc">
+            <fileset dir="${basedir}/asdoc-output"/>
         </copy>
         
         <!-- bin -->
@@ -525,17 +516,19 @@
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="flash-integration.swc"/>
-                <!--include name="osmf.swc"/-->
+                <include name="osmf.swc"/>
                 <include name="rpc.swc"/>
                 <include name="sparkskins.swc"/>
-                <!--include name="textLayout.swc"/-->
+                <include name="textLayout.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
+                <include name="player/${target.player}/playerglobal.swc"/>
+				<include name="player/11.1/playerglobal.swc"/>
             </fileset>
         </copy>
-        
+
         <!-- automation swcs -->
         
         <!-- not currently in Apache Flex (formerly qtp and qtp_air) -->
@@ -568,40 +561,27 @@
         </copy>
 
         <!-- frameworks/projects -->
-        <!--copy todir="${basedir}/temp/frameworks/projects">
-            <fileset dir="${basedir}/frameworks/projects">
-                <exclude name="**/.settings/**"/>
-                <exclude name="**/.actionScriptProperties"/>
-                <exclude name="**/.flexLibProperties"/>
-                <exclude name="**/.project"/>
-                <exclude name="**/asdoc/**"/>
-                <exclude name="**/*.intf"/>
-                <exclude name="**/bundles/**/docs/**"/>
-                <exclude name="**/bundles/en_US/*.xml"/>
-                <exclude name="**/bundles/en_US/packages.dita"/>
-                <exclude name="airspark/bundles/**"/>
-                <exclude name="automation_air/bundles/**"/>
-                <exclude name="automation_dmv/bundles/**"/>
-                <exclude name="automation_flashflexkit/bundles/**"/>
-                <exclude name="automation_spark/bundles/**"/>
-                <exclude name="flash-integration/bundles/**"/>
-                <exclude name="flash-integration/FLA/**"/>
-                <exclude name="flash-integration/JSFL/**"/>
-                <exclude name="flash-integration/libs/**"/>
-                <exclude name="flash-integration/*"/>
-                <exclude name="libs/air/**"/>
-                <exclude name="sparkskins/assets/**"/>
-                <exclude name="**/empty.properties"/>
-                <exclude name="**/*generated.as"/>
-                <exclude name="**/generated/**"/>
-                <exclude name="halo/**"/>
-                <exclude name="playerglobal/**"/>
-                <exclude name="**/build.xml"/>
-                <exclude name="**/build.properties"/>
-                <exclude name="**/*.incr"/>
-                <exclude name="textLayout/HowToUpgradeTLF.txt"/>
+        <copy todir="${basedir}/temp/frameworks">
+            <fileset dir="${basedir}/frameworks">
+				<include name="air-config.xml"/>
+				<include name="airmobile-config.xml"/>
+                <include name="flex-config.xml"/>
+                <include name="mxml-manifest.xml"/>
+                <!-- required by FlashBuilder -->
+				<include name="localFonts.ser"/>
+				<include name="macFonts.ser"/>
+				<include name="winFonts.ser"/>
+				<include name="mxml-2009-manifest.xml"/>
+				<include name="spark-manifest.xml"/>
+				<include name="mx-manifest.xml"/>
             </fileset>
-        </copy-->
+        </copy>
+
+        <!-- FixMe: 
+            either add this stuff in or just change the config files
+            does it have to be done in source-distro and binary-distro
+        -->
+        <!--antcall target="fix-config-files"/-->
 
         <!-- frameworks/themes -->
         <copy todir="${basedir}/temp/frameworks/themes" includeEmptyDirs="false">
@@ -663,28 +643,11 @@
             </fileset>
         </copy>
 
-        <!-- runtimes - can no longer be included in the kit -->
-        <!--copy todir="${basedir}/temp/runtimes/player/${target.player}">
-            <fileset dir="${basedir}/in/player/${target.player}">
-                <include name="lnx/flashplayerdebugger.tar.gz"/>
-                <include name="lnx/install_flash_player_11_linux.tar.gz"/>
-                <include name="lnx/libflashplayer.so.tar.gz"/>
-                <include name="mac/Flash Player Debugger.app.zip"/>
-                <include name="mac/Install Adobe Flash Player Debugger 11.dmg"/>
-                <include name="win/FlashPlayerDebugger.exe"/>
-                <include name="win/InstallAX.exe"/>
-                <include name="win/InstallPlugin.exe"/>
-            </fileset>
-        </copy-->
-        
         <!-- templates -->
         <copy todir="${basedir}/temp/templates">
             <fileset dir="${basedir}/templates" >
-                <include name="**/*"/>
-                <exclude name="air/**"/>
-                <exclude name="extensions/**"/>
+                <include name="swfobject/**"/>
                 <exclude name="swfobject/readme.txt"/>
-                <exclude name="metadata/**"/>
             </fileset>
         </copy>
         
@@ -695,12 +658,96 @@
             </fileset>
         </copy>
         
-        <!-- AIR Integration not done for Apache Flex -->
+        <!-- 
+            Add AIR SDK Files. Runtime files not included since they weren't in 
+            Adobe Flex MPL kit. 
+        -->
+        <antcall target="air-package"/>
     
         <chmod dir="${basedir}/temp" perm="755" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" />
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${binary.kit}" basedir="${basedir}/temp"/>
         <antcall target="clean-temp"/>
+    </target>
+    
+    <!--
+        FixMe: The AIR sdk stuff in frameworks/build.xml should just extract airglobal.swc.
+        Only when you actually package a release should you muck with the other files in
+        the AIR SDK package.  Also make sure the AIR SDK license is in LICENSE.bin
+    -->
+    <target name="air-package" description="Add the AIR SDK files to the binary distro">
+    
+        <copy file="${basedir}/AIR SDK license.pdf" tofile="Adobe AIR SDK license.pdf"/>
+
+        <copy todir="${basedir}/temp">
+            <fileset dir="${basedir}">
+                <include name="include/**"/>
+                <include name="install/**"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${basedir}/temp/bin">
+            <fileset dir="${basedir}/bin">
+                <include name="bin/adl*"/>
+                <include name="bin/adt*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${basedir}/temp/frameworks/libs/air">
+            <fileset dir="${basedir}/frameworks/libs/air"/>
+        </copy>
+        
+        <!-- FixMe: does this go in a binary kit? -->
+        <copy todir="${basedir}/temp/frameworks/projects/air">
+            <fileset dir="${basedir}/frameworks/projects/air"/>
+        </copy>
+        
+        <copy todir="${basedir}/temp/lib">
+            <fileset dir="${basedir}/lib" >
+                <include name="adt.jar" />
+                <include name="android/**" />
+                <include name="aot/**" />
+            </fileset>
+        </copy>
+        
+        <copy todir="${basedir}/temp/lib/win">
+            <fileset dir="${basedir}/lib/win" >
+                <include name="FlashRuntimeExtensions.lib" />
+            </fileset>
+        </copy>
+        
+        <!-- FixMe: where are these files -->
+        
+        <!-- sample themes -->
+        <copy todir="${basedir}/temp/samples/themes" failonerror="false">
+            <fileset dir="${basedir}/samples/themes"/>
+        </copy>
+
+        <!-- templates -->
+        <copy todir="${basedir}/temp/templates">
+            <fileset dir="${basedir}/templates" >
+                <include name="extensions/**"/>
+            </fileset>
+        </copy>    
+    </target>
+    
+    <target name="fix-config-files">
+		<replace file="${basedir}/temp/frameworks/flex-config.xml">
+			<replacefilter
+				token="&lt;warn-no-explicit-super-call-in-constructor&gt;true"
+				value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
+			<replacefilter
+				token="$${build.number}"
+				value="${release.version}.${build.number}"/>
+		</replace>
+		<replace file="${basedir}/temp/frameworks/air-config.xml">
+			<replacefilter
+				token="&lt;warn-no-explicit-super-call-in-constructor&gt;true"
+				value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
+			<replacefilter
+				token="$${build.number}"
+				value="${release.version}.${build.number}"/>
+		</replace>
     </target>
     
     <target name="locale-package" description="Package all the locale swc's built">
