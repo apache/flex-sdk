@@ -40,8 +40,8 @@
     <property name="build.number" value="0"/>
     <property name="target.player" value="11.1"/>
     
-    <property name="source.kit" value="apache_flex_sdk_4_src.zip"/>
-    <property name="binary.kit" value="apache_flex_sdk_4_bin.zip"/>
+    <property name="source.kit" value="apache-flex-sdk-4-incubating-src.zip"/>
+    <property name="binary.kit" value="apache-flex-sdk-4-incubating-bin.zip"/>
     <property name="no.doc" value="false"/>
     
     <!-- Paths to the debug standalone flashplayer. -->
@@ -125,6 +125,7 @@
 
     <target name="pre-build" depends="create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
 
+    <!-- ToDo: automate setting the build number for non-dev builds. -->
     <target name="create-description">
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
 &lt;flex-sdk-description&gt;
@@ -422,10 +423,12 @@
     <target name="binary-distro" description="Package binary files in zip file.">
     
         <antcall target="clean-temp"/>
-        <mkdir dir="${basedir}/temp"/>
+
+        <!-- also makes parent ${basedir}/temp  -->
+        <mkdir dir="${basedir}/temp/licenses"/>
         
         <copy file="${basedir}/AIR SDK license.pdf" 
-            tofile="${basedir}/temp/Adobe AIR SDK license.pdf"/>
+            tofile="${basedir}/temp/licenses/Adobe AIR SDK license.pdf"/>
 
         <copy todir="${basedir}/temp">
             <fileset dir="${basedir}">
