@@ -108,6 +108,9 @@
 		<condition property="playerglobal.swfversion" value="15">
 			<equals arg1="${playerglobal.version}" arg2="11.2" />
 		</condition>
+		<condition property="playerglobal.swfversion" value="16">
+			<equals arg1="${playerglobal.version}" arg2="11.3" />
+		</condition>
 	</target>	
 
     <target name="advancedgrids" description="Builds advancedgrids.swc">
@@ -754,7 +757,7 @@
         
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal.failure,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal.failure,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
@@ -772,6 +775,9 @@
 		</condition>
 		<condition property="target11.2">
 			<equals arg1="${playerglobal.version}" arg2="11.2" />
+		</condition>
+		<condition property="target11.3">
+			<equals arg1="${playerglobal.version}" arg2="11.3" />
 		</condition>
 	 </target>
 	
@@ -809,11 +815,18 @@
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
+	
+    <target name="playerglobal11.3-download" if="target11.3">
+    	<mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
+        <get src="http://labsdownload.adobe.com/pub/labs/flashplatformruntimes/flashplayer11-3/flashplayer11-3_p1_playerglobal_040512.swc" 
+            dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
 
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
     <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
-    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
+    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies OSMF from Sourceforge">
         <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
         <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
             dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
