@@ -885,9 +885,9 @@ public class PostCodeValidator extends Validator
     /**
      *  Sets the suggested postcode formats for a given <code>locale</code>.
      *
-     *  <p>If no locale is suplied the default locale is used.</p>
+     *  <p>If no locale is supplied the default locale is used.</p>
      *
-     *  <p>Currenly only a limited set of locales are supported.</p>
+     *  <p>Currently only a limited set of locales are supported.</p>
      *
      *  @param locale Locale to obtain formats for.
 	 *  @param changeError If true change error message to match local.
@@ -965,9 +965,9 @@ public class PostCodeValidator extends Validator
     /**
      *  Sets the suggested country code for for a given <code>locale</code>.
      *
-     *  <p>If no locale is suplied the default locale is used.</p>
+     *  <p>If no locale is supplied the default locale is used.</p>
      *
-     *  <p>Currenly only a limited set of locales are supported.</p>
+     *  <p>Currently only a limited set of locales are supported.</p>
      *
      *  @param Locale Locale to obtain country code for.
      *
