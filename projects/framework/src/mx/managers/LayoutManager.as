@@ -639,8 +639,8 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
      *  and will call the <code>validateSize()</code> method 
      *  on any other components that are 
      *  invalidated while validating other components.  
-     *  The </code>validateSize()</code> method  starts with
-     *  the most deeply nested child in the tree of display objects
+     *  The <code>validateSize()</code> method  starts with
+     *  the most deeply nested child in the tree of display objects.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9

@@ -372,7 +372,7 @@ public class ChangeWatcher
     private var next:ChangeWatcher;
 
     /**
-     *  Object { <event-name>: <is-committing>, ... } for current host[name].
+     *  Object { &lt;event-name&gt;: &lt;is-committing&gt;, ... } for current host[name].
      *  Volatile; varies with host.
      *  
      *  @langversion 3.0

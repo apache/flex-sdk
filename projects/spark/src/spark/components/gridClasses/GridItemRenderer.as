@@ -189,7 +189,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  constructors.
      *  The item renderer's tool tip is computed just before it is shown.
      * 
-     *  If the item renderer's column <code>showDataTips<code> property is true, 
+     *  If the item renderer's column <code>showDataTips</code> property is true, 
      *  a placeholder tool tip is registered with the tool tip manager so that 
      *  mouse handlers are put in place to detect when the tool tip should be
      *  shown by calling this handler.

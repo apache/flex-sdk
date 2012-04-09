@@ -131,7 +131,7 @@ public class ConsumerMessageDispatcher
 	//--------------------------------------------------------------------------
     
     /**
-     *  Lookup table for subscribed Consumer instances; Object<Consumer clientId, Consumer>
+     *  Lookup table for subscribed Consumer instances; Object&lt;Consumer clientId, Consumer&gt;
      *  This is used to dispatch pushed/polled messages to the proper Consumer instance.
      *  
      *  @langversion 3.0
@@ -143,7 +143,7 @@ public class ConsumerMessageDispatcher
     private const _consumers:Object = {};
     
     /**
-     *  Table of ref-counts per ChannelSet that subscribed Consumer instances are using; Dictionary<ChannelSet, ref-count> (non-weak keys).
+     *  Table of ref-counts per ChannelSet that subscribed Consumer instances are using; Dictionary&lt;ChannelSet, ref-count&gt; (non-weak keys).
      *  The ref-count is the number of subscribed Consumers for the ChannelSet.
      *  When we add a new ChannelSet we need to start listening on it for MessageEvents to redispatch to subscribed Consumers.
      *  When the ref-count drops to zero we need to stop listening on it for MessageEvents and remove it from the table.

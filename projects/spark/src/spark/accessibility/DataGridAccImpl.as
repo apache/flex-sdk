@@ -722,30 +722,30 @@ public class DataGridAccImpl extends ListBaseAccImpl
      * @param selFlag:uint A combination of flags indicating what to do.
      * Flags may be combined as indicated below:
      * <dl>
-     * <dt><code>SELFLAG_TAKEFOCUS</code>
+     * <dt><code>SELFLAG_TAKEFOCUS</code></dt>
      * <dd>Set focus to the childID given.
-     * May be combined with the below flags.
-     * <dt><code>SELFLAG_TAKESELECTION</code>
+     * May be combined with the below flags.</dd>
+     * <dt><code>SELFLAG_TAKESELECTION</code></dt>
      * <dd>Select the given child and unselect any other selected ones.
      * Combining this with <code>SELFLAG_TAKEFOCUS</code>
-     * emulates a single mouse click.
-     * <dt><code>SELFLAG_ADDSELECTION</code>
+     * emulates a single mouse click.</dd>
+     * <dt><code>SELFLAG_ADDSELECTION</code></dt>
      * <dd>Add the given child to those that are selected.
      * Combining this with <code>SELFLAG_TAKEFOCUS</code>
-     * emulates a mouse click on an unselected item with the <kbd>Ctrl</kbd> key down.
-     * <dt><code>SELFLAG_REMOVESELECTION</code>
+     * emulates a mouse click on an unselected item with the <kbd>Ctrl</kbd> key down.</dd>
+     * <dt><code>SELFLAG_REMOVESELECTION</code></dt>
      * <dd>Remove the given child from those that are selected.
      * Combining this with <code>SELFLAG_TAKEFOCUS</code>
-     * emulates a mouse click on a selected item with the <kbd>Ctrl</kbd> key down.
-     * <dt><code>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</code>
-     * <dd>Select all children from the current focus to the given child.
-     * <dt><code>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</code>
-     * <dd>Unselect all children from the current focus to the given child.
-     * <dt><code>SELFLAG_EXTENDSELECTION</code>
+     * emulates a mouse click on a selected item with the <kbd>Ctrl</kbd> key down.</dd>
+     * <dt><code>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</code></dt>
+     * <dd>Select all children from the current focus to the given child.</dd>
+     * <dt><code>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</code></dt>
+     * <dd>Unselect all children from the current focus to the given child.</dd>
+     * <dt><code>SELFLAG_EXTENDSELECTION</code></dt>
      * <dd>Duplicate the selected/unselected state of the currently focused child,
      * for all children through the given child.
      * Combining this with <code>SELFLAG_TAKEFOCUS</code>
-     * emulates a mouse click with the <kbd>Shift</kbd> key down.
+     * emulates a mouse click with the <kbd>Shift</kbd> key down.</dd>
      * </dl>
      *  @param childID uint The ID of the child to use.
      * For extending selection or unselection, this is the endpoint,

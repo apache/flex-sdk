@@ -6151,7 +6151,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     }
 
     /**
-     *  Flip the order from ascending <-> descending for the given column name
+     *  Flip the order from ascending &lt;-&gt; descending for the given column name
      *  in the sort fields list
      *  
      *  @langversion 3.0
