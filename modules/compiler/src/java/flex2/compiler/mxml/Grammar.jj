@@ -1,0 +1,993 @@
+/*
+ *
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+options
+{
+    STATIC = false;
+    USER_TOKEN_MANAGER = true;
+}
+
+PARSER_BEGIN(Parser)
+package flex2.compiler.mxml;
+
+import java.lang.reflect.*;
+import java.util.*;
+
+/**
+ * MXML parser: JavaCC + SAXParser as the tokenizer...
+ *
+ * @author Clement Wong
+ */
+public class Parser implements MXMLNamespaces
+{
+    private static final HashSet SPECIAL_COMPONENT_TAGS = new HashSet(8);
+    static
+    {
+        SPECIAL_COMPONENT_TAGS.add("State");
+        SPECIAL_COMPONENT_TAGS.add("HTTPService");
+        SPECIAL_COMPONENT_TAGS.add("RemoteObject");
+        SPECIAL_COMPONENT_TAGS.add("WebService");
+        SPECIAL_COMPONENT_TAGS.add("method");
+        SPECIAL_COMPONENT_TAGS.add("arguments");
+        SPECIAL_COMPONENT_TAGS.add("operation");
+        SPECIAL_COMPONENT_TAGS.add("request");
+    }
+
+    private static final HashSet FXG_LANGUAGE_TAGS = new HashSet(3);
+    static
+    {
+        FXG_LANGUAGE_TAGS.add("Definition");
+        FXG_LANGUAGE_TAGS.add("Library");
+        FXG_LANGUAGE_TAGS.add("Private");
+    }
+
+    private static final HashSet MXML2009_NEW_TAGS = new HashSet(6);
+    static
+    {
+        MXML2009_NEW_TAGS.add("Declarations");
+        MXML2009_NEW_TAGS.add("Definition");
+        MXML2009_NEW_TAGS.add("DesignLayer");
+        MXML2009_NEW_TAGS.add("Library");
+        MXML2009_NEW_TAGS.add("Private");
+        MXML2009_NEW_TAGS.add("Reparent");
+    }
+
+    private static final Map ConstantMappings = new HashMap();
+
+    static
+    {
+        // FIXME: HACK for the Apache Port.  The version of javacc.jar that was being used is ancient and is no longer available.
+        // Some time over the years the format of some of the tokenImage strings in the generated file ParserConstants changed 
+        // from, for example, "Script" to "\"Script\"" and "/Script" to "\"/Script\"".  If there are quotes, strip them off so 
+        // that the rest of this code continues to work with no additional changes needed.
+        for (int j = 0, length = ParserConstants.tokenImage.length; j < length; j++)
+        {
+            String image = ParserConstants.tokenImage[j];
+            if (image.length() >= 2 && image.charAt(0) == '\"' && image.charAt(image.length() - 1) == '\"')
+	            ParserConstants.tokenImage[j] = image.substring(1, image.length() - 1);
+        }
+
+        // C: This static initializer fixes the token ids to match the index of
+        //    their corresponding token strings in tokenImage.
+        Field[] fields = ParserConstants.class.getFields();
+        for (int i = 0, count = fields.length; i < count; i++)
+        {
+            try
+            {
+                String name = fields[i].getName();
+
+                if (!"tokenImage".equals(name))
+                {
+                    int value = fields[i].getInt(ParserConstants.class);
+                    for (int j = 0, length = ParserConstants.tokenImage.length; j < length; j++)
+                    {
+                        String image = ParserConstants.tokenImage[j];
+                        switch (image.charAt(0))
+                        {
+                        case '<':
+                            image = image.substring(1, image.length() - 1);
+                            break;
+                        case '/':
+                            image = "END_" + image.substring(1).toUpperCase();
+                            break;
+                        default:
+                            image = "START_" + image.toUpperCase();
+                        }
+
+                        if ("START_ELEMENT".equals(image) || "END_ELEMENT".equals(image))
+                        {
+                            ParserConstants.tokenImage[j] = "Non-MXML language element";
+                        }
+
+                        if (image.equals(name))
+                        {
+                            String temp = ParserConstants.tokenImage[value];
+                            ParserConstants.tokenImage[value] = ParserConstants.tokenImage[j];
+                            ParserConstants.tokenImage[j] = temp;
+                            ConstantMappings.put(ParserConstants.tokenImage[value], new Integer(value));
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (IllegalAccessException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public static final int findElementType(String uri, String localName, boolean isStart)
+    {
+        if (MXML_2009_NAMESPACE.equals(uri) &&
+            !SPECIAL_COMPONENT_TAGS.contains(localName))
+        {
+            String localPart = (isStart) ? localName : "/" + localName;
+            if (ConstantMappings.containsKey(localPart))
+            {
+                return ((Integer) ConstantMappings.get(localPart)).intValue();
+            }
+        }
+        else if (MXML_2006_NAMESPACE.equals(uri) && 
+             !MXML2009_NEW_TAGS.contains(localName))
+        {
+            String localPart = (isStart) ? localName : "/" + localName;
+            if (ConstantMappings.containsKey(localPart))
+            {
+                return ((Integer) ConstantMappings.get(localPart)).intValue();
+            }
+        }
+        else if (FXG_2008_NAMESPACE.equals(uri) &&
+              FXG_LANGUAGE_TAGS.contains(localName))
+        {
+            String localPart = (isStart) ? localName : "/" + localName;
+            if (ConstantMappings.containsKey(localPart))
+            {
+                return ((Integer) ConstantMappings.get(localPart)).intValue();
+            }
+        }
+        else if ((SPARK_NAMESPACE.equals(uri) || MX_NAMESPACE.equals(uri)) &&
+             SPECIAL_COMPONENT_TAGS.contains(localName))
+        {
+            String localPart = (isStart) ? localName : "/" + localName;
+            if (ConstantMappings.containsKey(localPart))
+            {
+                return ((Integer) ConstantMappings.get(localPart)).intValue();
+            }
+        }
+
+        return (isStart) ? ParserConstants.START_ELEMENT : ParserConstants.END_ELEMENT;
+    }
+
+    /**
+     * Set a visitor implementation, e.g. SyntaxAnalyzer
+     */
+    public void setVisitor(MxmlVisitor v)
+    {
+        visitor = v;
+    }
+
+    private MxmlVisitor visitor;
+
+    // Helper function: Lazy instantiation of List.
+    private static final List addChild(List children, Token child)
+    {
+        if (children == null)
+        {
+            children = new ArrayList();
+        }
+        children.add(child);
+
+        return children;
+    }
+
+    // Helper function: Lazy instantiation of Map.
+    private static final Map addAttribute(Map attributes, Token name, Token value)
+    {
+        if (attributes == null)
+        {
+            attributes = new HashMap();
+        }
+        attributes.put(name, value);
+
+        return attributes;
+    }
+}
+
+PARSER_END(Parser)
+
+Token parseApplication():
+{
+    Token t;
+}
+{
+    ( t = parseApplicationComponent() )
+    <EOF>
+    {
+        return t;
+    }
+}
+
+Token parseApplicationComponent():
+{
+    Token app, child;
+    List children = null;
+}
+{
+    app = <START_ELEMENT>
+    (
+        ( child = <CDATA> |
+          child = parseDesignLayer() |
+          child = parseLanguageComponent() |
+          child = parseDeclarations() |
+          child = parseLibrary() |
+          child = parseServiceComponent() |
+          child = parseFacelessComponent() |
+          child = parseUIComponent() |
+          child = parsePrivate()
+        ) { children = addChild(children, child); }
+    )*
+    <END_ELEMENT>
+    {
+        if (visitor != null) { visitor.parseApplication(app, children); }
+        return app;
+    }
+}
+
+Token parseUIComponent():
+{
+    Token comp, child;
+    List children = null;
+}
+{
+    comp = <START_ELEMENT>
+    (
+        (
+            ( child = <CDATA> |
+              child = parseDesignLayer() |
+              child = parseLanguageComponent() |
+              child = parseFacelessComponent() |
+              child = parseUIComponent()
+            ) { children = addChild(children, child); }
+        )*
+    )
+    <END_ELEMENT>
+    {
+        if (visitor != null) { visitor.parseComponent(comp, children); }
+        return comp;
+    }
+}
+
+
+Token parseDesignLayer():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_DESIGNLAYER: "DesignLayer">
+    (
+        ( child = <CDATA> |
+          child = parseDesignLayer() |
+          child = parseLanguageComponent() |
+          child = parseFacelessComponent() |
+          child = parseUIComponent()
+        ) { children = addChild(children, child); }
+    )*
+    <END_DESIGNLAYER: "/DesignLayer">
+    {
+        if (visitor != null) { visitor.parseDesignLayer(t, children); }
+        return t;
+    }
+}
+
+Token parseLanguageComponent():
+{
+    Token t;
+}
+{
+    ( t = parseMetaData() |
+      t = parseScript() |
+      t = parseStyle() )
+    {
+        return t;
+    }
+}
+
+Token parseDeclarations():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_DECLARATIONS: "Declarations">
+    (
+        (
+            (  child = parseServiceComponent() |
+               child = parseFacelessComponent() | 
+               child = parseUIComponent() |
+               child = parseDesignLayer()
+            ) { children = addChild(children, child); }
+        )*
+    )
+    <END_DECLARATIONS: "/Declarations">
+    {
+        if (visitor != null) { visitor.parseDeclarations(t, children); }
+        return t;
+    }
+}
+
+Token parseServiceComponent():
+{
+    Token t;
+}
+{
+    ( t = parseWebService() |
+      t = parseHTTPService() |
+      t = parseRemoteObject() )
+    {
+        return t;
+    }
+}
+
+Token parseStyle():
+{
+    Token t, d = null;
+}
+{
+    t = <START_STYLE: "Style">
+    [ d = <CDATA> ]
+    <END_STYLE: "/Style">
+    {
+        if (visitor != null) { visitor.parseStyle(t, d); }
+        return t;
+    }
+}
+
+Token parseScript():
+{
+    Token t, d = null;
+}
+{
+    t = <START_SCRIPT: "Script">
+    [ d = <CDATA> ]
+    <END_SCRIPT: "/Script">
+    {
+        if (visitor != null) { visitor.parseScript(t, d); }
+        return t;
+    }
+}
+
+Token parseMetaData():
+{
+    Token t, d = null;
+}
+{
+    t = <START_METADATA: "Metadata">
+    [ d = <CDATA> ]
+    <END_METADATA: "/Metadata">
+    {
+        if (visitor != null) { visitor.parseMetaData(t, d); }
+        return t;
+    }
+}
+
+Token parseFacelessComponent():
+{
+    Token t;
+}
+{
+    ( t = parseModel() |
+      t = parseXML() |
+      t = parseXMLList() |
+      t = parseArray() |
+      t = parseVector() |
+      t = parseBinding() |
+      t = parsePrimitive() |
+      t = parseInlineComponent() |
+      t = parseState() |
+      t = parseReparent() )
+    {
+        return t;
+    }
+}
+
+Token parseState():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_STATE: "State">
+    (
+        (
+            (  child = parseDesignLayer() |
+               child = parseFacelessComponent() |
+               child = parseUIComponent()
+            ) { children = addChild(children, child); }
+        )*
+    )
+    <END_STATE: "/State">
+    {
+        if (visitor != null) { visitor.parseState(t, children); }
+        return t;
+    }
+}
+
+Token parseModel():
+{
+    Token t, obj = null;
+    List children = null;
+}
+{
+    t = <START_MODEL: "Model">
+    (
+        obj = <CDATA> { children = addChild(children, obj); } |
+        (
+            ( obj = parsePrimitive() |
+              obj = parseArray() |
+              obj = parseVector() |
+              obj = parseAnonymousObject() 
+            ) { children = addChild(children, obj); }
+        )*
+    )
+    <END_MODEL: "/Model">
+    {
+        if (visitor != null) { visitor.parseModel(t, children); }
+        return t;
+    }
+}
+
+Token parseXML():
+{
+    Token t, obj = null;
+    List children = null;
+}
+{
+    t = <START_XML: "XML">
+    (
+        obj = <CDATA> { children = addChild(children, obj); } |
+        (
+            obj = parseAnonymousObject()
+            { children = addChild(children, obj); }
+        )*
+    )
+    <END_XML: "/XML">
+    {
+        if (visitor != null) { visitor.parseXML(t, children); }
+        return t;
+    }
+}
+
+Token parseXMLList():
+{
+    Token t, obj = null;
+    List children = null;
+}
+{
+    t = <START_XMLLIST: "XMLList">
+    (
+        obj = <CDATA> { children = addChild(children, obj); } |
+        (
+            obj = parseAnonymousObject()
+            { children = addChild(children, obj); }
+        )*
+    )
+    <END_XMLLIST: "/XMLList">
+    {
+        if (visitor != null) { visitor.parseXMLList(t, children); }
+        return t;
+    }
+}
+
+Token parseArray():
+{
+    Token t, obj = null;
+    List children = null;
+}
+{
+    t = <START_ARRAY: "Array">
+    (
+        (
+            ( obj = <CDATA> |
+              obj = parseDesignLayer() |
+              obj = parsePrimitive() |
+              obj = parseArray() |
+              obj = parseVector() |
+              obj = parseUIComponent() |
+              obj = parseReparent() |
+              obj = parseState()
+            ) { children = addChild(children, obj); }
+        )*
+    )
+    <END_ARRAY: "/Array">
+    {
+        if (visitor != null) { visitor.parseArray(t, children); }
+        return t;
+    }
+}
+
+Token parseVector():
+{
+    Token t, obj = null;
+    List children = null;
+}
+{
+    t = <START_VECTOR: "Vector">
+    (
+        (
+            ( obj = <CDATA> |
+              obj = parseDesignLayer() |
+              obj = parsePrimitive() |
+              obj = parseArray() |
+              obj = parseVector() |
+              obj = parseUIComponent() |
+              obj = parseReparent() |
+              obj = parseState()
+            ) { children = addChild(children, obj); }
+        )*
+    )
+    <END_VECTOR: "/Vector">
+    {
+        if (visitor != null) { visitor.parseVector(t, children); }
+        return t;
+    }
+}
+
+Token parseBinding():
+{
+    Token t;
+}
+{
+    t = <START_BINDING: "Binding">
+    <END_BINDING: "/Binding">
+    {
+        if (visitor != null) { visitor.parseBinding(t); }
+        return t;
+    }
+}
+
+Token parseAnonymousObject():
+{
+    Token t, obj = null;
+    List children = null;
+}
+{
+     t = <START_ELEMENT>
+    (
+        (
+            ( obj = <CDATA> |
+              obj = parseAnonymousObject() 
+            ) { children = addChild(children, obj); }
+        )*
+    )
+    <END_ELEMENT>
+    {
+        if (visitor != null) { visitor.parseAnonymousObject(t, children); }
+        return t;
+    }
+}
+
+Token parsePrimitive():
+{
+    Token t;
+}
+{
+    ( t = parseString() |
+      t = parseNumber() |
+      t = parseInt() |
+      t = parseUInt() |
+      t = parseBoolean() |
+      t = parseClass() |
+      t = parseFunction() )
+    {
+        return t;
+    }
+}
+
+Token parseString():
+{
+    Token t, data = null;
+}
+{
+    t = <START_STRING: "String">
+    [ data = <CDATA> ]
+    <END_STRING: "/String">
+    {
+        if (visitor != null) { visitor.parseString(t, data); }
+        return t;
+    }
+}
+
+Token parseNumber():
+{
+    Token t, data = null;
+}
+{
+    t = <START_NUMBER: "Number">
+    [ data = <CDATA> ]
+    <END_NUMBER: "/Number">
+    {
+        if (visitor != null) { visitor.parseNumber(t, data); }
+        return t;
+    }
+}
+
+Token parseInt():
+{
+    Token t, data = null;
+}
+{
+    t = <START_INT: "int">
+    [ data = <CDATA> ]
+    <END_INT: "/int">
+    {
+        if (visitor != null) { visitor.parseInt(t, data); }
+        return t;
+    }
+}
+Token parseUInt():
+{
+    Token t, data = null;
+}
+{
+    t = <START_UINT: "uint">
+    [ data = <CDATA> ]
+    <END_UINT: "/uint">
+    {
+        if (visitor != null) { visitor.parseUInt(t, data); }
+        return t;
+    }
+}
+
+
+
+Token parseBoolean():
+{
+    Token t, data = null;
+}
+{
+    t = <START_BOOLEAN: "Boolean">
+    [ data = <CDATA> ]
+    <END_BOOLEAN: "/Boolean">
+    {
+        if (visitor != null) { visitor.parseBoolean(t, data); }
+        return t;
+    }
+}
+
+Token parseClass():
+{
+    Token t, data = null;
+}
+{
+    t = <START_CLASS: "Class">
+    [ data = <CDATA> ]
+    <END_CLASS: "/Class">
+    {
+        if (visitor != null) { visitor.parseClass(t, data); }
+        return t;
+    }
+}
+
+Token parseFunction():
+{
+    Token t, data = null;
+}
+{
+    t = <START_FUNCTION: "Function">
+    [ data = <CDATA> ]
+    <END_FUNCTION: "/Function">
+    {
+        if (visitor != null) { visitor.parseFunction(t, data); }
+        return t;
+    }
+}
+
+/**
+ *
+ * SERVICE TAGS
+ *
+ */
+
+/***
+ * <mx:RemoteObject/>
+ * Special child tag type <mx:method/>.
+ */
+Token parseRemoteObject():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_REMOTEOBJECT: "RemoteObject">
+    (
+        ( child = parseMethod() |
+          child = parseUIComponent()
+        ) { children = addChild(children, child); }
+    )*
+    <END_REMOTEOBJECT: "/RemoteObject">
+    {
+        if (visitor != null) { visitor.parseRemoteObject(t, children); }
+        return t;
+    }
+}
+
+/**
+ * <mx:RemoteObject>/<mx:method/>.
+ * Special child tag type <mx:arguments/>.
+ */
+Token parseMethod():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_METHOD: "method">
+    (
+        ( child = parseArguments() |
+          child = parseUIComponent()
+        ) { children = addChild(children, child); }
+    )*
+    <END_METHOD: "/method">
+    {
+        if (visitor != null) { visitor.parseMethod(t, children); }
+        return t;
+    }
+}
+
+/**
+ * <mx:RemoteObject>/<mx:method>/<mx:arguments/>
+ * Parsed as an anonymous object.
+ * TODO: add metadata-driven ability to parse any property-initializing child tag as a key/value map.
+ * BUT NOTE that in this particular use case, we *also* save argument order (see RemoteObjectBuilder).
+ * So to be completely free of special processing, we'd need to add that as a metadata-triggered option as well.
+ */
+Token parseArguments():
+{
+    Token t, child = null;
+    List children = null;
+}
+{
+    t = <START_ARGUMENTS: "arguments">
+    (
+        child = <CDATA> { children = addChild(children, child); } |
+        (
+            (
+                // LOOKAHEAD ( { "true".equals(((Element) token).getAttribute("literal")) } )
+                //    child = parseXML() |
+                child = parsePrimitive() |
+                child = parseArray() |
+                child = parseAnonymousObject()
+            ) { children = addChild(children, child); }
+        )*
+    )
+    <END_ARGUMENTS: "/arguments">
+    {
+        if (visitor != null) { visitor.parseArguments(t, children); }
+        return t;
+    }
+}
+
+/***
+ * <mx:WebService/>
+ * Special child tag type <mx:operation/>.
+ */
+Token parseWebService():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_WEBSERVICE: "WebService">
+    (
+        ( child = parseOperation() |
+          child = parseUIComponent()
+        ) { children = addChild(children, child); }
+    )*
+    <END_WEBSERVICE: "/WebService">
+    {
+        if (visitor != null) { visitor.parseWebService(t, children); }
+        return t;
+    }
+}
+
+/**
+ * <mx:WebService>/<mx:operation/>.
+ * Special child tag type <mx:request/>.
+ * Note: at most one <mx:request/> child may be specified - this is enforced downstream.
+ */
+Token parseOperation():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_OPERATION: "operation">
+    (
+        ( child = parseRequest() |
+          child = parseUIComponent()
+        ) { children = addChild(children, child); }
+    )*
+    <END_OPERATION: "/operation">
+    {
+        if (visitor != null) { visitor.parseOperation(t, children); }
+        return t;
+    }
+}
+
+/**
+ * <mx:WebService>/<mx:operation>/<mx:request/> and <mx:HTTPService>/<mx:request/>.
+ * Parsed as an anonymous object.
+ * TODO: add metadata-driven ability to parse any property-initializing child tag as a key/value map.
+ */
+Token parseRequest():
+{
+    Token t, child = null;
+    List children = null;
+}
+{
+    t = <START_REQUEST: "request">
+    (
+        child = <CDATA> { children = addChild(children, child); } |
+        (
+            (
+                // LOOKAHEAD ( { "literal".equals(((Element) token).getAttribute("format")) ||
+                //              "xml".equals(((Element) token).getAttribute("format")) } )
+                //    child = parseXML() |
+                    child = parseAnonymousObject()
+            ) { children = addChild(children, child); }
+        )*
+    )
+    <END_REQUEST: "/request">
+    {
+        if (visitor != null) { visitor.parseRequest(t, children); }
+        return t;
+    }
+}
+
+/***
+ * <mx:HTTPService/>
+ * Special child tag type <mx:request/>.
+ * Note: at most one <mx:request/> child may be specified - this is enforced downstream.
+ */
+Token parseHTTPService():
+{
+    Token t, child;
+    List children = null;
+}
+{
+    t = <START_HTTPSERVICE: "HTTPService">
+    (
+        ( child = parseRequest() |
+          child = parseUIComponent()
+        ) { children = addChild(children, child); }
+    )*
+    <END_HTTPSERVICE: "/HTTPService">
+    {
+        if (visitor != null) { visitor.parseHTTPService(t, children); }
+        return t;
+    }
+}
+
+/**
+ *
+ * END SERVICE TAGS
+ *
+ */
+
+/**
+ *
+ */
+Token parseInlineComponent():
+{
+    Token comp, child = null;
+}
+{
+    comp = <START_COMPONENT: "Component">
+    [ child = parseDesignLayer() |
+      child = parseApplicationComponent() ]
+    <END_COMPONENT: "/Component">
+    {
+        if (visitor != null) { visitor.parseInlineComponent(comp, child); }
+        return comp;
+    }
+}
+
+/**
+ *
+ */
+Token parseReparent():
+{
+    Token t;
+}
+{
+    t = <START_REPARENT: "Reparent">
+    <END_REPARENT: "/Reparent">
+    {
+        if (visitor != null) { visitor.parseReparent(t); }
+        return t;
+    }
+}
+
+
+/**
+ * Start of tags in both MXML and FXG namespaces.
+ */
+
+Token parsePrivate():
+{
+    Token t;
+}
+{
+    t = <START_PRIVATE: "Private">
+    ( <SKIP_ELEMENT> | <CDATA> )*
+    <END_PRIVATE: "/Private">
+    {
+            return t;
+    }
+}
+
+/**
+ * <Library> tag
+ * Special child tag <Definition />
+ * May have zero or more child Definitions.
+ */
+Token parseLibrary():
+{
+    Token lib, child = null;
+    List children = null;
+}
+{
+    lib = <START_LIBRARY: "Library">
+    (
+        ( child = parseDefinition()
+        ) { children = addChild(children, child); }
+    )*
+    <END_LIBRARY: "/Library">
+    {
+        if (visitor != null) { visitor.parseLibrary(lib, children); }
+        return lib;
+    }
+}
+
+
+/**
+ * <Definition> tag for a Library
+ * Has one attribute 'name' as an identifier.
+ * At most one child may be specified.
+ */
+Token parseDefinition():
+{
+    Token definition, child = null;
+}
+{
+    definition = <START_DEFINITION: "Definition">
+    [ child = parseDesignLayer() |
+      child = parseApplicationComponent() ]
+    <END_DEFINITION: "/Definition">
+    {
+        if (visitor != null) { visitor.parseDefinition(definition, child); }
+        return definition;
+    }
+}
+
+/**
+ *    End of MXML/FXG Tags
+ */

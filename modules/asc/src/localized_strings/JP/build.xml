@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!-- 
+
+Comments:
+
+cnuuja@adobe.com
+
+-->
+
+<project name="localize" default="generate" basedir=".">
+
+	<property name="root.dir" 		value="${basedir}/../../.."/>
+	<property name="build.dir"		value="${root.dir}/build/util"/>
+	<property name="bin.dir"		value="${root.dir}/bin"/>
+
+	<condition property="avm.name" value="avmplus">
+		<os family="mac"/>
+	</condition>
+	<condition property="avm.name" value="avmplus.exe">
+		<os family="windows"/>
+	</condition>
+
+	<target name="formatNormalize">
+		<exec executable="${bin.dir}/${avm.name}" output="build.out" append="true" failonerror="true">
+			<!-- args are originalFileName, diffFileName, outputFileName, tagNameToUpdate, optionalBaseTagName (omit for error, use "warning" for warnings file) -->
+			<arg line="${build.dir}/normalizeXML.abc -- Lint_Warnings.xml Lint_Warnings_norm.xml"/>
+		</exec>
+		<move file="Lint_Warnings.xml" tofile="unNorm_Lint_Warnings.xml"/>	
+		<move file="Lint_Warnings_norm.xml" tofile="Lint_Warnings.xml"/>
+		
+		<exec executable="${bin.dir}/${avm.name}" output="build.out" append="true" failonerror="true">
+			<!-- args are originalFileName, diffFileName, outputFileName, tagNameToUpdate, optionalBaseTagName (omit for error, use "warning" for warnings file) -->
+			<arg line="${build.dir}/normalizeXML.abc -- ErrorConstants.xml ErrorConstants_norm.xml"/>
+		</exec>
+		<move file="ErrorConstants.xml" tofile="unNorm_ErrorConstants.xml"/>	
+		<move file="ErrorConstants_norm.xml" tofile="ErrorConstants.xml"/>
+
+	</target>
+
+
+	<target name="integrate">
+		<exec executable="${bin.dir}/${avm.name}" output="build.out" append="true" failonerror="true">
+			<!-- args are originalFileName, diffFileName, outputFileName, tagNameToUpdate, optionalBaseTagName (omit for error, use "warnings" for warnings file) -->
+			<arg line="${build.dir}/integrateLocDiffs.abc -- Lint_Warnings.xml Lint_Warnings_diff.xml Lint_Warnings_new.xml warning warnings"/>
+		</exec>
+		<move file="Lint_Warnings.xml" tofile="prev_Lint_Warnings.xml"/>	
+		<move file="Lint_Warnings_new.xml" tofile="Lint_Warnings.xml"/>	
+		
+		<exec executable="${bin.dir}/${avm.name}" output="build.out" append="true" failonerror="true">
+			<!-- args are originalFileName, diffFileName, outputFileName, tagNameToUpdate, optionalBaseTagName (omit for error, use "warnings" for warnings file) -->
+			<arg line="${build.dir}/integrateLocDiffs.abc -- ErrorConstants.xml ErrorConstants_diff.xml ErrorConstants_new.xml error"/>
+		</exec>
+		<move file="ErrorConstants.xml" tofile="prev_ErrorConstants.xml"/>	
+		<move file="ErrorConstants_new.xml" tofile="ErrorConstants.xml"/>	
+
+	</target>
+
+	<target name="undo_integrate">
+		<move file="Lint_Warnings.xml" tofile="Lint_Warnings_new.xml"/>	
+		<move file="prev_Lint_Warnings.xml" tofile="Lint_Warnings.xml"/>	
+		<move file="ErrorConstants.xml" tofile="ErrorConstants_new.xml"/>	
+		<move file="prev_ErrorConstants.xml" tofile="ErrorConstants.xml"/>	
+
+	</target>
+
+
+</project>

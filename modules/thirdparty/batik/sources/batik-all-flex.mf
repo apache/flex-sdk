@@ -1,0 +1,1 @@
+Class-Path: batik_de.jar batik_fr.jar batik_ja.jar batik_ko.jar batik_ru.jar batik_zh_CN.jar

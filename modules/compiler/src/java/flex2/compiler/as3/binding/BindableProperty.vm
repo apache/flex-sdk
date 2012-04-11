@@ -1,0 +1,184 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+## Imports added here actually do have an impact, but if you add new
+## class references to this template, also modify
+## BindableFirstPassEvaluator.evaluate(Context, ClassDefinitionNode)
+## by adding new addImport() calls.
+
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
+import mx.core.IPropertyChangeNotifier;
+import mx.events.PropertyChangeEvent;
+import mx.utils.ObjectProxy;
+import mx.utils.UIDUtil;
+
+#foreach ($import in $bindableInfo.imports)
+import $import;
+#end
+
+class BindableProperty
+#if ($bindableInfo.needsToImplementIEventDispatcher)
+    implements flash.events.IEventDispatcher
+#end
+{
+#foreach ($entry in $bindableInfo.accessors.values())
+##
+##	0. commentary
+##
+	/*
+	 * generated bindable wrapper for property $entry.propertyName ($entry.attributeString)
+	 * - generated setter
+#if ($entry.isFunction)
+	 * - original getter left as-is
+	 * - original $entry.attributeString setter '$entry.propertyName' moved to '$entry.backingPropertyName'
+#else
+	 * - generated getter
+	 * - original $entry.attributeString var '$entry.propertyName' moved to '$entry.backingPropertyName'
+#end
+	 */
+
+##
+##	1. maybe generate a namespace declaration
+##	NOTE: this comes out once per property, not once per namespace. It appears that we're skating
+##	by due to the fact that duplicate namespace declarations don't error at parse time. Should fix.
+##
+#if ($entry.userNamespace && $entry.userNamespace != "")
+    namespace $entry.userNamespace;
+
+#end
+##
+##	2. generate metadata
+##
+    [Bindable(event="propertyChange")]
+##
+##	3. for [Bindable] variables, generate a getter wrapper. ([Bindable] getter/setters use original getter.)
+##	Also initialize a velocity variable witnessing this choice for use in setter codegen below.
+##
+#if ($entry.isFunction)
+#set($setterAccessPropertyName = $entry.qualifiedPropertyName)
+#else
+#set($setterAccessPropertyName = $entry.qualifiedBackingPropertyName)
+    $entry.attributeString function get ${entry.propertyName}():$entry.typeName
+    {
+#if ($entry.isStatic)
+        return ${bindableInfo.className}.${entry.qualifiedBackingPropertyName};
+#else
+        return this.${entry.qualifiedBackingPropertyName};
+#end
+    }
+
+#end
+##
+##	4. generate a setter wrapper
+##
+    $entry.attributeString function set ${entry.propertyName}(value:${entry.typeName}):void
+    {
+#if ($entry.isStatic)
+#set($owner = $bindableInfo.className)
+#else
+#set($owner = "this")
+#end
+    	var oldValue:Object = ${owner}.$setterAccessPropertyName;
+        if (oldValue !== value)
+        {
+            ${owner}.${entry.qualifiedBackingPropertyName} = value;
+#if ($entry.isStatic)
+            var eventDispatcher:flash.events.IEventDispatcher = ${owner}.staticEventDispatcher;
+            if (eventDispatcher != null && eventDispatcher.hasEventListener("propertyChange"))
+            {
+                eventDispatcher.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(${owner}, "$entry.qualifiedPropertyName", oldValue, value));
+            }
+#else
+           if (${owner}.hasEventListener("propertyChange"))
+               ${owner}.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(${owner}, "$entry.qualifiedPropertyName", oldValue, value));
+#end
+        }
+    }
+
+#end
+
+#if ($bindableInfo.needsToImplementIEventDispatcher)
+    //    IEventDispatcher implementation
+    //
+## We should make sure this doesn't conflict with an already existing
+## variable.
+## preilly: The cast to IEventDispatcher is necessary, because ASC isn't picking up on the
+##          fact that we've morphed "this" into an IEventDispatcher implementation.
+    private var _bindingEventDispatcher:flash.events.EventDispatcher =
+        new flash.events.EventDispatcher(flash.events.IEventDispatcher(this));
+
+	/**
+	 * @inheritDoc
+	 */
+    public function addEventListener(type:String, listener:Function,
+                                     useCapture:Boolean = false,
+                                     priority:int = 0,
+                                     weakRef:Boolean = false):void
+    {
+        _bindingEventDispatcher.addEventListener(type, listener, useCapture,
+                                                 priority, weakRef);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function dispatchEvent(event:flash.events.Event):Boolean
+    {
+        return _bindingEventDispatcher.dispatchEvent(event);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function hasEventListener(type:String):Boolean
+    {
+        return _bindingEventDispatcher.hasEventListener(type);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function removeEventListener(type:String,
+                                        listener:Function,
+                                        useCapture:Boolean = false):void
+    {
+        _bindingEventDispatcher.removeEventListener(type, listener, useCapture);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function willTrigger(type:String):Boolean
+    {
+        return _bindingEventDispatcher.willTrigger(type);
+    }
+#end
+
+#if ($bindableInfo.needsStaticEventDispatcher)
+## We should make sure this doesn't conflict with an already existing
+## variable.
+    private static var _staticBindingEventDispatcher:flash.events.EventDispatcher =
+        new flash.events.EventDispatcher();
+
+    public static function get staticEventDispatcher():IEventDispatcher
+    {
+        return _staticBindingEventDispatcher;
+    }
+#end
+}

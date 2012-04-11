@@ -1,0 +1,3326 @@
+<?xml version='1.0' encoding='utf-8' standalone='no' ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<AS2LintWarnings>
+
+<!-- ***Dont use ?? in these - use ? if you must; C++ translates ?? into a ^ symbol for some reason..***
+   
+  
+
+   In addition, the following words should not be translated:
+	AS2
+	AS3
+	SWF
+	Class
+	class
+	namespace
+	Namespace
+	
+	TODO:  XML 
+-->
+	
+<warnings>
+	<warning id="1008" hidden="true" label="kWarning_NoTypeDecl">Mangler typedeklarasjon.</warning>
+	<warning id="1009" label="kWarning_NoTypeDecl_specific">%s «%s» har ingen typedeklarasjon.
+	
+	<description>
+		<![CDATA[
+		Not declaring a data type is a coding style preference.  A function return type, parameter, or variable has no type declaration.  
+		However, using type declarations enables the compiler to write more efficient code, as well as detect more errors at compile time.
+		Enable this warning if you want to be reminded when you fail to use a type declaration.
+		]]>
+	</description></warning>
+	<warning id="1012" hidden="true" label="kWarning_BadUndefinedComparision">Ulogisk sammenligning med udefinert. Kun variabler uten type (eller variabler av typen *) kan være udefinerte.</warning>
+	<warning id="1013" label="kWarning_BadUndefinedComparision_specific">Variabler av typen %s kan ikke være udefinerte. Den udefinerte verdien blir omgjort til type %s før sammenligning.
+	<description>
+		<![CDATA[
+	Only variables of type * can be undefined.  With a few exceptions, uninitialized variables have a default value of <code>null</code> rather than <code>undefined</code>.  
+	The exceptions include: Boolean variables, which have a default value of <code>false</code>. Number variables, which have a default value of <code>NaN</code>, and int or uint variables, which have a default value of <code>0</code>.
+			]]>
+	</description>
+	</warning>
+	
+	<warning id="1030" hidden="true" label="kWarning_ConstructorReturnsValue">Funksjon som er brukt i nytt uttrykk, returnerer en verdi. Resultatet blir det funksjonen returnerer, ikke en ny forekomst av funksjonen.</warning>
+	<warning id="1031" label="kWarning_ConstructorReturnsValue_specific">Migreringsproblem: Resultatet av ny %s blir returverdien til %s, i stedet for en ny forekomst av den funksjonen.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  The detected code behaves differently in ActionScript 3.0 than in ActionScript 2.0, as shown in the following example:
+<pre><code>function f(){
+   this.b = 22;
+   this.a = new Array(2);  
+   this.a[0] = 33;
+   this.a[1] = 44;
+   return a; 
+   } 
+   // returns a new instance of f in ActionScript 2.0 and a new 2 element array in ActionScript 3.0
+   var d = new f();  // Warning here
+   trace(d.a);       // undefined in ActionScript 3.0, [33,44] in ActionScript 2.0.
+</code></pre>
+]]>
+</description>	
+	</warning>
+
+	<warning id="1034" hidden="true" label="kWarning_BooleanConstructorWithNoArgs">Boolean() uten argumenter gir usant i retur i ActionScript 3.0. Boolean() returnerte udefinert i ActionScript 2.0.</warning>
+	<warning id="1035" label="kWarning_BooleanConstructorWithNoArgs_specific">Bruke Boolean() uten argumenter.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  The <code>Boolean()</code> function returns <code>false</code> in ActionScript 3.0, but <code>undefined</code> in ActionScript 2.0.
+		]]>
+	</description>
+	</warning>
+	
+	<warning id="1038" hidden="true" label="kWarning_NumberFromStringChanges">I ActionScript 3.0 ignoreres mellomromstegn og '' returnerer 0. Number() returnerer NaN i ActionScript 2.0 når parameteren er '' eller inneholder mellomromstegn.</warning>
+	<warning id="1039" label="kWarning_NumberFromStringChanges_specific">Migreringsproblem: Når funksjonen Number('') blir kalt med et tomt strengargument, returnerer den 0 i ActionScript 3.0, og NaN i ActionScript 2.0.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  The <code>Number()</code> method called with a String argument skips over all white space in the string and return a default value of 0 if no digits are detected.
+In ActionScript 2.0, any white space in the string causes the result to be NaN.
+		]]>
+	</description>
+	</warning>
+
+	<warning id="1044" hidden="true" label="kWarning_ArrayToStringChanges">Array.toString()-formatet er endret.</warning>
+	<warning id="1045" label="kWarning_ArrayToStringChanges_specific">Migreringsproblem: Array.toString()-håndtering av nullelementer og udefinerte elementer er endret.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  In ActionScript 2.0, <code>null</code> array elements convert to <code>null</code> and <code>undefined</code> elements convert to <code>undefined</code>.  
+In ActionScript 3.0, both <code>null</code> and <code>undefined</code> elements convert to the empty string ''.  If you have code that parses the <code>toString()</code> output from an Array,
+you may need to adjust your code for this difference.
+		]]>
+	</description>
+	</warning>
+	
+	<warning id="1058" hidden="true" label="kWarning_DepricatedPropertyError">ActionScript 2.0-egenskap som ikke støttes.</warning>
+	<warning id="1059" label="kWarning_DepricatedPropertyError_specific">Migreringsproblem: Egenskapen %s støttes ikke lenger. %s.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  The property you are attempting to use does not exist in ActionScript 3.0.
+				]]>
+	</description>
+	</warning>
+
+	<warning id="1060" hidden="true" label="kWarning_DepricatedFunctionError">ActionScript 2.0-funksjon som ikke støttes.</warning>
+	<warning id="1061" label="kWarning_DepricatedFunctionError_specific">Migreringsproblem: Metoden %s støttes ikke lenger. %s.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  The method you are attempting to use does not exist in ActionScript 3.0.
+		]]>
+	</description>
+	</warning>
+	
+	<warning id="1066" label="kWarning_ChangesInResolve">__resolve støttes ikke lenger.</warning>
+	<warning id="1067" label="kWarning_ChangesInResolve_specific">Migreringsproblem: __resolve støttes ikke lenger. Bruk den nye klassen Proxy for lignende funksjonalitet.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  See Proxy in this language reference for more information on the replacement for <code>__resolve</code>.
+		]]>
+	</description>
+	</warning>
+	<warning id="1070" hidden="true" label="kWarning_LevelNotSupported">_level støttes ikke lenger. Hvis du vil vite mer, kan du se på pakken flash.display.</warning>
+	<warning id="1071" label="kWarning_LevelNotSupported_specific">Migreringsproblem: _level støttes ikke lenger. Hvis du vil vite mer, kan du se på pakken flash.display.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  The property you are attempting to use does not exist in ActionScript 3.0.
+		]]>
+	</description>
+	</warning>
+	
+	<warning id="1072" hidden="true" label="kWarning_ClassIsSealed">Klassen er forseglet. Medlemmer kan ikke legges til dynamisk.</warning>
+	<warning id="1073" label="kWarning_ClassIsSealed_specific">Migreringsproblem: %s er ikke en dynamisk klasse. Det går ikke an å legge medlemmer til forekomster dynamisk.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  In ActionScript 2.0, many classes such as Number are dynamic, which means that new properties can
+be added to instances of those classes at run time.  This warning results from code that tries to add a property to an instance of a non-dynamic class.
+		]]>
+	</description>
+	</warning>
+	<warning id="1082" hidden="true" label="kWarning_ScopingChangeInThis">Endring i omfang for nøkkelordet «this». Klassemetoder som er trukket ut fra en forekomst av en klasse, løser alltid dette tilbake til den forekomsten. I ActionScript 2.0 slås dette opp dynamisk, basert på hvor metoden ble aktivert fra.</warning>
+	<warning id="1083" label="kWarning_ScopingChangeInThis_specific">Migreringsproblem: Metoden %s kommer til å oppføre seg annerledes i ActionScript 3.0, på grunn av endringen i omfanget for nøkkelordet «this». Du finner mer informasjon i oppføringen for advarsel 1083.
+<description>
+		<![CDATA[
+		This is a code migration warning.  This warning is generated when a method of an object is used as a value, usually as a callback function.
+		In ActionScript 2.0, functions are executed in the context they are called from.  In ActionScript 3.0, functions are always
+		executed in the context where they were defined.  Thus, variable and method names are resolved to the class that the callback is part of, rather
+		than relative to the context it is called from, as in the following example:
+		
+<pre><code>class a 
+{ 
+   var x; 
+   function a() { x = 1; } 
+   function b() { trace(x); } 
+}
+
+var A:a = new a();
+var f:Function = a.b; // warning triggered here
+var x = 22;
+f(); // prints 1 in ActionScript 3.0, 22 in ActionScript 2.0</code></pre>		]]>
+	</description>
+	</warning>
+	
+	<warning id="1084" hidden="true" label="kWarning_MissingNamespaceDecl">Mangler deklarasjon for navneområdet (for eksempel er ikke variabelen definert som public, private osv.).</warning>
+	<warning id="1085" label="kWarning_MissingNamespaceDecl_specific">Omfanget til %s settes til standard navneområde: %s internal. Det blir ikke synlig utenfor denne pakken.
+<description>
+	<![CDATA[
+	Not declaring a namespace is a coding style preference.  Enable this warning if you want to be reminded when you forget to declare a namespace or access specifier for a definition.
+	Without one, the definition is not visible to code located outside of this file.  To make it visible to code outside this file, declare it with the access specifier <code>public</code> or with
+	a namespace declaration.  To keep the definition local to this file and avoid this warning, declare the definition as <code>private</code>.
+	]]>
+</description>
+	</warning>
+
+	<warning id="1086" hidden="true" label="kWarning_ForVarInChanges">ActionScript 3.0 gjentas over egenskapene til et objekt innen en "for x in mål"-setning i tilfeldig rekkefølge.</warning>
+	<warning id="1087" label="kWarning_ForVarInChanges_specific">Migreringsproblem: ActionScript 3.0 gjentas over egenskapene til et objekt innen en "for x in mål"-setning i tilfeldig rekkefølge.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  In ActionScript 2.0, the order in which the properties of an object were processed was always the same.  
+In ActionScript 3.0, the order is random and can change from machine to machine.  If unexpected ordering behavior occurs, inspect this loop to determine if this change in behavior may affect your code.
+		]]>
+	</description>
+	</warning>
+	
+	<warning id="1088" hidden="true" label="kWarning_InternalError">Intern feil i kompilatoren.</warning>
+	<warning id="1089" label="kWarning_InternalError_specific">Feilkode: %s.
+	<description>
+		<![CDATA[
+		This is due to either a corrupt source file or a bug in the compiler code.  Please contact the Apache Software Foundation to file a bug.
+		]]>
+	</description>
+	</warning>
+	<warning id="1090" hidden="true" label="kWarning_DepricatedEventHandlerError">EventHandler ble ikke lagt til som et lytteobjekt.</warning>
+	<warning id="1091" label="kWarning_DepricatedEventHandlerError_specific">Migreringsproblem: %s
+	<description>
+		<![CDATA[
+		This is a code migration warning.  In ActionScript 2.0 declaring a method by a special name (such as <code>onMouseDown</code>) would cause Flash to
+call that method when a certain event occurred.  In ActionScript 3.0, you must call <code>addEventListener()</code> with a method in order to register it to 
+receive that event.  See <code>addEventListener</code> in this language reference for details.
+		]]>
+	</description>
+	</warning>
+	
+    <warning id="1092" hidden="true" label="kWarning_NegativeUintLiteral">Negativ verdi blir en stor positiv verdi når den er tilordnet en uint-datatype.</warning>
+    <warning id="1093" label="kWarning_NegativeUintLiteral_specific">Negativ verdi brukt der en uint-verdi (ikke negativ) er forventet.
+	<description>
+		<![CDATA[
+		Assigning a negative value to a uint data type results in an extremely large positive value. <code>var x:uint = -1;  trace(x); // 4294967295</code>.
+		]]>
+	</description>
+	</warning>
+	
+	<warning id="1096" hidden="true" label="kWarning_BadNullComparision">Ulogisk sammenligning med null.</warning>
+	<warning id="1097" label="kWarning_BadNullComparision_specific">Ulogisk sammenligning med null. Variabler av typen %s kan ikke være null.
+	<description>
+		<![CDATA[
+		Instances of Boolean, int, uint, and Number cannot be <code>null</code>.  The comparison operator type converts <code>null</code> to <code>false</code> before
+comparing it to a Boolean, or to 0 before comparing it with a Number, int, or uint data type.
+		]]>
+	</description>
+    </warning>
+	<warning id="1098" hidden="true" label="kWarning_BadNaNComparision">Ulogisk sammenligning med NaN. Enhver sammenligningsoperasjon med NaN evalueres som usann fordi NaN != NaN.</warning>
+	<warning id="1099" label="kWarning_BadNaNComparision_specific">Ulogisk sammenligning med NaN. Denne setningen evalueres alltid som usann.
+	<description>
+		<![CDATA[
+		<code>NaN</code> has the unique mathematical property that any comparison involving it evaluates to <code>false</code>.  Use the global <code>isNaN()</code> function to detect a NaN value instead, as in the following example:
+<pre><code>trace(NaN == NaN); // false!
+trace(NaN != NaN); // false again!
+trace(isNaN(NaN)); // true
+</code></pre>
+]]></description>
+	</warning>
+	
+	<warning id="1100" hidden="true" label="kWarning_AssignmentWithinConditional">Tilordning innen betinget.</warning>
+	<warning id="1101" label="kWarning_AssignmentWithinConditional_specific">Tilordning innen betinget. Mente du == i stedet for =?
+
+<description>
+		<![CDATA[
+		The result of an = assignment statement is the value of the right-hand side of the = statement.
+	    You can use an assignment statement as a conditional test, but it is not recommended. 
+	    It usually is the result of a typo where a == equality test was intended, as the following example shows: 
+<pre><code>var x:Boolean = false;
+var y:Boolean = true;
+// it is hard to determine if the line below intentionally sets x's value to y's or if its a typo
+if (x = y) { trace("x is assigned y's value of true, making the conditional test evaluate as true."); }
+</code></pre>
+]]></description>
+
+
+
+</warning>
+	<warning id="1102" hidden="true" label="kWarning_BadNullAssignment">Umulig nulltilordning.</warning>
+	<warning id="1103" label="kWarning_BadNullAssignment_specific">null brukt der en %s-verdi var forventet. 
+	<description>
+		<![CDATA[
+		Boolean, Number, int, and uint variables cannot be assigned <code>null</code> as a value. The <code>null</code> value is implicitly cast to <code>false</code> when assigned to a Boolean, and to <code>0</code> when assigned to an int, uint, or Number.
+		]]>
+	</description>
+	</warning>
+	<warning id="1104" hidden="true" label="kWarning_NoConstructor">Mangler konstruktør.</warning>
+	<warning id="1105" label="kWarning_NoConstructor_specific">Finner ingen konstruktørfunksjon for klassen %s.
+	<description>
+		<![CDATA[
+		Not specifying a constructor function is a coding style preference.  Enable this warning if you want to always declare constructors for classes.  
+This warning is intended to help find cases where a class name is changed but its constructor's name is not.  
+Conditions such as this are not flagged as a problem without this warning, the former constructor appears to be a normal function.
+		]]>
+	</description>
+    </warning>
+    
+    <warning id="1106" hidden="true" label="kWarning_UnexpectedEmptyStatement">Tom setning.</warning>
+	<warning id="1107" label="kWarning_UnexpectedEmptyStatement_specific">Tom setning funnet der kodeblokk var forventet. Skrev du ";" ved et uhell?
+	<description>
+		<![CDATA[
+		It is common to accidentally type ; before block of code.
+<pre><code> if (x == y);
+{
+	trace("This code will be executed no matter what are the x and y values.")
+}
+</code></pre>
+		]]>
+	</description>
+	</warning>
+    
+	<warning id="1110" hidden="true" label="kWarning_ConstNotInitialized">Konstant er ikke initialisert.</warning>
+	<warning id="1111" label="kWarning_ConstNotInitialized_specific">Konstanten ble ikke initialisert.</warning>
+	<warning id="1112" hidden="true" label="kWarning_BadArrayCast">Muligens ugyldig Array-plasseringsoperasjon.</warning>
+	<warning id="1113" label="kWarning_BadArrayCast_specific">Array(x) oppfører seg på samme måte som nye Array(x). Hvis du vil plassere en verdi til typen Array, bruker du uttrykket x som Array i stedet for Array(x).</warning>
+	<warning id="1114" hidden="true" label="kWarning_NoExplicitSuperCallInConstructor">super()-setningen ble ikke kalt i konstruktøren.</warning>
+	<warning id="1115" label="kWarning_NoExplicitSuperCallInConstructor_specific">super()-setningen blir utført før denne konstruktøren legges inn. Legg til et kall til super() i konstruktøren hvis du ønsker å ha direkte kontroll over når den utføres.
+	<description>
+		<![CDATA[
+		Adding a call to <code>super()</code> within the constructor is a coding style preference.  Enable this warning if you want to always be explicit about when <code>super()</code> is called.
+This can help catch cases where you meant to call <code>super()</code> after some local initialization code and forgot to add it.
+		]]>
+	</description></warning>
+
+	<warning id="2090" hidden="true" label="kUnsupportedProp_version">Bruk Capabilities.version i stedet.</warning>
+	<warning id="2091" hidden="true" label="kUnsupportedProp_Focusrect">Hvis du vil vite mer, kan du se på InteractiveObject.focusRect.</warning>
+	<warning id="2092" hidden="true" label="kUnsupportedProp_Highquality">Hvis du vil vite mer, kan du se på Stage.quality.</warning>
+	<warning id="2093" hidden="true" label="kUnsupportedProp_DisplayObj_HighQuality">Hvis du vil vite mer, kan du se på Stage.quality.</warning>
+	<warning id="2094" hidden="true" label="kUnsupportedProp_DisplayObj_Quality">Hvis du vil vite mer, kan du se på Stage.quality.</warning>
+	<warning id="2095" hidden="true" label="kUnsupportedProp_Quality">Hvis du vil vite mer, kan du se på Stage.quality.</warning>
+	<warning id="2096" hidden="true" label="kUnsupportedProp_TextField_Soundbuftime">Bruk den statiske egenskapen flash.media.SoundMixer.bufferTime i stedet.</warning>
+	<warning id="2097" hidden="true" label="kUnsupportedProp_TextField_Target">Denne funksjonaliteten støttes ikke lenger.</warning>
+	<warning id="2098" hidden="true" label="kUnsupportedProp_TextField_Url">Hvis du vil vite mer, kan du se på LoaderInfo.url.</warning>
+	<warning id="2099" hidden="true" label="kUnsupportedProp_TextField_Variable">Denne funksjonaliteten støttes ikke lenger.</warning>
+	<warning id="2102" hidden="true" label="kUnsupportedProp_NewLine">Bruk \n for ny linje.</warning>
+	<warning id="2103" hidden="true" label="kUnsupportedProp_MaxScroll">Hvis du vil vite mer, kan du se på textField.maxScroll.</warning>
+	<warning id="2104" hidden="true" label="kUnsupportedProp_Level">Nivåkonseptet finnes ikke i ActionScript 3.0. Den gir i stedet direkte tilgang til visningslisten. Du finner mer informasjon i flash.display-pakken.</warning>
+	<warning id="2105" hidden="true" label="kUnsupportedProp_Parent">Bruk egenskapen parent i stedet.</warning>
+	<warning id="2106" hidden="true" label="kUnsupportedProp_Root">Denne egenskapen er fjernet. Stage er den nærmest tilsvarende egenskapen, som også er root for visningslisten til ActionScript 3.0.</warning>
+	<warning id="2107" hidden="true" label="kUnsupportedProp_Arguments_Caller">Prøv å deklarere kalleren som et argument i funksjonen i stedet.</warning>
+	<warning id="2108" hidden="true" label="kUnsupportedProp_Button_Target">Denne funksjonaliteten støttes ikke lenger.</warning>
+	<warning id="2109" hidden="true" label="kUnsupportedProp_MovieClip_Parent">Bruk egenskapen parent i stedet.</warning>
+	<warning id="2110" hidden="true" label="kUnsupportedProp_MovieClip_target">Denne funksjonaliteten støttes ikke lenger.</warning>
+	<warning id="2111" hidden="true" label="kUnsupportedProp_MovieClip_hitArea">Hvis du vil vite mer, kan du se på Sprite.hitArea.</warning>
+	<warning id="2112" hidden="true" label="kUnsupportedProp_Scroll">Hvis du vil vite mer, kan du se på egenskapene scrollH og scrollV for klassen flash.text.TextField.</warning>
+	<warning id="2113" hidden="true" label="kUnsupportedProp_TargetPath">Bruk MovieClip-objekter som argumenter direkte i stedet for som baner.</warning>
+	<warning id="2114" hidden="true" label="kUnsupportedProp_Video_Height">Hvis du vil vite mer, kan du se på Video.videoHeight.</warning>
+	<warning id="2115" hidden="true" label="kUnsupportedProp_Video_Width">Hvis du vil vite mer, kan du se på Video.videoWidth.</warning>
+	<warning id="2116" hidden="true" label="kUnsupportedProp__Proto__">Hvis du vil vite mer, kan du se på foreldede __proto__.</warning>
+	<warning id="2117" hidden="true" label="kUnsupportedProp_Stage">Hvis du vil vite mer, kan du se på DisplayObject.stage.</warning>
+	<warning id="2118" hidden="true" label="kUnsupportedProp__remoteClass">Bruk metoden registerClass() i pakken flash.net i stedet.</warning>
+	<warning id="2617" hidden="true" label="kUnsupportedMeth_random">Bruk Math.random() i stedet.</warning>
+	<warning id="2618" hidden="true" label="kUnsupportedMeth_chr">Bruk String.fromCharCode() i stedet.</warning>
+	<warning id="2619" hidden="true" label="kUnsupportedMeth_mbchr">Bruk String.fromCharCode() i stedet.</warning>
+	<warning id="2621" hidden="true" label="kUnsupportedMeth_ord">Bruk String.charCodeAt() i stedet.</warning>
+	<warning id="2622" hidden="true" label="kUnsupportedMeth_mbord">Bruk String.charCodeAt() i stedet.</warning>
+	<warning id="2623" hidden="true" label="kUnsupportedMeth_substring">Bruk metoden String.substr i stedet.</warning>
+	<warning id="2624" hidden="true" label="kUnsupportedMeth_mbsubstring">Bruk metoden String.substr i stedet.</warning>
+	<warning id="2625" hidden="true" label="kUnsupportedMeth_length">Bruk lengdeegenskapen til argumentet i stedet.</warning>
+	<warning id="2626" hidden="true" label="kUnsupportedMeth_mblength">Bruk lengdeegenskapen til argumentet i stedet.</warning>
+	<warning id="2627" hidden="true" label="kUnsupportedMeth_ASNative">Hvis du vil vite mer, kan du se på endringene i ASnative.</warning>
+	<warning id="2628" hidden="true" label="kUnsupportedMeth_addProperty">Angi egenskaper direkte på forekomsten med punktnotasjon (.) i stedet.</warning>
+	<warning id="2629" hidden="true" label="kUnsupportedMeth_getProperty">Bruk direkte tilgang til egenskaper med punktnotasjon (.) i stedet.</warning>
+	<warning id="2630" hidden="true" label="kUnsupportedMeth_setProperty">Angi egenskaper direkte på forekomsten med punktnotasjon (.) i stedet.</warning>
+	<warning id="2631" hidden="true" label="kUnsupportedMeth_asfunction">Hvis du vil vite mer, kan du se på TextEvent.LINK og addEventListener().</warning>
+	<warning id="2633" hidden="true" label="kUnsupportedMeth_clearInterval">Denne metoden har flyttet til pakken flash.utils.</warning>
+	<warning id="2634" hidden="true" label="kUnsupportedMeth_duplicateMovieClip">Byttet ut med ny MovieClip-klassekonstruktørfunksjon.</warning>
+	<warning id="2636" hidden="true" label="kUnsupportedMeth_fscommand">Flyttet til flash.system-pakke. Se også klassen flash.external.ExternalInterface for Javascript/ActionScript-kommunikasjon.</warning>
+	<warning id="2638" hidden="true" label="kUnsupportedMeth_getURL">Du finner tilsvarende funksjonalitet i flash.net.URLLoader. Pakken flash.net inneholder også pakkenivåfunksjonene navigateToURL() og sendToURL().</warning>
+	<warning id="2639" hidden="true" label="kUnsupportedMeth_gotoAndPlay">Hvis du vil vite mer, kan du se på MovieClip.gotoAndPlay().</warning>
+	<warning id="2640" hidden="true" label="kUnsupportedMeth_gotoAndStop">Hvis du vil vite mer, kan du se på MovieClip.gotoAndStop().</warning>
+	<warning id="2641" hidden="true" label="kUnsupportedMeth_play">Hvis du vil vite mer, kan du se på MovieClip.play().</warning>
+	<warning id="2642" hidden="true" label="kUnsupportedMeth_print">Hvis du vil vite mer, kan du se på PrintJob.start().</warning>
+	<warning id="2643" hidden="true" label="kUnsupportedMeth_printAsBitmap">Hvis du vil vite mer, kan du se på PrintJob.</warning>
+	<warning id="2644" hidden="true" label="kUnsupportedMeth_printAsBitmapNum">Hvis du vil vite mer, kan du se på PrintJob.</warning>
+	<warning id="2645" hidden="true" label="kUnsupportedMeth_printNum">Hvis du vil vite mer, kan du se på PrintJob.</warning>
+	<warning id="2646" hidden="true" label="kUnsupportedMeth_removeMovieClip">Bruk Container.removeChild(childName). Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+	<warning id="2647" hidden="true" label="kUnsupportedMeth_setInterval">Flyttet til flash.utils-pakke. Prøv å bruke Timer-klassen i stedet.</warning>
+	<warning id="2648" hidden="true" label="kUnsupportedMeth_nextFrame">Hvis du vil vite mer, kan du se på MovieClip.nextFrame().</warning>
+	<warning id="2649" hidden="true" label="kUnsupportedMeth_startDrag">Hvis du vil vite mer, kan du se på MovieClip.startDrag().</warning>
+	<warning id="2650" hidden="true" label="kUnsupportedMeth_stop">Hvis du vil vite mer, kan du se på MovieClip.stop().</warning>
+	<warning id="2651" hidden="true" label="kUnsupportedMeth_stopAllSounds">Hvis du vil vite mer, kan du se på Sound.stopAllSounds().</warning>
+	<warning id="2652" hidden="true" label="kUnsupportedMeth_stopDrag">Hvis du vil vite mer, kan du se på MovieClip.stopDrag().</warning>
+	<warning id="2653" hidden="true" label="kUnsupportedMeth_tellTarget">Bruk punktoperatoren (.) eller with-setningen i stedet.</warning>
+	<warning id="2654" hidden="true" label="kUnsupportedMeth_toggleHighQuality">Hvis du vil vite mer, kan du se på DisplayObject.stage og Stage.quality.</warning>
+	<warning id="2656" hidden="true" label="kUnsupportedMeth_unloadMovie">Bruk Use DisplayObjectContainer.removeChild(childName) i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+	<warning id="2657" hidden="true" label="kUnsupportedMeth_unloadMovieNum">Bruk Use DisplayObjectContainer.removeChild(childName) i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+	<warning id="2658" hidden="true" label="kUnsupportedMeth_updateAfterEvent">Denne funksjonen er ikke lenger en global funksjon, men er fremdeles tilgjengelig som en metode for klassene TimerEvent, MouseEvent og KeyboardEvent.</warning>
+	<warning id="2659" hidden="true" label="kUnsupportedMeth_Video_attachVideo">Hvis du vil vite mer, kan du se på Video.attachNetStream, Video.attachCamera.</warning>
+	<warning id="2660" hidden="true" label="kUnsupportedMeth_TextField_StyleSheet_load">Bruk URLLoader-klassen til å utføre innlasting, og send resultatet til StyleSheet.parseCSS()</warning>
+	<warning id="2663" hidden="true" label="kUnsupportedMeth_Object_registerClass">I ActionScript 3.0 er alle klasser registrert som standard. Hvis du bruker AMF, kan du finne mer informasjon i flash.utils.registerClassAlias().</warning>
+	<warning id="2664" hidden="true" label="kUnsupportedMeth_Object_unwatch">Bruk aksessoregenskaper (get/set-funksjoner) eller klassen flash.utils.Proxy for å få lignende funksjonalitet.</warning>
+	<warning id="2665" hidden="true" label="kUnsupportedMeth_Object_watch">Bruk aksessoregenskaper (get/set-funksjoner) eller klassen flash.utils.Proxy for å få lignende funksjonalitet.</warning>
+	<warning id="2666" hidden="true" label="kUnsupportedMeth_loadMovie">Hvis du vil vite mer, kan du se på MovieClip.loadMovie().</warning>
+	<warning id="2667" hidden="true" label="kUnsupportedMeth_loadMovieNum">Hvis du vil vite mer, kan du se på MovieClip.loadMovieNum().</warning>
+	<warning id="2668" hidden="true" label="kUnsupportedMeth_loadVariables">Hvis du vil vite mer, kan du se på Loader.load().</warning>
+	<warning id="2669" hidden="true" label="kUnsupportedMeth_loadVariablesNum">Hvis du vil vite mer, kan du se på Loader.load().</warning>
+	<warning id="2678" hidden="true" label="kUnsupportedMeth_Stage_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+	<warning id="2679" hidden="true" label="kUnsupportedMeth_Stage_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+	<warning id="2680" hidden="true" label="kUnsupportedMeth_TextField_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+	<warning id="2681" hidden="true" label="kUnsupportedMeth_TextField_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+	<warning id="2682" hidden="true" label="kUnsupportedMeth_Mouse_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+	<warning id="2683" hidden="true" label="kUnsupportedMeth_Mouse_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+	<warning id="2684" hidden="true" label="kUnsupportedMeth_Keyboard_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+	<warning id="2685" hidden="true" label="kUnsupportedMeth_Keyboard_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+	<warning id="2686" hidden="true" label="kUnsupportedMeth_Sound_attachSound">Bruk SWF-klassen til å lage lyder fra biblioteket</warning>
+	<warning id="3187" hidden="true" label="kWarning_Event_onStatus">Hendelsesbehandleren onStatus utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (status, callback_handler).</warning>
+	<warning id="3188" hidden="true" label="kWarning_Event_onID3">Hendelsesbehandleren onID3 utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (id3, callback_handler).</warning>
+	<warning id="3189" hidden="true" label="kWarning_Event_onLoad">Hendelsesbehandleren onLoad utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (load, callback_handler).</warning>
+	<warning id="3190" hidden="true" label="kWarning_Event_onSoundComplete">Hendelsesbehandleren onSoundComplete utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (soundComplete, callback_handler).</warning>
+	<warning id="3191" hidden="true" label="kWarning_Event_onSetFocus">Hendelsesbehandleren onSetFocus utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (focusIn, callback_handler).</warning>
+	<warning id="3192" hidden="true" label="kWarning_Event_onResize">Hendelsesbehandleren onResize utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (resize, callback_handler).</warning>
+	<warning id="3193" hidden="true" label="kWarning_Event_onChanged">Hendelsesbehandleren onChanged utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (change, callback_handler).</warning>
+	<warning id="3194" hidden="true" label="kWarning_Event_onKillFocus">Hendelsesbehandleren onKillFocus utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (focusOut, callback_handler).</warning>
+	<warning id="3195" hidden="true" label="kWarning_Event_onScroller">Hendelsesbehandleren onScroller utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (scroll, callback_handler).</warning>
+	<warning id="3198" hidden="true" label="kWarning_Event_onMouseDown">Hendelsesbehandleren onMouseDown utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseDown, callback_handler).</warning>
+	<warning id="3199" hidden="true" label="kWarning_Event_onMouseUp">Hendelsesbehandleren onMouseUp utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseUp, callback_handler).</warning>
+	<warning id="3200" hidden="true" label="kWarning_Event_onMouseMove">Hendelsesbehandleren onMouseMove utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseMove, callback_handler).</warning>
+	<warning id="3201" hidden="true" label="kWarning_Event_onMouseWheel">Hendelsesbehandleren onMouseWheel utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseWheel, callback_handler).</warning>
+	<warning id="3202" hidden="true" label="kWarning_Event_onKeyDown">Hendelsesbehandleren onKeyDown utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (keyDown, callback_handler).</warning>
+	<warning id="3203" hidden="true" label="kWarning_Event_onKeyUp">Hendelsesbehandleren onKeyUp utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (keyUp, callback_handler).</warning>
+	<warning id="3204" hidden="true" label="kWarning_Event_onData">Hendelsesbehandleren onData utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (data, callback_handler).</warning>
+	<warning id="3205" hidden="true" label="kWarning_Event_onHTTPStatus">Hendelsesbehandleren onHTTPStatus utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (httpStatus, callback_handler).</warning>
+	<warning id="3206" hidden="true" label="kWarning_Event_onDragOut">Hendelsesbehandleren onDragOut utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseOut, callback_handler).</warning>
+	<warning id="3207" hidden="true" label="kWarning_Event_onDragOver">Hendelsesbehandleren onDragOver utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseOver, callback_handler).</warning>
+	<warning id="3211" hidden="true" label="kWarning_Event_onPress">Hendelsesbehandleren onPress utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseDown, callback_handler).</warning>
+	<warning id="3212" hidden="true" label="kWarning_Event_onRelease">Hendelsesbehandleren onRelease utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (click, callback_handler).</warning>
+	<warning id="3213" hidden="true" label="kWarning_Event_onReleaseOutside">Hendelsesbehandleren onReleaseOutside utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseUp, callback_handler).</warning>
+	<warning id="3214" hidden="true" label="kWarning_Event_onRollOut">Hendelsesbehandleren onRollOut utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseOut, callback_handler).</warning>
+	<warning id="3215" hidden="true" label="kWarning_Event_onRollOver">Hendelsesbehandleren onRollOver utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (mouseOver, callback_handler).</warning>
+	<warning id="3217" hidden="true" label="kWarning_Event_onActivity">Hendelsesbehandleren onActivity utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (activity, callback_handler).</warning>
+	<warning id="3219" hidden="true" label="kWarning_Event_onSelect">Hendelsesbehandleren onSelect utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (menuSelect, callback_handler).</warning>
+	<warning id="3226" hidden="true" label="kWarning_Event_onEnterFrame">onEnterFrame utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (enterFrame, callback_handler).</warning>
+	<warning id="3240" hidden="true" label="kWarning_Event_onUnload">Hendelsesbehandleren onUnload utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (unload, callback_handler).</warning>
+	<warning id="3241" hidden="true" label="kWarning_Event_onLoadComplete">onLoadComplete utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (load, callback_handler).</warning>
+	<warning id="3242" hidden="true" label="kWarning_Event_onLoadError">Hendelsesbehandleren onLoadError utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (error, callback_handler).</warning>
+	<warning id="3243" hidden="true" label="kWarning_Event_onLoadInit">Hendelsesbehandleren onLoadInit utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (init, callback_handler).</warning>
+	<warning id="3244" hidden="true" label="kWarning_Event_onLoadProgress">Hendelsesbehandleren onLoadProgress utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (progress, callback_handler).</warning>
+	<warning id="3245" hidden="true" label="kWarning_Event_onLoadStart">onLoadStart utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (start, callback_handler).</warning>
+	<warning id="3249" hidden="true" label="kWarning_Event_onClose">Hendelsesbehandleren onClose utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (close, callback_handler).</warning>
+	<warning id="3250" hidden="true" label="kWarning_Event_onConnect">Hendelsesbehandleren onConnect utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (connect, callback_handler).</warning>
+	<warning id="3252" hidden="true" label="kWarning_Event_onXML">onXML utløses ikke automatisk av Flash Player i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (xml, callback_handler).</warning>
+	<warning id="3253" hidden="true" label="kUnsupportedMeth_hasChildNodes">Bruk egenskapen hasChildNodes i stedet.</warning>
+
+  <warning id="3254" hidden="true" label="kUnsupportedMeth_XMLEvent">XMLEvent-klassen er utdatert, og xml-hendelsen sendes ikke lenger. Bare datahendelsen sendes ved fillasting.</warning>
+  <warning id="3255" hidden="true" label="kUnsupportedMeth_XMLDoc">XMLDoc-klassen heter nå XMLDocument.</warning>
+  <warning id="3256" hidden="true" label="kUnsupportedMeth_Accessibility_isActive">Bruk egenskapen Accessibility.active i stedet.</warning>
+  <warning id="3257" hidden="true" label="kUnsupportedProp_ActivityEvent_ACTIVITY_TYPE">Bruk konstanten ActivityEvent.ACTIVITY i stedet.</warning>
+  <warning id="3258" hidden="true" label="kUnsupportedMeth_SimpleButton_getDepth">Bruk DisplayObjectContainer.parent.getChildIndex i stedet. Se hjelpen for klassen DisplayObjectContainer, som utvides av MovieClip.</warning>
+  <warning id="3259" hidden="true" label="kUnsupportedMeth_SimpleButton_swapDepths">Bruk DisplayObjectContainer.parent.setChildIndex i stedet. Se hjelpen for klassen DisplayObjectContainer, som utvides av MovieClip.</warning>
+  <warning id="3260" hidden="true" label="kUnsupportedMeth_SimpleButton_getInstanceAtDepth">Bruk DisplayObjectContainer.getChildAt i stedet. Se hjelpen for klassen DisplayObjectContainer, som utvides av MovieClip.</warning>
+  <warning id="3261" hidden="true" label="kUnsupportedMeth_SimpleButton_getNextHighestDepth">Bruk DisplayObjectContainer.numChildren i stedet. DisplayObjectContainer.addChild legger alltid den nye underordnede til indeksen DisplayObjectContainer.numChildren.</warning>
+  <warning id="3262" hidden="true" label="kUnsupportedMeth_ByteArray_available">Bruk egenskapen ByteArray.bytesAvailable i stedet.</warning>
+  <warning id="3263" hidden="true" label="kUnsupportedMeth_ByteArray_getFilePointer">Bruk egenskapen ByteArray.position i stedet.</warning>
+  <warning id="3264" hidden="true" label="kUnsupportedMeth_ByteArray_seek">Bruk egenskapen ByteArray.position i stedet.</warning>
+  <warning id="3265" hidden="true" label="kUnsupportedMeth_Camera_get">Bruk metoden Camera.getCamera() i stedet.</warning>
+  <warning id="3266" hidden="true" label="kUnsupportedProp_Camera_currentFps">Bruk egenskapen Camera.currentFPS i stedet.</warning>
+  <warning id="3267" hidden="true" label="kUnsupportedMeth_Camera_setKeyFrameInterval">Bruk egenskapen Camera.keyFrameInterval i stedet.</warning>
+  <warning id="3268" hidden="true" label="kUnsupportedMeth_Camera_setLoopback">Bruk egenskapen Camera.loopback i stedet.</warning>
+  <warning id="3269" hidden="true" label="kUnsupportedMeth_ColorTransform_getRGB">Bruk egenskapen ColorTransform.color i stedet.</warning>
+  <warning id="3270" hidden="true" label="kUnsupportedMeth_ColorTransform_setRGB">Bruk egenskapen ColorTransform.color i stedet.</warning>
+  <warning id="3271" hidden="true" label="kUnsupportedMeth_DisplayObjectContainer_getTextSnapshot">Bruk egenskapen Container.textSnapshot i stedet.</warning>
+  <warning id="3272" hidden="true" label="kUnsupportedMeth_ContextMenu_copy">Bruk metoden ContextMenu.clone() i stedet.</warning>
+  <warning id="3273" hidden="true" label="kUnsupportedProp_ContextMenu_forward_back">Bruk egenskapen ContextMenu.forwardAndBack i stedet.</warning>
+  <warning id="3274" hidden="true" label="kUnsupportedMeth_ContextMenuItem_copy">Bruk metoden ContextMenuItem.clone() i stedet.</warning>
+  <warning id="3275" hidden="true" label="kUnsupportedMeth_CustomActions_listActions">Bruk egenskapen CustomActions.actionsList i stedet.</warning>
+  <warning id="3276" hidden="true" label="kUnsupportedProp_DataEvent_DATA_TYPE">Bruk konstanten DataEvent.DATA i stedet.</warning>
+  <warning id="3277" hidden="true" label="kUnsupportedProp_DisplayObject_xscale">Bruk egenskapen DisplayObject.scaleX i stedet.</warning>
+  <warning id="3278" hidden="true" label="kUnsupportedProp_DisplayObject__xscale">Bruk egenskapen DisplayObject.scaleX i stedet.</warning>
+  <warning id="3279" hidden="true" label="kUnsupportedProp_DisplayObject_yscale">Bruk egenskapen DisplayObject.scaleY i stedet.</warning>
+  <warning id="3280" hidden="true" label="kUnsupportedProp_DisplayObject__yscale">Bruk egenskapen DisplayObject.scaleY i stedet.</warning>
+  <warning id="3281" hidden="true" label="kUnsupportedProp_DisplayObject_xmouse">Bruk egenskapen DisplayObject.mouseX i stedet.</warning>
+  <warning id="3282" hidden="true" label="kUnsupportedProp_DisplayObject__xmouse">Bruk egenskapen DisplayObject.mouseX i stedet.</warning>
+  <warning id="3283" hidden="true" label="kUnsupportedProp_DisplayObject_ymouse">Bruk egenskapen DisplayObject.mouseY i stedet.</warning>
+  <warning id="3284" hidden="true" label="kUnsupportedProp_DisplayObject__ymouse">Bruk egenskapen DisplayObject.mouseY i stedet.</warning>
+  <warning id="3285" hidden="true" label="kUnsupportedProp_DisplayObject_setRootClass">Denne funksjonen støttes ikke lenger.</warning>
+  <warning id="3286" hidden="true" label="kUnsupportedProp_DisplayObject_mapSymbolToClass">Denne funksjonen støttes ikke lenger.</warning>
+  <warning id="3287" hidden="true" label="kUnsupportedProp_DisplayObject__name">Bruk egenskapen DisplayObject.name i stedet.</warning>
+  <warning id="3288" hidden="true" label="kUnsupportedProp_DisplayObject__parent">Bruk egenskapen DisplayObject.parent i stedet.</warning>
+  <warning id="3289" hidden="true" label="kUnsupportedProp_DisplayObject__mask">Bruk egenskapen DisplayObject.mask i stedet.</warning>
+  <warning id="3290" hidden="true" label="kUnsupportedProp_DisplayObject__visible">Bruk egenskapen DisplayObject.visible i stedet.</warning>
+  <warning id="3291" hidden="true" label="kUnsupportedProp_DisplayObject__x">Bruk egenskapen DisplayObject.x i stedet.</warning>
+  <warning id="3292" hidden="true" label="kUnsupportedProp_DisplayObject__y">Bruk egenskapen DisplayObject.y i stedet.</warning>
+  <warning id="3293" hidden="true" label="kUnsupportedProp_DisplayObject__rotation">Bruk egenskapen DisplayObject.rotation i stedet.</warning>
+  <warning id="3294" hidden="true" label="kUnsupportedProp_DisplayObject__alpha">Bruk egenskapen DisplayObject.alpha i stedet.</warning>
+  <warning id="3295" hidden="true" label="kUnsupportedProp_DisplayObject__width">Bruk egenskapen DisplayObject.width i stedet.</warning>
+  <warning id="3296" hidden="true" label="kUnsupportedProp_DisplayObject__height">Bruk egenskapen DisplayObject.height i stedet.</warning>
+  <warning id="3297" hidden="true" label="kUnsupportedMeth_ExternalInterface_available">Bruk egenskapen ExternalInterface.available i stedet.</warning>
+  <warning id="3298" hidden="true" label="kUnsupportedProp_ErrorEvent_ERROR_TYPE">Bruk konstanten ErrorEvent.ERROR i stedet.</warning>
+  <warning id="3299" hidden="true" label="kUnsupportedMeth_Event_isDefaultPrevented">Bruk egenskapen Event.isDefaultPrevented i stedet.</warning>
+  <warning id="3300" hidden="true" label="kUnsupportedProp_Event_ACTIVATE_TYPE">Bruk konstanten Event.ACTIVATE i stedet.</warning>
+  <warning id="3301" hidden="true" label="kUnsupportedProp_Event_ADDED_TYPE">Bruk konstanten Event.ADDED i stedet.</warning>
+  <warning id="3302" hidden="true" label="kUnsupportedProp_Event_CANCEL_TYPE">Bruk konstanten Event.CANCEL i stedet.</warning>
+  <warning id="3303" hidden="true" label="kUnsupportedProp_Event_CHANGE_TYPE">Bruk konstanten Event.CHANGE i stedet.</warning>
+  <warning id="3304" hidden="true" label="kUnsupportedProp_Event_CLOSE_TYPE">Bruk konstanten Event.CLOSE i stedet.</warning>
+  <warning id="3305" hidden="true" label="kUnsupportedProp_Event_COMPLETE_TYPE">Bruk konstanten Event.COMPLETE i stedet.</warning>
+  <warning id="3306" hidden="true" label="kUnsupportedProp_Event_CONNECT_TYPE">Bruk konstanten Event.CONNECT i stedet.</warning>
+  <warning id="3307" hidden="true" label="kUnsupportedProp_Event_DEACTIVATE_TYPE">Bruk konstanten Event.DEACTIVATE i stedet.</warning>
+  <warning id="3308" hidden="true" label="kUnsupportedProp_Event_ENTER_FRAME_TYPE">Bruk konstanten Event.ENTER_FRAME i stedet.</warning>
+  <warning id="3309" hidden="true" label="kUnsupportedProp_Event_ID3_TYPE">Bruk konstanten Event.ID3 i stedet.</warning>
+  <warning id="3310" hidden="true" label="kUnsupportedProp_Event_INIT_TYPE">Bruk konstanten Event.INIT i stedet.</warning>
+  <warning id="3311" hidden="true" label="kUnsupportedProp_Event_MOUSE_LEAVE_TYPE">Bruk konstanten Event.MOUSE_LEAVE i stedet.</warning>
+  <warning id="3312" hidden="true" label="kUnsupportedProp_Event_OPEN_TYPE">Bruk konstanten Event.OPEN i stedet.</warning>
+  <warning id="3313" hidden="true" label="kUnsupportedProp_Event_REMOVED_TYPE">Bruk konstanten Event.REMOVED i stedet.</warning>
+  <warning id="3314" hidden="true" label="kUnsupportedProp_Event_RENDER_TYPE">Bruk konstanten Event.RENDER i stedet.</warning>
+  <warning id="3315" hidden="true" label="kUnsupportedProp_Event_RESIZE_TYPE">Bruk konstanten Event.RESIZE i stedet.</warning>
+  <warning id="3316" hidden="true" label="kUnsupportedProp_Event_SCROLL_TYPE">Bruk konstanten Event.SCROLL i stedet.</warning>
+  <warning id="3317" hidden="true" label="kUnsupportedProp_Event_SELECT_TYPE">Bruk konstanten Event.SELECT i stedet.</warning>
+  <warning id="3318" hidden="true" label="kUnsupportedProp_Event_SOUND_COMPLETE_TYPE">Bruk konstanten Event.SOUND_COMPLETE i stedet.</warning>
+  <warning id="3319" hidden="true" label="kUnsupportedProp_Event_TAB_CHILDREN_CHANGE_TYPE">Bruk konstanten Event.TAB_CHILDREN_CHANGE i stedet.</warning>
+  <warning id="3320" hidden="true" label="kUnsupportedProp_Event_TAB_ENABLED_CHANGE_TYPE">Bruk konstanten Event.TAB_ENABLED_CHANGE i stedet.</warning>
+  <warning id="3321" hidden="true" label="kUnsupportedProp_Event_TAB_INDEX_CHANGE_TYPE">Bruk konstanten Event.TAB_INDEX_CHANGE i stedet.</warning>
+  <warning id="3322" hidden="true" label="kUnsupportedProp_Event_UNLOAD_TYPE">Bruk konstanten Event.UNLOAD i stedet.</warning>
+  <warning id="3323" hidden="true" label="kUnsupportedProp_FocusEvent_FOCUS_IN_TYPE">Bruk konstanten FocusEvent.FOCUS_IN i stedet.</warning>
+  <warning id="3324" hidden="true" label="kUnsupportedProp_FocusEvent_FOCUS_OUT_TYPE">Bruk konstanten FocusEvent.FOCUS_OUT i stedet.</warning>
+  <warning id="3325" hidden="true" label="kUnsupportedProp_FocusEvent_KEY_FOCUS_CHANGE_TYPE">Bruk konstanten FocusEvent.KEY_FOCUS_CHANGE i stedet.</warning>
+  <warning id="3326" hidden="true" label="kUnsupportedProp_FocusEvent_MOUSE_FOCUS_CHANGE_TYPE">Bruk konstanten FocusEvent.MOUSE_FOCUS_CHANGE i stedet.</warning>
+  <warning id="3327" hidden="true" label="kUnsupportedMeth_Graphics_beginImageFill">Bruk metoden Graphics.beginBitmapFill() i stedet.</warning>
+  <warning id="3328" hidden="true" label="kUnsupportedProp_BitmapFilter_XYZ_QUALITY">Bruk egenskapen BitmapFilter.quality i stedet.</warning>
+  <warning id="3329" hidden="true" label="kUnsupportedMeth_Keyboard_getAscii">Bruk KeyboardEvent.charCode i stedet.</warning>
+  <warning id="3330" hidden="true" label="kUnsupportedMeth_Keyboard_getCode">Bruk KeyboardEvent.keyCode i stedet.</warning>
+  <warning id="3331" hidden="true" label="kUnsupportedMeth_Keyboard_isDown">Hvis du vil vite mer, kan du se på klassen KeyboardEvent.</warning>
+  <warning id="3332" hidden="true" label="kUnsupportedMeth_Keyboard_isToggled">Hvis du vil vite mer, kan du se på KeyboardEvent.ctrlKey, KeyboardEvent.altKey og KeyboardEvent.shiftKey.</warning>
+  <warning id="3333" hidden="true" label="kUnsupportedProp_Keyboard_PGDN">Bruk konstanten PAGE_DOWN i stedet.</warning>
+  <warning id="3334" hidden="true" label="kUnsupportedProp_Keyboard_PGUP">Bruk konstanten PAGE_UP i stedet.</warning>
+  <warning id="3335" hidden="true" label="kUnsupportedProp_Keyboard_DELETEKEY">Bruk konstanten DELETE i stedet.</warning>
+  <warning id="3336" hidden="true" label="kUnsupportedProp_Keyboard_CAPSLOCK">Bruk konstanten CAPS_LOCK i stedet.</warning>
+  <warning id="3337" hidden="true" label="kUnsupportedProp_Keyboard_NUMPAD">Bruk en av konstantene NUMPAD_0 -> NUMPAD_9 i stedet.</warning>
+ 
+  <warning id="3338" hidden="true" label="kUnsupportedProp_InteractiveObject__focusrect">Bruk egenskapen InteractiveObject.focusRect i stedet.</warning>
+  <warning id="3339" hidden="true" label="kUnsupportedProp_InteractiveObject_menu">Bruk egenskapen InteractiveObject.contextMenu i stedet.</warning>
+  <warning id="3340" hidden="true" label="kUnsupportedProp_KeyboardEvent_ascii">Bruk egenskapen KeyboardEvent.charCode i stedet.</warning>
+  <warning id="3341" hidden="true" label="kUnsupportedProp_KeyboardEvent_code">Bruk egenskapen KeyboardEvent.keyCode i stedet.</warning>
+  <warning id="3342" hidden="true" label="kUnsupportedProp_Loader_loaderInfo">Bruk egenskapen KeyboardEvent.contentLoaderInfo i stedet.</warning>
+  <warning id="3343" hidden="true" label="kUnsupportedProp_Loader_preload">Denne funksjonen støttes ikke lenger.</warning>
+  <warning id="3344" hidden="true" label="kUnsupportedProp_Loader_loadCached">Denne funksjonen støttes ikke lenger.</warning>
+  <warning id="3345" hidden="true" label="kUnsupportedProp_LoaderInfo_loaderUrl">Bruk egenskapen LoaderInfo.loaderURL i stedet.</warning>
+  <warning id="3346" hidden="true" label="kUnsupportedMeth_LocalConnection_domain">Bruk egenskapen LocalConnection.domain i stedet.</warning>
+  <warning id="3347" hidden="true" label="kUnsupportedProp_ContextMenuEvent_menuOwner">Bruk egenskapen MenuEvent.contextMenuOwner i stedet.</warning>
+  <warning id="3348" hidden="true" label="kUnsupportedMeth_Microphone_get">Bruk metoden Microphone.getMicrophone() i stedet.</warning>
+  <warning id="3349" hidden="true" label="kUnsupportedMeth_MovieClip_attachMovie">Hvis MovieClip-underklassenavnet er A, bruker du var mc= new A(); addChild(mc). Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+  <warning id="3350" hidden="true" label="kUnsupportedMeth_MovieClip_createEmptyMovieClip">Bruk var mc= new MovieClip(); addChild(mc). Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+  <warning id="3351" hidden="true" label="kUnsupportedMeth_MovieClip_createTextField">Bruk var tf= new TextField(); addChild(mc). Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+  <warning id="3352" hidden="true" label="kUnsupportedMeth_MovieClip_removeMovieClip">Bruk Container.removeChild(childName). Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+  <warning id="3353" hidden="true" label="kUnsupportedMeth_MovieClip_loadMovie">Bruk var l = new Loader(); addChild(l); l.load(new URLRequest("din url"));. Hvis du vil vite mer, kan du se på klassene Loader og DisplayObjectContainer.</warning>
+  <warning id="3354" hidden="true" label="kUnsupportedMeth_MovieClip_unloadMovie">Bruk Use DisplayObjectContainer.removeChild(childName) i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+  <warning id="3355" hidden="true" label="kUnsupportedMeth_MovieClip_unloadMovieNum">Bruk Use DisplayObjectContainer.removeChild(childName) i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer.</warning>
+  <warning id="3356" hidden="true" label="kUnsupportedMeth_MovieClip_getDepth">Bruk DisplayObjectContainer.parent.getChildIndex i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer, som MovieClip forlenger.</warning>
+  <warning id="3357" hidden="true" label="kUnsupportedMeth_MovieClip_swapDepths">Bruk DisplayObjectContainer.parent.setChildIndex i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer, som MovieClip forlenger.</warning>
+  <warning id="3358" hidden="true" label="kUnsupportedMeth_MovieClip_getInstanceAtDepth">Bruk DisplayObjectContainer.getChildAt i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer, som MovieClip forlenger.</warning>
+  <warning id="3359" hidden="true" label="kUnsupportedMeth_MovieClip_getNextHighestDepth">Bruk DisplayObjectContainer.numChildren i stedet. DisplayObjectContainer.addChild legger alltid den nye underordnede til indeksen DisplayObjectContainer.numChildren.</warning>
+  <warning id="3360" hidden="true" label="kUnsupportedMeth_MovieClip_attachAudio">Hvis du vil vite mer, kan du se på DisplayObject.addChild.</warning>
+  <warning id="3361" hidden="true" label="kUnsupportedMeth_MovieClip_getBytesLoaded">Hvis du vil vite mer, kan du se på LoaderInfo.bytesLoaded og Loader-klassen.</warning>
+  <warning id="3362" hidden="true" label="kUnsupportedMeth_MovieClip_getBytesTotal">Hvis du vil vite mer, kan du se på LoaderInfo.bytesTotal og Loader-klassen.</warning>
+  <warning id="3363" hidden="true" label="kUnsupportedMeth_MovieClip_getURL">Du finner tilsvarende funksjonalitet i flash.net.URLLoader. Pakken flash.net inneholder også pakkenivåfunksjonene navigateToURL() og sendToURL().</warning>
+  <warning id="3364" hidden="true" label="kUnsupportedProp_MovieClip_url">Hvis du vil vite mer, kan du se på LoaderInfo.url og Loader-klassen.</warning>
+  <warning id="3365" hidden="true" label="kUnsupportedProp_MovieClip__url">Hvis du vil vite mer, kan du se på LoaderInfo.url og Loader-klassen.</warning>
+  <warning id="3366" hidden="true" label="kUnsupportedMeth_MovieClip_setMask">Bruk egenskapen MovieClip.mask i stedet.</warning>
+  <warning id="3367" hidden="true" label="kUnsupportedMeth_MovieClip_getSWFVersion">Hvis du vil vite mer, kan du se på LoaderInfo.swfVersion og Loader-klassen.</warning>
+  <warning id="3368" hidden="true" label="kUnsupportedProp_MovieClip__currentframe">Bruk egenskapen MovieClip.currentFrame i stedet.</warning>
+  <warning id="3369" hidden="true" label="kUnsupportedProp_MovieClip__framesloaded">Bruk egenskapen MovieClip.framesLoaded i stedet.</warning>
+  <warning id="3370" hidden="true" label="kUnsupportedProp_MovieClip__totalframes">Bruk egenskapen MovieClip.totalFrames i stedet.</warning>
+  <warning id="3371" hidden="true" label="kUnsupportedProp_MovieClip_lockroot">Hvis du vil vite mer, kan du se på displayObjectInstance.root.</warning>
+  <warning id="3372" hidden="true" label="kUnsupportedProp_MovieClip__lockroot">Hvis du vil vite mer, kan du se på displayObjectInstance.root.</warning>
+  <warning id="3373" hidden="true" label="kUnsupportedProp_MovieClip__soundbuftime">Bruk den statiske egenskapen flash.media.SoundMixer.bufferTime i stedet.</warning>
+  <warning id="3374" hidden="true" label="kUnsupportedMeth_MovieClip_clear">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3375" hidden="true" label="kUnsupportedMeth_MovieClip_beginFill">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3376" hidden="true" label="kUnsupportedMeth_MovieClip_beginGradientFill">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3377" hidden="true" label="kUnsupportedMeth_MovieClip_lineGradientStyle">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3378" hidden="true" label="kUnsupportedMeth_MovieClip_beginImageFill">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3379" hidden="true" label="kUnsupportedMeth_MovieClip_lineStyle">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3380" hidden="true" label="kUnsupportedMeth_MovieClip_drawRect">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3381" hidden="true" label="kUnsupportedMeth_MovieClip_drawRoundRect">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3382" hidden="true" label="kUnsupportedMeth_MovieClip_drawRoundRectComplex">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3383" hidden="true" label="kUnsupportedMeth_MovieClip_drawCircle">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3384" hidden="true" label="kUnsupportedMeth_MovieClip_moveTo">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3385" hidden="true" label="kUnsupportedMeth_MovieClip_lineTo">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3386" hidden="true" label="kUnsupportedMeth_MovieClip_curveTo">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3387" hidden="true" label="kUnsupportedMeth_MovieClip_endFill">Hvis du vil vite mer, kan du se på klassen Graphics.</warning>
+  <warning id="3388" hidden="true" label="kUnsupportedMeth_NetStream_setBufferTime">Bruk egenskapen NetStream.bufferTime i stedet.</warning>
+  <warning id="3389" hidden="true" label="kUnsupportedProp_NetStream_currentFps">Bruk egenskapen NetStream.currentFPS i stedet.</warning>
+  <warning id="3390" hidden="true" label="kUnsupportedProp_NetStream_videocodec">Bruk egenskapen NetStream.videoCodec i stedet.</warning>
+  <warning id="3391" hidden="true" label="kUnsupportedProp_NetStream_audiocodec">Bruk egenskapen NetStream.audioCodec i stedet.</warning>
+  <warning id="3392" hidden="true" label="kUnsupportedMeth_ProductManager_isIntalled">Bruk egenskapen ProductManager.isInstalled i stedet.</warning>
+  <warning id="3393" hidden="true" label="kUnsupportedMeth_ProductManager_installedVersion">Bruk egenskapen ProductManager.installedVersion i stedet.</warning>
+  <warning id="3394" hidden="true" label="kUnsupportedMeth_ProductManager_isRunning">Bruk egenskapen ProductManager.isRunning i stedet.</warning>
+  <warning id="3395" hidden="true" label="kUnsupportedMeth_Point_addTo">Bruk metoden Point.add() i stedet.</warning>
+  <warning id="3396" hidden="true" label="kUnsupportedProp_Proxy_delDescendants">Bruk egenskapen Proxy.deleteDescendants i stedet.</warning>
+  <warning id="3397" hidden="true" label="kUnsupportedMeth_Profiler_heapdump">Bruk metoden heapDump() i stedet.</warning>
+  <warning id="3398" hidden="true" label="kUnsupportedProp_ProgressEvent_current">Bruk egenskapen ProgressEvent.bytesLoaded i stedet.</warning>
+  <warning id="3399" hidden="true" label="kUnsupportedProp_ProgressEvent_total">Bruk egenskapen ProgressEvent.bytesTotal i stedet.</warning>
+  <warning id="3400" hidden="true" label="kUnsupportedMeth_Rectangle_isEmpty">Bruk egenskapen Rectangle.isEmpty i stedet.</warning>  
+  <warning id="3401" hidden="true" label="kUnsupportedMeth_SoundTransform_setPan">Bruk egenskapen SoundTransform.pan i stedet.</warning>
+  <warning id="3402" hidden="true" label="kUnsupportedMeth_Socket_available">Bruk egenskapen Sockect.bytesAvailable i stedet.</warning>
+  <warning id="3403" hidden="true" label="kUnsupportedMeth_SharedObject_getSize">Bruk egenskapen SharedObject.size i stedet.</warning>
+  <warning id="3404" hidden="true" label="kUnsupportedMeth_SharedObject_setFps">Bruk egenskapen SharedObject.fps i stedet.</warning>
+  <warning id="3405" hidden="true" label="kUnsupportedMeth_Sprite_getSWF">Dette støttes ikke lenger.</warning>
+  <warning id="3406" hidden="true" label="kUnsupportedMeth_Sprite_constructChild">Bruk metoden Sprite.constructChildren() i stedet.</warning>
+  <warning id="3407" hidden="true" label="kUnsupportedProp_Sprite__droptarget">Bruk egenskapen Sprite.dropTarget i stedet.</warning>
+  <warning id="3408" hidden="true" label="kUnsupportedMeth_Stage_getFocus">Bruk egenskapen Stage.focus i stedet.</warning>
+  <warning id="3409" hidden="true" label="kUnsupportedMeth_Stage_setFocus">Bruk egenskapen Stage.focus i stedet.</warning>
+  <warning id="3411" hidden="true" label="kUnsupportedProp_Stage_showMenu">Bruk egenskapen Stage.showDefaultContextMenu i stedet.</warning>
+  <warning id="3412" hidden="true" label="kUnsupportedMeth_StyleSheet_getStyleNames">Bruk egenskapen StyleSheet.styleNames i stedet.</warning>
+  <warning id="3413" hidden="true" label="kUnsupportedMeth_StyleSheet_onData">Bruk en forekomst av URLLoader for å laste inn StyleSheet-data, og send deretter innlastingsdataene til metoden StyleSheet.parseCSS. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3414" hidden="true" label="kUnsupportedMeth_StyleSheet_load">Bruk en forekomst av URLLoader for å laste inn StyleSheet-data, og send deretter innlastingsdataene til metoden StyleSheet.parseCSS. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3415" hidden="true" label="kUnsupportedProp_StyleSheet_loaded">Bruk en forekomst av URLLoader for å laste inn StyleSheet-data, og send deretter innlastingsdataene til metoden StyleSheet.parseCSS. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3416" hidden="true" label="kUnsupportedMeth_StyleSheet_getBytesLoaded">Bruk en forekomst av URLLoader for å laste inn StyleSheet-data, og send deretter innlastingsdataene til metoden StyleSheet.parseCSS. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3417" hidden="true" label="kUnsupportedMeth_StyleSheet_getBytesTotal">Bruk en forekomst av URLLoader for å laste inn StyleSheet-data, og send deretter innlastingsdataene til metoden StyleSheet.parseCSS. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3418" hidden="true" label="kUnsupportedMeth_IME_getEnabled">Bruk egenskapen IME.enabled i stedet.</warning>
+  <warning id="3419" hidden="true" label="kUnsupportedMeth_IME_setEnabled">Bruk egenskapen IME.enabled i stedet.</warning>
+  <warning id="3420" hidden="true" label="kUnsupportedMeth_IME_getInstance">Bruk egenskapen IME.instance i stedet.</warning>
+  <warning id="3421" hidden="true" label="kUnsupportedMeth_IME_getConversionMode">Bruk egenskapen IME.conversionMode i stedet.</warning>
+  <warning id="3422" hidden="true" label="kUnsupportedMeth_IME_setConversionMode">Bruk egenskapen IME.conversionMode i stedet.</warning>
+  <warning id="3423" hidden="true" label="kUnsupportedProp_System_getAvmplusVersion">Bruk egenskapen System.vmVersion i stedet.</warning>
+  <warning id="3424" hidden="true" label="kUnsupportedProp_SWFLoaderInfo_SWFVersion">Bruk egenskapen SWFLoaderInfo.swfVersion i stedet.</warning>
+  <warning id="3425" hidden="true" label="kUnsupportedProp_SWFLoaderInfo_ASVersion">Bruk egenskapen SWFLoaderInfo.actionScriptVersion i stedet.</warning>
+  <warning id="3426" hidden="true" label="kUnsupportedMeth_TextField_getNewTextFormat">Bruk egenskapen TextField.defaultTextFormat i stedet.</warning>
+  <warning id="3427" hidden="true" label="kUnsupportedMeth_TextField_setNewTextFormat">Bruk egenskapen TextField.defaultTextFormat i stedet.</warning>
+  <warning id="3428" hidden="true" label="kUnsupportedMeth_TextField_getDepth">Bruk DisplayObjectContainer.parent.getChildIndex i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer, som MovieClip forlenger.</warning>
+  <warning id="3429" hidden="true" label="kUnsupportedMeth_TextField_swapDepths">Bruk DisplayObjectContainer.parent.setChildIndex i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer, som MovieClip forlenger.</warning>
+  <warning id="3430" hidden="true" label="kUnsupportedMeth_TextField_getInstanceAtDepth">Bruk DisplayObjectContainer.getChildAt i stedet. Hvis du vil vite mer, kan du se på klassen DisplayObjectContainer, som MovieClip forlenger.</warning>
+  <warning id="3431" hidden="true" label="kUnsupportedMeth_TextField_getNextHighestDepth">Bruk DisplayObjectContainer.numChildren i stedet. DisplayObjectContainer.addChild legger alltid den nye underordnede til indeksen DisplayObjectContainer.numChildren.</warning>
+  <warning id="3432" hidden="true" label="kUnsupportedMeth_TextField_replaceSel">Bruk metoden TextField.replaceSelectedText() i stedet.</warning>
+  <warning id="3433" hidden="true" label="kUnsupportedMeth_TextField_getLineIndexOfCharacter">Bruk metoden TextField.getLineIndexOfChar() i stedet.</warning>
+  <warning id="3434" hidden="true" label="kUnsupportedMeth_TextField_getSelectionBeginIndex">Bruk egenskapen TextField.selectionBeginIndex i stedet.</warning>
+  <warning id="3435" hidden="true" label="kUnsupportedMeth_TextField_getSelectionEndIndex">Bruk egenskapen TextField.selectionEndIndex i stedet.</warning>
+  <warning id="3436" hidden="true" label="kUnsupportedMeth_TextField_getCaretIndex">Bruk egenskapen TextField.caretIndex i stedet.</warning>
+  <warning id="3437" hidden="true" label="kUnsupportedMeth_TextField_getFontList">Bruk metoden Font.enumerateFonts() i stedet.</warning>
+  <warning id="3438" hidden="true" label="kUnsupportedProp_TextField_maxscroll">Bruk egenskapen TextField.maxScrollV i stedet.</warning>
+  <warning id="3439" hidden="true" label="kUnsupportedProp_TextField_hscroll">Bruk egenskapen TextField.scrollH i stedet.</warning>
+  <warning id="3440" hidden="true" label="kUnsupportedProp_TextField_maxhscroll">Bruk egenskapen TextField.maxScrollH i stedet.</warning>
+  <warning id="3441" hidden="true" label="kUnsupportedProp_TextField_newTextFormat">Bruk egenskapen TextField.defaultTextFormat i stedet.</warning>
+  <warning id="3442" hidden="true" label="kUnsupportedMeth_TextFormat_getTextExtent">Opprett et midlertidig TextField og bruk TextField.getLineMetrics i stedet.</warning>
+  <warning id="3443" hidden="true" label="kUnsupportedMeth_TextSnapshot_getCount">Bruk egenskapen TextSnapshot.charCount i stedet.</warning>
+  <warning id="3444" hidden="true" label="kUnsupportedProp_URLLoader_navigate">Bruk metoden navigateToURL() i pakken flash.net i stedet.</warning>
+  <warning id="3445" hidden="true" label="kUnsupportedMeth_URLLoader_send">Bruk metoden sendToURL() i pakken flash.net i stedet.</warning>
+  <warning id="3446" hidden="true" label="kUnsupportedProp_URLLoader_binary">Bruk egenskapen URLLoader.dataFormat i stedet.</warning>
+  <warning id="3447" hidden="true" label="kUnsupportedMeth_URLStream_available">Bruk egenskapen URLStream.bytesAvailable i stedet.</warning>
+  <warning id="3448" hidden="true" label="kUnsupportedProp_URLRequest_digest">Denne egenskapen støttes ikke lenger.</warning>
+  <warning id="3449" hidden="true" label="kUnsupportedProp_URLRequest_importToSandbox">Bruk egenskapen URLRequest.applicationDomain i stedet.</warning>
+  <warning id="3450" hidden="true" label="kUnsupportedMeth_URLRequest_addRequestHeader">Du legger til topptekst for forespørsler ved å angi egenskapen URLRequest.requestHeaders til en matrise av URLRequestHeader-objekter.</warning>
+  <warning id="3451" hidden="true" label="kUnsupportedMeth_XMLDocument_load">Bruk en forekomst av URLLoader til å laste inn XML-filen, og send deretter URLLoader-data til XMLDocuments-konstruktøren. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3452" hidden="true" label="kUnsupportedMeth_XMLDocument_send">Bruk metoden sendToURL() i pakken flash.net i stedet.</warning>
+  <warning id="3453" hidden="true" label="kUnsupportedMeth_XMLDocument_sendAndLoad">Angi en postData-egenskap for et URLRequest-objekt og bruk det med et URLLoader-objekt for å laste XML-filen. Send URLLoaders-dataene til XMLDocuments-konstruktøren. Hvis du vil vite mer, kan du se på klassene URLLoader, URLRequest og EventDispatcher.</warning>
+  <warning id="3454" hidden="true" label="kUnsupportedMeth_XMLDocument_onData">Bruk en forekomst av URLLoader til å laste inn XML-filen, og send deretter URLLoader-data til XMLDocuments-konstruktøren. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3455" hidden="true" label="kUnsupportedMeth_XMLDocument_addRequestHeader">Du legger til topptekst for forespørsler ved å angi egenskapen URLRequest.requestHeaders til en matrise av URLRequestHeader-objekter.</warning>
+  <warning id="3456" hidden="true" label="kUnsupportedMeth_XMLDocument_getBytesLoaded">Hvis du vil vite mer, kan du se på URLLoader.bytesLoaded og URLLoader-klassen.</warning>
+  <warning id="3457" hidden="true" label="kUnsupportedMeth_XMLDocument_getBytesTotal">Hvis du vil vite mer, kan du se på URLLoader.bytesTotal og URLLoader-klassen.</warning>
+  <warning id="3458" hidden="true" label="kUnsupportedProp_XMLDocument_loaded">Bruk en forekomst av URLLoader til å laste inn XML-filen, og send deretter innlastingsdata til StyleSheet.parseCSS-metoden. Hvis du vil vite mer, kan du se på klassene URLLoader og EventDispatcher.</warning>
+  <warning id="3459" hidden="true" label="kUnsupportedProp_XMLDocument_contentType">Bruk egenskapen URLRequest.contentType i stedet.</warning>
+  <warning id="3460" hidden="true" label="kUnsupportedProp_XMLDocument_status">Se etter mulige unntak som har oppstått i XMLDocument-konstruktøren eller XMLDocument.parseXML-metoden i stedet. Hvis du vil vite mer, kan du se på XMLDocument.</warning>
+
+  <!-- renamed types could be detected with a prop access ala "Keyboard.DELETE" or as a function ala "a = Image(b)".  The following kUnsupportedProp_ strings are duplicated below for catching the kUnsupportedMeth_ cases -->
+  <warning id="3461" hidden="true" label="kUnsupportedProp_Button">Button-klassen heter nå SimpleButton.</warning>
+  <warning id="3462" hidden="true" label="kUnsupportedProp_Container">Container-klassen heter nå DisplayObjectContainer.</warning>
+  <warning id="3463" hidden="true" label="kUnsupportedProp_Image">Image-klassen heter nå BitmapData.</warning>
+  <warning id="3464" hidden="true" label="kUnsupportedProp_ImageFilter">ImageFilter-klassen heter nå BitmapFilter.</warning>
+  <warning id="3465" hidden="true" label="kUnsupportedProp_ImageSprite">ImageSprite-klassen heter nå Bitmap.</warning>
+  <warning id="3466" hidden="true" label="kUnsupportedProp_ImageLoaderInfo">ImageLoaderInfo-klassen heter nå BitmapLoaderInfo.</warning>
+  <warning id="3467" hidden="true" label="kUnsupportedProp_ImeEvent">ImeEvent-klassen heter nå IMEEvent.</warning>
+  <warning id="3468" hidden="true" label="kUnsupportedProp_Key">Key-klassen heter nå Keyboard.</warning>
+  <warning id="3469" hidden="true" label="kUnsupportedProp_LineMetrics">LineMetrics-klassen heter nå TextLineMetrics.</warning>
+  <warning id="3470" hidden="true" label="kUnsupportedProp_LoadVars">Hvis du vil vite mer, kan du se på URLVariables-klassen, egenskapene URLRequest.urlVariables og URLRequest.postData, og egenskapen URLLoader.dataFormat.</warning>
+  <warning id="3471" hidden="true" label="kUnsupportedProp_MenuEvent">MenuEvent-klassen heter nå ContextMenuEvent.</warning>
+  <warning id="3472" hidden="true" label="kUnsupportedProp_SystemCapabilities">SystemCapabilities-klassen heter nå Capabilities.</warning>
+  <warning id="3473" hidden="true" label="kUnsupportedProp_TextExtents">Bruk egenskapen TextField.getLineMetrics i stedet.</warning>
+
+  <warning id="3475" hidden="true" label="kUnsupportedMeth_Button">Button-klassen heter nå SimpleButton.</warning>
+  <warning id="3476" hidden="true" label="kUnsupportedMeth_Container">Container-klassen heter nå DisplayObjectContainer.</warning>
+  <warning id="3477" hidden="true" label="kUnsupportedMeth_Image">Image-klassen heter nå BitmapData.</warning>
+  <warning id="3478" hidden="true" label="kUnsupportedMeth_ImageFilter">ImageFilter-klassen heter nå BitmapFilter.</warning>
+  <warning id="3479" hidden="true" label="kUnsupportedMeth_ImageSprite">ImageSprite-klassen heter nå Bitmap.</warning>
+  <warning id="3480" hidden="true" label="kUnsupportedMeth_ImageLoaderInfo">ImageLoaderInfo-klassen heter nå BitmapLoaderInfo.</warning>
+  <warning id="3481" hidden="true" label="kUnsupportedMeth_ImeEvent">ImeEvent-klassen heter nå IMEEvent.</warning>
+  <warning id="3482" hidden="true" label="kUnsupportedMeth_Key">Key-klassen heter nå Keyboard.</warning>
+  <warning id="3483" hidden="true" label="kUnsupportedMeth_LineMetrics">LineMetrics-klassen heter nå TextLineMetrics.</warning>
+  <warning id="3484" hidden="true" label="kUnsupportedMeth_LoadVars">Hvis du vil vite mer, kan du se på URLVariables-klassen, egenskapene URLRequest.urlVariables og URLRequest.postData, og egenskapen URLLoader.dataFormat.</warning>
+  <warning id="3485" hidden="true" label="kUnsupportedMeth_MenuEvent">MenuEvent-klassen heter nå ContextMenuEvent.</warning>
+  <warning id="3486" hidden="true" label="kUnsupportedMeth_SystemCapabilities">SystemCapabilities-klassen heter nå Capabilities.</warning>
+  <warning id="3487" hidden="true" label="kUnsupportedMeth_TextExtents">Bruk egenskapen TextField.getLineMetrics i stedet.</warning>
+  <warning id="3488" hidden="true" label="kUnsupportedProp_Object___resolve ">Hvis du vil vite mer, kan du se i hjelpen for Proxy-klassen, som gir lignende funksjonalitet.</warning>
+  <warning id="3489" hidden="true" label="kUnsupportedMeth_XMLUI_get">Bruk metoden XMLUI.getProperty i stedet.</warning>
+  <warning id="3490" hidden="true" label="kUnsupportedMeth_XMLUI_set">Bruk metoden XMLUI.setProperty i stedet.</warning>
+  <warning id="3491" hidden="true" label="kUnsupportedProp_DisplayObject_accProps">Bruk egenskapen DisplayObject.accessibilityProperties i stedet.</warning>
+  <warning id="3492" hidden="true" label="kUnsupportedMeth_DisplayObject_setScalingGrid">Bruk egenskapen DisplayObject.scale9Grid i stedet.</warning>
+  <warning id="3493" hidden="true" label="kUnsupportedMeth_Graphics_drawCircle">Bruk metoden Graphics.drawOval i stedet.</warning>
+  <warning id="3494" hidden="true" label="kUnsupportedProp_NetConnection_isConnected">Bruk egenskapen NetConnection.connected i stedet.</warning>
+  <warning id="3495" hidden="true" label="kUnsupportedProp_Socket_isConnected">Bruk egenskapen Sockect.connected i stedet.</warning>
+  <warning id="3496" hidden="true" label="kUnsupportedProp_URLStream_isConnected">Bruk egenskapen URLStream.connected i stedet.</warning>
+  <warning id="3497" hidden="true" label="kUnsupportedProp_SyncEvent_list">Bruk egenskapen SyncEvent.changeList i stedet.</warning>
+  <warning id="3498" hidden="true" label="kUnsupportedProp_TextField_scroll">Bruk egenskapen TextField.scrollV i stedet.</warning>
+  <warning id="3499" hidden="true" label="kUnsupportedProp_TextField_bottomScroll">Bruk egenskapen TextField.bottomScrollV i stedet.</warning>
+  <warning id="3500" hidden="true" label="kUnsupportedProp_BitmapData_RED_CHANNEL">Bruk konstanten BitmapDataChannel.RED i stedet.</warning>
+  <warning id="3501" hidden="true" label="kUnsupportedProp_BitmapData_GREEN_CHANNEL">Bruk konstanten BitmapDataChannel.GREEN i stedet.</warning>
+  <warning id="3502" hidden="true" label="kUnsupportedProp_BitmapData_BLUE_CHANNEL">Bruk konstanten BitmapDataChannel.BLUE i stedet.</warning>
+  <warning id="3503" hidden="true" label="kUnsupportedProp_BitmapData_ALPHA_CHANNEL">Bruk konstanten BitmapDataChannel.ALPHA i stedet.</warning>
+  <warning id="3504" hidden="true" label="kUnsupportedMeth_instanceof">Bruk operatoren is i stedet.</warning>
+
+  <warning id="3505" hidden="true" label="kUnsupportedMeth_System_showSettings">Bruk metoden flash.system.Security.showSettings i stedet.</warning>
+  <warning id="3506" hidden="true" label="kUnsupportedProp_System_useCodepage">Bruk egenskapen System.useCodePage i stedet.</warning>
+  <warning id="3507" hidden="true" label="kUnsupportedProp_AsBroadcaster">Bruk klassen flash.events.EventDispatcher i stedet.</warning>
+  <warning id="3508" hidden="true" label="kUnsupportedProp_SimpleButton_Soundbuftime">Bruk den statiske egenskapen flash.media.SoundMixer.bufferTime i stedet.</warning>
+  <warning id="3509" hidden="true" label="kUnsupportedMeth_BitmapData_loadBitmap">Opprett en ny forekomst av klassen for punktgrafikkbiblioteksymbol, dvs. nye myBitmapName(), i stedet.</warning>
+  <warning id="3510" hidden="true" label="kUnsupportedMeth_MovieClip_loadVariables">Hvis du vil vite mer, kan du se på Loader.load().</warning>
+  <warning id="3511" hidden="true" label="kUnsupportedProp_MovieClipLoader">MovieClipLoader-klassen er byttet ut med flash.display.Loader-klassen.</warning>
+  <warning id="3512" hidden="true" label="kUnsupportedMeth_MovieClipLoader">MovieClipLoader-klassen er byttet ut med flash.display.Loader-klassen.</warning>
+
+  <warning id="3513" hidden="true" label="kUnsupportedMeth_IME_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+  <warning id="3514" hidden="true" label="kUnsupportedMeth_IME_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+  <warning id="3515" hidden="true" label="kUnsupportedProp_IME_ALPHANUMERIC_FULL">Bruk konstanten flash.system.IMEConversionMode.ALPHANUMERIC_FULL i stedet.</warning>
+  <warning id="3516" hidden="true" label="kUnsupportedProp_IME_ALPHANUMERIC_HALF">Bruk konstanten flash.system.IMEConversionMode.ALPHANUMERIC_HALF i stedet.</warning>
+  <warning id="3517" hidden="true" label="kUnsupportedProp_IME_CHINESE">Bruk konstanten flash.system.IMEConversionMode.CHINESE i stedet.</warning>
+  <warning id="3518" hidden="true" label="kUnsupportedProp_IME_JAPANESE_HIRAGANA">Bruk konstanten flash.system.IMEConversionMode.JAPANESE_HIRAGANA i stedet.</warning>
+  <warning id="3519" hidden="true" label="kUnsupportedProp_IME_JAPANESE_KATAKANA_FULL">Bruk konstanten flash.system.IMEConversionMode.JAPANESE_KATAKANA_FULL i stedet.</warning>
+  <warning id="3520" hidden="true" label="kUnsupportedProp_IME_JAPANESE_KATAKANA_HALF">Bruk konstanten flash.system.IMEConversionMode.JAPANESE_KATAKANA_HALF i stedet.</warning>
+  <warning id="3521" hidden="true" label="kUnsupportedProp_IME_KOREAN">Bruk konstanten flash.system.IMEConversionMode.KOREAN i stedet.</warning>
+  <warning id="3522" hidden="true" label="kUnsupportedProp_IME_UNKNOWN">Bruk konstanten flash.system.IMEConversionMode.UNKNOWN i stedet.</warning>
+  <warning id="3523" hidden="true" label="kUnsupportedMeth_FileReferenceList_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+  <warning id="3524" hidden="true" label="kUnsupportedMeth_FileReferenceList_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+  <warning id="3527" hidden="true" label="kWarning_Event_onCancel">Hendelsesbehandleren onCancel utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (cancel, onCancel).</warning>
+  <warning id="3528" hidden="true" label="kUnsupportedProp_Keyboard__listeners">Det finnes ingen direkte erstatning. willTrigger()-metoden kan brukes til å finne ut om noen lytteobjekter er registrert.</warning>
+  <warning id="3529" hidden="true" label="kWarning_Event_onIMEComposition">Hendelsesbehandleren onIMEComposition utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (imeComposition, handlerName).</warning>
+  <warning id="3530" hidden="true" label="kUnsupportedProp_SimpleButton__url">Hvis du vil vite mer, kan du se på LoaderInfo.url og Loader-klassen.</warning>
+  <warning id="3531" hidden="true" label="kUnsupportedMeth_Date_getYear">Bruk metoden getFullYear() i stedet.</warning>
+  <warning id="3532" hidden="true" label="kUnsupportedMeth_Date_setYear">Bruk metoden setFullYear() i stedet.</warning>
+  <warning id="3533" hidden="true" label="kUnsupportedMeth_Date_getUTCYear">Bruk metoden getUTCFullYear() i stedet.</warning>
+  <warning id="3534" hidden="true" label="kUnsupportedMeth_Microphone_setRate">Bruk egenskapen rate i stedet.</warning>
+  <warning id="3535" hidden="true" label="kUnsupportedProp_Selection">Klassen Selection er fjernet. Hvis du vil vite mer, kan du se på addEventListener-metoden til klassen du vil ha selection-informasjon fra.</warning>
+  <warning id="3536" hidden="true" label="kUnsupportedMeth_Selection">Klassen Selection er fjernet. Hvis du vil vite mer, kan du se på addEventListener-metoden til klassen du vil ha selection-informasjon fra.</warning>
+  <warning id="3537" hidden="true" label="kUnsupportedMeth_Microphone_setGain">Bruk egenskapen gain i stedet.</warning>
+  <warning id="3538" hidden="true" label="kUnsupportedMeth_ColorTransform_getTransform">Fargeverdier kan tilordnes direkte med klassekonstruktøren ColorTransform eller egenskaper.</warning>
+  <warning id="3539" hidden="true" label="kUnsupportedMeth_ColorTransform_setTransform">Fargeverdier kan tilordnes direkte med klassekonstruktøren ColorTransform eller egenskaper.</warning>
+  <warning id="3540" hidden="true" label="kUnsupportedProp_MovieClip_focusEnabled">Se i hjelpen for fokusrelaterte egenskaper for klassen flash.display.InteractiveObject.</warning>
+  <warning id="3541" hidden="true" label="kUnsupportedMeth_MovieClip_beginBitmapFill">Se i hjelpen for metoden flash.display.Graphics.beginBitmapFill.</warning>
+  <warning id="3542" hidden="true" label="kUnsupportedMeth_MovieClip_hitTest">Se i hjelpen for metoden flash.display.DisplayObject.hitTestObject().</warning>
+  <warning id="3543" hidden="true" label="kUnsupportedMeth_MovieClip_attachBitmap">Se i hjelpen for metoden addChild().</warning>
+  <warning id="3544" hidden="true" label="kUnsupportedMeth_Sound_loadSound">Bruk metoden load() i stedet.</warning>
+  <warning id="3545" hidden="true" label="kUnsupportedMeth_Sound_getVolume">Bruk Use flash.media.SoundChannel.leftPeak og flash.media.SoundChannel.rightPeak til å overvåke og kontrollere amplitude for en lydkanal.</warning>
+  <warning id="3546" hidden="true" label="kUnsupportedMeth_Sound_getTransform">Bruk egenskapen soundTransform i stedet.</warning>
+  <warning id="3547" hidden="true" label="kUnsupportedMeth_Sound_getPan">Bruk egenskapen SoundTransform.pan i stedet.</warning>
+  <warning id="3548" hidden="true" label="kUnsupportedMeth_Sound_setPan">Bruk egenskapen SoundTransform.pan i stedet.</warning>
+  <warning id="3549" hidden="true" label="kUnsupportedMeth_Sound_getBytesLoaded">Bruk egenskapen bytesLoaded i stedet.</warning>
+  <warning id="3550" hidden="true" label="kUnsupportedMeth_Sound_getBytesTotal">Bruk egenskapen bytesTotal i stedet.</warning>
+  <warning id="3551" hidden="true" label="kWarning_SlowTextFieldAddition">Ineffektiv bruk av += for et TextField.</warning>
+  <warning id="3552" label="kWarning_SlowTextFieldAddition_specific">Det å legge til tekst i et TextField med += er mye tregere enn å bruke metoden TextField.appendText().
+	<description>
+		<![CDATA[
+		See this language reference for the <code>appendText()</code> method of the TextField class for details on this significant text optimization.
+		]]>
+	</description>
+  </warning>
+  <warning id="3553" hidden="true" label="kWarning_UnlikelyFunctionValue">Mulig manglende parenteser.</warning>
+  <warning id="3554" label="kWarning_UnlikelyFunctionValue_specific">Funksjonsverdi brukt der typen %s var forventet. Det kan hende at parentesene () mangler etter denne funksjonsreferansen.
+<description><![CDATA[
+You can use functions themselves as values in ActionScript.  The code in question is using a value of type Function where a type other than Function, Object, or * is expected.  Usually,
+this indicates a typo where the parentheses <code>()</code> were omitted after the function name.
+]]></description>
+  </warning>
+  
+  <warning id="3555" hidden="true" label="kWarning_InstanceOfChanges">Bruk av instanceof-operatoren.</warning>
+  <warning id="3556" label="kWarning_InstanceOfChanges_specific">instanceof-operatoren er avskrevet, bruk is-operatoren i stedet.</warning>
+  <warning id="3557" hidden="true" label="kUnsupportedProp_LocalConnection_allowDomain">Hendelsesbehandleren allowDomain() er nå en standardmetode, ikke en handlingscallback. Hvis du vil vite mer, kan du se på den nye metoden LocalConnection.allowDomain.</warning>
+  <warning id="3558" hidden="true" label="kUnsupportedProp_LocalConnection_allowInsecureDomain">Hendelsesbehandleren allowInsecureDomain() er nå en standardmetode, ikke en handlingscallback. Hvis du vil vite mer, kan du se på den nye metoden LocalConnection.allowInsecureDomain.</warning>
+  <warning id="3559" hidden="true" label="kUnsupportedMeth_call">Den globale metoden call() støttes ikke lenger.</warning>
+  <warning id="3560" hidden="true" label="kUnsupportedProp_Color">Klassen Color er fjernet. Bruk klassen flash.geom.ColorTransform for tilsvarende funksjonalitet.</warning>
+  <warning id="3561" hidden="true" label="kUnsupportedMeth_Color">Klassen Color er fjernet. Bruk klassen flash.geom.ColorTransform for tilsvarende funksjonalitet.</warning>
+  <warning id="3562" hidden="true" label="kUnsupportedProp_System_exactSettings">ActionScript 3.0 SWF-filer bruker alltid nøyaktige regler for domenesamsvar.</warning>
+  <warning id="3563" hidden="true" label="kUnsupportedProp_capabilities">Klassen capabilities heter nå Capabilities.</warning>
+  <warning id="3564" hidden="true" label="kUnsupportedMeth_capabilities">Klassen capabilities heter nå Capabilities.</warning>
+  <warning id="3565" hidden="true" label="kUnsupportedMeth_FileReference_addListener">Hvis du vil vite mer, kan du se på addEventListener (eventName, listener, useCapture, priority).</warning>
+  <warning id="3566" hidden="true" label="kUnsupportedMeth_FileReference_removeListener">Hvis du vil vite mer, kan du se på removeEventListener (eventName, listener, useCapture).</warning>
+  <warning id="3567" hidden="true" label="kWarning_Event_onComplete">Hendelsesbehandleren onComplete utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (complete, callback_handler).</warning>
+  <warning id="3568" hidden="true" label="kWarning_Event_onHTTPError">Hendelsesbehandleren onHTTPError utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (httpError, callback_handler).</warning>
+  <warning id="3569" hidden="true" label="kWarning_Event_onIOError">Hendelsesbehandleren onIOError utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (ioError, callback_handler).</warning>
+  <warning id="3570" hidden="true" label="kWarning_Event_onProgress">Hendelsesbehandleren onProgress utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (progress, callback_handler).</warning>
+  <warning id="3571" hidden="true" label="kWarning_Event_onSecurityError">Hendelsesbehandleren onSecurityError utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (securityError, callback_handler).</warning>
+  <warning id="3572" hidden="true" label="kWarning_Event_onOpen">Hendelsesbehandleren onOpen utløses ikke automatisk av Flash Player ved kjøretid i ActionScript 3.0. Du må først registrere denne behandleren for hendelsen med addEventListener (open, callback_handler).</warning>
+  <warning id="3573" hidden="true" label="kWarning_XML_ClassHasChanged">Mulig bruk av ActionScript 2.0-XML-klassen.</warning>
+  <warning id="3574" label="kWarning_XML_ClassHasChanged_specific">Migreringsproblem: ActionScript 2.0 XML-klassen heter nå XMLDocument.
+	<description>
+		<![CDATA[
+		This is a code migration warning.  XML is a different class in ActionScript 3.0 than it was in ActionScript 2.0.  In ActionScript 3.0, the XMLDocument class is the equivalent of the XML class in ActionScript 2.0.
+The ActionScript 3.0 XML class offers improved functionality with an easier and more powerful API. See XML in the ActionScript Language Reference for additional details.
+		]]>
+	</description>
+  </warning>
+  <warning id="3575" hidden="true" label="kWarning_BadDateCast">Ugyldig Date-plasseringsoperasjon</warning>
+  <warning id="3576" label="kWarning_BadDateCast_specific">Date(x) oppfører seg på samme måte som nye Date().toString(). Hvis du vil plassere en verdi til typen Date, bruker du "x as Date" i stedet for Date(x).</warning>
+  
+  <warning id="3581" hidden="true" label="kWarning_ImportHidesClass">Import av en pakke med samme navn som gjeldende klasse, vil skjule klasseidentifikatoren i dette området.</warning>
+  <warning id="3582" label="kWarning_ImportHidesClass_specific">Import av en pakke med samme navn som gjeldende klasse, vil skjule klasseidentifikatoren i dette området.</warning>
+  <warning id="3583" hidden="true" label="kWarning_DuplicateArgumentNames">Flere enn ett argument har samme navn.</warning>
+  <warning id="3584" label="kWarning_DuplicateArgumentNames_specific">Flere enn ett argument med navnet %s er angitt. Referanser til dette argumentet løses alltid til det siste av dem.</warning>
+  <warning id="3585" hidden="true" label="kUnsupportedMeth_Rectangle_containsRectangle">Bruk metoden Rectangle.containsRect i stedet.</warning>
+  <warning id="3586" hidden="true" label="kUnsupportedMeth_eval">Denne funksjonaliteten er fjernet.</warning>
+  <warning id="3587" hidden="true" label="kUnsupportedMeth_getVersion">Denne funksjonaliteten er byttet ut med egenskapen flash.system.Capabilities.version.</warning>
+  <warning id="3588" hidden="true" label="kUnsupportedMeth_ifFrameLoaded">Denne funksjonaliteten er byttet ut med egenskapen flash.display.MovieClip.framesLoaded.</warning>
+  <warning id="3589" hidden="true" label="kUnsupportedProp__global">Egenskapen _global er fjernet. Du kan oppnå tilsvarende funksjonalitet ved å bruke et statisk klassemedlem.</warning>
+  <warning id="3590" label="kWarning_BadBoolAssignment">Ikke-boolsk verdi ble brukt når det ble forventet en boolsk verdi.</warning>
+  <warning id="3591" label="kWarning_BadBoolAssignment_specific">%s brukt der en boolsk verdi var forventet. Uttrykkstypen blir gjort om til boolsk.</warning>
+
+  <warning id="3592" hidden="true" label="kWarning_BadES3TypeProp">Ukjent egenskap.</warning>
+  <warning id="3593" label="kWarning_BadES3TypeProp_specific">%s er ikke en kjent egenskap for den dynamiske klassen %s.
+	<description>
+		<![CDATA[
+		The strict compilation mode does not check for undefined properties on instances of dynamic classes.  The types Date, RegExp, and Error are
+dynamic for backwards compatibility with ECMAScript.  This warning finds usages of undefined properties on instances of those classes.
+A common problem is attempting to get or set a non-existent <code>year</code> property on a Date value.  The correct property name is <code>fullYear</code>.  
+		]]>
+	</description>  
+  </warning>
+  
+  <warning id="3594" hidden="true" label="kWarning_BadES3TypeMethod">Ukjent metode.</warning>
+  <warning id="3595" label="kWarning_BadES3TypeMethodProp_specific">%s er ikke en kjent metode for den dynamiske klassen %s.
+	<description>
+		<![CDATA[
+		The strict compilation mode does not check for undefined methods on instances of dynamic classes.  The types Date, RegExp, and Error are
+dynamic for backwards compatibility with ECMAScript.  This warning finds usages of undefined methods on instances of those classes. 
+		]]>
+	</description>
+  </warning>
+
+  <warning id="3596" hidden="true" label="kWarning_DuplicateVariableDef">Duplisert variabeldefinisjon.</warning>
+  <warning id="3597" label="kWarning_DuplicateVariableDef_specific">Duplisert variabeldefinisjon.
+<description>
+		<![CDATA[
+		The compiler has detected a duplicate definition for a variable.  This can lead to unexpected results.  ActionScript does not support block level 
+		scoping of variables.  All variables defined within a function body exist within the same scope, even if they are defined within an 
+		<code>if</code> statement, <code>while</code> statement, <code>for</code> statement, and so on: for example, the following code redeclares the variable x twice:
+		
+		<pre><code>
+function test() {
+	var x:Number = 10;
+	if (true) {
+	    for (var x=0; x &lt 5; x++)  // warning here, this is the second defintion of x
+	    trace(x);
+	}
+	trace(x); // 5, not 10.  The last value set by the for loop above is the current value of x
+}</pre></code>	
+		]]>
+	</description>
+  </warning>
+  <warning id="3598" label="kWarning_DefinitionShadowedByPackageName">Definisjonsnavnet er det samme som et importert pakkenavn. Ikke-kvalifiserte referanser til dette navnet løses til pakken og ikke til definisjonen.</warning>
+  <warning id="3599" label="kWarning_DefinitionShadowedByPackageName_specific">Definisjonsnavnet er det samme som et importert pakkenavn. Ikke-kvalifiserte referanser til dette navnet løses til pakken og ikke til definisjonen.
+	<description>
+		<![CDATA[
+        If a definition is named the same as a package that is in scope, then any unqualified references to that name will resolve to the package instead of the definition.  This can
+        result in unexpected errors when attempting to reference the variable.  Any references to the definition need to be qualified to resolve to the definition and not the package.
+        ]]>
+	</description>
+  </warning>
+  <warning id="3600" label="kWarning_DeleteOfFixedProperty">Mulig forsøk på å slette en fast egenskap.</warning>
+  <warning id="3601" label="kWarning_DeleteOfFixedProperty_specific">Den deklarerte egenskapen %s kan ikke slettes. Hvis du vil frigjøre tilordnet minne, kan du sette verdien til null. 
+     <description>Delete removes dynamically defined properties from an object.  Declared properties of a class can not be deleted, the operation merely fails silently.  To free memory associated with this variable, set its value to null instead.</description>
+  </warning>
+
+  <!-- If you update any of these strings, you must change MXMLC's equivalents in flex/sdk/modules/compiler/src/flex2/compiler_en.properties -->
+      <warning id="3602" label="kWarning_Deprecated">Bruk av avskrevet definisjon.</warning>
+      <warning id="3603" label="kWarning_Deprecated_specific">%s er avskrevet.
+         <description>This definition is deprecated and may be removed in the future.</description>
+      </warning>
+      <warning id="3604" label="kWarning_DeprecatedMessage">Bruk av avskrevet definisjon.</warning>
+      <warning id="3605" label="kWarning_DeprecatedMessage_specific">%s
+         <description></description>
+      </warning>
+      <warning id="3606" label="kWarning_DeprecatedUseReplacement">Bruk av avskrevet definisjon.</warning>
+      <warning id="3607" label="kWarning_DeprecatedUseReplacement_specific">%s er avskrevet. Bruk %s.
+         <description></description>
+      </warning>
+      <warning id="3608" label="kWarning_DeprecatedSince">Bruk av avskrevet definisjon.</warning>
+      <warning id="3609" label="kWarning_DeprecatedSince_specific">%s har vært avskrevet siden %s. Bruk %s.
+         <description></description>
+      </warning>
+      <warning id="3610" label="kWarning_DeprecatedSinceNoReplacement">Bruk av avskrevet definisjon.</warning>
+      <warning id="3611" label="kWarning_DeprecatedSinceNoReplacement_specific">%s har vært avskrevet siden %s.
+         <description></description>
+     </warning>
+ <!-- *** -->
+
+</warnings>
+
+<properties>
+	<unsupported label="kUnsupportedProp_version">
+		<baseType>kVoidType</baseType>
+		<propName>$version</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Focusrect">
+		<baseType>kVoidType</baseType>
+		<propName>_focusrect</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp__global">
+		<baseType>kVoidType</baseType>
+		<propName>_global</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Highquality">
+		<baseType>kVoidType</baseType>
+		<propName>_highquality</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_DisplayObj_HighQuality">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>_highquality</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_DisplayObj_Quality">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>_quality</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Quality">
+		<baseType>kVoidType</baseType>
+		<propName>_quality</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_TextField_Soundbuftime">
+		<baseType>kTextFieldType</baseType>
+		<propName>_soundbuftime</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	
+	<unsupported label="kUnsupportedProp_TextField_Target">
+		<baseType>kTextFieldType</baseType>
+		<propName>_target</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_TextField_Url">
+		<baseType>kTextFieldType</baseType>
+		<propName>_url</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_TextField_Variable">
+		<baseType>kTextFieldType</baseType>
+		<propName>variable</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!-- removed unsupported label="kUnsupportedProp_TextFormat_Color">
+		<baseType>kTextFormatType</baseType>
+		<propName>color</propName>
+		<isStatic>false</isStatic>
+	</unsupported -->
+	<unsupported label="kUnsupportedProp_NewLine">
+		<baseType>kVoidType</baseType>
+		<propName>newline</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_MaxScroll">
+		<baseType>kVoidType</baseType>
+		<propName>maxscroll</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Level">
+		<baseType>kVoidType</baseType>
+		<propName>_level</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Parent">
+		<baseType>kVoidType</baseType>
+		<propName>_parent</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Root">
+		<baseType>kVoidType</baseType>
+		<propName>_root</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Arguments_Caller">
+		<baseType>kArrayType</baseType>
+		<propName>caller</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Button_Target">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>_target</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_MovieClip_Parent">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>_parent</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_MovieClip_target">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>_target</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_MovieClip_hitArea">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>hitArea</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Scroll">
+		<baseType>kVoidType</baseType>
+		<propName>scroll</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_TargetPath">
+		<baseType>kVoidType</baseType>
+		<propName>targetPath</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Video_Height">
+		<baseType>kVideoType</baseType>
+		<propName>height</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Video_Width">
+		<baseType>kVideoType</baseType>
+		<propName>width</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp__Proto__">
+		<baseType>kObjectType</baseType>
+		<propName>__proto__</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Stage">
+		<baseType>kVoidType</baseType>
+		<propName>Stage</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp__remoteClass">
+		<baseType>kObjectType</baseType>
+		<propName>_remoteClass</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	
+	<unsupported label="kUnsupportedProp_ActivityEvent_ACTIVITY_TYPE" classProp="true">
+      <baseType>kActivityEventType</baseType>
+      <propName>ACTIVITY_TYPE</propName>
+       <isStatic>true</isStatic>
+     </unsupported>
+    <unsupported label="kUnsupportedProp_Camera_currentFps">
+      <baseType>kCameraType</baseType>
+      <propName>currentFps</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ContextMenu_forward_back">
+      <baseType>kContextMenuType</baseType>
+      <propName>forward_back</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DataEvent_DATA_TYPE" classProp="true">
+      <baseType>kDataEventType</baseType>
+      <propName>DATA_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject_xscale">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>xscale</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__xscale">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_xscale</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject_yscale">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>yscale</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__yscale">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_yscale</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject_xmouse">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>xmouse</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__xmouse">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_xmouse</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject_ymouse">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>ymouse</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__ymouse">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_ymouse</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject_setRootClass">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>setRootClass</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject_mapSymbolToClass">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>mapSymbolToClass</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__name">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_name</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__parent">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_parent</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__mask">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_mask</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__visible">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_visible</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__x">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_x</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__y">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_y</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__rotation">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_rotation</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__alpha">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_alpha</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__width">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_width</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_DisplayObject__height">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>_height</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ErrorEvent_ERROR_TYPE" classProp="true">
+      <baseType>kErrorEventType</baseType>
+      <propName>ERROR_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_ACTIVATE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>ACTIVATE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_ADDED_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>ADDED_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_CANCEL_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>CANCEL_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_CHANGE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>CHANGE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_CLOSE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>CLOSE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_COMPLETE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>COMPLETE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_CONNECT_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>CONNECT_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_DEACTIVATE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>DEACTIVATE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_ENTER_FRAME_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>ENTER_FRAME_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_ID3_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>ID3_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_INIT_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>INIT_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_MOUSE_LEAVE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>MOUSE_LEAVE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_OPEN_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>OPEN_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_REMOVED_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>REMOVED_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_RENDER_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>RENDER_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_RESIZE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>RESIZE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_SCROLL_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>SCROLL_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_SELECT_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>SELECT_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_SOUND_COMPLETE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>SOUND_COMPLETE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_TAB_CHILDREN_CHANGE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>TAB_CHILDREN_CHANGE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_TAB_ENABLED_CHANGE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>TAB_ENABLED_CHANGE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_TAB_INDEX_CHANGE_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>TAB_INDEX_CHANGE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Event_UNLOAD_TYPE" classProp="true">
+      <baseType>kEventType</baseType>
+      <propName>UNLOAD_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_FocusEvent_FOCUS_IN_TYPE" classProp="true">
+      <baseType>kFocusEventType</baseType>
+      <propName>FOCUS_IN_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_FocusEvent_FOCUS_OUT_TYPE" classProp="true">
+      <baseType>kFocusEventType</baseType>
+      <propName>FOCUS_OUT_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_FocusEvent_KEY_FOCUS_CHANGE_TYPE" classProp="true">
+      <baseType>kFocusEventType</baseType>
+      <propName>KEY_FOCUS_CHANGE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_FocusEvent_MOUSE_FOCUS_CHANGE_TYPE" classProp="true">
+      <baseType>kFocusEventType</baseType>
+      <propName>MOUSE_FOCUS_CHANGE_TYPE</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_BitmapFilter_XYZ_QUALITY">
+      <baseType>kBitmapFilterType</baseType>
+      <propName>XYZ_QUALITY</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Keyboard_PGDN" classProp="true">
+      <baseType>kKeyboardType</baseType>
+      <propName>PGDN</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Keyboard_PGUP" classProp="true">
+      <baseType>kKeyboardType</baseType>
+      <propName>PGUP</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Keyboard_DELETEKEY" classProp="true">
+      <baseType>kKeyboardType</baseType>
+      <propName>DELETEKEY</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Keyboard_CAPSLOCK" classProp="true">
+      <baseType>kKeyboardType</baseType>
+      <propName>CAPSLOCK</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Keyboard_NUMPAD" classProp="true">
+      <baseType>kKeyboardType</baseType>
+      <propName>NUMPAD</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_InteractiveObject__focusrect">
+      <baseType>kInteractiveObjectType</baseType>
+      <propName>_focusrect</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_InteractiveObject_menu">
+      <baseType>kInteractiveObjectType</baseType>
+      <propName>menu</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_KeyboardEvent_ascii">
+      <baseType>kKeyboardEventType</baseType>
+      <propName>ascii</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_KeyboardEvent_code">
+      <baseType>kKeyboardEventType</baseType>
+      <propName>code</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Loader_loaderInfo">
+      <baseType>kLoaderType</baseType>
+      <propName>loaderInfo</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Loader_preload">
+      <baseType>kLoaderType</baseType>
+      <propName>preload</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Loader_loadCached">
+      <baseType>kLoaderType</baseType>
+      <propName>loadCached</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_LoaderInfo_loaderUrl">
+      <baseType>kLoaderInfoType</baseType>
+      <propName>loaderUrl</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ContextMenuEvent_menuOwner">
+      <baseType>kContextMenuEventType</baseType>
+      <propName>menuOwner</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip_url">
+      <baseType>kMovieClipType</baseType>
+      <propName>url</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip__url">
+      <baseType>kMovieClipType</baseType>
+      <propName>_url</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip__currentframe">
+      <baseType>kMovieClipType</baseType>
+      <propName>_currentframe</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip__framesloaded">
+      <baseType>kMovieClipType</baseType>
+      <propName>_framesloaded</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip__totalframes">
+      <baseType>kMovieClipType</baseType>
+      <propName>_totalframes</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip_lockroot">
+      <baseType>kMovieClipType</baseType>
+      <propName>lockroot</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip__lockroot">
+      <baseType>kMovieClipType</baseType>
+      <propName>_lockroot</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClip__soundbuftime">
+      <baseType>kMovieClipType</baseType>
+      <propName>_soundbuftime</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_NetStream_currentFps">
+      <baseType>kNetStreamType</baseType>
+      <propName>currentFps</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_NetStream_videocodec">
+      <baseType>kNetStreamType</baseType>
+      <propName>videocodec</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_NetStream_audiocodec">
+      <baseType>kNetStreamType</baseType>
+      <propName>audiocodec</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Proxy_delDescendants">
+      <baseType>kProxyType</baseType>
+      <propName>delDescendants</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ProgressEvent_current">
+      <baseType>kProgressEventType</baseType>
+      <propName>current</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ProgressEvent_total">
+      <baseType>kProgressEventType</baseType>
+      <propName>total</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Sprite__droptarget">
+      <baseType>kSpriteType</baseType>
+      <propName>_droptarget</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Stage_showMenu">
+      <baseType>kStageType</baseType>
+      <propName>showMenu</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_StyleSheet_loaded">
+      <baseType>kStyleSheetType</baseType>
+      <propName>loaded</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_System_getAvmplusVersion">
+      <baseType>kSystemType</baseType>
+      <propName>getAvmplusVersion</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_SWFLoaderInfo_SWFVersion">
+      <baseType>kSWFLoaderInfoType</baseType>
+      <propName>SWFVersion</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_SWFLoaderInfo_ASVersion">
+      <baseType>kSWFLoaderInfoType</baseType>
+      <propName>ASVersion</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextField_maxscroll">
+      <baseType>kTextFieldType</baseType>
+      <propName>maxscroll</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextField_hscroll">
+      <baseType>kTextFieldType</baseType>
+      <propName>hscroll</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextField_maxhscroll">
+      <baseType>kTextFieldType</baseType>
+      <propName>maxhscroll</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextField_newTextFormat">
+      <baseType>kTextFieldType</baseType>
+      <propName>newTextFormat</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+
+    <unsupported label="kUnsupportedProp_URLLoader_navigate">
+      <baseType>kURLLoaderType</baseType>
+      <propName>navigate</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_URLLoader_binary">
+      <baseType>kURLLoaderType</baseType>
+      <propName>binary</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_URLRequest_digest">
+      <baseType>kURLRequestType</baseType>
+      <propName>digest</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_URLRequest_importToSandbox">
+      <baseType>kURLRequestType</baseType>
+      <propName>importToSandbox</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_XMLDocument_loaded">
+      <baseType>kXMLDocumentType</baseType>
+      <propName>loaded</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_XMLDocument_contentType">
+      <baseType>kXMLDocumentType</baseType>
+      <propName>contentType</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_XMLDocument_status">
+      <baseType>kXMLDocumentType</baseType>
+      <propName>status</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+
+    <unsupported label="kUnsupportedProp_Button">
+      <baseType>kVoidType</baseType>
+      <propName>Button</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Container">
+      <baseType>kVoidType</baseType>
+      <propName>Container</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Image">
+      <baseType>kVoidType</baseType>
+      <propName>Image</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ImageFilter">
+      <baseType>kVoidType</baseType>
+      <propName>ImageFilter</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ImageSprite">
+      <baseType>kVoidType</baseType>
+      <propName>ImageSprite</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ImageLoaderInfo">
+      <baseType>kVoidType</baseType>
+      <propName>ImageLoaderInfo</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_ImeEvent">
+      <baseType>kVoidType</baseType>
+      <propName>ImeEvent</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Key">
+      <baseType>kVoidType</baseType>
+      <propName>Key</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_LineMetrics">
+      <baseType>kVoidType</baseType>
+      <propName>LineMetrics</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_LoadVars">
+      <baseType>kVoidType</baseType>
+      <propName>LoadVars</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MenuEvent">
+      <baseType>kVoidType</baseType>
+      <propName>MenuEvent</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_MovieClipLoader">
+      <baseType>kVoidType</baseType>
+      <propName>MovieClipLoader</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_SystemCapabilities">
+      <baseType>kVoidType</baseType>
+      <propName>SystemCapabilities</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_SystemCapabilities">
+      <baseType>kVoidType</baseType>
+      <propName>SystemCapabilities</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextExtents">
+      <baseType>kVoidType</baseType>
+      <propName>TextExtents</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    
+    <unsupported label="kUnsupportedProp_TextExtents">
+      <baseType>kVoidType</baseType>
+      <propName>TextExtents</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    
+    <unsupported label="kUnsupportedProp_DisplayObject_accProps">
+      <baseType>kDisplayObjectType</baseType>
+      <propName>accProps</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_NetConnection_isConnected">
+      <baseType>kNetConnectionType</baseType>
+      <propName>isConnected</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_Socket_isConnected">
+      <baseType>kSocketType</baseType>
+      <propName>isConnected</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_URLStream_isConnected">
+      <baseType>kURLStreamType</baseType>
+      <propName>isConnected</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_SyncEvent_list">
+      <baseType>kSyncEventType</baseType>
+      <propName>list</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextField_scroll">
+      <baseType>kTextFieldType</baseType>
+      <propName>scroll</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_TextField_bottomScroll">
+      <baseType>kTextFieldType</baseType>
+      <propName>bottomScroll</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_BitmapData_RED_CHANNEL">
+      <baseType>kBitmapDataType</baseType>
+      <propName>RED_CHANNEL</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_BitmapData_GREEN_CHANNEL">
+      <baseType>kBitmapDataType</baseType>
+      <propName>GREEN_CHANNEL</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_BitmapData_BLUE_CHANNEL">
+      <baseType>kBitmapDataType</baseType>
+      <propName>BLUE_CHANNEL</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_BitmapData_ALPHA_CHANNEL">
+      <baseType>kBitmapDataType</baseType>
+      <propName>ALPHA_CHANNEL</propName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedProp_System_useCodepage">
+      <baseType>kSystemType</baseType>
+      <propName>useCodepage</propName>
+      <isStatic>true</isStatic>
+    </unsupported>
+	<unsupported label="kUnsupportedProp_SimpleButton_Soundbuftime">
+		<baseType>kSimpleButtonType</baseType>
+		<propName>_soundbuftime</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_AsBroadcaster">
+		<baseType>kVoidType</baseType>
+		<propName>AsBroadcaster</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_ALPHANUMERIC_FULL">
+		<baseType>kIMEType</baseType>
+		<propName>ALPHANUMERIC_FULL</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_ALPHANUMERIC_HALF">
+		<baseType>kIMEType</baseType>
+		<propName>ALPHANUMERIC_HALF</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_CHINESE">
+		<baseType>kIMEType</baseType>
+		<propName>CHINESE</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_JAPANESE_HIRAGANA">
+		<baseType>kIMEType</baseType>
+		<propName>JAPANESE_HIRAGANA</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_JAPANESE_KATAKANA_FULL">
+		<baseType>kIMEType</baseType>
+		<propName>JAPANESE_KATAKANA_FULL</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_JAPANESE_KATAKANA_HALF">
+		<baseType>kIMEType</baseType>
+		<propName>JAPANESE_KATAKANA_HALF</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_KOREAN">
+		<baseType>kIMEType</baseType>
+		<propName>KOREAN</propName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_IME_UNKNOWN">
+		<baseType>kIMEType</baseType>
+		<propName>UNKNOWN</propName>
+		<isStatic>true</isStatic>
+	</unsupported>	
+	<unsupported label="kUnsupportedProp_Keyboard__listeners">
+		<baseType>kKeyboardType</baseType>
+		<propName>_listeners</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_SimpleButton__url">
+		<baseType>kSimpleButtonType</baseType>
+		<propName>_url</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Selection">
+		<baseType>kVoidType</baseType>
+		<propName>Selection</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_MovieClip_focusEnabled">
+		<baseType>kDisplayObjectType</baseType>
+		<propName>focusEnabled</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_LocalConnection_allowDomain">
+		<baseType>kLocalConnectionType</baseType>
+		<propName>allowDomain</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_LocalConnection_allowInsecureDomain">
+		<baseType>kLocalConnectionType</baseType>
+		<propName>allowInsecureDomain</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_Color">
+		<baseType>kVoidType</baseType>
+		<propName>Color</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_System_exactSettings">
+		<baseType>kSystemType</baseType>
+		<propName>exactSettings</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedProp_capabilities">
+		<baseType>kVoidType</baseType>
+		<propName>capabilities</propName>
+		<isStatic>false</isStatic>
+	</unsupported>	
+	<unsupported label="kUnsupportedProp_Object___resolve">
+		<baseType>kObjectType</baseType>
+		<propName>__resolve</propName>
+		<isStatic>false</isStatic>
+	</unsupported>
+</properties>
+
+	
+<methods>
+   <unsupported label="kUnsupportedMeth_instanceof">
+		<baseType>kVoidType</baseType>
+		<methodName>instanceof</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_DisplayObject_setScalingGrid">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>setScalingGrid</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>	
+	<unsupported label="kUnsupportedMeth_Graphics_drawCircle">
+		<baseType>kGraphicsType</baseType>
+		<methodName>drawCircle</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_XMLUI_get">
+		<baseType>kXMLUIType</baseType>
+		<methodName>get</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_XMLUI_set">
+		<baseType>kXMLUIType</baseType>
+		<methodName>set</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_hasChildNodes">
+		<baseType>kXMLNodeType</baseType>
+		<methodName>hasChildNodes</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_XMLEvent">
+		<baseType>kVoidType</baseType>
+		<methodName>XMLEvent</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_XMLDoc">
+		<baseType>kVoidType</baseType>
+		<methodName>XMLDoc</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_random">
+		<baseType>kVoidType</baseType>
+		<methodName>random</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_chr">
+		<baseType>kVoidType</baseType>
+		<methodName>chr</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_mbchr">
+		<baseType>kVoidType</baseType>
+		<methodName>mbchr</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!-- removed unsupported label="kUnsupportedMeth_int">
+		<baseType>kVoidType</baseType>
+		<methodName>int</methodName>
+		<isStatic>false</isStatic>
+	</unsupported -->
+	<unsupported label="kUnsupportedMeth_ord">
+		<baseType>kVoidType</baseType>
+		<methodName>ord</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_mbord">
+		<baseType>kVoidType</baseType>
+		<methodName>mbord</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_substring">
+		<baseType>kVoidType</baseType>
+		<methodName>substring</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_mbsubstring">
+		<baseType>kVoidType</baseType>
+		<methodName>mbsubstring</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_length">
+		<baseType>kVoidType</baseType>
+		<methodName>length</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_mblength">
+		<baseType>kVoidType</baseType>
+		<methodName>mblength</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_ASNative">
+		<baseType>kVoidType</baseType>
+		<methodName>ASnative</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_addProperty">
+		<baseType>kObjectType</baseType>
+		<methodName>addProperty</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_getProperty">
+		<baseType>kVoidType</baseType>
+		<methodName>getProperty</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_setProperty">
+		<baseType>kVoidType</baseType>
+		<methodName>setProperty</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_asfunction">
+		<baseType>kVoidType</baseType>
+		<methodName>asfunction</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!--unsupported label="kUnsupportedMeth_Function_call">
+		<baseType>kFunctionType</baseType>
+		<methodName>call</methodName>
+		<isStatic>false</isStatic>
+	</unsupported-->
+	<unsupported label="kUnsupportedMeth_clearInterval">
+		<baseType>kVoidType</baseType>
+		<methodName>clearInterval</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_duplicateMovieClip">
+		<baseType>kVoidType</baseType>
+		<methodName>duplicateMovieClip</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_fscommand">
+		<baseType>kVoidType</baseType>
+		<methodName>fscommand</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_getURL">
+		<baseType>kVoidType</baseType>
+		<methodName>getURL</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_gotoAndPlay">
+		<baseType>kVoidType</baseType>
+		<methodName>gotoAndPlay</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_gotoAndStop">
+		<baseType>kVoidType</baseType>
+		<methodName>gotoAndStop</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_play">
+		<baseType>kVoidType</baseType>
+		<methodName>play</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_print">
+		<baseType>kVoidType</baseType>
+		<methodName>print</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_printAsBitmap">
+		<baseType>kVoidType</baseType>
+		<methodName>printAsBitmap</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_printAsBitmapNum">
+		<baseType>kVoidType</baseType>
+		<methodName>printAsBitmapNum</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_printNum">
+		<baseType>kVoidType</baseType>
+		<methodName>printNum</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_removeMovieClip">
+		<baseType>kVoidType</baseType>
+		<methodName>removeMovieClip</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_setInterval">
+		<baseType>kVoidType</baseType>
+		<methodName>setInterval</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_nextFrame">
+		<baseType>kVoidType</baseType>
+		<methodName>nextFrame</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_startDrag">
+		<baseType>kVoidType</baseType>
+		<methodName>startDrag</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_stop">
+		<baseType>kVoidType</baseType>
+		<methodName>stop</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_stopAllSounds">
+		<baseType>kVoidType</baseType>
+		<methodName>stopAllSounds</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_stopDrag">
+		<baseType>kVoidType</baseType>
+		<methodName>stopDrag</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_tellTarget">
+		<baseType>kVoidType</baseType>
+		<methodName>tellTarget</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_toggleHighQuality">
+		<baseType>kVoidType</baseType>
+		<methodName>toggleHighQuality</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!-- unsupported label="kUnsupportedMeth_unescape">
+		<baseType>kVoidType</baseType>
+		<methodName>unescape</methodName>
+		<isStatic>false</isStatic>
+	</unsupported -->
+	<unsupported label="kUnsupportedMeth_unloadMovie">
+		<baseType>kVoidType</baseType>
+		<methodName>unloadMovie</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_unloadMovieNum">
+		<baseType>kVoidType</baseType>
+		<methodName>unloadMovieNum</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_updateAfterEvent">
+		<baseType>kVoidType</baseType>
+		<methodName>updateAfterEvent</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Video_attachVideo">
+		<baseType>kVideoType</baseType>
+		<methodName>attachVideo</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_TextField_StyleSheet_load">
+		<baseType>kStyleSheetType</baseType>
+		<methodName>load</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!-- removed unsupported label="kUnsupportedMeth_TextField_StyleSheet_parseCSS">
+		<baseType>kStyleSheetType</baseType>
+		<methodName>parseCSS</methodName>
+		<isStatic>false</isStatic>
+	</unsupported -->
+	<!-- removed unsupported label="kUnsupportedMeth_TextField_StyleSheet_setStyle">
+		<baseType>kStyleSheetType</baseType>
+		<methodName>setStyle</methodName>
+		<isStatic>false</isStatic>
+	</unsupported -->
+	<unsupported label="kUnsupportedMeth_Object_registerClass">
+		<baseType>kObjectType</baseType>
+		<methodName>registerClass</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Object_unwatch">
+		<baseType>kObjectType</baseType>
+		<methodName>unwatch</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Object_watch">
+		<baseType>kObjectType</baseType>
+		<methodName>watch</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_loadMovie">
+		<baseType>kVoidType</baseType>
+		<methodName>loadMovie</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_loadMovieNum">
+		<baseType>kVoidType</baseType>
+		<methodName>loadMovieNum</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_loadVariables">
+		<baseType>kVoidType</baseType>
+		<methodName>loadVariables</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_loadVariablesNum">
+		<baseType>kVoidType</baseType>
+		<methodName>loadVariablesNum</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!-- removed unsupported label="kUnsupportedMeth_Selection_getBeginIndex">
+		<baseType>kSelectionType</baseType>
+		<methodName>getBeginIndex</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_getCaretIndex">
+		<baseType>kSelectionType</baseType>
+		<methodName>getCaretIndex</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_getEndIndex">
+		<baseType>kSelectionType</baseType>
+		<methodName>getEndIndex</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_getFocus">
+		<baseType>kSelectionType</baseType>
+		<methodName>getFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_setFocus">
+		<baseType>kSelectionType</baseType>
+		<methodName>setFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_setSelection">
+		<baseType>kSelectionType</baseType>
+		<methodName>setSelection</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_addListener">
+		<baseType>kSelectionType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection_removeListener">
+		<baseType>kSelectionType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported -->
+	<unsupported label="kUnsupportedMeth_Stage_addListener">
+		<baseType>kStageType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Stage_removeListener">
+		<baseType>kStageType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_TextField_addListener">
+		<baseType>kTextFieldType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_TextField_removeListener">
+		<baseType>kTextFieldType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Mouse_addListener">
+		<baseType>kMouseType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Mouse_removeListener">
+		<baseType>kMouseType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Keyboard_addListener">
+		<baseType>kKeyboardType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Keyboard_removeListener">
+		<baseType>kKeyboardType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_attachSound">
+		<baseType>kSoundType</baseType>
+		<methodName>attachSound</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+    <unsupported label="kUnsupportedMeth_Accessibility_isActive">
+      <baseType>kAccessibilityType</baseType>
+      <methodName>isActive</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SimpleButton_getDepth">
+      <baseType>kSimpleButtonType</baseType>
+      <methodName>getDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SimpleButton_swapDepths">
+      <baseType>kSimpleButtonType</baseType>
+      <methodName>swapDepths</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SimpleButton_getInstanceAtDepth">
+      <baseType>kSimpleButtonType</baseType>
+      <methodName>getInstanceAtDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SimpleButton_getNextHighestDepth">
+      <baseType>kSimpleButtonType</baseType>
+      <methodName>getNextHighestDepth</methodName>
+    <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ByteArray_available">
+      <baseType>kByteArrayType</baseType>
+      <methodName>available</methodName>
+       <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ByteArray_getFilePointer">
+      <baseType>kByteArrayType</baseType>
+      <methodName>getFilePointer</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ByteArray_seek">
+      <baseType>kByteArrayType</baseType>
+      <methodName>seek</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Camera_get">
+      <baseType>kCameraType</baseType>
+      <methodName>get</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Camera_setKeyFrameInterval">
+      <baseType>kCameraType</baseType>
+      <methodName>setKeyFrameInterval</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Camera_setLoopback">
+      <baseType>kCameraType</baseType>
+      <methodName>setLoopback</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ColorTransform_getRGB">
+      <baseType>kColorTransformType</baseType>
+      <methodName>getRGB</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ColorTransform_setRGB">
+      <baseType>kColorTransformType</baseType>
+      <methodName>setRGB</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_DisplayObjectContainer_getTextSnapshot">
+      <baseType>kDisplayObjectContainerType</baseType>
+      <methodName>getTextSnapshot</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ContextMenu_copy">
+      <baseType>kContextMenuType</baseType>
+      <methodName>copy</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ContextMenuItem_copy">
+      <baseType>kContextMenuItemType</baseType>
+      <methodName>copy</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_CustomActions_listActions">
+      <baseType>kCustomActionsType</baseType>
+      <methodName>listActions</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ExternalInterface_available">
+      <baseType>kExternalInterfaceType</baseType>
+      <methodName>available</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Event_isDefaultPrevented">
+      <baseType>kEventType</baseType>
+      <methodName>isDefaultPrevented</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Graphics_beginImageFill">
+      <baseType>kGraphicsType</baseType>
+      <methodName>beginImageFill</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Keyboard_getAscii">
+      <baseType>kKeyboardType</baseType>
+      <methodName>getAscii</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Keyboard_getCode">
+      <baseType>kKeyboardType</baseType>
+      <methodName>getCode</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Keyboard_isDown">
+      <baseType>kKeyboardType</baseType>
+      <methodName>isDown</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Keyboard_isToggled">
+      <baseType>kKeyboardType</baseType>
+      <methodName>isToggled</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_LocalConnection_domain">
+      <baseType>kLocalConnectionType</baseType>
+      <methodName>domain</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Microphone_get">
+      <baseType>kMicrophoneType</baseType>
+      <methodName>get</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_attachMovie">
+      <baseType>kMovieClipType</baseType>
+      <methodName>attachMovie</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>    
+    <unsupported label="kUnsupportedMeth_MovieClip_createEmptyMovieClip">
+      <baseType>kMovieClipType</baseType>
+      <methodName>createEmptyMovieClip</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_createTextField">
+      <baseType>kMovieClipType</baseType>
+      <methodName>createTextField</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_removeMovieClip">
+      <baseType>kMovieClipType</baseType>
+      <methodName>removeMovieClip</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_loadMovie">
+      <baseType>kMovieClipType</baseType>
+      <methodName>loadMovie</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_unloadMovie">
+      <baseType>kMovieClipType</baseType>
+      <methodName>unloadMovie</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_unloadMovieNum">
+      <baseType>kMovieClipType</baseType>
+      <methodName>unloadMovieNum</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getDepth">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_swapDepths">
+      <baseType>kMovieClipType</baseType>
+      <methodName>swapDepths</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getInstanceAtDepth">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getInstanceAtDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getNextHighestDepth">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getNextHighestDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_attachAudio">
+      <baseType>kMovieClipType</baseType>
+      <methodName>attachAudio</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getBytesLoaded">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getBytesLoaded</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getBytesTotal">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getBytesTotal</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getURL">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getURL</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_setMask">
+      <baseType>kMovieClipType</baseType>
+      <methodName>setMask</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_getSWFVersion">
+      <baseType>kMovieClipType</baseType>
+      <methodName>getSWFVersion</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_clear">
+      <baseType>kMovieClipType</baseType>
+      <methodName>clear</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_beginFill">
+      <baseType>kMovieClipType</baseType>
+      <methodName>beginFill</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_beginGradientFill">
+      <baseType>kMovieClipType</baseType>
+      <methodName>beginGradientFill</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_lineGradientStyle">
+      <baseType>kMovieClipType</baseType>
+      <methodName>lineGradientStyle</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_beginImageFill">
+      <baseType>kMovieClipType</baseType>
+      <methodName>beginImageFill</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_lineStyle">
+      <baseType>kMovieClipType</baseType>
+      <methodName>lineStyle</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_drawRect">
+      <baseType>kMovieClipType</baseType>
+      <methodName>drawRect</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_drawRoundRect">
+      <baseType>kMovieClipType</baseType>
+      <methodName>drawRoundRect</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_drawRoundRectComplex">
+      <baseType>kMovieClipType</baseType>
+      <methodName>drawRoundRectComplex</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_drawCircle">
+      <baseType>kMovieClipType</baseType>
+      <methodName>drawCircle</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_moveTo">
+      <baseType>kMovieClipType</baseType>
+      <methodName>moveTo</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_lineTo">
+      <baseType>kMovieClipType</baseType>
+      <methodName>lineTo</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_curveTo">
+      <baseType>kMovieClipType</baseType>
+      <methodName>curveTo</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_endFill">
+      <baseType>kMovieClipType</baseType>
+      <methodName>endFill</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_NetStream_setBufferTime">
+      <baseType>kNetStreamType</baseType>
+      <methodName>setBufferTime</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ProductManager_isIntalled">
+      <baseType>kProductManagerType</baseType>
+      <methodName>isIntalled</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ProductManager_installedVersion">
+      <baseType>kProductManagerType</baseType>
+      <methodName>installedVersion</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ProductManager_isRunning">
+      <baseType>kProductManagerType</baseType>
+      <methodName>isRunning</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Point_addTo">
+      <baseType>kPointType</baseType>
+      <methodName>addTo</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Profiler_heapdump">
+      <baseType>kVoidType</baseType>
+      <methodName>heapdump</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Rectangle_isEmpty">
+      <baseType>kRectangleType</baseType>
+      <methodName>isEmpty</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Rectangle_containsRectangle">
+      <baseType>kRectangleType</baseType>
+      <methodName>containsRectangle</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SoundTransform_setPan">
+      <baseType>kSoundTransformType</baseType>
+      <methodName>setPan</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Socket_available">
+      <baseType>kSocketType</baseType>
+      <methodName>available</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SharedObject_getSize">
+      <baseType>kSharedObjectType</baseType>
+      <methodName>getSize</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SharedObject_setFps">
+      <baseType>kSharedObjectType</baseType>
+      <methodName>setFps</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Sprite_getSWF">
+      <baseType>kSpriteType</baseType>
+      <methodName>getSWF</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Sprite_constructChild">
+      <baseType>kSpriteType</baseType>
+      <methodName>constructChild</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Stage_getFocus">
+      <baseType>kStageType</baseType>
+      <methodName>getFocus</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Stage_setFocus">
+      <baseType>kStageType</baseType>
+      <methodName>setFocus</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_StyleSheet_getStyleNames">
+      <baseType>kStyleSheetType</baseType>
+      <methodName>getStyleNames</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_StyleSheet_onData">
+      <baseType>kStyleSheetType</baseType>
+      <methodName>onData</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_StyleSheet_load">
+      <baseType>kStyleSheetType</baseType>
+      <methodName>load</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_StyleSheet_getBytesLoaded">
+      <baseType>kStyleSheetType</baseType>
+      <methodName>getBytesLoaded</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_StyleSheet_getBytesTotal">
+      <baseType>kStyleSheetType</baseType>
+      <methodName>getBytesTotal</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_addListener">
+      <baseType>kIMEType</baseType>
+      <methodName>addListener</methodName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_removeListener">
+      <baseType>kIMEType</baseType>
+      <methodName>removeListener</methodName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_getEnabled">
+      <baseType>kIMEType</baseType>
+      <methodName>getEnabled</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_setEnabled">
+      <baseType>kIMEType</baseType>
+      <methodName>setEnabled</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_getInstance">
+      <baseType>kIMEType</baseType>
+      <methodName>getInstance</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_getConversionMode">
+      <baseType>kIMEType</baseType>
+      <methodName>getConversionMode</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_IME_setConversionMode">
+      <baseType>kIMEType</baseType>
+      <methodName>setConversionMode</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getNewTextFormat">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getNewTextFormat</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_setNewTextFormat">
+      <baseType>kTextFieldType</baseType>
+      <methodName>setNewTextFormat</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getDepth">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_swapDepths">
+      <baseType>kTextFieldType</baseType>
+      <methodName>swapDepths</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getInstanceAtDepth">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getInstanceAtDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getNextHighestDepth">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getNextHighestDepth</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_replaceSel">
+      <baseType>kTextFieldType</baseType>
+      <methodName>replaceSel</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getLineIndexOfCharacter">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getLineIndexOfCharacter</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getSelectionBeginIndex">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getSelectionBeginIndex</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getSelectionEndIndex">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getSelectionEndIndex</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getCaretIndex">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getCaretIndex</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextField_getFontList">
+      <baseType>kTextFieldType</baseType>
+      <methodName>getFontList</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextSnapshot_getCount">
+      <baseType>kTextSnapshotType</baseType>
+      <methodName>getCount</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_URLLoader_send">
+      <baseType>kURLLoaderType</baseType>
+      <methodName>send</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_URLStream_available">
+      <baseType>kURLStreamType</baseType>
+      <methodName>available</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_URLRequest_addRequestHeader">
+      <baseType>kURLRequestType</baseType>
+      <methodName>addRequestHeader</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_load">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>load</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_send">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>send</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_sendAndLoad">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>sendAndLoad</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_onData">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>onData</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_addRequestHeader">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>addRequestHeader</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_getBytesLoaded">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>getBytesLoaded</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_XMLDocument_getBytesTotal">
+      <baseType>kXMLDocumentType</baseType>
+      <methodName>getBytesTotal</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    
+    <unsupported label="kUnsupportedMeth_Button">
+      <baseType>kVoidType</baseType>
+      <methodName>Button</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Container">
+      <baseType>kVoidType</baseType>
+      <methodName>Container</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Image">
+      <baseType>kVoidType</baseType>
+      <methodName>Image</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ImageFilter">
+      <baseType>kVoidType</baseType>
+      <methodName>ImageFilter</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ImageSprite">
+      <baseType>kVoidType</baseType>
+      <methodName>ImageSprite</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ImageLoaderInfo">
+      <baseType>kVoidType</baseType>
+      <methodName>ImageLoaderInfo</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_ImeEvent">
+      <baseType>kVoidType</baseType>
+      <methodName>ImeEvent</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_Key">
+      <baseType>kVoidType</baseType>
+      <methodName>Key</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_LineMetrics">
+      <baseType>kVoidType</baseType>
+      <methodName>LineMetrics</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_LoadVars">
+      <baseType>kVoidType</baseType>
+      <methodName>LoadVars</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MenuEvent">
+      <baseType>kVoidType</baseType>
+      <methodName>MenuEvent</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+     <unsupported label="kUnsupportedMeth_MovieClipLoader">
+      <baseType>kVoidType</baseType>
+      <methodName>MovieClipLoader</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SystemCapabilities">
+      <baseType>kVoidType</baseType>
+      <methodName>SystemCapabilities</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_SystemCapabilities">
+      <baseType>kVoidType</baseType>
+      <methodName>SystemCapabilities</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_TextExtents">
+      <baseType>kVoidType</baseType>
+      <methodName>TextExtents</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_System_showSettings">
+      <baseType>kSystemType</baseType>
+      <methodName>showSettings</methodName>
+      <isStatic>true</isStatic>
+    </unsupported>    
+    <unsupported label="kUnsupportedMeth_BitmapData_loadBitmap">
+      <baseType>kBitmapDataType</baseType>
+      <methodName>loadBitmap</methodName>
+      <isStatic>true</isStatic>
+    </unsupported>
+    <unsupported label="kUnsupportedMeth_MovieClip_loadVariables">
+      <baseType>kMovieClipType</baseType>
+      <methodName>loadVariables</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+	<unsupported label="kUnsupportedMeth_FileReferenceList_addListener">
+		<baseType>kFileReferenceListType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_FileReferenceList_removeListener">
+		<baseType>kFileReferenceListType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Date_getYear">
+		<baseType>kDateType</baseType>
+		<methodName>getYear</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Date_setYear">
+		<baseType>kDateType</baseType>
+		<methodName>setYear</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Date_getUTCYear">
+		<baseType>kDateType</baseType>
+		<methodName>getUTCYear</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<!-- unsupported label="kUnsupportedMeth_BitmapFilter_clone">
+		<baseType>kBitmapFilterType</baseType>
+		<methodName>clone</methodName>
+		<isStatic>false</isStatic>
+	</unsupported-->
+	<unsupported label="kUnsupportedMeth_Microphone_setGain">
+		<baseType>kMicrophoneType</baseType>
+		<methodName>setGain</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Microphone_setRate">
+		<baseType>kMicrophoneType</baseType>
+		<methodName>setRate</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Selection">
+		<baseType>kVoidType</baseType>
+		<methodName>Selection</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_ColorTransform_getTransform">
+		<baseType>kColorTransformType</baseType>
+		<methodName>getTransform</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_ColorTransform_setTransform">
+		<baseType>kColorTransformType</baseType>
+		<methodName>setTransform</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_loadSound">
+		<baseType>kSoundType</baseType>
+		<methodName>loadSound</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_getVolume">
+		<baseType>kSoundType</baseType>
+		<methodName>getVolume</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_getTransform">
+		<baseType>kSoundType</baseType>
+		<methodName>getTransform</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_getPan">
+		<baseType>kSoundType</baseType>
+		<methodName>getPan</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_setPan">
+		<baseType>kSoundType</baseType>
+		<methodName>setPan</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_MovieClip_beginBitmapFill">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>beginBitmapFill</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_MovieClip_hitTest">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>hitTest</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_MovieClip_attachBitmap">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>attachBitmap</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_call">
+		<baseType>kVoidType</baseType>
+		<methodName>call</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Color">
+		<baseType>kVoidType</baseType>
+		<methodName>Color</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_capabilities">
+		<baseType>kVoidType</baseType>
+		<methodName>capabilities</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_getBytesLoaded">
+		<baseType>kSoundType</baseType>
+		<methodName>getBytesLoaded</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_Sound_getBytesTotal">
+		<baseType>kSoundType</baseType>
+		<methodName>getBytesTotal</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+    <unsupported label="kUnsupportedMeth_TextFormat_getTextExtent">
+		<baseType>kTextFormatType</baseType>
+		<methodName>getTextExtent</methodName>
+		<isStatic>false</isStatic>
+    </unsupported>
+	<unsupported label="kUnsupportedMeth_FileReference_addListener">
+		<baseType>kFileReferenceType</baseType>
+		<methodName>addListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_FileReference_removeListener">
+		<baseType>kFileReferenceType</baseType>
+		<methodName>removeListener</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_eval">
+		<baseType>kVoidType</baseType>
+		<methodName>eval</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_getVersion">
+		<baseType>kVoidType</baseType>
+		<methodName>getVersion</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kUnsupportedMeth_ifFrameLoaded">
+		<baseType>kVoidType</baseType>
+		<methodName>ifFrameLoaded</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>	
+</methods>
+
+<events>
+	<unsupported label="kWarning_Event_onStatus">
+		<baseType>kSystemType</baseType>
+		<methodName>onStatus</methodName>
+		<isStatic>true</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onID3">
+		<baseType>kSoundType</baseType>
+		<methodName>onID3</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoad">
+		<baseType>kSoundType</baseType>
+		<methodName>onLoad</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSoundComplete">
+		<baseType>kSoundType</baseType>
+		<methodName>onSoundComplete</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onResize">
+		<baseType>kStageType</baseType>
+		<methodName>onResize</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onChanged">
+		<baseType>kTextFieldType</baseType>
+		<methodName>onChanged</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKillFocus">
+		<baseType>kTextFieldType</baseType>
+		<methodName>onKillFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onScroller">
+		<baseType>kTextFieldType</baseType>
+		<methodName>onScroller</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSetFocus">
+		<baseType>kTextFieldType</baseType>
+		<methodName>onSetFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoad">
+		<baseType>kStyleSheetType</baseType>
+		<methodName>onLoad</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseDown">
+		<baseType>kMouseType</baseType>
+		<methodName>onMouseDown</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseUp">
+		<baseType>kMouseType</baseType>
+		<methodName>onMouseUp</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseMove">
+		<baseType>kMouseType</baseType>
+		<methodName>onMouseMove</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseWheel">
+		<baseType>kMouseType</baseType>
+		<methodName>onMouseWheel</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKeyDown">
+		<baseType>kKeyboardType</baseType>
+		<methodName>onKeyDown</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKeyUp">
+		<baseType>kKeyboardType</baseType>
+		<methodName>onKeyUp</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onData">
+		<baseType>kLoaderType</baseType>
+		<methodName>onData</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoad">
+		<baseType>kLoaderType</baseType>
+		<methodName>onLoad</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onDragOut">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onDragOut</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onDragOver">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onDragOver</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKeyDown">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onKeyDown</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKeyUp">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onKeyUp</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKillFocus">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onKillFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onPress">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onPress</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onRelease">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onRelease</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onReleaseOutside">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onReleaseOutside</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onRollOut">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onRollOut</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onRollOver">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onRollOver</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSetFocus">
+		<baseType>kSimpleButtonType</baseType>
+		<methodName>onSetFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onActivity">
+		<baseType>kCameraType</baseType>
+		<methodName>onActivity</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onStatus">
+		<baseType>kCameraType</baseType>
+		<methodName>onStatus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSelect">
+		<baseType>kContextMenuType</baseType>
+		<methodName>onSelect</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSelect">
+		<baseType>kContextMenuItemType</baseType>
+		<methodName>onSelect</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onActivity">
+		<baseType>kMicrophoneType</baseType>
+		<methodName>onActivity</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onStatus">
+		<baseType>kMicrophoneType</baseType>
+		<methodName>onStatus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onData">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onData</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onDragOut">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onDragOut</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onDragOver">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onDragOver</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onEnterFrame">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onEnterFrame</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKeyDown">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onKeyDown</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKeyUp">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onKeyUp</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onKillFocus">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onKillFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoad">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onLoad</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseDown">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onMouseDown</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseMove">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onMouseMove</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onMouseUp">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onMouseUp</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onPress">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onPress</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onRelease">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onRelease</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onReleaseOutside">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onReleaseOutside</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onRollOut">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onRollOut</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onRollOver">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onRollOver</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSetFocus">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onSetFocus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onUnload">
+		<baseType>kDisplayObjectType</baseType>
+		<methodName>onUnload</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoadComplete">
+		<baseType>kLoaderType</baseType>
+		<methodName>onLoadComplete</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoadError">
+		<baseType>kLoaderType</baseType>
+		<methodName>onLoadError</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoadInit">
+		<baseType>kLoaderType</baseType>
+		<methodName>onLoadInit</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoadProgress">
+		<baseType>kLoaderType</baseType>
+		<methodName>onLoadProgress</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoadStart">
+		<baseType>kLoaderType</baseType>
+		<methodName>onLoadStart</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onStatus">
+		<baseType>kNetStreamType</baseType>
+		<methodName>onStatus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onData">
+		<baseType>kXMLType</baseType>
+		<methodName>onData</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoad">
+		<baseType>kXMLType</baseType>
+		<methodName>onLoad</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onClose">
+		<baseType>kXMLSocketType</baseType>
+		<methodName>onClose</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onConnect">
+		<baseType>kXMLSocketType</baseType>
+		<methodName>onConnect</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onData">
+		<baseType>kXMLSocketType</baseType>
+		<methodName>onData</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onXML">
+		<baseType>kXMLSocketType</baseType>
+		<methodName>onXML</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSelect">
+		<baseType>kFileReferenceListType</baseType>
+		<methodName>onSelect</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onCancel">
+		<baseType>kFileReferenceListType</baseType>
+		<methodName>onCancel</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onData">
+		<baseType>kXMLDocumentType</baseType>
+		<methodName>onData</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onHTTPStatus">
+		<baseType>kXMLDocumentType</baseType>
+		<methodName>onHTTPStatus</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onLoad">
+		<baseType>kXMLDocumentType</baseType>
+		<methodName>onLoad</methodName>
+		<isStatic>false</isStatic>
+	</unsupported>
+    <unsupported label="kWarning_Event_onStatus">
+      <baseType>kSharedObjectType</baseType>
+      <methodName>onStatus</methodName>
+      <isStatic>false</isStatic>
+    </unsupported>
+	<unsupported label="kWarning_Event_onStatus">
+	  <baseType>kLocalConnectionType</baseType>
+	  <methodName>onStatus</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onIMEComposition">
+	  <baseType>kIMEType</baseType>
+	  <methodName>onIMEComposition</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onCancel">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onCancel</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onComplete">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onComplete</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onHTTPError">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onHTTPError</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onIOError">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onIOError</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onOpen">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onOpen</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onProgress">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onProgress</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSecurityError">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onSecurityError</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+	<unsupported label="kWarning_Event_onSelect">
+	  <baseType>kFileReferenceType</baseType>
+	  <methodName>onSelect</methodName>
+	  <isStatic>false</isStatic>
+	</unsupported>
+</events>
+
+</AS2LintWarnings>

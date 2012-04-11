@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="asc" default="main" basedir=".">
+	<property name="root.dir" 		value="${basedir}/../.."/>
+	<property name="build.util"		value="${root.dir}/build/util"/>
+
+	<condition property="avm.name" value="avmplus">
+		<os family="mac"/>
+	</condition>
+	<condition property="avm.name" value="avmplus.exe">
+		<os family="windows"/>
+	</condition>
+
+	<target name="main">
+		<!-- Not generating errorGen.abc because this will not work if the 
+			a byte code format changes.  Once the byte code formate is finalized
+			we can do this again -->
+		
+		<!--<apply executable="${bin.dir}/${asc.name}" dir="${cpp.src.dir}/util">
+			<arg line="-import ${as.src.dir}/Global.as"/>
+			<fileset dir="${cpp.src.dir}/util" includes="errorGen.as"/>
+		</apply>-->
+
+		<!-- using avmplus.exe in the util directory -->
+		<apply executable="${build.util}/${avm.name}" dir="${build.util}">
+			<fileset dir="${build.util}" includes="errorGen.abc"/>
+		</apply>
+	</target>
+	
+	
+	<target name="generate">
+		<move file="Lint_Warnings_diff.xml" tofile="prev_Lint_Warnings_diff.xml"/>
+		<apply executable="${bin.dir}/${avm.name}" output="build.out" append="true">
+			<arg line="${build.util}/genLocDiffs.abc -- "/>
+			<arg line=" en/Lint_Warnings_lastDrop.xml"/>
+			<arg line=" en/Lint_Warnings.xml "/>
+		</apply>
+
+		<move file="ErrorConstants_diff.xml" tofile="prev_ErrorConstants_diff.xml"/>
+		<apply executable="${bin.dir}/${avm.name}" output="build.out" append="true">
+			<arg line="${build.util}/genLocDiffs.abc -- "/>
+			<arg line=" en/ErrorConstants_lastDrop.xml"/>
+			<arg line=" en/ErrorConstants.xml "/>
+		</apply>			
+	</target>
+
+<target name="integrate">
+    <ant dir="jp" target="integrate"/>	
+    <!-- only japanese is translated this time around -->		
+</target>
+
+<!-- use this target to back out from an integrate run when there are build errors -->
+<target name="undo_integrate">
+    <ant dir="jp" target="undo_integrate"/>	
+    <!-- only japanese is translated this time around -->	
+</target>
+
+<target name="formatNormalize">
+    <ant dir="jp" target="formatNormalize"/>	
+    <!-- only japanese is translated this time around -->	
+</target>
+
+</project>

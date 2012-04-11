@@ -1,0 +1,786 @@
+<?xml version='1.0' encoding='utf-8' standalone='no' ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--  
+
+   Note that error id="1179" does not need to be translated, its for internal use only.
+-->
+
+<errors>
+	<error id="1000" label="kError_AmbiguousReference">%s 的參考模稜兩可。
+
+
+	<description><![CDATA[
+	A reference might be to more than one item. For example, the following uses the namespaces <code>rss</code> and <code>xml</code>, each of which defines a 
+	different value for the <code>hello()</code> function. The 		
+	<code>trace(hello())</code> statement returns this error because it cannot determine which namespace to use.<br>
+	
+<pre><code>private namespace rss;
+private namespace xml;
+    
+public function ErrorExamples() {
+  	use namespace rss;
+   	use namespace xml;
+	trace(hello());
+}
+    
+rss function hello():String {
+      	return "hola";
+    }
+    
+    xml function hello():String {
+        return "foo";
+    }</code></pre>
+ 
+
+	<p>Correct an ambiguous reference by making the reference specific. The following example 	uses the form <i>namespace</i>::<i>function</i> to specify 
+	which namespace to use:
+
+
+<pre><code>public function ErrorExamples() {
+    
+    trace(rss::hello());
+    trace(xml::hello());
+}</code></pre>
+        
+	]]>
+	</description>
+
+</error>
+	<error id="1003" label="kError_NamespaceAccessSpecifiers">存取規範不允許使用 namespace 屬性。
+		<description>You can not use both an access specifier (such as private or public) and a namespace attribute on a definition.</description></error>
+	<error id="1004" label="kError_Unknown_Namespace">找不到 namespace，或它不是編譯時期常數。
+	
+<description><![CDATA[
+		The namespace is either unknown or is an expression that could have different values at run time.
+		Check that you are spelling the namespace correctly and that its definition is imported correctly.]]></description>
+</error>
+
+	<error id="1006" label="kError_InvalidSuperExpression">super 運算式只能在類別實體方法內使用。</error>
+	<error id="1007" label="kError_InvalidSuperStatement">super 陳述式只能在類別實體建構函式內使用。
+<description><![CDATA[
+		You cannot use the <code>super</code> statement within static members. You can 
+		use the <code>super</code> statement only within class instances.
+	]]>
+	</description>
+</error>
+	<error id="1008" label="kError_InvalidAttribute">屬性無效。</error>
+	<error id="1010" label="kError_InvalidOverride">override 屬性只能用於類別屬性定義。
+<description><![CDATA[
+		You cannot use the <code>override</code> keyword within a function block.
+	]]></description>
+
+</error>
+	<error id="1011" label="kError_InvalidVirtual">virtual 屬性只能用於類別屬性定義。
+<description><![CDATA[
+		You cannot use the <code>virtual</code> attribute when you declare a property that does not belong to a class 
+		(for example, when you declare a variable within a function block).
+	]]></description>
+</error>
+	<error id="1012" label="kError_InvalidStatic">static 屬性只能用於類別中的定義。</error>
+	<error id="1013" label="kError_InvalidPrivate">private 屬性只能用於類別屬性定義。</error>
+	<error id="1014" label="kError_Unsupported_Intrinsic">不再支援 intrinsic 屬性。
+<description>
+		ActionScript 3.0 does not support the <code>intrinsic</code> keyword.
+	</description>
+
+</error>
+	<error id="1016" label="kError_BaseClassIsFinal">基底類別為 final。
+<description><![CDATA[
+		The superclass cannot be extended because it is marked 
+		as <code>final</code>.
+	]]></description>
+
+</error>
+	<error id="1017" label="kError_UnknownBaseClass">找不到基底類別 %s 的定義。</error>
+	<error id="1018" label="kError_DuplicateClassDefinition">類別定義重複：%s。</error>
+	<error id="1020" label="kError_OverrideNotFound">標示為 override 的方法必須覆寫另一個方法。</error>
+	<error id="1021" label="kError_DuplicateFunction">函數定義重複。
+<description>
+		You cannot declare more than one function with the same identifier name within the same scope.
+	</description>
+
+</error>
+	<error id="1022" label="kError_OverrideFinalAccessor">無法覆寫 final 存取子。</error>
+	<error id="1023" label="kError_IncompatibleOverride">覆寫不相容。
+<description> A function marked override must exactly match the parameter and return type declaration of the function it is overriding. 
+It must have the same number of parameters, each of the same type, and declare the same return type.  If any of the parameters are optional, that
+must match as well.  Both functions must use the same access specifier (public, private, and so on) or namespace attribute as well.</description></error>
+	<error id="1024" label="kError_OverrideOfFuncNotMarkedForOverride">正在覆寫未標示為 override 的函數。
+<description>
+		<![CDATA[
+		If a method in a class overrides a method in a base class, you must explicitly declare it by using the <code>override</code> attribute, as this example shows:
+
+		<pre>public override function foo():void{};</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1025" label="kError_FinalMethodRedefinition">無法重新定義 final 方法。
+<description><![CDATA[
+		The method cannot be extended because it is marked
+		as <code>final</code> in the base class.
+	]]></description>
+
+</error>
+	<error id="1026" label="kError_ConstructorsMustBeInstanceMethods">建構函式的函數必須是實體方法。</error>
+	<error id="1027" label="kError_FuncIsStaticAndOverride">函數無法同時為 static 及 override。</error>
+	<error id="1028" label="kError_FuncIsStaticAndVirtual">函數無法同時為 static 及 virtual。</error>
+	<error id="1029" label="kError_FuncIsVirtualAndFinal">函數無法同時為 final 及 virtual。</error>
+	<error id="1030" label="kError_RestParameterNotNamed">必須指定變數引數陣列的名稱。
+<description>
+	<![CDATA[
+		The ...(rest) parameter definition specifies that all values supplied after ...(rest) 
+		are collected into any array.  
+		You must specify a name for the array, as in the expression 
+		<code>function foo(x,...(rest))</code>.
+
+	]]>
+	</description>
+
+</error>
+	<error id="1033" label="kError_VirtualVars">不支援 virtual 變數。</error>
+	<error id="1034" label="kError_NativeVars">不能使用 native 變數。</error>
+	<error id="1035" label="kError_VarIsFinalAndVirtual">變數無法同時為 final 及 virtual。</error>
+	<error id="1037" label="kError_NestedPackage">Package 不能巢狀化。</error>
+	<error id="1038" label="kError_BreakHasNoTarget">找不到 break 陳述式的目標。</error>
+	<error id="1039" label="kError_ContinueHasNoTarget">找不到 continue 陳述式的目標。</error>
+	<error id="1040" label="kError_DuplicateLabel">標籤定義重複。</error>
+	<error id="1041" label="kError_AttributesAreNotCallable">無法呼叫屬性。</error>
+	<error id="1042" label="kError_ThisUsedInStaticFunction">this 關鍵字不能用於靜態方法中。它只能用於實體方法、函數結束項和全域程式碼中。
+<description>
+	<![CDATA[
+		You cannot use the <code>this</code> keyword within a static member, because 
+		<code>this</code> would have no context.
+	]]>
+	</description>
+
+
+</error>
+	<error id="1043" label="kError_UndefinedNamespace">未定義的 namespace。</error>
+	<error id="1044" label="kError_UnknownInterfaceMethod">Interface 方法 %s 於 namespace %s 內尚未被類別 %s 實作。</error>
+	<error id="1045" label="kError_UnknownInterface">找不到 Interface %s。</error>
+	<error id="1046" label="kError_UnknownType">找不到 Type，或它不是編譯時期常數：%s。
+<description>
+		<![CDATA[
+		The class used as a type declaration is either unknown or is an expression that could have different values at run time.
+		Check that you are importing the correct class and that its package location
+		has not changed. Also, check that the package that contains the code (not the
+		imported class) is defined correctly (for example, make sure to use proper
+		ActionScript 3.0 package syntax, and not ActionScript 2.0 syntax).</p>
+
+		<p>The error can also occur if the class being referenced is not defined in a namespace that is in use or is not defined as public:</p>
+
+		<pre><code>public class Foo{}</code></pre>
+
+        <span class="flexonly"><p>If you are using Flex&#153 Builder&#153 2 and the class is in a library,
+		make sure to set the class path for the project.</p></span>
+
+
+	]]>
+	</description>
+
+
+</error>
+	<error id="1047" label="kError_NonConstantParamInitializer">參數初始設定式不明，或它不是編譯時期常數。
+	
+	<description><![CDATA[
+	The value used as the default value for the parameter is either undefined or could have different values at run time. Check that the initializer is spelled 
+	correctly, and that the initializer value isn't an expression that could result in different possible values at run time.
+	]]></description>
+</error>
+	
+	<error id="1048" label="kError_MethodIsNotAConstructor">方法不能當作建構函式使用。
+	
+	<description><![CDATA[
+	It is not possible to create an instance of a method of a class.  Only global functions can be used in <code>new</code> expressions.
+	
+<pre>class D { function xx() { return 22; } }
+var d:D = new D();
+var x = new d.xx(); // error, method cannot be used as constructor
+function yy() { this.a = 22; }
+var z = new yy(); // no error, global functions can be used as constructors.</pre>
+
+	]]></description>	
+</error>
+	<error id="1049" label="kError_AssignmentToConstVar">對指定為常數的變數的指定不合法。</error>
+	<error id="1050" label="kError_AssignmentToNonRefVar">無法指定給非參考值。</error>
+	<error id="1051" label="kError_ReturnTypeMustBeUndefined">傳回值必須是未定義的。
+<description><![CDATA[
+		You are attempting to use the <code>return</code> statement within a method that
+		has a declared return type <code>void</code>.
+	]]></description>
+
+
+</error>
+	<error id="1052" label="kError_ConstInitializerNotConst">常數初始設定式不明，或它不是編譯時期常數。
+
+	<description><![CDATA[
+	The value used to initialize the constant is either undefined or could have different values at run time. Check that the initializer is spelled 
+	correctly, and that the initializer value isn't an expression that could result in different possible values at run time.
+	]]></description>
+
+</error>
+	<error id="1053" label="kError_AccessorTypesMustMatch">存取子類型必須相符。</error>
+	<error id="1054" label="kError_BadSetterReturnType">setter 定義的傳回類型必須是未指定的或虛值 (Void)。
+<description><![CDATA[
+		You cannot specify a return value for a setter function. For example, the following is invalid:
+
+		<pre>public function set gamma(g:Number):Number;</pre>
+
+		<p>The following <em>is</em> valid:</p>
+
+		<pre>public function set gamma(g:Number):void;</pre>
+	]]></description>
+
+</error>
+	<error id="1058" label="kError_PropertyIsWriteOnly">屬性是唯寫的。</error>
+	<error id="1059" label="kError_PropertyIsReadOnly">屬性是唯讀的。
+
+	<description><![CDATA[
+	This property is defined through a getter function, which allows you to retrieve that property's value. There is no setter function defined 
+	for this property, however, so it is read-only.
+	<p>In the following example, line 3 generates an error because there is no setter function defined for <code>xx</code>:
+	
+<pre>class D { function get xx() { return 22; } }
+var d:D = new D();
+d.xx = 44; // error, property is read-only</pre>
+	]]></description>
+
+</error>
+	<error id="1061" label="kError_Strict_UndefinedMethod">呼叫可能未定義的方法 %s (透過靜態類型 %s 的參考)。
+
+	<description><![CDATA[
+	You are calling a method that is not defined.
+	]]></description>
+
+</error> <!-- edited -->
+	<error id="1063" label="kError_UnableToOpenFile">無法開啟檔案：%s。</error>
+	<error id="1064" label="kError_InvalidMetaData">中繼資料無效。
+	<description><![CDATA[
+	This metadata is unrecognized.
+	]]></description>
+
+
+</error>
+	<error id="1065" label="kError_MetaDataAttributesHasMoreThanOneElement">中繼資料屬性不能包含超過一個元素。</error>
+	<error id="1067" label="kError_ImplicitCoercisionOfUnrelatedType">%s 類型值以隱含方式強制轉型成不相關的類型 %s。
+<description><![CDATA[
+		You are attempting to cast an object to a type to which it cannot be converted. This can happen
+		if the class you are casting to is not in the inheritance chain of the object being cast.
+		This error appears only when the compiler is running in strict mode.
+	]]></description>
+
+
+</error>
+	<error id="1068" label="kError_Parser_UnableToOpenFile">無法開啟包含的檔案：%s。</error>
+	<error id="1069" label="kError_Parser_DefinitionOrDirectiveExpected">語法錯誤：需要定義或指示詞。
+
+<description>
+		Check the syntax in the line.
+	</description>
+
+</error>
+	<error id="1071" label="kError_Parser_ExpectingAnnotatableDirectiveAfterAttributes">語法錯誤：屬性 %s 之後必須是定義關鍵字 (例如函數)，而不是 %s。
+<description>
+	<![CDATA[
+		This error will occur if the author forgets to use the "var" or "function" keyword in a declaration.
+<pre><code>public int z;// should be 'public var z:int;'</code></pre>
+
+		This error might also occur when the compiler encounters an unexpected character. For example,
+		the following use of the <code>trace()</code> function is invalid, because of the missing
+		parentheses (the correct syntax is <code>trace("hello")</code>):
+
+<pre>
+trace "hello"
+</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1072" label="kError_Parser_ExpectedXMLBeforeNameSpace">語法錯誤：namespace 之前必須是 xml。
+<description>
+	<![CDATA[
+		The correct statement syntax is <code>default xml namespace = </code> <em>ns</em>. Either the keyword <code>xml</code> (note the lowercase) 
+		is missing or an incorrect keyword was used. For more
+		information, see the <a href="statements.html#default_xml_namespace">default xml namespace</a>
+		directive.
+	]]>
+	</description>
+
+</error>
+	<error id="1073" label="kError_Parser_ExpectingCatchOrFinally">語法錯誤：需要 catch 或 finally 子句。</error>
+	<error id="1075" label="kError_Parser_EachWithoutIn">語法錯誤：不允許使用沒有 'in' 運算子的 'each' 關鍵字。</error>
+	<error id="1076" label="kError_Parser_ExpectedLeftParen">語法錯誤：識別名稱之前必須有左括號。</error>
+	<error id="1077" label="kError_Parser_ExpectedCaseLabel">需要 CaseLabel。
+
+	<description><![CDATA[
+	The compiler expected a <code>case</code> statement at this point in the switch block. The 	following switch block incorrectly includes a call to <code>print</code> before the first </code><code>case</code> statement:
+
+<pre>switch(x)
+{
+trace(2);
+case 0:  trace(0); 
+break
+}</pre>
+	]]>
+    </description>
+</error>
+	<error id="1078" label="kError_Parser_LabelIsNotIdentifier">標籤必須是簡單的識別名稱。</error>
+	<error id="1079" label="kError_Parser_WrongNumberOfSuperArgs">super 運算式必須包含一個運算元。</error>
+	<error id="1080" label="kError_Parser_ExpectingIncrOrDecrOperator">需要遞增或遞減的運算子。</error>
+	<error id="1082" label="kError_Parser_ExpectingASingleExpressionWithinParenthesis">括號內必須是單一運算式。</error>
+	<error id="1083" label="kError_Parser_ExpectedPrimaryExprBefore">語法錯誤：未預期的 %s。
+
+<description>
+	<![CDATA[
+		The line of code is missing some information. In the following example,
+		some expression (such as another number) needs to be included after the final plus sign:
+
+		<pre>var sum:int = 1 + 2 + ;</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1084" label="kError_Parser_ExpectedToken">語法錯誤：%s 必須在 %s 之前。
+<description>
+	<![CDATA[
+		The expression was unexpected at this point.
+		If the error says "Expecting right brace before end of program," a block of code
+		is missing a closing brace (&#125).
+
+		<p>If the error says "Expecting left parenthesis before _," you may have omitted a  
+		parenthesis from a conditional expression, as shown in the following example, which is intentionally incorrect: </p>
+
+		<pre><code>var fact:int = 1 * 2 * 3;
+if fact &gt; 2 {
+	var bigger:Boolean = true;
+}</code></pre>
+	]]>
+	</description>
+
+
+</error>
+	<error id="1086" label="kError_Parser_ExpectedSemicolon">語法錯誤：%s 之前必須有分號。</error>
+	<error id="1087" label="kError_Parser_ExtraCharsAfterEndOfProgram">語法錯誤：程式結尾後出現額外字元。</error>
+	<error id="1093" label="kError_Lexical_General">語法錯誤。</error>
+	<error id="1094" label="kError_Lexical_LineTerminatorInSingleQuotedStringLiteral">語法錯誤：字串常值必須在斷行符號之前結束。</error>
+	<error id="1095" label="kError_Lexical_LineTerminatorInDoubleQuotedStringLiteral">語法錯誤：字串常值必須在斷行符號之前結束。</error>
+	<error id="1097" label="kError_Lexical_EndOfStreamInStringLiteral">語法錯誤：在到達字串常值的結束引號之前，輸入便已結束。</error>
+	<error id="1099" label="kError_Lexical_SyntaxError">語法錯誤。</error>
+	<error id="1100" label="kError_Lexical_NoMatchingTag">語法錯誤：XML 沒有相符的開始和結束標記。</error>
+	<error id="1102" label="kError_CannotDeleteSuperDecendants">無法刪除 super 子系。</error>
+	<error id="1103" label="kError_DuplicateNamespaceDefinition">namespace 定義重複。
+
+	<description><![CDATA[
+	You defined the namespace more than once. Delete or modify the duplicate definition.
+	]]></description>
+
+
+</error>
+	<error id="1104" hidden="true" label="kError_ErrorNodeError"> %s </error>
+	<error id="1105" label="kError_AssignmentTargetNotRefVal">指定的目標必須是參考值。
+
+	<description><![CDATA[
+	You can assign a value to a variable, but you cannot assign a value to another value. 
+	]]></description> 
+</error>
+	<error id="1106" label="kError_IncrementOperatorNotAReference">遞增的運算元必須是參考。
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1107" label="kError_InvalidIncrementOperand">遞增運算元無效。
+
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1108" label="kError_InvalidDecrementOperand">遞減運算元無效。
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1109" label="kError_ExpectingExpression">需要運算式。
+
+<description>
+	<![CDATA[
+		An expression is missing in a part of the code. For example, the following produces this
+		error (there is a condition missing from the <code>if</code> statement:
+
+<pre><code>var x = (5 &gt; 2) ? 
+trace(x)</code></pre>
+	]]>
+	</description>
+
+
+</error>
+	<error id="1110" label="kError_MissingXMLTagName">遺失 XML 標記名稱。</error>
+	<error id="1111" hidden="true" label="kError_InvalidAbcFile">檔案 %s 不是有效的 ABC 檔案。</error>
+    <error id="1112" label="kError_Parser_FileIncludesItself">可能導致無限遞迴，因為此檔案包括：%s。
+
+	<description><![CDATA[
+	A file that is included in the source being compiled contains other <code>include</code> 	statements that would cause an infinite loop. For example, the following files. a.as and 	b.as, generate this error because each file tries to include the other.
+	<p>
+	File a.as contains the following, which attempts to include the file b.as:
+<pre>import foo.bar.baz;
+include "b.as"
+trace(2);</pre>
+	<p>File b.as contains the following, which attempts to include the file a.as:
+	<pre>include "a.as"</pre>
+
+	]]></description>
+
+</error>
+	<error id="1113" label="kError_CircularReference">在 %s 中偵測到循環類型參考。
+	<description><![CDATA[
+	A class is trying to extend a superclass. For example, class A cannot extend class B if B inherits from A:
+<pre><code>class a extends b { }
+class b extends a { }</code></pre>
+	]]></description>
+
+</error>
+	<error id="1114" label="kError_InvalidPublic">public 屬性只能用於套件內部。</error>
+	<error id="1115" label="kError_InvalidInternal">internal 屬性只能用於套件內部。</error>
+	<error id="1116" label="kError_InvalidNamespace">使用者定義的 namespace 屬性只能用於類別定義的最上層。</error>
+	<error id="1118" label="kError_ImplicitCoercionToSubtype">靜態類型 %s 的值以隱含方式強制轉型成可能不相關的類型 %s。
+	<description><![CDATA[You are using a value that is not of the expected type and no implicit coercion exists to convert it to the expected type.
+	<p>Perhaps you are using a supertype where a subtype is expected. For example:
+<pre><code>class A {}
+var a:A = new A(); 
+class B extends A { function f() }
+var b : B = a // error</code></pre>
+	<p>The last statement generates an error because it attempts to assign an object of type A to a variable of type B.
+	<p>Similarly, the following defines the <code>foo()</code> function, which takes a parameter of type B. The statement <code> foo(a);</code> 
+	generates an error because it attempts to use a parameter of type A:
+<pre><code>function foo(x:B) { }
+foo(a);</code></pre>
+	<p>Also, the following statement generates an error because the returned value for 	<code>foo2()</code> must be type B:
+	<pre><code>function foo2():B { return new A(); }</code></pre>
+	]]></description>
+
+</error>
+	<error id="1119" label="kError_UndefinedProperty">存取可能未定義的屬性 %s (透過靜態類型 %s 的參考)。
+
+
+<description>
+	<![CDATA[
+		You are attempting to access a property that does not exist for the specified object. For example,
+		the following code generates this error because an int object does not have a property named
+		<code>assortment</code>:
+
+<pre><code>var i:int = 44;
+var str:String = i.assortment;</code></pre>
+
+		This error appears only when the compiler is running in strict mode.
+	]]>
+	</description>
+
+
+</error>
+	<error id="1120" label="kError_UnfoundProperty">存取未定義的屬性 %s。
+
+<description>
+	<![CDATA[
+		You are attempting to access an undefined variable. For example, if the variable
+		<code>huh</code> has not been defined, a call to it generates this error:
+
+<pre><code>huh = 55;</code></pre>
+
+		This error can appear only when the compiler is running in strict mode.
+	]]>
+	</description>
+
+
+</error>
+    <error id="1121" label="kError_GetterCannotHaveParameters">getter 定義必須沒有參數。</error>
+    <error id="1122" label="kError_SetterMustHaveOneParameter">setter 定義只能有一個參數。</error>
+    <error id="1123" label="kError_SetterCannotHaveOptional">setter 定義不能包含選擇性參數。</error>
+    <error id="1124" label="kError_BadGetterReturnType">getter 定義的傳回類型不能是虛值 (Void)。
+
+	<description><![CDATA[
+	A getter function simulates a variable. Because variables cannot be of type void, you cannot declare getter functions to return type void.
+	]]></description>
+</error>
+    <error id="1125" label="kError_InterfaceMethodWithBody">定義在 Interface 中的方法不能包含主體。</error>
+    <error id="1126" label="kError_FunctionWithoutBody">函數不包含主體。</error>
+    <error id="1127" label="kError_DuplicateAttribute">%s 屬性已經多次指定。
+
+	<description><![CDATA[
+	You specified an attribute more than once in the same statement. For example, the statement <code>public static public var x;</code> generates 
+	this error because it specifies that the variable <code>x</code> is public twice. Delete duplicate declarations.
+	]]></description>
+
+</error>
+    <error id="1129" label="kError_DuplicateInterfaceDefinition">Interface 定義重複：%s。
+
+	<description><![CDATA[
+	Change or delete the duplicate definitions.
+	]]></description>
+
+</error>
+    <error id="1130" label="kError_CtorWithReturnType">建構函式不能指定傳回類型。</error>
+    <error id="1131" label="kError_InvalidClassNesting">類別不能巢狀化。</error>
+    <error id="1132" label="kError_InvalidFinalUsage">final 屬性只能用於定義在類別中的方法。</error>
+    <error id="1133" label="kError_InvalidNative">native 屬性只能配合函數定義使用。</error>
+    <error id="1134" label="kError_InvalidDynamic">動態屬性只能配合類別定義使用。</error>
+    <error id="1135" label="kError_Parser_keywordInsteadOfTypeExpr">語法錯誤: %s 是無效類型。</error>
+    <error id="1136" label="kError_WrongNumberOfArguments">引數個數錯誤。需要 %s 個。
+
+	<description><![CDATA[
+	The function expects a different number of arguments than those you provided. For example, the 	following defines function <code>goo</code>, which has two arguments:
+<pre>class A { static function goo(x:int,y:int) 
+{ return(x+y); } }</pre>
+	<p>The following statement would generate an error because it provides three arguments:
+<pre>A.goo(1,2,3);</pre>
+	]]></description>
+</error>
+    <error id="1137" label="kError_TooManyArguments">引數個數錯誤。不能超過 %s 個。</error>
+    <error id="1138" label="kError_BadRequiredParameter">不允許必要的參數出現在選擇性參數之後。</error>
+    <error id="1139" label="kError_VarInInterface">不允許在 Interface 中出現變數宣告。</error>
+    <error id="1140" label="kError_InvalidRestDecl">指定於 ...rest 參數定義關鍵字後面的參數只能是 Array 資料類型。</error>
+    <error id="1141" label="kError_CannotExtendInterface">類別只能擴充另一個類別，不能擴充 Interface。</error>
+    <error id="1142" label="kError_CannotExtendClass">Interface 只能擴充其它的 Interface，但是 %s 為類別。
+	<description><![CDATA[
+	You are attempting to have the interface extend a class. An interface can only extend another 	interface.
+	]]></description>
+
+</error>
+    <error id="1143" label="kError_InvalidOverrideUsage">override 屬性只能用於定義在類別中的方法。</error>
+    <error id="1144" label="kError_IncompatibleInterfaceMethod">Interface 方法 %s 於 namespace %s 內用類別 %s 中不相容的簽名實作。
+
+	<description><![CDATA[
+	Method signatures must match exactly.
+	]]></description>
+
+</error>
+    <error id="1145" label="kError_NativeMethodWithBody">native 方法不能包含主體。
+	<description><![CDATA[
+	You cannot use <code>native</code> because it is a reserved keyword.
+	]]></description>
+
+</error>
+    <error id="1146" label="kError_ConstructorCannnotBeGetterSetter">建構函式不能是 getter 或 setter 方法。</error>
+    <error id="1147" label="kError_MissingFilespec">未指定 AS 原始檔案。</error>
+    <error id="1149" label="kError_CannotReturnFromStaticInit">return 陳述式不能用於靜態初始化程式碼中。</error>
+	<error id="1150" label="kError_InvalidProtected">protected 屬性只能用於類別屬性定義。</error>
+	<error id="1151" label="kError_ConflictingNameInNamespace">定義 %s 於 namespace %s 中發生衝突。
+
+	<description><![CDATA[
+	You cannot declare more than one variable with the same identifier name within the same scope unless all such variables are declared to be of 
+	the same type. In ActionScript 3.0, different code 	blocks (such as those used in two <code>for</code> loops in the same function definition) are 	considered to be in the same scope. 
+	<p>The following code example correctly casts the variable <code>x</code> as the same type:
+<pre><code>function test()
+{
+	var x:int = 3;
+	for(var x:int = 33; x &lt; 55; x++)
+	trace(x);
+	for(var x:int = 11; x &lt; 33; x++)
+	trace(x)
+}</code></pre>
+	<p>The following code example generates an error because the type casting in the variable declaration and the <code>for</code> loops are different:
+<pre><code>function test()
+{
+	var x:String = "The answer is";
+	for(var x:int = 33; x &lt; 55; x++) // error
+	trace(x);
+	for(var x:unit = 11; x &lt; 33; x++) // error
+	trace(x)
+}</code></pre>
+]]></description>
+
+
+</error>
+	<error id="1152" label="kError_ConflictingInheritedNameInNamespace"> 已繼承定義 %s 於 namespace %s 中發生衝突。</error>
+    <error id="1153" label="kError_ConstructorMustBePublic">建構函式只能宣告為 public。</error>
+	<error id="1154" label="kError_ConflictingAccessSpecifiers">定義只能指定 public、private、protected 或 internal 其中之一。</error>
+	<error id="1155" label="kError_InvalidNestedAccessor">存取子不能在其它函數中巢狀化。</error>
+	<error id="1156" label="kError_CannotInstantiateInterface">Interface 不能使用新的運算子初始化。</error>
+	<error id="1157" label="kError_BadAccessInterfaceMember">Interface 成員不能宣告為 public、private、protected 或 internal。</error>
+	<error id="1158" label="kError_Parser_ExpectedLeftBrace">語法錯誤：函數主體前面遺失左邊大括弧 ({)。</error>
+    <error id="1159" label="kError_CannotReturnFromPackageInit">return 陳述式不能用於套件初始化程式碼中。</error>
+    <error id="1160" label="kError_InvalidInterfaceNative">native 屬性不能用於 Interface 定義。
+	<description><![CDATA[
+	You cannot use <code>native</code> because it is a reserved keyword.
+	]]></description>
+
+</error>
+    <error id="1162" label="kError_MultipleNamespaceAttributes">每一個定義只能使用一個 namespace 屬性。</error>
+    <error id="1163" label="kError_ConflictingInheritedNameInInterface">方法 %s 與從 Interface %s 繼承的定義發生衝突。</error>
+    <error id="1165" label="kError_InvalidInterfaceAttribute">Interface 屬性 %s 無效。</error>
+    <error id="1166" label="kError_NamespaceInInterface">不允許在 Interface 中出現 namespace 宣告。</error>
+    <error id="1167" label="kError_DuplicateImplements">類別 %s 會多次實作 Interface %s。
+
+	<description><![CDATA[
+	The class implements the same interface more than once. For example, the following generates this error because 
+	class C implements interface A twice:
+
+<pre><code>interface A {  public function f();  };
+class C implements A,A {
+public function f() { trace("f"); }
+}</code></pre>
+	
+	<p>The correct implementing statement should be <code> class C implements A {</code>.
+	]]></description>
+
+</error>
+    <error id="1168" label="kError_AssignmentToDefinedFunction">函數 %s 的指定不合法。
+
+	<description><![CDATA[
+	You are attempting to redefine a function. For example, the following defines the function 	<code>topLevel()</code> 
+	to print the word "top". The second statement generates an error because it assigns a different return value to the function:
+<pre><code>function topLevel() { trace("top"); }
+topLevel = function() { trace("replacement works in ~");} // error</code></pre>
+	]]></description>
+
+
+</error>
+    <error id="1169" label="kError_InterfaceNamespaceAttribute">不允許在 Interface 方法上出現 namespace 屬性。</error>
+    <error id="1170" label="kError_MustReturnValue">函數沒有傳回值。
+
+	<description><![CDATA[
+	Every possible control flow in a function must return a value whenever the return type is 	something other than void. The following function 
+	<code>f(x)</code> does not generate an error because the <code>if..else</code> statement always returns a value:
+
+<pre><code>function f(x):int
+{
+if (x)
+    	return 2;
+else
+    	return 3;
+} // no error</code></pre>
+
+<p>However, the function <code>g(x)</code> below generates the error because the <code>switch</code> statement does not always 
+return a value.
+<pre><code>function g(x:int):int
+{
+switch(x)
+{
+      	case 1: return 1;
+      	case 2: return 2:
+}
+// return 2;//uncomment to remove the error
+}</code></pre>
+
+	<p>This checking is enabled only when the function declares a return type other than void. 
+	]]></description>
+</error>
+    <error id="1171" label="kError_InvalidNamespaceInitializer">namespace 初始設定式必須是常值字串或其它 namespace。</error>
+    <error id="1172" label="kError_DefinitionNotFound">找不到定義 %s。</error>
+    <error id="1173" label="kError_InvalidLabel">標籤定義無效。</error>
+    <error id="1176" label="kError_IncompatableValueComparison">比較靜態類型 %s 的值和可能不相關的類型 %s。
+<description>This error is enabled in strict mode.</description></error>
+    <error id="1177" label="kError_CannotReturnFromGlobalInit">return 陳述式不能用於全域初始化程式碼中。</error>
+    <error id="1178" label="kError_InaccessiblePropertyReference">嘗試存取無法存取的屬性 %s (透過靜態類型 %s 的參考)。</error>
+    <error id="1179" hidden="true" label="kError_ColonObjectAnnoOutOfService">:Object is temporarily out of service.Use :* instead.</error>
+	<error id="1180" label="kError_Strict_PlainUndefinedMethod">呼叫可能未定義的方法 %s。
+<description>This error appears only when the compiler is running in strict mode.</description></error>
+	<error id="1181" label="kError_ForwardReferenceToBaseClass">基底類別 %s 的向前參考。</error>
+	<error id="1182" label="kError_IllegalPackageReference">Package 不能當作值使用：%s。</error>
+	<error id="1184" label="kError_IncompatibleDefaultValue">不相容的 %s 類型預設值，該值必須是 %s。</error>
+	<error id="1185" label="kError_MultipleSwitchDefaults">此 switch 包含一個以上的預設值，但是只允許使用一個預設值。</error>
+    <error id="1188" label="kError_AssignmentToDefinedClass">類別 %s 的指定不合法。</error>
+    <error id="1189" label="kError_Strict_AttemptToDeleteFixedProperty">嘗試刪除固定屬性 %s。只能刪除以動態方式定義的屬性。
+<description>Delete removes dynamically defined properties from an object.  Declared properties of a class can not be deleted.  This error appears only when the compiler is running in strict mode.</description></error>
+	<error id="1190" label="kError_InvalidBaseTypeExpression">找不到基底類別，或它不是編譯時期常數。</error>
+    <error id="1191" label="kError_InvalidInterfaceTypeExpression">找不到 Interface，或它不是編譯時期常數。</error>
+    <error id="1192" label="kError_StaticModifiedNamespace">不允許 namespace 定義中出現 static 屬性。</error>
+    <error id="1193" label="kError_InvalidInterfaceNesting">Interface 定義不能在類別或是其它 Interface 定義中巢狀化。</error>
+	<error id="1194" label="kError_PrototypeIsAnInvalidAttribute">prototype 屬性無效。</error>
+	<error id="1195" label="kError_InaccessibleMethodReference">嘗試存取無法存取的方法 %s (透過靜態類型 %s 的參考)。
+		<description><![CDATA[You are either calling a private method from another class, or calling a method defined in a namespace that is not in use.  If you are calling a method defined in an unused namespace, add a <code>use</code> statement for the required namespace.
+	]]></description>
+ 	</error>
+	<error id="1196" label="kError_Parser_ThrowWithoutExpression">語法錯誤：throw 之後必須是運算式。</error>
+    <error id="1197" label="kError_Authoring_SymbolClassInheritance">類別 %s 不能擴充 %s，因為這兩種都與圖庫元件或主要時間軸有關聯。</error>
+    <error id="1198" label="kError_AttributesOnPackage">不允許套件定義出現屬性。</error>
+    <error id="1199" label="kError_InternalError">內部錯誤：%s。</error>
+    <error id="1200" label="kError_ParserInvalidForInInitializer">語法錯誤：for-in 初始設定式無效，只能出現 1 個運算式。</error>
+	<error id="1201" label="kError_IllegalSuperStatement">super 陳述式不能出現在 this、super、return 或 throw 陳述式之後。</error>
+	<error id="1202" label="kError_UnfoundPackageProperty">存取未定義的屬性 %s (在套件 %s 中)。
+
+<description>
+	<![CDATA[
+		You are attempting to access an undefined variable in a package. For example, if the variable
+		<code>p.huh</code> has not been defined, a call to it generates this error:
+
+<pre><code>p.huh = 55;</code></pre>
+
+		This error can only appear when the compiler is running in strict mode.
+	]]>
+</description>
+    </error>
+    <error id="1203" label="kError_NoDefaultBaseclassCtor">基底類別 %s 中找不到預設的建構函式。
+<description>You must explicitly call the constructor of the base class with a super() statement if it has 1 or more required arguments.</description></error>
+	<error id="1204" label="kError_BlockCommentNotTerminated">找到 /*，但沒有對應的 */。
+<description>
+	<![CDATA[
+		The characters '/*' where found, which indicate the beginning of a comment, but the corresponding characters, '*/', which indicate the end of the comment block, were not found.
+    ]]></description>
+	</error>
+	<error id="1205" label="kError_ParserExpectingLeftBraceOrStringLiteral">語法錯誤: 應該使用左大括弧 ({) 或字串常值 ("")。</error>
+	<error id="1206" label="kError_InvalidES4SuperStatement">super 陳述式只能只能當作初始設定式建構函式中的最後項目使用。
+<description><![CDATA[
+		You cannot use the <code>super</code> statement within a constructor. You can 
+		use the <code>super</code> statement only as the last item in the constructor initializer list.
+	]]>
+	</description>
+    </error>
+	<error id="1207" label="kError_ThisUsedInInitializer">this 關鍵字不能用於屬性初始設定式中。
+    <description>
+	<![CDATA[
+		You cannot use the <code>this</code> keyword within a property initializer.
+	]]>
+	</description>
+    </error>
+	<error id="1208" label="kError_NonConstantConfigInit">組態值的初始設定式必須是編譯階段常數。
+    <description>
+	<![CDATA[
+		The initializer of a configuration value must be a value known at compile time.  The initializer may be a constant string, number, or boolean, or 
+		a reference to another previously defined configuration value.
+	]]>
+	</description>
+    </error>
+	<error id="1209" label="kError_NonConstConfigVar">組態變數只能宣告為 const。
+    <description>
+	<![CDATA[
+		When defining a configuration variable, it must be declared as const.
+	]]>
+	</description>
+    </error>
+	<error id="1210" label="kError_InvalidConfigLocation">必須在程式或套件的最上層宣告組態值。
+    <description>
+	<![CDATA[
+		A configuration value must be declared at the top level of a program or package.
+	]]>
+	</description>
+    </error>
+	<error id="1211" label="kError_ShadowedConfigNamespace">名稱空間 %s 與組態空間名稱發生衝突。
+    <description>
+	<![CDATA[
+		A namespace may not have the same name as a configuration namespace.
+	]]>
+	</description>
+    </error>
+	<error id="1212" label="kError_InvalidPrecision">精確度必須是介於 1 和 34 之間的整數。</error>
+	<error id="1214" label="kError_WrongVersion">不相容的版本: 無法參照定義 %s (在版本 %s 中從版本 %s 的程式碼引進)。</error>
+	<error id="1215" label="kError_LossyConversion">初始化無效: 轉換為類型 %s 將遺失資料。</error>
+</errors>

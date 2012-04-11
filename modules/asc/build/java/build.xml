@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="asc" default="main" basedir=".">
+	<property file="${basedir}/build.properties" />
+	<property name="root.dir" value="${basedir}/../.."/>
+	<property name="bin.dir" value="${root.dir}/bin"/>
+	<property name="java.src.dir" value="${root.dir}/src/java"/>
+	<property name="javac.src" value="1.5"/>    
+	<property name="as.src.dir" value="${root.dir}/src/as"/>
+	<property name="cpp.src.dir" value="${root.dir}/src/cpp"/>
+	<property name="build.util" value="${root.dir}/build/util"/>
+	<property name="lib.dir" value="${root.dir}/lib"/>
+	<property name="asc.name" value="asc"/>
+	<property name="avm.global" value="${basedir}/../../../avmplus/core" />
+	<property name="avm.shell" value="${basedir}/../../../avmplus/shell" />
+	<property name="avmglue" value="${basedir}/../../../player/FlashPlayer/avmglue" />
+	<property name="global.dest" value="${basedir}/../../lib/global.abc" />
+	<property name="shell.dest"	value="${basedir}/../../lib/shell.abc" />
+	<property name="playerglobal.dest" value="${basedir}/../../lib/playerglobal.abc" />
+	<property name="clover.jar" value="" />
+	<!-- clover html out  and history directories -->
+	<property name="clover_html" value="clover_html" />
+	<property name="clover_hist" value="clover_hist" />
+    
+    <property name="build.number" value="cyclone" />
+
+	<!--condition property="avm.name" value="./avmplus">
+		<os family="mac"/>
+	</condition>
+	<condition property="avm.name" value="avmplus.exe">
+		<os family="windows"/>
+	</condition-->
+
+
+	<target name="main" depends="clean,jar">
+	</target>
+
+	<target name="dev" depends="jar" description="runs src.depend build for development"/>
+
+	<target name="authoring" depends="jar">
+		<jar file="${lib.dir}/asc_authoring.jar" basedir="${basedir}/classes" includes="macromedia/asc/**/*,macromedia/abc/**/*,adobe/asc/**/*">
+			<manifest>
+				<attribute name="Main-Class" value="macromedia.asc.embedding.Main"/>
+				<attribute name="Class-Path" value=""/>
+                <attribute name="Implementation-Title" value="ActionScript Compiler (asc)"/>
+                <attribute name="Implementation-Version" value="1.0 build ${build.number}"/> 
+			</manifest>
+		</jar>
+	</target>
+	<target name="builtin">
+	  <antcall target="globalabc"/>
+	</target>
+    <target name="globalabc">
+        <java classname="macromedia.asc.embedding.ScriptCompiler" fork="true" maxmemory="200M" dir="${avm.core}">
+            <arg line="-builtin -out builtin builtin.as Math.as Error.as RegExp.as Date.as XML.as" />
+            <jvmarg value="-ea" />
+            <sysproperty key="AVMPLUS" value=""/>
+            <sysproperty key="AS3" value=""/>
+            <classpath>
+                <pathelement location="${basedir}/../../lib/asc.jar"/>
+            </classpath>
+        </java>
+        <copy file="${avm.core}/builtin.abc" tofile="${global.dest}" />
+    </target>
+    <target name="shellabc">
+        <java classname="macromedia.asc.embedding.ScriptCompiler" fork="true" maxmemory="200M" dir="${avm.shell}">
+            <arg line="-abcfuture -builtin -import ${avm.core}/builtin.abc -out shell toplevel.as Domain.as StringBuilder.as ByteArray.as IntArray.as UIntArray.as DoubleArray.as FloatArray.as ShortArray.as UShortArray.as ../extensions/Dictionary.as Endian.as Java.as" />
+            <jvmarg value="-ea" />
+            <sysproperty key="AVMPLUS" value=""/>
+            <sysproperty key="AS3" value=""/>
+            <classpath>
+                <pathelement location="${basedir}/../../lib/asc.jar"/>
+            </classpath>
+        </java>
+        <copy file="${avm.shell}/shell.abc" tofile="${shell.dest}" />
+    </target>
+    <target name="playerglobalabc">
+        <java classname="macromedia.asc.embedding.ScriptCompiler" fork="true" maxmemory="200M" dir="${avmglue}">
+            <arg line="-abcfuture -out playerglobal -import ${avm.core}/builtin.abc flash_errors.as flash_utils.as classes/CSMSettings.as classes/ObjectOutput.as classes/ObjectInput.as classes/IDynamicPropertyOutput.as classes/DynamicPropertyOutput.as classes/IDynamicPropertyWriter.as classes/IExternalizable.as classes/IBitmapDrawable.as classes/AVM1Movie.as classes/Accessibility.as classes/AccessibilityImplementation.as classes/AccessibilityProperties.as classes/ActivityEvent.as classes/ApplicationDomain.as classes/BevelFilter.as classes/BlurFilter.as classes/SimpleButton.as classes/ByteArray.as classes/Camera.as classes/ColorMatrixFilter.as classes/ColorTransform.as classes/DisplayObjectContainer.as classes/ContextMenu.as classes/ContextMenuBuiltInItems.as classes/ContextMenuItem.as classes/ConvolutionFilter.as classes/CustomActions.as classes/TextEvent.as classes/DataEvent.as classes/Endian.as classes/IDataInput.as classes/IDataOutput.as classes/Debugger.as classes/DisplacementMapFilter.as classes/DisplacementMapFilterMode.as classes/DisplayObject.as classes/BlendMode.as classes/DropShadowFilter.as classes/AsyncErrorEvent.as classes/ErrorEvent.as classes/Event.as classes/EventPhase.as classes/EventDispatcher.as classes/ExternalInterface.as classes/FSCommand.as classes/FileFilter.as classes/FileReference.as classes/FileReferenceList.as classes/FocusEvent.as classes/Font.as classes/FontType.as classes/FullScreenEvent.as classes/GlowFilter.as classes/GradientBevelFilter.as classes/GradientGlowFilter.as classes/Graphics.as classes/GradientType.as classes/SpreadMethod.as classes/InterpolationMethod.as classes/LineScaleMode.as classes/CapsStyle.as classes/JointStyle.as classes/HTTPStatusEvent.as classes/IEventDispatcher.as classes/IOErrorEvent.as classes/BitmapData.as classes/BitmapDataChannel.as classes/BitmapFilter.as classes/BitmapFilterType.as classes/BitmapFilterQuality.as classes/Bitmap.as classes/PixelSnapping.as classes/ImeEvent.as classes/InteractiveObject.as classes/Keyboard.as classes/KeyLocation.as classes/KeyboardEvent.as classes/TextLineMetrics.as classes/Loader.as classes/LoaderInfo.as classes/SecurityDomain.as classes/LoaderContext.as classes/LocalConnection.as classes/MMExecute.as classes/Matrix.as classes/ContextMenuEvent.as classes/Microphone.as classes/MorphShape.as classes/Mouse.as classes/MouseEvent.as classes/Sprite.as classes/Scene.as classes/FrameLabel.as classes/MovieClip.as classes/NetConnection.as classes/NetStatusEvent.as classes/NetStream.as classes/NetFilterEvent.as classes/ObjectEncoding.as classes/Point.as classes/PrintJob.as classes/PrintJobOptions.as classes/PrintJobOrientation.as classes/SWFVersion.as classes/ActionScriptVersion.as classes/ProductManager.as classes/Profiler.as classes/ProgressEvent.as classes/Proxy.as classes/Rectangle.as classes/Responder.as classes/Security.as classes/SecurityPanel.as classes/SecurityErrorEvent.as classes/Shape.as classes/SharedObject.as classes/Socket.as classes/Sound.as classes/ID3Info.as classes/SoundLoaderContext.as classes/SoundChannel.as classes/SoundTransform.as classes/SoundMixer.as classes/Stage.as classes/StageAlign.as classes/StageDisplayState.as classes/StageQuality.as classes/StageScaleMode.as classes/StaticText.as classes/StatusEvent.as classes/StyleSheet.as classes/SyncEvent.as classes/System.as classes/Capabilities.as classes/IME.as classes/IMEConversionMode.as classes/TextExtent.as classes/TextField.as classes/TextFieldAutoSize.as classes/TextFieldType.as classes/TextFormat.as classes/TextFormatDisplay.as classes/TextFormatAlign.as classes/TextRenderer.as classes/AntiAliasType.as classes/SharedObjectFlushStatus.as classes/DisplayModeType.as classes/GridFitType.as classes/TextColorType.as classes/TextDisplayMode.as classes/FontStyle.as classes/TextRun.as classes/TextSnapshot.as classes/Timer.as classes/SetIntervalTimer.as classes/TimerEvent.as classes/Transform.as classes/URLLoader.as classes/URLLoaderDataFormat.as classes/URLRequest.as classes/URLRequestHeader.as classes/URLRequestMethod.as classes/URLStream.as classes/URLVariables.as classes/Video.as classes/XMLNode.as classes/XMLNodeType.as classes/XMLDocument.as classes/XMLParser.as classes/XMLSocket.as classes/XMLTag.as classes/XMLUI.as ../avmplus/extensions/Dictionary.as flash_net.as" />
+            <jvmarg value="-ea" />
+            <sysproperty key="AVMPLUS" value=""/>
+            <sysproperty key="AS3" value=""/>
+            <classpath>
+                <pathelement location="${basedir}/../../lib/asc.jar"/>
+            </classpath>
+        </java>
+        <copy file="${avmglue}/playerglobal.abc" tofile="${playerglobal.dest}" />
+    </target>
+	<target name="jar" depends="classes" >
+		<mkdir dir="${lib.dir}" />
+		<jar file="${lib.dir}/asc.jar" basedir="${basedir}/classes" includes="macromedia/asc/**/*,macromedia/abc/**/*,adobe/abc/**/*">
+            <manifest>
+                <attribute name="Main-Class" value="macromedia.asc.embedding.Main"/>
+                <attribute name="Class-Path" value=""/>
+                <attribute name="Implementation-Title" value="ActionScript Compiler (asc)"/>
+                <attribute name="Implementation-Version" value="1.0 build ${build.number}"/>
+            </manifest>
+        </jar>
+		<jar file="${lib.dir}/abcdump.jar">
+            <manifest>
+                <attribute name="Main-Class" value="macromedia.abc.Printer"/>
+                <attribute name="Class-Path" value="asc.jar"/>
+                <attribute name="Implementation-Version" value="1.0 build ${build.number}"/>
+            </manifest>
+        </jar>
+		<jar file="${lib.dir}/ash.jar">
+            <manifest>
+                <attribute name="Main-Class" value="macromedia.asc.embedding.Shell"/>
+                <attribute name="Class-Path" value="asc.jar"/>
+                <attribute name="Implementation-Version" value="1.0 build ${build.number}"/>
+            </manifest>
+        </jar>
+	</target>
+	
+	<target name="asc-coverage-jar" depends="classes" >
+		<mkdir dir="${lib.dir}" />
+		<jar file="${lib.dir}/asc.jar" basedir="${basedir}/classes" includes="macromedia/asc/**/*,macromedia/abc/**/*,adobe/abc/**/*">
+            <manifest>
+                <attribute name="Main-Class" value="macromedia.asc.embedding.Main"/>
+                <attribute name="Class-Path" value="${lib.dir}/clover.jar"/>
+                <attribute name="Implementation-Version" value="1.0 build ${build.number}"/>
+            </manifest>
+        </jar>
+	</target>
+
+    <target name="run-depend" if="src.depend">
+        <echo level="info" message="Removing class files that changed and dependent class files."/>
+        <depend cache="${basedir}/classes" srcdir="${java.src.dir}" destdir="${basedir}/classes"/>
+    </target>
+
+    <target name="classes" depends="run-depend">
+        <!-- set build number -->
+        <replace file="${java.src.dir}/macromedia/asc/util/Version.java" token='ASC_BUILD_CODE ="cyclone"' value='ASC_BUILD_CODE ="${build.number}"'/>
+	    <mkdir dir="${lib.dir}" />
+        <mkdir dir="${basedir}/classes"/>
+        <javac source="${javac.src}" target="${javac.src}" encoding="UTF-8" debug="${src.debug}" destdir="${basedir}/classes" srcdir="${java.src.dir}" includes="**/*.java">
+			<classpath>
+				<fileset dir="${lib.dir}" includes="*.jar"/>
+			</classpath>
+ 		</javac>
+        <!-- reset source file back to original state -->
+        <replace file="${java.src.dir}/macromedia/asc/util/Version.java" token='ASC_BUILD_CODE ="${build.number}"' value='ASC_BUILD_CODE ="cyclone"'/>
+    </target>
+
+    <!-- Downgrades the generated bytecode to be compatible with Java 1.4.2; no longer used. -->
+    <target name="downgrade">
+		<!-- compile the downgrade utility -->
+		<javac debug="true" destdir="${basedir}/classes" srcdir="${basedir}/src" includes="**/*.java">
+			<classpath>
+				<fileset dir="${basedir}/lib" includes="*.jar"/>
+			</classpath>
+		</javac>
+		<!-- run it on the asc classes -->
+		<java classname="Downgrader" fork="true" failonerror="true">
+			<classpath>
+				<pathelement location="${basedir}/classes" />
+				<fileset dir="${basedir}/lib" includes="*.jar"/>
+			</classpath>
+			<arg value="${basedir}/classes/macromedia/asc"/>
+			<arg value="${basedir}/classes/macromedia/abc"/>
+			<!-- <arg value="${basedir}/classes/adobe/asc/authoring"/> -->
+		</java>
+	</target>
+	<target name="full">
+		<apply executable="${basedir}/run_il.bat">
+			<fileset dir="${root.dir}/test" includes="**/*.as"/>
+		</apply>
+	</target>
+	<target name="sanity">
+		<apply executable="${basedir}/run_il.bat">
+			<fileset dir="${root.dir}/test/sanity" includes="**/*.as"/>
+		</apply>
+	</target>
+	<!--
+	<target name="diff">
+		<mkdir dir="${basedir}/results"/>
+		<move todir="${basedir}/results">
+			<fileset dir="${root.dir}/test" includes="**/*.diff"/>
+		</move>
+		<java classname="DeleteEmptyFile" fork="true" failonerror="true">
+			<classpath>
+				<pathelement location="${basedir}/classes" />
+			</classpath>
+			<arg value="${basedir}/results"/>
+		</java>
+	</target>
+	-->
+	<target name="clean">
+		<delete failonerror="false" >
+			<fileset file="${basedir}/lib/asc.jar"/>
+			<fileset file="${root.dir}/lib/asc.jar"/>
+			<fileset file="${root.dir}/lib/asc_authoring.jar"/>
+			<fileset file="${root.dir}/lib/global.abc"/>
+            <fileset dir="${basedir}/classes" />
+		</delete>
+	</target>
+	<target name="with.clover">
+		<taskdef resource="cloverlib.xml" classpath="${clover.jar}"/>
+    	<clover-setup>
+      		<fileset dir="${java.src.dir}" excludes="macromedia/asc/parser/Scanner.java" />
+    	</clover-setup>
+ 	</target>
+	<target name="clover.html">
+		<!-- generate a historypoint for the current coverage -->
+   		<clover-historypoint historyDir="${clover_hist}"/>
+   		<clover-report>
+     		<current outfile="${clover_html}">
+       			<format type="html" />
+       			<fileset dir="${java.src.dir}" 
+        			excludes="macromedia/asc/parser/Scanner.java,macromedia/asc/util/*Decimal*.java,macromedia/asc/embedding/BatchCompiler.java"/>
+            	<columns>
+            		<coveredStatements format="%"/>
+            		<coveredMethods format="%"/>  
+            		<totalPercentageCovered format="bar"/>
+            	</columns>            	
+     		</current>
+     		
+     		<!-- generate historical report -->
+     		<historical outfile="${clover_html}/historical.html" historyDir="${clover_hist}">
+     			<format type="html" />
+     		</historical>
+    	</clover-report>
+    </target>
+ 
+    <target name="findbugs.check">
+        <property name="findbugs.home" value="lib/tools/findbugs-1.3.4"/>
+        <path id="findbugs.class.path">
+            <fileset dir="${findbugs.home}/lib">
+                <include name="**/*.jar"/>
+            </fileset>
+        </path>
+    	<condition property="findbugs.available">
+            <available classname="edu.umd.cs.findbugs.anttask.FindBugsTask" 
+                classpathref="findbugs.class.path"/>
+    	</condition>
+        <fail message="Unable to run FindBugs.  FindBugs was expected in ${findbugs.home}/lib but was not found."
+              unless="findbugs.available"/>
+    </target>
+
+    <target name="findbugs" if="findbugs.available" depends="findbugs.check">
+
+        <delete file="findbugsReport.xml" failOnError="false" />
+
+        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+            classpathref="findbugs.class.path" />
+
+        <findbugs home="${findbugs.home}"
+            output="xml:withMessages"
+            outputFile="findbugsReport.xml"
+            jvmargs="-Xmx512m"
+            workHard="true"
+            projectName="ASC">
+            <!-- classes to inspect -->
+            <class location="${lib.dir}/*.jar" />
+            <!-- path to source for inspected classes -->
+            <sourcePath path="${java.src.dir}" />
+            <!-- classes to exclude from reporting -->
+            <auxClasspath>
+                <fileset dir="lib/" >
+                    <include name="bcel.jar" />
+                    <include name="Regex.jar" />
+                </fileset>
+            </auxClasspath>
+        </findbugs>
+    </target>
+
+    <target name="findbugs-report" if="findbugs.available" depends="findbugs.check">
+        
+        <!-- ensure xml report exists -->
+        <fail message="The FindBugs xml report was not found.  Please run the 'findbugs' target first.">
+            <condition>
+                <not>
+                    <available file="findbugsReport.xml"/>
+                </not>
+            </condition>
+        </fail>
+        
+        <delete file="findbugsReport.htm" failOnError="false" />
+
+        <!-- create html report -->
+        <xslt in="findbugsReport.xml" out="findbugsReport.htm"
+            style="${findbugs.home}/src/xsl/default.xsl" />
+
+        <!-- launch gui viewer with access to source -->
+        <java jar="${findbugs.home}/lib/findbugsGUI.jar"
+           fork="true"
+           failonerror="true"
+           maxmemory="256m"
+           classpathref="findbugs.class.path">
+            <jvmarg value="-Dfindbugs.home=${findbugs.home}"/>
+            <arg line="-loadbugs ${basedir}\findbugsReport.xml"/>
+       </java>
+    </target>
+
+    <target name="pmd.check">
+        <property name="pmd.home" value="${basedir}/lib/tools/pmd"/>
+        <fail message="Unable to run PMD.  PMD was expected in ${pmd.home}/lib but was not found.">
+            <condition>
+                <not>
+                    <available file="${pmd.home}" type="dir" />
+                </not>
+            </condition>
+        </fail>
+    
+        <path id="pmd.class.path">
+            <fileset dir="${pmd.home}/lib">
+                <include name="**/*.jar"/>
+            </fileset>
+        </path>
+    	<condition property="pmd.available">
+            <available classname="net.sourceforge.pmd.ant.PMDTask"
+                classpathref="pmd.class.path"/>
+    	</condition>
+        <fail message="Unable to run PMD.  PMD was expected in ${pmd.home}/lib but was not found."
+              unless="pmd.available"/>
+    </target>
+
+    <target name="pmd" if="pmd.available" depends="pmd.check">
+        <delete file="pmdReport.xml" failOnError="false" />
+        
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+            <classpath>
+                <fileset dir="${pmd.home}">
+                    <include name="lib/**/*.jar"/>
+                    <include name="rulesets/*.xml"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+        
+        <pmd shortFilenames="true" excludemarker="NOWARN"
+            rulesetfiles="${pmd.home}/rulesets/ascPMDRules.xml">
+            <formatter type="xml" toFile="pmdReport.xml" />
+            <fileset dir="${java.src.dir}" 
+                includes="**/**/*.java" 
+                excludes="macromedia/asc/embedding/WarningConstants.java"/>
+        </pmd>
+    </target>
+
+    <target name="pmd-report" depends="pmd"
+        description="Run PMD on code and create html report">
+        <delete file="pmdResults.htm" failOnError="false" />
+        <!-- create html report -->
+        <xslt in="pmdReport.xml" out="pmdReport.htm" 
+            style="${pmd.home}/etc/xslt/wz-pmd-report.xslt" /> 
+    </target>
+
+</project>

@@ -1,0 +1,1384 @@
+<!--
+
+   Copyright 2000-2005  The Apache Software Foundation 
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!--
+   Modified by Adobe Flex.
+   Added source="1.4" target="1.4" to javac.
+   Added <compilerarg value="-Xbootclasspath/p:${basedir}/lib/xml-apis.jar"/>
+
+-->    
+<!--
+
+
+              A p a c h e   B a t i k   B u i l d   S y s t e m
+
+
+
+Build Tools
+..............................................................................
+
+The Batik build system is based on Apache Ant, which is a Java building tool
+used in Apache projects.
+For more information refer to "http://jakarta.apache.org/ant/".
+
+The distribution contains a precompiled version of Ant.
+
+The only thing that you have to make sure, is that the "JAVA_HOME" environment
+property should be set to match the JVM you want to use. 
+
+If you are going to be doing development you may want to create a file
+called 'build.properties' with the line 'debug=on' in it.  This will 
+turn on the generation of debugging information when compiling Batik.
+
+Building Instructions
+..............................................................................
+
+First, make sure your current working directory is where this file is located.
+Then type:
+
+  [unix]  ./build.sh compile
+  [win32] .\build.bat compile
+
+This action will compile the sources to the 'classes' directory.
+
+You can now launch the SVG browser by typing:
+
+  [unix]  ./build.sh squiggle
+  [win32] .\build.bat squiggle
+
+
+Build Targets
+..............................................................................
+
+To display the available targets type:
+
+  [unix]  ./build.sh  help
+  [win32] .\build.bat help
+
+ 
+ $Id: build.xml,v 1.165 2005/04/10 13:37:48 deweese Exp $
+
+-->
+
+<project default="help" basedir=".">
+
+  <!-- Initializations .................................................... -->
+  <target name="init-args" unless="args">
+    <property name="args" value=""/>
+  </target>
+
+  <target name="init" depends="init-args">
+    <tstamp/>
+    <property name="Project"            value="Batik"/>
+    <property name="project"            value="batik"/>
+    <property name="year"               value="2005"/>
+    <property name="version"            value="1.6"/>
+    <property name="revisionType"       value=""/>
+    <property name="revisionNumber"     value=""/>
+
+    <property file="build.properties"/>
+    <property name="debug"              value="off"/>
+    <property name="optimize"           value="on"/>
+    <property name="deprecation"        value="on"/>
+
+    <property name="src"                value="sources"/>
+    <property name="resources"          value="resources"/>
+    <property name="testsrc"            value="test-sources"/>
+    <property name="testresources"      value="test-resources"/>
+    <property name="dest"               value="classes"/>
+    <property name="build"              value="${project}-${version}"/>
+    <property name="docs"               value="${build}/docs"/>
+    <property name="lib"                value="lib"/>
+    <property name="samples"            value="samples"/>
+    <property name="package-prefix"     value="org/apache/${project}"/>
+
+    <property name="class-prefix"       value="org.apache.${project}"/>
+
+    <property name="xdocs"              value="xdocs"/>
+    <property name="skins"              value="xdocs/skins"/>
+    <property name="stylebook-class"    value="org.apache.stylebook.StyleBook"/>
+    <property name="javadoc-exclusions" value=""/>
+
+    <property name="site"               value="../xml-site/targets/${project}"/>
+    <property name="site-skin"          value="${skins}/xml.apache.org/"/>
+    <property name="print-skin"         value="${skins}/printer/"/>
+
+    <property name="test-reports"       value="test-reports" />
+    <property name="test-references"    value="test-references" />
+    <property name="test-resources"     value="test-resources" />
+
+    <available property="rhino.present" classname="org.mozilla.javascript.Context">
+      <classpath refid="libs-classpath"/>
+    </available>
+    <available property="jpython.present" classname="org.python.util.PythonInterpreter">
+      <classpath refid="libs-classpath"/>
+    </available>
+    <available property="jacl.present" classname="tcl.lang.Interp">
+      <classpath refid="libs-classpath"/>
+    </available>
+
+    <condition property="javadoc-exclusions"
+               value="org.apache.batik.script.rhino">
+      <not>
+        <equals arg1="${rhino.present}" arg2="true"/>
+      </not>
+    </condition>
+    <condition property="javadoc-exclusions"
+               value="${javadoc-exclusions},org.apache.batik.script.jpython">
+      <not>
+        <equals arg1="${jpython.present}" arg2="true"/>
+      </not>
+    </condition>
+    <condition property="javadoc-exclusions"
+               value="${javadoc-exclusions},org.apache.batik.script.jacl">
+      <not>
+        <equals arg1="${jacl.present}" arg2="true"/>
+      </not>
+    </condition>
+  </target>
+
+  <path id="libs-classpath">
+    <fileset dir="lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="libs-build-classpath">
+    <fileset dir="lib/build">
+      <include name="stylebook*.jar"/>
+      <include name="xalan*.jar"/>
+    </fileset>
+    <fileset dir="lib">
+      <include name="xerces*.jar"/>
+      <include name="xml-apis.jar"/>
+    </fileset>
+  </path>
+
+
+  <!-- Help ............................................................... -->
+  <target name       ="help"
+          depends    ="init"
+          description="Displays the usage">
+    <echo message=""/>
+    <echo message="${project} build file"/>
+    <echo message=""/>
+    <echo message=" Available targets are:"/>
+    <echo message=""/>
+    <echo message="   dist-zip      --> build the zip distributions"/>
+    <echo message="   dist-tgz      --> build the tgz distributions"/>
+    <echo message="   compile       --> compiles the source code"/>
+    <echo message="   compiletest   --> compiles the tests source code"/>
+    <echo message="   squiggle      --> runs Squiggle the SVG browser"/>
+    <echo message="   svgbrowser    --> runs Squiggle the SVG browser"/>
+    <echo message="   svgrasterizer --> runs the SVG rasterizer"/>
+    <echo message="   svgpp         --> runs the SVG pretty-printer"/>
+    <echo message="   ttf2svg       --> converts selected glyphs from a True Type"/>
+    <echo message="                     Font file to the SVG Font format"/>
+    <echo message="   regard        --> runs the regard regression utility"/>
+    <echo message="   regard.manual --> runs regard tests that require user"/>
+    <echo message="                     interaction."/>
+    <echo message="   runtestsuite  --> runs a TestSuite, given an XML test suite"/>
+    <echo message="                     document"/>
+    <echo message="   runtest       --> runs a test whose class name is given at the command line"/>
+    <echo message="   showpainter   --> runs a Painter test instance to check its rendering."/>
+    <echo message="   javadoc       --> generates the API documentation"/>
+    <echo message="   site          --> generates the site documentation"/>
+    <echo message="   sitedoc       --> generates the site documentation without"/>
+    <echo message="                     the Javadoc"/>
+    <echo message="   html          --> generates the site documentation in"/>
+    <echo message="                     ${build}/docs/"/>
+    <echo message="   htmldoc       --> generates the site documentation in"/>
+    <echo message="                     ${build}/docs/ without the Javadoc"/>
+    <echo message="   printerdoc    --> generates the printable documentation in"/>
+    <echo message="                     ${build}/docs/print"/>
+    <echo message="   clean         --> cleans up the directory"/>
+    <echo message="   splash        --> Updates documentation and browser splash screens"/>
+    <echo message="   jarDepend     --> Updates jar files dependency image"/>
+    <echo message="   all-jar       --> Creates a combined JAR file of the Batik"/>
+    <echo message="                     libraries in ${build}/lib"/>
+    <echo message=""/>
+    <echo message=" See the comments in the build.xml file for more details."/>
+    <echo message=""/>
+    <echo message=""/>
+  </target>
+
+  <!-- Build .............................................................. -->
+  <target name="dist-zip" depends="build"/>
+  <target name="build" depends="doc-zip, bin-zip, src-zip, jars, html" />
+
+  <target name="doc-zip" depends="init, html">
+    <delete dir="${build}/docs/images/BE"/>
+    <zip zipfile="${project}-docs-${version}.zip" basedir="${build}"
+         includes="docs/javadoc/**"/>
+    <delete dir="${build}/docs/javadoc"/>
+  </target>
+
+  <target name="bin-zip" depends="jars">
+    <copy file="README" todir="${build}"/>
+    <copy file="LICENSE" todir="${build}"/>
+    <copy file="NOTICE" todir="${build}"/>
+    <copy todir="${build}/lib">
+       <fileset dir="lib">
+           <include name="LICENSE.*.txt"/>
+           <include name="README.*.txt"/>
+       </fileset>
+    </copy>
+    <copy todir="${build}/samples">
+      <fileset dir="samples"/>
+    </copy>
+    <zip zipfile="${project}-${version}.zip" basedir="." includes="${build}/**"/> 
+  </target>
+
+  <target name="src-zip" depends="init">
+    <echo message="xml-${project}"/>
+    <zip zipfile="${project}-src-${version}.zip" basedir=".." 
+         includes="xml-${project}/**" excludes="xml-${project}/test-references/**">
+        <exclude name="xml-${project}/${project}-src-${version}.zip" />
+        <exclude name="xml-${project}/${project}-${version}.zip" />
+        <exclude name="xml-${project}/${project}-docs-${version}.zip" />
+        <exclude name="xml-${project}/classes/**" />
+        <exclude name="xml-${project}/test-references/**" />
+        <exclude name="xml-${project}/${build}/**" />
+    </zip>
+  </target>
+
+  <target name="dist-tgz" depends="build-tgz"/>
+  <target name="build-tgz" depends="jars, html">
+    <delete dir="${build}/docs/images/BE"/>
+    <tar tarfile="${project}-docs-${version}.tar" basedir="${build}"
+         includes="docs/javadoc/**"/>
+    <gzip zipfile="${project}-docs-${version}.tar.gz"
+          src="${project}-docs-${version}.tar"/>
+    <delete file="${project}-${version}.tar"/>
+    <delete dir="${build}/docs/javadoc"/>
+
+    <copy file="README" todir="${build}"/>
+    <copy file="LICENSE" todir="${build}"/>
+    <copy file="NOTICE" todir="${build}"/>
+    <copy todir="${build}/lib">
+       <fileset dir="lib">
+           <include name="LICENSE.*.txt"/>
+           <include name="README.*.txt"/>
+       </fileset>
+    </copy>
+    <copy file="${resources}/${package-prefix}/extensions/README.txt" 
+          todir="${build}/extensions"/>
+    <copy todir="${build}/samples">
+      <fileset dir="samples"/>
+    </copy>
+    <tar tarfile="${project}-${version}.tar" basedir="." includes="${build}/**"/>
+    <gzip zipfile="${project}-${version}.tar.gz" src="${project}-${version}.tar"/>
+    <delete file="${project}-docs-${version}.tar"/>
+
+    <cvs cvsRoot=":pserver:anoncvs@cvs.apache.org:/home/cvspublic"
+         package="xml-batik"
+         dest="xml-${project}"/>
+    <tar tarfile="${project}-src-${version}.tar" basedir="." includes="xml-${project}"/>
+    <gzip zipfile="${project}-src-${version}.tar.gz"
+          src="${project}-src-${version}.tar"/>
+    <delete file="${project}-src-${version}.tar"/>
+  </target>
+
+
+  <!-- Compilation ........................................................ -->
+  <target name       ="compiletest"
+          depends    ="compile"
+          description="Compiles the tests infrastructure source files">
+    <mkdir dir="${dest}"/>
+
+    <echo message="debug ${debug}, optimize ${optimize}, deprecation ${deprecation}"/>
+
+    <javac srcdir="${testsrc}" destdir="${dest}"  deprecation="${deprecation}" 
+           debug="${debug}" optimize="${optimize}" >
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <!-- Builds Jar Files needed for test purposes. Note that compilation of jars is done -->
+  <!-- in a different directory than the usual 'classes' directory ({$dest}).           -->
+  <!-- Note that this is needed to avoid having the class files in the classes          -->
+  <!-- subdirectory, which interferes with the tests, because classes in that directory -->
+  <!-- are loaded first in the development version.                                     -->
+  <target name="testjars" depends="security2.jar, IWasLoaded.jar, IWasLoadedToo.jar, JarCheckPermissionsGranted.jar, JarCheckPermissionsDenied.jar, java-binding.jar" />
+
+  <target name       ="compiletestjars"
+          depends    ="compile"
+          description="Compiles the source files for the samples scripts and the test-resources">
+    <mkdir dir="${testresources}/classes"/>
+    <mkdir dir="${samples}/tests/resources/java/classes"/>
+
+    <echo message="debug ${debug}, optimize ${optimize}, deprecation ${deprecation}"/>
+
+    <javac srcdir="${samples}/tests/resources/java/sources" destdir="${samples}/tests/resources/java/classes"  deprecation="${deprecation}" 
+           debug="${debug}" optimize="${optimize}" >
+      <classpath>
+        <pathelement location="${dest}" />
+        <pathelement location="${samples}/tests/resources/java/classes" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+      </classpath>
+    </javac>
+
+    <javac srcdir="${testresources}" destdir="${testresources}/classes"  deprecation="${deprecation}" 
+           debug="${debug}" optimize="${optimize}" >
+      <classpath>
+        <pathelement location="${dest}" />
+        <pathelement location="${testresources}/classes" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="security2.jar" depends="compiletestjars" >
+    <jar manifest="${samples}/tests/resources/java/resources/com/untrusted/script/security2.mf"
+         jarfile="samples/tests/spec/scripting/security2.jar">
+      <fileset dir="${samples}/tests/resources/java/classes">
+        <include name="com/untrusted/script/**/*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="IWasLoaded.jar" depends="compiletestjars" >
+    <jar manifest="${testresources}/org/apache/batik/bridge/IWasLoaded.mf"
+         jarfile="${testresources}/org/apache/batik/bridge/IWasLoaded.jar">
+      <fileset dir="${testresources}/classes">
+        <include name="org/apache/batik/bridge/IWasLoaded*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="IWasLoadedToo.jar" depends="compiletestjars" >
+    <jar manifest="${testresources}/org/apache/batik/bridge/IWasLoadedToo.mf"
+         jarfile="${testresources}/org/apache/batik/bridge/IWasLoadedToo.jar">
+      <fileset dir="${testresources}/classes">
+        <include name="org/apache/batik/bridge/IWasLoadedToo*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="JarCheckPermissionsDenied.jar" depends="compiletestjars" >
+    <jar manifest="${testresources}/org/apache/batik/bridge/JarCheckPermissionsDenied.mf"
+         jarfile="${testresources}/org/apache/batik/bridge/JarCheckPermissionsDenied.jar">
+      <fileset dir="${testresources}/classes">
+        <include name="org/apache/batik/bridge/JarCheckPermissionsDenied*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="JarCheckPermissionsGranted.jar" depends="compiletestjars" >
+    <jar manifest="${testresources}/org/apache/batik/bridge/JarCheckPermissionsGranted.mf"
+         jarfile="${testresources}/org/apache/batik/bridge/JarCheckPermissionsGranted.jar">
+      <fileset dir="${testresources}/classes">
+        <include name="org/apache/batik/bridge/JarCheckPermissionsGranted*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="java-binding.jar" depends="compiletestjars" >
+    <jar manifest="${samples}/tests/resources/java/resources/com/test/script/java-binding.mf"
+         jarfile="${samples}/tests/spec/scripting/java-binding.jar">
+      <fileset dir="${samples}/tests/resources/java/classes">
+        <include name="com/test/script/EventListenerInitializerImpl*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <target name       ="compile"
+          depends    ="init"
+          description="Compiles the source files">
+    <mkdir dir="${dest}"/>
+    <echo message="debug ${debug}, optimize ${optimize}, deprecation ${deprecation}"/>
+    <javac srcdir="${src}" destdir="${dest}" deprecation="${deprecation}" 
+           debug="${debug}" optimize="${optimize}" source="1.4" target="1.4">
+      <classpath refid="libs-classpath"/>
+	  <compilerarg value="-Xbootclasspath/p:${basedir}/lib/xml-apis.jar"/>
+      <exclude name="**/*.html"/>
+      <exclude name="**/rhino/*" unless="rhino.present"/>      
+      <exclude name="**/jpython/*" unless="jpython.present"/>
+      <exclude name="**/jacl/*" unless="jacl.present"/>
+    </javac>
+  </target>
+
+  <target name="clean-compile"
+          depends="init"
+          description="Cleans the files generated by compile">
+    <delete dir="${dest}"/>
+  </target>
+
+  <target name="clean-apache"
+          depends="init"
+          description="Cleans the Apache files generated by compile">
+    <delete dir="${dest}/org/apache"/>
+  </target>
+
+
+  <!-- Jars ............................................................... -->
+  <target name="prepare-build">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/docs"/>
+    <mkdir dir="${build}/lib"/>
+  </target>
+
+  <!-- Generates all the jars except all-jar -->
+  <target name="jars" depends="ext-jar,
+                               util-jar,
+                               awt-util-jar,
+                               gui-util-jar,
+                               dom-jar,
+                               css-jar,
+                               svg-dom-jar,
+                               gvt-jar,
+                               parser-jar,
+                               script-jar,
+                               transcoder-jar,
+                               bridge-jar,
+                               swing-jar,
+                               extension-jar,
+                               xml-jar,
+                               root-jar,
+                               svg-pp-jar,
+                               svggen-jar,
+                               svg-slideshow-jar,
+                               squiggle-jar,
+                               squiggle-ext-jar,
+                               rasterizer-jar,
+                               rasterizer-ext-jar,
+                               ttf2svg-jar">
+    <copy todir="${build}/lib">
+      <fileset dir="${lib}">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+  <!-- All batik in a single jar (dependencies: none) -->
+  <target name="all-jar" depends="compile, prepare-build" description="Creates a combined JAR file of the Batik libraries in ${build}/lib">
+    <jar jarfile="${build}/lib/${project}-all.jar">
+      <fileset dir="${dest}" excludes="**/CVS">
+        <include name="**"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- All batik in a single jar, without SAX and DOM bindings
+       (dependencies: batik-ext.jar) -->
+  <target name="libs-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-libs.jar">
+      <fileset dir="${dest}" excludes="**/CVS">
+        <include name="org/apache/batik/**"/>
+        <include name="org/w3c/css/sac/**"/>
+        <include name="org/w3c/dom/smil/**"/>
+        <include name="org/w3c/dom/svg/**"/>
+        <include name="org/w3c/dom/svg12/**"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- What is needed to the JSVGCanvas bean in a jar,
+       including the XML parser -->
+  <target name="bean" depends="compile, prepare-build">
+    <mkdir dir="${build}/tmp"/>
+    <unjar src="lib/xerces_2_5_0.jar" dest="${build}/tmp"/>
+    <jar jarfile="${build}/lib/${project}-bean.jar"
+         manifest="${src}/${project}-bean.mf">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik Java Bean"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+      <fileset dir="${dest}">
+        <include name="org/w3c/**"/>
+        <include name="${package-prefix}/bridge/**/*.class"/>
+        <include name="${package-prefix}/css/**/*.class"/>
+        <include name="${package-prefix}/dom/**/*.class"/>
+        <include name="${package-prefix}/ext/**/*.class"/>
+        <include name="${package-prefix}/gvt/**/*.class"/>
+        <include name="${package-prefix}/i18n/**/*.class"/>
+        <include name="${package-prefix}/parser/**/*.class"/>
+        <include name="${package-prefix}/script/**/*.class"/>
+        <include name="${package-prefix}/swing/**/*.class"/>
+        <include name="${package-prefix}/util/*.class"/>
+        <include name="${package-prefix}/util/io/*.class"/>
+        <include name="${package-prefix}/xml/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/bridge/**"/>
+        <include name="${package-prefix}/css/**"/>
+        <include name="${package-prefix}/dom/**"/>
+        <include name="${package-prefix}/ext/**"/>
+        <include name="${package-prefix}/parser/**"/>
+        <include name="${package-prefix}/swing/**"/>
+        <include name="${package-prefix}/util/resources/**"/>
+        <include name="${package-prefix}/util/io/resources/**"/>
+      </fileset>
+      <fileset dir="${build}/tmp">
+        <include name="org/**"/>
+      </fileset>
+    </jar>
+    <delete dir="${build}/tmp"/>
+  </target>
+
+  <!-- External packages (dependencies: none) -->
+  <target name="ext-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-ext.jar">
+      <fileset dir="${dest}">
+        <include name="org/w3c/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- Util, i18n (dependencies: none) -->
+  <target name="util-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-util.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/i18n/*.class"/>
+        <include name="${package-prefix}/util/*.class"/>
+        <include name="${package-prefix}/util/io/*.class"/>
+        <include name="${package-prefix}/Version.class"/>
+        <include name="${package-prefix}/util/resources/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/util/resources/**"/>
+        <include name="${package-prefix}/util/io/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- AWT Util (dependencies: none) -->
+  <target name="awt-util-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-awt-util.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/ext/awt/**/*.class"/>
+        <include name="${package-prefix}/ext/swing/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/ext/awt/image/**"/>
+        <include name="${package-prefix}/ext/swing/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- SVGGraphics2D (dependencies: util, awt-util) -->
+  <target name="svggen-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-svggen.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/svggen/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/svggen/font/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- SVGGraphics2D (dependencies: util, awt-util) -->
+  <target name="svggen-full-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-svggenfull.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/svggen/**/*.class"/>
+        <include name="${package-prefix}/util/Base64*.class"/>
+        <include name="${package-prefix}/ext/awt/image/codec/*ImageEncoder.class"/>
+        <include name="${package-prefix}/ext/awt/g2d/*.class"/>
+        <include name="${package-prefix}/util/*Constants.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/svggen/font/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- GUI Util (dependencies: none) -->
+  <target name="gui-util-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-gui-util.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/util/gui/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/util/gui/**/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- DOM Level 2 (dependencies: ext, util) -->
+  <target name="dom-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-dom.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/dom/*.class"/>
+        <include name="${package-prefix}/dom/events/*.class"/>
+        <include name="${package-prefix}/dom/traversal/*.class"/>
+        <include name="${package-prefix}/dom/util/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/dom/resources/*"/>
+        <include name="${package-prefix}/dom/events/resources/**"/>
+        <include name="${package-prefix}/dom/traversal/resources/**"/>
+        <include name="${package-prefix}/dom/util/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- CSS Engine (dependencies: ext, util) -->
+  <target name="css-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-css.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/css/dom/*.class"/>
+        <include name="${package-prefix}/css/engine/*.class"/>
+        <include name="${package-prefix}/css/engine/sac/*.class"/>
+        <include name="${package-prefix}/css/engine/value/*.class"/>
+        <include name="${package-prefix}/css/engine/value/css2/*.class"/>
+        <include name="${package-prefix}/css/engine/value/svg/*.class"/>
+        <include name="${package-prefix}/css/engine/value/svg12/*.class"/>
+        <include name="${package-prefix}/css/parser/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/css/dom/resources/**"/>
+        <include name="${package-prefix}/css/engine/resources/**"/>
+        <include name="${package-prefix}/css/engine/sac/resources/**"/>
+        <include name="${package-prefix}/css/engine/value/resources/**"/>
+        <include name="${package-prefix}/css/engine/value/css2/resources/**"/>
+        <include name="${package-prefix}/css/engine/value/svg/resources/**"/>
+        <include name="${package-prefix}/css/engine/value/svg12/resources/**"/>
+        <include name="${package-prefix}/css/parser/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- SVG DOM (dependencies: ext, DOM, CSS, util) -->
+  <target name="svg-dom-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-svg-dom.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/dom/svg/*.class"/>
+        <include name="${package-prefix}/dom/svg12/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/dom/svg/resources/**"/>
+        <include name="${package-prefix}/dom/svg12/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- GVT (dependencies: util, awt-util) -->
+  <target name="gvt-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-gvt.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/gvt/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/gvt/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- Parser (dependencies: util) -->
+  <target name="parser-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-parser.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/parser/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/parser/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- Script (dependencies: util) -->
+  <target name="script-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-script.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/script/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/script/**/resources/*"/>
+        <include name="META-INF/services/org.apache.batik.script.InterpreterFactory"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- Transcoder (dependencies: all) -->
+  <target name="transcoder-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-transcoder.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/transcoder/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/transcoder/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- XML (dependencies: util) -->
+  <target name="xml-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-xml.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/xml/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/xml/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- Bridge (dependencies: all) -->
+  <target name="bridge-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-bridge.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/bridge/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/bridge/BrokenLink.svg"/>
+        <include name="${package-prefix}/bridge/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- Swing (dependencies: all) -->
+  <target name="swing-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-swing.jar">
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/swing/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/swing/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- Extensions (dependencies: all) -->
+  <target name="extension-jar" depends="compile, prepare-build">
+    <jar jarfile="${build}/lib/${project}-extension.jar">
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="META-INF/services/*"/>
+        <exclude name="META-INF/services/org.apache.batik.script.InterpreterFactory"/>
+      </fileset>
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/extension/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/extension/**/resources/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- SVG Pretty-printer (dependencies: ???) -->
+  <target name="svg-pp-jar" depends="compile, prepare-build">
+    <jar manifest="${src}/${project}-pp.mf"
+         jarfile="${build}/${project}-svgpp.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik XML Pretty Printer"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/apps/svgpp/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/apps/svgpp/**/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- SVG Slide-show (dependencies: ???) -->
+  <target name="svg-slideshow-jar" depends="compile, prepare-build">
+    <jar manifest="${src}/${project}-slideshow.mf"
+         jarfile="${build}/${project}-slideshow.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik SVG Slide Show Tool"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/apps/slideshow/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/apps/slideshow/**/resources/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+
+  <!-- Squiggle (dependencies: all) -->
+  <target name="squiggle-jar" depends="compile, prepare-build">
+    <move file="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.policy"
+          tofile="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.classes.policy" />
+    <move file="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.bin.policy"
+          tofile="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.policy" />
+    <jar manifest="${src}/${project}-browser.mf"
+         jarfile="${build}/${project}-squiggle.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik Squiggle Viewer"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/apps/svgbrowser/**/*.class"/>
+        <include name="${package-prefix}/experiment/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/apps/svgbrowser/**/resources/**"/>
+        <exclude name="${package-prefix}/apps/svgbrowser/resources/squiggle.xsl" />
+        <exclude name="${package-prefix}/apps/svgbrowser/resources/squiggle.svg" />
+      </fileset>
+    </jar>
+    <move file="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.policy"
+          tofile="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.bin.policy" />
+    <move file="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.classes.policy"
+          tofile="${resources}/${package-prefix}/apps/svgbrowser/resources/svgbrowser.policy" />
+  </target>
+
+  <target name="squiggle-ext-jar" depends="squiggle-jar">
+     <mkdir dir="${build}/extensions"/>
+     <jar manifest="${src}/${project}-browser-ext.mf"
+          jarfile="${build}/extensions/${project}-squiggle-ext.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik Squiggle Viewer With Extensions"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+        <fileset dir="${resources}" excludes="${resources}/**/CVS">
+            <include name="META-INF/services/**"/>
+        </fileset>
+     </jar>
+  </target>
+
+  <!-- Squiggle - SVG Browser (dependencies: all) -->
+  <target name="svg-browser-jar" depends="squiggle-jar"/>
+
+  <!-- Rasterizer (dependencies: all except GUI util) -->
+  <target name="rasterizer-jar" depends="compile, prepare-build">
+    <move file="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.policy"
+          tofile="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.classes.policy" />
+    <move file="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.bin.policy"
+          tofile="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.policy" />
+    <jar manifest="${src}/${project}-rasterizer.mf"
+         jarfile="${build}/${project}-rasterizer.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik SVG Rasterizer"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/apps/rasterizer/**/*.class"/>
+      </fileset>
+      <fileset dir="${resources}" excludes="${resources}/**/CVS">
+        <include name="${package-prefix}/apps/rasterizer/**/resources/**"/>
+      </fileset>
+    </jar>
+     <move file="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.policy"
+          tofile="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.bin.policy" />
+    <move file="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.classes.policy"
+          tofile="${resources}/${package-prefix}/apps/rasterizer/resources/rasterizer.policy" />
+ </target>
+
+  <target name="rasterizer-ext-jar" depends="rasterizer-jar">
+     <mkdir dir="${build}/extensions"/>
+     <jar manifest="${src}/${project}-rasterizer-ext.mf"
+          jarfile="${build}/extensions/${project}-rasterizer-ext.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik SVG Rasterizer With Extensions"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+        <fileset dir="${resources}" excludes="${resources}/**/CVS">
+            <include name="META-INF/services/**"/>
+        </fileset>
+     </jar>
+  </target>
+
+  <!-- batik-ttf2svg.jar (dependencies: all) -->
+  <target name="ttf2svg-jar" depends="compile, prepare-build">
+    <jar manifest="${src}/${project}-ttf2svg.mf"
+         jarfile="${build}/${project}-ttf2svg.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik TrueType to SVG Font Converter"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+      <fileset dir="${dest}">
+        <include name="${package-prefix}/apps/ttf2svg/**/*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- batik.jar (dependencies: all) -->
+  <target name="root-jar" depends="compile, prepare-build">
+    <jar manifest="${src}/${project}.mf"
+         jarfile="${build}/${project}.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="Batik All Jar"/>
+        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+        <attribute name="Implementation-Vendor" value="Apache Software Foundation (http://xml.apache.org/batik/)"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- regard.jar : A jar containing the regard test infrastructure. -->
+  <!-- This jar only contains the generic parts of the Batik test    -->
+  <!-- infrastructure.                                               -->
+  <target name="regard-jar" depends="compiletest, prepare-build">
+    <jar jarfile="regard.jar">
+        <fileset dir="${dest}">
+          <include name="${package-prefix}/test/*.class" />
+          <include name="${package-prefix}/test/xml/*.class" />
+          <include name="${package-prefix}/i18n/Localizable.class" />
+          <include name="${package-prefix}/i18n/LocalizableSupport.class" />
+          <include name="${package-prefix}/i18n/LocaleGroup.class" />
+          <include name="${package-prefix}/util/XMLConstants.class" />
+        </fileset>
+        <fileset dir="${test-resources}">
+          <include name="${package-prefix}/test/resources/*.properties" />
+          <include name="${package-prefix}/test/xml/resources/*.properties" />
+        </fileset>
+    </jar>
+  </target>
+
+  <!-- imageCodecs.jar : A jar containing the image codecs -->
+  <target name="imageCodecs-jar" depends="compiletest, prepare-build">
+    <jar jarfile="imageCodecs.jar">
+        <fileset dir="${dest}">
+          <include name="${package-prefix}/ext/awt/image/codec/*.class"/>
+        </fileset>
+        <fileset dir="${test-resources}">
+          <include name="${package-prefix}/ext/awt/image/codec/resources/*.properties" />
+        </fileset>
+    </jar>
+  </target>
+
+  <!-- Applications ....................................................... -->
+  <target name="squiggle" depends="compile"
+          description="Runs Squiggle - the SVG browser">
+    <java fork="yes" 
+          classname="${class-prefix}.apps.svgbrowser.Main">
+<!--          jvm="C:\Documents and Settings\<user>\.netbeans\4.0\modules\profiler-ea-vm\jre\bin\java"> -->
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+      <arg line="${args}"/> 
+      <!-- <jvmarg value="-Xmx512m"/>  <jvmarg value="-Xms64m"/> -->
+      <!-- <jvmarg value="-Djava.security.debug=all"/>  
+           <jvmarg value="-verbose" /> -->
+     <!-- 
+      <jvmarg value="-Djava.security.debug=access failure"/> 
+      <jvmarg value="-Djava.security.debug=policy"/> 
+      <jvmarg value="-Djava.security.manager"/> 
+      <jvmarg value="-Djava.security.policy=resources/org/apache/batik/apps/svgbrowser/resources/svgbrowser.policy"/> 
+      -->
+    </java>
+  </target>
+
+  <target name="svgbrowser" depends="squiggle"
+          description="Runs Squiggle - the SVG browser"/>
+
+  <target name="svgrasterizer"
+          depends="compile"
+          description="Runs the SVG rasterizer">
+    <java fork="yes"
+          classname="${class-prefix}.apps.rasterizer.Main">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+<!--      <jvmarg value="-Xmx512m"/>  <jvmarg value="-Xms64m"/>  -->
+<!--      <jvmarg value="-Djava.awt.headless=true"/>  -->
+      <arg line="${args}"/>
+    </java>
+  </target>
+
+  <target name="svgpp"
+          depends="compile"
+          description="Runs the SVG pretty-printer">
+    <java fork="yes"
+          classname="${class-prefix}.apps.svgpp.Main">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+      <arg line="${args}"/>
+    </java>
+  </target>
+
+  <target name="testdirs"
+          description="Created directories needed for test suite">
+
+    <mkdir dir="${test-reports}"/>
+    <mkdir dir="${test-reports}/style"/>
+    <mkdir dir="${test-reports}/images"/>
+    <copy todir="${test-reports}/style">
+      <fileset dir="${test-resources}/org/apache/batik/test/svg/resources/style"/>
+    </copy>
+    <copy todir="${test-reports}/images">
+      <fileset dir="${test-resources}/org/apache/batik/test/svg/resources/images"/>
+    </copy>
+
+    <mkdir dir="${test-references}/samples/accepted-variation"/>
+    <mkdir dir="${test-references}/samples/candidate-variation"/>
+    <mkdir dir="${test-references}/samples/candidate-reference"/>
+    <mkdir dir="${test-references}/samples/tests/spec/coordinates/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/coordinates/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/coordinates/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/fonts/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/fonts/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/fonts/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/masking/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/masking/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/masking/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/paints/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/paints/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/paints/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/shapes/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/shapes/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/shapes/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/styling/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/styling/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/styling/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/color/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/color/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/color/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/filters/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/filters/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/filters/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/linking/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/linking/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/linking/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/painting/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/painting/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/painting/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/rendering/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/rendering/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/rendering/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/structure/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/structure/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/structure/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/text/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/text/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/text/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/interactivity/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/interactivity/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/interactivity/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/scripting/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec/scripting/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec/scripting/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/filters/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/filters/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec12/filters/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/paints/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/paints/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec12/paints/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/structure/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/structure/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec12/structure/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/structure/opera/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/structure/opera/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec12/structure/opera/accepted-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/text/candidate-variation" />
+    <mkdir dir="${test-references}/samples/tests/spec12/text/candidate-reference" />
+    <mkdir dir="${test-references}/samples/tests/spec12/text/accepted-variation" />
+    <mkdir dir="${test-references}/samples/extensions/accepted-variation"/>
+    <mkdir dir="${test-references}/samples/extensions/candidate-variation"/>
+    <mkdir dir="${test-references}/samples/extensions/candidate-reference"/>
+    <mkdir dir="${test-references}/samples/extensions/opera/accepted-variation"/>
+    <mkdir dir="${test-references}/samples/extensions/opera/candidate-variation"/>
+    <mkdir dir="${test-references}/samples/extensions/opera/candidate-reference"/>
+    <mkdir dir="${test-references}/svgbe/accepted-variation"/>
+    <mkdir dir="${test-references}/svgbe/candidate-variation"/>
+    <mkdir dir="${test-references}/svgbe/candidate-reference"/>
+    <mkdir dir="${test-references}/org/apache/batik/svggen/candidate-ref" />
+    <mkdir dir="${test-references}/org/apache/batik/svggen/rendering/candidate-variation" />
+    <mkdir dir="${test-references}/org/apache/batik/svggen/rendering/candidate-reference" />
+    <mkdir dir="${test-references}/org/apache/batik/svggen/rendering/accepted-variation" />
+    <mkdir dir="${test-references}/org/apache/batik/gvt/candidate" />
+    <mkdir dir="${test-references}/org/apache/batik/gvt/variation" />
+    <mkdir dir="${test-references}/org/apache/batik/ext/awt/geom/candidate" />
+    <mkdir dir="${test-references}/org/apache/batik/ext/awt/geom/variation" />
+    <mkdir dir="${test-references}/org/apache/batik/transcoder/image/candidate-reference" />
+    <mkdir dir="${test-references}/org/apache/batik/transcoder/image/candidate-variation" />
+    <mkdir dir="${test-references}/test-resources/org/apache/batik/test/svg/accepted-variation"/>
+    <mkdir dir="${test-references}/test-resources/org/apache/batik/test/svg/candidate-variation"/>
+    <mkdir dir="${test-references}/test-resources/org/apache/batik/test/svg/candidate-reference"/>
+
+  </target>
+
+  <target name="ttf2svg"
+          depends="compile, testdirs"
+          description="converts selected glyphs from a True Type Font file to the SVG Font format" >
+    <java fork="yes"
+          classname="${class-prefix}.apps.ttf2svg.Main">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+      <arg line="${args}"/>
+    </java>
+  </target>
+
+  <target name="regard"
+          depends="compiletest, testdirs, testjars"
+          description="Runs test suite whose file or uri is passed as an input">
+    <java fork="yes"
+          classname="${class-prefix}.test.xml.XMLTestSuiteRunner">
+<!--      <jvmarg value="-Xincgc" /> -->
+<!--      <jvmarg value="-Xrunhprof:format=b" /> -->
+<!--      <jvmarg value="-Xrunhprof:net=localhost:1234,format=b" /> -->
+      <jvmarg value="-Xmx512m"/>  <jvmarg value="-Xms64m"/>
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+        <pathelement location="resources" />
+        <pathelement location="test-resources" />
+      </classpath>
+      <arg line="test-resources/org/apache/batik/test/regard.xml ${args}"/>
+    </java>
+  </target>
+
+  <target name="regard.manual"
+          depends="compiletest, testdirs, testjars"
+          description="Runs test suite whose file or uri is passed as an input">
+    <java fork="yes"
+          classname="${class-prefix}.test.xml.XMLTestSuiteRunner">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+        <pathelement location="resources" />
+        <pathelement location="test-resources" />
+      </classpath>
+      <arg line="test-resources/org/apache/batik/test/regardManual.xml ${args}"/>
+    </java>
+  </target>
+
+  <target name="showpainter"
+          depends="compiletest, testdirs"
+          description="Runs test suite whose file or uri is passed as an input">
+    <java fork="yes"
+          classname="${class-prefix}.svggen.JPainterCompare">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+        <pathelement location="resources" />
+        <pathelement location="test-resources" />
+      </classpath>
+      <arg line="${args}"/>
+    </java>
+  </target>
+
+  <target name="runtestsuite"
+          depends="compiletest, testdirs"
+          description="Runs test suite whose file or uri is passed as an input">
+    <mkdir dir="${test-reports}"/>
+    <java fork="yes"
+          classname="${class-prefix}.test.xml.XMLTestSuiteRunner">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+        <pathelement location="resources" />
+        <pathelement location="test-resources" />
+      </classpath>
+      <arg line="${args}"/>
+    </java>
+  </target>
+
+  <target name="runtest"
+          depends="compiletest, testdirs"
+          description="Runs test whose class name is passed as an input">
+    <java fork="yes"
+          classname="${args}">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <path refid="libs-build-classpath"/>
+        <pathelement location="resources" />
+        <pathelement location="test-resources" />
+      </classpath>
+    </java>
+  </target>
+
+  <!-- Documentation ...................................................... -->
+  <target name="prepare-docs" depends="init">
+    <mkdir dir="${docs}"/>
+  </target>
+
+  <target name="html" depends="javadoc, htmldoc" description="generates the site documentation in ${build}/docs/"/>
+  <target name="htmldoc" depends="prepare-docs">
+    <copy file="${xdocs}/site-book.xml"
+          tofile="${xdocs}/book.xml"
+          filtering="on"/>
+    <java classname="${stylebook-class}" fork="yes">
+      <classpath refid="libs-build-classpath"/>
+      <arg line="targetDirectory=${docs} ${xdocs}/book.xml ${site-skin}"/>
+    </java>
+  </target>
+
+  <target name="printerdoc" depends="prepare-docs">
+    <mkdir dir="${docs}/print"/>
+    <copy file="${xdocs}/docs-book.xml"
+          tofile="${xdocs}/book.xml"
+          filtering="on"/>
+    <java classname="${stylebook-class}" fork="yes">
+      <classpath refid="libs-build-classpath"/>
+      <arg line="targetDirectory=${docs}/print ${xdocs}/book.xml ${print-skin}"/>
+    </java>
+  </target>
+
+  <target name="site" depends="site-javadoc, sitedoc"/>
+  <target name="sitedoc" depends="init">
+    <copy file="${xdocs}/site-book.xml"
+          tofile="${xdocs}/book.xml"
+          filtering="on"/>
+    <java classname="${stylebook-class}" fork="yes">
+      <classpath refid="libs-build-classpath"/>
+      <arg line="targetDirectory=${site} ${xdocs}/book.xml ${site-skin}"/>
+    </java>
+  </target>
+
+  <target name="site-javadoc" depends="javadoc">
+    <mkdir dir="${site}"/>
+    <copy todir="${site}/javadoc">
+      <fileset dir="${docs}/javadoc"/>
+    </copy>
+  </target>
+
+  <target name="javadocs" depends="javadoc"/>
+  <target name="javadoc" depends="prepare-docs">
+    <mkdir dir="${docs}/javadoc"/>
+    <javadoc packagenames="${class-prefix}.*,
+                           org.xml.*,
+                           org.w3c.css.*,
+                           org.w3c.dom.*"
+             excludepackagenames="${javadoc-exclusions}"
+             maxmemory="128m"
+             sourcepath="${src}"
+             destdir="${docs}/javadoc"
+             author="false"
+             version="false"
+             use="true"
+             splitindex="true"
+             windowtitle="${Project} Javadoc"
+             doctitle="${Project} API Specification ${version}${revisionType}${revisionNumber}"
+             bottom="Copyright &#169; ${year} Apache Software Foundation. All Rights Reserved.">
+      <classpath refid="libs-classpath"/>
+      <link href="http://www.w3.org/2003/01/dom2-javadoc/"/>
+      <link href="http://java.sun.com/j2se/1.3/docs/api/"/>
+    </javadoc>
+  </target>
+
+  <target name="clean-docs" depends="init">
+    <delete dir="${docs}"/>
+  </target>
+
+  <!-- Generates splash screens for the documentation and the browser ..... -->
+
+  <!-- Simply transform the splash.xsl stylesheet, rasterize the result and -->
+  <!-- copy to all destinations                                             -->
+
+  <target name="splash" depends="compile" 
+          description="Updates documentation and browser splash screens">
+    <java fork="yes"
+          classname="org.apache.xalan.xslt.Process" >
+        <classpath>
+            <path refid="libs-build-classpath"/>
+        </classpath>
+        <arg line="-PARAM version ${version} -PARAM revisionType revisionType${revisionType} -PARAM revisionNumber revisionNumber${revisionNumber} -in ${xdocs}/images/splash.xsl -xsl ${xdocs}/images/splash.xsl -out ${xdocs}/images/splash.svg" />
+    </java>
+
+    <java fork="yes"
+          classname="org.apache.xalan.xslt.Process" >
+        <classpath>
+            <path refid="libs-build-classpath"/>
+        </classpath>
+        <arg line="-PARAM version ${version} -PARAM revisionType revisionType${revisionType} -PARAM revisionNumber revisionNumber${revisionNumber} -in ${resources}/org/apache/batik/apps/svgbrowser/resources/squiggle.xsl -xsl ${resources}/org/apache/batik/apps/svgbrowser/resources/squiggle.xsl -out ${resources}/org/apache/batik/apps/svgbrowser/resources/squiggle.svg" />
+    </java>
+
+    <java fork="yes"
+          classname="${class-prefix}.apps.rasterizer.Main">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+      <arg line="${xdocs}/images/splash.svg"/>
+    </java>
+
+    <java fork="yes"
+          classname="${class-prefix}.apps.rasterizer.Main">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+      <arg line="${resources}/org/apache/batik/apps/svgbrowser/resources/squiggle.svg"/>
+    </java>
+
+  </target>
+
+  <target name="jarDependImg" depends="compile"
+          description="Updates jarDependImg PNG">
+    <java fork="yes"
+          classname="${class-prefix}.apps.rasterizer.Main">
+      <classpath>
+        <pathelement location="${dest}" />
+        <path refid="libs-classpath"/>
+        <pathelement location="resources" />
+      </classpath>
+      <arg line="${xdocs}/images/jarDependImg.svg"/>
+    </java>
+  </target>
+
+  <!-- Cleans everything .................................................. -->
+  <target name="clean"
+          depends="clean-compile, clean-docs"
+          description="Cleans everything">
+    <delete dir="${build}"/>
+    <delete file="${project}-${version}.zip"/>
+    <delete file="${project}-docs-${version}.zip"/>
+    <delete file="${project}-src-${version}.zip"/>
+    <delete file="${project}-${version}.tar.gz"/>
+    <delete file="${project}-docs-${version}.tar.gz"/>
+    <delete file="${project}-src-${version}.tar.gz"/>
+  </target>
+
+</project>

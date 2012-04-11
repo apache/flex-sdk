@@ -1,0 +1,5 @@
+mxmlc=flex.ant.MxmlcTask
+compc=flex.ant.CompcTask
+asc=flex.ant.AscTask
+html-wrapper=flex.ant.HtmlWrapperTask
+asdoc=flex.ant.AsDocTask

@@ -1,0 +1,33 @@
+--------------------------------------------------------------------------------
+--
+--  Licensed to the Apache Software Foundation (ASF) under one or more
+--  contributor license agreements.  See the NOTICE file distributed with
+--  this work for additional information regarding copyright ownership.
+--  The ASF licenses this file to You under the Apache License, Version 2.0
+--  (the "License"); you may not use this file except in compliance with
+--  the License.  You may obtain a copy of the License at
+--
+--      http://www.apache.org/licenses/LICENSE-2.0
+--
+--  Unless required by applicable law or agreed to in writing, software
+--  distributed under the License is distributed on an "AS IS" BASIS,
+--  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+--  See the License for the specific language governing permissions and
+--  limitations under the License.
+--
+--------------------------------------------------------------------------------
+
+-- Note, this only works on OSX 10.4 and up
+-- Returns the name of the default browser, e.g. "Safari", "Firefox", "Camino"; or "" if not known
+set p to POSIX path of (path to preferences) & "com.apple.LaunchServices.plist"
+tell application "System Events" to tell property list item "LSHandlerRoleAll" of (property list item 1 of property list item "LSHandlers" of property list file p whose value contains "http") to if exists then
+	set v to value -- now v is, for example, "com.apple.safari"
+	-- "application file id v" returns a file; so we are setting, for example,
+	-- "n" to "Safari.app" and "e" to "app"
+	tell application "Finder" to set {name:n, name extension:e} to application file id v
+	-- strip off the ".app" extension
+	tell (count e) + 1 to return n's text 1 thru -(1 mod it + it)
+end if
+
+-- if we get here, we couldn't find an "http" handler, so we don't know the default browser
+""

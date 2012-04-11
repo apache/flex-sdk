@@ -1,0 +1,367 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+#**
+ *
+ *  embedText: write $text into current output, after registering line mapping to context
+ *
+ *  Note: these line mappings are permanent (they're written to the bytecode as well as
+ *  being used for compile errors).  for compile-error only mappings, see next
+ *
+ *#
+## commented version emits line numbers as comments in the generated code. When using, be sure to uncomment the second (blank) line.
+###macro (embedText $text $origLine)#if ($origLine > 0)$util.mapLines($origLine, $text)/*$origLine>*/#end$text#if ($origLine > 0)/*<$origLine*/
+#macro (embedText $text $origLine)#if ($origLine > 0)$util.mapLines($origLine, $text)#end$text
+#end
+
+##
+## Start Macro
+## This macro recursively walks the selector chain, starting from the furthest
+## ancestor and working back to the top level selector.
+##
+#macro(styleSelectorAncestor $selector)
+#if ($selector.ancestor)
+#styleSelectorAncestor($selector.ancestor)
+#end
+#if ($selector.conditions)
+        conditions = [];
+#foreach ($condition in $selector.conditions)
+        condition = new CSSCondition("$condition.kind", "$condition.value");
+        conditions.push(condition); 
+#end
+#else
+        conditions = null;
+#end
+        selector = new CSSSelector("$selector.value", conditions, selector);
+#end
+##
+## End Macro
+##
+
+
+package
+{
+import flash.system.Security;
+import flash.text.Font;
+import mx.core.mx_internal;
+import mx.modules.ModuleBase;
+#if ($styleModule.isAdvanced())
+import mx.styles.CSSCondition;
+import mx.styles.CSSSelector;
+#end
+import mx.styles.CSSStyleDeclaration;
+import mx.styles.StyleManager;
+import mx.styles.IStyleManager2;
+import mx.styles.IStyleModule;
+
+
+##
+## imports
+##
+#foreach ($import in $styleModule.imports)
+#embedText("import $import.value;" $import.lineNumber)
+#end
+
+[ExcludeClass]
+public class ${styleModule.name} extends ModuleBase implements IStyleModule
+{
+    /**
+     * @private
+     */
+    private var selectors:Array = [];
+    /**
+     * @private
+     */
+    private var overrideMap:Object = {};
+    /**
+     * @private
+     */
+    private var effectMap:Object = {};
+    /**
+     * @private
+     */
+    private var unloadGlobal:Boolean;
+    /**
+     * @private
+     */
+    private var styleManager:IStyleManager2;
+    /**
+     * @private
+     */
+    private static var domainsAllowed:Boolean = allowDomains();
+
+    /**
+     * @private
+     */
+    private static function allowDomains():Boolean
+    {
+		// allowDomain not allowed in AIR
+		if (Security.sandboxType != "application")
+			Security.allowDomain("*");
+        return true;
+    }
+    
+##
+## @Embeds
+##
+#foreach ($atEmbed in $styleModule.atEmbeds)
+    [Embed(#set ($vals = $atEmbed.getAttributes())#foreach( $key in $vals.keySet() )#if ($velocityCount > 1), #end#set ($val = $vals.get($key))$key='$val'#end)]
+    private static var $atEmbed.propName:$atEmbed.type;
+#end
+
+    public function ${styleModule.name}()
+    {
+        super();
+    }
+    
+    public function setStyleDeclarations(styleManager:IStyleManager2):void
+    {
+        if (styleManager == null)
+            styleManager = StyleManager.getStyleManager(null);
+
+        this.styleManager = styleManager;
+        
+#if ($styleModule.isAdvanced())
+        var conditions:Array;
+        var condition:CSSCondition;
+        var selector:CSSSelector;
+#end
+        var style:CSSStyleDeclaration;
+        var keys:Array;
+        var selectorString:String;
+        var effects:Array;
+        var addedEffects:Array;
+
+#foreach ($styleDef in $styleModule.styleDefs)
+#if ($styleDef.isAdvanced())
+##
+## Start Advanced Flex 4 StyleDeclarations
+##
+#foreach ($styleDecl in $styleDef.declarations)
+#set ($selector = $styleDecl.selector)
+        selector = null;
+        conditions = null;
+#styleSelectorAncestor($selector)
+        // $selector.toString()
+        selectorString = "$selector.toString()";
+        style = styleManager.getStyleDeclaration(selectorString);
+        if (!style)
+        {
+            style = new CSSStyleDeclaration(selector, styleManager);
+            selectors.push(selectorString);
+        }
+
+        keys = overrideMap[selectorString];
+
+        if (keys == null)
+        {
+            keys = [];
+            overrideMap[selectorString] = keys;
+        }
+
+#foreach ($block in $styleDecl.declarationBlocks)
+#if ($block.hasMediaList())
+        if (styleManager.acceptMediaList("$block.mediaList.toEscapedString()"))
+        {
+#end
+#foreach ($styleProp in $block.properties)
+#embedText("        style.mx_internal::setLocalStyle('${styleProp.name}', ${styleProp.value});" $styleProp.lineNumber)
+        keys.push("${styleProp.name}");
+#end
+#if ($block.hasMediaList())
+        }
+#end
+#end
+
+#if ($styleDecl.hasEffectStyles())
+        addedEffects = new Array();
+        effects = style.mx_internal::effects;
+        if (!effects)
+        {
+            effects = style.mx_internal::effects = [];
+        }
+
+#foreach ($block in $styleDecl.declarationBlocks)
+#if ($block.effectStyles.size() > 0)
+#if ($block.hasMediaList())
+        if (styleManager.acceptMediaList("$block.mediaList.toEscapedString()"))
+        {
+#end
+
+#foreach ($effectStyle in $block.effectStyles)
+          effects.push("${effectStyle}");
+          addedEffects.push("${effectStyle}");
+#end
+#if ($block.hasMediaList())
+        }
+#end
+#end
+#end
+        this.effectMap[selectorString] = addedEffects;
+#end
+
+
+#end
+##
+## End Advanced Flex 4 StyleDeclarations
+##
+#else
+##
+## Start Legacy Flex 3 StyleDeclarations
+##
+#if ($styleDef.isTypeSelector() || $styleDef.subject == "global" || $styleDef.subject == "*")
+        selectorString = "${styleDef.typeName}";
+#else
+        selectorString = ".${styleDef.typeName}";
+#end
+
+        style = styleManager.getStyleDeclaration(selectorString);
+
+        if (!style)
+        {
+            style = new CSSStyleDeclaration(null, styleManager);
+            styleManager.setStyleDeclaration(selectorString, style, false);
+            selectors.push(selectorString);
+        }
+
+        keys = overrideMap[selectorString];
+
+        if (keys == null)
+        {
+            keys = [];
+            overrideMap[selectorString] = keys;
+        }
+
+#foreach ($style in $styleDef.styles)
+#embedText("        style.mx_internal::setLocalStyle('${style.name}', ${style.value});" $style.lineNumber)
+        keys.push("${style.name}");
+#end
+
+#if ($styleDef.effectStyles.size() > 0)
+        effects = style.mx_internal::effects;
+
+        if (!effects)
+        {
+            effects = style.mx_internal::effects = [];
+        }
+
+        addedEffects = new Array();
+
+#foreach ($effectStyle in $styleDef.effectStyles)
+        effects.push("${effectStyle}");
+        addedEffects.push("${effectStyle}");
+#end
+
+        this.effectMap[selectorString] = addedEffects;
+#end
+#end
+##
+## End Legacy Flex 3 StyleDeclarations
+##
+#if ($styleDef.subject == "global")
+        styleManager.stylesRoot = null;
+        styleManager.initProtoChainRoots();
+        unloadGlobal = true;
+#end
+#end
+
+#foreach ($atEmbed in $styleModule.atEmbeds)
+#if ($atEmbed.getAttributes().containsKey("fontName"))
+        Font.registerFont($atEmbed.propName);
+#end
+#end
+    }
+
+    public function unload():void
+    {
+        unloadOverrides();
+        unloadStyleDeclarations();
+
+        if (unloadGlobal)
+        {
+            styleManager.stylesRoot = null;
+            styleManager.initProtoChainRoots();
+        }
+    }
+
+    /**
+     * @private
+     */
+    private function unloadOverrides():void
+    {
+        for (var selector:String in overrideMap)
+        {
+            var style:CSSStyleDeclaration = styleManager.getStyleDeclaration(selector);
+
+            if (style != null)
+            {
+                var keys:Array = overrideMap[selector];
+                var numKeys:int;
+                var i:uint;
+
+                if (keys != null)
+                {
+                    numKeys = keys.length;
+
+                    for (i = 0; i < numKeys; i++)
+                    {
+                        style.mx_internal::clearOverride(keys[i]);
+                    }
+                }
+
+                keys = effectMap[selector];
+
+                if (keys != null)
+                {
+                    numKeys = keys.length;
+                    var index:uint;
+                    var effects:Array = style.mx_internal::effects;
+
+                    for (i = 0; i < numKeys; i++)
+                    {
+                        index = effects.indexOf(numKeys[i]);
+                        if (index >= 0)
+                        {
+                            effects.splice(index, 1);
+                        }
+                    }                    
+                }
+            }
+        }
+
+        overrideMap = null;
+        effectMap = null;
+    }
+
+    /**
+     * @private
+     */
+    private function unloadStyleDeclarations():void
+    {
+        var numSelectors:int = selectors.length;
+
+        for (var i:int = 0; i < numSelectors; i++)
+        {
+            var selector:String = selectors[i];
+            styleManager.clearStyleDeclaration(selector, false);
+        }
+
+        selectors = null;
+    }
+}
+
+}

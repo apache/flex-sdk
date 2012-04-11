@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="Ant Tasks" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="../.."/>
+
+    <!-- properties -->
+    <property file="${FLEX_HOME}/build.properties" />
+
+    <property name="lib.dir" value="${FLEX_HOME}/lib"/>
+    <property name="module.dir" value="${basedir}"/>
+    <property name="module.src" value="${module.dir}/src"/>
+    <property name="module.classes" value="${module.dir}/classes"/>
+	<property name="module.jar" value="${lib.dir}/flexTasks.jar" />
+   	<property name="javac.src" value="1.5"/>
+
+    <target name="main" depends="clean, dev" />
+    <target name="dev" depends="jar" />
+
+    <target name="prepare">
+        <echo level="info">${ant.file}</echo>
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${module.classes}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+    <echo message="Building lib/flexTasks.jar"/>
+        <jar destfile="${module.jar}">
+            <fileset dir="${module.dir}"
+                     includes="flexTasks.tasks" />
+            <fileset dir="${module.classes}"
+                     includes="**/*.class"
+                     excludes="flex/ant/AscTask*.class" />
+            <fileset dir="${FLEX_HOME}"
+                     includes="templates/**"
+                     excludes="templates/metadata/**" />
+        </jar>
+    </target>
+
+    <target name="compile" depends="prepare">
+        <mkdir dir="${module.classes}" />
+        <javac source="${javac.src}" target="${javac.src}" debug="${src.debug}" srcdir="${module.src}" destdir="${module.classes}"/>
+    </target>
+
+    <!-- This installs the internal jar into your Ant lib directory, so that you don't -->
+    <!-- have to point to this jar each time you run Ant.                              -->
+    <target name="install" depends="jar">
+        <copy todir="${ant.home}/lib">
+            <fileset dir="${lib.dir}"
+                     includes="flexTasks.jar" />
+        </copy>
+    </target>
+
+    <target name="clean">
+        <delete dir="${module.classes}" />
+        <delete file="${module.jar}" />
+        <!-- Clean up VIM and Emacs backup files -->
+        <delete>
+            <fileset dir="${module.src}" includes="**/*~" defaultexcludes="false" />
+        </delete>
+    </target>
+
+    <target name="test" depends="test-clean">
+        <exec executable="ant">
+            <arg value="-lib"/>
+            <arg value="classes"/>
+            <arg value="-file"/>
+            <arg value="/home/preilly/PFServer/flex/sdk/modules/antTasks/tests/html-wrapper-build.xml"/>
+        </exec>
+    </target>
+
+    <target name="test-clean">
+        <exec executable="ant">
+            <arg value="-lib"/>
+            <arg value="classes"/>
+            <arg value="-file"/>
+            <arg value="/home/preilly/PFServer/flex/sdk/modules/antTasks/tests/html-wrapper-build.xml"/>
+            <arg value="clean"/>
+        </exec>
+    </target>
+</project>

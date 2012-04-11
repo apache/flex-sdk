@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="org/apache/batik/script/jacl/**|org/apache/batik/script/jpython/**" kind="src" path="sources"/>
+	<classpathentry kind="src" path="test-sources"/>
+	<classpathentry kind="lib" path="lib/js.jar"/>
+	<classpathentry kind="lib" path="lib/pdf-transcoder.jar"/>
+	<classpathentry kind="lib" path="lib/xerces_2_5_0.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="test-resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.4"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

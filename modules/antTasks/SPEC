@@ -1,0 +1,103 @@
+=1= Introduction
+
+FlexTasks is an automated build tool for Flex application
+development. It is built on top of the Apache Ant project.
+
+FlexTasks is intended for both internal and external use in the
+absence of FlexTasks.
+
+=2= Description
+
+ - Scenario
+
+Paul has been assigned a bug to resolve with only a few hours to
+spare. He refuses to use FlexBuilder, as that would take focus away
+from his Emacs window. He decides to write an ant build file to
+automate the build process:
+
+  <target name="bug">
+      <mxmlc file="${bug}.mxml" 
+           incremental="false"
+           strict="true"
+           verbose-stack-traces="true" 
+           keep-generated-actionscript="true">
+        
+          <load-config filename="../frameworks/flex-config.xml" />
+        
+          <source-path path-element="../frameworks" />
+          <source-path path-element="../../enterprise/frameworks" />
+      </mxmlc>
+  </target>
+
+He then types into his shell (vicariously through Emacs),
+
+$ ant bug
+
+and within seconds the Flex application is built and ready for
+inspection by Exterminator Paul.
+
+ - Details
+
+Users must first install FlexTasks by placing the distribution jar in
+the "lib" directory of their ant install. This will allow them to use
+tasks defined by FlexTasks without any special modifications to their
+build files (such as including a <taskdef>).
+
+FlexTasks exposes all of the command line options of mxmlc through the
+attributes and nested elements of an <mxmlc> task. The full name and
+abbreviated name of a command line option can be used interchangably
+when the option is implemented as an attribute. For example,
+
+<mxmlc file="foo.mxml" compiler.as3="true" />
+
+and
+
+<mxmlc file="foo.mxml" as3="true" />
+
+are both acceptable ways to pass the -compiler.as3 option to mxmlc.
+
+All boolean options are implemented as attributes of the <mxmlc>
+element.
+
+All options that take a single argument are also implemented as
+attributes of the <mxmlc> element. The descriptions of these types of
+options vary in the mxmlc documentation. If an option is documented as
+taking a <string>, <filename>, <int>, or some sort of path element,
+and that option is non-repeatable, then this option is set by setting
+an attribute in the <mxmlc> element.
+
+Options that are repeatable, or take more than one argument (such as
+-default-size) are implemented as nested elements with attributes
+corresponding to the names given to arguments in the mxmlc
+documentation. For example, if one desired to pass the option
+-default-size 800 600 to mxmlc,
+
+<mxmlc file="foo.mxmlc">
+    <default-size width="800" height="600" />
+</mxmlc>
+
+would accomplish this.
+
+It is an error to include multiple nested elements corresponding to a
+non-repeatable option.
+
+There are two nested elements that can contain nested elements:
+<fonts> and <metadata>. These elements encapsulate all options
+starting with "compiler.fonts" and "metadata", repectively. What has
+been described thus far applies to these elements as well. For
+example, if one wanted to include contributors names along with a
+description of the application, the following would accomplish this:
+
+<mxmlc file="foo.mxmlc">
+    <metadata description="foo app">
+        <contributor name="Joe" />
+        <contributor name="Mike" />
+    </metadata>
+</mxmlc>.
+
+Special case: the compiler.fonts.languages.language-range option is
+set by adding to <fonts> a <language-range> nested element, rather
+than a <languages.language-range> element. It may be wise to change
+this in the future.
+
+For more information, see the FlexTasks page on the flexteam wiki.

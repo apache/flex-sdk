@@ -1,0 +1,786 @@
+<?xml version='1.0' encoding='utf-8' standalone='no' ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--  
+
+   Note that error id="1179" does not need to be translated, its for internal use only.
+-->
+
+<errors>
+	<error id="1000" label="kError_AmbiguousReference">%s에 대한 참조가 모호합니다.
+
+
+	<description><![CDATA[
+	A reference might be to more than one item. For example, the following uses the namespaces <code>rss</code> and <code>xml</code>, each of which defines a 
+	different value for the <code>hello()</code> function. The 		
+	<code>trace(hello())</code> statement returns this error because it cannot determine which namespace to use.<br>
+	
+<pre><code>private namespace rss;
+private namespace xml;
+    
+public function ErrorExamples() {
+  	use namespace rss;
+   	use namespace xml;
+	trace(hello());
+}
+    
+rss function hello():String {
+      	return "hola";
+    }
+    
+    xml function hello():String {
+        return "foo";
+    }</code></pre>
+ 
+
+	<p>Correct an ambiguous reference by making the reference specific. The following example 	uses the form <i>namespace</i>::<i>function</i> to specify 
+	which namespace to use:
+
+
+<pre><code>public function ErrorExamples() {
+    
+    trace(rss::hello());
+    trace(xml::hello());
+}</code></pre>
+        
+	]]>
+	</description>
+
+</error>
+	<error id="1003" label="kError_NamespaceAccessSpecifiers">액세스 지정자는 네임스페이스 속성과 함께 사용할 수 없습니다.
+		<description>You can not use both an access specifier (such as private or public) and a namespace attribute on a definition.</description></error>
+	<error id="1004" label="kError_Unknown_Namespace">네임스페이스가 없거나 컴파일 타임 상수가 아닙니다.
+	
+<description><![CDATA[
+		The namespace is either unknown or is an expression that could have different values at run time.
+		Check that you are spelling the namespace correctly and that its definition is imported correctly.]]></description>
+</error>
+
+	<error id="1006" label="kError_InvalidSuperExpression">super 표현식은 클래스 인스턴스 메서드 내에서만 사용할 수 있습니다.</error>
+	<error id="1007" label="kError_InvalidSuperStatement">super 문은 클래스 인스턴스 생성자 내에서만 사용할 수 있습니다.
+<description><![CDATA[
+		You cannot use the <code>super</code> statement within static members. You can 
+		use the <code>super</code> statement only within class instances.
+	]]>
+	</description>
+</error>
+	<error id="1008" label="kError_InvalidAttribute">속성이 유효하지 않습니다.</error>
+	<error id="1010" label="kError_InvalidOverride">override 속성은 클래스 속성 정의에만 사용할 수 있습니다.
+<description><![CDATA[
+		You cannot use the <code>override</code> keyword within a function block.
+	]]></description>
+
+</error>
+	<error id="1011" label="kError_InvalidVirtual">virtual 속성은 클래스 속성 정의에만 사용할 수 있습니다.
+<description><![CDATA[
+		You cannot use the <code>virtual</code> attribute when you declare a property that does not belong to a class 
+		(for example, when you declare a variable within a function block).
+	]]></description>
+</error>
+	<error id="1012" label="kError_InvalidStatic">static 속성은 클래스 내의 정의에만 사용할 수 있습니다.</error>
+	<error id="1013" label="kError_InvalidPrivate">private 속성은 클래스 속성 정의에만 사용할 수 있습니다.</error>
+	<error id="1014" label="kError_Unsupported_Intrinsic">intrinsic 속성은 더 이상 지원되지 않습니다.
+<description>
+		ActionScript 3.0 does not support the <code>intrinsic</code> keyword.
+	</description>
+
+</error>
+	<error id="1016" label="kError_BaseClassIsFinal">기저 클래스는 final입니다.
+<description><![CDATA[
+		The superclass cannot be extended because it is marked 
+		as <code>final</code>.
+	]]></description>
+
+</error>
+	<error id="1017" label="kError_UnknownBaseClass">기저 클래스 %s의 정의를 찾을 수 없습니다.</error>
+	<error id="1018" label="kError_DuplicateClassDefinition">중복된 클래스 정의: %s.</error>
+	<error id="1020" label="kError_OverrideNotFound">override로 표시된 메서드에서 다른 메서드를 재정의해야 합니다.</error>
+	<error id="1021" label="kError_DuplicateFunction">함수 정의가 중복되었습니다.
+<description>
+		You cannot declare more than one function with the same identifier name within the same scope.
+	</description>
+
+</error>
+	<error id="1022" label="kError_OverrideFinalAccessor">final 접근자를 재정의할 수 없습니다.</error>
+	<error id="1023" label="kError_IncompatibleOverride">호환되지 않는 재정의입니다.
+<description> A function marked override must exactly match the parameter and return type declaration of the function it is overriding. 
+It must have the same number of parameters, each of the same type, and declare the same return type.  If any of the parameters are optional, that
+must match as well.  Both functions must use the same access specifier (public, private, and so on) or namespace attribute as well.</description></error>
+	<error id="1024" label="kError_OverrideOfFuncNotMarkedForOverride">override로 표시되지 않은 함수를 재정의하고 있습니다.
+<description>
+		<![CDATA[
+		If a method in a class overrides a method in a base class, you must explicitly declare it by using the <code>override</code> attribute, as this example shows:
+
+		<pre>public override function foo():void{};</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1025" label="kError_FinalMethodRedefinition">final 메서드를 재정의할 수 없습니다.
+<description><![CDATA[
+		The method cannot be extended because it is marked
+		as <code>final</code> in the base class.
+	]]></description>
+
+</error>
+	<error id="1026" label="kError_ConstructorsMustBeInstanceMethods">생성자 함수는 인스턴스 메서드여야 합니다.</error>
+	<error id="1027" label="kError_FuncIsStaticAndOverride">함수는 static이면서 override일 수 없습니다.</error>
+	<error id="1028" label="kError_FuncIsStaticAndVirtual">함수는 static이면서 virtual일 수 없습니다.</error>
+	<error id="1029" label="kError_FuncIsVirtualAndFinal">함수는 final이면서 virtual일 수 없습니다.</error>
+	<error id="1030" label="kError_RestParameterNotNamed">가변 인수 배열의 이름을 지정해야 합니다.
+<description>
+	<![CDATA[
+		The ...(rest) parameter definition specifies that all values supplied after ...(rest) 
+		are collected into any array.  
+		You must specify a name for the array, as in the expression 
+		<code>function foo(x,...(rest))</code>.
+
+	]]>
+	</description>
+
+</error>
+	<error id="1033" label="kError_VirtualVars">virtual 변수는 지원되지 않습니다.</error>
+	<error id="1034" label="kError_NativeVars">변수는 native일 수 없습니다.</error>
+	<error id="1035" label="kError_VarIsFinalAndVirtual">변수는 final이면서 virtual일 수 없습니다.</error>
+	<error id="1037" label="kError_NestedPackage">패키지는 중첩될 수 없습니다.</error>
+	<error id="1038" label="kError_BreakHasNoTarget">break 문의 대상을 찾을 수 없습니다.</error>
+	<error id="1039" label="kError_ContinueHasNoTarget">continue 문의 대상을 찾을 수 없습니다.</error>
+	<error id="1040" label="kError_DuplicateLabel">레이블 정의가 중복되었습니다.</error>
+	<error id="1041" label="kError_AttributesAreNotCallable">속성을 호출할 수 없습니다.</error>
+	<error id="1042" label="kError_ThisUsedInStaticFunction">this 키워드는 정적 메서드에 사용할 수 없습니다. 인스턴스 메서드, 함수 종결 및 전역 코드에만 이 키워드를 사용할 수 있습니다.
+<description>
+	<![CDATA[
+		You cannot use the <code>this</code> keyword within a static member, because 
+		<code>this</code> would have no context.
+	]]>
+	</description>
+
+
+</error>
+	<error id="1043" label="kError_UndefinedNamespace">정의되지 않은 네임스페이스입니다.</error>
+	<error id="1044" label="kError_UnknownInterfaceMethod">인터페이스 메서드 %s(%s 네임스페이스)이(가) %s 클래스에서 구현되지 않았습니다.</error>
+	<error id="1045" label="kError_UnknownInterface">%s 인터페이스를 찾을 수 없습니다.</error>
+	<error id="1046" label="kError_UnknownType">유형이 없거나 컴파일 타임 상수가 아닙니다: %s.
+<description>
+		<![CDATA[
+		The class used as a type declaration is either unknown or is an expression that could have different values at run time.
+		Check that you are importing the correct class and that its package location
+		has not changed. Also, check that the package that contains the code (not the
+		imported class) is defined correctly (for example, make sure to use proper
+		ActionScript 3.0 package syntax, and not ActionScript 2.0 syntax).</p>
+
+		<p>The error can also occur if the class being referenced is not defined in a namespace that is in use or is not defined as public:</p>
+
+		<pre><code>public class Foo{}</code></pre>
+
+        <span class="flexonly"><p>If you are using Flex&#153 Builder&#153 2 and the class is in a library,
+		make sure to set the class path for the project.</p></span>
+
+
+	]]>
+	</description>
+
+
+</error>
+	<error id="1047" label="kError_NonConstantParamInitializer">매개 변수 이니셜라이저가 컴파일 타임 상수가 아니거나 알 수 없습니다.
+	
+	<description><![CDATA[
+	The value used as the default value for the parameter is either undefined or could have different values at run time. Check that the initializer is spelled 
+	correctly, and that the initializer value isn't an expression that could result in different possible values at run time.
+	]]></description>
+</error>
+	
+	<error id="1048" label="kError_MethodIsNotAConstructor">메서드를 생성자로 사용할 수 없습니다.
+	
+	<description><![CDATA[
+	It is not possible to create an instance of a method of a class.  Only global functions can be used in <code>new</code> expressions.
+	
+<pre>class D { function xx() { return 22; } }
+var d:D = new D();
+var x = new d.xx(); // error, method cannot be used as constructor
+function yy() { this.a = 22; }
+var z = new yy(); // no error, global functions can be used as constructors.</pre>
+
+	]]></description>	
+</error>
+	<error id="1049" label="kError_AssignmentToConstVar">상수로 지정된 변수에 대한 할당이 잘못되었습니다.</error>
+	<error id="1050" label="kError_AssignmentToNonRefVar">참조가 아닌 값에 할당할 수 없습니다.</error>
+	<error id="1051" label="kError_ReturnTypeMustBeUndefined">반환 값이 정의되지 않아야 합니다.
+<description><![CDATA[
+		You are attempting to use the <code>return</code> statement within a method that
+		has a declared return type <code>void</code>.
+	]]></description>
+
+
+</error>
+	<error id="1052" label="kError_ConstInitializerNotConst">상수 이니셜라이저가 컴파일 타임 상수가 아니거나 알 수 없습니다.
+
+	<description><![CDATA[
+	The value used to initialize the constant is either undefined or could have different values at run time. Check that the initializer is spelled 
+	correctly, and that the initializer value isn't an expression that could result in different possible values at run time.
+	]]></description>
+
+</error>
+	<error id="1053" label="kError_AccessorTypesMustMatch">접근자 유형이 일치해야 합니다.</error>
+	<error id="1054" label="kError_BadSetterReturnType">setter 정의의 반환 유형은 지정되지 않거나 void여야 합니다.
+<description><![CDATA[
+		You cannot specify a return value for a setter function. For example, the following is invalid:
+
+		<pre>public function set gamma(g:Number):Number;</pre>
+
+		<p>The following <em>is</em> valid:</p>
+
+		<pre>public function set gamma(g:Number):void;</pre>
+	]]></description>
+
+</error>
+	<error id="1058" label="kError_PropertyIsWriteOnly">속성이 쓰기 전용입니다.</error>
+	<error id="1059" label="kError_PropertyIsReadOnly">속성이 읽기 전용입니다.
+
+	<description><![CDATA[
+	This property is defined through a getter function, which allows you to retrieve that property's value. There is no setter function defined 
+	for this property, however, so it is read-only.
+	<p>In the following example, line 3 generates an error because there is no setter function defined for <code>xx</code>:
+	
+<pre>class D { function get xx() { return 22; } }
+var d:D = new D();
+d.xx = 44; // error, property is read-only</pre>
+	]]></description>
+
+</error>
+	<error id="1061" label="kError_Strict_UndefinedMethod">정의되지 않은 메서드 %s을(를) 정적 유형 %s의 참조를 통해 호출했습니다.
+
+	<description><![CDATA[
+	You are calling a method that is not defined.
+	]]></description>
+
+</error> <!-- edited -->
+	<error id="1063" label="kError_UnableToOpenFile">다음 파일을 열 수 없습니다: %s.</error>
+	<error id="1064" label="kError_InvalidMetaData">메타데이터가 잘못되었습니다.
+	<description><![CDATA[
+	This metadata is unrecognized.
+	]]></description>
+
+
+</error>
+	<error id="1065" label="kError_MetaDataAttributesHasMoreThanOneElement">메타데이터 속성은 여러 요소를 가질 수 없습니다.</error>
+	<error id="1067" label="kError_ImplicitCoercisionOfUnrelatedType">%s 유형의 값을 관련되지 않은 유형 %s(으)로 암시적으로 강제 변환하려고 했습니다.
+<description><![CDATA[
+		You are attempting to cast an object to a type to which it cannot be converted. This can happen
+		if the class you are casting to is not in the inheritance chain of the object being cast.
+		This error appears only when the compiler is running in strict mode.
+	]]></description>
+
+
+</error>
+	<error id="1068" label="kError_Parser_UnableToOpenFile">포함된 다음 파일을 열 수 없습니다: %s.</error>
+	<error id="1069" label="kError_Parser_DefinitionOrDirectiveExpected">구문 오류: 정의 또는 지시문이 필요합니다.
+
+<description>
+		Check the syntax in the line.
+	</description>
+
+</error>
+	<error id="1071" label="kError_Parser_ExpectingAnnotatableDirectiveAfterAttributes">구문 오류: %s 속성(%s 아님) 다음에 함수 등의 정의 키워드가 필요합니다.
+<description>
+	<![CDATA[
+		This error will occur if the author forgets to use the "var" or "function" keyword in a declaration.
+<pre><code>public int z;// should be 'public var z:int;'</code></pre>
+
+		This error might also occur when the compiler encounters an unexpected character. For example,
+		the following use of the <code>trace()</code> function is invalid, because of the missing
+		parentheses (the correct syntax is <code>trace("hello")</code>):
+
+<pre>
+trace "hello"
+</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1072" label="kError_Parser_ExpectedXMLBeforeNameSpace">구문 오류: 네임스페이스 앞에 xml이 필요합니다.
+<description>
+	<![CDATA[
+		The correct statement syntax is <code>default xml namespace = </code> <em>ns</em>. Either the keyword <code>xml</code> (note the lowercase) 
+		is missing or an incorrect keyword was used. For more
+		information, see the <a href="statements.html#default_xml_namespace">default xml namespace</a>
+		directive.
+	]]>
+	</description>
+
+</error>
+	<error id="1073" label="kError_Parser_ExpectingCatchOrFinally">구문 오류: catch 또는 finally 절이 필요합니다.</error>
+	<error id="1075" label="kError_Parser_EachWithoutIn">구문 오류: 'each' 키워드는 'in' 연산자가 있어야 사용할 수 있습니다.</error>
+	<error id="1076" label="kError_Parser_ExpectedLeftParen">구문 오류: 식별자 앞에 여는 괄호가 필요합니다.</error>
+	<error id="1077" label="kError_Parser_ExpectedCaseLabel">CaseLabel이 필요합니다.
+
+	<description><![CDATA[
+	The compiler expected a <code>case</code> statement at this point in the switch block. The 	following switch block incorrectly includes a call to <code>print</code> before the first </code><code>case</code> statement:
+
+<pre>switch(x)
+{
+trace(2);
+case 0:  trace(0); 
+break
+}</pre>
+	]]>
+    </description>
+</error>
+	<error id="1078" label="kError_Parser_LabelIsNotIdentifier">레이블은 간단한 식별자여야 합니다.</error>
+	<error id="1079" label="kError_Parser_WrongNumberOfSuperArgs">super 표현식에는 피연산자가 하나만 있어야 합니다.</error>
+	<error id="1080" label="kError_Parser_ExpectingIncrOrDecrOperator">증가 또는 감소 연산자가 필요합니다.</error>
+	<error id="1082" label="kError_Parser_ExpectingASingleExpressionWithinParenthesis">괄호 안에 단일 표현식이 필요합니다.</error>
+	<error id="1083" label="kError_Parser_ExpectedPrimaryExprBefore">구문 오류: 예기치 못한 %s입니다.
+
+<description>
+	<![CDATA[
+		The line of code is missing some information. In the following example,
+		some expression (such as another number) needs to be included after the final plus sign:
+
+		<pre>var sum:int = 1 + 2 + ;</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1084" label="kError_Parser_ExpectedToken">구문 오류: %s이(가) %s 앞에 필요합니다.
+<description>
+	<![CDATA[
+		The expression was unexpected at this point.
+		If the error says "Expecting right brace before end of program," a block of code
+		is missing a closing brace (&#125).
+
+		<p>If the error says "Expecting left parenthesis before _," you may have omitted a  
+		parenthesis from a conditional expression, as shown in the following example, which is intentionally incorrect: </p>
+
+		<pre><code>var fact:int = 1 * 2 * 3;
+if fact &gt; 2 {
+	var bigger:Boolean = true;
+}</code></pre>
+	]]>
+	</description>
+
+
+</error>
+	<error id="1086" label="kError_Parser_ExpectedSemicolon">구문 오류: %s 앞에 세미콜론이 필요합니다.</error>
+	<error id="1087" label="kError_Parser_ExtraCharsAfterEndOfProgram">구문 오류: 프로그램 끝 다음에 추가 문자가 있습니다.</error>
+	<error id="1093" label="kError_Lexical_General">구문 오류입니다.</error>
+	<error id="1094" label="kError_Lexical_LineTerminatorInSingleQuotedStringLiteral">구문 오류: 문자열 리터럴은 행 분리 문자 앞에서 끝나야 합니다.</error>
+	<error id="1095" label="kError_Lexical_LineTerminatorInDoubleQuotedStringLiteral">구문 오류: 문자열 리터럴은 행 분리 문자 앞에서 끝나야 합니다.</error>
+	<error id="1097" label="kError_Lexical_EndOfStreamInStringLiteral">구문 오류: 문자열 리터럴의 닫는 따옴표에 도달하기 전에 입력이 끝났습니다.</error>
+	<error id="1099" label="kError_Lexical_SyntaxError">구문 오류입니다.</error>
+	<error id="1100" label="kError_Lexical_NoMatchingTag">구문 오류: XML에서 상응하는 시작 및 종료 태그가 없습니다.</error>
+	<error id="1102" label="kError_CannotDeleteSuperDecendants">super 자손은 삭제할 수 없습니다.</error>
+	<error id="1103" label="kError_DuplicateNamespaceDefinition">중복된 네임스페이스 정의입니다.
+
+	<description><![CDATA[
+	You defined the namespace more than once. Delete or modify the duplicate definition.
+	]]></description>
+
+
+</error>
+	<error id="1104" hidden="true" label="kError_ErrorNodeError"> %s </error>
+	<error id="1105" label="kError_AssignmentTargetNotRefVal">할당 대상은 참조 값이어야 합니다.
+
+	<description><![CDATA[
+	You can assign a value to a variable, but you cannot assign a value to another value. 
+	]]></description> 
+</error>
+	<error id="1106" label="kError_IncrementOperatorNotAReference">증가의 피연산자는 참조여야 합니다.
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1107" label="kError_InvalidIncrementOperand">증가 피연산자가 잘못되었습니다.
+
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1108" label="kError_InvalidDecrementOperand">감소 피연산자가 잘못되었습니다.
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1109" label="kError_ExpectingExpression">표현식이 필요합니다.
+
+<description>
+	<![CDATA[
+		An expression is missing in a part of the code. For example, the following produces this
+		error (there is a condition missing from the <code>if</code> statement:
+
+<pre><code>var x = (5 &gt; 2) ? 
+trace(x)</code></pre>
+	]]>
+	</description>
+
+
+</error>
+	<error id="1110" label="kError_MissingXMLTagName">XML 태그 이름이 없습니다.</error>
+	<error id="1111" hidden="true" label="kError_InvalidAbcFile">%s 파일은 올바른 ABC 파일이 아닙니다.</error>
+    <error id="1112" label="kError_Parser_FileIncludesItself">이 파일에는 다음이 포함되어 있으므로 무한 재귀가 발생할 수 있습니다: %s.
+
+	<description><![CDATA[
+	A file that is included in the source being compiled contains other <code>include</code> 	statements that would cause an infinite loop. For example, the following files. a.as and 	b.as, generate this error because each file tries to include the other.
+	<p>
+	File a.as contains the following, which attempts to include the file b.as:
+<pre>import foo.bar.baz;
+include "b.as"
+trace(2);</pre>
+	<p>File b.as contains the following, which attempts to include the file a.as:
+	<pre>include "a.as"</pre>
+
+	]]></description>
+
+</error>
+	<error id="1113" label="kError_CircularReference">%s에서 순환 유형 참조가 발견되었습니다.
+	<description><![CDATA[
+	A class is trying to extend a superclass. For example, class A cannot extend class B if B inherits from A:
+<pre><code>class a extends b { }
+class b extends a { }</code></pre>
+	]]></description>
+
+</error>
+	<error id="1114" label="kError_InvalidPublic">public 속성은 패키지 내에서만 사용할 수 있습니다.</error>
+	<error id="1115" label="kError_InvalidInternal">internal 속성은 패키지 내에서만 사용할 수 있습니다.</error>
+	<error id="1116" label="kError_InvalidNamespace">사용자 정의 네임스페이스 속성은 최상위 클래스 정의에서만 사용할 수 있습니다.</error>
+	<error id="1118" label="kError_ImplicitCoercionToSubtype">정적 유형 %s의 값을 관련되지 않은 유형 %s(으)로 암시적으로 강제 변환하려고 했습니다.
+	<description><![CDATA[You are using a value that is not of the expected type and no implicit coercion exists to convert it to the expected type.
+	<p>Perhaps you are using a supertype where a subtype is expected. For example:
+<pre><code>class A {}
+var a:A = new A(); 
+class B extends A { function f() }
+var b : B = a // error</code></pre>
+	<p>The last statement generates an error because it attempts to assign an object of type A to a variable of type B.
+	<p>Similarly, the following defines the <code>foo()</code> function, which takes a parameter of type B. The statement <code> foo(a);</code> 
+	generates an error because it attempts to use a parameter of type A:
+<pre><code>function foo(x:B) { }
+foo(a);</code></pre>
+	<p>Also, the following statement generates an error because the returned value for 	<code>foo2()</code> must be type B:
+	<pre><code>function foo2():B { return new A(); }</code></pre>
+	]]></description>
+
+</error>
+	<error id="1119" label="kError_UndefinedProperty">정의되지 않은 속성 %s을(를) 정적 유형 %s의 참조를 통해 액세스했습니다.
+
+
+<description>
+	<![CDATA[
+		You are attempting to access a property that does not exist for the specified object. For example,
+		the following code generates this error because an int object does not have a property named
+		<code>assortment</code>:
+
+<pre><code>var i:int = 44;
+var str:String = i.assortment;</code></pre>
+
+		This error appears only when the compiler is running in strict mode.
+	]]>
+	</description>
+
+
+</error>
+	<error id="1120" label="kError_UnfoundProperty">정의되지 않은 속성 %s에 액세스했습니다.
+
+<description>
+	<![CDATA[
+		You are attempting to access an undefined variable. For example, if the variable
+		<code>huh</code> has not been defined, a call to it generates this error:
+
+<pre><code>huh = 55;</code></pre>
+
+		This error can appear only when the compiler is running in strict mode.
+	]]>
+	</description>
+
+
+</error>
+    <error id="1121" label="kError_GetterCannotHaveParameters">getter 정의에는 매개 변수가 없어야 합니다.</error>
+    <error id="1122" label="kError_SetterMustHaveOneParameter">setter 정의에는 매개 변수가 하나만 있어야 합니다.</error>
+    <error id="1123" label="kError_SetterCannotHaveOptional">setter 정의에는 선택적 매개 변수를 포함할 수 없습니다.</error>
+    <error id="1124" label="kError_BadGetterReturnType">getter 정의의 반환 유형은 void가 아니어야 합니다.
+
+	<description><![CDATA[
+	A getter function simulates a variable. Because variables cannot be of type void, you cannot declare getter functions to return type void.
+	]]></description>
+</error>
+    <error id="1125" label="kError_InterfaceMethodWithBody">인터페이스에 정의된 메서드에는 본문이 없어야 합니다.</error>
+    <error id="1126" label="kError_FunctionWithoutBody">함수에 본문이 없습니다.</error>
+    <error id="1127" label="kError_DuplicateAttribute">%s 속성이 여러 번 지정되었습니다.
+
+	<description><![CDATA[
+	You specified an attribute more than once in the same statement. For example, the statement <code>public static public var x;</code> generates 
+	this error because it specifies that the variable <code>x</code> is public twice. Delete duplicate declarations.
+	]]></description>
+
+</error>
+    <error id="1129" label="kError_DuplicateInterfaceDefinition">중복된 인터페이스 정의: %s.
+
+	<description><![CDATA[
+	Change or delete the duplicate definitions.
+	]]></description>
+
+</error>
+    <error id="1130" label="kError_CtorWithReturnType">생성자는 반환 유형을 지정할 수 없습니다.</error>
+    <error id="1131" label="kError_InvalidClassNesting">클래스는 중첩되면 안됩니다.</error>
+    <error id="1132" label="kError_InvalidFinalUsage">클래스에 정의된 메서드에만 final 속성을 사용할 수 있습니다.</error>
+    <error id="1133" label="kError_InvalidNative">native 속성은 함수 정의와 함께 사용해야 합니다.</error>
+    <error id="1134" label="kError_InvalidDynamic">dynamic 속성은 클래스 정의와 함께 사용해야 합니다.</error>
+    <error id="1135" label="kError_Parser_keywordInsteadOfTypeExpr">구문 오류: %s은(는) 유효한 유형이 아닙니다.</error>
+    <error id="1136" label="kError_WrongNumberOfArguments">인수 개수가 잘못되었습니다. %s개의 인수가 필요합니다.
+
+	<description><![CDATA[
+	The function expects a different number of arguments than those you provided. For example, the 	following defines function <code>goo</code>, which has two arguments:
+<pre>class A { static function goo(x:int,y:int) 
+{ return(x+y); } }</pre>
+	<p>The following statement would generate an error because it provides three arguments:
+<pre>A.goo(1,2,3);</pre>
+	]]></description>
+</error>
+    <error id="1137" label="kError_TooManyArguments">인수 개수가 잘못되었습니다. %s개 이하여야 합니다.</error>
+    <error id="1138" label="kError_BadRequiredParameter">선택적 매개 변수 다음에는 필수 매개 변수가 올 수 없습니다.</error>
+    <error id="1139" label="kError_VarInInterface">인터페이스에서는 변수를 선언할 수 없습니다.</error>
+    <error id="1140" label="kError_InvalidRestDecl">...rest 매개 변수 정의 키워드 다음에 지정되는 매개 변수는 Array 데이터 유형이어야 합니다.</error>
+    <error id="1141" label="kError_CannotExtendInterface">클래스는 인터페이스를 확장할 수 없고 다른 클래스만 확장할 수 있습니다.</error>
+    <error id="1142" label="kError_CannotExtendClass">인터페이스는 다른 인터페이스만 확장할 수 있는데 %s은(는) 클래스입니다.
+	<description><![CDATA[
+	You are attempting to have the interface extend a class. An interface can only extend another 	interface.
+	]]></description>
+
+</error>
+    <error id="1143" label="kError_InvalidOverrideUsage">override 속성은 클래스에 정의된 메서드에만 사용할 수 있습니다.</error>
+    <error id="1144" label="kError_IncompatibleInterfaceMethod">인터페이스 메서드 %s(%s 네임스페이스)이(가) %s 클래스의 호환되지 않는 서명으로 구현되었습니다.
+
+	<description><![CDATA[
+	Method signatures must match exactly.
+	]]></description>
+
+</error>
+    <error id="1145" label="kError_NativeMethodWithBody">원시 메서드는 본문을 포함할 수 없습니다.
+	<description><![CDATA[
+	You cannot use <code>native</code> because it is a reserved keyword.
+	]]></description>
+
+</error>
+    <error id="1146" label="kError_ConstructorCannnotBeGetterSetter">생성자는 getter 또는 setter 메서드일 수 없습니다.</error>
+    <error id="1147" label="kError_MissingFilespec">AS 소스 파일이 지정되지 않았습니다.</error>
+    <error id="1149" label="kError_CannotReturnFromStaticInit">정적 초기화 코드에는 return 문을 사용할 수 없습니다.</error>
+	<error id="1150" label="kError_InvalidProtected">protected 속성은 클래스 속성 정의에만 사용할 수 있습니다.</error>
+	<error id="1151" label="kError_ConflictingNameInNamespace">%s 정의(%s 네임스페이스)와 충돌이 발생했습니다.
+
+	<description><![CDATA[
+	You cannot declare more than one variable with the same identifier name within the same scope unless all such variables are declared to be of 
+	the same type. In ActionScript 3.0, different code 	blocks (such as those used in two <code>for</code> loops in the same function definition) are 	considered to be in the same scope. 
+	<p>The following code example correctly casts the variable <code>x</code> as the same type:
+<pre><code>function test()
+{
+	var x:int = 3;
+	for(var x:int = 33; x &lt; 55; x++)
+	trace(x);
+	for(var x:int = 11; x &lt; 33; x++)
+	trace(x)
+}</code></pre>
+	<p>The following code example generates an error because the type casting in the variable declaration and the <code>for</code> loops are different:
+<pre><code>function test()
+{
+	var x:String = "The answer is";
+	for(var x:int = 33; x &lt; 55; x++) // error
+	trace(x);
+	for(var x:unit = 11; x &lt; 33; x++) // error
+	trace(x)
+}</code></pre>
+]]></description>
+
+
+</error>
+	<error id="1152" label="kError_ConflictingInheritedNameInNamespace"> 상속된 정의 %s(%s 네임스페이스)과(와) 충돌이 발생했습니다.</error>
+    <error id="1153" label="kError_ConstructorMustBePublic">생성자는 public으로만 선언될 수 있습니다.</error>
+	<error id="1154" label="kError_ConflictingAccessSpecifiers">public, private, protected 또는 internal 중 하나만 정의에 지정될 수 있습니다.</error>
+	<error id="1155" label="kError_InvalidNestedAccessor">접근자는 다른 함수 내에 중첩될 수 없습니다.</error>
+	<error id="1156" label="kError_CannotInstantiateInterface">새 연산자로 인터페이스를 인스턴스화할 수 없습니다.</error>
+	<error id="1157" label="kError_BadAccessInterfaceMember">인터페이스 멤버는 public, private, protected 또는 internal로 선언될 수 없습니다.</error>
+	<error id="1158" label="kError_Parser_ExpectedLeftBrace">구문 오류: 함수 본문 앞에 여는 중괄호({)가 없습니다.</error>
+    <error id="1159" label="kError_CannotReturnFromPackageInit">패키지 초기화 코드에는 return 문을 사용할 수 없습니다.</error>
+    <error id="1160" label="kError_InvalidInterfaceNative">인터페이스 정의에는 native 속성을 사용할 수 없습니다.
+	<description><![CDATA[
+	You cannot use <code>native</code> because it is a reserved keyword.
+	]]></description>
+
+</error>
+    <error id="1162" label="kError_MultipleNamespaceAttributes">namespace 속성은 정의당 하나만 사용할 수 있습니다.</error>
+    <error id="1163" label="kError_ConflictingInheritedNameInInterface">%s 메서드가 %s 인터페이스에서 상속된 정의와 충돌합니다.</error>
+    <error id="1165" label="kError_InvalidInterfaceAttribute">인터페이스 속성 %s이(가) 잘못되었습니다.</error>
+    <error id="1166" label="kError_NamespaceInInterface">인터페이스에는 네임스페이스를 선언할 수 없습니다.</error>
+    <error id="1167" label="kError_DuplicateImplements">%s 클래스에서 %s 인터페이스를 여러 번 구현합니다.
+
+	<description><![CDATA[
+	The class implements the same interface more than once. For example, the following generates this error because 
+	class C implements interface A twice:
+
+<pre><code>interface A {  public function f();  };
+class C implements A,A {
+public function f() { trace("f"); }
+}</code></pre>
+	
+	<p>The correct implementing statement should be <code> class C implements A {</code>.
+	]]></description>
+
+</error>
+    <error id="1168" label="kError_AssignmentToDefinedFunction">%s 함수에 대한 할당이 잘못되었습니다.
+
+	<description><![CDATA[
+	You are attempting to redefine a function. For example, the following defines the function 	<code>topLevel()</code> 
+	to print the word "top". The second statement generates an error because it assigns a different return value to the function:
+<pre><code>function topLevel() { trace("top"); }
+topLevel = function() { trace("replacement works in ~");} // error</code></pre>
+	]]></description>
+
+
+</error>
+    <error id="1169" label="kError_InterfaceNamespaceAttribute">인터페이스 메서드에는 namespace 속성을 사용할 수 없습니다.</error>
+    <error id="1170" label="kError_MustReturnValue">함수에서 값을 반환하지 않습니다.
+
+	<description><![CDATA[
+	Every possible control flow in a function must return a value whenever the return type is 	something other than void. The following function 
+	<code>f(x)</code> does not generate an error because the <code>if..else</code> statement always returns a value:
+
+<pre><code>function f(x):int
+{
+if (x)
+    	return 2;
+else
+    	return 3;
+} // no error</code></pre>
+
+<p>However, the function <code>g(x)</code> below generates the error because the <code>switch</code> statement does not always 
+return a value.
+<pre><code>function g(x:int):int
+{
+switch(x)
+{
+      	case 1: return 1;
+      	case 2: return 2:
+}
+// return 2;//uncomment to remove the error
+}</code></pre>
+
+	<p>This checking is enabled only when the function declares a return type other than void. 
+	]]></description>
+</error>
+    <error id="1171" label="kError_InvalidNamespaceInitializer">네임스페이스 이니셜라이저는 리터럴 문자열이나 다른 네임스페이스여야 합니다.</error>
+    <error id="1172" label="kError_DefinitionNotFound">%s 정의를 찾을 수 없습니다.</error>
+    <error id="1173" label="kError_InvalidLabel">레이블 정의가 잘못되었습니다.</error>
+    <error id="1176" label="kError_IncompatableValueComparison">정적 유형 %s의 값과 관련되지 않은 유형 %s을(를) 비교하려고 했습니다.
+<description>This error is enabled in strict mode.</description></error>
+    <error id="1177" label="kError_CannotReturnFromGlobalInit">전역 초기화 코드에는 return 문을 사용할 수 없습니다.</error>
+    <error id="1178" label="kError_InaccessiblePropertyReference">액세스할 수 없는 속성 %s을(를) 정적 유형 %s의 참조를 통해 액세스하려고 했습니다.</error>
+    <error id="1179" hidden="true" label="kError_ColonObjectAnnoOutOfService">:Object is temporarily out of service. Use :* instead.</error>
+	<error id="1180" label="kError_Strict_PlainUndefinedMethod">정의되지 않은 메서드 %s을(를) 호출했습니다.
+<description>This error appears only when the compiler is running in strict mode.</description></error>
+	<error id="1181" label="kError_ForwardReferenceToBaseClass">기저 클래스 %s에 대한 전방 참조입니다.</error>
+	<error id="1182" label="kError_IllegalPackageReference">패키지를 값으로 사용할 수 없습니다: %s.</error>
+	<error id="1184" label="kError_IncompatibleDefaultValue">%s 유형의 호환되지 않는 기본값입니다. %s이(가) 필요합니다.</error>
+	<error id="1185" label="kError_MultipleSwitchDefaults">switch 문의 기본값이 여러 개입니다. 기본값은 하나만 사용할 수 있습니다.</error>
+    <error id="1188" label="kError_AssignmentToDefinedClass">%s 클래스에 대한 할당이 잘못되었습니다.</error>
+    <error id="1189" label="kError_Strict_AttemptToDeleteFixedProperty">고정된 속성 %s을(를) 삭제하려고 합니다. 동적으로 정의된 속성만 삭제할 수 있습니다.
+<description>Delete removes dynamically defined properties from an object.  Declared properties of a class can not be deleted.  This error appears only when the compiler is running in strict mode.</description></error>
+	<error id="1190" label="kError_InvalidBaseTypeExpression">기저 클래스가 없거나 컴파일 타임 상수가 아닙니다.</error>
+    <error id="1191" label="kError_InvalidInterfaceTypeExpression">인터페이스가 없거나 컴파일 타임 상수가 아닙니다.</error>
+    <error id="1192" label="kError_StaticModifiedNamespace">네임스페이스 정의에는 static 속성을 사용할 수 없습니다.</error>
+    <error id="1193" label="kError_InvalidInterfaceNesting">인터페이스 정의는 클래스나 다른 인터페이스 정의 내에 중첩되면 안됩니다.</error>
+	<error id="1194" label="kError_PrototypeIsAnInvalidAttribute">prototype 속성이 잘못되었습니다.</error>
+	<error id="1195" label="kError_InaccessibleMethodReference">액세스할 수 없는 메서드 %s을(를) 정적 유형 %s의 참조를 통해 액세스하려고 했습니다.
+		<description><![CDATA[You are either calling a private method from another class, or calling a method defined in a namespace that is not in use.  If you are calling a method defined in an unused namespace, add a <code>use</code> statement for the required namespace.
+	]]></description>
+ 	</error>
+	<error id="1196" label="kError_Parser_ThrowWithoutExpression">구문 오류: throw 다음에 표현식이 필요합니다.</error>
+    <error id="1197" label="kError_Authoring_SymbolClassInheritance">%s 클래스에서 %s을(를) 확장할 수 없습니다. 둘 다 라이브러리 심볼이나 기본 타임라인과 연결되어 있기 때문입니다.</error>
+    <error id="1198" label="kError_AttributesOnPackage">패키지 정의에는 속성을 사용할 수 없습니다.</error>
+    <error id="1199" label="kError_InternalError">내부 오류: %s.</error>
+    <error id="1200" label="kError_ParserInvalidForInInitializer">구문 오류: for-in 이니셜라이저가 잘못되었습니다. 하나의 표현식만 필요합니다.</error>
+	<error id="1201" label="kError_IllegalSuperStatement">this, super, return 또는 throw 문 다음에는 super 문이 올 수 없습니다.</error>
+	<error id="1202" label="kError_UnfoundPackageProperty">정의되지 않은 속성 %s(%s 패키지)에 액세스했습니다.
+
+<description>
+	<![CDATA[
+		You are attempting to access an undefined variable in a package. For example, if the variable
+		<code>p.huh</code> has not been defined, a call to it generates this error:
+
+<pre><code>p.huh = 55;</code></pre>
+
+		This error can only appear when the compiler is running in strict mode.
+	]]>
+</description>
+    </error>
+    <error id="1203" label="kError_NoDefaultBaseclassCtor">기저 클래스 %s에 기본 생성자가 없습니다.
+    <description>You must explicitly call the constructor of the base class with a super() statement if it has 1 or more required arguments.</description></error>
+	<error id="1204" label="kError_BlockCommentNotTerminated">/* 일치 항목 없음 */ 
+<description>
+	<![CDATA[
+		The characters '/*' where found, which indicate the beginning of a comment, but the corresponding characters, '*/', which indicate the end of the comment block, were not found.
+    ]]></description>
+	</error>
+	<error id="1205" label="kError_ParserExpectingLeftBraceOrStringLiteral">구문 오류: 왼쪽 중괄호({) 또는 문자열 리터럴("")이 있어야 합니다.</error>
+	<error id="1206" label="kError_InvalidES4SuperStatement">super 명령문은 생성자 이니셜라이저 목록의 마지막 항목으로만 사용할 수 있습니다.
+<description><![CDATA[
+		You cannot use the <code>super</code> statement within a constructor. You can 
+		use the <code>super</code> statement only as the last item in the constructor initializer list.
+	]]>
+	</description>
+    </error>
+	<error id="1207" label="kError_ThisUsedInInitializer">이 키워드는 특성 이니셜라이저에 사용할 수 없습니다.
+   <description>
+	<![CDATA[
+		You cannot use the <code>this</code> keyword within a property initializer.
+	]]>
+	</description>
+    </error>
+	<error id="1208" label="kError_NonConstantConfigInit">구성 값의 이니셜라이저는 컴파일 타임 상수여야 합니다.
+    <description>
+	<![CDATA[
+		The initializer of a configuration value must be a value known at compile time.  The initializer may be a constant string, number, or boolean, or 
+		a reference to another previously defined configuration value.
+	]]>
+	</description>
+    </error>
+	<error id="1209" label="kError_NonConstConfigVar">구성 변수는 선언된 상수여야만 합니다.
+    <description>
+	<![CDATA[
+		When defining a configuration variable, it must be declared as const.
+	]]>
+	</description>
+    </error>
+	<error id="1210" label="kError_InvalidConfigLocation">구성 값은 프로그램 또는 패키지의 맨 위 레벨에서 선언되어야 합니다.
+    <description>
+	<![CDATA[
+		A configuration value must be declared at the top level of a program or package.
+	]]>
+	</description>
+    </error>
+	<error id="1211" label="kError_ShadowedConfigNamespace">네임스페이스 %s이(가) 구성 네임스페이스와 충돌합니다.
+    <description>
+	<![CDATA[
+		A namespace may not have the same name as a configuration namespace.
+	]]>
+	</description>
+    </error>
+	<error id="1212" label="kError_InvalidPrecision">정밀도는 1 - 34 사이의 정수여야 합니다.</error>
+	<error id="1214" label="kError_WrongVersion">호환되지 않는 버전: 정의 %s(%s 버전에 도입됨)을(를) %s 버전의 코드에서 참조할 수 없습니다.</error>
+	<error id="1215" label="kError_LossyConversion">잘못된 초기화: 유형 %s(으)로 변환하면 데이터가 손실됩니다.</error>
+</errors>

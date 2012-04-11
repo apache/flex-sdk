@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<!--
+
+    A patch for Apache Xerces 2.9.1 to retain line number information
+    for XML tag attributes that may extend onto multiple lines.
+
+-->
+
+<project name="Xerces Patch" default="main" basedir=".">
+
+	<!-- properties -->
+    <property file="../../../build.properties"/>
+
+    <property name="lib.dir" value="../../../lib" />
+    <property name="module.dir" value="."/>
+    <property name="module.src" value="${module.dir}/src/java"/>
+    <property name="module.classes" value="${module.dir}/classes"/>
+    <property name="javac.src" value="1.4"/>
+    <property name="build.number" value=""/>
+
+    <target name="main" depends="clean,dev" description="cleans and runs the full build"/>
+    <target name="dev" depends="jar" description="runs src.depend build for development"/>
+
+    <path id="xerces.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="xercesImpl*.jar" />
+            <exclude name="xercesPatch.jar" />
+        </fileset>
+    </path>
+
+    <target name="compile" depends="prepare,run-depend" description="compile">
+        <javac source="${javac.src}" target="${javac.src}" debug="${src.debug}" destdir="${module.classes}" srcdir="${module.src}"
+            includes="**/*.java" >
+            <classpath refid="xerces.classpath"/>
+        </javac>
+        <copy todir="${module.classes}">
+            <fileset dir="${module.src}">
+                <include name="META-INF/**" />
+                <include name="org/apache/xerces/jaxp/javax.xml.parsers.SAXParserFactory" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile" description="compile and create xercesPatch.jar">
+		<echo message="Building lib/xercesPatch.jar"/>
+        <jar file="${lib.dir}/xercesPatch.jar" basedir="${module.classes}" includes="**/*">
+            <manifest>
+                <attribute name="Sealed" value="${manifest.sealed}"/>
+                <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Patch for Apache Xerces 2.9.1"/>
+                <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
+                <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean" description="clean">
+        <delete failonerror="false" includeEmptyDirs="true">
+            <fileset file="${lib.dir}/xercesPatch.jar"/>
+            <fileset dir="${module.classes}">
+                <include name="**/*"/>
+            </fileset>
+        </delete>
+		<delete failonerror="false" dir="${module.classes}"/>
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${module.classes}"/>
+    </target>
+
+    <!-- if src.depend is specified, delete the stuff which has changed so it can be recompiled -->
+    <target name="run-depend" if="src.depend">
+        <echo level="info" message="Removing class files that changed and dependent class files."/>
+        <depend cache="${module.classes}" srcdir="${module.src}" destdir="${module.classes}"/>
+    </target>
+
+</project>

@@ -1,0 +1,59 @@
+--------------------------------------------------------------------------------
+--
+--  Licensed to the Apache Software Foundation (ASF) under one or more
+--  contributor license agreements.  See the NOTICE file distributed with
+--  this work for additional information regarding copyright ownership.
+--  The ASF licenses this file to You under the Apache License, Version 2.0
+--  (the "License"); you may not use this file except in compliance with
+--  the License.  You may obtain a copy of the License at
+--
+--      http://www.apache.org/licenses/LICENSE-2.0
+--
+--  Unless required by applicable law or agreed to in writing, software
+--  distributed under the License is distributed on an "AS IS" BASIS,
+--  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+--  See the License for the specific language governing permissions and
+--  limitations under the License.
+--
+--------------------------------------------------------------------------------
+
+-- tell Camino browser to close all windows that have the specified URL
+tell application "Camino"
+	-- 'closed' keeps track of whether we have closed any documents
+	set closed to false
+
+	set done to false
+	repeat until done
+		set done to true
+
+		-- Camino has some hidden windows that are not regular browser
+		-- windows.  Those windows don't have a URL.  We keep count of
+		-- how many windows do have a URL.
+		set countOfWindowsWithURL to 0
+
+		repeat with win in windows
+			if URL of win exists then
+				if URL of win is item 1 of argv then
+					close win
+					set closed to true
+
+					-- since we have closed a document, we must restart the loop
+					set done to false
+					exit repeat
+				else
+					set countOfWindowsWithURL to countOfWindowsWithURL+1
+				end if
+			end if
+		end repeat
+	end repeat
+
+	-- if we closed at least one Safari window, and no more are
+	-- open, then tell Safari to exit
+	if closed and countOfWindowsWithURL is 0 then 
+		quit
+		set closed to "appquit"
+	end if
+
+	-- return true if we closed at least one window, false if not, appquit if told browser to quit
+	closed
+end tell

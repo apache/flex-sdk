@@ -1,0 +1,234 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+#macro (writeWatcherChangeEvents $watcher)
+#if ($watcher.changeEvents.size() > 0)
+            {
+#foreach ($changeEvent in $watcher.changeEvents)
+#if ($velocityCount == $watcher.changeEvents.size())
+                ${changeEvent.name}: ${changeEvent.committing}
+#else
+                ${changeEvent.name}: ${changeEvent.committing},
+#end
+#end
+            }
+#else
+            null
+#end
+#end
+
+#macro (writeWatcherListeners $watcher)
+        // writeWatcherListeners id=$watcher.id size=$watcher.bindingExpressions.size()
+        [
+#foreach ($bindingExpression in $watcher.bindingExpressions)
+#if ($velocityCount == $watcher.bindingExpressions.size())
+        bindings[${bindingExpression.id}]
+#else
+        bindings[${bindingExpression.id}],
+#end
+#end
+        ]
+#end
+
+#macro (writeXMLWatcher $watcher)
+        watchers[${watcher.id}] = new mx.binding.XMLWatcher("${watcher.property}",
+#writeWatcherListeners($watcher)
+        );
+#end
+
+#macro (writeArrayElementWatcher $watcher)
+#if ($watcher.shouldWriteChildren() && $watcher.shouldWriteSelf())
+        watchers[${watcher.id}] = new mx.binding.ArrayElementWatcher(target,
+                                                                     function():* { return ${watcher.evaluationPart}; },
+                                                                     [bindings[${watcher.bindingExpression.id}]]);
+#end
+#end
+
+#macro (writeEvaluationWatcherPart $watcher $parentVar)
+#if ($watcher.parent && $watcher.parent.shouldWriteSelf())
+        // writeEvaluationWatcherPart $watcher.id $watcher.parent.id $parentVar
+        watchers[${watcher.id}].$parentVar = watchers[${watcher.parent.id}];
+#end
+#end
+
+#macro (writeWatcherBottom $watcher)
+        // writeWatcherBottom id=$watcher.id shouldWriteSelf=$watcher.shouldWriteSelf() class=$watcher.getClass().getName()
+#if ($watcher.shouldWriteSelf())
+#if ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.ArrayElementWatcher"))
+#writeArrayElementWatcherBottom($watcher)
+#elseif ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.FunctionReturnWatcher"))
+#writeEvaluationWatcherPart($watcher "parentWatcher")
+#end
+#if ($watcher.parent)
+#if ($watcher.parent.shouldWriteSelf())
+        watchers[$watcher.parent.id].addChild(watchers[$watcher.id]);
+#else
+#if ($watcher.parent.getClass().getName().equals("flex2.compiler.as3.binding.PropertyWatcher"))
+#if ($watcher.parent.staticProperty)
+        watchers[$watcher.id].updateParent(${watcher.parent.className}.${watcher.parent.pathToProperty});
+#else
+#if ($watcher.parent.parent)
+        watchers[$watcher.id].updateParent(target.${watcher.parent.pathToProperty});
+#else
+        watchers[$watcher.id].updateParent(propertyGetter.apply(target, ["${watcher.parent.property}"]));
+#end
+#end
+#end
+#end
+#else
+#if ($watcher.className)
+        import $watcher.className;
+        watchers[$watcher.id].updateParent($watcher.className);
+#else
+        watchers[$watcher.id].updateParent(target);
+#end
+#end
+#end
+
+#macro (writeArrayElementWatcherBottom $watcher)
+#if ($watcher.shouldWriteChildren() && $watcher.shouldWriteSelf())
+#writeEvaluationWatcherPart($watcher "arrayWatcher")
+#end ## if
+#end ## macro
+
+#macro (writeFunctionReturnWatcher $watcher)
+        watchers[$watcher.id] = new mx.binding.FunctionReturnWatcher("${watcher.functionName}",
+                                                                     target,
+                                                                     function():Array { return [ ${watcher.evaluationPart} ]; },
+                                                                     #writeWatcherChangeEvents($watcher),
+                                                                     [bindings[${watcher.bindingExpression.id}]],
+#if ($watcher.parent || $watcher.className)
+                                                                     null
+#else
+                                                                     propertyGetter
+#end
+#if ($watcher.isStyleWatcher())
+                                                                     , true
+#end
+);
+#end
+
+#macro (writePropertyWatcher $watcher)
+#if ($watcher.staticProperty)
+        watchers[${watcher.id}] = new mx.binding.StaticPropertyWatcher("${watcher.property}",
+#else
+        watchers[${watcher.id}] = new mx.binding.PropertyWatcher("${watcher.property}",
+#end
+                                                                 #writeWatcherChangeEvents($watcher),
+                                                                 #writeWatcherListeners($watcher),
+#if ($watcher.parent || ($watcher.className && !${dataBindingInfo.getClassName().equals($watcher.className)}))
+                                                                 null
+#else
+#if ($watcher.staticProperty)
+                                                                 staticPropertyGetter
+#else
+                                                                 propertyGetter
+#end
+#end
+);
+#end
+
+#macro (writeRepeaterComponentWatcher $watcher)
+        watchers[${watcher.id}] = new mx.binding.RepeaterComponentWatcher("${watcher.property}",
+#writeWatcherChangeEvents($watcher), #writeWatcherListeners($watcher), propertyGetter);
+#end
+
+#macro (writeRepeaterItemWatcher $watcher)
+        watchers[${watcher.id}] = new mx.binding.RepeaterItemWatcher(watchers[${watcher.parent.id}]);
+#end
+
+#macro (writeWatcher $watcher)
+        // writeWatcher id=$watcher.id shouldWriteSelf=$watcher.shouldWriteSelf() class=$watcher.getClass().getName() shouldWriteChildren=$watcher.shouldWriteChildren()
+#if ($watcher.shouldWriteSelf())
+#if ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.ArrayElementWatcher"))
+#writeArrayElementWatcher($watcher)
+#elseif ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.RepeaterComponentWatcher"))
+#writeRepeaterComponentWatcher($watcher)
+#elseif ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.RepeaterItemWatcher"))
+#writeRepeaterItemWatcher($watcher)
+#elseif ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.PropertyWatcher"))
+#writePropertyWatcher($watcher)
+#elseif ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.XMLWatcher"))
+#writeXMLWatcher($watcher)
+#elseif ($watcher.getClass().getName().equals("flex2.compiler.as3.binding.FunctionReturnWatcher"))
+#writeFunctionReturnWatcher($watcher)
+#end
+#end
+
+#if ($watcher.shouldWriteChildren())
+#foreach ($child in $watcher.children)
+#writeWatcher($child)
+#end
+#end
+#end
+
+#if ($watcher.shouldWriteChildren())
+#foreach ($child in $watcher.children)
+#writeWatcherBottom($child)
+#end
+#end
+#end
+
+package
+{
+import mx.core.IFlexModuleFactory;
+import mx.binding.ArrayElementWatcher;
+import mx.binding.FunctionReturnWatcher;
+import mx.binding.IWatcherSetupUtil2;
+import mx.binding.PropertyWatcher;
+import mx.binding.RepeaterComponentWatcher;
+import mx.binding.RepeaterItemWatcher;
+import mx.binding.StaticPropertyWatcher;
+import mx.binding.XMLWatcher;
+import mx.binding.Watcher;
+
+[ExcludeClass]
+public class ${dataBindingInfo.watcherSetupUtilClassName}
+    implements mx.binding.IWatcherSetupUtil2
+{
+    public function ${dataBindingInfo.watcherSetupUtilClassName}()
+    {
+        super();
+    }
+
+    public static function init(fbs:IFlexModuleFactory):void
+    {
+        import ${dataBindingInfo.className};
+        (${dataBindingInfo.className}).watcherSetupUtil = new ${dataBindingInfo.watcherSetupUtilClassName}();
+    }
+
+    public function setup(target:Object,
+                          propertyGetter:Function,
+                          staticPropertyGetter:Function,
+                          bindings:Array,
+                          watchers:Array):void
+    {
+#foreach ($import in $dataBindingInfo.imports)
+        import $import;
+#end
+
+#foreach ($watcher in $dataBindingInfo.rootWatchers)
+#writeWatcher($watcher)
+#end
+
+#foreach ($watcher in $dataBindingInfo.rootWatchers)
+#writeWatcherBottom($watcher)
+#end
+    }
+}
+
+}

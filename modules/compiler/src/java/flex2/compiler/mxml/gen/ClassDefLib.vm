@@ -1,0 +1,594 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+
+#**
+ *  ClassDefLib.vm
+ *
+ *  "Library" of macros for ClassDef.vm.
+ *
+ *  Note: these macros assume ClassDef's context of (MxmlDocument $doc, VelocityUtil $util)
+ *#
+
+
+#**
+ *
+ *  trace
+ *  emits passed string if util.debug == true
+ *
+ *#
+#macro (trace $str)
+#if ($util.debug)
+$str
+#end
+#end
+
+
+#**
+ *
+ *  embedText
+ *  write $text into current output, after registering line mapping to context
+ *  Note: these line mappings are permanent (they're written to the bytecode as well as being used for compile errors).
+ *  for compile-error only mappings, see next
+ *
+ *#
+## commented version emits line numbers as comments in the generated code. When using, be sure to uncomment the second (blank) line.
+## #macro (embedText $text $origLine)#if ($origLine > 0)$util.mapLines($origLine, $text)/*$origLine>*/#end$text#if ($origLine > 0)/*<$origLine*/#end
+##
+#macro (embedText $text $origLine)#if ($origLine > 0)$util.mapLines($origLine, $text)#end$text
+#end
+
+
+#**
+ *
+ *  embedTextMapCompileErrorsOnly
+ *  write $text into current output, after registering line mapping to context
+ *  Note: these line mappings are in effect only for compile-time error reporting. They are not written into bytecode
+ *
+ *#
+## commented version emits line numbers as comments in the generated code. When using, be sure to uncomment the second (blank) line.
+## #macro (embedTextMapCompileErrorsOnly $text $origLine)#if ($origLine > 0)$util.mapCompileErrorLines($origLine, $text)/*CE:$origLine>*/#end$text#if ($origLine > 0)/*<CE:$origLine*/#end
+##
+#macro (embedTextMapCompileErrorsOnly $text $origLine)#if ($origLine > 0)$util.mapCompileErrorLines($origLine, $text)#end$text
+#end
+
+
+#**
+ *
+ *  emitInitializers
+ *
+ *#
+#macro (emitInitializers $indent $initializerIterator $lvalueBase)
+#foreach ($init in $initializerIterator)
+#embedText("$indent$init.getAssignExpr($lvalueBase);" $init.lineRef)
+#end
+#end
+
+#**
+ *
+ *  emitComponentStyleSettings
+ *
+ *#
+#macro (emitComponentStyleSettings)
+#set ($iter = $doc.root.styleAndEffectInitializerIterator)
+#if ($iter.hasNext())
+        //  initialize component styles
+        if (!this.styleDeclaration)
+        {
+            this.styleDeclaration = new CSSStyleDeclaration(null, styleManager);
+        }
+
+        this.styleDeclaration.defaultFactory = function():void
+        {
+#foreach ($init in $iter)
+#embedText("            this.${init.name} = ${init.valueExpr};" $init.lineRef)
+#end
+        };
+#end
+
+#set ($effectEventNames = $doc.root.effectNames)
+#if ($effectEventNames.length() > 0)
+        //  register effect events
+        this.registerEffects( [ $effectEventNames ] );
+#end
+#end
+
+#**
+ *
+ *  emitAddedToStageHandlerFunc
+ *  initializers that run after the object is added to the stage.
+ *
+ *#
+#macro (emitAddedToStageHandlerFunc)
+
+    /**
+     * @private
+     **/
+    private function _${doc.className}_addedToStageHandler(event:Event):void
+    {
+        removeEventListener(Event.ADDED_TO_STAGE, _${doc.className}_addedToStageHandler);
+
+        // stage properties
+#emitInitializers("        " $doc.stagePropertyInitializerIterator "this")
+
+    }
+
+#end
+
+#**
+ *
+ *  emitComponentInitializers_1
+ *  initializers that run in the constructor of an IFlexDisplayObject
+ *
+ *#
+#macro (emitComponentInitializers_1)
+
+#if (!$doc.isIFlexModule)
+
+        // our style settings
+#emitComponentStyleSettings()
+
+#if ($doc.stylesContainer.styleDefs.size() > 0 || $doc.isFlexApplication)
+        // ambient styles
+        mx_internal::_${doc.className}_StylesInit();
+#end
+
+#end
+        // layer initializers
+#emitInitializers("        " $doc.designLayerPropertyInitializerIterator "this")
+
+       
+        // properties
+#emitInitializers("        " $doc.nonStagePropertyInitializerIterator "this")
+
+#if ($doc.hasStagePropertyInitializers)
+        // initialize stage properties after we are added to the stage.
+        addEventListener(Event.ADDED_TO_STAGE, _${doc.className}_addedToStageHandler);
+#end
+
+        // events
+#emitInitializers("        " $doc.root.eventInitializerIterator "this")
+
+#end
+
+#**
+ *
+ *  emitComponentStyleInitializers
+ *  initializers that run in the module factory override of a IFlexModule object.
+ *
+ *#
+#macro (emitComponentStyleInitializers)
+
+        // our style settings
+#emitComponentStyleSettings()
+
+#if ($doc.stylesContainer.styleDefs.size() > 0 || $doc.isFlexApplication)
+        // ambient styles
+        mx_internal::_${doc.className}_StylesInit();
+#end
+
+#end
+
+#**
+ *
+ *  emitBindingInitializers
+ *  initializers for binding setup
+ *
+ *#
+#macro (emitBindingInitializers)
+
+#if ($doc.bindingExpressions.size() > 0)
+        var bindings:Array = ${doc.convertedClassName}_bindingsSetup();
+        var watchers:Array = [];
+
+        var target:Object = this;
+
+        if (_watcherSetupUtil == null)
+        {
+            var watcherSetupUtilClass:Object = getDefinitionByName("${doc.watcherSetupUtilClassName}");
+            watcherSetupUtilClass["init"](null);
+        }
+
+        _watcherSetupUtil.setup(this,
+                    function(propertyName:String):* { return target[propertyName]; },
+                    function(propertyName:String):* { return $doc.className[propertyName]; },
+                    bindings,
+                    watchers);
+
+        mx_internal::_bindings = mx_internal::_bindings.concat(bindings);
+        mx_internal::_watchers = mx_internal::_watchers.concat(watchers);
+#end
+
+#end
+
+#**
+ *
+ *  emitInitialBindingExecutions
+ *  Post component initializer binding executions.
+ *
+ *#
+#macro (emitInitialBindingExecutions)
+
+#if ($doc.bindingExpressions.size() > 0)
+        for (var i:uint = 0; i < bindings.length; i++)
+        {
+            Binding(bindings[i]).execute();
+        }
+#end
+
+#end
+
+#**
+ *
+ *  emitComponentInitializers_2
+ *  initializers that run in the initialize() method of an IFlexDisplayObject
+ *
+ *#
+#macro (emitComponentInitializers_2)
+
+#emitInitializers("     " $doc.proceduralVisualChildInitializerIterator "this")
+
+#end
+
+#**
+ *
+ *emitSelectorAncestor
+ * This macro recursively walks the selector chain, starting from the furthest
+ * ancestor and working back to the top level selector.
+ *
+ *#
+##
+## Start emitSelectorAncestor Macro
+##
+#macro(emitSelectorAncestor $selector)
+#if ($selector.ancestor)
+#emitSelectorAncestor($selector.ancestor)
+#end
+#if ($selector.conditions)
+        conditions = [];
+#foreach ($condition in $selector.conditions)
+        condition = new CSSCondition("$condition.kind", "$condition.value");
+        conditions.push(condition); 
+#end
+#else
+        conditions = null;
+#end
+        selector = new CSSSelector("$selector.value", conditions, selector);
+#end
+##
+## End emitSelectorAncestor Macro
+##
+
+#**
+ *
+ *  emitStylesInitFunc
+ *  emit styles initialization function with specified name
+ *
+ *#
+#macro (emitStylesInitFunc $fname)
+#trace("    //  initialize style defs for $doc.className")
+
+    mx_internal var ${fname}_done:Boolean = false;
+
+    mx_internal function $fname():void
+    {
+        //  only add our style defs to the style manager once
+        if (mx_internal::${fname}_done)
+            return;
+        else
+            mx_internal::${fname}_done = true;
+            
+        var style:CSSStyleDeclaration;
+        var effects:Array;
+                    
+#if (!$doc.isIUIComponent)
+
+#if ($doc.isIFlexModule)         
+        var styleManager:IStyleManager2 = StyleManager.getStyleManager(moduleFactory);
+#else
+        var styleManager:IStyleManager2 = StyleManager.getStyleManager(null);
+#end
+
+#end
+
+#if ($doc.stylesContainer.isAdvanced())
+        var conditions:Array;
+        var condition:CSSCondition;
+        var selector:CSSSelector;
+#end
+#foreach ($styleDef in $doc.stylesContainer.styleDefs)
+#if ($styleDef.isAdvanced())
+##
+## Start Advanced Flex 4 StyleDeclarations
+##
+#foreach ($styleDecl in $styleDef.declarations)
+#set ($selector = $styleDecl.selector)
+        selector = null;
+        conditions = null;
+#emitSelectorAncestor($selector)
+        // $selector.toString()
+        style = styleManager.getStyleDeclaration("$selector.toString()");
+        if (!style)
+        {
+            style = new CSSStyleDeclaration(selector, styleManager);
+        }
+
+#if ($styleDecl.declarationBlocks.size() > 0)
+        if (style.factory == null)
+        {
+            style.factory = function():void
+            {
+#foreach ($block in $styleDecl.declarationBlocks)
+#if ($block.hasMediaList())
+              if (styleManager.acceptMediaList("$block.mediaList.toEscapedString()"))
+              {
+#end
+#foreach ($styleProp in $block.properties.values())
+                this.${styleProp.name} = ${styleProp.value};
+#end
+#if ($block.hasMediaList())
+              }
+#end
+#end
+            };
+        }
+
+#if ($styleDecl.hasEffectStyles())
+        effects = style.mx_internal::effects;
+        if (!effects)
+        {
+            effects = style.mx_internal::effects = [];
+        }
+#end
+
+#foreach ($block in $styleDecl.declarationBlocks)
+#if ($block.effectStyles.size() > 0)
+#if ($block.hasMediaList())
+        if (styleManager.acceptMediaList("$block.mediaList.toEscapedString()"))
+        {
+#end
+
+#foreach ($effectStyle in $block.effectStyles)
+          effects.push("${effectStyle}");
+#end
+#if ($block.hasMediaList())
+        }
+#end
+#end
+#end
+
+#end
+
+#end
+##
+## End Advanced Flex 4 StyleDeclarations
+##
+#else
+##
+## Start Legacy Flex 3 StyleDeclarations
+##
+        // ${styleDef.subject}
+#if ($styleDef.isTypeSelector())
+        style = styleManager.getStyleDeclaration("${styleDef.typeName}");
+#else
+        style = styleManager.getStyleDeclaration(".${styleDef.typeName}");
+#end
+        if (!style)
+        {
+            style = new CSSStyleDeclaration(null, styleManager);
+#if ($styleDef.isTypeSelector())
+            styleManager.setStyleDeclaration("${styleDef.typeName}", style, false);
+#else
+            styleManager.setStyleDeclaration(".${styleDef.typeName}", style, false);
+#end
+        }
+#if ($styleDef.styles.size() > 0)
+        if (style.factory == null)
+        {
+            style.factory = function():void
+            {
+#foreach ($style in $styleDef.styles)
+                this.${style.name} = ${style.value};
+#end
+            };
+        }
+#end
+#if ($styleDef.effectStyles.size() > 0)
+        effects = style.mx_internal::effects;
+        if (!effects)
+            effects = style.mx_internal::effects = [];
+#foreach ($effectStyle in $styleDef.effectStyles)
+        effects.push("${effectStyle}");
+#end
+#end
+##
+## End Legacy Flex 3 StyleDeclarations
+##
+#end
+#end
+
+#if ($doc.isFlexApplication)
+        styleManager.initProtoChainRoots();
+#end
+    }
+#end
+
+
+#**
+ *
+ *  emitEmbedMetadata
+ *
+ *#
+#macro (emitEmbedMetadata $embed)
+#embedText("[Embed(#set ($vals = $embed.getAttributes())#foreach( $key in $embed.getAttributes().keySet() )#if ($velocityCount > 1), #end#set ($val = $vals.get($key))$key='$val'#end)]" $embed.xmlLineNumber)
+#end
+
+
+#**
+ *
+ *  emitBindingsSetup
+ *
+ *#
+#macro (emitBindingsSetup $convertedClassName)
+    private function ${convertedClassName}_bindingsSetup():Array
+    {
+        var result:Array = [];
+
+#foreach ($bindingExpression in $doc.bindingExpressions)
+#if ($bindingExpression.isRepeatable())
+        result[${bindingExpression.id}] = new mx.binding.RepeatableBinding(this,
+            function(instanceIndices:Array,
+                     repeaterIndices:Array):${bindingExpression.getDestinationTypeName()}
+            {
+#if (${bindingExpression.getDestinationTypeName()} == "String")
+#embedText("                var result:* = $bindingExpression.repeatableSourceExpression;" $bindingExpression.xmlLineNumber)
+                return (result == undefined ? null : String(result));
+#elseif (${bindingExpression.getDestinationTypeName()} == "Array")
+#embedText("                var result:* = $bindingExpression.sourceExpression;" $bindingExpression.xmlLineNumber)
+                return ((result == null) || (result is Array) || (result is flash.utils.Proxy) ? result : [result]);
+#else
+#embedText("                return $bindingExpression.repeatableSourceExpression;" $bindingExpression.xmlLineNumber)
+#end
+            },
+            function(_sourceFunctionReturnValue:${bindingExpression.getDestinationTypeName()},
+                     instanceIndices:Array):void
+            {
+#if ($bindingExpression.isStyle())
+                ${bindingExpression.getDestinationPathRoot(true)}.setStyle("${bindingExpression.destinationLValue}", _sourceFunctionReturnValue);
+#elseif ($bindingExpression.isDestinationObjectProxy())
+                ${bindingExpression.getDestinationPathRoot(true)}.${bindingExpression.destinationLValue} = new mx.utils.ObjectProxy(_sourceFunctionReturnValue);
+#else
+                ${bindingExpression.getDestinationPathRoot(true)}.${bindingExpression.destinationLValue} = _sourceFunctionReturnValue;
+#end
+            },
+            "${bindingExpression.getDestinationPath(false)}");
+#else
+        result[${bindingExpression.id}] = new mx.binding.Binding(this,
+#if (${bindingExpression.isSourcePublicProperty()} && ${bindingExpression.getDestinationTypeName()} != "Array")
+#embedText("            null,"$bindingExpression.xmlLineNumber)
+#else
+            function():${bindingExpression.getDestinationTypeName()}
+            {
+#if (${bindingExpression.getDestinationTypeName()} == "String")
+#embedText("                var result:* = $bindingExpression.sourceExpression;" $bindingExpression.xmlLineNumber)
+                return (result == undefined ? null : String(result));
+#elseif (${bindingExpression.getDestinationTypeName()} == "Array")
+#embedText("                var result:* = $bindingExpression.sourceExpression;" $bindingExpression.xmlLineNumber)
+                return ((result == null) || (result is Array) || (result is flash.utils.Proxy) ? result : [result]);
+#else
+#if (${bindingExpression.getTwoWayCounterpart()})
+            ${bindingExpression.getTwoWayCounterpart().getNamespaceDeclarations()}
+#end
+
+#embedText("                return $bindingExpression.sourceExpression;" $bindingExpression.xmlLineNumber)
+#end
+            },
+#end
+#if (${bindingExpression.isSimpleChain()} && !${bindingExpression.isDestinationNonPublicProperty()} )
+            null,
+#else
+            function(_sourceFunctionReturnValue:${bindingExpression.getDestinationTypeName()}):void
+            {
+#if ($bindingExpression.isStyle())
+                ${bindingExpression.getDestinationPathRoot(true)}.setStyle("${bindingExpression.destinationStyle}", _sourceFunctionReturnValue);
+#elseif ($bindingExpression.isDestinationObjectProxy())
+                ${bindingExpression.getDestinationPath(true)} = new mx.utils.ObjectProxy(_sourceFunctionReturnValue);
+#else
+                ${bindingExpression.getNamespaceDeclarations()}
+#embedText("                ${bindingExpression.getDestinationPath(true)} = _sourceFunctionReturnValue;" $bindingExpression.xmlLineNumber)
+#end
+            },
+#end
+            "${bindingExpression.getDestinationPath(false)}"
+#if (${bindingExpression.isSourcePublicProperty()} && ${bindingExpression.getDestinationTypeName()} != "Array")
+            , "${bindingExpression.getSourceAsProperty()}");
+#else
+            );
+#end
+
+#if (${bindingExpression.twoWayCounterpart})
+#if (${bindingExpression.isTwoWayPrimary()})
+        result[${bindingExpression.id}].isTwoWayPrimary = true;
+#end
+        result[${bindingExpression.id}].twoWayCounterpart = result[${bindingExpression.twoWayCounterpart.id}];
+
+#if (${bindingExpression.twoWayCounterpart.isTwoWayPrimary()})
+        result[${bindingExpression.twoWayCounterpart.id}].isTwoWayPrimary = true;
+#end
+        result[${bindingExpression.twoWayCounterpart.id}].twoWayCounterpart = result[${bindingExpression.id}];
+#end
+#end
+#end
+
+        return result;
+    }
+
+#if ($doc.hasBindingTags())
+    ## Output a source to destination assignment expression for each
+    ## Binding tag, so that ASC can detect coercion errors.  This
+    ## function is never called, so we could potentially remove it
+    ## before code generation.
+    private function ${convertedClassName}_bindingExprs():void
+    {
+        ${doc.getAllBindingNamespaceDeclarations()}
+        #foreach ($bindingExpression in $doc.bindingExpressions)
+        #if (!$bindingExpression.destination)
+        #embedText("$bindingExpression.destinationProperty = $bindingExpression.sourceExpression;" $bindingExpression.xmlLineNumber)
+        #end
+        #end
+    }
+#end
+
+    /**
+     * @private
+     **/
+    public static function set watcherSetupUtil(watcherSetupUtil:IWatcherSetupUtil2):void
+    {
+        (${doc.className})._watcherSetupUtil = watcherSetupUtil;
+    }
+
+    private static var _watcherSetupUtil:IWatcherSetupUtil2;
+#end
+
+#**
+ *
+ *  emitInitializerSupportDefs
+ *
+ *#
+#macro (emitInitializerSupportDefs)
+
+    //  supporting function definitions for properties, events, styles, effects
+#foreach($def in $doc.definitionIterator)
+#foreach($fragment in $def)
+#embedText($fragment.text $fragment.xmlLineNumber)
+#end
+
+#end
+
+#if ($doc.bindingExpressions.size() > 0)
+    //  binding mgmt
+#emitBindingsSetup( ${doc.convertedClassName} )
+#end
+
+#if ($doc.stylesContainer.styleDefs.size() > 0 || $doc.isFlexApplication)
+#emitStylesInitFunc("_${doc.className}_StylesInit")
+#end
+
+#end
+
+
+

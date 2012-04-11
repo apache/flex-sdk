@@ -1,0 +1,735 @@
+<?xml version='1.0' encoding='utf-8' standalone='no' ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--  
+
+   Note that error id="1179" does not need to be translated, its for internal use only.
+-->
+
+<errors>
+	<error id="1000" label="kError_AmbiguousReference">%s öğesine belirsiz referans.
+	<description><![CDATA[
+	A reference might be to more than one item. For example, the following uses the namespaces <code>rss</code> and <code>xml</code>, each of which defines a 
+	different value for the <code>hello()</code> function. The 		
+	<code>trace(hello())</code> statement returns this error because it cannot determine which namespace to use.<br>
+	
+<pre><code>private namespace rss;
+private namespace xml;
+    
+public function ErrorExamples() {
+  	use namespace rss;
+   	use namespace xml;
+	trace(hello());
+}
+    
+rss function hello():String {
+      	return "hola";
+    }
+    
+    xml function hello():String {
+        return "foo";
+    }</code></pre>
+ 
+
+	<p>Correct an ambiguous reference by making the reference specific. The following example 	uses the form <i>namespace</i>::<i>function</i> to specify 
+	which namespace to use:
+
+
+<pre><code>public function ErrorExamples() {
+    
+    trace(rss::hello());
+    trace(xml::hello());
+}</code></pre>
+        
+	]]>
+	</description>
+
+</error>
+	<error id="1003" label="kError_NamespaceAccessSpecifiers">Erişim belirticilere ad alanı nitelikleri ile birlikte izin verilmez.
+		<description>You can not use both an access specifier (such as private or public) and a namespace attribute on a definition.</description></error>
+	<error id="1004" label="kError_Unknown_Namespace">Ad alanı bulunamadı veya derleme zamanı sabiti değil.
+	
+<description><![CDATA[
+		The namespace is either unknown or is an expression that could have different values at run time.
+		Check that you are spelling the namespace correctly and that its definition is imported correctly.]]></description>
+</error>
+
+	<error id="1006" label="kError_InvalidSuperExpression">Bir üst ifade yalnızca sınıf örneği yöntemleri içerisinde kullanılabilir.</error>
+	<error id="1007" label="kError_InvalidSuperStatement">Bir üst ifade yalnızca sınıf örneği yapıcıları içerisinde kullanılabilir.
+<description><![CDATA[
+		You cannot use the <code>super</code> statement within static members. You can 
+		use the <code>super</code> statement only within class instances.
+	]]>
+	</description>
+</error>
+	<error id="1008" label="kError_InvalidAttribute">Nitelik geçersiz.</error>
+	<error id="1010" label="kError_InvalidOverride">Geçersiz kılma niteliği yalnızca sınıf özellik tanımlarında kullanılabilir.
+<description><![CDATA[
+		You cannot use the <code>override</code> keyword within a function block.
+	]]></description>
+
+</error>
+	<error id="1011" label="kError_InvalidVirtual">Sanal nitelik yalnızca sınıf özellik tanımlarında kullanılabilir.
+<description><![CDATA[
+		You cannot use the <code>virtual</code> attribute when you declare a property that does not belong to a class 
+		(for example, when you declare a variable within a function block).
+	]]></description>
+</error>
+	<error id="1012" label="kError_InvalidStatic">Statik nitelik yalnızca bir sınıf içerisindeki tanımlarda kullanılabilir.</error>
+	<error id="1013" label="kError_InvalidPrivate">Özel nitelik yalnızca sınıf özellik tanımlarında kullanılabilir.</error>
+	<error id="1014" label="kError_Unsupported_Intrinsic">İç nitelik artık desteklenmiyor.
+<description>
+		ActionScript 3.0 does not support the <code>intrinsic</code> keyword.
+	</description>
+
+</error>
+	<error id="1016" label="kError_BaseClassIsFinal">Taban sınıfı son.
+<description><![CDATA[
+		The superclass cannot be extended because it is marked 
+		as <code>final</code>.
+	]]></description>
+
+</error>
+	<error id="1017" label="kError_UnknownBaseClass">%s taban sınıfı tanımı bulunamadı.</error>
+	<error id="1018" label="kError_DuplicateClassDefinition">Çoğaltma sınıfı tanımı: %s.</error>
+	<error id="1020" label="kError_OverrideNotFound">Geçersiz olarak işaretli olan yöntem bir diğer yöntemi geçersiz kılmalıdır.</error>
+	<error id="1021" label="kError_DuplicateFunction">Çoğaltma işlevi tanımı.
+<description>
+		You cannot declare more than one function with the same identifier name within the same scope.
+	</description>
+
+</error>
+	<error id="1022" label="kError_OverrideFinalAccessor">Bir son erişimci geçersiz kılınamaz.</error>
+	<error id="1023" label="kError_IncompatibleOverride">Uyumsuz geçersizlik.
+<description> A function marked override must exactly match the parameter and return type declaration of the function it is overriding. 
+It must have the same number of parameters, each of the same type, and declare the same return type.  If any of the parameters are optional, that
+must match as well.  Both functions must use the same access specifier (public, private, and so on) or namespace attribute as well.</description></error>
+	<error id="1024" label="kError_OverrideOfFuncNotMarkedForOverride">Geçersiz olarak işaretlenmemiş bir işlevi geçersiz kılma.
+<description>
+		<![CDATA[
+		If a method in a class overrides a method in a base class, you must explicitly declare it by using the <code>override</code> attribute, as this example shows:
+
+		<pre>public override function foo():void{};</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1025" label="kError_FinalMethodRedefinition">Bir son yöntem yeniden tanımlanamaz.
+<description><![CDATA[
+		The method cannot be extended because it is marked
+		as <code>final</code> in the base class.
+	]]></description>
+
+</error>
+	<error id="1026" label="kError_ConstructorsMustBeInstanceMethods">Yapıcı işlevleri, örnek yöntemler olmalıdır.</error>
+	<error id="1027" label="kError_FuncIsStaticAndOverride">İşlevler, hem statik hem de geçersiz olamaz.</error>
+	<error id="1028" label="kError_FuncIsStaticAndVirtual">İşlevler, hem statik hem de sanal olamaz.</error>
+	<error id="1029" label="kError_FuncIsVirtualAndFinal">İşlevler, hem son hem de sanal olamaz.</error>
+	<error id="1030" label="kError_RestParameterNotNamed">Değişken parametreler dizisi adını belirtmelidir.
+<description>
+	<![CDATA[
+		The ...(rest) parameter definition specifies that all values supplied after ...(rest) 
+		are collected into any array.  
+		You must specify a name for the array, as in the expression 
+		<code>function foo(x,...(rest))</code>.
+
+	]]>
+	</description>
+
+</error>
+	<error id="1033" label="kError_VirtualVars">Sanal değişkenler desteklenmez.</error>
+	<error id="1034" label="kError_NativeVars">Değişkenler doğal olamaz.</error>
+	<error id="1035" label="kError_VarIsFinalAndVirtual">Değişkenler, hem son hem de sanal olamaz.</error>
+	<error id="1037" label="kError_NestedPackage">Paketler iç içe olamaz.</error>
+	<error id="1038" label="kError_BreakHasNoTarget">Kesme ifadesi hedefi bulunamadı.</error>
+	<error id="1039" label="kError_ContinueHasNoTarget">Devam ifadesi hedefi bulunamadı.</error>
+	<error id="1040" label="kError_DuplicateLabel">Çoğaltma etiketi tanımı.</error>
+	<error id="1041" label="kError_AttributesAreNotCallable">Nitelikler çağrılabilir değildir.</error>
+	<error id="1042" label="kError_ThisUsedInStaticFunction">Anahtar sözcük, statik yöntemlerde kullanılamaz. Yalnızca örnek yöntemlerde, işlev kapanmalarında ve global kodda kullanılabilir.
+<description>
+	<![CDATA[
+		You cannot use the <code>this</code> keyword within a static member, because 
+		<code>this</code> would have no context.
+	]]>
+	</description>
+
+
+</error>
+	<error id="1043" label="kError_UndefinedNamespace">Tanımlanmamış ad alanı.</error>
+	<error id="1044" label="kError_UnknownInterfaceMethod">%s ad alanındaki %s arabirim yöntemi %s sınıfı tarafından uygulanamadı.</error>
+	<error id="1045" label="kError_UnknownInterface">%s arabirimi bulunamadı.</error>
+	<error id="1046" label="kError_UnknownType">Tür bulunamadı veya derleme zamanı sabiti değil: %s.
+<description>
+		<![CDATA[
+		The class used as a type declaration is either unknown or is an expression that could have different values at run time.
+		Check that you are importing the correct class and that its package location
+		has not changed. Also, check that the package that contains the code (not the
+		imported class) is defined correctly (for example, make sure to use proper
+		ActionScript 3.0 package syntax, and not ActionScript 2.0 syntax).</p>
+
+		<p>The error can also occur if the class being referenced is not defined in a namespace that is in use or is not defined as public:</p>
+
+		<pre><code>public class Foo{}</code></pre>
+
+        <span class="flexonly"><p>If you are using Flex&#153 Builder&#153 2 and the class is in a library,
+		make sure to set the class path for the project.</p></span>
+
+
+	]]>
+	</description>
+
+
+</error>
+	<error id="1047" label="kError_NonConstantParamInitializer">Parametre başlatıcısı bilinmiyor veya derleme zamanı sabiti değil.
+	
+	<description><![CDATA[
+	The value used as the default value for the parameter is either undefined or could have different values at run time. Check that the initializer is spelled 
+	correctly, and that the initializer value isn't an expression that could result in different possible values at run time.
+	]]></description>
+</error>
+	
+	<error id="1048" label="kError_MethodIsNotAConstructor">Yöntem, yapıcı olarak kullanılamaz.
+	
+	<description><![CDATA[
+	It is not possible to create an instance of a method of a class.  Only global functions can be used in <code>new</code> expressions.
+	
+<pre>class D { function xx() { return 22; } }
+var d:D = new D();
+var x = new d.xx(); // error, method cannot be used as constructor
+function yy() { this.a = 22; }
+var z = new yy(); // no error, global functions can be used as constructors.</pre>
+
+	]]></description>	
+</error>
+	<error id="1049" label="kError_AssignmentToConstVar">Sabit olarak belirtilmiş bir değişkene kuraldışı atama.</error>
+	<error id="1050" label="kError_AssignmentToNonRefVar">Referanssız bir değere atama yapılamaz.</error>
+	<error id="1051" label="kError_ReturnTypeMustBeUndefined">Dönüş değeri tanımlanmamış olmalıdır.
+<description><![CDATA[
+		You are attempting to use the <code>return</code> statement within a method that
+		has a declared return type <code>void</code>.
+	]]></description>
+
+
+</error>
+	<error id="1052" label="kError_ConstInitializerNotConst">Sabit başlatıcı bilinmiyor veya derleme zamanı sabiti değil.
+
+	<description><![CDATA[
+	The value used to initialize the constant is either undefined or could have different values at run time. Check that the initializer is spelled 
+	correctly, and that the initializer value isn't an expression that could result in different possible values at run time.
+	]]></description>
+
+</error>
+	<error id="1053" label="kError_AccessorTypesMustMatch">Erişimci türleri eşleşmelidir.</error>
+	<error id="1054" label="kError_BadSetterReturnType">Ayarlayıcı tanımının dönüş türü belirtilmemiş veya boş olmalıdır.
+<description><![CDATA[
+		You cannot specify a return value for a setter function. For example, the following is invalid:
+
+		<pre>public function set gamma(g:Number):Number;</pre>
+
+		<p>The following <em>is</em> valid:</p>
+
+		<pre>public function set gamma(g:Number):void;</pre>
+	]]></description>
+
+</error>
+	<error id="1058" label="kError_PropertyIsWriteOnly">Özellik salt yazılır.</error>
+	<error id="1059" label="kError_PropertyIsReadOnly">Özellik salt okunur.
+
+	<description><![CDATA[
+	This property is defined through a getter function, which allows you to retrieve that property's value. There is no setter function defined 
+	for this property, however, so it is read-only.
+	<p>In the following example, line 3 generates an error because there is no setter function defined for <code>xx</code>:
+	
+<pre>class D { function get xx() { return 22; } }
+var d:D = new D();
+d.xx = 44; // error, property is read-only</pre>
+	]]></description>
+
+</error>
+	<error id="1061" label="kError_Strict_UndefinedMethod">%s olası tanımlanmamış yöntemini %s statik türü ile bir referans üzerinden çağır.
+
+	<description><![CDATA[
+	You are calling a method that is not defined.
+	]]></description>
+
+</error> <!-- edited -->
+	<error id="1063" label="kError_UnableToOpenFile">Dosya açılamıyor: %s.</error>
+	<error id="1064" label="kError_InvalidMetaData">Geçersiz meta verileri.
+	<description><![CDATA[
+	This metadata is unrecognized.
+	]]></description>
+
+
+</error>
+	<error id="1065" label="kError_MetaDataAttributesHasMoreThanOneElement">Meta veri niteliklerinde birden fazla öğe olamaz.</error>
+	<error id="1067" label="kError_ImplicitCoercisionOfUnrelatedType">%s tür değerinin %s ilgisiz türüne örtük dayatması.
+<description><![CDATA[
+		You are attempting to cast an object to a type to which it cannot be converted. This can happen
+		if the class you are casting to is not in the inheritance chain of the object being cast.
+		This error appears only when the compiler is running in strict mode.
+	]]></description>
+
+
+</error>
+	<error id="1068" label="kError_Parser_UnableToOpenFile">Dahil edilen dosya açılamıyor: %s.</error>
+	<error id="1069" label="kError_Parser_DefinitionOrDirectiveExpected">Sözdizimi hatası: beklenen tanım veya direktif.
+
+<description>
+		Check the syntax in the line.
+	</description>
+
+</error>
+	<error id="1071" label="kError_Parser_ExpectingAnnotatableDirectiveAfterAttributes">Sözdizimi hatası: %s niteliğinden sonra bir tanım anahtar sözcüğü (işlev gibi) bekleniyordu, %s değil.
+<description>
+	<![CDATA[
+		This error will occur if the author forgets to use the "var" or "function" keyword in a declaration.
+<pre><code>public int z;// should be 'public var z:int;'</code></pre>
+
+		This error might also occur when the compiler encounters an unexpected character. For example,
+		the following use of the <code>trace()</code> function is invalid, because of the missing
+		parentheses (the correct syntax is <code>trace("hello")</code>):
+
+<pre>
+trace "hello"
+</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1072" label="kError_Parser_ExpectedXMLBeforeNameSpace">Sözdizimi hatası: ad alanından önce xml bekleniyor.
+<description>
+	<![CDATA[
+		The correct statement syntax is <code>default xml namespace = </code> <em>ns</em>. Either the keyword <code>xml</code> (note the lowercase) 
+		is missing or an incorrect keyword was used. For more
+		information, see the <a href="statements.html#default_xml_namespace">default xml namespace</a>
+		directive.
+	]]>
+	</description>
+
+</error>
+	<error id="1073" label="kError_Parser_ExpectingCatchOrFinally">Sözdizimi hatası: bir catch veya finally yan cümlesi bekleniyor.</error>
+	<error id="1075" label="kError_Parser_EachWithoutIn">Sözdizimi hatası: ‘each’ anahtar sözcüğüne, ‘in’ operatörü olmadan izin verilmez.</error>
+	<error id="1076" label="kError_Parser_ExpectedLeftParen">Sözdizimi hatası: kimlikten önce sol parantez bekleniyor.</error>
+	<error id="1077" label="kError_Parser_ExpectedCaseLabel">CaseLabel bekleniyor.
+
+	<description><![CDATA[
+	The compiler expected a <code>case</code> statement at this point in the switch block. The 	following switch block incorrectly includes a call to <code>print</code> before the first </code><code>case</code> statement:
+
+<pre>switch(x)
+{
+trace(2);
+case 0:  trace(0); 
+break
+}</pre>
+	]]>
+    </description>
+</error>
+	<error id="1078" label="kError_Parser_LabelIsNotIdentifier">Etiket, basit bir kimlik olmalıdır.</error>
+	<error id="1079" label="kError_Parser_WrongNumberOfSuperArgs">Bir üst ifadede bir işlenen olmalıdır.</error>
+	<error id="1080" label="kError_Parser_ExpectingIncrOrDecrOperator">Arttırma ve eksiltme operatörü bekleniyor.</error>
+	<error id="1082" label="kError_Parser_ExpectingASingleExpressionWithinParenthesis">Parantezler içinde tek bir ifade bekleniyor.</error>
+	<error id="1083" label="kError_Parser_ExpectedPrimaryExprBefore">Sözdizimi hatası: %s öğesi beklenmiyor.
+
+<description>
+	<![CDATA[
+		The line of code is missing some information. In the following example,
+		some expression (such as another number) needs to be included after the final plus sign:
+
+		<pre>var sum:int = 1 + 2 + ;</pre>
+	]]>
+	</description>
+
+</error>
+	<error id="1084" label="kError_Parser_ExpectedToken">Sözdizimi hatası: %s öğesinden önce %s bekleniyor.
+<description>
+	<![CDATA[
+		The expression was unexpected at this point.
+		If the error says "Expecting right brace before end of program," a block of code
+		is missing a closing brace (&#125).
+
+		<p>If the error says "Expecting left parenthesis before _," you may have omitted a  
+		parenthesis from a conditional expression, as shown in the following example, which is intentionally incorrect: </p>
+
+		<pre><code>var fact:int = 1 * 2 * 3;
+if fact &gt; 2 {
+	var bigger:Boolean = true;
+}</code></pre>
+	]]>
+	</description>
+
+
+</error>
+	<error id="1086" label="kError_Parser_ExpectedSemicolon">Sözdizimi hatası: %s öğesinden önce noktalı virgül bekleniyor.</error>
+	<error id="1087" label="kError_Parser_ExtraCharsAfterEndOfProgram">Sözdizimi hatası: program bitiminden sonra ilave karakterler bulundu.</error>
+	<error id="1093" label="kError_Lexical_General">Sözdizimi hatası:</error>
+	<error id="1094" label="kError_Lexical_LineTerminatorInSingleQuotedStringLiteral">Sözdizimi hatası: Bir dizgi değişmezi, satır kesmesinden önce sonlandırılmalıdır.</error>
+	<error id="1095" label="kError_Lexical_LineTerminatorInDoubleQuotedStringLiteral">Sözdizimi hatası: Bir dizgi değişmezi, satır kesmesinden önce sonlandırılmalıdır.</error>
+	<error id="1097" label="kError_Lexical_EndOfStreamInStringLiteral">Sözdizimi hatası: girdi, bir dizgi değişmezinin kapatılan tırnak işaretine ulaşmadan sonlandırıldı.</error>
+	<error id="1099" label="kError_Lexical_SyntaxError">Sözdizimi hatası:</error>
+	<error id="1100" label="kError_Lexical_NoMatchingTag">Sözdizimi hatası: XML'de eşleşen başlama ve bitiş etiketi bulunmuyor.</error>
+	<error id="1102" label="kError_CannotDeleteSuperDecendants">Üst alt öğeler silinemez.</error>
+	<error id="1103" label="kError_DuplicateNamespaceDefinition">Çoğaltma ad alanı tanımı.
+
+	<description><![CDATA[
+	You defined the namespace more than once. Delete or modify the duplicate definition.
+	]]></description>
+
+
+</error>
+	<error id="1104" hidden="true" label="kError_ErrorNodeError"> %s</error>
+	<error id="1105" label="kError_AssignmentTargetNotRefVal">Atama hedefi, bir referans değeri olmalıdır.
+
+	<description><![CDATA[
+	You can assign a value to a variable, but you cannot assign a value to another value. 
+	]]></description> 
+</error>
+	<error id="1106" label="kError_IncrementOperatorNotAReference">Arttırma işleneni bir referans olmalıdır.
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1107" label="kError_InvalidIncrementOperand">Arttırma işleneni geçersiz.
+
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1108" label="kError_InvalidDecrementOperand">Eksiltme işleneni geçersiz.
+	<description><![CDATA[
+	The operand must be a variable, an element in an array, or a property of an object.
+	]]></description>
+</error>
+	<error id="1109" label="kError_ExpectingExpression">Bir ifade bekleniyor.
+
+<description>
+	<![CDATA[
+		An expression is missing in a part of the code. For example, the following produces this
+		error (there is a condition missing from the <code>if</code> statement:
+
+<pre><code>var x = (5 &gt; 2) ? 
+trace(x)</code></pre>
+	]]>
+	</description>
+
+
+</error>
+	<error id="1110" label="kError_MissingXMLTagName">XML etiket adı eksik.</error>
+	<error id="1111" hidden="true" label="kError_InvalidAbcFile">%s dosyası, geçerli bir ABC dosyası değildir.</error>
+    <error id="1112" label="kError_Parser_FileIncludesItself">Bu dosya sonrasında olası sonsuz özyinelemeler: %s.
+
+	<description><![CDATA[
+	A file that is included in the source being compiled contains other <code>include</code> 	statements that would cause an infinite loop. For example, the following files. a.as and 	b.as, generate this error because each file tries to include the other.
+	<p>
+	File a.as contains the following, which attempts to include the file b.as:
+<pre>import foo.bar.baz;
+include "b.as"
+trace(2);</pre>
+	<p>File b.as contains the following, which attempts to include the file a.as:
+	<pre>include "a.as"</pre>
+
+	]]></description>
+
+</error>
+	<error id="1113" label="kError_CircularReference">%s öğesinde dairesel türde referans algılandı.
+	<description><![CDATA[
+	A class is trying to extend a superclass. For example, class A cannot extend class B if B inherits from A:
+<pre><code>class a extends b { }
+class b extends a { }</code></pre>
+	]]></description>
+
+</error>
+	<error id="1114" label="kError_InvalidPublic">Genel nitelik yalnızca paket içerisinde kullanılabilir.</error>
+	<error id="1115" label="kError_InvalidInternal">Dahili nitelik yalnızca paket içerisinde kullanılabilir.</error>
+	<error id="1116" label="kError_InvalidNamespace">Kullanıcı tanımlı bir ad alanı niteliği, yalnızca sınıf tanımının üst düzeyinde kullanılabilir.</error>
+	<error id="1118" label="kError_ImplicitCoercionToSubtype">%s statik türünde bir değerin olası ilgisiz bir %s türüne örtük dayatması.
+	<description><![CDATA[You are using a value that is not of the expected type and no implicit coercion exists to convert it to the expected type.
+	<p>Perhaps you are using a supertype where a subtype is expected. For example:
+<pre><code>class A {}
+var a:A = new A(); 
+class B extends A { function f() }
+var b : B = a // error</code></pre>
+	<p>The last statement generates an error because it attempts to assign an object of type A to a variable of type B.
+	<p>Similarly, the following defines the <code>foo()</code> function, which takes a parameter of type B. The statement <code> foo(a);</code> 
+	generates an error because it attempts to use a parameter of type A:
+<pre><code>function foo(x:B) { }
+foo(a);</code></pre>
+	<p>Also, the following statement generates an error because the returned value for 	<code>foo2()</code> must be type B:
+	<pre><code>function foo2():B { return new A(); }</code></pre>
+	]]></description>
+
+</error>
+	<error id="1119" label="kError_UndefinedProperty">%s olası tanımlanmamış özelliğinin %s statik türüne bir referans üzerinden erişimi.
+
+
+<description>
+	<![CDATA[
+		You are attempting to access a property that does not exist for the specified object. For example,
+		the following code generates this error because an int object does not have a property named
+		<code>assortment</code>:
+
+<pre><code>var i:int = 44;
+var str:String = i.assortment;</code></pre>
+
+		This error appears only when the compiler is running in strict mode.
+	]]>
+	</description>
+
+
+</error>
+	<error id="1120" label="kError_UnfoundProperty">%s tanımlanmamış özelliğinin erişimi.
+
+<description>
+	<![CDATA[
+		You are attempting to access an undefined variable. For example, if the variable
+		<code>huh</code> has not been defined, a call to it generates this error:
+
+<pre><code>huh = 55;</code></pre>
+
+		This error can appear only when the compiler is running in strict mode.
+	]]>
+	</description>
+
+
+</error>
+    <error id="1121" label="kError_GetterCannotHaveParameters">Bir alıcı tanımında hiçbir parametre olmamalıdır.</error>
+    <error id="1122" label="kError_SetterMustHaveOneParameter">Bir ayarlayıcı tanımında tam bir parametre olmalıdır.</error>
+    <error id="1123" label="kError_SetterCannotHaveOptional">Bir ayarlayıcı tanımının isteğe bağlı parametreleri olamaz.</error>
+    <error id="1124" label="kError_BadGetterReturnType">Bir alıcı tanımının dönüş türü boş olmamalıdır .
+
+	<description><![CDATA[
+	A getter function simulates a variable. Because variables cannot be of type void, you cannot declare getter functions to return type void.
+	]]></description>
+</error>
+    <error id="1125" label="kError_InterfaceMethodWithBody">Bir arabirimde tanımlanan yöntemlerin bir gövdesi olmamalıdır.</error>
+    <error id="1126" label="kError_FunctionWithoutBody">İşlevin bir gövdesi yoktur.</error>
+    <error id="1127" label="kError_DuplicateAttribute">%s niteliği birden çok kez belirlendi.
+
+	<description><![CDATA[
+	You specified an attribute more than once in the same statement. For example, the statement <code>public static public var x;</code> generates 
+	this error because it specifies that the variable <code>x</code> is public twice. Delete duplicate declarations.
+	]]></description>
+
+</error>
+    <error id="1129" label="kError_DuplicateInterfaceDefinition">Çoğaltma arabirimi tanımı: %s.
+
+	<description><![CDATA[
+	Change or delete the duplicate definitions.
+	]]></description>
+
+</error>
+    <error id="1130" label="kError_CtorWithReturnType">Bir yapıcı bir döndürme türünü belirleyemez.</error>
+    <error id="1131" label="kError_InvalidClassNesting">Sınıflar iç içe olmamalıdır.</error>
+    <error id="1132" label="kError_InvalidFinalUsage">Son nitelik yalnızca sınıf içerisinde tanımlanan bir yöntem üzerinde kullanılabilir.</error>
+    <error id="1133" label="kError_InvalidNative">Doğal nitelik yalnızca işlev tanımlarıyla birlikte kullanılabilir.</error>
+    <error id="1134" label="kError_InvalidDynamic">Dinamik nitelik yalnızca sınıf tanımlarıyla birlikte kullanılabilir.</error>
+    <error id="1135" label="kError_Parser_keywordInsteadOfTypeExpr">Sözdizimi hatası: Geçersiz bir tür olarak %s.</error>
+    <error id="1136" label="kError_WrongNumberOfArguments">Yanlış değişken sayısı.  Beklenen %s.
+
+	<description><![CDATA[
+	The function expects a different number of arguments than those you provided. For example, the 	following defines function <code>goo</code>, which has two arguments:
+<pre>class A { static function goo(x:int,y:int) 
+{ return(x+y); } }</pre>
+	<p>The following statement would generate an error because it provides three arguments:
+<pre>A.goo(1,2,3);</pre>
+	]]></description>
+</error>
+    <error id="1137" label="kError_TooManyArguments">Yanlış değişken sayısı.  %s öğeden fazla beklenmiyordu.</error>
+    <error id="1138" label="kError_BadRequiredParameter">Gerekli parametrelere, isteğe bağlı parametrelerden sonra izin verilmez.</error>
+    <error id="1139" label="kError_VarInInterface">Değişken bildirimlere arabirimlerde izin verilmez.</error>
+    <error id="1140" label="kError_InvalidRestDecl">…rest parametresi tanımı anahtar sözcüğü sonrasında belirtilen parametreler yalnızca Dizi verileri türünde olabilir.</error>
+    <error id="1141" label="kError_CannotExtendInterface">Bir sınıf yalnızca bir diğer sınıfı genişletebilir, bir arabirimi değil.</error>
+    <error id="1142" label="kError_CannotExtendClass">Bir arabirim yalnızca diğer arabirimleri genişletebilir, ancak %s bir sınıftır.
+	<description><![CDATA[
+	You are attempting to have the interface extend a class. An interface can only extend another 	interface.
+	]]></description>
+
+</error>
+    <error id="1143" label="kError_InvalidOverrideUsage">Geçersiz kılma niteliği yalnızca sınıf içerisinde tanımlanan bir yöntem üzerinde kullanılabilir.</error>
+    <error id="1144" label="kError_IncompatibleInterfaceMethod">%s ad alanındaki %s arabirim yöntemi %s sınıfında uyumsuz bir imzayla uygulandı.
+
+	<description><![CDATA[
+	Method signatures must match exactly.
+	]]></description>
+
+</error>
+    <error id="1145" label="kError_NativeMethodWithBody">Doğal yöntemlerin bir gövdesi olamaz.
+	<description><![CDATA[
+	You cannot use <code>native</code> because it is a reserved keyword.
+	]]></description>
+
+</error>
+    <error id="1146" label="kError_ConstructorCannnotBeGetterSetter">Bir yapıcı, bir alıcı veya ayarlayıcı yöntem olamaz.</error>
+    <error id="1147" label="kError_MissingFilespec">AS kaynak dosyası belirlenmedi.</error>
+    <error id="1149" label="kError_CannotReturnFromStaticInit">Dönüş ifadesi statik başlatma kodunda kullanılamaz.</error>
+	<error id="1150" label="kError_InvalidProtected">Korumalı nitelik yalnızca sınıf özellik tanımlarında kullanılabilir.</error>
+	<error id="1151" label="kError_ConflictingNameInNamespace">Ad alanında %s tanımıyla bir çakışma bulunmaktadır.
+
+	<description><![CDATA[
+	You cannot declare more than one variable with the same identifier name within the same scope unless all such variables are declared to be of 
+	the same type. In ActionScript 3.0, different code 	blocks (such as those used in two <code>for</code> loops in the same function definition) are 	considered to be in the same scope. 
+	<p>The following code example correctly casts the variable <code>x</code> as the same type:
+<pre><code>function test()
+{
+	var x:int = 3;
+	for(var x:int = 33; x &lt; 55; x++)
+	trace(x);
+	for(var x:int = 11; x &lt; 33; x++)
+	trace(x)
+}</code></pre>
+	<p>The following code example generates an error because the type casting in the variable declaration and the <code>for</code> loops are different:
+<pre><code>function test()
+{
+	var x:String = "The answer is";
+	for(var x:int = 33; x &lt; 55; x++) // error
+	trace(x);
+	for(var x:unit = 11; x &lt; 33; x++) // error
+	trace(x)
+}</code></pre>
+]]></description>
+
+
+</error>
+	<error id="1152" label="kError_ConflictingInheritedNameInNamespace"> Ad alanında %s miras alınmış tanımıyla bir çakışma bulunmaktadır.</error>
+    <error id="1153" label="kError_ConstructorMustBePublic">Bir yapıcı yalnızca bildirilmiş genel olabilir.</error>
+	<error id="1154" label="kError_ConflictingAccessSpecifiers">Bir tanımda, genel, özel, korumalı veya dahiliden yalnızca biri belirlenebilir.</error>
+	<error id="1155" label="kError_InvalidNestedAccessor">Erişimciler, diğer işlevlerde iç içe olamazlar.</error>
+	<error id="1156" label="kError_CannotInstantiateInterface">Arabirimler yeni operatör ile başlatılamaz.</error>
+	<error id="1157" label="kError_BadAccessInterfaceMember">Arabirim üyeleri, bildirilmiş genel, özel, korumalı veya dahili olamazlar.</error>
+	<error id="1158" label="kError_Parser_ExpectedLeftBrace">Sözdizimi hatası: işlev gövdesinden önce sol parantez ({) eksik.</error>
+    <error id="1159" label="kError_CannotReturnFromPackageInit">Döndürme ifadesi paket başlatma kodunda kullanılamaz.</error>
+    <error id="1160" label="kError_InvalidInterfaceNative">Doğal nitelik arabirim tanımlarında kullanılamaz.
+	<description><![CDATA[
+	You cannot use <code>native</code> because it is a reserved keyword.
+	]]></description>
+
+</error>
+    <error id="1162" label="kError_MultipleNamespaceAttributes">Her tanım için yalnızca bir ad alanı niteliği kullanılabilir.</error>
+    <error id="1163" label="kError_ConflictingInheritedNameInInterface">%s yöntemi %s arabiriminden miras alınan tanımla çakışmaktadır.</error>
+    <error id="1165" label="kError_InvalidInterfaceAttribute">%s arabirim niteliği geçersizdir.</error>
+    <error id="1166" label="kError_NamespaceInInterface">Ad alanı bildirimlerine arabirimlerde izin verilmez.</error>
+    <error id="1167" label="kError_DuplicateImplements">%s sınıfı %s arabirimini birden çok kez uygular.
+
+	<description><![CDATA[
+	The class implements the same interface more than once. For example, the following generates this error because 
+	class C implements interface A twice:
+
+<pre><code>interface A {  public function f();  };
+class C implements A,A {
+public function f() { trace("f"); }
+}</code></pre>
+	
+	<p>The correct implementing statement should be <code> class C implements A {</code>.
+	]]></description>
+
+</error>
+    <error id="1168" label="kError_AssignmentToDefinedFunction">%s işlevine kuraldışı atama.
+
+	<description><![CDATA[
+	You are attempting to redefine a function. For example, the following defines the function 	<code>topLevel()</code> 
+	to print the word "top". The second statement generates an error because it assigns a different return value to the function:
+<pre><code>function topLevel() { trace("top"); }
+topLevel = function() { trace("replacement works in ~");} // error</code></pre>
+	]]></description>
+
+
+</error>
+    <error id="1169" label="kError_InterfaceNamespaceAttribute">Ad alanı niteliklerine, arabirim yöntemlerinde izin verilmez.</error>
+    <error id="1170" label="kError_MustReturnValue">İşlev bir değer geri getirmez.
+
+	<description><![CDATA[
+	Every possible control flow in a function must return a value whenever the return type is 	something other than void. The following function 
+	<code>f(x)</code> does not generate an error because the <code>if..else</code> statement always returns a value:
+
+<pre><code>function f(x):int
+{
+if (x)
+    	return 2;
+else
+    	return 3;
+} // no error</code></pre>
+
+<p>However, the function <code>g(x)</code> below generates the error because the <code>switch</code> statement does not always 
+return a value.
+<pre><code>function g(x:int):int
+{
+switch(x)
+{
+      	case 1: return 1;
+      	case 2: return 2:
+}
+// return 2;//uncomment to remove the error
+}</code></pre>
+
+	<p>This checking is enabled only when the function declares a return type other than void. 
+	]]></description>
+</error>
+    <error id="1171" label="kError_InvalidNamespaceInitializer">Bir ad alanı başlatıcısı, ya bir dizgi değişmezi veya bir diğer ad alanı olmalıdır.</error>
+    <error id="1172" label="kError_DefinitionNotFound">%s tanımı bulunamadı.</error>
+    <error id="1173" label="kError_InvalidLabel">Etiket tanımı geçersizdir.</error>
+    <error id="1176" label="kError_IncompatableValueComparison">%s statik türünde bir değer ve olası ilgisiz %s türünde bir değer arasında karşılaştırma.
+<description>This error is enabled in strict mode.</description></error>
+    <error id="1177" label="kError_CannotReturnFromGlobalInit">Dönüş ifadesi global başlatma kodunda kullanılamaz.</error>
+    <error id="1178" label="kError_InaccessiblePropertyReference">%s erişilemez özelliğinin, %s statik türünde bir referans üzerinden erişim girişimi.</error>
+    <error id="1179" hidden="true" label="kError_ColonObjectAnnoOutOfService">:Nesne geçici olarak servis dışıdır. Yerine, :* kullanın.</error>
+	<error id="1180" label="kError_Strict_PlainUndefinedMethod">Olası tanımlanmamış bir %s yöntemi çağrısı.
+<description>This error appears only when the compiler is running in strict mode.</description></error>
+	<error id="1181" label="kError_ForwardReferenceToBaseClass">%s taban sınıfına ileri referans.</error>
+	<error id="1182" label="kError_IllegalPackageReference">Paket bir değer olarak kullanılamaz. %s.</error>
+	<error id="1184" label="kError_IncompatibleDefaultValue">%s beklenirken, %s türünün varsayılan değeri uyumsuzdur.</error>
+	<error id="1185" label="kError_MultipleSwitchDefaults">Değiştirmenin birden fazla varsayılanı vardır, ancak bir varsayılana izin verilir.</error>
+    <error id="1188" label="kError_AssignmentToDefinedClass">%s sınıfına kuraldışı atama.</error>
+    <error id="1189" label="kError_Strict_AttemptToDeleteFixedProperty">%s sabit özelliğini silme girişimi. Yalnızca dinamik olarak tanımlanan özellikler silinebilir.
+<description>Delete removes dynamically defined properties from an object.  Declared properties of a class can not be deleted.  This error appears only when the compiler is running in strict mode.</description></error>
+	<error id="1190" label="kError_InvalidBaseTypeExpression">Taban sınıfı bulunamadı veya derleme zamanı sabiti değil.</error>
+    <error id="1191" label="kError_InvalidInterfaceTypeExpression">Arabirim bulunamadı veya derleme zamanı sabiti değil.</error>
+    <error id="1192" label="kError_StaticModifiedNamespace">Ad alanı tanımlarında statik niteliğe izin verilmez.</error>
+    <error id="1193" label="kError_InvalidInterfaceNesting">Arabirim tanımları, sınıf veya diğer arabirim tanımlarında iç içe olmamalıdır.</error>
+	<error id="1194" label="kError_PrototypeIsAnInvalidAttribute">Prototip niteliği geçersizdir.</error>
+	<error id="1195" label="kError_InaccessibleMethodReference">Erişilemez %s yönteminin, %s statik türünde bir referans üzerinden erişim girişimi.
+		<description><![CDATA[You are either calling a private method from another class, or calling a method defined in a namespace that is not in use.  If you are calling a method defined in an unused namespace, add a <code>use</code> statement for the required namespace.
+	]]></description>
+ 	</error>
+	<error id="1196" label="kError_Parser_ThrowWithoutExpression">Sözdizimi hatası: ortaya attıktan sonra bir ifade bekleniyor.</error>
+    <error id="1197" label="kError_Authoring_SymbolClassInheritance">Her ikisi de kütüphane sembolleriyle veya ana zaman çizelgesiyle ilişkili olduğundan, %s sınıfı, %s öğesini genişletemez.</error>
+    <error id="1198" label="kError_AttributesOnPackage">Paket tanımında niteliklere izin verilmez.</error>
+    <error id="1199" label="kError_InternalError">Dahili hata: %s.</error>
+    <error id="1200" label="kError_ParserInvalidForInInitializer">Sözdizimi hatası: Geçersiz for-in başlatıcısı, yalnızca 1 ifade bekleniyordu.</error>
+	<error id="1201" label="kError_IllegalSuperStatement">this, super,  return veya throw ifadesinden sonra bir üst ifade gerçekleşemez.</error>
+	<error id="1202" label="kError_UnfoundPackageProperty">%s paketinde %s tanımlanmamış özelliğinin erişimi.
+
+<description>
+	<![CDATA[
+		You are attempting to access an undefined variable in a package. For example, if the variable
+		<code>p.huh</code> has not been defined, a call to it generates this error:
+
+<pre><code>p.huh = 55;</code></pre>
+
+		This error can only appear when the compiler is running in strict mode.
+	]]>
+</description>
+    </error>
+    <error id="1203" label="kError_NoDefaultBaseclassCtor">%s taban sınıfında hiçbir varsayılan yapıcı bulunamadı.
+    <description>You must explicitly call the constructor of the base class with a super() statement if it has 1 or more required arguments.</description></error>
+	<error id="1204" label="kError_BlockCommentNotTerminated">/* ile eşleşmeyen */ bulundu.
+<description>
+	<![CDATA[
+		The characters '/*' where found, which indicate the beginning of a comment, but the corresponding characters, '*/', which indicate the end of the comment block, were not found.
+    ]]></description>
+	</error>
+</errors>

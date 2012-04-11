@@ -1,0 +1,210 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+## Imports added here actually do have an impact, but if you add new
+## class references to this template, also modify
+## ManagedFirstPassEvaluator.addManagedImports()
+
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
+
+import mx.core.mx_internal;
+import mx.data.IManaged;
+import mx.data.utils.Managed;
+import mx.events.PropertyChangeEvent;
+import mx.utils.UIDUtil;
+
+#foreach ($import in $managedInfo.imports)
+import $import;
+#end
+
+class ManagedProperty
+#if ($managedInfo.needsToImplementIManaged)
+    implements mx.data.IManaged
+#end
+{
+	//	wrapped properties
+	//
+
+#foreach ($entry in $managedInfo.accessors.values())
+	//	$entry.attributeString#if($entry.isFunction) getter/setter #else var #end'$entry.propertyName' moved to '$entry.backingPropertyName'
+
+#if ($entry.propertyName == "uid")
+## if the class already has a uid property then we should not generate getter
+## setter pairs as they will be created when we implement IPropertyChangeNotifier methods
+## later. In addition we have to make the additional qualification of ensuring that the method
+## is not being overriden.
+#if ($managedInfo.needsToImplementIManaged)
+	//	special uid getter/setter for IManaged implementation, see below
+#else
+#if ($entry.attributeString.indexOf("override") != -1)
+## this is a special case in which we need to add [Binding] metadata
+## and not modify the function
+    [Bindable(event="propertyChange")]
+    /**
+     * @private
+     */
+    $entry.attributeString function get uid():String
+    {
+        return this.$entry.qualifiedBackingPropertyName;
+    }
+
+    /**
+     * @private
+     */
+    $entry.attributeString function set uid(value:String):void
+    {
+        $entry.backingPropertyName = value;
+    }
+#else
+	//	uid is part of IManaged. Not wrapped.
+#end
+#end
+#else
+##
+## $entry.propertyName != "uid"
+##
+#if ($managedInfo.isTransientProperty(${entry.propertyName}))
+    [Transient]
+#end
+    [Bindable(event="propertyChange")]
+    $entry.attributeString function get ${entry.propertyName}():$entry.typeName
+    {
+        var currentValue:$entry.typeName = this.$entry.backingPropertyName;
+        var managedValue:$entry.typeName = mx.data.utils.Managed.getProperty(this, "${entry.propertyName}", currentValue#if ($managedInfo.isAssociative($entry)), false#end);
+        if (currentValue !== managedValue)
+            this.$entry.backingPropertyName = managedValue;
+        return managedValue;
+    }
+    $entry.attributeString function set ${entry.propertyName}(value:${entry.typeName}):void
+    {
+    	var oldValue:$entry.typeName = this.$entry.backingPropertyName;
+    	this.$entry.backingPropertyName = value;
+		mx.data.utils.Managed.setProperty(this, "${entry.propertyName}", oldValue, $entry.backingPropertyName);
+    }
+#end
+
+#end
+
+#if ($managedInfo.needsToImplementIManaged)
+	//	IManaged implementation
+	//
+##
+## if we haven't already added the uid value, e.g. in the class public var uid:String
+## then we can safely add it here, if the user has already defined a getter/setter for uid
+## then we will just use their implementation.
+##
+#if ($managedInfo.hasAccessor("uid"))
+#set ($uidBackingProp = $managedInfo.getAccessor("uid").backingPropertyName)
+#else
+#set ($uidBackingProp = $managedInfo.mangledName("uid"))
+    private var ${uidBackingProp}:String;
+    [Transient]
+#end    
+    [Bindable(event="propertyChange")]
+    /**
+     * @private
+     */    
+    public function get uid():String
+    {
+        if ($uidBackingProp == null)
+        {
+            $uidBackingProp = mx.utils.UIDUtil.createUID();
+        }
+        return $uidBackingProp;
+    }
+
+    /**
+     * @private
+     */
+    public function set uid(value:String):void
+    {
+        var oldValue:String = $uidBackingProp;
+        if (oldValue !== value)
+        {
+	        $uidBackingProp = value;
+            dispatchEvent(
+                mx.events.PropertyChangeEvent.createUpdateEvent(
+                				this, "uid", oldValue, value));
+        }
+    }
+    
+## Adding mx_internal properties for now, these may change to mx_data
+    
+    mx_internal var referencedIds:Object = {};
+    mx_internal var destination:String;
+
+#end
+    
+#if ($managedInfo.needsToImplementIEventDispatcher)
+	//	IEventDispatcher implementation
+	//
+## We should make sure this doesn't conflict with an already existing
+## variable.
+## preilly: The cast to IEventDispatcher is necessary, because ASC isn't picking up on the
+##          fact that we've morphed "this" into an IEventDispatcher implementation.
+    private var _eventDispatcher:flash.events.EventDispatcher = 
+        new flash.events.EventDispatcher(flash.events.IEventDispatcher(this));
+
+	/**
+	 * @inheritDoc
+	 */
+    public function addEventListener(type:String, listener:Function,
+                                     useCapture:Boolean = false,
+                                     priority:int = 0,
+									 weakRef:Boolean = false):void
+    {
+        _eventDispatcher.addEventListener(type, listener, useCapture,
+										  priority, weakRef);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function dispatchEvent(event:flash.events.Event):Boolean
+    {
+        return _eventDispatcher.dispatchEvent(event);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function hasEventListener(type:String):Boolean
+    {
+        return _eventDispatcher.hasEventListener(type);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function removeEventListener(type:String,
+                                        listener:Function,
+                                        useCapture:Boolean = false):void
+    {
+        _eventDispatcher.removeEventListener(type, listener, useCapture);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
+    public function willTrigger(type:String):Boolean
+    {
+        return _eventDispatcher.willTrigger(type);
+    }
+#end
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--
+build dependencies: sdk/lib/swfutils.jar, sdk/lib/mxmlc.jar, sdk/lib/asc.jar
+build outputs: sdk/lib/fdb.jar
+-->
+<project name="debugger" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="../.."/>
+
+    	<!-- properties -->
+    <property file="${FLEX_HOME}/build.properties" />
+
+    <property name="lib.dir" value="${FLEX_HOME}/lib"/>
+    <property name="module.dir" value="${basedir}"/>
+	<property name="javac.src" value="1.5"/>    
+    <property name="module.src" value="${module.dir}/src/java"/>    
+    <property name="module.classes" value="${module.dir}/classes"/>
+    <property name="module.jar" value="${lib.dir}/fdb.jar"/>
+    <property name="fdb.classpath" value="swfutils.jar mxmlc.jar asc.jar"/>
+    <property name="build.number" value=""/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="swfutils.jar,mxmlc.jar,asc.jar"/>
+    </path>
+
+    <target name="main" depends="clean,dev" description="runs full build"/>
+    <target name="dev" depends="jar" description="runs a src.depend build"/>
+
+    <target name="available">
+        <available property="swfutils.available" file="${lib.dir}/swfutils.jar"/>
+        <fail unless="swfutils.available">
+            Please compile swfutils.jar before using this target.
+        </fail>
+
+        <available property="mxmlc.available" file="${lib.dir}/mxmlc.jar"/>
+        <fail unless="mxmlc.available">
+            Please compile mxmlc.jar before using this target.
+        </fail>
+
+        <available property="asc.available" file="${lib.dir}/asc.jar"/>
+        <fail unless="asc.available">
+            Please compile asc.jar before using this target.
+        </fail>
+    </target>
+
+    <target name="compile" depends="available,prepare,run-depend" description="compile">
+        <javac source="${javac.src}" target="${javac.src}" debug="${src.debug}" destdir="${module.classes}" srcdir="${module.src}"
+            includes="**/*.java" classpathref="classpath"/>
+        <echo file="${module.classes}/flex/tools/debugger/cli/version.properties" append="false">build=${build.number}</echo>
+        <copy todir="${module.classes}">
+			<fileset dir="${module.src}" includes="**/*.txt, **/*.properties" />
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile" description="compile and create fdb.jar">
+        <mkdir dir="${lib.dir}" />
+		<echo message="Building lib/fdb.jar"/>
+        <jar file="${lib.dir}/fdb.jar" basedir="${module.classes}" includes="**/*" excludes="dependencies.txt">
+            <manifest>
+                <attribute name="Sealed" value="${manifest.sealed}"/>
+                <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Debugger"/>
+                <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
+                <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Main-Class" value="flex.tools.debugger.cli.DebugCLI"/>
+                <attribute name="Class-Path" value="${fdb.classpath}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean" description="clean">
+        <delete file="${module.jar}" failonerror="false"/>
+        <delete dir="${module.classes}" failonerror="false"/>
+    </target>
+
+    <!-- private helper targets -->
+
+    <target name="prepare">
+        <echo level="info">${ant.file}</echo>
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${module.classes}"/>
+    </target>
+
+    <!-- if src.depend is specified, delete the stuff which has changed so it can be recompiled -->
+    <target name="run-depend" if="src.depend">
+        <echo level="info" message="Removing class files that changed and dependent class files."/>
+        <depend cache="${module.classes}" srcdir="${module.src}" destdir="${module.classes}"/>
+    </target>
+
+
+</project>

@@ -1,0 +1,49 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+#**
+ *
+ *  embedText: write $text into current output, after registering line mapping to context
+ *
+ *  Note: these line mappings are permanent (they're written to the bytecode as well as
+ *  being used for compile errors).  for compile-error only mappings, see next
+ *
+ *#
+## commented version emits line numbers as comments in the generated code. When using, be sure to uncomment the second (blank) line.
+###macro (embedText $text $origLine)#if ($origLine > 0)$util.mapLines($origLine, $text)/*$origLine>*/#end$text#if ($origLine > 0)/*<$origLine*/
+#macro (embedText $text $origLine)#if ($origLine > 0)$util.mapLines($origLine, $text)#end$text
+#end
+
+package
+{
+##
+## imports
+##
+#foreach ($import in $styleModule.imports)
+#embedText("import $import.value;" $import.lineNumber)
+#end
+
+[ExcludeClass]
+public class ${styleModule.name}
+{
+#foreach ($import in $styleModule.imports)
+    $import.value;
+#end
+
+}
+
+}

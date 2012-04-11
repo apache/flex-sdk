@@ -1,0 +1,719 @@
+﻿
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+未定義のコマンドです。すべての fdb コマンドのリストを表示するには、'help' を実行してください。
+
+[break]
+
+指定された行または関数にブレークポイントを設定します。
+例 : 
+  break 87
+現在のファイルの 87 行目にブレークポイントを設定します。
+  break myapp.mxml:56
+"myapp.mxml" の 56 行目にブレークポイントを設定します。
+  break #3:29
+ファイル番号 3 の 29 行目にブレークポイントを設定します。
+  break doThis
+現在のファイルの関数 doThis() にブレークポイントを設定します。
+  break myapp.mxml:doThat
+ファイル "myapp.mxml" の関数 doThat() にブレークポイントを設定します。
+  break #3:doOther
+ファイル番号 3 の関数 doOther() にブレークポイントを設定します。
+  break
+現在のスタックフレームの現在の実行アドレスにブレークポイントを
+設定します。これは、スタックフレームへの戻りで停止する
+有効な方法です。
+ファイル名と番号を表示するには、'info sources' または 'info files' を実行します。
+関数名を表示するには、'info functions' を実行します。
+省略されたファイル名と関数名は、明確であれば使用できます。
+行番号が指定されている場合は、その行のコードの先頭で停止します。
+関数が指定されている場合は、その関数のコードの先頭で停止します。
+ブレークポイントの詳細な制御については、'commands' と 'condition' を参照してください。	
+
+[bt]
+
+スタックのバックトレースです。
+
+[cf]
+
+現在のファイルの名前と番号を表示するか、現在のファイルを変更します。
+例 : 
+  cf
+現在のファイルの名前と番号を表示します。
+  cf myapp.mxml
+現在のファイルを "myapp.mxml" に変更します。
+  cf #29
+現在のファイルをファイル番号 29 に変更します。
+ファイル名と番号を表示するには、'info sources' または 'info files' を実行します。
+省略されたファイル名は、明確であれば使用できます。
+'list' を使用してファイルを一覧表示した場合も、そのファイルが現在のファイルになります。	
+
+[clear]
+
+指定された行または関数のブレークポイントをクリアします。
+例 : 
+  clear 87
+現在のファイルの 87 行目のブレークポイントをクリアします。
+  clear myapp.mxml:56
+"myapp.mxml" の 56 行目のブレークポイントをクリアします。
+  clear #3:29
+ファイル番号 3 の 29 行目のブレークポイントをクリアします。
+  clear doThis
+現在のファイルの関数 doThis() のブレークポイントをクリアします。
+  clear myapp.mxml:doThat
+ファイル "myapp.mxml" の関数 doThat() のブレークポイントをクリアします。
+  clear #3:doOther
+ファイル番号 3 の関数 doOther() のブレークポイントをクリアします。
+  clear
+現在のファイルの現在の行にあるブレークポイントをクリアします。 
+ファイル名と番号を表示するには、'info sources' または 'info files' を実行します。
+関数名を表示するには、'info functions' を実行します。
+省略されたファイル名と関数名は、明確であれば使用できます。
+行番号が指定されている場合は、その行のすべてのブレークポイントがクリアされます。
+関数が指定されている場合は、関数の先頭のブレークポイントがクリアされます。	
+
+[continue]
+
+ブレークポイントで停止した後に実行を続行します。
+このコマンドは引数を取りません。
+
+[condition]
+
+
+COND が true の場合にのみブレークポイント番号 N で停止するように指定します。
+シンタックスは 'condition N COND' です。
+N は整数で、COND はブレークポイント N に達したときに評価される式です。
+
+[commands]
+
+ブレークポイントに達したときに実行するコマンドを設定します。
+ブレークポイント番号は、'commands' の後に引数として指定します。
+引数がない場合は、最後に設定されるブレークポイントがターゲットのブレークポイントになります。
+コマンド自体は次の行から始まります。
+コマンドの末尾を示すために、"end" が含まれる行を入力します。
+"silent" を最初の行として指定し、ブレークポイントをサイレントにします。これにより、ブレークポイントに達しても、コマンドでプリントされるものを除き、出力はプリントされません。
+例 : 
+  (fdb) commands
+ブレークポイント 1 に達した場合に実行するコマンドを各行に 1 つずつ入力します。
+コマンドは 'end' という行で終了します。
+  >w
+  >end	
+
+[delete]
+
+ブレークポイントを削除します。
+例 : 
+  delete
+すべてのブレークポイントを削除します。
+  delete 2 5
+ブレークポイント番号 2 および 5 を削除します。
+ブレークポイント番号を表示するには、'info breakpoints' を実行します。	
+
+[directory]
+
+fdb がソースファイルを検索するディレクトリの一覧を変更します。
+
+例 :
+
+   directory
+一覧をデフォルトに戻します。デフォルトのディレクトリは、ソースファイルがオブジェクトコードにコンパイルされたディレクトリの後に現在の作業ディレクトリが続いたものです。
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    指定されたディレクトリを、ソースを検索するディレクトリの一覧の先頭に追加します。たとえば、クラス
+    mypackage.MyClass のソースを検索する場合、デバッガは
+    "C:\MySource\mypackage\MyClass.as" と 
+    "C:\MySource\MyClass.as" の両方を検索します。
+
+  ディレクトリ "C:\Dir1;C:\Dir2"    (Windows -- ';' をセパレータとして使用)
+  ディレクトリ "/Dir1:/Dir2"        (Macinsoth -- ":" をセパレータとして使用)
+    複数のディレクトリを、ソースを検索するディレクトリの一覧の先頭に追加します。
+
+現在の一覧を表示するには、'show directories' を実行します。
+
+[disable]
+
+ブレークポイントまたは auto-display 式を無効にします。
+例 : 
+  disable
+  disable breakpoints
+すべてのブレークポイントを無効にします。
+  disable 2 5
+  disable breakpoints 2 5
+ブレークポイント番号 2 および 5 を無効にします。
+  disable display
+すべての auto-display 式を無効にします。
+  disable display 1 3
+auto-display 式の番号 1 および 3 を無効にします。
+ブレークポイント番号を表示するには、'info breakpoints' を実行します。
+auto-display 式の番号を表示するには、'info display' を実行します。	
+
+[disassemble]
+
+(ActionScript 2 のみ。ActionScript 3 のデバッグ時はサポートされません)
+
+ソースコードの指定された部分を逆アセンブルします。
+デフォルトは、現在表示されている行です。
+サポートされている引数は、list コマンドの場合と同じです。
+例 : 
+  disassemble 87
+現在のファイルの 87 行目を逆アセンブルします。
+  disassemble 87 102
+現在のファイルの 87 ～ 102 行目を逆アセンブルします。
+  disassemble doThis
+現在のファイルの関数 doThis() を逆アセンブルします。
+前述の単純な行番号の使用に加えて、次のように別の方法で行を指定することもできます。
+   myapp.mxml
+"myapp.mxml" の 1 行目
+   myapp.mxml:doThat
+"myapp.mxml" の関数 doThat() の最初の行
+   myapp.mxml:56
+"myapp.mxml" の 56 行目
+   #3
+ファイル番号 3 の 1 行目
+   #3:doOther
+ファイル番号 3 の関数 doOther() の先頭の行
+   #3:29
+ファイル番号 3 の 29 行目	
+
+[display]
+
+auto-display 式の一覧に式を追加します。
+例 : 
+  display employee.name
+auto-display 式の一覧に 'employee.name' を追加します。
+fdb が停止するたびに employee.name の値が表示されます。
+このコマンドの引数は 'print' の引数と類似しています。
+auto-display 式とその番号の一覧を表示するには、'info display' を実行します。	
+
+[down]
+
+このコマンドによって呼び出されるスタックフレームを選択し、プリントします。
+以降の 'info arguments' コマンドと 'info locals'
+コマンドによって、選択したフレームのローカルと引数が表示されます。
+'up' と 'frame' を参照してください。
+
+[enable]
+
+ブレークポイントまたは auto-display 式を有効にします。
+例 : 
+  enable
+  enable breakpoints
+すべてのブレークポイントを有効にします。
+  enable 2 5
+  enable breakpoints 2 5
+ブレークポイント番号 2 および 5 を有効にします。
+  enable display
+すべての auto-display 式を有効にします。
+  enable display 1 3
+auto-display 式の番号 1 および 3 を有効にします。
+ブレークポイント番号を表示するには、'info breakpoints' を実行します。
+auto-display 式の番号を表示するには、'info display' を実行します。	
+
+[file]
+
+アプリケーションを開始せずに、デバッグするアプリケーションを指定します。
+例 : 
+  file http://www.mysite.com/myapp.mxml
+デバッグする MXML アプリケーションを指定します。
+  file myapp.swf
+現在のディレクトリで、デバッグするローカル SWF ファイルを指定します。
+この場合、"myapp.swd" (デバッグ情報が含まれるファイル) は現在のディレクトリにも存在していなければなりません。
+このコマンドを実行しても、実際にはアプリケーションは起動しません。アプリケーションのデバッグを開始するには、引数を指定せずに 'run' コマンドを使用します。
+'file <ターゲット>' の後に 'run' を使用するのではなく、単にデバッグするアプリケーションを 'run' の引数として指定することができます。
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+fdb を起動するときに、デバッグするアプリケーションをコマンドライン引数として指定することもできます。
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+この場合、'file' または 'run' を使用する必要はありません。
+デバッグするアプリケーションを指定せずに 'run' を実行すると、fdb は接続するアプリケーションを待ちます。
+
+[finish]
+
+現在の関数が返されるまで実行します。
+このコマンドは引数を取りません。
+
+[frame]
+
+特定のスタックフレームを選択し、プリントします。
+このコマンドはオプションの引数、つまりフレーム番号を取ります。
+引数を指定しない場合、デフォルトでは現在の
+最上位のフレーム (フレーム 0) に戻ります。
+例 : 
+  frame 4
+  frame
+以降の 'info arguments' コマンドと 'info locals' コマンドによって、選択したフレームのローカルと引数が表示されます。
+'up'、'down'、および 'bt' を参照してください。 
+
+[handle]
+
+Flash Player で fdb が失敗を処理する方法を指定します。
+例 : 
+  handle recursion_limit stop
+recursion_limit の失敗が発生した場合は、fdb でメッセージを表示し、
+ブレークポイントに達した場合と同様に停止します。
+  handle all print nostop
+どのような種類の失敗が発生した場合でも、fdb でメッセージを表示しますが、停止しません。
+最初の引数は、失敗の名前または 'all' です。
+その他の引数は、その失敗に適用されるアクションです。
+失敗の名前を表示するには、'info handle' を実行します。
+アクションは、print / noprint および stop / nostop です。
+'print' は、この失敗が発生したときにメッセージをプリントします。
+'stop' は、この失敗が発生したときにデバッガを再度実行します。'print' を暗黙に示します。
+
+[help]
+
+fdb を初めて使用する場合は、'tutorial' を実行し、基本情報を確認してください。
+fdb コマンドの一覧 : 
+bt (bt)             すべてのスタックフレームのバックトレースをプリントします。
+break (b)           指定された行または関数にブレークポイントを設定します。
+cf (cf)             現在のファイルの名前と番号を表示します。
+clear (cl)          指定された行または関数のブレークポイントをクリアします。
+condition (cond)    ブレークポイントに対する条件式を適用または削除します。
+continue (c)        ブレークポイントで停止した後に実行を続行します。
+commands (com)      ブレークポイントに達したときに実行するコマンドを設定します。
+delete (d)          ブレークポイントまたは auto-display 式を削除します。
+directory (dir)     ソースファイルの検索パスにディレクトリを追加します。
+disable (disab)     ブレークポイントまたは auto-display 式を無効にします。
+disassemble (disas) ソース行または関数を逆アセンブルします。
+display (disp)      auto-display 式を追加します。
+enable (e)          ブレークポイントまたは auto-display 式を有効にします。
+file (fil)          デバッグするアプリケーションを指定します。
+finish (f)          現在の関数が返されるまで実行します。
+handle (han)        失敗の処理方法を指定します。
+help (h)            fdb コマンドに関するヘルプを表示します。
+home (ho)           実行を中止する箇所にリストの場所を設定します。
+info (i)            デバッグ中のプログラムに関する情報を表示します。
+kill (k)            デバッグ中のプログラムの実行を強制終了します。
+list (l)            指定した関数または行を一覧表示します。
+next (n)            プログラムを次の段階に進めます。
+print (p)           変数 EXP の値をプリントします。
+pwd (pw)            作業ディレクトリをプリントします。
+quit (q)            fdb を終了します。
+run (r)             デバッグしたプログラムを起動します。
+set (se)            変数の値を設定します。
+source (so)         ファイルから fdb コマンドを読み取ります。
+step (s)            別のソース行に達するまで、プログラムを進めます。
+tutorial (t)        fdb の使用方法に関するチュートリアルを表示します。
+undisplay (u)       auto-display 式を削除します。
+viewswf (v)         swf に基づいて、ファイルの一覧表示のフィルタを設定またはクリアします。
+what (wh)           変数のコンテキストを表示します。
+where (w)           bt と同じです。
+詳細を確認するには、'help' の後にコマンド名を入力します。
+
+[home]
+
+実行を中止する箇所にリストの場所を設定します。
+
+[info]
+
+デバッグ中のプログラムに関する情報を表示する汎用コマンドです。
+info サブコマンドのリスト : 
+info arguments (i a)    現在のスタックフレームの引数の変数です。
+info breakpoints (i b)  ユーザーが設定可能なブレークポイントのステータスを表示します。
+info display (i d)      auto-display 式のリストを表示します。
+info files (i f)        デバッグ中のターゲットとファイルの名前を表示します。
+info functions (i fu)   すべての関数名を表示します。
+info handle (i h)       失敗の処理方法を表示します。
+info locals (i l)       現在のスタックフレームのローカル変数です。
+info sources (i so)     プログラムのソースファイルを表示します。
+info stack (i s)        スタックのバックトレースです。
+info swfs (i sw)        このセッションの swf のリストです。
+info targets(i t)       デバッグ中のアプリケーションです。
+info variables (i v)    すべてのグローバル変数と静的変数の名前を表示します。
+詳細を確認するには、'help info' の後に info サブコマンド名を入力します。
+
+[info arguments]
+
+現在のスタックフレームの引数を表示します。
+
+[info breakpoints]
+
+すべてのブレークポイントと監視ポイントのステータスを表示します。
+Type 列は次のいずれかを示します。
+breakpoint - 通常のブレークポイント
+watchpoint - 監視ポイント
+Disp 列には 'keep'、'del'、'dis' のいずれかが含まれ、
+ブレークポイントに達した後のブレークポイントの処理を示します。'dis' は、
+ブレークポイントが使用不可になることを示し、'del' はブレークポイントが削除されることを示します。  
+'Address' および 'What' 列は、アドレスとファイル / 行番号を
+それぞれ示します。 
+
+[info display]
+
+auto-display 式とその番号のリストを表示します。
+
+[info files]
+
+ソースファイル、フレームワークファイル、自動生成されたファイルなど、
+デバッグ中のアプリケーションのファイルの名前と番号を表示します。
+例 : 
+  info files
+すべてのファイルをカテゴリ別にアルファベット順に一覧表示します。
+  info files my
+  info files my*
+ファイル名が "my" で始めるすべてのファイルをアルファベット順に一覧表示します。
+  info files *.as
+ファイル名 ".as" で終わるすべてのファイルをアルファベット順に一覧表示します。
+  info files *foo*
+ファイル名に "foo" が含まれるすべてのファイルをアルファベット順に一覧表示します。 
+ファイルは name#N の形式で表示されます。N はファイル番号です。
+多くのコマンドでは、ファイル名の代わりに #N を使用できます。
+[info functions]
+
+関数名を表示します。
+例 : 
+  info functions .
+現在のファイルのすべての関数を表示します。
+  info functions myapp.mxml
+"myapp.mxml" のすべての関数を表示します。
+  info functions #3
+ファイル番号 3 のすべての関数を表示します。
+  info functions
+すべてのファイルのすべての関数を表示します。
+ファイル名と番号を表示するには、'info sources' または 'info files' を実行します。
+省略されたファイル名は、明確であれば使用できます。
+
+[info handle]
+
+Flash Player で失敗が発生した場合の fdb の動作を表示します。
+例 : 
+  info handle
+fdb がすべての失敗を処理する方法を表示します。
+  info handle recursion_limit
+fdb が recursion_limit の失敗を処理する方法を表示します。
+
+[info locals]
+
+現在のスタックフレームのローカル変数を表示します。
+
+[info scopechain]
+
+Display the scope chain of the current stack frame.  The scope chain is
+the list of objects that is searched when the Flash player is trying
+to resolve a symbol name.
+
+[info sources]
+
+デバッグ中のアプリケーションのソースファイルの名前と番号を表示します。フレームワークファイルや自動生成されたファイルは含まれません。
+ファイルは name#N の形式で表示されます。N はファイル番号です。	
+多くのコマンドでは、ファイル名の代わりに #N を使用できます。	
+
+[info stack]
+
+スタックのバックトレースです。
+
+[info swfs]
+
+デバッグセッションに認識されている swf を表示します。
+swf 名に基づいてファイルの一覧表示をフィルタする方法の詳細については、
+'viewswf' コマンドを参照してください。
+
+[info targets]
+
+デバッグ中のアプリケーションの URL (http: または file:) を表示します。
+
+[info variables]
+
+すべてのグローバル変数と静的変数の名前と値を表示します。
+
+[info ?]
+
+未定義の info コマンドです。'help info' を実行してください。
+
+[kill]
+
+デバッグ中のプログラムの実行を強制終了します。
+このコマンドは引数を取りません。
+
+[list]
+
+ソースファイルのコード行を一覧表示します。
+例 : 
+  list
+現在のファイルにおける前回一覧表示された行の後、または前後の 10 行をさらに一覧表示します。
+  list -
+現在のファイルにおける前回一覧表示された行の前の 10 行を一覧表示します。
+  list 87
+現在のファイルにおける 87 行目の前後の 10 行を一覧表示します。
+  list 87 102
+現在のファイルの 87 ～ 102 行目を一覧表示します。
+前述の単純な行番号の使用に加えて、次の 7 つの方法で行を
+指定することもできます。
+  doThis
+現在のファイルの関数 doThis() の最初の行
+   myapp.mxml
+"myapp.mxml" の 1 行目
+   myapp.mxml:doThat
+"myapp.mxml" の関数 doThat() の最初の行
+   myapp.mxml:56
+"myapp.mxml" の 56 行目
+   #3
+ファイル番号 3 の 1 行目
+   #3:doOther
+ファイル番号 3 の関数 doOther() の先頭の行
+   #3:29
+ファイル番号 3 の 29 行目
+ファイル名と番号を表示するには、'info sources' または 'info files' を実行します。
+関数名を表示するには、'info functions' を実行します。
+省略されたファイル名と関数名は、明確であれば使用できます。
+ファイルを一覧表示すると、そのファイルが現在のファイルになります ('cf' コマンドを参照)。
+
+[next]
+
+プログラムを次の段階に進めて、サブルーチン呼び出しを実行します。
+   next
+1 段階進めます。
+  next 3
+3 段階進めるか、別の理由によりプログラムが停止するまで進めます。
+サブルーチン呼び出しが実行されない限り 'step' コマンドと同様です。実行される場合、呼び出しは 1 つの命令として処理されます。
+
+[print]
+
+変数または式の値をプリントします。
+例 : 
+  print i
+'i' の値をプリントします。
+  print employee.name
+'employee.name' の値をプリントします。
+  print employee
+'employee' オブジェクトの値をプリントします。
+この結果、[オブジェクト 10378] のように表示されます。
+  print employee.
+'employee' オブジェクトのすべてのプロパティの値をプリントします。
+  print *employee
+'employee' オブジェクトのすべてのプロパティの値をプリントします。
+接頭辞 * 演算子は、接尾辞 . 演算子に代わる接頭辞です。
+  print #10378.
+オブジェクト #10378 のすべてのプロパティの値をプリントします。
+アクセス可能な変数は、選択したスタックフレームで定義された環境の変数と、スコープがグローバルまたはファイル全体であるすべての変数です。
+
+[pwd]
+
+現在の作業ディレクトリをプリントします。
+これは fdb が起動されたディレクトリです。fdb 内部では変更できません。 
+'run' や 'source' の引数は、このディレクトリを基準に指定できます。
+このコマンドは引数を取りません。
+
+[quit]
+
+fdb を終了します。
+このコマンドは引数を取りません。
+
+[run]
+
+デバッグセッションを開始します。
+例 : 
+  run http://www.mysite.com/myapp.mxml
+指定された MXML アプリケーションを実行します。
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+ローカル SWF ファイル "myapp.swf" を実行します。このファイルは、現在のディレクトリを基準にして指定することも ('pwd' コマンドを参照)、絶対パスを使用して指定することもできます。この場合、"myapp.swd" (デバッグ情報が含まれるファイル) も "myapp.swf" と同じディレクトリに存在しなければなりません。
+  run
+以前に 'file' コマンドにより指定されたアプリケーションを実行します。
+アプリケーションが指定されていない場合、fdb は接続するアプリケーションを待ち、接続するアプリケーションがない場合はタイムアウトします。
+'run' は、ブラウザまたはスタンドアローンの Flash Player でアプリケーションを起動します。
+アプリケーションが起動すると、直ちに fdb に割り込むので、ブレークポイントなどを設定できます。
+
+Macintosh でサポートされている唯一のコマンド形式は、引数のない 'run' です。その後、Flash Player を手動で起動する必要があります。
+
+[set]
+
+変数または簡易変数の値を設定します。
+簡易変数は、fdb 内のみに存在する変数であり、プログラムの一部ではありません。
+簡易変数には接頭辞 '$' が付きます。また、既存の変数と競合しない、$myVar などの任意の名前を付けることができます。
+簡易変数は、fdb のさまざまな値を制御するためにも使用されます。  
+
+次の簡易変数が fdb で使用されます。
+$listsize – 'list' で表示するソース行の数。
+$columnwrap - 出力が折り返す列番号。
+$infostackshowthis - 0 の場合は、スタックバックトレースに 'this' が表示されません。
+$invokegetters - 0 の場合、fdb は getter 関数を発行しません。
+$bpnum - 最後に定義されたブレークポイント番号。
+
+例 : 
+  set i = 3
+変数 'i' を数値 3 に設定します。
+  set employee.name = "Susan"
+変数 'employee.name' を文字列 "Susan" に設定します。
+  set $myVar = 20
+簡易変数 '$myVar' を数値 20 に設定します。
+
+[show]
+
+fdb の状態に関する情報を表示する汎用コマンドです。
+show サブコマンドのリスト : 
+show break (sh b)       実行が中断された位置と理由を表示します。
+show directories (sh d) ソースファイルを検索するディレクトリです。
+show files (sh f)       ターゲットファイルとパスを表示します。
+show functions (sh fu)  関数行のマッピング情報を表示します。
+show locations (sh l)   ブレークポイントの位置を示します。
+show memory (sh m)      現在のメモリ消費量を示します。
+show net (sh n)         Player のメッセージ統計を表示します。
+show properties (sh p)  プロパティの値を表示します。
+show uri (sh u)         このセッションの Player の URI を示します。
+show variable (sh v)    生の変数を取得します。
+詳細を確認するには、'help show' の後に show サブコマンド名を入力します。
+
+[show break]
+
+プログラムが中止された SWF 内のオフセットを表示します。
+
+[show directories]
+
+ソースファイルを検索するための現在の検索パスを表示します。
+
+[show files]
+
+すべてのターゲットファイルのパスとファイル名を表示します。
+
+[show functions]
+
+関数対行番号のマッピング情報を表示します。
+例 : 
+  show functions .
+現在のファイルにおけるすべての関数のマッピング情報を表示します。
+  show functions myapp.mxml
+"myapp.mxml" のすべての関数のマッピング情報を表示します。
+  show functions #3
+ファイル番号 3 のすべての関数のマッピング情報を表示します。
+  show functions
+すべてのファイルにおけるすべての関数のマッピング情報を表示します。
+ファイル名と番号を表示するには、'info sources' または 'info files' を実行します。
+省略されたファイル名は、明確であれば使用できます。
+
+[show locations]
+
+各ブレークポイントに設定された位置のリストを表示します。
+
+[show memory]
+
+Java VM メモリ統計を表示します。
+
+[show net]
+
+Flash Player との間で送受信されたメッセージに関する情報を表示します。
+
+[show properties]
+
+デバッガ内部で使用されている簡易変数を一覧表示します。
+
+[show uri]
+
+Player がこのセッションで送信した URI を表示します。
+
+[show variable]
+
+変数のメンバーの値を表示します。  
+数値変数識別子と、変数のプロパティの名前の 2 つのパラメータが必要です。簡易変数
+$invokegetters は、プロパティ getter
+が存在すると仮定した場合に、このプロパティが発行されるかどうかを確認するために使用します。
+例 : 
+    show variable 1 __proto__
+
+[show ?]
+
+未定義の show コマンドです。'help show' を実行してください。
+
+[source]
+ファイルから fdb コマンドを読み取り、実行します。
+  source mycommands.txt
+source mydir\mycommands.txt
+source c:\mydir\mycommands.txt
+"mycommands.txt" を読み取り、このファイルの fdb コマンドを実行します。
+コマンドが含まれるファイルは、現在のディレクトリを基準にして指定することも ('pwd' コマンドを参照)、絶対パスを使用して指定することもできます。
+fdb を起動すると、このようにファイル ".fdbinit" が自動的に読み取られます。
+現在のディレクトリでのみ ".fdbinit" が検索されます。つまり、さまざまなプロジェクトで複数の ".fdbinit" ファイルを設定できます。
+
+[step]
+
+別のソース行に達するまで、プログラムを進めます。
+例 : 
+  step
+1 段階進めます。
+  step 3
+3 段階進めるか、別の理由によりプログラムが停止するまで進めます。
+
+[tutorial]
+
+fdb の使用方法に関するチュートリアルを表示します。
+このコマンドは引数を取りません。
+
+[Tutorial]
+
+一般的な fdb セッション : 
+'run' を使用してアプリケーションを起動します。
+'info sources' を使用してファイル名を表示します。
+'list' を使用してファイルを一覧表示します。
+'break' を使用してブレークポイントを設定します。
+'continue' を使用して、ブレークポイントに達するまでプログラムを実行します。
+'where'、'print'、'info locals' を使用して、プログラムの状態を確認します。
+'next'、'step'、および 'finish' を使用して、個々のステートメントを実行します。
+'continue' を使用して実行を再開します。
+'quit' を使用して fdb を終了します。
+
+[undisplay]
+
+auto-display 式を削除します。
+例 : 
+undisplay
+すべての auto-display 式を削除します。
+undisplay 2 7
+auto-display 式の番号 2 および 7 を削除します。
+auto-display 式とその番号の一覧を表示するには、'info display' を実行します。
+
+[up]
+
+これを呼び出したスタックフレームを選択し、プリントします。
+以降の 'info arguments' および 'info locals' コマンドは、
+選択したフレームのローカルと引数を表示します。
+'down' と 'frame' を参照してください。
+
+[viewswf]
+
+swf 名に基づいて、ファイルの一覧表示のフィルタ 
+('info files' および 'info sources') を設定またはクリアします。 
+パラメータを指定しない場合は、すべてのファイルが表示されます。同じファイルが 1 つ以上の swf に存在する場合は、
+ファイルの最初のインスタンスだけが一覧に表示されます。
+ファイルの他のインスタンスにアクセスするには、ファイルの番号 ('list #192' など) を使用するか、
+パラメータ (次を参照) を指定してこのコマンドを使用し、特定の swf からファイルを表示します。
+1 つのパラメータ、つまり 'info swfs' コマンドによって表示される swf 名を使用した場合は、指定された swf のファイルだけがファイルの一覧に表示されます。  
+他の swf のファイルは表示されません。このコマンドは、ファイルをパラメータとして受け入れるコマンドにも影響を与えます ('break' など)。
+例 : 
+  viewswf myApp.mxml.swf
+"myApp.mxml.swf" のファイルのみが表示されます。
+ viewswf 
+すべての swf のすべてのファイルが表示されます。
+ 
+[what]
+
+変数が解決されるコンテキストを表示します。 
+
+[where]
+
+スタックのバックトレースです。
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

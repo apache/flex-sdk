@@ -1,0 +1,71 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+##
+## begin package def
+##
+package $packageName
+{
+##
+## imports
+##
+#foreach ($name in $imports)
+import $name;
+#end
+
+##
+## class-level metadata
+##
+#foreach ($md in $classMetaData)
+$md
+#end
+##
+## begin class def
+##
+public class $className extends $superClassName
+#foreach ($intf in $interfaceNames)
+#if ($velocityCount == 1) implements $intf #else, $intf #end
+#end
+{
+	public function $className() {}
+
+##
+## instance var declarations
+##
+#foreach ($var in $variables)
+	[Bindable]
+	public var $var.getKey() : $var.getValue();
+#end
+
+##
+## These are plucked out after parse() if they are found to be inherited.
+##
+#foreach ($var in $bindingManagementVariables)
+	$var.namespace var $var.name : $var.type;
+#end
+
+##
+## scripts
+##
+#foreach ($script in $scripts)
+$script
+#end
+
+##
+## end class def, package def
+##
+}}

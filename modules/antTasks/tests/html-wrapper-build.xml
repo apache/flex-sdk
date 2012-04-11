@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project default="main" basedir=".">
+
+    <taskdef resource="flexTasks-internal.tasks" />
+
+    <target name="main">
+        <mkdir dir="default"/>
+        <html-wrapper swf="bar" output="default"/>
+        <mkdir dir="client-side-detection"/>
+        <html-wrapper title="foo"
+                      height="100"
+                      width="100"
+                      bgcolor="red"
+                      application="bar"
+                      swf="bar"
+                      version-major="9"
+                      version-minor="0"
+                      version-revision="0"
+                      history="false"
+                      template="client-side-detection"
+                      output="client-side-detection"/>
+        <mkdir dir="client-side-detection-with-history"/>
+        <html-wrapper title="foo"
+                      height="100"
+                      width="100"
+                      bgcolor="red"
+                      application="bar"
+                      swf="bar"
+                      version-major="9"
+                      version-minor="0"
+                      version-revision="0"
+                      history="true"
+                      template="client-side-detection"
+                      output="client-side-detection-with-history"/>
+        <mkdir dir="express-installation"/>
+        <html-wrapper title="foo"
+                      height="100"
+                      width="100"
+                      bgcolor="red"
+                      application="bar"
+                      swf="bar"
+                      version-major="9"
+                      version-minor="0"
+                      version-revision="0"
+                      history="false"
+                      template="express-installation"
+                      output="express-installation"/>
+        <mkdir dir="express-installation-with-history"/>
+        <html-wrapper title="foo"
+                      height="100"
+                      width="100"
+                      bgcolor="red"
+                      application="bar"
+                      swf="bar"
+                      version-major="9"
+                      version-minor="0"
+                      version-revision="0"
+                      history="true"
+                      template="express-installation"
+                      output="express-installation-with-history"/>
+        <mkdir dir="no-player-detection"/>
+        <html-wrapper title="foo"
+                      height="100"
+                      width="100"
+                      bgcolor="red"
+                      application="bar"
+                      swf="bar"
+                      version-major="9"
+                      version-minor="0"
+                      version-revision="0"
+                      history="false"
+                      template="no-player-detection"
+                      output="no-player-detection"/>
+        <mkdir dir="no-player-detection-with-history"/>
+        <html-wrapper title="foo"
+                      height="100"
+                      width="100"
+                      bgcolor="red"
+                      application="bar"
+                      swf="bar"
+                      version-major="9"
+                      version-minor="0"
+                      version-revision="0"
+                      history="true"
+                      template="no-player-detection"
+                      output="no-player-detection-with-history"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="default" />
+        <delete dir="client-side-detection" />
+        <delete dir="client-side-detection-with-history" />
+        <delete dir="express-installation" />
+        <delete dir="express-installation-with-history" />
+        <delete dir="no-player-detection" />
+        <delete dir="no-player-detection-with-history" />
+    </target>
+
+</project>

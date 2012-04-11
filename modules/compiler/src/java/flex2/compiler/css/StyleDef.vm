@@ -1,0 +1,257 @@
+
+#*
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*#
+package 
+{
+
+import mx.core.IFlexModuleFactory;
+import mx.core.mx_internal;
+#if ($styleDefList.isAdvanced())
+import mx.styles.CSSCondition;
+import mx.styles.CSSSelector;
+#end
+import mx.styles.CSSStyleDeclaration;
+import mx.styles.IStyleManager2;
+#if (!$styleDefList.allowDuplicateDefaultStyleDeclarations)      
+import mx.utils.ObjectUtil;
+#end
+##
+## imports
+##
+#foreach ($import in $styleDefList.imports)
+import $import.value;
+#end
+[ExcludeClass]
+
+public class $className
+{
+##
+## @Embeds
+##
+#foreach ($atEmbed in $styleDefList.atEmbeds)
+    [Embed(#set ($vals = $atEmbed.getAttributes())#foreach( $key in $vals.keySet() )#if ($velocityCount > 1), #end#set ($val = $vals.get($key))$key='$val'#end)]
+    private static var $atEmbed.propName:$atEmbed.type;
+#end
+    public static function init(fbs:IFlexModuleFactory):void
+    {
+        var styleManager:IStyleManager2 = fbs.getImplementation("mx.styles::IStyleManager2") as IStyleManager2;
+        
+##
+## Start Macro
+## This macro recursively walks the selector chain, starting from the furthest
+## ancestor and working back to the top level selector.
+##
+#macro(selectorAncestor $selector)
+#if ($selector.ancestor)
+#selectorAncestor($selector.ancestor)
+#end
+#if ($selector.conditions)
+        conditions = [];
+#foreach ($condition in $selector.conditions)
+        condition = new CSSCondition("$condition.kind", "$condition.value");
+        conditions.push(condition); 
+#end
+#else
+        conditions = null;
+#end
+        selector = new CSSSelector("$selector.value", conditions, selector);
+#end
+##
+## End Macro
+##
+#foreach ($styleDef in $styleDefList.styleDefs)
+#if ($styleDef.isAdvanced())
+##
+## Start Advanced Flex 4 StyleDeclarations
+##
+
+#if ($velocityCount == 1)
+        var conditions:Array = null;
+        var condition:CSSCondition = null;
+        var selector:CSSSelector = null;
+        var style:CSSStyleDeclaration;
+        var effects:Array;
+        
+#if (!$styleDef.allowDuplicateDefaultStyleDeclarations)      
+        var mergedStyle:CSSStyleDeclaration;
+#end
+
+#end
+        
+#foreach ($styleDecl in $styleDef.declarations)
+#set ($selector = $styleDecl.selector)
+        //
+        // $selector.toString()
+        //
+        selector = null;
+        conditions = null;
+#selectorAncestor($selector)
+#if ($styleDef.allowDuplicateDefaultStyleDeclarations)      
+        style = styleManager.getStyleDeclaration("$selector.toString()");
+        if (!style)
+        {
+            style = new CSSStyleDeclaration(selector, styleManager);
+        }
+#else
+        mergedStyle = styleManager.getMergedStyleDeclaration("$selector.toString()");
+        style = new CSSStyleDeclaration(selector, styleManager, mergedStyle == null);
+#end
+
+        if (style.defaultFactory == null)
+        {
+            style.defaultFactory = function():void
+            {
+#foreach ($block in $styleDecl.declarationBlocks)
+#if ($block.hasMediaList())
+              if (styleManager.acceptMediaList("$block.mediaList.toEscapedString()"))
+              {
+#end
+#foreach ($styleProp in $block.properties.values())
+                this.${styleProp.name} = ${styleProp.value};
+#end
+#if ($block.hasMediaList())
+              }
+#end
+#end
+            };
+        }
+
+#if ($styleDecl.hasEffectStyles())
+        effects = style.mx_internal::effects;
+        if (!effects)
+        {
+            effects = style.mx_internal::effects = [];
+        }
+#end
+
+#foreach ($block in $styleDecl.declarationBlocks)
+#if ($block.effectStyles.size() > 0)
+#if ($block.hasMediaList())
+        if (styleManager.acceptMediaList("$block.mediaList.toEscapedString()"))
+        {
+#end
+
+#foreach ($effectStyle in $block.effectStyles)
+          effects.push("${effectStyle}");
+#end
+#if ($block.hasMediaList())
+        }
+#end
+#end
+#end
+
+#if (!$styleDef.allowDuplicateDefaultStyleDeclarations)      
+        if (mergedStyle != null && 
+            (mergedStyle.defaultFactory == null ||
+            ObjectUtil.compare(new style.defaultFactory(), new mergedStyle.defaultFactory())))
+        {
+            styleManager.setStyleDeclaration(style.mx_internal::selectorString, style, false);
+        }
+#end
+
+#end
+##
+## End Advanced Flex 4 StyleDeclarations
+##
+#else
+##
+## Start Legacy Flex 3 StyleDeclarations
+##
+
+#if ($velocityCount == 1)
+    var style:CSSStyleDeclaration;
+    var effects:Array;
+#end
+    
+#if ($styleDef.allowDuplicateDefaultStyleDeclarations)
+
+#if ($styleDef.isTypeSelector())
+        style = styleManager.getStyleDeclaration("${styleDef.typeName}");
+#else
+        style = styleManager.getStyleDeclaration(".${styleDef.typeName}");
+#end
+    
+        if (!style)
+        {
+            style = new CSSStyleDeclaration(null, styleManager);
+#if ($styleDef.isTypeSelector() || $styleDef.subject == "global" || $styleDef.subject == "*")
+            styleManager.setStyleDeclaration("${styleDef.typeName}", style, false);
+#else
+            styleManager.setStyleDeclaration(".${styleDef.typeName}", style, false);
+#end
+        }
+
+#else
+
+#if ($velocityCount == 1)
+    var mergedStyle:CSSStyleDeclaration;
+#end
+
+#if ($styleDef.isTypeSelector())
+        mergedStyle = styleManager.getStyleDeclaration("${styleDef.typeName}");
+#else
+        mergedStyle = styleManager.getStyleDeclaration(".${styleDef.typeName}");
+#end
+
+        style = new CSSStyleDeclaration(null, styleManager);
+#end
+
+        if (style.defaultFactory == null)
+        {
+            style.defaultFactory = function():void
+            {
+#foreach ($style in $styleDef.getStyles().values())
+                this.${style.name} = ${style.value};
+#end
+            };
+        }
+
+#if ($styleDef.effectStyles.size() > 0)
+        effects = style.mx_internal::effects;
+        if (!effects)
+        {
+            effects = style.mx_internal::effects = [];
+        }
+#foreach ($effectStyle in $styleDef.effectStyles)
+        effects.push("${effectStyle}");
+#end
+#end
+
+#if (!$styleDef.allowDuplicateDefaultStyleDeclarations)
+
+        if (mergedStyle == null || !mergedStyle.mx_internal::equals(style))
+#end
+
+#if ($styleDef.isTypeSelector() || $styleDef.subject == "global" || $styleDef.subject == "*")
+            styleManager.setStyleDeclaration("${styleDef.typeName}", style, false);
+#else
+            styleManager.setStyleDeclaration(".${styleDef.typeName}", style, false);
+#end
+
+##
+## End Legacy Flex 3 StyleDeclarations
+##
+#end
+
+##
+## End foreach styleDefList
+##
+#end
+    }
+}
+
+}
