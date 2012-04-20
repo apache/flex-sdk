@@ -19,9 +19,6 @@
 -->
 
 <project name="downloads" default="main" basedir=".">
-    <property name="ant-contrib.jar" location="${env.ANT_HOME}/lib/ant-contrib-1.0b2.jar"/>
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
-
 	<property name="FLEX_HOME" location=".."/>
 
 	<!-- properties -->
@@ -102,7 +99,9 @@
 	-->
 
     <!--
-        ToDo: convert this to a macro
+        Download a zip or gz file, extracts the jar file, and optionally copies the jar
+        file to a different location and optinally verifies the checksum.  
+        If the checksum fails, this script fails.
 
         Params are:
             srcUrl
@@ -110,51 +109,41 @@
             [md5]
             [srcJarPath] - both src and dest required for the copy
             [destJarFile]
+
+        Note: This is purposely coded without <if><else><then> so that a dependency on
+        ant-contrib.jar isn't required.        
     -->
-    <target name="download-zip" 
-        description="Downloads and copies jar to the lib directory and verifies the checksum, if there is one.">                
+    
+    <target name="download-zip"
+        description="Downloads tar/zip, and optionally verifies checksum and copies extracted jar.">                
         
         <mkdir dir="${download.dir}"/>        
     	
         <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
 
-    	<if>
-            <matches string="${zipFile}" pattern="^*.gz$"/>
-            <then>
-                <untar src="${download.dir}/${zipFile}" dest="${download.dir}" compression="gzip"/>
-            </then>
-        	<else>
-                <unzip src="${download.dir}/${zipFile}" dest="${download.dir}"/>
-        	</else>
-        </if>
-
-        <if>
+        <condition property="zip.compressed">
+            <matches string="${zipFile}" pattern="^*.zip$"/>      
+        </condition>
+ 
+        <antcall target="untar-file"/>
+        <antcall target="unzip-file"/>
+        
+        <antcall target="check-sum">
+            <param name="message" value="Checksum mismatch for ${download.dir}/${zipFile}"/>
+        </antcall>
+        
+        <condition property="destination.known">
             <and>
-                <isset property="md5"/>
-                <not><checksum file="${download.dir}/${zipFile}"
-                    algorithm="MD5"
-                    property="${md5}"/></not>
-            </and>
-            <then>
-                <fail message="Checksum mismatch for ${download.dir}/${zipFile}"/>
-             </then>
-        </if>
-
-    	<if>
-    		<and>
                 <isset property="srcJarPath"/>
                 <isset property="destJarFile"/>
-    		</and>
-    		<then>
-                <copy file="${download.dir}/${srcJarPath}" 
-            	      toFile="${FLEX_LIB}/${destJarFile}" 
-            	      verbose="true"/> 
-    	     </then>
-    	</if>
-    </target>
-    	
+            </and>
+        </condition> 
+        <antcall target="copy-downloaded-jar"/>
+     </target>   	
+     
     <!--
-        ToDo: convert this to a macro
+        Download a jar file and optionally verify the checksum.
+        If the checksum fails, this script fails.
         
         Params are:
             srcUrl
@@ -163,25 +152,52 @@
             [md5]
     -->
     <target name="download-jar" 
-    	description="Downloads the jar to the FLEX_LIB directory and verifies the checksum, if there is one.">                
+        description="Downloads jar, and optionally verifies checksum.">                
+     
+        <get src="${srcUrl}/${srcJarFile}" dest="${FLEX_LIB}/${destJarFile}"/>
+        <antcall target="check-sum">
+            <param name="message" value="Checksum mismatch for ${FLEX_LIB}/${destJarFile}"/>
+        </antcall>
+    </target>
+
+    <target name="untar-file" unless="zip.compressed" description="Untars zipFile">
+        <untar src="${download.dir}/${zipFile}" dest="${download.dir}" compression="gzip"/> 
+    </target>
+    
+    <target name="unzip-file" if="zip.compressed" description="Unzips zipFile">
+        <unzip src="${download.dir}/${zipFile}" dest="${download.dir}"/>    
+    </target>
+    
+    	<macrodef name="bundle-clean">
+		<attribute name="locale"/>
+		<sequential>
+			<delete failonerror="false">
+				<fileset dir="${FLEX_HOME}/frameworks/locale">
+					<include name="@{locale}/framework_rb.swc"/>
+					<include name="@{locale}/framework_rb.swc.incr"/>
+				</fileset>
+			</delete>
+		</sequential>
+	</macrodef>	
+
+    <target name="check-sum" if="md5" 
+        description="Verifies MD5 checksum, and fails if checksum doesn't match">
         
-    	<get src="${srcUrl}/${srcJarFile}" dest="${FLEX_LIB}/${destJarFile}"/>
-    	
-        <if>
-            <and>
-                <isset property="md5"/>
-                <not><checksum file="${FLEX_LIB}/${destJarFile}"
-                    algorithm="MD5"
-                    property="${md5}"/></not>
-            </and>
-            <then>
-                <fail message="Checksum mismatch for ${FLEX_LIB}/${destJarFile}"/>
-            </then>
-        </if>
-   </target>
-
-	<target name="commons-jars" depends="commons-collections-jar,commons-discovery-jar,commons-logging-jar" />
-
+        <checksum file="${download.dir}/${zipFile}" algorithm="MD5" property="${we.failed}"/>
+        <antcall target="fail-with-message">
+            <param name="message" value="${message}"/>
+        </antcall>
+    </target>
+    
+    <target name="copy-downloaded-jar" if="destination.known">
+        <copy file="${download.dir}/${srcJarPath}" toFile="${FLEX_LIB}/${destJarFile}" verbose="true"/>
+    </target>
+    
+    <target name="fail-with-message" if="we.failed" 
+        description="Conditionally fails with the specified message">                
+        <fail message="${message}"/>
+    </target>
+    
     <!--
         batik - SVG toolkit
     -->
@@ -269,7 +285,13 @@
     </target>
 
     <!--
-	    common-collections
+	    commons
+	-->
+	
+	<target name="commons-jars" depends="commons-collections-jar,commons-discovery-jar,commons-logging-jar" />
+
+    <!--
+	    commons-collections
 	-->
 	
     <target name="commons-collections-jar-check" description="Checks if common-collections.jar has been downloaded.">

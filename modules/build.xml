@@ -49,17 +49,20 @@
 		Each of the main targets for the modules will call clean themselves before proceeding.
 	-->
 
-	<target name="main" depends="downloads,modules" description="Full build" />
+	<target name="main" depends="thirdparty-downloads,modules" description="Full build" />
 
 	<target name="dev" depends="modules-dev" description="Runs src.depend build for development"/>
 
-	<!-- 
-	   To clean these you must call downloads-clean.  
-	   clean does not remove these since they don't change often and the downloads take time.
-	-->
-    <target name="downloads" unless="downloads.jar.done" description="Downloads all the required thirdparty JARs.">
+    <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
+    
+    <!-- 
+       To clean these you must call thirdparty-clean or super-clean to clean everything.  
+       clean does not remove these since they don't change often and the downloads take time.
+    -->
+    <target name="thirdparty-downloads" unless="downloads.jar.done" 
+        description="Downloads all the required thirdparty JARs.">
         <ant antfile="${basedir}/downloads.xml" target="main" dir="${basedir}"/>
-        <echo message="Use the downloads-clean target to remove these."/> 
+        <echo message="Use the thirdparty-clean target to remove these."/> 
         <property name="downloads.jar.done" value="true"/>
     </target>
     
@@ -67,7 +70,7 @@
 		Cleanup
 	-->
 	
-    <target name="downloads-clean" description="Removes all thirdparty JAR downloads.">
+    <target name="thirdparty-clean" description="Removes all thirdparty JAR downloads.">
         <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
     </target>
 

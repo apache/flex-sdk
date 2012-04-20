@@ -114,9 +114,6 @@
     <!-- 
        To clean these you must call thirdparty-clean or super-clean to clean everything.  
        clean does not remove these since they don't change often and the downloads take time.
-       
-       FixMe: fix inconsistency in target names
-        thirdparty-downloads is more explicit but downloads easier to remember
     -->
     <target name="thirdparty-downloads" depends="flashplayer-download" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="downloads"/>
@@ -1267,4 +1264,19 @@
             <arg line="${basedir}/frameworks/libs/framework.swc frameworkSwcExceptionsList.txt"/>
         </java>
     </target>
+    
+    <!-- Runs Apache Rat against the source code, to spot any files -->
+    <!--  which are missing the correct license headers -->
+    <!-- You need to download rat from http://incubator.apache.org/rat/ -->
+    <!--  and place the Rat jar into your ant lib before running -->
+    <target name="rat-check">
+       <typedef resource="org/apache/rat/anttasks/antlib.xml"
+             uri="antlib:org.apache.rat.anttasks"/>
+       <rat:report xmlns:rat="antlib:org.apache.rat.anttasks">
+           <fileset dir="src/">
+              <!--exclude name="documentation/content/xdocs/dtd/" /-->
+           </fileset>
+       </rat:report>
+    </target>
+
 </project>

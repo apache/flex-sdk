@@ -298,6 +298,10 @@ tar -xjf "AIR Integration Kit.tbz2"
 
     <!-- Download thirdparty code -->
     
+    <!-- 
+       To clean these you must call thirdparty-clean or super-clean to clean everything.  
+       clean does not remove these since they don't change often and the downloads take time.
+    -->
     <target name="thirdparty-downloads" 
         depends="airsdk-download,playerglobal-download,osmf-download,swfobject-download,textLayout-download" 
         description="Copies third-party software into place for build">
@@ -350,8 +354,8 @@ tar -xjf "AIR Integration Kit.tbz2"
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
     <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
-        <mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
+        <mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>        
+        <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/libs/player/11.1/playerglobal.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
