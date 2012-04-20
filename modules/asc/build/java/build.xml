@@ -105,7 +105,13 @@
     </target>
 	<target name="jar" depends="classes" >
 		<mkdir dir="${lib.dir}" />
+		<mkdir dir="${basedir}/classes/META-INF"/>
+        <copy file="${root.dir}/../../LICENSE" todir="${basedir}/classes/META-INF"/>
+        <copy file="${root.dir}/../../NOTICE" todir="${basedir}/classes/META-INF"/>
+
 		<jar file="${lib.dir}/asc.jar" basedir="${basedir}/classes" includes="macromedia/asc/**/*,macromedia/abc/**/*,adobe/abc/**/*">
+		    <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Main-Class" value="macromedia.asc.embedding.Main"/>
                 <attribute name="Class-Path" value=""/>
@@ -208,8 +214,8 @@
 			<fileset file="${root.dir}/lib/asc.jar"/>
 			<fileset file="${root.dir}/lib/asc_authoring.jar"/>
 			<fileset file="${root.dir}/lib/global.abc"/>
-            <fileset dir="${basedir}/classes" />
 		</delete>
+		<delete dir="${basedir}/classes" failonerror="false"/>
 	</target>
 	<target name="with.clover">
 		<taskdef resource="cloverlib.xml" classpath="${clover.jar}"/>

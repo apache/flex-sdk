@@ -143,10 +143,17 @@
     </target>
 
     <target name="jar" depends="javacc,compile,set-build-num,templates,localization" description="compile and create compiler jars">
+        <mkdir dir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/LICENSE" todir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/NOTICE" todir="${module.classes}/META-INF"/>
+
 		<echo message="Building lib/mxmlc.jar"/>
         <jar file="${module.jar}" basedir="${module.classes}"
-             includes="**/*.properties,flex2/compiler/**/*,flex2/license/**/*,flex2/linker/**/*,flex2/tools/*,flex2/tools/oem/Message.class,flex2/tools/oem/ProgressMeter.class,flex2/tools/oem/Component.class,flex2/tools/oem/Script.class,flash/**/*,flex/**/*"
+            includes="**/*.properties,flex2/compiler/**/*,flex2/license/**/*,flex2/linker/**/*,flex2/tools/*,flex2/tools/oem/Message.class,flex2/tools/oem/ProgressMeter.class,flex2/tools/oem/Component.class,flex2/tools/oem/Script.class,flash/**/*,flex/**/*"
             excludes="flex2/tools/Shell*,flex2/tools/Optimizer*,flex2/tools/Digest*,flex2/tools/SwcDependencies*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
+
 			<patternset refid="locale.properties"/>
 					
             <manifest>
@@ -162,6 +169,8 @@
         <jar file="${module.ja.jar}" basedir="${module.classes}"
             includes="**/*_ja.properties"
             excludes="flex2/tools/Shell*,flex2/tools/Optimizer*,flex2/tools/Digest*,flex2/tools/SwcDependencies*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - MXML Compiler (Japanese)"/>
@@ -173,7 +182,9 @@
         </jar>
 		<antcall target="other-jars"/>
 		<echo message="Building lib/compc.jar"/>
-        <jar file="${lib.dir}/compc.jar">
+        <jar file="${lib.dir}/compc.jar" basedir="${module.classes}">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SWC Compiler"/>
@@ -184,7 +195,9 @@
             </manifest>
         </jar>
 		<echo message="Building lib/asdoc.jar"/>
-        <jar file="${lib.dir}/asdoc.jar">
+        <jar file="${lib.dir}/asdoc.jar" basedir="${module.classes}">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - ASDoc"/>
@@ -197,6 +210,8 @@
 		<echo message="Building lib/fcsh.jar"/>
         <jar file="${lib.dir}/fcsh.jar" basedir="${module.classes}"
              includes="flex2/tools/Fcsh*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
           		<attribute name="Sealed" value="${manifest.sealed}"/>
         		<attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Compiler Shell"/>
@@ -210,6 +225,8 @@
 		<echo message="Building lib/flex-compiler-oem.jar"/>
         <jar file="${lib.dir}/flex-compiler-oem.jar" basedir="${module.classes}"
              includes="flex2/tools/oem/**/*,flex2/tools/flexbuilder/**/*,flex/license/*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - OEM Compiler"/>
@@ -221,6 +238,8 @@
 		<echo message="Building lib/optimizer.jar"/>
         <jar file="${lib.dir}/optimizer.jar" basedir="${module.classes}"
              includes="flex2/tools/Optimizer*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Optimizer"/>
@@ -233,6 +252,8 @@
 		<echo message="Building lib/digest.jar"/>
         <jar file="${lib.dir}/digest.jar" basedir="${module.classes}"
              includes="flex2/tools/Digest*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Digest Tool"/>
@@ -245,6 +266,8 @@
 		<echo message="Building lib/swcdepends.jar"/>
         <jar file="${lib.dir}/swcdepends.jar" basedir="${module.classes}"
              includes="flex2/tools/SwcDependencies*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SwcDependencies"/>
@@ -257,6 +280,8 @@
 		<echo message="Building lib/copylocale.jar"/>
         <jar file="${lib.dir}/copylocale.jar" basedir="${module.classes}"
              includes="flex2/tools/CopyLocale*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Copy Locale"/>
@@ -338,6 +363,8 @@
         <jar file="${lib.dir}/mxmlc_${locale}.jar" basedir="${module.classes}"
             includes="**/*_${locale}.properties"
             excludes="flex2/tools/Shell*,flex2/tools/Optimizer*,flex2/tools/Digest*">
+            <include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - MXML Compiler (${lang})"/>

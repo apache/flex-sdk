@@ -61,6 +61,10 @@
     </target>
 
     <target name="jar" depends="compile" description="compile and create xercesPatch.jar">
+        <mkdir dir="${module.classes}/META-INF"/>
+        <copy file="../../../LICENSE" todir="${module.classes}/META-INF"/>
+        <copy file="../../../NOTICE" todir="${module.classes}/META-INF"/>
+
 		<echo message="Building lib/xercesPatch.jar"/>
         <jar file="${lib.dir}/xercesPatch.jar" basedir="${module.classes}" includes="**/*">
             <manifest>

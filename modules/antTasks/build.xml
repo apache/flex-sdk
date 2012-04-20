@@ -44,11 +44,14 @@
 
     <target name="jar" depends="compile">
     <echo message="Building lib/flexTasks.jar"/>
+        <mkdir dir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/LICENSE" todir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/NOTICE" todir="${module.classes}/META-INF"/>
         <jar destfile="${module.jar}">
             <fileset dir="${module.dir}"
                      includes="flexTasks.tasks" />
             <fileset dir="${module.classes}"
-                     includes="**/*.class"
+                     includes="**/*.class,META-INF/LICENSE,META-INF/NOTICE"
                      excludes="flex/ant/AscTask*.class" />
             <fileset dir="${FLEX_HOME}"
                      includes="templates/**"

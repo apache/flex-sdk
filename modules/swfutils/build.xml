@@ -51,6 +51,10 @@
 
     <target name="jar" depends="compile" description="compile and create swfutils.jar">
         <mkdir dir="${lib.dir}" />
+		<mkdir dir="${basedir}/classes/META-INF"/>
+        <copy file="${FLEX_HOME}/LICENSE" todir="${basedir}/classes/META-INF"/>
+        <copy file="${FLEX_HOME}/NOTICE" todir="${basedir}/classes/META-INF"/>
+        
 		<echo message="Building lib/swfutils.jar"/>
         <jar file="${lib.dir}/swfutils.jar" basedir="${module.classes}" includes="**/*">
             <manifest>
@@ -61,7 +65,9 @@
             </manifest>
         </jar>
 		<echo message="Building lib/swfdump.jar"/>
-        <jar file="${lib.dir}/swfdump.jar">
+        <jar file="${lib.dir}/swfdump.jar" basedir="${module.classes}">
+        	<include name="META-INF/LICENSE"/>
+            <include name="META-INF/NOTICE"/>
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SWF Dump"/>
