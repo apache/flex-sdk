@@ -20,7 +20,6 @@
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/flex-jars"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/flex-swfutils"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

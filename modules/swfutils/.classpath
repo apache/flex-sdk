@@ -22,7 +22,7 @@
 	<classpathentry kind="src" output="test/classes" path="test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/flex-asc"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/flex-jars"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/batik-all-flex.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
