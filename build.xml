@@ -116,7 +116,7 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="thirdparty-downloads" depends="flashplayer-download" description="Downloads all the required thirdparty code.">
-        <ant dir="${basedir}/modules" target="downloads"/>
+        <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>
     </target>
 
@@ -141,7 +141,7 @@
 
     <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
         <delete file="${flash.player}" failonerror="false"/>
-        <ant dir="${basedir}/modules" target="downloads-clean"/>
+        <ant dir="${basedir}/modules" target="thirdparty-clean"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-clean"/>
     </target>
 
