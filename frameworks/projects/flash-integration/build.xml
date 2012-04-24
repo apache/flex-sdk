@@ -103,13 +103,7 @@
 			    <include name="bundles/*/empty.properties"/>
 			    <exclude name="bundles/en_US/empty.properties"/>
 			</fileset>
-            <fileset dir="${basedir}/libs">
-                <include name="flash-integration.swc"/>
-				<include name="flash-integration.swc.incr"/>
-                <!-- TODO (rfrishbe): can remove the latter 2 files at some point in future -->
-                <include name="FlexComponentBase.swc"/>
-				<include name="FlexComponentBase.swc.incr"/>
-			</fileset>
+            <fileset dir="${basedir}/libs" />
 		</delete>
 	</target>
 	

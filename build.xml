@@ -40,9 +40,11 @@
     <property name="build.number" value="0"/>
     <property name="target.player" value="11.1"/>
     
-    <property name="source.kit" value="apache-flex-sdk-4-incubating-src.zip"/>
-    <property name="binary.kit" value="apache-flex-sdk-4-incubating-bin.zip"/>
-    <property name="no.doc" value="false"/>
+    <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
+    <property name="source.kit" value="${kit.prefix}-src.zip"/>
+    <property name="binary.kit" value="${kit.prefix}-bin.zip"/>
+    <property name="no.doc" value="true"/>
+    <property name="no.additional" value="true"/>
     
     <!-- Paths to the debug standalone flashplayer. -->
     <condition property="flash.player" value="${FLEX_HOME}/in/player/${target.player}/win/FlashPlayerDebugger.exe">
@@ -102,9 +104,9 @@
     <target name="source-release" depends="clean,create-description,source-distro" 
         description="Packages the source release kit which is the official Apache release."/>
         
-    <target name="binary-release" depends="main,checkintests,asdoc,doc,other.locales,package,post-build" 
+    <target name="binary-release" depends="main,checkintests,asdoc,doc,other.locales,package" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
-    <target name="package" depends="locale-package,binary-distro,additional-packages,javadoc" 
+    <target name="package" depends="binary-distro,additional-packages" 
         description="Zips up various packages"/>
 
     <target name="help">
@@ -252,7 +254,8 @@
         <ant dir="${basedir}/samples/themes/zen" target="main" />
     </target>
 
-    <target name="javadoc" description="Build javadoc for compiler oem interface">
+    <target name="javadocs" unless="no.doc"
+        description="Build javadoc for compiler oem interface">
         <javadoc destdir="${basedir}/javadoc" useexternalfile="yes" maxmemory="128m">
             <classpath>
                 <fileset dir="${basedir}/lib">
@@ -265,7 +268,7 @@
             </fileset>
         </javadoc>
         <mkdir dir="${basedir}/out"/>
-        <zip destfile="${basedir}/out/compiler-api-javadocs.zip" basedir="${FLEX_HOME}/javadoc"/>
+        <zip destfile="${basedir}/out/${kit.prefix}-compiler-api-javadocs.zip" basedir="${FLEX_HOME}/javadoc"/>
         <delete dir="${basedir}/javadoc" failonerror="false" includeEmptyDirs="true"/>
     </target>
 
@@ -304,44 +307,27 @@
     </target>
 
     <!--
-        Build ASDoc
+        Build the ASDoc tool.
     -->
-
     <target name="asdoc" description="asdoc">
         <ant dir="${basedir}/asdoc" />
     </target>
 
-    <!--
-        Build ZIPs:
-            Using the -Dno.air="true" switch will result in a zip file in the out directory called flex_sdk_4_sans_air.zip.
-            if this switch is left off, the zip will be called apache_flex_4_sdk.zip and will contain the AIR integration kit.
-            The package target will always include the AIK unless -Dno.air="true".
-    -->
-
-    <target name="additional-packages" depends="antTasks-package"/>
-    
-    <!-- build machine built these targets -->
-    <!--
-    <target name="additional-packages"
-        depends="ja-locale-samples,antTasks-package,fcsh-package,air-installers"/>
-    -->
+    <target name="additional-packages" 
+        depends="locale-package,ja-locale-samples,antTasks-package,asdoc-package,javadocs" 
+        unless="no.additional"/>
     
     <!--
         Package up the Apache Flex sources.  Do not include empty directories.
         
-        FixMe: even if cleaned, this will package up unversioned files that happen
-        to be in the tree.  Investigate an svn export.
+        Note: even if cleaned, this will package up unversioned files that happen
+        to be in the tree.
+        
+        FixMe: clean needs to clean - add code to detect unversioned files
     -->
-    <target name="source-distro" 
+    <target name="source-distro" depends="clean-temp"
         description="Package source files required to build in zip file">
-        
-        <antcall target="clean-temp"/>
 
-        <!--
-            FixMe: do we want to continue doing these steps for source builds
-            or use the actual build.xml files that developers use?
-        -->
-        
         <!-- frameworks -->
 
         <mkdir dir="${basedir}/temp"/>
@@ -373,34 +359,28 @@
             </fileset>
         </copy>  
 
-        <!-- FixMe: 
-            either add this stuff in or just change the config files
-            does it have to be done in source-distro and binary-distro
-        -->
-        <!--antcall target="fix-config-files"/-->
-
-        <!-- FixMe: 
-                Use this or the build.xml files in the directories? 
-                If this then don't copy build.xml files to temp area
-        -->        
-        <!--copy file="${basedir}/frameworks/build_framework.xml" tofile="${basedir}/temp/frameworks/build.xml"/-->
+        <!-- now that air-config.xml and flex-config.xml are in temp, fix them up for release. -->
+        <antcall target="fix-config-files"/>
         
-
         <!-- ant -->
         <copy file="${basedir}/modules/antTasks/build.xml-distro"
               tofile="${basedir}/temp/ant/build.xml"/>
         <copy file="${basedir}/modules/antTasks/flexTasks.tasks"
               todir="${basedir}/temp/ant"/>
-        <!-- FixMe: README files were excluded from initial modules donation -->
-        <!--copy file="${basedir}/modules/antTasks/README.txt"
-              tofile="${basedir}/temp/ant/README.txt"/-->
+        <copy file="${basedir}/modules/antTasks/README.txt"
+              tofile="${basedir}/temp/ant/README.txt"/>
         <copy todir="${basedir}/temp/ant/src">
             <fileset dir="${basedir}/modules/antTasks/src/"
                  includes="flex/**/*.java"
                  excludes="flex/ant/AscTasks.java"/>
         </copy>
 
-        <chmod dir="${basedir}/temp" perm="755" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" />        
+        <chmod dir="${basedir}/temp" perm="755" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" />
+        
+        <antcall target="zip-source-distro"/>        
+    </target>
+    
+    <target name="zip-source-distro" unless="kit.debug">
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${source.kit}" basedir="${basedir}/temp"/>
         <antcall target="clean-temp"/>
@@ -417,10 +397,8 @@
             lib/mxmlc.jar
     -->
 
-    <target name="binary-distro" description="Package binary files in zip file.">
+    <target name="binary-distro" depends="clean-temp" description="Package binary files in zip file.">
     
-        <antcall target="clean-temp"/>
-
         <!-- also makes parent ${basedir}/temp  -->
         <mkdir dir="${basedir}/temp/licenses"/>
         
@@ -454,11 +432,6 @@
             <fileset dir="${basedir}/lib" includes="flexTasks.jar"/>
         </copy>
 
-        <!-- asdoc -->
-        <copy todir="${basedir}/temp/asdoc">
-            <fileset dir="${basedir}/asdoc-output"/>
-        </copy>
-        
         <!-- bin -->
         <copy todir="${basedir}/temp/bin">
             <fileset dir="${basedir}/bin">
@@ -560,12 +533,14 @@
             </fileset>
         </copy>
 
-        <!-- frameworks/projects -->
+        <!-- frameworks -->
         <copy todir="${basedir}/temp/frameworks">
             <fileset dir="${basedir}/frameworks">
 				<include name="air-config.xml"/>
 				<include name="airmobile-config.xml"/>
+                <include name="flash-unicode-table.xml"/>
                 <include name="flex-config.xml"/>
+                <include name="metadata.xml"/>
                 <include name="mxml-manifest.xml"/>
                 <!-- required by FlashBuilder -->
 				<include name="localFonts.ser"/>
@@ -577,12 +552,9 @@
             </fileset>
         </copy>
 
-        <!-- FixMe: 
-            either add this stuff in or just change the config files
-            does it have to be done in source-distro and binary-distro
-        -->
-        <!--antcall target="fix-config-files"/-->
-
+        <!-- now that air-config.xml and flex-config.xml are in temp, fix them up for release. -->
+        <antcall target="fix-config-files" />
+        
         <!-- frameworks/themes -->
         <copy todir="${basedir}/temp/frameworks/themes" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/themes">
@@ -665,19 +637,20 @@
         <antcall target="air-package"/>
     
         <chmod dir="${basedir}/temp" perm="755" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" />
+        
+        <antcall target="zip-binary-distro"/>        
+    </target>
+    
+    <target name="zip-binary-distro" unless="kit.debug">
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${binary.kit}" basedir="${basedir}/temp"/>
         <antcall target="clean-temp"/>
     </target>
     
-    <!--
-        FixMe: The AIR sdk stuff in frameworks/build.xml should just extract airglobal.swc.
-        Only when you actually package a release should you muck with the other files in
-        the AIR SDK package.  Also make sure the AIR SDK license is in LICENSE.bin
-    -->
+
     <target name="air-package" description="Add the AIR SDK files to the binary distro">
     
-        <copy file="${basedir}/AIR SDK license.pdf" tofile="Adobe AIR SDK license.pdf"/>
+        <move file="${basedir}/AIR SDK license.pdf" tofile="${basedir}/Adobe AIR SDK license.pdf"/>
 
         <copy todir="${basedir}/temp">
             <fileset dir="${basedir}">
@@ -750,8 +723,9 @@
 		</replace>
     </target>
     
-    <target name="locale-package" description="Package all the locale swc's built">
-        <antcall target="clean-temp"/>
+    <target name="locale-package" depends="clean-temp"
+        description="Package all the locale swc's built">
+        
         <copy todir="${basedir}/temp/frameworks/locale" verbose="true">
             <fileset dir="${basedir}/frameworks/locale">
                 <include name="**/*.swc"/>
@@ -862,9 +836,8 @@
         </copy>
     </target>
 
-    <target name="ja-locale-samples">
-        <antcall target="clean-temp"/>
-        <!-- ja samples -->
+    <target name="ja-locale-samples" depends="clean-temp">
+        <!--
         <copy todir="${basedir}/temp/samples_ja">
             <fileset dir="${basedir}/samples/ja_JP">
                 <include name="README_ja.txt"/>
@@ -872,8 +845,9 @@
             </fileset>
         </copy>
         <mkdir dir="${basedir}/out"/>
-        <zip file="${basedir}/out/flex_sdk_locales.zip" basedir="${basedir}/temp" includes="**"/>
+        <zip file="${basedir}/out/${kit.prefix}-locales.zip" basedir="${basedir}/temp" includes="**"/>
         <antcall target="clean-temp"/>
+        -->
     </target>
 
     <target name="antTasks-package" depends="antTasks,clean-temp">
@@ -905,12 +879,20 @@
         </copy>
 
         <mkdir dir="${basedir}/out"/>
-        <zip file="${basedir}/out/flexTasks.zip" basedir="${basedir}/temp"/>
+        <zip file="${basedir}/out/${kit.prefix}-flexTasks.zip" basedir="${basedir}/temp"/>
         <antcall target="clean-temp"/>
     </target>
 
-    <target name="fcsh-package" description="Zip up fcsh.zip">
+    <target name="asdoc-package" depends="clean-temp" unless="no.doc"
+        description="Package the asdocs">
+        <copy todir="${basedir}/temp/asdoc">
+            <fileset dir="${basedir}/asdoc-output"/>
+        </copy>
+        <zip file="${basedir}/out/${kit.prefix}-asdocs.zip" basedir="${basedir}/temp"/>
         <antcall target="clean-temp"/>
+    </target>
+
+    <target name="fcsh-package" depends="clean-temp" description="Zip up fcsh.zip">
         <copy todir="${basedir}/temp">
             <fileset dir="${basedir}/modules/compiler">
                 <include name="FlexCompilerShell-license.txt"/>
@@ -934,7 +916,7 @@
         </copy>
 
         <mkdir dir="${basedir}/out"/>
-        <zip destfile="${basedir}/out/fcsh.zip">
+        <zip destfile="${basedir}/out/${kit.prefix}-fcsh.zip">
             <zipfileset dir="${basedir}/temp" excludes="bin/*, **/*.bat, **/*.sh, **/*.linux"/>
             <zipfileset dir="${basedir}/temp" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" filemode="755" />
         </zip>
@@ -953,7 +935,8 @@
         <delete dir="${basedir}/temp" failonerror="false" includeEmptyDirs="true"/>
     </target>
 
-    <target name="doc" unless="no.doc" >
+    <!-- Builds the asdoc for the framework classes. -->
+    <target name="doc" unless="no.doc">
         <ant dir="${basedir}/frameworks" target="doc" />
     </target>
 

@@ -286,10 +286,15 @@ tar -xjf "AIR Integration Kit.tbz2"
             Apache binary distro they shouldn't be deleted here.
         -->        
         <!-- Delete AIK files that we don't put in the SDK -->
+        <!--
         <delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
         <delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
         <delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
+        -->
         <delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
+        <delete dir="${FLEX_HOME}/lib/aot/bin/as"/>
+        <delete dir="${FLEX_HOME}/lib/aot/bin/strip"/>
+        <delete dir="${FLEX_HOME}/lib/aot/lib/gcc"/>
         <delete dir="${FLEX_HOME}/lib/nai"/>
         
         <!-- Delete AIR files for 3.x support -->

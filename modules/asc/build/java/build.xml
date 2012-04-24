@@ -210,6 +210,8 @@
 	-->
 	<target name="clean">
 		<delete failonerror="false" >
+			<fileset file="${root.dir}/lib/abcdump.jar"/>
+			<fileset file="${root.dir}/lib/ash.jar"/>
 			<fileset file="${basedir}/lib/asc.jar"/>
 			<fileset file="${root.dir}/lib/asc.jar"/>
 			<fileset file="${root.dir}/lib/asc_authoring.jar"/>
