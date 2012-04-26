@@ -24,11 +24,11 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/flex-fxgutils"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/flex-swfutils"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/batik-all-flex.jar"/>
-	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/velocity-dep-1.4-flex.jar"/>
-	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/commons-collections.jar"/>
-	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/flex-messaging-common.jar"/>
-	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="/Users/aharui/Work/apache/flex/lib/saxon9.jar"/>
+	<classpathentry kind="lib" path="../../lib/batik-all-flex.jar"/>
+	<classpathentry kind="lib" path="../../lib/velocity-dep-1.4-flex.jar"/>
+	<classpathentry kind="lib" path="../../lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="../../lib/flex-messaging-common.jar"/>
+	<classpathentry kind="lib" path="../../lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="../../lib/saxon9.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
