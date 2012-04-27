@@ -338,21 +338,10 @@
    <!-- Metadata added to SWFs via the SWF Metadata tag. -->
    <metadata>
       <title>Apache Flex Application</title>
-      <description>http://www.adobe.com/products/flex</description>
-      <publisher>unknown</publisher>
+      <description>http://incubator.apache.org/flex</description>
+      <publisher>Apache Software Foundation</publisher>
       <creator>unknown</creator>
       <language>EN</language>
    </metadata>
-
-   <!-- licenses: specifies a list of product and serial number pairs. -->
-   <!-- not set -->
-   <!--
-   <licenses>
-      <license>
-         <product>string</product>
-         <serial-number>number</serial-number>
-      </license>
-   </licenses>
-   -->
-
+   
 </flex-config>

@@ -84,9 +84,7 @@
         <delete failonerror="false" includeEmptyDirs="true">
             <fileset file="${lib.dir}/swfutils.jar"/>
             <fileset file="${lib.dir}/swfdump.jar"/>
-            <fileset dir="${module.classes}">
-                <include name="**/*"/>
-            </fileset>
+            <fileset dir="${module.classes}"/>
         </delete>
     </target>
 

@@ -210,7 +210,8 @@
 
     <target name="airsdk-clean" description="Delete files copied from the AIR SDK">
         <!-- Delete AIR files and directories from 'prepare' target -->
-        <delete file="${FLEX_HOME}/AIR SDK*.pdf"/>
+        <delete file="${FLEX_HOME}/AIR SDK license.pdf"/>
+        <delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
         <delete file="${FLEX_HOME}/bin/adl"/>
         <delete file="${FLEX_HOME}/bin/adl.exe"/>
         <delete file="${FLEX_HOME}/bin/adt"/>
@@ -232,7 +233,7 @@
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${FLEX_HOME}/templates">
                 <include name="air/**" />
-                <include name="extenstions/**" />
+                <include name="extensions/**" />
             </fileset>
         </delete>
     </target>
@@ -273,32 +274,20 @@ tar -xjf "AIR Integration Kit.tbz2"
         <unzip src="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" dest="${FLEX_HOME}"/>
     </target>
 
-    <!-- 
-        FixMe:
-        For development can we just download the flavor that matches the system and
-        download the missing ones if/when building a binary kit?
-    -->
     <target name="airsdk-prepare" depends="airsdk-prepare-mac,airsdk-prepare-win" 
         description="Prepares for building framework SWCs">
         
-        <!--
-            FixMe: Most of these files seem to be in the Adobe MPL kit.  If they should go in the
-            Apache binary distro they shouldn't be deleted here.
-        -->        
-        <!-- Delete AIK files that we don't put in the SDK -->
+        <!-- Delete AIK files that we don't put in the Open Source SDK -->
         <!--
         <delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
         <delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
         <delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
-        -->
         <delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
         <delete dir="${FLEX_HOME}/lib/aot/bin/as"/>
         <delete dir="${FLEX_HOME}/lib/aot/bin/strip"/>
         <delete dir="${FLEX_HOME}/lib/aot/lib/gcc"/>
         <delete dir="${FLEX_HOME}/lib/nai"/>
-        
-        <!-- Delete AIR files for 3.x support -->
-        <delete dir="${FLEX_HOME}/frameworks/libs/air/flex3" quiet="true" />
+        -->
     </target>
 
     <!-- Download thirdparty code -->
