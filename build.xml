@@ -1007,11 +1007,9 @@
 
     <target name="oldcheckintests" depends="dependencychecker-framework,checkintests-mustella" description="Run these tests before every checkin"/>
     
-    <!-- pending mustella and framework/tests/basicTests and airBasicTests to Apache -->
-    <!--target name="checkintests" depends="dependencychecker-framework,basictests-mustella,checkintests-mobile" description="Run these tests before every checkin"/-->
-    <target name="checkintests">
-        <echo message="FixMe: pending mustella and framework/tests donation to Apache"/>
-    </target>
+    <!-- FixMe: add dependency checker and mobile tests -->
+    <target name="checkintests" depends="basictests-mustella" description="Run these tests before every checkin" />
+    <!--<target name="checkintests" depends="dependencychecker-framework,basictests-mustella,checkintests-mobile" description="Run these tests before every checkin"/-->
     
     <target name="checkintests-mobile" depends="airmobile-basictests-mustella" description="Run these tests before every checkin to mobile SDK code"/>
 

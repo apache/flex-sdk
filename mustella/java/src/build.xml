@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="Flex Mustella Source" default="main" basedir="../..">
+	<property environment="env"/>
+    <property name="ant-contrib.jar" location="${env.ANT_HOME}/lib/ant-contrib-1.0b2.jar"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
+
+    <property name="mustella.dir" value="${basedir}"/>
+    <property file="${mustella.dir}/local.properties"/>
+    <property file="${mustella.dir}/build.properties"/>
+    <property name="sdk.dir" value="$.."/>
+
+	<property name="src.dir" value="${mustella.dir}/java/src"/>
+    <property name="build.dir" value="${mustella.dir}/classes"/>
+
+	<!-- You can use Ant-based dependency-tracking for faster compiling. -->
+	<!-- Add the following property to your build.properties to turn this on: -->
+	<!-- src.depend=true -->
+	<!-- these may be overridden by specifying in build.properties -->
+	<property name="src.debug" value="on"/>
+
+    <path id="flex.mustella.lib.classpath">
+	<pathelement location="${mustella.dir}/classes"/>
+        <fileset dir="${mustella.dir}/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="ant.lib.classpath">
+        <fileset dir="${env.ANT_HOME}/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+	<path id="sdk.lib.classpath">
+		<fileset dir="${sdk.dir}/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+    <path id="swfutils.classpath">
+        <fileset dir="${sdk.dir}/lib">
+            <include name="swfutils.jar"/>
+            <include name="xalan.jar"/>
+        </fileset>
+    </path>
+
+
+	<target name="main" depends="compile,jar"/>
+
+	<target name="prepare">
+		<echo message="Creating build directory..."/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<target name="compile-mustella" depends="prepare">
+		<echo message="Compiling mustella source code..."/>		
+		<javac  destdir="${build.dir}" debug="${src.debug}" nowarn="true" source="1.4" srcdir="${src.dir}" includes="mustella/**/*.java,utils/**/*.java">
+			<classpath>
+                <!--<path refid="flex.mustella.lib.classpath"/>-->
+                <path refid="ant.lib.classpath"/>
+                <path refid="swfutils.classpath"/>
+				<path refid="sdk.lib.classpath"/>
+			</classpath>
+		</javac>
+
+	</target>
+
+
+	<target name="compile" depends="prepare">
+		<echo message="Compiling source code..."/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="${src.debug}" nowarn="true" source="1.4">
+			<classpath>
+                <!--<path refid="flex.mustella.lib.classpath"/>-->
+                <path refid="ant.lib.classpath"/>
+                <path refid="swfutils.classpath"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+        <echo message="Building jars..."/>
+        <jar file="${mustella.dir}/lib/testRunner.jar" basedir="${mustella.dir}/classes"
+             includes="**/*.class">
+          <manifest>
+            <attribute name="Main-Class" value="tools.TestRunner" />
+          </manifest>
+        </jar>
+        <jar file="${mustella.dir}/lib/mxmlRunner.jar" basedir="${mustella.dir}/classes"
+             includes="**/*.class">
+          <manifest>
+            <attribute name="Main-Class" value="tools.MxmlRunner" />
+          </manifest>
+        </jar>
+	</target>
+	
+	<target name="jar-browserServer" depends="compile">
+        <echo message="Building browserServer jar..."/>
+        <jar file="${mustella.dir}/lib/browserServer.jar" basedir="${mustella.dir}/classes"
+             includes="tools/browserServer/**/*.class">
+          <manifest>
+            <attribute name="Main-Class" value="tools.browserServer.Server" />
+          </manifest>
+        </jar>      
+	</target>
+
+	<target name="compileBuildInfo" depends="prepare">
+		<echo message="Compiling BuildInfo source code..."/>
+
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="${src.debug}" nowarn="true" includes="**/BuildInfo/**/*.java">
+			<classpath>
+                <path refid="flex.mustella.lib.classpath"/>
+                <path refid="ant.lib.classpath"/>
+                <path refid="swfutils.classpath"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jarBuildInfo" depends="compileBuildInfo">
+        <echo message="Building BuildInfo jar..."/>
+        <jar file="${mustella.dir}/lib/BuildInfo.jar" basedir="${mustella.dir}/classes"
+             includes="**/*.class">
+        </jar>
+	</target>
+
+	<target name="clean">
+		<echo message="Removing classes..."/>
+		<delete dir="${build.dir}"/>
+	</target>
+
+</project>

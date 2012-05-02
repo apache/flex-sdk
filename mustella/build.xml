@@ -1,0 +1,3732 @@
+<?xml version="1.0" standalone="no"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="mustella" default="run" basedir=".">
+    <property environment="env"/>
+
+    <property name="mustella.dir" value="${basedir}" />
+	
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${mustella.dir}/lib/ant-contrib-1.0b2.jar"/>
+
+    <property name="feature" value=""/>
+    <property file="${basedir}/properties/${feature}.properties" />
+    <property name="debug" value="false" />
+    <property name="strict" value="true" />
+    <property name="coach" value="true" />
+    <property name="benchmark" value="true" />
+    <property name="portNumber" value="80" />
+    
+    <!-- AJH shut off excludes for now -->
+    <property name="excludes_done" value="true" />
+
+	
+<property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
+
+    <pathconvert property="mustella.dir" dirsep="/" >
+       <path location="${basedir}" />
+    </pathconvert>
+
+
+    <!-- default version file -->
+    <property name="build.version.file" value="successfulBuild.properties" />
+    <property prefix="on_disk" file="${mustella.dir}/${build.version.file}" />
+    <property name="local_properties" value="local.properties" />
+    <property name="external_properties" value="external.properties" />
+
+
+    <property file="${mustella.dir}/${local_properties}" />
+    <property file="${mustella.dir}/${external_properties}" />
+    <property file="${mustella.dir}/build.properties" />
+
+    <!-- must have a workable default for this prefix. Override in local.properties or on cmd line-->
+    <property name="apollo_transform_prefix" value="zzaird_" />
+    <property name="apollo_transform_prefix2" value="wwaird_" />
+
+    <property name="apollo_transform_template" value="${mustella.dir}/Assets/AirTransform/WindowedAppTemplate.mxml" />
+
+
+    <property name="previous.generated.testfiles" value="**/*.swf,**/*.output,**/SWFs/${apollo_transform_prefix}*.mxml,**/swfs/${apollo_transform_prefix}*.mxml,**/SWFs/${apollo_transform_prefix2}*.mxml,**/swfs/${apollo_transform_prefix2}*.mxml" />
+
+
+    <property name="sdk.mustella.dir" value="${mustella.dir}/tests" />
+
+    <property name="root.dir" value="${basedir}/.."/>
+    <property name="sdk.dir" value="${basedir}/.." />
+    <property name="frameworks" value="${sdk.dir}/frameworks" />
+    <property file="${mustella.dir}/local.properties" />
+    <property name="mustellagen.dir" value="${mustella.dir}/gen" />
+    <property name="sdk.bin.dir" value="${sdk.dir}/bin" />
+
+    <property name="branch" value="trunk"/>
+
+    <property name="compc.dir" value="${sdk.dir}/bin" />
+    <property name="compc" value="" />
+    <property name="mxmlc.args" value="-debug -define=CONFIG::skaha,false -compiler.fonts.managers=flash.fonts.JREFontManager,flash.fonts.AFEFontManager,flash.fonts.BatikFontManager,flash.fonts.CFFFontManager" />
+    <property name="asclasspath" value=""/>
+    <property name="aschartspath" value="."/>
+    <property name="frameworks.dir1" value="${frameworks}" />
+    <property name="librarypath" value="${frameworks.dir1}/libs/framework.swc,${frameworks.dir1}/libs/charts.swc,${frameworks.dir1}/libs/rpc.swc"/>
+    <property name="external.librarypath" value="libs/playerglobal.swc"/>
+    <property name="rsl" value="" />
+
+    <property name="coach" value="true" />
+    <property name="strict" value="true" />
+    <property name="exit_on_compile_error" value="" />
+
+    <property name="cygwinshell" value="/cygwin/bin/sh.exe" />
+    <property name="buildURL" value="true" />
+
+    <property name="classes.dir" value="${mustella.dir}/classes" />
+    <property name="debug" value="false" />
+
+    <property name="insert_results" value="" />
+    <property name="run_this_script" value="" />
+
+
+
+    <!-- the old approach, compile in the excludes, not generally used -->
+    <property name="exclude_source_path" value="" />
+    <property name="default.excludes.asfile" value="CurrentExcludeList.as" />
+    <property name="default.excludes.asfiledir" value="."/>
+    <property name="default.excludes.swcclass" value="CurrentExcludeList" />
+    <property name="default.excludes.swc" value="CurrentExcludeList.swc" />
+
+
+    <property name="excludelibrarypath" value="" />
+
+    <property name="fork_compile" value="true" />
+
+    <condition property="browser" value="${env.PROGRAMFILES}/Internet Explorer/iexplore">
+        <isset property="env.PROGRAMFILES"/>
+    </condition>
+
+    <condition property="browser" value="${env.ProgramFiles}/Internet Explorer/iexplore">
+        <isset property="env.ProgramFiles"/>
+    </condition>
+
+    <property name="player.timeout" value="45" />
+
+
+	<!-- SDK jar files -->
+	<path id="sdk.lib.classpath">
+		<fileset dir="${sdk.dir}/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+    <path id="flex.test.classpath">
+        <pathelement location="${classes.dir}"/>
+        <fileset dir="${sdk.dir}/lib">
+          <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <property name="require_this_directory_too" value="" />
+
+	<!-- host_os_name (formerly real_os_name) is the machine which is compiling. -->
+    <condition property="host_os_name" value="mac" >
+		<os family="mac" />
+    </condition>
+
+    <condition property="short_os_name" value="mac" >
+		<os family="mac" />
+    </condition>
+
+    <condition property="host_os_name" value="windows" >
+		<os family="windows" />
+    </condition>
+
+    <condition property="short_os_name" value="win" >
+		<os family="windows" />
+    </condition>
+
+    <condition property="host_os_name" value="Linux" >
+		<os name="Linux" />
+    </condition>	
+
+	<!-- Mobile stuff will be changed by handle_mobile_config later if it's a mobile run. -->
+	<property name="target_os_name" value="${host_os_name}" />
+
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWin.txt" >
+		<equals arg1="${target_os_name}" arg2="windows" />
+    </condition>
+
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMac.txt" >
+		<equals arg1="${target_os_name}" arg2="mac" />
+    </condition>
+
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListLinux.txt" >
+		<equals arg1="${target_os_name}" arg2="Linux" />
+    </condition>
+
+	<echo>exclude file will be: ${exclude_filename}</echo>
+	
+	<!-- Whether a run will spawn its own baseline server.  With multiple runs on a machine, they will collide. -->
+	<property name="prevent_baseline_server" value="${prevent_baseline_server}" />
+	
+	<!-- This does things like setting up mxmlc.  -->
+    <target name="get_os" >
+		<condition property="is_mac" value="true" >
+			<equals arg1="${host_os_name}" arg2="mac" />
+		</condition>
+		<condition property="is_win" value="true" >
+			<or>
+				<equals arg1="${host_os_name}" arg2="windows" />
+				<equals arg1="${host_os_name}" arg2="win" />
+			</or>
+		</condition>
+		<condition property="is_linux" value="true" >
+			<equals arg1="${host_os_name}" arg2="Linux" />
+		</condition>
+    </target>
+
+    <!-- unzip, needed for installation, varies on windows -->
+    <condition property="unzip" value="/cygwin/bin/unzip.exe" >
+	<os family="windows" />
+    </condition>
+
+    <!-- ... but seems the same on mac & Linux -->
+    <property name="unzip" value="/usr/bin/unzip" />
+
+
+    <condition property="branch_name" value="Mainline" >
+	<not>
+		<isset property="branch_name" />
+	</not>
+    </condition>
+
+    <!-- browser_name represents the runtime. -->
+    <condition property="browser_name" value="Standalone" >
+	<not>
+		<istrue value="${use_browser}" />
+	</not>
+    </condition>
+
+    <!-- the local.properties file has to be there for the subsequent
+         loadfile call. Create it if needed -->
+
+    <!-- filtering/standarizing of browser_name here   -->
+    <loadfile failonerror="false" srcfile="${mustella.dir}/${local_properties}" property="browser_name" >
+	<filterchain>
+	<linecontainsregexp>
+		<regexp pattern="^browser=.*$"/>
+	</linecontainsregexp>
+	<tokenfilter>
+		<replaceregex pattern=".*/" replace=""  flags="g"/>
+		<replaceregex pattern=".exe" replace=""  flags="g"/>
+		<replaceregex pattern='\"' replace=""  flags="g"/>
+	</tokenfilter>
+	</filterchain>
+    </loadfile>
+
+    <!-- could be trouble later. We don't default well. -->
+    <condition property="browser_name_not_set" value="true" >
+	<and>
+	<not>
+		<isset property="browser_name"/>
+	</not>
+	<istrue value="${use_browser}" />
+	</and>
+    </condition>
+
+    <condition property="browser_name" value="iexplore" >
+	<and>
+	<istrue value="${browser_name_not_set}" />
+	<contains string="${browser}" substring="iexplore" casesensitive="false" />
+	</and>
+    </condition>
+
+    <condition property="excludes_done" value="true" >
+    <istrue value="${skip_exclude}" />
+    </condition>
+
+    <condition property="config_id" value="1" >
+	<and>
+    	<istrue value="${excludes_done}" />
+    	<equals arg1="-1" arg2="${current.run.id}" />
+	</and>
+    </condition>
+
+    <condition property="exclude_ids" value="(1)" >
+	<and>
+    	<istrue value="${excludes_done}" />
+    	<equals arg1="-1" arg2="${current.run.id}" />
+	</and>
+    </condition>
+
+
+
+
+    <!-- don't try fetching a config ID if we've decided we don't care about excludes -->
+    <condition property="config_id" value="1" >
+    <istrue value="${skip_exclude}" />
+    </condition>
+
+    <!-- run type values. (stored in db) -->
+    <condition property="run_type" value="swfloader" >
+	<isset property="shell_swf" />
+    </condition>
+
+    <condition property="run_type" value="" >
+	<not>
+	<isset property="run_type" />
+	</not>
+    </condition>
+
+    <condition property="vetting" value="" >
+	<or>
+        <equals arg1="${run_type}" arg2=""/>
+	<not>
+	<isset property="run_type" />
+	</not>
+	</or>
+    </condition>
+
+    <condition property="do_mustellaswc_compile" value="true" >
+        <not>
+			<available file="${mustella.dir}/${mustella.swc.name}" />
+        </not>
+    </condition>
+
+    <condition property="vetting" value="Vetting" >
+        <equals arg1="${run_type}" arg2="mini"/>
+    </condition>
+
+    <condition property="vetting" value="Tiered" >
+        <equals arg1="${run_type}" arg2="tier1"/>
+    </condition>
+
+    <condition property="vetting" value="Cyclone" >
+        <equals arg1="${run_type}" arg2="cyclone"/>
+    </condition>
+
+    <condition property="shell_swf" value="" >
+	<not>
+	<isset property="${shell_swf}" />
+	</not>
+    </condition>
+
+    <condition property="shell_swf_prefix" value="file:///" >
+	<not>
+	<isset property="${shell_swf_prefix}" />
+	</not>
+    </condition>
+
+
+
+    <condition property="version_fetcher" value="${mustella.dir}/versionAIR.swf" >
+	<istrue value="${use_apollo}" />
+    </condition>
+
+    <property name="version_fetcher" value="${mustella.dir}/version.swf" />
+
+    <condition property="exclude_mixin" value="ExcludeFileLocationApollo" >
+	<istrue value="${use_apollo}" />
+    </condition>
+
+    <property name="exclude_mixin" value="ExcludeFileLocation" />
+
+    <!-- default location of AIR stuff -->
+    <condition property="apollo_location" value="${mustella.dir}/build" >
+	<istrue value="${use_apollo}" />
+    </condition>
+
+    <condition property="apollo_specific_excludes" value="${apollo_only_excludes}" >
+	<istrue value="${use_apollo}" />
+    </condition>
+
+	<target name="getExcludeIds" unless="exclude_ids" description="Fetch exclude ids" >
+		<taskdef name="excluder" classname="mustella.GetExcludeIdsTask" classpathref="flex.test.classpath"/>
+		<excluder property="exclude_ids" type="${exclude_type}" filename="${exclude_filename}" branch="${branch_name}" os="${target_os_name}" browser="${browser_name}" apollo="${use_apollo}" bbrowser="${use_browser}" untilTime="${db_time}" write="false" excludeIds=""/>
+	</target>
+
+    <property name="bug_retry" value="" />
+    <target name="getExcludes" unless="excludes_done" description="Fetch exclude values from db" >
+		<echo>Write excludes file</echo>
+		<mkdir dir="/tmp/flex" />
+		<mkdir dir="${mustella.dir}/classes" />
+		<delete file="${mustella.dir}/classes/${default.excludes.swc}" />
+		<taskdef name="excluder" classname="mustella.GetExcludeIdsTask" classpathref="flex.test.classpath"/>
+		<excluder property="exclude_ids" type="${exclude_type}" filename="${exclude_filename}" branch="${branch_name}" os="${target_os_name}" browser="${browser_name}" apollo="${use_apollo}" bbrowser="${use_browser}" untilTime="${db_time}" write="true" excludeIds="" bugByPass="${bug_retry}"/>
+		<chmod perm="777" file="${exclude_filename}" />
+
+		<property name="excludes_done" value="true" />
+    </target>
+
+    <property name="player.version" value="11.1"/>
+
+    <!-- shorthand, and something javascript will tolerate: -->
+    <property name="pversion" value="${player.version}"/>
+
+	<target name="setup_linux" if="is_linux">
+		<echo>doing linux setup</echo>
+		<property name="mxmlc.exe" value="mxmlc"/>
+		<property name="compc.exe" value="compc" />
+		<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/lnx" />
+		<property name="player" value="${player.dir}/flashplayer" />
+		<property name="apollo_exe" value="adl" />
+		<!-- kind of a guess: -->
+		<property name="shell" value="/bin/bash" />
+		<property name="auto_exclude_config_value" value="10"/>
+		<property name="auto_exclude_bug_id" value="unproven_linux_${fetched_date}" />
+	</target>
+
+	<target name="setup_mac" if="is_mac">
+		<echo>doing mac setup</echo>
+		<property name="mxmlc.exe" value="mxmlc"/>
+		<property name="compc.exe" value="compc" />
+		<property name="shell" value="/bin/sh" />
+
+		<condition property="player.name" value="Flash Player Debugger" >
+			<and>
+			<available file="${sdk.dir}/in/player/${player.version}/mac/Flash Player Debugger.app" />
+			<not>
+			<equals arg1="player.version" arg2="10" />
+			</not>
+			</and>
+		</condition>
+
+		<property name="player.name" value="Flash Player" />
+		<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/mac/${player.name}.app/Contents/MacOS" />
+		<property name="player" value="${player.dir}/${player.name}" />
+		<!-- these values are sort of magic numbers, corresponding to db entries -->
+		<property name="auto_exclude_config_value" value="9"/>
+		<property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
+		<echo>excl config val ${auto_exclude_config_value}</echo>
+		<property name="apollo_exe" value="adl" />
+		<property name="shell" value="/bin/sh" />
+		<property name="unzip" value="/usr/bin/unzip" />
+		<property name="auto_exclude_config_value" value="9"/>
+		<property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
+		<echo> player is ${player.dir}/${player.name} </echo>
+	</target>
+
+	<target name="setup_windows" if="is_win">
+		<echo>doing windows setup</echo>
+	    <echo>homepath: ${HOMEPATH} </echo>
+		<property name="mxmlc.exe" value="mxmlc.exe"/>
+		<property name="compc.exe" value="compc.exe" />
+		<property name="shell" value="${cygwinshell}" />
+		<property file="${HOMEPATH}/mm.cfg"/>
+		<echo>trace output file: ${TraceOutputFileEnable} </echo>
+		<condition property="player.name" value="FlashPlayerDebugger.exe" >
+			<and>
+			<available file="${sdk.dir}/in/player/${player.version}/win/FlashPlayerDebugger.exe" />
+			<not>
+			<equals arg1="player.version" arg2="10" />
+			</not>
+			</and>
+		</condition>
+
+		<property name="player.name" value="FlashPlayer.exe" />
+		<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/win" />
+		<property name="player" value="${player.dir}/${player.name}" />
+		<property name="apollo_exe" value="adl.exe" />
+
+		<echo>apollo_exe: ${apollo_exe}</echo>
+
+		<!-- these magic numbers correspond to db entries. Relevant for vetting -->
+		<condition property="auto_exclude_config_value" value="1">
+			<and>
+				<isfalse value="${use_apollo}"/>
+				<isfalse value="${use_browser}"/>
+			</and>
+		</condition>
+		<condition property="auto_exclude_config_value" value="2">
+			<istrue value="${use_apollo}"/>
+		</condition>
+		<condition property="auto_exclude_config_value" value="5">
+			<istrue value="${use_browser}"/>
+		</condition>
+		<condition property="auto_exclude_bug_id" value="unproven_${fetched_date}">
+			<and>
+				<isfalse value="${use_apollo}"/>
+				<isfalse value="${use_browser}"/>
+			</and>
+		</condition>
+		<condition property="auto_exclude_bug_id" value="unproven_air_${fetched_date}">
+			<istrue value="${use_apollo}"/>
+		</condition>
+		<condition property="auto_exclude_bug_id" value="unproven_browser_${fetched_date}">
+			<istrue value="${use_browser}"/>
+		</condition>
+		<echo> player is ${player.name} </echo>
+	</target>
+
+    <!-- get the database time, used for time syncing in exclude db queries
+	     The mustella_auto.sh should have called and set this value; a local
+             mini_run would need this, so setup depends on db_time  -->
+
+    <!-- AJH
+    <condition property="db_time" value="${env.db_time}">
+	    <isset property="env.db_time" />
+    </condition> -->
+
+
+
+	<target name="setup" depends="get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config"  description="--> set platform specific properties">
+		<!-- antcall target="db_time">
+			<param name="no_quote" value="true" />
+			<param name="db_time_vetting_file" value="/tmp/.db.time.mini" />
+		</antcall>
+		<property file="/tmp/.db.time.mini" / -->
+
+		<!-- Browser stuff lives in a particular directory, as does apollo.  And they
+		are mutually exclusive.
+		-->
+
+		<!-- Exclude apollo tests if not using apollo. -->
+		<condition property="apollo_excludes" value="apollo/**/*.mxml" >
+			<not>
+				<istrue value="${use_apollo}" />
+			</not>
+		</condition>
+
+		<!-- Exclude browser tests if not using browser. -->
+		<condition property="browser_excludes" value="browser/**/*.mxml" >
+			<not>
+				<istrue value="${use_browser}" />
+			</not>
+		</condition>
+
+		<!-- Exclude apollo tests if using browser. -->
+		<condition property="apollo_excludes" value="apollo/**/*.mxml" >
+			<istrue value="${use_browser}" />
+		</condition>
+
+		<!-- Exclude mobile tests if not using mobile. -->
+		<condition property="mobile_excludes" value="mobile/**/*.mxml" >
+			<not>
+				<istrue value="${run_mobile_tests}" />
+			</not>
+		</condition>
+
+		<condition property="query.outfile" value="${mustella.dir}/lastrun.html" >
+			<equals arg1="${query.outfile}" arg2=""/>
+		</condition>
+
+		<condition property="query.outfile" value="${mustella.dir}/lastrun.html" >
+			<not>
+				<isset property="query.outfile" />
+			</not>
+		</condition>
+
+		<condition property="require_this_directory" value="**/*.mxml" >
+			<equals arg1="${require_this_directory_too}" arg2="" />
+		</condition>
+
+        <!-- AJH 
+		<taskdef name="excluder" classname="mustella.GetExcludeIdsTask" classpathref="flex.test.classpath"/> -->
+
+		<!-- get file level excludes -->
+        <!-- AJH
+		<antcall target="excluder_call" >
+			<param name="write" value="false"/>
+		</antcall> -->
+
+		<!-- antcall target="excludes_by_file" />
+		<loadfile srcFile="${mustella.dir}/tmpexc" property="other.mustella.excludes" >
+			<filterchain>
+			<linecontains negate="true">
+			<contains value="rows affected"/>
+			</linecontains>
+			<striplinebreaks/>
+			<replacestring from="/" to="${file.separator}"/>
+			</filterchain>
+		</loadfile-->
+
+		<fileset id="sdk.mustella.fileset" dir="${sdk.mustella.dir}"
+			includes="${sdk.mustella.includes}"
+			excludes="${sdk.mustella.excludes},**/SWFs/Components/*.mxml,**/Baselines/,**/baselines/,**/comps/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf,${browser_excludes},${apollo_excludes},${other.mustella.excludes},${apollo_specific_excludes},${mobile_excludes}" >
+			<filename name="${require_this_directory}" />
+		</fileset>
+
+		<fileset id="sdk.mustella.swffileset" dir="${sdk.mustella.dir}"
+			includes="${sdk.mustella.swfs}"
+			excludes="${sdk.mustella.excludes},**/Assets/**/*.swf,**/assets/**/*.swf" 
+		/>
+
+		<property name="showfiles" refid="sdk.mustella.fileset" />
+		<echo>fileset: ${showfiles}</echo>
+	</target>
+
+	<!-- exclude_filename is not used, since write = false. -->
+	<target name="excluder_call" unless="excludes_done" >
+		<excluder property="exclude_ids" type="${exclude_type}" filename="${exclude_filename}" branch="${branch_name}" os="${target_os_name}" browser="${browser_name}" apollo="${use_apollo}" bbrowser="${use_browser}" untilTime="${db_time}" write="false" excludeIds=""/>
+	</target>
+
+	<!-- Point to a different database for mobile.
+	<if>
+		<istrue value="${run_mobile_tests}"/>
+		<then>
+			<property name="db_url" value="jdbc:mysql://fbapps.corp.adobe.com:3306/mustella"  />
+		</then>
+		<else> -->
+			<property name="db_url" value="jdbc:mysql://beachwagon.macromedia.com:3306/mustella" />
+	<!--	</else>
+	</if>-->
+
+	<!-- this is a test loop target to populate local.properties from the db -->
+
+	<!-- this is a test loop target to populate local.properties from the db -->
+	<target name="settings_fetch" if="hostname">
+
+	<!-- 
+		hostname gets passed in as var 
+
+
+		This gets copied to local.properties (in two locations), namely, mustella.dir
+		and the sdk/build dir way the hell up ../../../../
+
+		WILL OVERWRITE EXISTING PROPERTIES FILES!
+		
+	-->
+	<echo> from this: from mustella_settings.dist_settings where and host like '%=${hostname}' task = ${task_iterator} </echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}_settings"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/local.properties.tmp"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(
+		host, char(10),
+		use_db_settings, char(10),
+		air_setting, char(10),
+		browser_setting, char(10),
+		branch_name, char(10),
+		run_in_branch_setting, char(10),
+		lone_runner_setting, char(10),
+		ant_target_setting, char(10),
+		fetch_user_name, char(10),
+		fetch_user_p, char(10),
+		pmd_setting, char(10),
+		pmd_num_runners_setting, char(10),
+		results_parse_setting, char(10),
+		player_name_setting, char(10),
+		player_version_setting, char(10),
+		pmd_skip_retry_failures, char(10),
+		install_skip_utilities_fetch, char(10),
+		server, char(10),
+		installbuild, char(10),
+		DO_TESTRUN, char(10),
+		DO_PERFORCE, char(10),
+		DO_HURRICANE, char(10),
+		FAIL_IF_NOT_NEW, char(10),
+		DO_GRAB_BUILD, char(10),
+		recipients, char(10),
+		always_recipients, char(10),
+		depot_name, char(10),
+		P4USER, char(10),
+		P4PASSWD, char(10),
+		FILEDROP, char(10),
+		DO_PERFORCE_TEST, char(10),
+		RUNNER_ONLY, char(10),
+		user_args, char(10),
+		browser, char(10),
+		browser_prefix, char(10),
+		run_mobile_tests, char(10),
+		device_name, char(10),
+		clean_devices, char(10),
+		player_timeout, char(10),
+		feature, char(10),
+		adt_target_setting, char(10),
+		adt_interpreter_setting, char(10),
+		qnx_device_password_setting, char(10),
+		qnx_cmdline_user_setting, char(10),
+		qnx_cmdline_password_setting, char(10),
+		adl_extras_setting, char(10),
+		concurrent_packagers_setting, char(10),
+		subtitle, char(10)
+		) from mustella_settings.dist_settings where host like 'host=${hostname}' and task_id=${task_iterator};
+
+               ]]>
+	</sql>
+
+	<!-- 
+		clean it up a little 
+		if there are zero rows, exit/fail
+	-->
+
+
+	<loadfile property="get_out" srcFile="${mustella.dir}/local.properties.tmp" />
+
+	<!-- search for some setting that would always be there -->
+	<condition property="exit_with_msg" value="true" >
+		<not>
+		<contains string="${get_out}" substring="get_results_from_log" />
+		</not>
+	</condition>
+
+
+	<antcall target="do_fail" >
+		<param name="msg" value="No settings for ${hostname} / ${task_iterator}" />
+	</antcall>
+
+
+	
+	<copy file="${mustella.dir}/local.properties.tmp" tofile="${mustella.dir}/local.properties" overwrite="true" >
+		<filterchain>
+			<linecontains negate="true">	
+				<contains value="rows affected" />
+			</linecontains>	
+			<linecontainsregexp negate="true">	
+				<regexp pattern='^""' />
+			</linecontainsregexp>
+			<fixcrlf />
+			<linecontainsregexp negate="true">	
+				<regexp pattern='^$' />
+			</linecontainsregexp>
+		</filterchain>
+
+	</copy>
+
+
+	<fixcrlf file="${mustella.dir}/local.properties" eol="lf" eof="remove" />
+
+
+	<copy file="${mustella.dir}/local.properties.tmp" tofile="${basedir}/../sdk/build/local.properties" overwrite="true" >
+
+		<filterchain>
+			<linecontains negate="true">	
+				<contains value="#browser" />
+			</linecontains>	
+			<linecontains negate="true">	
+				<contains value="player.name" />
+			</linecontains>	
+			<linecontains negate="true">	
+				<contains value="player.timeout" />
+			</linecontains>	
+			<linecontains negate="true">	
+				<contains value="player.version" />
+			</linecontains>	
+			<linecontains negate="true">	
+				<contains value="rows affected" />
+			</linecontains>	
+			<linecontainsregexp negate="true">	
+				<regexp pattern='^""' />
+			</linecontainsregexp>
+			<fixcrlf />
+			<linecontainsregexp negate="true">	
+				<regexp pattern='^$' />
+			</linecontainsregexp>
+		</filterchain>
+
+	</copy>
+
+    </target>
+	<target name="keyword_query" >
+	<!-- if there are directories we want to narrow to those -->
+	<echo>Query testcases having keyword: ${keyword}</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/${kw_query_outfile}"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(dir_name, test_file, "$", test_id) from keywords k, keyword_matchings km, test_cases t, test_files tf  where t.id = km.test_case_id and tf.file_name = t.test_file and  k.id = km.keyword_id and k.keyword = "${keyword}" order by dir_name, test_file	
+               ]]>
+	</sql>
+    </target>
+
+    <target name="write_keyword_includes" depends="prepare">
+
+
+	<condition property="feed_it" value="${sdk.mustella.includes}" >
+		<and>
+		<isset property="sdk.mustella.includes" />
+		<not>
+		<equals arg1="${sdk.mustella.includes}" arg2="" />
+		</not>
+		</and>
+	</condition>
+
+        <fileset id="tmp.includer" dir="${sdk.mustella.dir}"
+            includes="${sdk.mustella.includes}"
+            excludes="${sdk.mustella.excludes},**/SWFs/Components/*.mxml,**/Baselines/,**/baselines/,**/comps/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf,${browser_excludes},${apollo_excludes},${other.mustella.excludes},${apollo_specific_excludes}" >
+
+        </fileset>
+
+	<property name="showit0" refid="tmp.includer" />
+
+	<pathconvert property="showit2" dirsep="/" >
+       		<path location="${showit0}" />
+    	</pathconvert>
+
+
+
+       	<taskdef name="includer" classname="mustella.GenIncludesTask" classpathref="flex.test.classpath"/>
+
+	<includer fileOut="${mustella.dir}/classes/CurrentIncludeList.as" property="write_files_tmp" keywords="${keyword_list}" files="${showit0}" />
+
+
+	<echo file="${mustella.dir}/.tmp_file_list">sdk.mustella.includes=${write_files_tmp}</echo>
+	
+	
+    </target>
+
+    <target name="query_from_bug_id" >
+	<echo>querying testcases for bug-based run</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/tmp_mustella_tmp"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(dir_name, test_file, ".mxml") from test_cases, test_files, excludes where test_cases.test_dir = test_files.id and excludes.testcase_id = test_cases.id and bug_id = '${bug_retry}'
+               ]]>
+	</sql>
+	<!-- part 2, write the include file -->
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="/tmp/IncludeList.txt.tmp"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(dir_name, test_file, "$", test_id) from test_cases, test_files, excludes where test_cases.test_dir = test_files.id and excludes.testcase_id = test_cases.id and bug_id = '${bug_retry}'
+               ]]>
+	</sql>
+    </target>
+
+    <target name="fetchFailures" >
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/failures.txt"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(test_files.dir_name,test_cases.test_file, " ", test_cases.test_id) from results,test_cases,test_files where results.test_case = test_cases.id and results.test_run = ${runId} and test_cases.test_dir = test_files.id and results.result=1;
+		select concat(test_file, " ", test_id) from orphaned_results where result=1 and test_run = ${runId};
+               ]]>
+	</sql>
+	<replaceregexp file="${mustella.dir}/failures.txt"
+		match=".*rows affected" replace="" flags="g"/>
+
+    </target>
+
+    <target name="query_run_failures" >
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/tmp_failures1"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(test_files.dir_name,test_cases.test_file, " ", test_cases.test_id) from results,test_cases,test_files where results.test_case = test_cases.id and results.test_run = ${current.run.id} and test_cases.test_dir = test_files.id and results.result=1;
+		select concat(test_file, " ", test_id) from orphaned_results where result=1 and test_run = ${current.run.id};
+               ]]>
+	</sql>
+    </target>
+
+    <target name="query_recent_failures" >
+	<property name="test_runs_considered" value="20" />
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/.tmp_target1"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(dir_name, test_file, ".mxml") from results, test_cases, test_files  where test_cases.id = results.test_case and test_dir = test_files.id and result=1 and test_run >= (select max(id)-${test_runs_considered} from test_runs)
+               ]]>
+	</sql>
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/.tmp_target2"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(test_file, ".mxml") from orphaned_results  where result=1 and test_run >= (select max(id)-${test_runs_considered} from test_runs) and test_file not like '%.swf'
+               ]]>
+	</sql>
+
+    </target>
+
+
+
+    <target name="excludes_by_file" if="exclude_ids" >
+	<echo>excludes by file: tmp_filename is ${mustella.dir}/tmpexc</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/tmpexc"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat(",**/", dir_name, file_name, '.mxml,') from test_files, excludes_files where excludes_files.test_file_id = test_files.id and exclude_config_id in ${exclude_ids};
+               ]]>
+	</sql>
+
+    </target>
+
+    <target name="get_last_vetting" >
+	<echo>Get the last mini run sync time</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/vetting_time"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select `time` from test_runs where run_type = 'mini' and  config_id = ${config_id} and run_end > 0 order by `time` desc limit 1;
+               ]]>
+	</sql>
+
+    </target>
+
+
+
+
+     <property name="sdk.mustella.shellincludes" value="" />
+     <property name="sdk.mustella.shellexcludes" value="" />
+
+
+     <target name="build_shell_set" description=" create list of shell names">
+
+	<!-- this gets all the .sh equiv files -->
+	<pathconvert property="shell_file_mxml_equivs" pathsep="," dirsep="/" >
+		<path path="${sdk.mustella.includes}" />
+		<filtermapper>
+			<replacestring from=".mxml" to=".sh"  />
+		</filtermapper>
+		<map from="${mustella.dir}/" to="" />
+	</pathconvert>
+
+	<!-- this does likewise for the excluded ones -->
+	<pathconvert property="shell_file_mxml_excludes" pathsep="," dirsep="/" >
+		<path path="${sdk.mustella.excludes}" />
+		<filtermapper>
+			<replacestring from=".mxml" to=".sh"  />
+		</filtermapper>
+		<map from="${mustella.dir}/" to="" />
+	</pathconvert>
+
+
+	<!-- build the fileset -->
+	<fileset id="mxml_equiv_shells" dir="${sdk.mustella.dir}" includes="${shell_file_mxml_equivs}" excludes="${shell_file_mxml_excludes}">
+	</fileset>
+
+
+	<property name="showx0" refid="mxml_equiv_shells" />
+
+	<!-- There mayb be NO shell equiv files, but we need to to check for
+	    a pre_compile.sh file (in a swfs dir). Loop the .mxml files to check for them.
+	    Not wildly efficient.  -->
+	<pathconvert  dirsep="/" property="tmp111a" refid="sdk.mustella.fileset" />
+
+	<pathconvert  dirsep="/" property="tmp111" refid="mxml_equiv_shells" />
+
+	<!-- call the custom filter. This looks for sibling swf directories with
+	pre_compile.sh files in there. Maybe this was possible with filesets, but
+	it seemed unreachable -->
+        <taskdef name="getSiblingSwfs" classname="mustella.CousinPreCompile" classpathref="flex.test.classpath"/>
+        <getSiblingSwfs files="${tmp111}${path.separator}${tmp111a}" root="${sdk.mustella.dir}" property="tmp.sdk.mustella.scripts2"  />
+
+
+
+     </target>
+
+
+     <target name="shells" depends="build_shell_set,chmod_shells" description=" Run user-shell scripts associated with these tests">
+	<!-- runs shell scripts in the test directories -->
+	<!-- make the set space-delimited -->
+
+        <pathconvert pathSep=" " dirsep="/" property="sdk.mustella.scripts2" >
+		<path path="${tmp.sdk.mustella.scripts2}" />
+	</pathconvert>
+	<exec  executable="${shell}" failonerror="${exit_on_compile_error}">
+		<arg value="${sdk.mustella.dir}/../scripts/shellrunner.sh" />
+    		<arg value="${sdk.mustella.scripts2}" />
+		<env key="SDK_DIR" value="${sdk.dir}" />
+    		<env key="MUSTELLA_DIR" value="${mustella.dir}" />
+    		<env key="USE_APOLLO" value="${use_apollo}" />
+    		<env key="APOLLO_TRANSFORM" value="${apollo_transform}" />
+	</exec>
+
+     </target>
+
+
+     <target name="chmod_shells" depends="build_shell_set" description=" make user-defined shells executatble">
+	<echo>changing user shell files to executable </echo>
+	<chmod perm="555" maxparallel="50">
+		<fileset dir="${mustella.dir}" >
+			<include name="**/*.sh" />
+        	</fileset>
+	</chmod>
+	<chmod perm="555" maxparallel="50">
+		<fileset dir="${mustella.dir}">
+			<include name="*.sh" />
+        	</fileset>
+	</chmod>
+     </target>
+
+
+    <target name="setHostName">
+    </target>
+
+    <!-- property name="run_type" value="" / -->
+    <property name="port" value="" />
+    <property name="xmlnsVal" value="" />
+
+
+	<target name="getConfigId" unless="config_id" >
+		<taskdef name="getconfigidtask" classname="mustella.GetConfigIdTask" classpathref="flex.test.classpath"/>
+		<getconfigidtask  property="config_id" branch="${branch_name}" browser="${browser_name}" apollo="${use_apollo}" os="${target_os_name}"/>
+		<echo message="new config_id: ${config_id}" />
+	</target>
+
+	<target name="getActualRunId" unless="current.run.id" >	
+		<taskdef name="getrunidtask" classname="mustella.GetRunIdTask" classpathref="flex.test.classpath"/>
+		<getrunidtask  host="host" property="current.run.id" build="${build.id}" branch="${branch_name}" type="${run_type}" browserName="${browser_name}" config="${config_id}" swf="${version_fetcher}" player="${player}" time="${db_time}" os="${os}" osVersion="${os_version}" arch="${arch}"/>
+		<echo message="yo yo yo new id: ${current.run.id}" />
+		<echo file="${mustella.dir}/tests/runid.properties" append="false">run_id=${current.run.id}</echo>
+
+		<!-- read the file, make sure we match -->
+
+		<get ignoreerrors="true" src="http://localhost:${portNumber}/runid.properties"  dest="${mustella.dir}/junk1.properties" />
+		<property file="${mustella.dir}/junk1.properties" prefix="checkid" />
+
+		<condition property="exit_with_msg" value="true" >
+			<and>
+				<not>
+					<equals arg1="${current.run.id}" arg2="${checkid.run_id}" />
+				</not>
+				<not>
+					<equals arg1="${run_type}" arg2="mini" />
+				</not>
+			</and>
+		</condition>
+
+		<antcall target="sendConfigFailure" >
+		</antcall>
+
+		<antcall target="do_fail" >
+			<param name="msg" value="Local web server not configured correctly!" />
+		</antcall>
+	</target>
+
+	<!-- This will figure out some device stuff. -->
+    <condition property="do_handle_mobile_config" value="true" >
+		<istrue value="${run_mobile_tests}" />
+    </condition>
+	
+	<target name="handle_mobile_config" depends="get_mobile_data,device_fail" if="do_handle_mobile_config" >
+		<condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeList${os}.txt" >
+			<equals arg1="${run_mobile_tests}" arg2="true" />
+		</condition>
+		
+		<echo>os: ${os}</echo>
+		<echo>target_os_name: ${target_os_name}</echo>
+		<echo>os_version: ${os_version}</echo>
+		<echo>device_name: ${device_name}</echo>
+		<echo>use_android_runner: ${use_android_runner}</echo>
+		<echo>use_ios_runner: ${use_ios_runner}</echo>
+		<echo>use_qnx_runner: ${use_qnx_runner}</echo>
+		<echo>exclude_filename: ${exclude_filename}</echo>
+
+		<!-- Look for AIR and Android files. -->
+		<!--available file="${air.sdk.dir}/lib/aot/lib/AIRInterpreter" property="have_air_interpreter" />
+		<available file="${air.sdk.dir}/lib/aot/bin/as/arm-apple-darwin9-as" property="have_air_packager" />
+		<available file="${air.sdk.dir}/lib/adt.jar" property="have_air_adt_jar" />
+		<available file="${runtimeApk}" property="have_air_android_runtime" />
+		
+		<condition property="need_air_android">
+		    <and>
+			    <istrue value="${use_android_runner}" />
+			    <not>
+				    <istrue value="${have_air_android_runtime}" />
+			    </not>
+		    </and>
+		</condition>
+		
+		<condition property="need_air_ios">
+		    <and>
+			    <istrue value="${use_ios_runner}" />
+			    <or>
+				    <not>
+					    <istrue value="${have_air_interpreter}" />
+				    </not>
+				    <not>
+					    <istrue value="${have_air_packager}" />
+				    </not>
+				    <not>
+					    <istrue value="${have_air_adt_jar}" />
+				    </not>
+			    </or>
+		    </and>
+		</condition>
+		
+		<condition property="need_to_show_air_ios_fail_message">
+			<and>
+				<isset property="need_air_ios" />
+				<or>
+				    <not>
+					    <isset property="air.sdk.dir" />
+				    </not>
+				    <not>
+					    <isset property="air.sdk.version" />
+				    </not>
+				    <not>
+					    <isset property="air.sdk.build" />
+				    </not>				    
+				</or>
+			</and>
+		</condition>
+
+		<condition property="need_to_fetch_air_ios">
+			<and>
+				<isset property="need_air_ios" />
+				<isset property="air.sdk.dir" />
+				<isset property="air.sdk.build" />
+				<isset property="air.sdk.version" />
+			</and>
+		</condition>
+		
+		<antcall target="show_air_ios_fail_message" />
+		<antcall target="show_air_android_fail_message" />
+		<antcall target="fetch_air_ios" />
+		-->
+		
+		<!-- Look for the QNX SDK if we need to. -->
+		<available file="${qnx_sdk_dir}/bin" property="have_qnx_sdk" />
+		<condition property="need_qnx_sdk">
+			<and>
+				<istrue value="${use_qnx_runner}" />
+
+				<not>
+					<istrue value="${have_qnx_sdk}" />
+				</not>
+			</and>
+		</condition>		
+		<antcall target="fetch_qnx_sdk" />
+	</target>
+
+	<target name="fetch_qnx_sdk" if="need_qnx_sdk">
+		<echo>One or more of these is missing:</echo>
+		<echo>	${qnx_sdk_dir}</echo>
+		<fail message="A QNX SDK needs to be set correctly in the qnx_sdk_dir variable in local.properties." />
+	</target>
+
+	<target name="show_air_android_fail_message" if="need_air_android">
+		<echo>Required for Android run: ${runtimeApk}</echo>
+		<fail message="runtimeApk needs to be set to an AIR Runtime.apk file in local.properties." />
+	</target>
+
+	<target name="show_air_ios_fail_message" if="need_to_show_air_ios_fail_message">
+		<echo>One or more of these is missing:</echo>
+		<echo>	Required for iOs run: ${air.sdk.dir}/lib/aot/lib/AIRInterpreter</echo>
+		<echo>	Required for iOs run: ${air.sdk.dir}/lib/aot/bin/as/arm-apple-darwin9-as</echo>
+		<echo>	Required for iOs run: ${air.sdk.dir}/lib/adt.jar</echo>
+		<fail message="An AIR SDK for iOS needs to be set in local.properties." />
+	</target>
+
+	<target name="fetch_air_ios" if="need_to_fetch_air_ios">
+		<!-- Do the fetch from here *only* if air.sdk.version is set in local.properties. -->
+		<exec executable="${shell}">
+			<arg value="${mustella.dir}/scripts/fetch_air_build.sh" />
+			<arg value="${mustella.dir}" />
+			<arg value="${air.sdk.dir}" />
+			<arg value="${air.sdk.version}" />
+			<arg value="${air.sdk.build}" />						
+			<arg value="${realUser}" />
+			<arg value="${realPwd}" />
+		</exec>
+	</target>
+
+	<!-- Get mobile stuff. -->
+	<target name="get_mobile_data" if="do_handle_mobile_config">
+		<taskdef name="getdevicespecstask" classname="mustella.GetDeviceSpecsTask" classpathref="flex.test.classpath"/>
+		<getdevicespecstask androidSdk="${android_sdk}" runId="${run_id}" deviceName="${device_name}" mustellaDir="${mustella.dir}" />		
+	</target>
+
+	<!-- Fail if we could not get a version which we needed. -->
+	<target name="device_fail" if="get_mobile_data_fail">
+		<fail message="Some kind of device-related failure occurred."/>
+	</target>
+
+	<!-- not sure about that unless -->
+    <target name="getRunId" unless="current.run.id" depends="setbuildID,setHostName,getConfigId,getActualRunId">
+    </target>
+
+    <target name="invokeVersion" depends="get_os,setup_mac,setup_windows,setup_linux" description="Fetch the flex version">
+	<exec executable="${sdk.dir}/bin/${mxmlc.exe}" output="${mustella.dir}/.flex.version">
+		<arg value="-version"  />
+	</exec>
+    </target>
+
+    <fileset id="sdk.mustella.fileset" dir="${sdk.mustella.dir}"
+            includes="${sdk.mustella.includes}"
+            excludes="${sdk.mustella.excludes},${other.mustella.excludes}" />
+
+
+
+	<target name="clean" description="--> cleanup old report and actual files">
+		<echo message="Deleting old results and files from previous testsuite build"/>
+		<delete dir="${mustellagen.dir}" quiet="true"/>
+		<!-- get rid of old runid prop file, in case we don't create a new one -->
+		<delete verbose="true" file="${mustella.dir}/tests/runid.properties" failonerror="false" quiet="true" />
+		<!-- delete file="${mustella.dir}/mustella.swc" failonerror="false"/ -->
+    </target>
+
+    <condition property="copy_adt_jar" value="true" >
+		<istrue value="${run_mobile_tests}" />
+    </condition>
+
+	<target name="prepare" unless="already_prepared" depends="handle_adt_jar" description="--> create test suite directories" >
+		<echo message="Preparing testsuite."/>
+		<mkdir dir="${sdk.dir}/lib"/>
+		<mkdir dir="${classes.dir}"/>
+		<ant antfile="${mustella.dir}/java/src/build.xml" target="compile-mustella" />
+	</target>
+	
+	<target name="handle_adt_jar" if="copy_adt_jar">
+		<copy file="${sdk.dir}/lib/adt.jar" tofile="${mustella.dir}/lib/adt.jar" overwrite="true" />		
+	</target>
+
+    <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
+        <delete quiet="true">
+            <fileset dir="${sdk.mustella.dir}" includes="${previous.generated.testfiles},**/bin-debug/*.swf,**/bin-release/*.swf" excludes="**/Assets/*.swf,**/small.swf,**/undo-redo_icons.swf,**/focusSkinSWF.swf,**/atEmbed/images/*.swf,**/atEmbed/**/assets/*.swf,**/Components/Assets/Skinning/ImageAssets/*.swf,**/CellRenderers/assets/*.swf,**/player/**/assets/*.swf,**/atEmbed/PathResolution/**/box.swf,**/Assets/*.swf,**/assets/*.swf"/>
+        </delete>
+    </target>
+
+    <property name="exclude_flag" value="" />
+    <property name="cmd_line_scriptName" value="" />
+    <property name="cmd_line_testcaseName" value="" />
+    <property name="bugId" value="" />
+    <property name="hard" value="" />
+
+    <target name="set_exclude_flag" depends="prepare,setup" description="- set exclude flag on testcases">
+        <pathconvert pathSep=";" property="sdk.mustella.files" refid="sdk.mustella.fileset"/>
+        <java classname="mustella.ExcludeUtil" resultproperty="jreturn">
+          <classpath refid="flex.test.classpath"/>
+	  <sysproperty key="exclude" value="${exclude_flag}" />
+	  <sysproperty key="bugId" value="${bugId}" />
+	  <sysproperty key="exclude_id" value="${exclude_id}" />
+	  <sysproperty key="hard" value="${hard}" /> <!-- added -->
+          <arg value="${cmd_line_scriptName}" />
+          <arg value="${cmd_line_testcaseName}" />
+	</java>
+
+	<condition property="exit_with_msg" value="true" >
+          <not>
+		<equals arg1="0" arg2="${jreturn}" />
+          </not>
+	</condition>
+
+	<antcall target="do_fail" >
+		<param name="msg" value="Unable to exclude test case. Is it in the database?" />
+	</antcall>
+
+    </target>
+
+    <target name="do_fail" if="exit_with_msg">
+	<fail message="${msg}" />
+    </target>
+
+    <target name="re_include_test" depends="prepare,setup" description="- set flag to include testcases again">
+        <pathconvert pathSep=";" property="sdk.mustella.files" refid="sdk.mustella.fileset"/>
+        <java classname="mustella.ReInclude" >
+          <classpath refid="flex.test.classpath"/>
+          <arg value="${bugId}" />
+	</java>
+    </target>
+
+
+
+    <property name="skipped_insert_file" value="${mustella.dir}/testcases_notInserted.txt" />
+    <property name="send_check_email" value="" />
+    <property name="fail_at_testcase_check" value="" />
+
+    <target name="insert_tests" depends="prepare,setup" description="--- insert testcases">
+        <pathconvert pathSep=";" property="sdk.mustella.files" refid="sdk.mustella.fileset"/>
+    	<taskdef name="namesToFile" classname="mustella.WriteFileNames" classpathref="flex.test.classpath"/>
+	<namesToFile list="${sdk.mustella.files}" file="${mustella.dir}/test_files.tmp"/>
+        <pathconvert pathSep=";" property="sdk.mustella.files" refid="sdk.mustella.fileset"/>
+	<delete file="testcases_notInserted.txt" />
+	<echo>TESTCASE CHECK and INSERT TO DB</echo>
+        <java classname="mustella.InsertTestcase" fork="${fork_compile}" resultproperty="jreturn">
+          <classpath refid="flex.test.classpath"/>
+          <sysproperty key="skipped_insert_file" value="${skipped_insert_file}" />
+          <sysproperty key="debug_insert" value="${debug_insert}" />
+          <sysproperty key="fix_it_mode" value="${fix_it_mode}" />
+          <sysproperty key="do_move" value="${do_move}" />
+          <sysproperty key="old_file" value="${old_file}" />
+          <arg path="${mustella.dir}/test_files.tmp"/>
+          <!-- arg path="${sdk.mustella.files}"/ -->
+	</java>
+	<echo message="value of jreturn: ${jreturn}" />
+
+
+	<!--- backwards? shouldn't it be not on the zero? -->
+	<condition property="do_send_check" value="true" >
+		<and>
+			<not>
+          		<equals arg1="${jreturn}" arg2="0"/>
+			</not>
+          		<equals arg1="${send_check_email}" arg2="true"/>
+		</and>
+	</condition>
+
+        <antcall target="sendCheckResults" />
+
+	<!-- NOT? -->
+	<condition property="exit_with_msg" value="true" >
+		<and>
+          		<equals arg1="${jreturn}" arg2="0"/>
+          		<equals arg1="${fail_on_testcase_check}" arg2="true"/>
+		</and>
+	</condition>
+
+	<antcall target="do_fail" >
+		<param name="msg" value="Testcase check failed." />
+	</antcall>
+
+	<echo>Return was okay from test case check</echo>
+
+    </target>
+
+    <target name="sendConfigFailure" if="exit_with_msg">
+	<echo file="${mustella.dir}/config.txt">Test Server: Config Failure (web server root) for ${host}</echo>
+	<java classname="utils.HtmlNotify">
+		<classpath refid="flex.test.classpath"/>
+		<arg value="${mustella.dir}/config.txt" />
+		<arg value="inner-relay-1.corp.adobe.com"/>
+	        <arg value="Mustella Config Check Failure - ${branch}" />
+		<arg value="mustella tester &lt;bolaughl@adobe.com&gt;"/>
+		<arg value="bolaughl@adobe.com" />
+	</java>
+    </target>
+
+    <property name="socket_mixin" value="" />
+
+    <!-- set this to false to use the swc -->
+    <property name="use_mustella_framework_dir" value="true" />
+    <property name="mustella_framework_dir" value="${mustella.dir}/as3/src/mustella" />
+
+    <property name="htmlDir" value="" />
+    <property name="test_files" value="" />
+
+    <condition property="user_args" value="" >
+	<not>
+		<isset property="user_args" />
+	</not>
+    </condition>
+
+
+    <!-- the default. Mini run will override this. Server runs will not -->
+    <property name="result_include" value="-includes=SendFormattedResultsToLog" />
+    <property name="exit_include" value="" />
+
+	<if>
+		<equals arg1="${run_mobile_tests}" arg2="true" />
+		<then>
+			<property name="get_results_from_log" value="true" />
+		</then>
+		<else>
+			<property name="get_results_from_log" value="" />
+		</else>
+	</if>
+
+    <property name="build_version" value="${server}" />
+
+    <target name="get_host_id" >
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+		output="${mustella.dir}/.host_id"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat("host_id=",id) from hosts where name='${hostname}'
+		]]>
+	</sql>
+    </target>
+
+    <target name="set_host_id" >
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+		output="${mustella.dir}/.host_id"
+    		password="${db_passwd}" >
+		<![CDATA[
+		insert into hosts (name) values ('${hostname}')
+		]]>
+	</sql>
+    </target>
+
+
+    <target name="set_db_sync_time" >
+	<!-- should have the sync time and db_time before calling this (getConfigId) and db_time -->
+
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+		output="${mustella.dir}/sync_time_file"
+    		password="${db_passwd}" >
+		<![CDATA[
+		insert into sync_times (sync_time, db_time, config_id) values ('${server_time}', '${db_time}', ${config_id} ) ON DUPLICATE KEY UPDATE sync_time=values(sync_time), db_time=values(db_time)
+		]]>
+	</sql>
+    </target>
+
+    <target name="get_db_sync_time" >
+	<!-- where to send the output? -->
+	<echo>output to ${arg.propertyfile}</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+		output="${mustella.dir}/sync_time_file"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat("server_time=",sync_time, ";", "db_time=", db_time, ";export server_time db_time") from sync_times where config_id=${config_id}
+		]]>
+	</sql>
+    </target>
+
+    <target name="fast_run_filesets" depends="get_os,setup_mac,setup_windows,setup_linux">
+
+        <fileset id="sdk.mustella.swffileset" dir="${sdk.mustella.dir}"
+            includes="${sdk.mustella.swfs}"
+            excludes="${sdk.mustella.excludes},**/Assets/**/*.swf,**/assets/**/*.swf" />
+
+	<property name="showit0" refid="sdk.mustella.swffileset" />
+	<echo>stuff: ${showit0}</echo>
+    </target>
+	
+
+
+    <target name="fast_compile_filesets" depends="get_os,setup_mac,setup_windows,setup_linux">
+
+	<property file="${basedir}/properties/mustella1.properties" />
+
+	<condition property="apollo_excludes" value="apollo/**/*.mxml" >
+		<not>
+			<istrue value="${use_apollo}" />
+		</not>
+	</condition>
+
+	<condition property="browser_excludes" value="browser/**/*.mxml" >
+		<not>
+			<istrue value="${use_browser}" />
+		</not>
+	</condition>
+
+
+	<condition property="apollo_excludes" value="apollo/**/*.mxml" >
+		<istrue value="${use_browser}" />
+	</condition>
+
+
+        <fileset id="sdk.mustella.fileset" dir="${sdk.mustella.dir}" 
+		includes="${sdk.mustella.includes}" 
+                excludes="${sdk.mustella.excludes},**/baselines/,**/Baselines/,**/comps/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf, ${browser_excludes},${apollo_excludes},${other.mustella.excludes},${apollo_specific_excludes}" >
+	
+        </fileset>
+	<property name="tmp.showfiles" refid="sdk.mustella.fileset" />
+	<echo file="${mustella.dir}/junk1a">${tmp.showfiles}</echo>
+	<echo>stuff: ${tmp.showfiles}</echo>
+    </target>
+
+
+    <target name="realCompile" depends="compilemustellaswc" description="- mxmlc call to compile mustella test swfs" if="sdk.mustella.includes">
+	    <delete quiet="true">
+		    <fileset dir="${sdk.dir}/frameworks/componentSmoke" includes="*.cache"/>
+	    </delete>
+        <property name="frameworks.dir" value="${mustella.dir}/../frameworks" />
+        <property name="mxmlc.dir" value="${sdk.dir}/bin" />
+        <!-- property name="mxmlc.exe" value="mxmlc.exe" / -->
+        <!-- remove? property name="pfchange" value="workspace" / -->
+        <pathconvert pathSep=";" property="sdk.mustella.mxmlfiles" refid="sdk.mustella.fileset"/>
+
+	<!-- echo>stuff we're passing into compile: ${sdk.mustella.mxmlfiles}</echo -->
+
+	<!-- echo>Shell is currently ${shell}</echo -->
+	<antcall target="shells" />
+
+	<!-- write the target files to a file -->
+    <taskdef name="namesToFile" classname="mustella.WriteFileNames" classpathref="flex.test.classpath"/>
+	<namesToFile list="${sdk.mustella.mxmlfiles}" file="${mustella.dir}/test_files.tmp"/>
+
+	<java classname="mustella.CompileMustellaSwfs" fork="${fork_compile}" resultproperty="jreturn" >
+		<classpath refid="flex.test.classpath"/>
+		<sysproperty key="mxmlcdir" value="${mxmlc.dir}" />
+		<sysproperty key="mxmlcexe" value="${mxmlc.exe}" />
+		<sysproperty key="sdk.mustella.dir" value="${sdk.mustella.dir}"/>
+		<sysproperty key="sdk.dir" value="${sdk.dir}"/>
+		<sysproperty key="mustella_framework_dir" value="${mustella_framework_dir}" />
+		<sysproperty key="run_id" value="${current.run.id}" />
+		<sysproperty key="frameworks" value="${frameworks.dir}" />
+		<sysproperty key="compc" value="${compc}" />
+		<sysproperty key="compcexe" value="${compc.exe}" />
+		<sysproperty key="strict" value="${strict}"/>
+		<sysproperty key="index" value="${index}"/>
+		<sysproperty key="compcdir" value="${compc.dir}" />
+		<sysproperty key="mxmlc.args" value="${mxmlc.args} -source-path=${mustella.dir}/Assets "/>
+		<sysproperty key="rsl" value="${rsl}" />
+		<sysproperty key="build" value="${build}"/>
+		<sysproperty key="debug" value="${debug}"/>
+		<sysproperty key="exit_on_compile_error" value="${exit_on_compile_error}" />
+		<sysproperty key="save_failures" value="${save_failures}" />
+		<sysproperty key="use_apollo" value="${use_apollo}" />
+		<sysproperty key="apollo_location" value="${apollo_location}" />
+		<sysproperty key="excludelibrarypath" value="${excludelibrarypath}"/>
+		<sysproperty key="external.librarypath" value="${external.librarypath}"/>
+		<sysproperty key="basedir" value="${mustella.dir}"/>
+		<sysproperty key="incremental" value="false" />
+		<sysproperty key="asclasspath" value="${asclasspath},${aschartspath}"/>
+		<sysproperty key="librarypath" value="${librarypath}"/>
+		<sysproperty key="coach" value="${coach}"/>
+		<sysproperty key="feature" value="${feature}"/>
+		<sysproperty key="run_this_script" value="${run_this_script}"/>
+		<sysproperty key="socket_mixin" value="${socket_mixin}" />
+		<sysproperty key="use_mustella_framework_dir" value="${use_mustella_framework_dir}" />
+		<sysproperty key="socket_mixin" value="${socket_mixin}" />
+		<sysproperty key="fork_compile" value="${fork_compile}" />
+		<sysproperty key="include_list" value="${include_list}" />
+		<sysproperty key="mustella.dir" value="${mustella.dir}" />
+		<sysproperty key="use_browser" value="${use_browser}" />
+		<sysproperty key="htmlDir" value="${htmlDir}" />
+		<sysproperty key="skip_exclude" value="${skip_exclude}" />
+		<sysproperty key="apollo_transform" value="${apollo_transform}" />
+		<sysproperty key="apollo_transform_template" value="${apollo_transform_template}" />
+		<sysproperty key="apollo_transform_prefix" value="${apollo_transform_prefix}" />
+		<sysproperty key="apollo_transform_prefix2" value="${apollo_transform_prefix2}" />
+		<sysproperty key="use_include_file" value="${use_include_file}" />
+		<sysproperty key="user_args" value="${user_args}" />
+		<sysproperty key="flex_version" value="${flex_version}" />
+		<sysproperty key="build_version" value="${build_version}" />
+		<sysproperty key="result_include" value="${result_include}" />
+		<sysproperty key="exit_include" value="${exit_include}" />
+		<sysproperty key="exclude_mixin" value="${exclude_mixin}" />
+		<sysproperty key="exclude_source_path" value="${exclude_source_path}" />
+		<sysproperty key="mustellaswc" value="${mustella.swc.dir}/${mustella.swc.name}" />
+		<sysproperty key="pmd" value="${pmd}" />
+		<sysproperty key="distributed" value="${distributed}" />
+		<sysproperty key="compile_dir" value="${compile_dir}" />
+		<sysproperty key="compile_id" value="${compile_id}" />
+		<sysproperty key="hostId" value="${hostId}" />
+		<sysproperty key="run_mobile_tests" value="${run_mobile_tests}" />		
+		<sysproperty key="device_name" value="${device_name}" />
+		<sysproperty key="target_os_name" value="${target_os_name}" />
+		<sysproperty key="os_version" value="${os_version}" />
+		<sysproperty key="exclude_filename" value="${exclude_filename}" />
+		<sysproperty key="adl_extras" value="${adl_extras}" />
+		<arg path="${mustella.dir}/test_files.tmp"/>
+	</java>
+
+	<echo message="compileswfs jreturn is ${jreturn}" />
+	<!-- handle the bad return -->
+
+	<condition property="always_send" value="true" >
+		<and>
+          		<equals arg1="${jreturn}" arg2="1"/>
+			<not>
+          		<equals arg1="${current.run.id}" arg2="-1"/>
+			</not>
+		</and>
+	</condition>
+
+	<condition property="exit_with_msg" value="true" >
+		<and>
+          		<equals arg1="${jreturn}" arg2="1"/>
+          		<equals arg1="${exit_on_compile_error}" arg2="true"/>
+		</and>
+	</condition>
+
+
+	<antcall target="do_fail" >
+		<param name="msg" value="SWF compile failed. Exiting" />
+	</antcall>
+
+
+    </target>
+
+    <target name="compileLite" depends="prepare,setup,getRunId,getExcludes,realCompile" description="- compile the mustella tests into swfs">
+
+	<antcall target="continue_always_send" />
+	<!-- consider if we want to use mustella as a swc? -->
+    </target>
+
+    <target name="continue_always_send" if="always_send" >
+	<antcall target="queryOnly" />
+	<antcall target="do_sendResults" />
+    </target>
+
+
+    <target name="zip_small"  depends="compileLite,zipLite" description="- compile/package subset of tests">
+    </target>
+
+    <target name="zipLite"  description="- package test swfs">
+
+	<!-- 	this should zip only the result of the compile; so we should call a shell script
+		to figure out the diff and only zip that. This, in short, becomes an exec
+	  -->	
+
+    </target>
+
+
+
+    <property name="testpkg" value="testpkg.zip" />
+
+    <target name="zipswfs"  depends="compileLite,ziponly" description="- package test swfs">
+    </target>
+
+    <target name="ziponly"  description="- package test swfs">
+
+	<!-- actual location should be build number(directory) with packages in it   -->
+	<property file="${mustella.dir}/successfulBuild.properties" />
+	<echo>This is the build I'm acting on ${server}</echo>
+	<mkdir dir="/tmp/flex/${server}" />
+	<zip destfile="/tmp/flex/${server}/${testpkg}" >
+		<fileset refid="sdk.mustella.swffileset" />
+	</zip>
+	<copy verbose="true" file="${mustella.dir}/successfulBuild.properties" todir="/tmp/flex" />
+    	<copy verbose="true" file="${mustella.dir}/${langZip}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${mustella.dir}/${mainZip}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${db_time_file}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${server_time_file}" todir="/tmp/flex/${server}" />
+
+    </target>
+
+
+
+
+    <property name="work_table" value="hurricane_work_list" />
+
+    <!-- hurricane, client side -->
+    <target name="zip_materials"  depends="get_db_time" description="- package test materials for hurricane run">
+
+	<property name="userid" value="${env.USER}" />
+
+
+	<!-- build a fileset -->
+	<!-- the includes should look like this: dir/**/*.* -->
+
+
+	<fileset id="sdk.mustella.fileset.send" dir="${sdk.mustella.dir}" 
+			includes="${sdk.mustella.includes.send}"  >
+	</fileset>
+
+	<property name="sh2" refid="sdk.mustella.fileset.send" />
+
+	<!-- a bit of debugging -->
+	<echo>fileset building with:  ${sdk.mustella.includes.send}</echo>
+	<echo>Result:</echo>
+	<echo>${sh2}</echo>
+	<echo> </echo>
+
+	<tstamp prefix="tmpf" >
+		<format pattern="MMddyyyy_hhmmss" property="file_suffix" />
+	</tstamp>
+
+	<property name="file_suffix" value="${tmpf.file_suffix}.${userid}.zip" />
+
+	<property name="tmp_send_file" value="send_mustella.${file_suffix}" />
+	<echo>the filename will be: ${tmp_send_file} </echo>
+
+	<delete failonerror="false" file="${mustella.dir}/${tmp_send_file}" />
+
+
+
+	<zip destfile="${mustella.dir}/${tmp_send_file}" >
+		<fileset refid="sdk.mustella.fileset.send"  />
+		<fileset dir="${sdk.mustella.dir}" file="${mustella.dir}/properties/mustella_tmp.properties" />
+	</zip>
+
+
+	<!-- now we send it via FTP -->
+	<!-- consider putting the user/pass into a separate properties file -->
+	<!-- the hurricane server has to have an ftp server. We're over it. -->
+	<ftp server="${hurricane_server}"
+		userid="${local_build_user}"
+		password="${local_build_password}"
+		remotedir="${branch}"
+		action="put"	
+		binary="yes"
+		verbose="true" >
+		<fileset file="${mustella.dir}/${tmp_send_file}" />
+	</ftp>
+
+
+	<!-- if that worked, put an entry in the database.
+	     The hurricane server will notice that.
+	-->
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}_settings"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		insert into ${work_table} (zip_name, submitter, submitted, branch) values ('${tmp_send_file}',  '${user.name}', '${db_time}', '${branch_name}')
+		]]>
+	</sql>
+	
+    </target>
+    
+    <property name="hurricane_output_file" value="${mustella.dir}/hurricane_work_file" />
+
+
+    <!-- hurricane, server side -->
+    <target name="get_hurricane_work" depends="get_db_time">
+
+
+	<!-- the update can accompany the select. if there's nothing to select, 
+	there's nothing to update. 
+	-->
+
+	<sql driver="com.mysql.jdbc.Driver"
+		onerror="continue"
+		url="${db_url}_settings"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${hurricane_output_file}"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat("zip_file=", zip_name) from ${work_table} where branch="${branch_name}" and processed=0 limit 1;
+		update ${work_table} set processed = 1, grabbed="${db_time}" where branch="${branch_name}" and processed=0 limit 1;
+		]]>
+	</sql>
+
+	<!-- it would be nice to fail on exit if there are zero rows -->
+	<!-- check if zip_file is set and exit with an error if it isn't -->
+	<property file="${hurricane_output_file}" />	
+
+
+	<condition property="exit_with_msg" value="true" >
+		<not>
+		<isset property="zip_file" />
+		</not>
+	</condition>
+
+	<antcall target="do_fail" >
+		<param name="msg" value="No hurricane work to do, exiting" />
+	</antcall>
+
+    </target>
+
+
+    <target name="update_volatiles" >
+
+	<!-- check for a latest full test run -->
+	<property prefix="current.win." file="${mustella.dir}/external/win.runid.properties" />
+	<property prefix="current.mac." file="${mustella.dir}/external/mac.runid.properties" />
+
+
+	<antcall target="fetch_old_runid">
+		<param name="arg.propertyfile" value="${mustella.dir}/external/win.runid.properties.tmp" />
+		<param name="arg.os" value="%Windows%" />
+	</antcall>
+
+	<antcall target="fetch_old_runid">
+		<param name="arg.propertyfile" value="${mustella.dir}/external/mac.runid.properties.tmp" />
+		<param name="arg.os" value="%Mac%" />
+	</antcall>
+
+	<property file="${mustella.dir}/external/win.runid.properties.tmp" prefix="win."/>
+	<property file="${mustella.dir}/external/mac.runid.properties.tmp" prefix="mac."/>
+
+	<echo>compare arg1="${current.win.run_id}" arg2="${win.run_id}"</echo>
+	<echo>compare arg1="${current.mac.run_id}" arg2="${mac.run_id}"</echo>
+
+
+	<condition property="update_excludes" value="true" >
+		<or>
+		<not>
+		<equals arg1="${current.win.run_id}" arg2="${win.run_id}" />
+		</not>
+		<not>
+		<equals arg1="${current.mac.run_id}" arg2="${mac.run_id}" />
+		</not>
+		</or>
+	</condition>
+
+
+	<!-- call the excludes/failures guy for win -->
+	<antcall target="do_excludes_update">
+		<param name="arg.excludes_filename" value="${mustella.dir}/external/ExcludeListWin.txt" />
+		<param name="arg.failures_filename" value="${mustella.dir}/external/failures.win.out" />
+		<param name="arg.runid_filename" value="${mustella.dir}/external/win.runid.properties" />
+		<param name="arg.run_id" value="${win.run_id}" />
+		<param name="arg.prefix" value="win.db." />
+		<param name="arg.target_os_name" value="windows" />
+	</antcall>
+
+
+	<!-- call the excludes/failures guy for mac -->
+	<antcall target="do_excludes_update">
+		<param name="arg.excludes_filename" value="${mustella.dir}/external/ExcludeListMac.txt" />
+		<param name="arg.failures_filename" value="${mustella.dir}/external/failures.mac.out" />
+		<param name="arg.runid_filename" value="${mustella.dir}/external/mac.runid.properties" />
+		<param name="arg.run_id" value="${mac.run_id}" />
+		<param name="arg.prefix" value="mac.db." />
+		<param name="arg.target_os_name" value="mac" />
+	</antcall>
+
+
+	<uptodate property="jar_not_needed" targetfile="${mustella.dir}/external/mustella.jar">
+		<srcfiles dir="${mustella.dir}/src/" includes="mustella/*.java,utils/*.java" />
+	</uptodate>
+
+
+	<echo>Jar update not needed? ${jar_not_needed}</echo>
+
+	<antcall target="do_jar_update" />
+
+	<uptodate property="swc_not_needed" targetfile="${mustella.dir}/external/mustella.swc">
+		<srcfiles dir="${mustella.dir}/frameworks/mustella/" includes="*.as" />
+	</uptodate>
+
+	<echo>SWC update not needed? ${swc_not_needed}</echo>
+
+	<antcall target="do_swc_update" />
+
+
+
+	<!-- check in whatever is new -->
+	<p4change description="updates for excludes,failures,etc " />
+	<echo> p4change: ${p4.change}</echo>
+
+	<!-- p4reopen tochange="${p4.change}" view="//depot/flex/qa/sdk/testsuites/mustella/external/..." / -->
+	<p4edit change="${p4.change}" view="//depot/flex/qa/sdk/testsuites/mustella/external/..." />
+	<p4revert revertOnlyUnchanged="true" change="${p4.change}" />
+	<p4submit change="${p4.change}" />
+
+    </target>
+
+    <target name="fetch_old_runid" >
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+		output="${arg.propertyfile}"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat("run_id=", id) from test_runs where run_type="" and branch="Mainline" and os like '${arg.os}' order by id desc limit 1
+		]]>
+	</sql>
+
+    </target>
+
+
+    <target name="do_excludes_update" if="update_excludes" >
+
+
+	<copy overwrite="true" verbose="true" file="${arg.runid_filename}.tmp" tofile="${arg.runid_filename}" />
+
+
+	<echo>Doing excludes update</echo>
+	<!-- get the timestamp from that run -->
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+		output="${mustella.dir}/.db.time.properties"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat("db_time=", time) from test_runs where id = ${arg.run_id}
+		]]>
+	</sql>
+
+	<property file="${mustella.dir}/.db.time.properties" prefix="tmp." />
+
+	<!-- this target is called excludeFromRunId, but what it does is fetch the failures from a run -->
+	<antcall target="excludeFromRunId" >
+		<param name="failures_filename" value="${arg.failures_filename}" />
+		<param name="current.run.id" value="${arg.run_id}" />
+	</antcall>
+
+	<!-- get the actual excludes -->
+	<antcall target="getExcludes" >
+		<param name="exclude_filename" value="${arg.excludes_filename}" />
+		<param name="db_time" value="${tmp.db_time}" />
+	</antcall>
+
+
+    </target>
+
+
+
+    <target name="do_jar_update" unless="jar_not_needed" >
+
+	<delete verbose="true" file="${mustella.dir}/external/mustella.jar" />
+	<jar basedir="${mustella.dir}/classes" destfile="${mustella.dir}/external/mustella.jar" includes="mustella/*.class,utils/*.class"/>
+
+
+    </target>
+
+    <target name="do_swc_update" unless="swc_not_needed" >
+
+	<!-- this call needs some variables set setup, so, say excludes are done to avoid that nested call -->
+	<antcall target="makemustellaswc"  >
+		<param name="excludes_done" value="true" />
+	</antcall>
+	<copy overwrite="true" verbose="true" file="${mustella.dir}/${mustella.swc.name}" todir="${mustella.dir}/external" />
+
+    </target>
+
+
+
+    <!-- this target can be run after a regular, full test run, to pkg tests, excludes, and a failure list -->
+    <target name="zip_tests_only"  depends="makemustellaswc" description="- package tests,jars,excludes, and results">
+
+	<!-- assumption: we have a runid; we need it to get the failures relevant to the current build -->
+	<property file="${mustella.dir}/tests/runid.properties" />
+	<property name="current.run.id" value="${run_id}" />
+
+	<echo>run id is ${current.run.id} </echo>
+
+	<!-- we need a list of the failures from our run -->
+	<antcall target="excludeFromRunId" />
+
+	<!-- must invoke this with use_mustella_framework_dir=false to get a new mustella.swc built -->
+
+	<!-- make the classes into a jar -->
+	<jar basedir="${mustella.dir}/classes" destfile="${mustella.dir}/lib/mustella.jar" includes="mustella/*.class,utils/*.class"/>
+
+
+	<!-- write a properties file to be used by those running from jars and the mustella.swc and using an
+	     already fetched set of excludes
+	-->
+
+	<echo file="${mustella.dir}/${external_properties}" append="false">already_prepared=true</echo>
+	<propertyfile file="${mustella.dir}/${external_properties}" >
+		<entry key="excludes_done" value="true" />
+		<entry key="use_mustella_framework_dir" value="false" />
+		<entry key="current.run.id" value="-1" />
+	</propertyfile>
+
+
+	<!-- java stuff, properties, and the mustella swc -->
+        <fileset id="fwkstuff" dir="${mustella.dir}" >
+		<!-- include name="build.xml" / -->
+		<include name="lib/mustella.jar" />
+		<include name="properties/mustella1.properties" />
+		<include name="properties/mustella_tier1.properties" />
+	</fileset>
+
+
+	<antcall target="server_time" />
+	<copy verbose="true" file="/tmp/.server.time.vetting" tofile="${mustella.dir}/.server.time" />
+
+	<fileset id="testdiritself" dir="${mustella.dir}"  >
+		<include name="sdk/testsuites/mustella/**" />
+		<exclude name="**/*.log" />
+		<exclude name="sdk/testsuites/mustella/build/flex_sdk_?.zip" />
+		<exclude name="sdk/testsuites/mustella/flex_sdk_?.zip" />
+		<exclude name="sdk/testsuites/mustella/flex_sdk_locales.zip" />
+		<exclude name="sdk/testsuites/mustella/local.properties" />
+		<exclude name="sdk/testsuites/mustella/chart.license.properties" />
+		<exclude name="sdk/testsuites/mustella/build.properties" />
+		<exclude name="sdk/testsuites/mustella/aik.xml" />
+		<exclude name="sdk/testsuites/mustella/make_incr_zip.sh" />
+		<exclude name="**/*.swf" />
+		<exclude name="**/testpkg.zip" />
+		<exclude name="sdk/testsuites/mustella/build/**" />
+	</fileset>
+
+
+	<!-- actual location should be build number(directory) with packages in it   -->
+	<property file="${mustella.dir}/successfulBuild.properties" />
+	<echo>This is the build I'm acting on ${server}</echo>
+	<delete file="${mustella.dir}/${testpkg}" failonerror="false" quiet="false" />
+	<zip destfile="${mustella.dir}/${testpkg}" >
+		<fileset refid="fwkstuff" />
+		<fileset refid="testdiritself" />
+	</zip>
+	<!-- copy verbose="true" file="${mustella.dir}/successfulBuild.properties" todir="/tmp/flex" />
+    	<copy verbose="true" file="${mustella.dir}/${langZip}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${mustella.dir}/${mainZip}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${db_time_file}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${server_time_file}" todir="/tmp/flex/${server}" / -->
+
+
+	<delete file="${mustella.dir}/${external_properties}" />
+
+    </target>
+
+
+    <target name="sendCompileResults" depends="zipswfs" description="- compile tests into swfs, notify of issues">
+	<!-- since the run is effectively complete for this kind of invocation, send failing issues -->
+    </target>
+
+    <target name="unzipSwfs" description="Unzip previously compiled test swfs" >
+
+        <unzip src="${mustella.dir}/${testpkg}" dest="${mustella.dir}/tests" />
+
+    </target>
+
+
+    <!-- compileswfs is for mini_run or runs that do their own compiles -->
+    <!-- AJH <target name="compileswfs" depends="prepare,setup,getRunId,getExcludes,realCompile" description="- compile the mustella tests into swfs" > -->
+    <target name="compileswfs" depends="prepare,setup,getRunId,realCompile" description="- compile the mustella tests into swfs" >
+    </target>
+
+    <property name="shell_include_file" value="" />
+    <property name="browser_prefix" value="http://localhost" />
+
+
+    <target name="note_finish" >
+	<echo>${my_whoami} is done</echo>
+    </target>
+
+    <!-- pmd runners call this before calling justrun to create the swf fileset 
+	 they supply the directories via file?
+we could have pmd_doler do the dir split and write property files (per user) 
+    -->
+
+    <target name="pmd_all_swf_set_maker" >
+	<property file="${sdk.mustella.dir}/${pmd_runner_file}" />
+        <fileset id="sdk.mustella.swffileset" dir="${sdk.mustella.dir}"
+            includes="**/*.swf"
+            excludes="${sdk.mustella.excludes},**/Assets/**/*.swf,**/assets/**/*.swf" />
+
+	<pathconvert pathSep=";" dirSep="/" property="them_swfs" refid="sdk.mustella.swffileset"/>
+	<!-- property name="them_swfs" refid="sdk.mustella.swffileset" />
+		<echo>swfs: ${them_swfs}</echo -->
+    </target>
+
+
+	  
+	    <!-- a sub runner calls this to build a fileset of the swfs and run them --> 
+    <target name="pmd0" >
+		<property file="${sdk.mustella.dir}/runid.properties" />
+		<property name="current.run.id" value="${run_id}" />
+		<echo>pmd0 gets ${current.run.id} from ${sdk.mustella.dir}/runid.properties from value ${run_id}</echo>
+    </target>
+
+    <target name="PMD_Runner" depends="pmd0,prepare,setup,justrun,note_finish" >
+    </target>
+
+    <property name="retry_failures_file" value="${mustella.dir}/tmp_failures.txt" />
+
+    <target name="retry_failures" unless="skip_retry_failures" >
+  	<!-- for pmd, get the list of failures, figure out which swfs and rerun them
+                select concat(test_file, " ", test_id) from orphaned_results where result=1 and test_run = ${runId};
+	-->
+        <sql driver="com.mysql.jdbc.Driver"
+                onerror="continue"
+                url="${db_url}"
+                userid="mustella"
+                classpathref="flex.test.classpath"
+                print="true"
+                output="${retry_failures_file}"
+                showheaders="false"
+                password="${db_passwd}" >
+                <![CDATA[
+		select test_files.dir_name, swf_file from results,test_cases,test_files where results.test_case = test_cases.id and results.test_run = ${current.run.id} and test_cases.test_dir = test_files.id and results.result=1
+               ]]>
+        </sql>
+        <replaceregexp file="${retry_failures_file}"
+                match=".mxml" replace=".swf" flags="g"/>
+
+        <replaceregexp file="${retry_failures_file}"
+                match="../SWFs/" replace="" flags="g"/>
+
+	<replaceregexp file="${retry_failures_file}"
+		match=".*rows affected" replace="" flags="g"/>
+
+
+	<exec osfamily="windows" executable="gawk.exe" dir="/cygwin/bin" output="${retry_failures_file}.tmp">
+		<arg value="-f" />
+		<arg value="${mustella.dir}/fix.awk"  />
+		<arg value="${retry_failures_file}"  />
+	</exec>
+
+	<exec osfamily="mac" executable="awk" dir="/bin" output="${retry_failures_file}.tmp">
+		<arg value="-f" />
+		<arg value="${mustella.dir}/fix.awk"  />
+		<arg value="${retry_failures_file}"  />
+	</exec>
+
+	<!-- test that there are any files to re-run (and not too many) -->
+	<!-- if the re-run list size is zero, fileset will match everything.  -->
+	<condition property="found_failures_to_retry0" value="true" >
+		<length file="${retry_failures_file}.tmp" when="greater" length="5" />
+	</condition>
+
+
+	<!-- check if there are too many retry swfs. at some point, it's not worth it -->
+    	<if>
+		<equals arg1="true" arg2="${found_failures_to_retry0}"/>
+		<then>
+
+        	<fileset id="sdk.mustella.swffileset" dir="${sdk.mustella.dir}"
+           		excludes="${sdk.mustella.excludes},**/*.log,**/*.png,**/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf" 
+			includesfile="${retry_failures_file}.tmp" >
+		</fileset>
+
+		<!-- if the number of swfs is to great, skip the retry -->
+		<condition property="found_failures_to_retry1" value="true" >
+			<resourcecount count="30" when="lt">
+        			<fileset refid="sdk.mustella.swffileset" />
+			</resourcecount>
+		</condition>
+		</then>
+
+		<else>
+			<echo>no failures to retry</echo>	
+		</else>
+
+	</if>
+
+
+	<!-- set to false if we fall through here -->
+	<property name="found_failures_to_retry1" value="false" />
+	
+
+	<echo> retry check: any to run? ${found_failures_to_retry0} </echo>
+	<echo> retry check: not too many? ${found_failures_to_retry1} </echo>
+
+
+    	<if>
+		<equals arg1="true" arg2="${found_failures_to_retry1}"/>
+		<then>
+
+		<!-- show things, in any case -->
+		<property name="showset" refid="sdk.mustella.swffileset" />
+		<echo>${showset}</echo>
+
+		<!-- re-set out the failures -->
+
+                <sql driver="com.mysql.jdbc.Driver"
+               	 onerror="continue"
+                url="${db_url}"
+                userid="mustella"
+                classpathref="flex.test.classpath"
+                print="true"
+                output="${mustella.dir}/out.delete"
+                showheaders="false"
+                password="${db_passwd}" >
+                <![CDATA[
+		delete from results where test_run = ${current.run.id} and result=1
+               ]]>
+        	</sql>
+
+		<!-- count items (for posterity) -->
+		<resourcecount property="number_reran" refid="sdk.mustella.swffileset">
+		</resourcecount>
+
+		<echo>number reran=${number_reran}</echo>
+
+		<!-- remove "Timed out" failures if we're re-running a swf that timed out  -->
+		<antcall target="clean_overlapping">
+		</antcall>
+
+		<!-- rerun  -->
+		<!-- antcall just run with pmd NOT true so it will loop normally -->
+		<antcall target="justrun">
+		<param name="pmd" value="false" />
+		<param name="db_time_vetting_file" value="/tmp/.db.time.mini" />
+		</antcall>
+		
+		</then>
+		<else>
+			<property name="number_reran" value="0" />
+			<!-- if it never entered the Runner, it won't note an end
+			     so put a timestamp on the end run 
+			-->
+			<antcall target="update_milestones2" >
+				<param name="skip_retry_failures" value="true" />
+			</antcall>
+
+		</else>
+	</if>
+
+    </target>
+
+    <target name="test_clean_overlapping" >
+	<!-- just a test target -->
+        <fileset id="sdk.mustella.swffileset" dir="${sdk.mustella.dir}"
+            	excludes="${sdk.mustella.excludes},**/*.log,**/*.png,**/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf" 
+			includesfile="${retry_failures_file}.tmp" >
+	</fileset>
+		<property name="showset.swfs" refid="sdk.mustella.swffileset" />
+		<echo>${showset.swfs}</echo>
+	<java classname="mustella.RetryCleaner" failonerror="true" fork="true" dir="${mustella.dir}">
+		<classpath refid="flex.test.classpath"/>
+		<sysproperty key="run_id" value="${current.run.id}" />
+		<arg value="${showset.swfs}"/>
+		<!-- arg path="${sdk.mustella.swffiles}"/ -->
+	</java>
+    </target>
+
+    <!-- wip call this from retry guy-->
+    <target name="clean_overlapping" >
+	<property name="showset.swfs" refid="sdk.mustella.swffileset" />
+	<java classname="mustella.RetryCleaner" failonerror="true" fork="false">
+		<classpath refid="flex.test.classpath"/>
+		<sysproperty key="run_id" value="${current.run.id}" />
+		<arg value="${showset.swfs}"/>
+	</java>
+    </target>
+
+    <property name="runner_fork" value="false" />
+
+    <target name="justrun" if="sdk.mustella.includes">
+	<property name="frameworks.dir" value="${sdk.dir}/frameworks" />
+	<property name="mxmlc.dir" value="${sdk.dir}/bin" />
+	<property name="mxmlc.exe" value="mxmlc.exe" />
+	<property name="pfchange" value="workspace" />
+	<!--- I'm thinking it will be okay because this will be set already -->
+	<pathconvert pathSep=";" dirSep="/" property="sdk.mustella.swffiles" refid="sdk.mustella.swffileset"/>
+	<!-- echo message="the player ${player}" / -->
+	<chmod file="${player}" perm="777"/>
+
+
+	<!-- be safe, clear the cache (in pmd, each user must do this) -->
+	<!-- some of these targets won't exist  -->
+	<!-- mac -->
+	<antcall target="delete_cache">
+		<param name="directory" value="/Users/${env.USER}/Library/Caches/Adobe/Flash Player/AssetCache" />
+	</antcall>
+	<!-- win 7 -->
+	<antcall target="delete_cache">
+		<param name="directory" value="/Users/${env.USER}/AppData/Roaming/Adobe/Flash Player/AssetCache" />
+	</antcall>
+	<!-- older win -->
+	<antcall target="delete_cache">
+		<param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
+	</antcall>
+
+	<if>
+		<equals arg1="${use_android_runner}" arg2="true" />
+			<then>
+				<echo message="**** Willkommen auf AndroidRunner ****" />
+				<java classname="mustella.AndroidRunner" failonerror="true" fork="false">
+					<classpath refid="flex.test.classpath"/>
+					<classpath refid="sdk.lib.classpath"/>
+					<sysproperty key="runtime_apk" value="${runtime_apk}" />
+					<sysproperty key="android_sdk" value="${android_sdk}" />
+					<sysproperty key="clean_devices" value="${clean_devices}" />
+					<sysproperty key="debug" value="true" />
+					<sysproperty key="device_name" value="${device_name}" />
+					<sysproperty key="get_results_from_log" value="${get_results_from_log}" />
+					<sysproperty key="hostId" value="${hostId}" />
+					<sysproperty key="htmlDir" value="${htmlDir}" />
+					<sysproperty key="insert_results" value="${insert_results}" />
+					<sysproperty key="mustella" value="${mustella.dir}"/>
+					<sysproperty key="pmd" value="${pmd}" />
+					<sysproperty key="port" value="${port}" />
+					<sysproperty key="print_passes" value="${print_passes}" />
+					<sysproperty key="run_dir" value="${run_dir}" />
+					<sysproperty key="run_id" value="${current.run.id}" />
+					<sysproperty key="sdk.dir" value="${sdk.dir}"/>
+					<sysproperty key="air_sdk_dir" value="${air.sdk.dir}"/>
+					<sysproperty key="classes_dir" value="${classes.dir}"/>
+					<sysproperty key="shell_swf" value="${shell_swf}" />
+					<sysproperty key="shell_swf_prefix" value="${shell_swf_prefix}" />
+					<sysproperty key="step_timeout" value="${step_timeout}" />
+					<sysproperty key="timeout" value="${player.timeout}"/>
+					<sysproperty key="url_suffix" value="${url_suffix}" />
+					<sysproperty key="use_apollo" value="${use_apollo}" />
+					<sysproperty key="use_browser" value="${use_browser}" />
+					<sysproperty key="exclude_file" value="${exclude_filename}" />
+					<sysproperty key="keep_air" value="${keep_air}" />
+					<sysproperty key="android_ids" value="${android_ids}" />
+					<sysproperty key="rerun" value="${rerun_property}" />
+					<sysproperty key="runtimeApk" value="${runtimeApk}" />
+					<arg path="${sdk.mustella.swffiles}"/>
+				</java>
+			</then>
+		<elseif>
+			<equals arg1="${use_ios_runner}" arg2="true" />
+			<then>
+				<echo message="**** Willkommen auf IOSRunner ****" />
+				<java classname="mustella.IOSRunner" failonerror="true" fork="false">
+					<classpath refid="flex.test.classpath"/>
+					<sysproperty key="clean_devices" value="${clean_devices}" />
+					<sysproperty key="debug" value="false" />
+					<sysproperty key="device_name" value="${device_name}" />
+					<sysproperty key="hostId" value="${hostId}" />
+					<sysproperty key="insert_results" value="${insert_results}" />
+					<sysproperty key="mustella" value="${mustella.dir}"/>
+					<sysproperty key="print_passes" value="${print_passes}" />
+					<sysproperty key="run_dir" value="${run_dir}" />
+					<sysproperty key="run_id" value="${current.run.id}" />
+					<sysproperty key="step_timeout" value="${step_timeout}" />
+					<sysproperty key="timeout" value="${player.timeout}"/>
+					<sysproperty key="launch_timeout" value="${launch_timeout}" />
+					<sysproperty key="use_apollo" value="${use_apollo}" />
+					<sysproperty key="exclude_file" value="${exclude_filename}" />
+					<sysproperty key="keep_air" value="${keep_air}" />
+					<sysproperty key="sdk.dir" value="${sdk.dir}"/>
+					<sysproperty key="air_sdk_dir" value="${air.sdk.dir}"/>
+					<sysproperty key="adt_target" value="${adt_target}" />
+					<sysproperty key="adt_interpreter" value="${adt_interpreter}" />
+					<sysproperty key="concurrent_packagers" value="${concurrent_packagers}" />
+					<sysproperty key="rerun" value="${rerun_property}" />
+					<arg path="${sdk.mustella.swffiles}"/>
+				</java>
+			</then>
+		</elseif>
+		<elseif>
+			<equals arg1="${use_qnx_runner}" arg2="true" />
+			<then>
+				<echo message="**** Willkommen auf QNXRunner ****" />
+				<echo message="Copying QNX Tools..." />
+				<copy todir="${sdk.dir}/bin">
+				  <fileset dir="${qnx_sdk_dir}/bin"/>
+				</copy>
+				<copy todir="${sdk.dir}/lib">
+				  <fileset dir="${qnx_sdk_dir}/lib"/>
+				</copy>
+				<copy todir="${sdk.dir}/samples/icons">
+				  <fileset dir="${qnx_sdk_dir}/samples/icons"/>
+				</copy>
+				<echo message="Done." />
+				<chmod perm="777" verbose="true" dir="${sdk.dir}/bin" includes="blackberry-*"/>
+				<java classname="mustella.QNXRunner" failonerror="true" fork="false">
+					<classpath refid="flex.test.classpath"/>
+					<sysproperty key="debug" value="true" />
+					<sysproperty key="device_name" value="${device_name}" />
+					<sysproperty key="hostId" value="${hostId}" />
+					<sysproperty key="insert_results" value="${insert_results}" />
+					<sysproperty key="mustella" value="${mustella.dir}"/>
+					<sysproperty key="print_passes" value="${print_passes}" />
+					<sysproperty key="run_dir" value="${run_dir}" />
+					<sysproperty key="run_id" value="${current.run.id}" />
+					<sysproperty key="step_timeout" value="${step_timeout}" />
+					<sysproperty key="timeout" value="${player.timeout}"/>
+					<sysproperty key="use_apollo" value="${use_apollo}" />
+					<sysproperty key="exclude_file" value="${exclude_filename}" />
+					<sysproperty key="keep_air" value="${keep_air}" />
+					<sysproperty key="sdk.dir" value="${sdk.dir}"/>
+					<sysproperty key="qnx_sdk_dir" value="${qnx_sdk_dir}"/>
+					<sysproperty key="use_qnx_native_packager" value="${use_qnx_native_packager}"/>
+					<sysproperty key="qnx_air_runtime_dir" value="${qnx_air_runtime_dir}"/>
+					<sysproperty key="qnx_launch_script" value="${qnx_launch_script}"/>
+					<sysproperty key="qnx_device_ip" value="${qnx_device_ip}"/>
+					<sysproperty key="qnx_device_password" value="${qnx_device_password}"/>
+					<sysproperty key="qnx_cmdline_user" value="${qnx_cmdline_user}"/>
+					<sysproperty key="qnx_cmdline_password" value="${qnx_cmdline_password}"/>
+					<arg path="${sdk.mustella.swffiles}"/>
+				</java>
+			</then>
+		</elseif>
+		<else>
+			<echo message="**** Willkommen auf Runner ****" />
+			<java classname="mustella.Runner" failonerror="true" fork="${runner_fork}">
+				<classpath refid="flex.test.classpath"/>
+				<!-- enable java remote debugging
+				<jvmarg value="-Xdebug"/>
+				<jvmarg value="-Xnoagent"/>
+				<jvmarg value="-Djava.compiler=NONE"/>
+				<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
+				-->
+				<sysproperty key="debug" value="true" />
+				<sysproperty key="mxmlcdir" value="${mxmlc.dir}" />
+				<sysproperty key="mxmlcexe" value="${mxmlc.exe}" />
+				<sysproperty key="frameworks" value="${frameworks.dir}" />
+				<sysproperty key="player" value="${player}" />
+				<sysproperty key="run_id" value="${current.run.id}" />
+				<sysproperty key="browser" value="${browser}" />
+				<sysproperty key="use_browser" value="${use_browser}" />
+				<sysproperty key="print_passes" value="${print_passes}" />
+				<sysproperty key="timeout" value="${player.timeout}"/>
+				<sysproperty key="mustella" value="${mustella.dir}"/>
+				<sysproperty key="sdk.dir" value="${sdk.dir}"/>
+				<sysproperty key="insert_results" value="${insert_results}" />
+				<sysproperty key="okay_to_exit" value="${okay_to_exit}" />
+				<sysproperty key="use_apollo" value="${use_apollo}" />
+				<sysproperty key="apollo_location" value="${apollo_location}" />
+				<sysproperty key="apollo_exe" value="${apollo_exe}" />
+				<sysproperty key="mustella.dir" value="${mustella.dir}" />
+				<sysproperty key="port" value="${port}" />
+				<sysproperty key="baseline_port" value="${baseline_port}" />
+				<sysproperty key="get_results_from_log" value="${get_results_from_log}" />
+				<sysproperty key="xmlnsVal" value="${xmlnsVal}" />
+				<sysproperty key="keep_air" value="${keep_air}" />
+				<sysproperty key="shell_swf" value="${shell_swf}" />
+				<sysproperty key="shell_swf_prefix" value="${shell_swf_prefix}" />
+				<sysproperty key="browser_prefix" value="${browser_prefix}" />
+				<sysproperty key="htmlDir" value="${htmlDir}" />
+				<sysproperty key="step_timeout" value="${step_timeout}" />
+				<sysproperty key="distributed" value="${distributed}" />
+				<sysproperty key="pmd" value="${pmd}" />
+				<sysproperty key="run_dir" value="${run_dir}" />
+				<sysproperty key="hostId" value="${hostId}" />
+				<sysproperty key="url_suffix" value="${url_suffix}" />
+				<sysproperty key="coverage_timeout" value="${coverage_timeout}" />
+				<sysproperty key="adl_extras" value="${adl_extras}" />
+				<sysproperty key="prevent_baseline_server" value="${prevent_baseline_server}" />				
+				<arg path="${sdk.mustella.swffiles}"/>
+			</java>
+		</else>
+	</if>
+    </target>
+
+    <target name="rerun" depends="setrerun,prepare,setup,justrun" >
+    </target>
+
+	<target name="setrerun">
+		<property name="rerun_property" value="true" />
+	</target>
+		
+    <target name="dedicatedRun" depends="prepare,setup,getRunId,getExcludes,populateExcludeTable,unzipSwfs,justrun" >
+    </target>
+
+    <target name="run" depends="clean,prepare,setup,cleanswfs,compileswfs,getRunId,getExcludes,populateExcludeTable,justrun" description="-->run tests">
+    </target>
+
+
+    <!-- the swffileset would already be set in the main caller, so so the main guy (who calls runPMD) runs nothing
+         only waits for other runners to do the work. less painful way to dole out the work
+     -->
+    <target name="debugrunPMD" depends="clean,prepare,setup,cleanswfs,compileswfs" />
+
+    <target name="runPMD" depends="clean,prepare,setup,cleanswfs,compileswfs,getRunId,getExcludes,populateExcludeTable,dolePMD,waitPMD,retry_failures,update_milestones" description="-->run tests">
+    </target>
+
+
+    <property name="tmp_exclude_script" value="exclude_tmp.sh" />
+
+    <target name="genExcludeScript" >
+	<echo message="Hello from gen Excludes Script" />
+        <java classname="mustella.GenExcludes">
+          <classpath refid="flex.test.classpath"/>
+          <sysproperty key="run_id" value="${current.run.id}" />
+          <sysproperty key="bug_id" value="${bug_id}" />
+          <sysproperty key="exclude_id" value="${exclude_id}" />
+          <sysproperty key="outfile" value="${tmp_exclude_script}" />
+	</java>
+    </target>
+
+
+    <target name="showExcludeIds">
+	<echo>os	runtime	browser	branch</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat_ws('\t', id, os,runtime, browser,branch ) from exclude_config;
+		]]>
+	</sql>
+    </target>
+
+    <target name="showExcludedCases">
+	<echo>test_file	test_id	date_begin	exclude_config_id</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="true"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select concat_ws('\t', test_file, test_id, date_begin, exclude_config_id) from excludes, test_cases where test_cases.id = excludes.testcase_id and date_end = 0 and excludes.bug_id = '${bug_id}%';
+		select concat_ws('\t', file_name, date_begin, exclude_config_id) from excludes_files, test_files where test_files.id = excludes_files.test_file_id and date_end = 0 and excludes_files.bug_id = '${bug_id}%';
+		]]>
+	</sql>
+    </target>
+
+
+    <property name="tmp_error_files" value="${mustella.dir}/.errors_tmp" />
+
+    <!-- given a list of test files (and other exclude relevancies), create new excludes in excludes_files table -->
+    <target name="insertFileWiseExcludes" depends="get_db_time">
+    <!-- depends on excludeFileWise. It's possible we would want to decouple them? -->
+
+	<loadfile srcFile="${tmp_error_files}" property="tmp_file_list" >
+		<filterchain>
+			<linecontains negate="true">
+  			<contains value="rows affected"/>
+			</linecontains>
+			<ignoreblank/>
+			<replaceregex pattern="^" replace="'" />
+			<replaceregex pattern="$" replace="'" />
+			<prefixlines prefix=" "/>
+			<striplinebreaks/>
+			<replaceregex pattern="' '" replace="', '" flags="g"/>
+		</filterchain>
+	</loadfile>
+	<echo>insert into excludes_files (bug_id, date_begin, exclude_config_id, test_file_id) select '${bug_id}', '${DB_TIME}', "${exclude_id}", id from test_files where file_name in (${tmp_file_list});</echo>
+
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		insert into excludes_files (bug_id, date_begin, exclude_config_id, test_file_id) select '${bug_id}', '${DB_TIME}', "${exclude_id}", id from test_files where file_name in (${tmp_file_list});
+		]]>
+	</sql>
+
+    </target>
+
+    <target name="findFileWiseErrors" >
+
+	<echo>exclude a test  file</echo>
+	<echo>exclude a file, bug id ${bug_id}</echo>
+	<echo>exclude a file, exclude id ${exclude_id}</echo>
+	<echo>exclude a file, the test_file is ${test_file}</echo>
+
+	<!-- take the name of a file, find its db connection, insert it -->
+	<echo>tmp_filename is ${mustella.dir}/tmpexc</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${tmp_error_files}"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+
+		select distinct(test_file) from test_cases where swf_file in (select substring_index(test_file, '/', -1) from errors where test_run = ${current.run.id})
+
+               ]]>
+	</sql>
+
+    </target>
+
+    <target name="tmp_getNonCompilingFiles" >
+		<!-- this will give a list of the files pointed to in errors.
+		select distinct(test_file) from test_cases where swf_file in (select substring_index(test_file, '/', -1) from errors where test_run = 8579)
+
+		-->
+
+    </target>
+
+    <target name="reIncludeExcludesByBugId" depends="get_db_time">
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		update excludes set date_end = '${DB_TIME}' where bug_id = '${bug_id}' and date_end = 0;
+		update excludes_files set date_end = '${DB_TIME}' where bug_id = '${bug_id}' and date_end = 0;
+               ]]>
+	</sql>
+    </target>
+
+
+    <target name="showExcludesByBugId" >
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select test_file, test_id from excludes, test_cases where test_cases.id = excludes.testcase_id and date_end = 0 and bug_id like '${bug_id}';
+		select file_name from excludes_files, test_files where test_files.id = excludes_files.test_file_id and date_end = 0 and bug_id like '${bug_id}';
+               ]]>
+	</sql>
+    </target>
+
+    <target name="excludeFromFile" >
+	<echo>exclude from file</echo>
+	<echo>from file, bug id ${bug_id}</echo>
+	<echo>from file, exclude id ${exclude_id}</echo>
+	<echo>from file, the file is ${failures_filename}</echo>
+        <java classname="mustella.ExcludeUtil2" fork="true" resultproperty="jreturn">
+          <classpath refid="flex.test.classpath"/>
+          <sysproperty key="bug_id" value="${bug_id}" />
+          <sysproperty key="file_location" value="${mustella.dir}" />
+          <sysproperty key="exclude_filename" value="${exclude_filename}" />
+          <sysproperty key="exclude_id" value="${exclude_id}" />
+          <sysproperty key="include_after" value="${include_version}" />
+        </java>
+
+
+	<condition property="should_send" value="true" >
+	  <and>
+          <not>
+          <equals arg1="${jreturn}" arg2="0"/>
+          </not>
+          <equals arg1="${auto_exclude}" arg2="true"/>
+	  </and>
+	</condition>
+
+	<condition property="exit_with_msg" value="true" >
+	  <and>
+          <not>
+          <equals arg1="${jreturn}" arg2="0"/>
+          </not>
+          <not>
+          <equals arg1="${auto_exclude}" arg2="true"/>
+          </not>
+	  </and>
+	</condition>
+
+	<antcall target="push_email" >
+		<param name="file"   value="${mustella.dir}/orphan.failures"/>
+		<param name="relay"  value="inner-relay-1.corp.adobe.com"/>
+		<param name="subj"   value="Test Checkin: Auto-exclude Failure on Run ${current.run.id}"/>
+		<param name="sender" value="mustella tester &lt;bolaughl@adobe.com&gt;"/>
+		<param name="recips" value="bolaughl@adobe.com"/>
+	</antcall>
+
+	<antcall target="do_fail" >
+		<param name="msg" value="Exclude from file failed"/>
+	</antcall>
+    </target>
+
+
+
+
+    <!-- shbe 5 -->
+    <property name="test_interval" value="15" />
+
+    <property name="dmeb_url" value="jdbc:mysql://beachwagon.macromedia.com:3306/mustella"  />
+
+
+
+    <target name="getRecentIncludes" >
+	<!-- select dir_name, test_cases.test_file from test_cases, excludes, test_files where timestampdiff(MINUTE, date_end, now()) <= ${test_interval} and test_cases.id = excludes.testcase_id and test_cases.test_file = test_files.file_name; -->
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/.new_includes"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select included_by, dir_name, test_cases.test_file from test_cases, excludes, test_files where date_end > "${env.last_db_time}" and test_cases.id = excludes.testcase_id and test_cases.test_dir = test_files.id;
+		]]>
+	</sql>
+    </target>
+
+    <!-- this looks for things that are expected to pass after a certain build ; this is untested and the update is suspicious-->
+    <target name="getScheduledIncludes" >
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${mustella.dir}/.new_includes2"
+		showheaders="false"
+    		password="${db_passwd}" >
+		<![CDATA[
+		select dir_name, test_cases.test_file from test_cases, excludes, test_files where date_end = 0 and include_with >= ${build.id} and test_cases.id = excludes.testcase_id and test_cases.test_file = test_files.file_name;
+		update excludes set date_end = now() where date_end = 0 and include_with >= ${build.id};
+		]]>
+	</sql>
+    </target>
+
+    <target name="doExcludeOfFailuresBasedOnRun" >
+	<property name="failures_filename" value="${mustella.dir}/failures.out" />
+
+	<antcall target="excludeFromRunId"/>
+
+	<antcall target="excludeFromFile">
+		<param name="exclude_filename" value="${failures_filename}" />
+	</antcall>
+    </target>
+
+
+    <target name="excludeFromRunId" >
+	<property name="failures_filename" value="${mustella.dir}/failures.out" />
+
+	<echo>failures_filename is ${failures_filename}</echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${failures_filename}"
+		showheaders="false"
+    		password="${db_passwd}" >
+		select concat(dir_name, test_file), test_id from test_cases, test_files, results where test_cases.test_dir = test_files.id and results.test_case = test_cases.id and results.test_run = ${current.run.id} and result=1;
+		select test_file, test_id from orphaned_results where test_run = ${current.run.id} and result=1;
+	</sql>
+
+    </target>
+
+    <target name="excludeAllFailures" depends="get_os,setup_mac,setup_windows,setup_linux" >
+	<antcall target="genExcludeScript" />
+	<exec executable="${shell}" dir="${mustella.dir}" >
+		<arg value="${tmp_exclude_script}" />
+	</exec>
+        <delete file="${mustella.dir}/${tmp_exclude_script}" />
+	<!-- check for orphaned failures that we couldn't exclude -->
+	<antcall target="orphanFailureCheck" />
+    </target>
+
+
+
+    <target name="orphanFailureCheck" >
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		showheaders="false"
+    		password="${db_passwd}" >
+
+	select 'Exclude FAILED for test not in db: ', test_id, test_file from orphaned_results where test_run = ${current.run.id} and result=1;
+	</sql>
+
+    </target>
+
+    <target name="getDirectoriesFromFailuresFile" >
+	<echo>filename is ${exclude_filename} </echo>
+	<loadfile srcFile="${mustella.dir}/failures.txt" property="inlist" />
+	<echo>inlist is: ${inlist} </echo>
+	<sql driver="com.mysql.jdbc.Driver"
+		url="${db_url}"
+    		userid="mustella"
+		classpathref="flex.test.classpath"
+		print="true"
+		output="${exclude_filename}.tmp"
+		showheaders="false"
+    		password="${db_passwd}" >
+		select dir_name, test_file, test_id  from test_files, test_cases where test_files.file_name = test_cases.test_file and test_file in (${inlist})
+	</sql>
+
+    </target>
+
+    <!-- runFromFailures is a wip -->
+    <target name="runFromFailures" >
+	<!-- if we have a run id, call the getFailuresFromRunId class; otherwise, use  -->
+
+	<antcall target="getFailuresFromRunId" />
+
+
+        <java classname="mustella.GenRunFromFailures" resultproperty="jreturn" >
+          <classpath refid="flex.test.classpath"/>
+          <sysproperty key="current.run.id" value="${current.run.id}" />
+		<!-- not sure about feature usage here -->
+          <sysproperty key="antInFile" value="${basedir}/properties/${feature}" />
+          <sysproperty key="antOutFile" value="${basedir}/properties/musella_tmp.properties" />
+          <sysproperty key="casesFile" value="${current.run.id}" />
+          <sysproperty key="outIncludeFile" value="${mustella.dir}/classes/CurrentIncludeList.as" />
+        </java>
+        <property file="${basedir}/properties/${feature}.properties" />
+
+
+    </target>
+
+
+    <!-- make the mustella swc. Defaulting to putting that in the suites area for the moment -->
+    <property name="mustella.swc.dir" value="${mustella.dir}" />
+    <property name="mustella.swc.name" value="mustella.swc" />
+
+
+    <target name="makemustellaswc" depends="setup">
+    <condition property="do_mustellaswc_compile" value="true" >
+        <not>
+            <equals arg1="${use_mustella_framework_dir}" arg2="true"/>
+        </not>
+    </condition>
+    <antcall target="compilemustellaswc" />
+    </target>
+
+	<target name="cleanmustellaswc">
+		<delete file="${mustella.swc.dir}/${mustella.swc.name}"/>
+	</target>
+		
+    <target name="compilemustellaswc" if="do_mustellaswc_compile" >
+            	<exec  executable="${compc.dir}/${compc.exe}" >
+        	<!-- output swc name    -->
+        	<arg value="-output=${mustella.swc.dir}/${mustella.swc.name}" />
+        	<!-- include path -->
+        	<arg value="-source-path=${mustella.dir}/as3/src/mustella" />
+            <!-- clear library path -->
+            <arg value="-library-path="/>
+            <arg value="-external-library-path=${sdk.dir}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
+        	<arg value="ApolloFilePath"/>
+        	<arg value="Assert"/>
+        	<arg value="AssertError"/>
+        	<arg value="AssertEvent"/>
+        	<arg value="AssertEventPropertyValue"/>
+        	<arg value="AssertMethodValue"/>
+        	<arg value="AssertNoEvent"/>
+        	<arg value="AssertPixelValue"/>
+        	<arg value="AssertPropertyValue"/>
+        	<arg value="AssertStyleValue"/>
+        	<arg value="AssertTitle"/>
+        	<arg value="AssertType"/>
+        	<arg value="AssertURL"/>
+        	<arg value="CheckEmbeddedFonts"/>
+        	<arg value="ChangeState"/>
+        	<arg value="CompareBitmap"/>
+        	<arg value="CreateBitmapReferences"/>
+        	<arg value="DispatchEvent"/>
+        	<arg value="DispatchKeyEvent"/>
+        	<arg value="DispatchMouseClickEvent"/>
+        	<arg value="DispatchMouseEvent"/>
+        	<arg value="ExcludeFileLocation"/>
+            <arg value="ExcludeFileLocationApollo"/>
+        	<arg value="ExitWhenDone"/>
+        	<arg value="IncludeListTextFile" />
+        	<arg value="IncludeFileLocation" />
+        	<arg value="MustellaPNGEncoder"/>
+        	<arg value="Pause"/>
+        	<arg value="ResetComponent"/>
+        	<arg value="RunCode"/>
+        	<arg value="RunCodeEvent"/>
+        	<arg value="SaveBitmapFailures"/>
+        	<arg value="ScriptRunner"/>
+        	<arg value="SendFormattedResultsToLog" />
+        	<arg value="SendResultsToRunner"/>
+        	<arg value="SetProperty"/>
+        	<arg value="SetStyle"/>
+        	<arg value="SetShowRTE"/>
+        	<arg value="SetURL"/>
+        	<arg value="SocketAddress"/>
+        	<arg value="TestCase"/>
+        	<arg value="TestOutput"/>
+        	<arg value="TestResult"/>
+        	<arg value="TestStep"/>
+        	<arg value="TypeInfo"/>
+        	<arg value="UnitTester"/>
+        	<arg value="VerboseMode"/>
+        	<arg value="WaitForEffectsToEnd"/>
+        	<arg value="WaitForEvent"/>
+        	<arg value="WaitForSandboxApp"/>
+        	<arg value="WaitForWindow"/>
+    	</exec>
+    </target>
+
+
+
+    <target name="post_install_mac" if="is_mac" >
+	<echo message="setting to MAC, got ${host_os_name}" />
+	<chmod perm="777" verbose="true" maxparallel="50">
+		<dirset dir="${sdk.dir}/in"  >
+		</dirset>
+	</chmod>
+	<chmod perm="777" verbose="true" maxparallel="50" >
+		<fileset dir="${sdk.dir}/in" />
+	</chmod>
+	<condition property="player.name" value="Flash Player Debugger" >
+		<and>
+		<available file="${sdk.dir}/in/player/${player.version}/mac/Flash Player Debugger.app.zip" />
+		<not>
+		<equals arg1="player.version" arg2="10" />
+		</not>
+		</and>
+	</condition>
+
+	<property name="player.name" value="Flash Player" />
+
+	<echo>player name: ${player.name}</echo>
+	
+        <unzip dest="${mustella.dir}/build/in/player/${player.version}/mac" src="${mustella.dir}/build/in/player/${player.version}/mac/${player.name}.app.zip" />
+    	<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/mac/${player.name}.app/Contents/MacOS" />
+    	<property name="player" value="${player.dir}/${player.name}" />
+	<!-- for some reason, nothing is executable on the mac, change all that -->
+	<chmod file="${player}" perm="777" />
+	<chmod file="${sdk.dir}/bin/mxmlc" perm="777" />
+	<chmod file="${sdk.dir}/bin/compc" perm="777" />
+	<antcall target="chmod_shells" />
+	<chmod perm="777" verbose="true" maxparallel="50" >
+		<fileset dir="${sdk.dir}/bin" />
+	</chmod>
+	<chmod perm="777" verbose="true"  >
+		<fileset dir="${sdk.dir}/lib" />
+	</chmod>
+	<chmod perm="777" verbose="true"  >
+		<fileset dir="${sdk.dir}/frameworks/libs" />
+	</chmod>
+	<chmod perm="777" verbose="true"  >
+		<fileset dir="${sdk.dir}/frameworks/rsls" />
+	</chmod>
+	<chmod perm="777" verbose="true"  >
+		<fileset dir="${sdk.dir}/frameworks/themes" />
+	</chmod>
+	<chmod perm="777" verbose="true"  maxparallel="50" >
+		<fileset dir="${sdk.dir}/frameworks/locale" />
+	</chmod>
+	<chmod perm="777" verbose="true" dir="${sdk.dir}/frameworks" includes="*" >
+	</chmod>
+	<chmod perm="777" verbose="true" maxparallel="50">
+		<dirset dir="${mustella.dir}/tests"  >
+		</dirset>
+	</chmod>
+	<antcall target="delete_cache">
+		<param name="directory" value="/Users/${env.USER}/Library/Caches/Adobe/Flash Player/AssetCache" />
+	</antcall>
+    </target>
+
+    <target name="post_install_win_2" if="version_in_name" >
+
+	<exec   executable="chmod.exe" dir="/cygwin/bin" > 
+		<arg value="777" />
+		<arg value="${player.dir}/Install Flash Player ${player.version} Plugin.exe" />
+		<arg value="${player.dir}/Install Flash Player ${player.version} ActiveX.exe" />
+	</exec>
+
+	<exec executable="${player.dir}/Install Flash Player ${player.version} Plugin.exe" >
+		<arg value="/s" />
+	</exec>
+		
+	<exec executable="${player.dir}/Install Flash Player ${player.version} ActiveX.exe" >
+		<arg value="/s" />
+	</exec>
+    </target>
+
+    <target name="post_install_win_2a" unless="version_in_name" >
+	<echo>calling ${player.dir}/InstallPlugin.exe</echo>
+	<exec   executable="chmod.exe" dir="/cygwin/bin" > 
+		<arg value="777" />
+		<arg value="${player.dir}/InstallPlugin.exe" />
+		<arg value="${player.dir}/InstallAX.exe" />
+	</exec>
+	<exec executable="${player.dir}/InstallPlugin.exe" >
+		<arg value="-install" />
+		<arg value="plugin" />
+	</exec>
+	<exec executable="${player.dir}/InstallAX.exe" >
+		<arg value="-install" />
+		<arg value="activex" />
+	</exec>
+    </target>
+
+
+    <target name="post_install_win" if="is_win" >
+
+	<condition property="player.name" value="FlashPlayerDebugger.exe" >
+		<and>
+		<available file="${sdk.dir}/in/player/${player.version}/win/FlashPlayerDebugger.exe" />
+		<not>
+		<equals arg1="player.version" arg2="10" />
+		</not>
+		</and>
+	</condition>
+
+	<property name="player.name" value="FlashPlayer.exe" />
+
+    	<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/win" />
+    	<property name="player" value="${player.dir}/${player.name}" />
+
+	<echo>player is ${player}</echo>
+
+	<exec   executable="chmod.exe" dir="/cygwin/bin" > 
+		<arg value="+x" />
+		<arg value="${player}" />
+	</exec>
+
+	<antcall target="delete_cache">
+		<param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
+	</antcall>
+	<!-- run the installer (for the browsers) -->
+	<condition property="version_in_name" value="true" >
+		<and>	
+		<not>
+		<equals arg1="10.1" arg2="${player.version}" />
+		</not>
+		<not>
+		<equals arg1="10.2" arg2="${player.version}" />
+		</not>
+		</and>	
+	</condition>
+
+	<echo> version in name: ${version_in_name}</echo>
+
+	<antcall target="post_install_win_2" />
+	<antcall target="post_install_win_2a" />
+
+    </target>
+
+    <target name="post_install_linux" if="is_linux" >
+	<!-- on Linux, this doesn't really finish the installation task -->
+	<echo message="setting to linux, got ${host_os_name}" />
+    	<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/lnx" />
+    	<property name="player" value="${player.dir}/flashplayer" />
+	<!-- untar the player and reset its mode -->
+	<untar src="${player.dir}/flashplayer.tar.gz" compression="gzip" dest="${player.dir}" />
+	<chmod file="${player.dir}/flashplayer" perm="777" />
+	<chmod file="${sdk.dir}/bin/mxmlc" perm="777" />
+	<chmod file="${sdk.dir}/bin/compc" perm="777" />
+	<chmod file="${mustella.dir}/mini_run.sh" perm="777" />
+	<chmod file="${mustella.dir}/shellrunner.sh" perm="777" />
+	<antcall target="chmod_shells" />
+	<untar src="${player.dir}/install_flash_player_${player.version}_linux.tar.gz" compression="gzip" dest="${player.dir}" />
+    </target>
+
+    <target name="fix_rsl_failover_target" description="Edit flex-config.xml file failover targets">
+	<exec  executable="${shell}" failonerror="false">
+		<arg value="${mustella.dir}/scripts/fix_rsls.sh" />
+		<arg value="${mustella.dir}" />
+	</exec>
+
+    </target>
+
+
+    <target name="delete_cache" >
+	<echo>delete cache: ${directory}</echo>
+	<!-- chmod dir="${directory}" perm="777" / -->
+	<delete quiet="false" dir="${directory}" verbose="true" failonerror="false"/>
+    </target>
+
+    <target name="postinstall" depends="get_os,post_install_mac,post_install_win,post_install_linux" description="browser install, etc against the sdk.dir">
+
+    </target>
+
+
+    <!-- some settings for a specialized run that grabs the latest aik kit and unzips it over
+         a regular installation
+
+	On the mac side, this may fail to find some classes on for ftp. If this happens,
+	the probable fixes are to grab these:
+
+	http://jakarta.apache.org/site/downloads/downloads_oro.cgi
+	http://commons.apache.org/downloads/download_net.cgi
+
+
+    -->
+
+    <!-- target name="aik-codex-grab" >
+
+	<property name="viewpath" refid="flex.test.classpath" />
+	<echo>path to use: ${viewpath}</echo>
+
+	<ant antfile="${mustella.dir}/aircodex.xml" inheritRefs="true" target="aik-http-fetch"/>
+
+    </target -->
+
+
+
+    <property name="aik.filedrop" value="vulcan.corp.adobe.com" />
+
+    <!-- condition property="aik.latest.dir" value="Apollo_1/Connections/apms/mac/apollo/en_US" >
+	<os family="mac"/>
+    </condition>
+    <condition property="aik.latest.dir" value="Apollo_1/Connections/apms/win/apollo/en_US" >
+	<os family="windows"/>
+    </condition -->
+
+    <condition property="aik.dist.file" value="archive_air_1.5_sdk.tbz2" >
+	<os family="mac"/>
+    </condition>
+
+    <!-- WIP -->
+    <condition property="aik.dist.file" value="archive_air_1.5_sdk.zip" >
+	<os family="windows"/>
+    </condition>
+
+
+	    <property name="aik.latest.file" value="latest" />
+
+	    <property name="USER" value="adobenet\labuser" />
+	    <property name="PASSWD" value="" />
+
+	    <target name="aik-integrate" >
+
+	<ant antfile="${mustella.dir}/aik.xml" target="aik-integrate"/>
+
+    </target>
+
+    <!-- we would override file drop on the command line -->
+    <property name="filedrop" value="ftp://P02filusr01/Flex_SDK"/>
+    <property name="ftpserver" value="P02filusr01.corp.adobe.com" />
+
+
+    <!-- make it possible to fetch on the fly, or be told what to fetch from local.properties
+      -->
+    <target name="install" if="installbuild" description="--> installs flex, either a specific build, or latest approved build" >
+
+	<!-- vestages of the old naming -->
+        <condition property="build_branch" value="trunk" >
+		<equals arg1="${branch}" arg2="Mainline" />
+        </condition>
+        <property name="build_branch" value="${branch}" />
+
+
+	<!-- when installbuild=successful, we grab the build indicated in the 
+	     successfulBuild.properties file. 
+ 	     when installbuild=true  AND server=<some build id>  we will install
+	     the build indicated by ${server}. 
+	  -->
+
+        <condition property="fetching.server" value="${server}" >
+                <and>
+                        <equals arg1="${installbuild}" arg2="true" />
+                        <isset property="server" />
+                </and>
+        </condition>
+
+	<!-- go get successfulBuild.properties -->
+        <ftp verbose="true" server="${ftpserver}" userid="${realUser}"  password="${realPwd}" action="get" remotedir="Flex_SDK/${build_branch}" >
+	    <fileset dir="${mustella.dir}" >
+      		<include name="successfulBuild.properties"/>
+    	    </fileset>
+	</ftp>
+
+
+	<!-- the filenames should take, even if the server value is already set -->
+        <property prefix="fetching." file="${mustella.dir}/${installbuild}Build.properties" />
+
+	<!-- the current fetched version on disk -->
+        <property prefix="currently." file="${mustella.dir}/lastflex.properties" />
+
+	<echo>Version to get would be: ${fetching.server}</echo>
+	<echo>Version we have is: ${currently.lastbuild}</echo>
+
+	<condition property="do_actual_fetch" value="true" >
+	  <not>
+          <equals arg1="${currently.lastbuild}" arg2="${fetching.server}"/>
+	  </not>
+	</condition>
+
+
+	<!-- is it ever the case that we want a successful return if the build isn't new? -->
+	<condition property="failIfNotNew" value="true">
+		<not>
+		<isset property="failIfNotNew" />
+		</not>
+	</condition>
+
+
+	<condition property="exit_with_msg" value="true">
+		<and>
+		<not>
+          	<equals arg1="${do_actual_fetch}" arg2="true"/>
+		</not>
+		<isset property="failIfNotNew"/>
+		</and>
+	</condition>
+
+	<echo> have: ${currently.lastbuild}; would fetch:${fetching.server} </echo>
+
+
+	<antcall target="do_fail" >
+		<param name="msg" value="No new build to fetch, exiting" />
+	</antcall>
+
+
+	<!-- if directed to get a particular build, or if this is a first download, 
+	     it's possible mainZip and langZip haven't been set. 
+	  -->
+	<condition property="mainZip" value="${fetching.mainZip}" >
+		<isset property="fetching.mainZip" />
+	</condition>
+
+	<condition property="langZip" value="${fetching.langZip}" >
+		<isset property="fetching.langZip" />
+	</condition>
+
+
+	<!-- if directed to get a particular build, it's possible
+	     mainZip and langZip haven't been set. 
+	  -->
+
+
+	<property name="mainZip" value="${on_disk.mainZip}" />
+	<property name="langZip" value="${on_disk.langZip}" />
+
+
+	<antcall target="grab_build" />
+
+    </target>
+
+
+    <target name="grab_build" if="do_actual_fetch" >
+
+        <echo message="installing build ${fetching.server}" />
+        <delete file="${mustella.dir}/${mainZip}" quiet="true" />
+        <delete file="${mustella.dir}/${langZip}" quiet="true" />
+        <delete dir="${mustella.dir}/build" quiet="true"/>
+        <mkdir dir="${mustella.dir}/build" />
+        <condition property="build_branch" value="trunk" >
+			<equals arg1="${branch}" arg2="Mainline" />
+        </condition>
+        <property name="build_branch" value="${branch}" />
+
+		<ftp verbose="true" server="${ftpserver}" userid="${realUser}"  password="${realPwd}" action="get" remotedir="Flex_SDK/${build_branch}/${fetching.server}" >
+			<fileset dir="${mustella.dir}" >
+				<include name="${langZip}"/>
+			</fileset>
+		</ftp>
+		<ftp verbose="true" server="${ftpserver}" userid="${realUser}"  password="${realPwd}" action="get" remotedir="Flex_SDK/${build_branch}/${fetching.server}" >
+			<fileset dir="${mustella.dir}" >
+				<include name="${mainZip}"/>
+			</fileset>
+		</ftp>
+        <echo file="${mustella.dir}/lastflex.properties" append="false">lastbuild=${fetching.server}</echo>
+
+		<!-- unfortunately, ant's unzip doesn't preserve symbolic links. Problematic on the mac, for AIR
+		for this case, we use the native unzip -->
+		<exec  executable="${unzip}" >
+			<arg value="${mustella.dir}/${mainZip}" />
+			<arg value="-d" />
+			<arg value="${mustella.dir}/build" />
+		</exec>
+		<exec  executable="${unzip}" >
+			<arg value="${mustella.dir}/${langZip}" />
+			<arg value="-d" />
+			<arg value="${mustella.dir}/build" />
+		</exec>
+
+		<antcall target="fetch_utilities" />
+    </target>
+
+    <target name="fetch_utilities" unless="skip_utilities_fetch" description="unzip test certs">
+
+		<!-- ${server} is the build id, which corresponds to a directory on the filedrop -->
+
+		<delete file="${mustella.dir}/utilities.zip" quiet="true" />
+		<ftp verbose="true" server="${ftpserver}" userid="${realUser}"  password="${realPwd}" action="get" remotedir="Flex_SDK/${build_branch}/${fetching.server}" >
+			<fileset dir="${mustella.dir}" >
+				<include name="utilities.zip"/>
+			</fileset>
+		</ftp>
+
+		<exec  executable="${unzip}" >
+			<arg value="-o" />
+			<arg value="${mustella.dir}/utilities.zip" />
+			<arg value="-d" />
+			<arg value="${mustella.dir}/build" />
+		</exec>
+		<!-- the signing cert should go to a neutral location, because vetting and regular runs share it -->
+		<copy verbose="true" file="${mustella.dir}/build/frameworks/rsls/rootcert.der" todir="/tmp/" />
+
+    </target>
+
+    <target name="setbuildID"  >
+	<echo message="Target file was: ${mustella.dir}/${build.version.file}" />
+    	<property file="${mustella.dir}/${build.version.file}" />
+    	<property name="build.id" value="${server}" />
+	<echo message="${build.id}"/>
+    </target>
+
+    <target name="populateExcludeTable"  if="db_time" depends="getExcludeIds" >
+
+	<echo>populate exclude, got this for db time: ${db_time}</echo>
+	<!-- this won't do anything for local runs where current.run.id = -1 -->
+
+    <!--
+        <java classname="mustella.CopyExcluded" >
+          	<classpath refid="flex.test.classpath"/>
+          	<sysproperty key="run_id" value="${current.run.id}" />
+          	<sysproperty key="exclude_ids" value="${exclude_ids}" />
+          	<sysproperty key="untilTime" value="${db_time}" />
+	</java>
+    -->
+    </target>
+
+    <!-- target used in testing: -->
+    <target name="queryOnly" depends="getConfigId,getExcludeIds,actualQueryResults">
+    </target>
+
+    <target name="distributedReportQuery" depends="getExcludeIds,actualQueryResults,do_sendResults">
+    </target>
+
+    <target name="actualQueryResults" unless="new_failures" >
+
+    	<taskdef name="queryresultstask" classname="mustella.QueryResultsTask"
+          classpathref="flex.test.classpath"/>
+
+	<condition property="query.outfile" value="${mustella.dir}/lastrun.html" >
+            <equals arg1="${query.outfile}" arg2=""/>
+	</condition>
+
+	<!-- some additions for the distributed world: -->
+        <property name="distributed" value="${distributed}" />
+        <property name="compile_id" value="${compile_id}" />
+
+	<queryresultstask  id="${current.run.id}" type="${run_type}" file="${query.outfile}" config="${config_id}" exclude="${exclude_ids}" untilTime="${db_time}" subtitle="${subtitle}" reranCount="${number_reran}" runnerCount="${num_runners}" >
+	</queryresultstask>
+	
+	  <echo message="total failures: ${failures}" />
+	  <echo message="new failures: ${new_failures}" />
+	  <echo message="new passes: ${new_passes}" />
+	  <echo message="compile errors: ${compile_errors}" />
+
+	<!-- set prop that may lead to auto exclude -->
+	<condition property="auto_exclude_and_failures" value="true" >
+		<and>
+			<not>
+			<equals arg1="${failures}" arg2="0" />
+			</not>
+			<istrue value="${auto_exclude}" />
+		</and>
+	</condition>
+
+    </target>
+
+    <target name="queryResults" depends="setbuildID,setHostName,getExcludeIds,actualQueryResults">
+    </target>
+
+    <property name="include_list" value="" />
+
+    <!-- target for run only (no compile -->
+    <target name="sendResultsRunOnly" depends="dedicatedRun,queryResults,do_sendResults" >
+	<echo>my run id is ${current.run.id}</echo>
+    </target>
+
+    <!-- if we're doing re-run, the milestone end will be wrong -->
+    <target name="update_milestones" if="pmd" >
+       	<java classname="mustella.InsertMilestone" failonerror="false" fork="false">
+            <classpath refid="flex.test.classpath"/>
+	    <sysproperty key="run_id" value="${current.run.id}" />
+	    <sysproperty key="col" value="run_start" />
+	    <sysproperty key="time" value="${run_start}" />
+	</java>
+
+	<!-- call the other one if needed -->
+	<antcall target="update_milestones2" />
+
+    </target>
+
+    <target name="update_milestones2" if="skip_retry_failures" >
+       	<java classname="mustella.InsertMilestone" failonerror="false" fork="false">
+            <classpath refid="flex.test.classpath"/>
+	    <sysproperty key="run_id" value="${current.run.id}" />
+	    <sysproperty key="col" value="run_end" />
+	    <sysproperty key="time" value="${run_end}" />
+	</java>
+    </target>
+
+    <target name="waitPMD" if="pmd" >
+
+	<exec  executable="${shell}" failonerror="true" dir="${mustella.dir}" >
+		<arg value="pmd_waiter.sh" />
+		<arg value="${num_runners}" />  <!-- this is the number of subRunners to wait for -->
+	</exec>
+	<echo>finished with the wait PMD</echo>
+	<!-- note the end of time -->
+	<tstamp>
+	 <format pattern="yyyy-MM-dd HH:mm:ss" property="run_end" />
+	</tstamp>
+	<echo>waitPMD ends, time stamp: ${run_end} </echo>
+
+    </target>
+
+
+    <!-- for poor man's distributed, touch files to let the geniuses know it's time -->
+    <target name="dolePMD" depends="pmd_all_swf_set_maker">
+		<!-- try parallel, but make sure we sleep to let the server come up -->
+	<echo file="${mustella.dir}/actualswfs.tmp">${them_swfs}</echo>
+	<!-- note beginning of time -->
+	<tstamp>
+	 <format pattern="yyyy-MM-dd HH:mm:ss" property="run_start"  />
+	</tstamp>
+
+	<echo>dolePMD begins, timestamp: ${run_start}</echo>
+
+	<parallel threadcount="2">
+        <java classname="mustella.Doler" failonerror="true" fork="true">
+          <classpath refid="flex.test.classpath"/>
+	    <arg path="${mustella.dir}/actualswfs.tmp" />
+	    <sysproperty key="run_id" value="${current.run.id}" />
+	</java>
+        <!-- NYI java classname="mustella.NanoHTTPD" failonerror="true" fork="true">
+          <classpath refid="flex.test.classpath"/>
+	    <sysproperty key="mustella.dir" value="${mustella.dir}" />
+	</java -->
+		<sequential>		
+		<echo>sequential begins</echo>
+		<sleep seconds="10" />
+		<echo>done with the sleep.</echo>
+		<!-- perhaps also do the directory side of things -->
+		<echo file="${mustella.dir}/actuals.tmp">${sdk.mustella.swffiles}</echo>
+		<echo>issuing: ${shell} ${mustella.dir}/pmd_doler.sh ${num_runners} </echo>
+		<exec  executable="${shell}" failonerror="true">
+			<arg value="${mustella.dir}/pmd_doler.sh" />
+    			<arg value="${num_runners}" /> 
+			<arg value="${mustella.dir}" />
+		</exec>
+		<echo>done with pmd_doler script.</echo>
+			
+		<echo>Sending shutdown to the web server</echo>
+		<!-- NYI get ignoreerrors="true" src="http://localhost/shutdown" dest="${mustella.dir}/tmp1a" / -->
+		</sequential>
+	<tstamp>
+	 <format pattern="yyyy-MM-dd HH:mm:ss" property="doler_end"  />
+	</tstamp>
+	<echo>dolePMD ends, timestamp: ${doler_end}</echo>
+
+	</parallel>
+    </target>
+	
+    <target name="test_server" >
+        <java classname="mustella.NanoHTTPD" failonerror="true" fork="true">
+          <classpath refid="flex.test.classpath"/>
+	    <sysproperty key="mustella.dir" value="${mustella.dir}" />
+	</java>
+
+    </target>
+    <!-- target for run and compile -->
+    <target name="sendResultsPMD" depends="runPMD,queryResults,do_sendResults" if="sdk.mustella.includes">
+    </target>
+
+    <target name="sendResults" depends="run,queryResults,do_sendResults" if="sdk.mustella.includes">
+    </target>
+
+    <target name="sendResultsPMDSubsequent" depends="runPMDSubsequent,queryResults,do_sendResults" if="sdk.mustella.includes">
+    </target>
+
+    <target name="runPMDSubsequent" depends="clean,setup,getRunId,getExcludes,populateExcludeTable,dolePMD,waitPMD,retry_failures,update_milestones" description="-->rerun tests with a different configuration">
+    </target>
+
+    <target name="autoExcludeFailures" if="auto_exclude_and_failures" >
+	<!-- should also check count of failures before being here-->
+		<echo>auto excluding! ${auto_exclude}</echo>
+		<property name="bug_id" value="${auto_exclude_bug_id}" />
+		<property name="exclude_id" value="${auto_exclude_config_value}" />
+		<echo>setting exclude_filename, is it? ${exclude_filename}</echo>
+		<antcall target="excludeFromRunId" >
+			<param name="exclude_filename" value="${mustella.dir}/failures.out" />
+		</antcall>
+		<antcall target="excludeFromFile">
+			<param name="exclude_filename" value="${mustella.dir}/failures.out" />
+		</antcall>
+    </target>
+
+    <target name="do_sendResults" depends="autoExcludeFailures" if="sdk.mustella.includes">
+
+	<condition property="send_choice" value="true">
+		<istrue value="${always_send}" />
+	</condition>
+
+	<condition property="browser_name2" value="AIR" >
+        	<istrue value="${use_apollo}" />
+	</condition>
+
+	<condition property="device_subject" value="${device_name}" >
+        	<istrue value="${run_mobile_tests}" />
+	</condition>
+
+	<condition property="device_subject" value="${short_os_name}" >
+        	<isset property="short_os_name" />
+	</condition>
+
+
+	<!-- Set it if it wasn't set so we don't end up with, literally, ${device_name} in the subject. -->
+	<property name="device_subject" value="" />
+
+	<basename file="${browser_name}" property="tmp_browser_name" suffix=".exe" />
+
+	<condition property="browser_name2" value="${tmp_browser_name}" >
+	  	<not>
+        	<equals arg1="${browser_name}" arg2="Standalone" />
+	  	</not>
+	</condition>
+
+	<!-- if browser_name2 isn't set yet, it must be Standalone -->
+	<property name="browser_name2" value="Standalone" />
+
+
+	<echo message="send results logic, vars: new_failures, failures, compile_errors, new passes: ${new_failures}, ${failures}, ${compile_errors}, ${new_passes}" />
+
+
+	<!-- send notification: if there are failures, compile errors, or new passes -->
+	<condition property="send_choice" value="true">
+		<or>
+
+		<not>
+           	<equals arg1="${new_failures}" arg2="0" /> <!-- this was simply failures -->
+		</not>
+
+		<not>
+           	<equals arg1="${compile_errors}" arg2="0" />
+		</not>
+
+		<not>
+           	<equals arg1="${new_passes}" arg2="0" />
+		</not>
+
+		</or>
+	</condition>
+
+	<!-- set recipients if we might need them -->
+	<condition property="actual_recipients" value="${recipients}" >
+           <equals arg1="${send_choice}" arg2="true" />
+	</condition>
+
+	<!-- and, finally, we will send if there's someone who wants a lot of email -->
+	<condition property="send_choice" value="true" >
+		<isset property="always_recipients" />
+	</condition>
+
+	<!-- set the subject. Various choices -->
+	<condition property="subject" value="FAIL: ${vetting} ${branch_name} ${browser_name2} ${server} ${device_subject} Mustella Results" >
+		<and>
+		<istrue value="${send_choice}" />
+		<not>
+           	<equals arg1="${failures}" arg2="0" />
+		</not>
+		</and>
+	</condition>
+
+	<condition property="subject" value="FAIL: ${vetting} ${branch_name} ${browser_name2} ${server} ${device_subject} Mustella Results" >
+		<and>
+		<istrue value="${send_choice}" />
+		<not>
+           	<equals arg1="${compile_errors}" arg2="0" />
+		</not>
+		</and>
+	</condition>
+
+
+	<condition property="subject" value="PASS: ${vetting} ${branch_name} ${browser_name2} ${server} ${device_subject} Mustella Results" >
+		<and>
+		<istrue value="${send_choice}" />
+		<not>
+           	<equals arg1="${new_passes}" arg2="0" />
+		</not>
+		</and>
+	</condition>
+
+	<!-- finally, if the subject got this far, and is unset, it's gotta be a pass case
+	     only always_recipients would be interested.
+	-->
+	<condition property="subject" value="PASS: ${vetting} ${branch_name} ${browser_name2} ${server} ${device_subject} Mustella Results" >
+		<not>
+           	<isset property="subject" />
+		</not>
+	</condition>
+
+
+
+	<!-- recipients might have been set on invocation. If not, they get these defaults -->
+	<condition property="recipients" value="FlexSDKQA@adobe.com">
+		<and>
+		<not>
+			<isset property="recipients" />
+		</not>
+		<equals arg1="${run_type}" arg2="mini" />
+		</and>
+	</condition>
+
+	<condition property="recipients" value="FlexSDKQA@adobe.com,FlexSDKDev@adobe.com" >
+		<and>
+		<not>
+			<isset property="recipients" />
+		</not>
+		<not>
+			<equals arg1="${run_type}" arg2="mini" />
+		</not>
+		</and>
+	</condition>
+
+	<!-- condition property="always_recipients" value="laupark@adobe.com" >
+		<not>
+			<isset property="always_recipients" />
+		</not>
+	</condition -->
+
+	<echo>actuals are: ${actual_recipients}</echo>
+	<condition property="actual_recipients" value="${always_recipients}" >
+		<isset property="always_recipients" />
+	</condition>
+	<condition property="send_choice" value="true" >
+		<isset property="always_recipients" />
+	</condition>
+	<echo>actuals are: ${actual_recipients}</echo>
+
+
+
+	<antcall target="push_email" >
+		<!-- param name="file"   value="${mustella.dir}/lastrun.html"/ -->
+		<param name="file"   value="${query.outfile}"/>
+		<param name="relay"  value="inner-relay-1.corp.adobe.com"/>
+		<param name="subj"   value="${subject}"/>
+		<param name="sender" value="mustella tester &lt;bolaughl@adobe.com&gt;"/>
+		<param name="recips" value="${actual_recipients}"/>
+	</antcall>
+
+
+    </target>
+
+    <target name="push_email" if="send_choice">
+	<echo>Sending email to: ${recips}</echo>
+	<java classname="utils.HtmlNotify">
+	<classpath refid="flex.test.classpath"/>
+	<arg value="${file}"/>
+	<arg value="${relay}"/>
+	<arg value="${subj}"/>
+	<arg value="${sender}"/>
+	<arg value="${recips}"/>
+	</java>
+
+    </target>
+
+
+    <target name="mustella">
+        <ant target="compc-call" antfile="${sdk.dir}/build.xml" dir="${sdk.dir}" inheritAll="false">
+            <property name="frameworks.dir" value="${sdk.dir}/frameworks" />
+            <!--<property file="sdk/testsuites/mustella/flexqa-classes.properties"/>-->
+            <property name="compc.output" value="${mustella.dir}/mustella.swc"/>
+            <!--<property name="compc.args" value="-namespace http://www.adobe.com/2006/flexqa ${mustella.dir}/flexqa-manifest.xml -source-path ${mustella.dir}"/>-->
+            <property name="compc.libs" value="${sdk.dir}/frameworks/libs/framework.swc,${sdk.dir}/frameworks/libs/rpc.swc"/>
+            <!-- ,${sdk.dir}/frameworks/charts.swc.,${root.dir}/enterprise/frameworks/rpc.swc -->
+            <property name="mxml.manifest" value="${mustella.dir}/flexqa-manifest.xml" />
+        </ant>
+    </target>
+
+  <!-- The time issue. a "full run" syncs to source code based on a particular time;
+       that same time is used to sync to the database of excludes.
+
+       The p4 sync with times uses server local time and the p4 server is in Newton
+       The db server is in SF
+   -->
+  <property name="server_time_vettting_file" value="/tmp/.server.time.vetting" />
+  <property name="server_time_file" value="/tmp/.server.time" />
+  <target name="server_time" unless="server_time">
+	<!-- if this is a local run(run id = -1), get the time stamp now. If
+	this is a test server run, use the sync'd time which should have previously been created
+	server_time is used as a sync point for check in time
+	-->
+	<tstamp>
+	<format pattern="yyyy/MM/dd HH:mm:ss" property="SERVER_TSTAMP" timezone="America/New_York" />
+	</tstamp>
+	<echo>server_time=${SERVER_TSTAMP}</echo>
+	<property name="server_time" value="${SERVER_TSTAMP}" />
+	<mkdir dir="/tmp"/>
+	<echo> file="${server_time_vettting_file}"</echo>
+	<echo file="${server_time_vettting_file}" append="false">server_time="${SERVER_TSTAMP}"</echo>
+	<echo>server_time=${SERVER_TSTAMP}</echo>
+	<chmod file="${server_time_vettting_file}" perm="666" />
+  </target>
+
+  <property name="db_time_vetting_file" value="/tmp/.db.time.vetting" />
+  <property name="db_time_file" value="/tmp/.db.time" />
+  <target name="db_time" unless="db_time">
+	<!-- if this is a local run (run id = -1), get the time stamp now. If
+	this is a test server run, use the sync'd time which should have previously been created
+	db_time is used as a sync point for excludes
+	-->
+	<tstamp>
+	 <format pattern="yyyy/MM/dd HH:mm:ss" property="DB_TIME" />
+	</tstamp>
+	<mkdir dir="/tmp"/>
+	<echo>db_time=${DB_TIME}</echo>
+	<property name="db_time" value="${DB_TIME}" />
+
+
+	<condition property="quoted_value" value="db_time=${DB_TIME}" >
+		<equals arg1="${no_quote}" arg2="true" />
+	</condition>
+	<property name="quoted_value" value="db_time='${DB_TIME}'" />
+
+
+	<echo file="${db_time_vetting_file}" append="false">${quoted_value}</echo>
+	<chmod file="${db_time_vetting_file}" perm="666" />
+	<property file="${db_time_vetting_file}" />
+  </target>
+
+  <target name="get_db_time" unless="db_time" >
+	<tstamp>
+	  <format pattern="yyyy-MM-dd HH:mm:ss" property="DB_TIME" />
+	</tstamp>
+	<property name="fetched_db_time" value="${DB_TIME}" />
+	<property name="db_time" value="${DB_TIME}" />
+  </target>
+
+  <target name="get_server_time" unless="server_time" >
+	<tstamp>
+	  <format pattern="yyyy-MM-dd HH:mm:ss" property="SERVER_TIME" />
+	</tstamp>
+	<property name="fetched_db_time" value="${SERVER_TIME}" />
+	<property name="db_time" value="${SERVER_TIME}" />
+  </target>
+
+  <property name="time_file" value="/tmp/.sync_time" />
+  <target name="get_time_to_file" depends="get_db_time,get_server_time" >
+	
+	<echo>writing ${time_file}</echo>	
+	<echo file="${time_file}" append="false">server_time='${SERVER_TIME}'
+db_time='${DB_TIME}'</echo>
+
+  </target>
+
+  <target name="pversion1" depends="get_os,setup_mac,setup_windows,setup_linux" unless="${run_mobile_tests}" >
+	<echo>with ${player} </echo>
+    	<taskdef name="getplayerversion" classname="mustella.GetPlayerVersionTask" classpathref="flex.test.classpath"/>
+	<getplayerversion  property="playerversion" swf="${mustella.dir}/version.swf" player="${player}" />
+	
+	<echo append="true" file="${mustella.dir}/latest.txt">player_version=${playerversion}</echo>
+
+  </target>
+
+  <target name="get_date"  >
+	<tstamp>
+	  <format pattern="yyyy-MM-dd" property="DATESTAMP"  />
+	</tstamp>
+	<property name="fetched_date" value="${DATESTAMP}" />
+  </target>
+
+  <target name="test_target" >
+	<p4change description="test2" />
+	<echo>${p4.change}</echo>
+  </target>
+
+
+</project>
+

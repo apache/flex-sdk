@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Button/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Button_DataBinding.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	
+<!--	
+	 <TestCase testID="" description="" keywords="[]">
+		<body>
+		    <SetProperty propertyName="" value="" target="" />
+		    <AssertPropertyValue propertyName="" value="" target=""/>
+	    </body>
+	  </TestCase>
+-->
+
+<testCases>
+	 <TestCase testID="Button_label_binding" description="" keywords="[Button, Binding, Label]">
+		<body>
+		    <SetProperty propertyName="label" value="Button 1: Right" target="button1" />
+		    <AssertPropertyValue propertyName="label" value="Button 1: Right" target="dependentButton1"/>
+	    </body>
+	  </TestCase>
+	 <TestCase testID="Button_labelPlacement_binding" description="" keywords="[Button, Binding, LablePlacement]">
+		<body>
+		    <SetProperty propertyName="labelPlacement" value="right" target="button1" />
+		    <AssertPropertyValue propertyName="labelPlacement" value="right" target="dependentButton1"/>
+	    </body>
+	  </TestCase>
+	  <TestCase testID="Button_toggle_binding" description="" keywords="[Button, Toggle, Binding]">
+		<body>
+		    <SetProperty propertyName="toggle" value="true" target="button2" />
+		    <AssertPropertyValue propertyName="toggle" value="true" target="dependentButton2"/>
+	    </body>
+	  </TestCase>
+	  <TestCase testID="Button_selected_binding" description="" keywords="[Button, Selected, Binding]">
+		<body>
+		    <SetProperty propertyName="selected" value="true" target="button2" />
+		    <AssertPropertyValue propertyName="selected" value="true" target="dependentButton2"/>
+	    </body>
+	  </TestCase>
+</testCases>
+
+
+</UnitTester>

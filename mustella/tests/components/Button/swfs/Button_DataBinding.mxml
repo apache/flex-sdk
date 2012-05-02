@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="500">
+	<!-- 
+		This will test bindable properties of the Button component:
+		data, label, labelPlacement, listData, selected, toggle
+	-->
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var theLabel:String = "Button 1: Left";
+			
+			[Bindable]
+			public var theLabelPlacement:String = "left";
+			
+			[Bindable]
+			public var isSelected:Boolean = false;
+						
+			[Bindable]
+			public var canToggle:Boolean = false;
+			
+			[Bindable]
+            [Embed("../../../../Assets/Images/ButtonImages/status_closed.gif")]
+            private var TitleIconClosed:Class;			
+			
+			]]>
+	</mx:Script>
+	
+	<mx:Style>		
+			@font-face {
+				src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+                fontFamily: "MyVerdana";
+			embedAsCFF: false;
+            }
+	</mx:Style>
+
+			<mx:Button id="dependentButton1" width="200" 
+				      label="{button1.label}" labelPlacement="{button1.labelPlacement}"
+				      x="25" y="25"  icon="{TitleIconClosed}" fontFamily="MyVerdana"/>
+		    
+		    <mx:Button id="button1" width="200" 
+				      label="{theLabel}" labelPlacement="{theLabelPlacement}" 
+				      x="25" y="50" icon="{TitleIconClosed}" fontFamily="MyVerdana"/>
+				      
+			
+			<mx:Button id="dependentButton2" selected="{button2.selected}" toggle="{button2.toggle}" label="Button 2"
+				      x="25" y="75" fontFamily="MyVerdana"/>
+					
+			<mx:Button id="button2" selected="{isSelected}" toggle="{canToggle}" label="Button 2"
+				      x="25" y="100" fontFamily="MyVerdana"/>
+
+
+	
+	
+</mx:Application>

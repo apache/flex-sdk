@@ -1,0 +1,34 @@
+@font-face {
+	src: url("Open_Sans/OpenSans-Regular.ttf");
+	fontFamily: "MyVerdana";
+        embedAsCFF: false;
+}
+
+@font-face {
+	src: url("Open_Sans/OpenSans-Bold.ttf");
+	fontFamily: "MyVerdana";
+	fontWeight: bold;
+        embedAsCFF: false;
+}
+
+@font-face {
+	src: url("Open_Sans/OpenSans-Italic.ttf");
+	fontFamily: "MyVerdana";
+	fontStyle: italic;
+        embedAsCFF: false;
+}
+
+@font-face {
+	src: url("Open_Sans/OpenSans-BoldItalic.ttf");
+	fontFamily: "MyVerdana";
+	fontWeight: bold;
+	fontStyle: italic;
+        embedAsCFF: false;
+}
+
+global {
+    fontFamily: "MyVerdana";
+    fontAntiAliasType: "normal";
+}
+
+

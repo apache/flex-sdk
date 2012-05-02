@@ -1,0 +1,4055 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/Button/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Button_main_Spark.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDisabled.jpg")]
+
+			public var dijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDisabled.gif")]
+
+			public var digif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDisabled.png")]
+
+			public var dipng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDisabled.swf")]
+
+			public var diswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDisabled.jpg")]
+
+			public var dsjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDisabled.gif")]
+
+			public var dsgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDisabled.png")]
+
+			public var dspng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDisabled.swf")]
+
+			public var dsswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDown.jpg")]
+
+			public var downIconjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDown.gif")]
+
+			public var downIcongif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDown.png")]
+
+			public var downIconpng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconDown.swf")]
+
+			public var downIconswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDown.jpg")]
+
+			public var downSkinjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDown.gif")]
+
+			public var downSkingif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDown.png")]
+
+			public var downSkinpng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonDown.swf")]
+
+			public var downSkinswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/smallUpSkin.jpg")]
+
+			public var RedU:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/smallOverSkin.jpg")]
+
+			public var BlackO:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconOver.jpg")]
+
+			public var oijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconOver.gif")]
+
+			public var oigif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconOver.png")]
+
+			public var oipng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconOver.swf")]
+
+			public var oiswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonOver.jpg")]
+
+			public var osjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonOver.gif")]
+
+			public var osgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonOver.png")]
+
+			public var ospng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonOver.swf")]
+
+			public var osswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDisabledIcon.jpg")]
+
+			public var sdijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDisabledIcon.gif")]
+
+			public var sdigif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDisabledIcon.png")]
+
+			public var sdipng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDisabledIcon.swf")]
+
+			public var sdiswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelDisabledSkin.jpg")]
+
+			public var sdsjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelDisabledSkin.gif")]
+
+			public var sdsgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelDisabledSkin.png")]
+
+			public var sdspng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDisabledSkin.swf")]
+
+			public var sdsswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDownIcon.jpg")]
+
+			public var sdownijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDownIcon.gif")]
+
+			public var sdownigif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDownIcon.png")]
+
+			public var sdownipng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDownIcon.swf")]
+
+			public var sdowniswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelDownSkin.jpg")]
+
+			public var sdownsjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelDownSkin.gif")]
+
+			public var sdownsgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelDownSkin.png")]
+
+			public var sdownspng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selDownSkin.swf")]
+
+			public var sdownsswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selOverIcon.jpg")]
+
+			public var soverijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selOverIcon.gif")]
+
+			public var soverigif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selOverIcon.png")]
+
+			public var soveripng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selOverIcon.swf")]
+
+			public var soveriswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelOverSkin.jpg")]
+
+			public var soversjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelOverSkin.gif")]
+
+			public var soversgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelOverSkin.png")]
+
+			public var soverspng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selOverSkin.swf")]
+
+			public var soversswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selUpIcon.jpg")]
+
+			public var supijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selUpIcon.gif")]
+
+			public var supigif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selUpIcon.png")]
+
+			public var supipng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selUpIcon.swf")]
+
+			public var supiswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelUpSkin.jpg")]
+
+			public var supsjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelUpSkin.gif")]
+
+			public var supsgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/SelUpSkin.png")]
+
+			public var supspng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/selUpSkin.swf")]
+
+			public var supsswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconUp.jpg")]
+
+			public var upijpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconUp.gif")]
+
+			public var upigif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconUp.png")]
+
+			public var upipng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/iconUp.swf")]
+
+			public var upiswf:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonUp.jpg")]
+
+			public var upsjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonUp.gif")]
+
+			public var upsgif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonUp.png")]
+
+			public var upspng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/buttonUp.swf")]
+
+			public var upsswf:Class;
+
+
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+		
+		<!--Testcase for manual test of focusSkin for Button-->
+		<TestCase testID="Spark_Checking_focusSkin_style_of_Button" keywords="[Button, focusSkin, style]" description="Test the focusSkin style of Button">
+			<setup>
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="panel1"/>
+				<SetStyle target="myButton" styleName="focusSkin" value="{RedU}"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/Checking_focusSkin_style_of_Button_spark.png" target="panel1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Spark_Checking_focusThickness_neg5_style_of_Button" keywords="[Button, focusThickness, style]" description="Test the focusThickness style of Button can be set to -5">
+			<setup>
+				<ResetComponent target="outButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="outButton"/>
+				<SetStyle target="outButton" styleName="focusThickness" value="-5"/>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="outButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/Checking_focusThickness_neg5_style_of_Button_spark.png" target="outButton"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Spark_Checking_borderColor_0x_Style_of_Button" description="Test that checks borderColor 0x of  Button is set" keywords="[Button, borderColor, style]">
+			<setup>
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+				<SetStyle target="myButton" styleName="borderColor" value="0xFF0000"  waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/Checking_borderColor_0x_Style_of_Button_spark.png"  target="myButton"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Spark_Checking_borderColor_pound_Style_of_Button" description="Test that checks borderColor # of  Button is set" keywords="[Button, borderColor, style]">
+			<setup>
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+				<SetStyle target="myButton" styleName="borderColor" value="#FF0000"  waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/Checking_borderColor_pound_Style_of_Button_spark.png"  target="myButton"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Spark_Checking_borderColor_text_Style_of_Button" description="Test that checks borderColor text  of Button is set" keywords="[Button, borderColor, style]">
+			<setup>
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+				<SetStyle target="myButton" styleName="borderColor" value="red" waitEvent="updateComplete"  waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/Checking_borderColor_text_Style_of_Button_spark.png"  target="myButton"/>
+			</body>
+		</TestCase>
+
+
+
+			<TestCase testID="Spark_Checking_color_0x_Style_of_Button" description="Test that checks color 0x of  Button is set" keywords="[Button, color, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Button Label"/>
+
+				<SetStyle target="myButton" styleName="color" value="0xFF0000" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_color_0x_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_color_pound_Style_of_Button" description="Test that checks color # of Button is  set" keywords="[Button, color, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Button Label"/>
+
+				<SetStyle target="myButton" styleName="color" value="#FF0000" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_color_pound_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_color_text_Style_of_Button" description="Test that checks color text of Button is  set" keywords="[Button, color, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Button Label"/>
+
+				<SetStyle target="myButton" styleName="color" value="red" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_color_text_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_cornerRadius_Style_of_Button" description="Test the cornerRadius style of Button"  keywords="[Button, cornerRadius, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="cornerRadius" value="10" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_cornerRadius_Style_of_Button_spark.png"  target="myButton"/>
+
+				<AssertStyleValue target="myButton" styleName="cornerRadius" value="10"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_disabledColor_0x_Style_of_Button" description="Test that checks disabledColor 0x  style of Button" keywords="[Button, disabledColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Disabled button"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledColor" value="0x00FF00" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledColor_0x_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_disabledColor_pound_Style_of_Button" description="Test that checks disabledColor  # style of Button" keywords="[Button, disabledColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Disabled button"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledColor" value="#00FF00" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledColor_pound_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_disabledColor_text_Style_of_Button" description="Test that checks disabledColor  text style of Button" keywords="[Button, disabledColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Disabled button"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledColor" value="green"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledColor_text_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_disabledIcon_jpg_of_Button" description="Test the disabledIcon jpg style of  Button" keywords="[Button, disabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledIcon" value="{dijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_disabledIcon_gif_of_Button" description="Test the disabledIcon gif style of  Button" keywords="[Button, disabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledIcon" value="{digif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_disabledIcon_png_of_Button" description="Test the disabledIcon png style of  Button" keywords="[Button, disabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledIcon" value="{dipng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_disabledIcon_swf_of_Button" description="Test the disabledIcon swf style of  Button" keywords="[Button, disabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledIcon" value="{diswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledIcon_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Disabled icon should not appear because button is enabled-->
+
+		<TestCase testID="Spark_Checking_disabledIcon_depth_of_Button" description="Test the disabledIcon jpg style of  Button" keywords="[Button, disabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="true"/>
+
+				<SetStyle target="myButton" styleName="disabledIcon" value="{dijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledIcon_depth_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_disabledSkin_jpg_of_Button" description="Test the disabledSkin jpg style of  Button" keywords="[Button, disabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledSkin" value="{dsjpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledSkin_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_disabledSkin_gif_of_Button" description="Test the disabledSkin gif style of  Button" keywords="[Button, disabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledSkin" value="{dsgif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledSkin_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_disabledSkin_png_of_Button" description="Test the disabledSkin png style of  Button" keywords="[Button, disabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledSkin" value="{dspng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledSkin_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--<TestCase testID="Spark_Checking_disabledSkin_swf_of_Button" description="Test the disabledSkin swf style of  Button" keywords="[Button, disabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"/>
+
+				<SetStyle target="myButton" styleName="disabledSkin" value="{dsswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_disabledSkin_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>-->
+
+
+
+		<TestCase testID="Spark_Checking_downIcon_jpg_of_Button" description="Test the downIcon jpg style of Button"  keywords="[Button, downIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downIcon" value="{downIconjpg}"  waitEvent="updateComplete" waitTarget="myButton" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_downIcon_gif_of_Button" description="Test the downIcon gif style of Button"  keywords="[Button, downIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downIcon" value="{downIcongif}"  waitEvent="updateComplete" waitTarget="myButton" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_downIcon_png_of_Button" description="Test the downIcon png style of Button"  keywords="[Button, downIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downIcon" value="{downIconpng}" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_downIcon_swf_of_Button" description="Test the downIcon swf style of Button"  keywords="[Button, downIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downIcon" value="{downIconswf}"  waitEvent="updateComplete" waitTarget="myButton" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downIcon_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_downSkin_jpg_of_Button" description="Test the downSkin jpg style of Button"  keywords="[Button, downSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downSkin" value="{downSkinjpg}"  waitEvent="updateComplete" waitTarget="myButton" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downSkin_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_downSkin_gif_of_Button" description="Test the downSkin gif style of Button"  keywords="[Button, downSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downSkin" value="{downSkingif}"  waitEvent="updateComplete" waitTarget="myButton" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downSkin_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_downSkin_png_of_Button" description="Test the downSkin png style of Button"  keywords="[Button, downSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="downSkin" value="{downSkinpng}"  waitEvent="updateComplete" waitTarget="myButton" timeout="5000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_downSkin_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="Spark_Checking_fillAlphas_of_Button" description="Test the fillAlphas style of Button"  keywords="[Button, fillAlphas, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fillAlphas" value="[1,1]" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fillAlphas_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fillColors_0x_of_Button" description="Test the fillColors 0x style of Button"  keywords="[Button, fillColors, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fillColors" value="[0xCCCCFF,0x00FF00]"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fillColors_0x_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fillColors_pound_of_Button" description="Test the fillColors # style of Button"  keywords="[Button, fillColors, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fillColors" value="[#CCCCFF,#00FF00]"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fillColors_pound_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fillColors_text_of_Button" description="Test the fillColors text style of Button"  keywords="[Button, fillColors, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fillColors" value="[red, green]"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fillColors_text_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusAlpha_of_Button" description="Test the focusAlpha style of Button"  keywords="[Button, focusAlpha, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusAlpha" value="1"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusAlpha_Style_of_Button_spark.png"  target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+<!--
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_tl_of_Button" description="Test the focusRoundedCorners tl  style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tl"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusRoundedCorners_tl_Style_of_Button_spark.png"  target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_tr_of_Button" description="Test the focusRoundedCorners tr  style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusRoundedCorners_tr_Style_of_Button_spark.png"  target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_bl_of_Button" description="Test the focusRoundedCorners bl  style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="bl"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusRoundedCorners_bl_Style_of_Button_spark.png"  target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_of_Button" description="Test the focusRoundedCorners br  style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusRoundedCorners_br_Style_of_Button_spark.png"  target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_bl_of_Button" description="Test the focusRoundedCorners br  bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br bl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_bl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_tr_of_Button" description="Test the focusRoundedCorners br  tr style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_tr_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_tl_of_Button" description="Test the focusRoundedCorners br  tl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>	
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_tl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_tr_tl_of_Button" description="Test the focusRoundedCorners tr  tl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr tl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_tr_tl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_tr_bl_of_Button" description="Test the focusRoundedCorners tr  bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr bl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_tr_bl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_tl_bl_of_Button" description="Test the focusRoundedCorners tl  bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tl bl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_tl_bl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_tr_tl_of_Button" description="Test the focusRoundedCorners  br tr tl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr tl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_tr_tl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_tr_bl_of_Button" description="Test the focusRoundedCorners  br tr bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr bl"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_tr_bl_Style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_tl_bl_of_Button" description="Test the focusRoundedCorners  br tl bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tl bl"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_tl_bl_Style_of_Button_spark.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_tr_tl_bl_of_Button" description="Test the focusRoundedCorners  tr tl bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+			<setup>
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr tl bl"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+			<body>
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_tr_tl_bl_Style_of_Button_spark.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_focusRoundedCorners_br_tr_tl_bl_of_Button" description="Test the  focusRoundedCorners br tr tl bl style of Button" keywords="[Button,focusRoundedCorners,style]">
+			<setup>
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+				<SetProperty target="myButton" propertyName="x" value="100"/>
+				<SetProperty target="myButton" propertyName="y" value="50"/>
+				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr tl bl"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_br_tr_tl_bl_Style_of_Button_spark.png" target="panel1"/>
+			</body>
+		</TestCase>-->
+
+		<!--Testcases for manual test of focusThickness for Button-->
+<!--
+		<TestCase testID="Spark_Checking_focusThickness_default_style_of_Button" keywords="[Button, focusThickness, style]" description="Test the focusThickness style of Button defaults to 2">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="focusThickness" value="2" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusThickness_5_style_of_Button" keywords="[Button, focusThickness, style]" description="Test the focusThickness style of Button can be set to 5">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="focusThickness" value="5"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusThickness_5_style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+		<TestCase testID="Spark_Checking_focusThickness_5point5_style_of_Button" keywords="[Button, focusThickness, style]" description="Test the focusThickness style of Button can be set to 5.5">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="focusThickness" value="5.5"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusThickness_5point5_style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_focusThickness_10_style_of_Button" keywords="[Button, focusThickness, style]" description="Test the focusThickness style of Button can be set to 10">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="focusThickness" value="10"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<Pause timeout="1000"/>
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_focusThickness_10_style_of_Button_spark.png" target="panel1"/>
+
+			</body>
+
+		</TestCase>
+
+-->
+
+		<TestCase testID="Spark_Checking_fontFamily_of_Button" description="Test the fontFamily tl style of Button"  keywords="[Button, fontFamily,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fontFamily" value="myComic"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Button Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fontFamily_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fontSize_of_Button" description="Test the fontSize style of Button"  keywords="[Button, fontSize,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fontSize" value="25"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Button Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fontSize_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fontStyle_normal_of_Button" description="Tests the fontStyle normal (non-italic)  style of Button" keywords="[Button, fontStyle, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fontStyle" value="normal"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Not Italic"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fontStyle_normal_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fontStyle_italic_of_Button" description="Tests the fontStyle italic style of  Button" keywords="[Button, fontStyle, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fontStyle" value="italic"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Italic"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fontStyle_italic_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fontWeight_bold_of_Button" description="Test the fontWeight bold style of Button"  keywords="[Button, fontWeight,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fontWeight" value="bold"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Bold" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fontWeight_bold_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_fontWeight_normal_of_Button" description="Test the fontWeight normal style of  Button" keywords="[Button, fontWeight,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="fontWeight" value="normal"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Normal"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_fontWeight_normal_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+<!-- Commenting out test due to issues on the cyclone server
+		<TestCase testID="Spark_Checking_highlightAlphas_of_Button" description="Test the highlightAlphas style of Button"  keywords="[Button, highlightAlphas,style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<ResetComponent target="outButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="outButton"/>
+
+				<SetStyle target="outButton" styleName="highlightAlphas" value="[0,1]"  waitEvent="updateComplete" waitTarget="outButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_highlightAlphas_Style_of_Button_spark.png"  target="outButton"/>
+
+			</body>
+
+		</TestCase>-->
+
+
+
+		<!--Testcases for manual test checking horizontalGap values of Button-->
+
+		<TestCase testID="Spark_Checking_horizontalGap_default_of_Button" description="Tests that the default  horizontalGap is 2 of button." keywords="[Button, horizontalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" />
+
+				<SetProperty target="myButton" propertyName="label" value="Default Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="horizontalGap" value="2" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_horizontalGap_20_of_Button" description="Tests that the horizontalGap is 20 of  button." keywords="[Button, horizontalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" />
+
+				<SetStyle target="myButton" styleName="horizontalGap" value="20"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Gap 20 Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="horizontalGap" value="20" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_horizontalGap_20_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_horizontalGap_20point5_of_Button" description="Tests that the horizontalGap is  20.5 of button." keywords="[Button, horizontalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" />
+
+				<SetStyle target="myButton" styleName="horizontalGap" value="20.5"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Gap 20.5 Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="horizontalGap" value="20.5" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_horizontalGap_20_point5_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_horizontalGap_neg_5_of_Button" description="Tests that the horizontalGap is -5 of  button." keywords="[Button, horizontalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" />
+
+				<SetStyle target="myButton" styleName="horizontalGap" value="-5"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Gap -5 Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="horizontalGap" value="-5" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_horizontalGap_neg5_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_horizontalGap_40_of_Button" description="Tests that the horizontalGap is 40 of  button." keywords="[Button, horizontalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" />
+
+				<SetStyle target="myButton" styleName="horizontalGap" value="40"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Gap 40 Label"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="horizontalGap" value="40" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_horizontalGap_40_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test checking kerning of Button-->
+
+		<TestCase testID="Spark_Checking_kerning_true_of_Button" description="Test that the kerning value of true is  passed on to the text field of Button." keywords="[Button, kerning, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="kerning" value="true"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Kerning true button"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myButton.getTextField()" styleName="kerning" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_kerning_false_of_Button" description="Test that the kerning value of false is  passed on to the text field of Button." keywords="[Button, kerning, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="kerning" value="false"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Kerning true button"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myButton.getTextField()" styleName="kerning" value="false"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test checking letterSpacing of Button-->
+
+		<TestCase testID="Spark_Checking_letterSpacing_5_of_Button" description="Test that the letterSpacing value of 5 is  passed on to the text field of Button." keywords="[Button, letterSpacing, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="letterSpacing" value="5"/>
+
+				<SetProperty target="myButton" propertyName="label" value="letterSpacing button"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myButton.getTextField()" styleName="letterSpacing" value="5"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_letterSpacing_neg5_of_Button" description="Test that the letterSpacing value of  -5 is passed on to the text field of Button." keywords="[Button, letterSpacing, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="letterSpacing" value="-5"/>
+
+				<SetProperty target="myButton" propertyName="label" value="letterSpacing button"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myButton.getTextField()" styleName="letterSpacing" value="-5"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<!--Testcase for manual test checking icon of Button-->
+
+		<TestCase testID="Spark_Checking_icon_style_of_Button" description="Test that the icon is rendered on the button."  keywords="[Button, icon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_icon_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test checking overIcon of Button-->
+
+		<TestCase testID="Spark_Checking_overIcon_jpg_of_Button" description="Test the overIcon jpg style of Button"  keywords="[Button, overIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overIcon" value="{oijpg}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_overIcon_gif_of_Button" description="Test the overIcon gif style of Button"  keywords="[Button, overIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overIcon" value="{oigif}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_overIcon_png_of_Button" description="Test the overIcon png style of Button"  keywords="[Button, overIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overIcon" value="{oipng}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_overIcon_swf_of_Button" description="Test the overIcon swf style of Button"  keywords="[Button, overIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overIcon" value="{oiswf}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overIcon_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_overSkin_jpg_of_Button" description="Test the overSkin jpg style of Button"  keywords="[Button, overSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overSkin" value="{osjpg}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overSkin_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_overSkin_gif_of_Button" description="Test the overSkin gif style of Button"  keywords="[Button, overSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overSkin" value="{osgif}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overSkin_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_overSkin_png_of_Button" description="Test the overSkin png style of Button"  keywords="[Button, overSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="overSkin" value="{ospng}" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_overSkin_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_paddingBottom_of_Button" description="Test the paddingBottom style of Button"  keywords="[Button, paddingBottom, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="paddingBottom" value="10" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Padding Bottom"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_paddingBottom_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_paddingLeft_of_Button" description="Test the paddingLeft style of Button"  keywords="[Button, paddingLeft, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="paddingLeft" value="10" />
+
+				<SetProperty target="myButton" propertyName="label" value="Padding Left"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_paddingLeft_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_paddingRight_of_Button" description="Test the paddingRight style of Button"  keywords="[Button, paddingRight, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="paddingRight" value="20" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Padding Right"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_paddingRight_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_paddingTop_of_Button" description="Test the paddingTop style of Button"  keywords="[Button, paddingTop, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="paddingTop" value="10" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Padding Top"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_paddingTop_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledIcon_jpg_of_Button" description="Test the selectedDisabledIcon  jpg style of Button" keywords="[Button, selectedDisabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledIcon" value="{sdijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledIcon_jpg_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledIcon_gif_of_Button" description="Test the selectedDisabledIcon  gif style of Button" keywords="[Button, selectedDisabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledIcon" value="{sdigif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledIcon_gif_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledIcon_png_of_Button" description="Test the selectedDisabledIcon  png style of Button" keywords="[Button, selectedDisabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledIcon" value="{sdipng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledIcon_png_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledIcon_swf_of_Button" description="Test the selectedDisabledIcon  swf style of Button" keywords="[Button, selectedDisabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledIcon" value="{sdiswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledIcon_swf_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledSkin_jpg_of_Button" description="Test the selectedDisabledSkin  jpg style of Button" keywords="[Button, selectedDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledSkin" value="{sdsjpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledSkin_jpg_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledSkin_gif_of_Button" description="Test the selectedDisabledSkin  gif style of Button" keywords="[Button, selectedDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledSkin" value="{sdsgif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledSkin_gif_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDisabledSkin_png_of_Button" description="Test the selectedDisabledSkin  png style of Button" keywords="[Button, selectedDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDisabledSkin" value="{sdspng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<SetProperty target="myButton" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap  url="../styles/baselines/Checking_selectedDisabledSkin_png_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownIcon_jpg_of_Button" description="Test the selectedDownIcon jpg style  of Button" keywords="[Button, selectedDownIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownIcon" value="{sdownijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownIcon_gif_of_Button" description="Test the selectedDownIcon gif style  of Button" keywords="[Button, selectedDownIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownIcon" value="{sdownigif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownIcon_png_of_Button" description="Test the selectedDownIcon png style  of Button" keywords="[Button, selectedDownIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownIcon" value="{sdownipng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownIcon_swf_of_Button" description="Test the selectedDownIcon swf style  of Button" keywords="[Button, selectedDownIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownIcon" value="{sdowniswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownIcon_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownSkin_jpg_of_Button" description="Test the selectedDownSkin jpg style  of Button" keywords="[Button, selectedDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownSkin" value="{sdownsjpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownSkin_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownSkin_gif_of_Button" description="Test the selectedDownSkin gif style  of Button" keywords="[Button, selectedDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownSkin" value="{sdownsgif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownSkin_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedDownSkin_png_of_Button" description="Test the selectedDownSkin png style  of Button" keywords="[Button, selectedDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedDownSkin" value="{sdownspng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDownSkin_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverIcon_jpg_of_Button" description="Test the selectedOverIcon jpg style  of Button" keywords="[Button, selectedOverIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverIcon" value="{soverijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverIcon_gif_of_Button" description="Test the selectedOverIcon gif style  of Button" keywords="[Button, selectedOverIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverIcon" value="{soverigif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverIcon_png_of_Button" description="Test the selectedOverIcon png style  of Button" keywords="[Button, selectedOverIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverIcon" value="{soveripng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverIcon_swf_of_Button" description="Test the selectedOverIcon swf style  of Button" keywords="[Button, selectedOverIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverIcon" value="{soveriswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverIcon_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverSkin_jpg_of_Button" description="Test the selectedOverSkin jpg style  of Button" keywords="[Button, selectedOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverSkin" value="{soversjpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverSkin_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverSkin_gif_of_Button" description="Test the selectedOverSkin gif style  of Button" keywords="[Button, selectedOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverSkin" value="{soversgif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverSkin_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedOverSkin_png_of_Button" description="Test the selectedOverSkin png style  of Button" keywords="[Button, selectedOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedOverSkin" value="{soverspng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedOverSkin_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpIcon_jpg_of_Button" description="Test the selectedUpIcon jpg style of  Button" keywords="[Button, selectedUpIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpIcon" value="{supijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpIcon_gif_of_Button" description="Test the selectedUpIcon gif style of  Button" keywords="[Button, selectedUpIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpIcon" value="{supigif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpIcon_png_of_Button" description="Test the selectedUpIcon png style of  Button" keywords="[Button, selectedUpIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpIcon" value="{supipng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpIcon_swf_of_Button" description="Test the selectedUpIcon swf style of  Button" keywords="[Button, selectedUpIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpIcon" value="{supiswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpIcon_swf_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpSkin_jpg_of_Button" description="Test the selectedUpSkin jpg style of  Button" keywords="[Button, selectedUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpSkin" value="{supsjpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpSkin_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpSkin_gif_of_Button" description="Test the selectedUpSkin gif style of  Button" keywords="[Button, selectedUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpSkin" value="{supsgif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpSkin_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_selectedUpSkin_png_of_Button" description="Test the selectedUpSkin png style of  Button" keywords="[Button, selectedUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="selectedUpSkin" value="{supspng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedUpSkin_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual tests textAlign of Button-->
+
+		<TestCase testID="Spark_Checking_textAlign_default_of_Button" description="Tests the textAlign default of Button"  keywords="[Button, textAlign, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="width" value="150"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Left Align"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myButton" styleName="textAlign" value="center"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="Spark_Checking_textAlign_left_of_Button" description="Tests the textAlign left of Button"  keywords="[Button, textAlign, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textAlign" value="left"/>
+
+				<SetProperty target="myButton" propertyName="width" value="150"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Left Align"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textAlign_left_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textAlign_center_of_Button" description="Tests the textAlign center of Button"  keywords="[Button, textAlign, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textAlign" value="center"/>
+
+				<SetProperty target="myButton" propertyName="width" value="150"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Center Align"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textAlign_center_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textAlign_right_of_Button" description="Tests the textAlign left of Button"  keywords="[Button, textAlign, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textAlign" value="right"/>
+
+				<SetProperty target="myButton" propertyName="width" value="150"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Right Align"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textAlign_right_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of textDecoration-->
+
+		<TestCase testID="Spark_Checking_textDecoration_none_of_Button" description="Tests the textDecoration none of Button" keywords="[Button, textDecoration, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textDecoration" value="none"/>
+
+				<SetProperty target="myButton" propertyName="label" value="None Decoration" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textDecoration_none_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textDecoration_right_of_Button" description="Tests the textDecoration underline of Button" keywords="[Button, textDecoration, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textDecoration" value="underline"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Underline Decoration" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textDecoration_underline_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--For some reason this testcase keeps returning null as the value for textDecoration instead of none-->
+
+		<!--Logged bug 203033, if this gets fixed remove CompareBitmap and uncomment AssertStyleValue -->
+
+		<TestCase testID="Spark_Checking_textDecoration_default_of_Button" description="Tests the textDecoration defaults to none for Button" keywords="[Button, textDecoration, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Default Decoration" waitEvent="updateComplete" waitTarget="panel1"/>
+
+			</setup>
+
+			<body>
+
+				<!--<AssertStyleValue styleName="textDecoration" value="none" target="myButton"/>-->
+
+				<CompareBitmap url="../styles/baselines/Checking_textDecoration_default_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual tests of textIndent -->
+
+		<TestCase testID="Spark_Checking_textIndent_default_of_Button" description="Tests the textIndent default of 0 of Button" keywords="[Button, textIndent, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="Default Indent" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textIndent" value="0" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textIndent_20_of_Button" description="Tests the textIndent 20 of Button" keywords="[Button, textIndent, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textIndent" value="20"/>
+
+				<SetProperty target="myButton" propertyName="label" value="20 Indent" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textIndent_20_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textIndent_20point5_of_Button" description="Tests the textIndent 20.5 of Button" keywords="[Button, textIndent, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textIndent" value="20.5"/>
+
+				<SetProperty target="myButton" propertyName="label" value="20.5 Indent" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textIndent_20point5_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textIndent_40_of_Button" description="Tests the textIndent 40 of Button" keywords="[Button, textIndent, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textIndent" value="40"/>
+
+				<SetProperty target="myButton" propertyName="label" value="40 Indent" waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textIndent_40_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual tests of textRollOverColor for Button-->
+
+		<TestCase testID="Spark_Checking_textRollOverColor_0x_of_Button" description="Test the textRollOverColor 0x style of Button"  keywords="[Button, textRollOverColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textRollOverColor" value="0xFF0000" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="textRollOverColor" />
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textRollOverColor_0x_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Spark_Checking_textRollOverColor_pound_of_Button" description="Test the textRollOverColor pound style of Button"  keywords="[Button, textRollOverColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textRollOverColor" value="#00FF00" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="textRollOverColor" />
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textRollOverColor_pound_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textRollOverColor_text_of_Button" description="Test the textRollOverColor text style of Button"  keywords="[Button, textRollOverColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="textRollOverColor" value="blue" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="textRollOverColor" />
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="15"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseMove" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textRollOverColor_text_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<!--Testcase for manual tests of textSelectedColor for Button-->
+
+
+		<TestCase testID="Spark_Checking_textSelectedColor_0x_of_Button" description="Test the textSelectedColor 0x style of Button"  keywords="[Button, textSelectedColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="textSelectedColor" />
+
+				<SetStyle target="myButton" styleName="textSelectedColor" value="0xFF0000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textSelectedColor" value="0xFF0000" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_textSelectedColor_0x_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textSelectedColor_pound_of_Button" description="Test the textSelectedColor pound style of Button"  keywords="[Button, textSelectedColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="textSelectedColor" />
+
+				<SetStyle target="myButton" styleName="textSelectedColor" value="#00FF00"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textSelectedColor" value="#00FF00" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_textSelectedColor_pound_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_textSelectedColor_text_of_Button" description="Test the textSelectedColor text style of Button"  keywords="[Button, textSelectedColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="textSelectedColor" />
+
+				<SetStyle target="myButton" styleName="textSelectedColor" value="blue"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_textSelectedColor_text_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual tests of themeColor for Button-->
+
+		<TestCase testID="Spark_Checking_themeColor_0x_of_Button" description="Test the themeColor 0x style of Button"  keywords="[Button, themeColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="themeColor" />
+
+				<SetStyle target="myButton" styleName="themeColor" value="0xFF0000"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="themeColor" value="0xFF0000" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_themeColor_0x_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_themeColor_pound_of_Button" description="Test the themeColor pound style of Button"  keywords="[Button, themeColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="themeColor" />
+
+				<SetStyle target="myButton" styleName="themeColor" value="#00FF00"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="themeColor" value="#00FF00" target="myButton"/>
+
+				<CompareBitmap url="../styles/baselines/Checking_themeColor_pound_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_themeColor_text_of_Button" description="Test the themeColor text style of Button"  keywords="[Button, themeColor, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="label" value="themeColor" />
+
+				<SetStyle target="myButton" styleName="themeColor" value="blue"/>
+
+				<DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20" />
+
+                        <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_themeColor_text_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upIcon_jpg_of_Button" description="Test the upIcon jpg style of  Button" keywords="[Button, upIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upIcon" value="{upijpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty target="myButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myButton" propertyName="selected" value="true"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upIcon_jpg_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upIcon_gif_of_Button" description="Test the upIcon gif style of  Button" keywords="[Button, upIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upIcon" value="{upigif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upIcon_gif_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upIcon_png_of_Button" description="Test the upIcon png style of  Button" keywords="[Button, upIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upIcon" value="{upipng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upIcon_png_Style_of_Button_spark.png"  target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upIcon_swf_of_Button" description="Test the upIcon swf style of Button" keywords="[Button, upIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upIcon" value="{upiswf}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upIcon_swf_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upSkin_jpg_of_Button" description="Test the upSkin jpg style of  Button" keywords="[Button, upSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upSkin" value="{upsjpg}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upSkin_jpg_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upSkin_gif_of_Button" description="Test the upSkin gif style of  Button" keywords="[Button, upSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upSkin" value="{upsgif}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upSkin_gif_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_upSkin_png_of_Button" description="Test the upSkin png style of  Button" keywords="[Button, upSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="upSkin" value="{upspng}"  waitEvent="updateComplete" waitTarget="myButton"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_upSkin_png_Style_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_verticalGap_default_of_Button" description="Tests the default verticalGap of Button is 2" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="verticalGap" target="myButton" value="2"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_verticalGap_20_of_Button" description="Tests the verticalGap of 20 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="20"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_top_20_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_neg5_of_Button" description="Tests the verticalGap of -5 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="-5"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_top_neg5_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_20point5_of_Button" description="Tests the verticalGap of 20.5 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="20.5"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_top_20point5_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_40_of_Button" description="Tests the verticalGap of 40 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="40"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_top_40_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_verticalGap_default_of_Button_labelBottom" description="Tests the default verticalGap of Button is 2" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="verticalGap" target="myButton" value="2"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_verticalGap_20_of_Button_labelBottom" description="Tests the verticalGap of 20 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="20"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_bottom_20_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_neg5_of_Button_labelBottom" description="Tests the verticalGap of -5 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="-5"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_bottom_neg5_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_20point5_of_Button_labelBottom" description="Tests the verticalGap of 20.5 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="20.5"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_bottom_20point5_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_Checking_40_of_Button_labelBottom" description="Tests the verticalGap of 40 for Button" keywords="[Button, verticalGap, style]">
+
+			<setup>
+
+				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+
+				<SetProperty propertyName="label" value="Top Vertical Gap" target="myButton"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myButton"/>
+
+				<SetStyle target="myButton" styleName="verticalGap" value="40"/>
+
+				<SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_verticalGap_bottom_40_of_Button_spark.png" target="myButton"/>
+
+			</body>
+
+	    </TestCase>
+
+	</testCases>
+
+</UnitTester>
+
