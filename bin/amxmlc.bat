@@ -1,4 +1,4 @@
-@echo off
+@echo on
 rem Licensed to the Apache Software Foundation (ASF) under one or more
 rem contributor license agreements.  See the NOTICE file distributed with
 rem this work for additional information regarding copyright ownership.
@@ -17,11 +17,19 @@ rem limitations under the License.
 
 rem
 rem amxmlc.bat script for Windows.
-rem This simply executes mxmlc.exe in the same directory,
+rem This simply executes mxmlc.jar in the same directory,
 rem inserting the option +configname=air, which makes
-rem mxmlc.exe use air-config.xml instead of flex-config.xml.
+rem mxmlc use air-config.xml instead of flex-config.xml.
 rem On Unix, amxmlc is used instead.
 rem
 
-"%~dp0mxmlc.exe" +configname=air %*
+if "%AIR_HOME%"=="" goto NO_AIR_HOME
+if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
+java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\mxmlc.jar" +configname=air +flexlib="%FLEX_HOME%\frameworks" %*
+goto END
+
+:NO_AIR_HOME
+echo error: AIR_HOME not set
+
+:END

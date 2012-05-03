@@ -14,5 +14,13 @@ rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 rem See the License for the specific language governing permissions and
 rem limitations under the License.
 
+if "%PLAYERGLOBAL_HOME%"=="" goto NO_PLAYERGLOBAL_HOME
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
+
 java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\compc.jar" +flexlib="%FLEX_HOME%\frameworks" %*
+goto END
+
+:NO_PLAYERGLOBAL_HOME
+echo error: PLAYERGLOBAL_HOME not set
+
+:END

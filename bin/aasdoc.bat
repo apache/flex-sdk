@@ -17,11 +17,19 @@ rem limitations under the License.
 
 rem
 rem aasdoc.bat script for Windows.
-rem This simply executes asdoc.exe in the same directory,
+rem This simply executes asdoc.jar in the same directory,
 rem inserting the option +configname=air, which makes
-rem asdoc.exe use air-config.xml instead of flex-config.xml.
+rem asdoc use air-config.xml instead of flex-config.xml.
 rem On Unix, aasdoc is used instead.
 rem
 
-"%~dp0asdoc.exe" +configname=air %*
+if "%AIR_HOME%"=="" goto NO_AIR_HOME
+if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
+java -Xmx1024m -Dsun.io.useCanonCaches=false -Xbootclasspath/p:"%FLEX_HOME%\lib\xalan.jar" -classpath "%FLEX_HOME%\lib\asdoc.jar" flex2.tools.ASDoc +configname=air +flexlib="%FLEX_HOME%\frameworks" %*
+goto END
+
+:NO_AIR_HOME
+echo error: AIR_HOME not set
+
+:END

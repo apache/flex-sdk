@@ -65,6 +65,7 @@ public class CompilerConfiguration implements As3Configuration,
     public static final String TARGET_PLAYER_MAJOR_VERSION_TOKEN = "{targetPlayerMajorVersion}";
     public static final String TARGET_PLAYER_MINOR_VERSION_TOKEN = "{targetPlayerMinorVersion}";
     public static final String PLAYERGLOBAL_HOME_TOKEN = "{playerglobalHome}";
+    public static final String AIR_HOME_TOKEN = "{airHome}";
     
     // this is passed as the list of soft prerequisites for options like
     // library-path, source-path which need to have {locale}, etc., set already
@@ -131,7 +132,10 @@ public class CompilerConfiguration implements As3Configuration,
         pathlist = expandTargetPlayerToken(pathlist, parentConfiguration);
         
         // {playerglobalHome}
-        pathlist = expandPlayerglobalToken(pathlist);
+        pathlist = expandPlayerglobalHomeToken(pathlist);
+
+        // {airHome}
+        pathlist = expandAirHomeToken(pathlist);
         
         // {locale}
         return expandLocaleToken(pathlist, locales, cv);
@@ -168,7 +172,7 @@ public class CompilerConfiguration implements As3Configuration,
      * PLAYERGLOBAL_HOME.  Doesn't turn the paths into VirtualFiles (yet, 
      * @see expandLocaleToken()). 
      */
-    private static String[] expandPlayerglobalToken(String[] pathlist)
+    private static String[] expandPlayerglobalHomeToken(String[] pathlist)
     {
         final String[] processed = new String[pathlist.length];
         
@@ -180,6 +184,28 @@ public class CompilerConfiguration implements As3Configuration,
         {
             processed[i] = StringUtils.substitute(pathlist[i], 
             	PLAYERGLOBAL_HOME_TOKEN, playerglobalHome);
+        }
+
+        return processed;
+    }
+
+    /**
+     * Replaces instances of {airHome} with the environment variable
+     * AIR_HOME.  Doesn't turn the paths into VirtualFiles (yet, 
+     * @see expandLocaleToken()). 
+     */
+    private static String[] expandAirHomeToken(String[] pathlist)
+    {
+        final String[] processed = new String[pathlist.length];
+        
+        String airHome = System.getenv("AIR_HOME");
+        if (airHome == null)
+            airHome = "";
+
+        for (int i = 0; i < pathlist.length; i++)
+        {
+            processed[i] = StringUtils.substitute(pathlist[i], 
+            	AIR_HOME_TOKEN, airHome);
         }
 
         return processed;

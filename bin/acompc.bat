@@ -17,11 +17,19 @@ rem limitations under the License.
 
 rem
 rem acompc.bat script for Windows.
-rem This simply executes compc.exe in the same directory,
+rem This simply executes compc.jar in the same directory,
 rem inserting the option +configname=air, which makes
-rem compc.exe use air-config.xml instead of flex-config.xml.
+rem compc use air-config.xml instead of flex-config.xml.
 rem On Unix, acompc is used instead.
 rem
 
-"%~dp0compc.exe" +configname=air %*
+if "%AIR_HOME%"=="" goto NO_AIR_HOME
+if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
+java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\compc.jar" +configname=air +flexlib="%FLEX_HOME%\frameworks" %*
+goto END
+
+:NO_AIR_HOME
+echo error: AIR_HOME not set
+
+:END
