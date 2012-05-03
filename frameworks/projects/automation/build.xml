@@ -20,14 +20,19 @@
 <project name="automation" default="main" basedir=".">
 
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="11.1"/>
+
 	<property name="locale" value="en_US"/>
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="Compiling frameworks/locale/@{locale}/automation_rb.swc"/>
+			<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 			<!-- Load the <compc> task. We can't do this at the <project> level -->
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
 			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -43,8 +48,10 @@
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
 				<include-libraries/>
 				<library-path/>
+                <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                    <include name="playerglobal.swc"/>
+                </external-library-path>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 					<include name="framework.swc"/>
 					<include name="mx/mx.swc"/>
 				</external-library-path>
@@ -140,6 +147,8 @@
 	
 	<target name="compile" description="Compiles automation.swc">
 		<echo message="Compiling frameworks/libs/automation/automation.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -165,8 +174,10 @@
 			<include-classes>AutomationClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
 				<include name="automation_agent.swc"/>

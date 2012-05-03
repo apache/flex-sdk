@@ -20,14 +20,19 @@
 <project name="playerglobal" default="main" basedir=".">
 
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
-    <property file="${FLEX_HOME}/build.properties"/>
-    <property name="local.playerglobal.version" value="11.1"/>
+
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
+	<property file="${FLEX_HOME}/build.properties"/>
+
 	<property name="locale" value="en_US"/>
 
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 			<sequential>
 				<echo message="Compiling frameworks/locale/@{locale}/playerglobal_rb.swc"/>
+				<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 				<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 				<compc fork="true" output="${FLEX_HOME}/frameworks/locale/@{locale}/playerglobal_rb.swc"
 					locale="@{locale}">
@@ -40,8 +45,10 @@
 					<source-path path-element="${basedir}/src"/>
 					<include-libraries/>
 					<library-path/>
+                    <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                        <include name="playerglobal.swc"/>
+                    </external-library-path>
 					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-						<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 						<include name="framework.swc"/>
 					</external-library-path>
 				</compc>
@@ -96,6 +103,8 @@
     <!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
     <target name="bundle">
         <echo message="Compiling frameworks/locale/${locale}/playerglobal_rb.swc"/>
+        <echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
         <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
         <compc fork="true" output="${FLEX_HOME}/frameworks/locale/${locale}/playerglobal_rb.swc"
             locale="${locale}">
@@ -108,8 +117,10 @@
             <source-path path-element="${basedir}/src"/>
             <include-libraries/>
             <library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
             </external-library-path>
         </compc>

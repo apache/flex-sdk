@@ -64,6 +64,7 @@ public class CompilerConfiguration implements As3Configuration,
 	public static final String LOCALE_TOKEN = "{locale}";
     public static final String TARGET_PLAYER_MAJOR_VERSION_TOKEN = "{targetPlayerMajorVersion}";
     public static final String TARGET_PLAYER_MINOR_VERSION_TOKEN = "{targetPlayerMinorVersion}";
+    public static final String PLAYERGLOBAL_HOME_TOKEN = "{playerglobalHome}";
     
     // this is passed as the list of soft prerequisites for options like
     // library-path, source-path which need to have {locale}, etc., set already
@@ -129,6 +130,9 @@ public class CompilerConfiguration implements As3Configuration,
         // {targetPlayerMajorVersion}, {targetPlayerMinorVersion}
         pathlist = expandTargetPlayerToken(pathlist, parentConfiguration);
         
+        // {playerglobalHome}
+        pathlist = expandPlayerglobalToken(pathlist);
+        
         // {locale}
         return expandLocaleToken(pathlist, locales, cv);
     }
@@ -155,7 +159,29 @@ public class CompilerConfiguration implements As3Configuration,
             processed[i] = StringUtils.substitute(processed[i], 
             	TARGET_PLAYER_MINOR_VERSION_TOKEN, targetPlayerMinorVersion);
         }
-    
+
+        return processed;
+    }
+
+    /**
+     * Replaces instances of {playerglobalHome} with the environment variable
+     * PLAYERGLOBAL_HOME.  Doesn't turn the paths into VirtualFiles (yet, 
+     * @see expandLocaleToken()). 
+     */
+    private static String[] expandPlayerglobalToken(String[] pathlist)
+    {
+        final String[] processed = new String[pathlist.length];
+        
+        String playerglobalHome = System.getenv("PLAYERGLOBAL_HOME");
+        if (playerglobalHome == null)
+            playerglobalHome = "";
+
+        for (int i = 0; i < pathlist.length; i++)
+        {
+            processed[i] = StringUtils.substitute(pathlist[i], 
+            	PLAYERGLOBAL_HOME_TOKEN, playerglobalHome);
+        }
+
         return processed;
     }
 

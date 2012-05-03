@@ -20,14 +20,20 @@
 
 <project name="automation_airspark" default="main" basedir=".">
 
-     <property name="FLEX_HOME" location="${basedir}/../../.."/>
+    <property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
+
 	<property name="locale" value="en_US"/>
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="Compiling frameworks/locale/@{locale}/automation_airspark_rb.swc"/>
+			<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 			<compc fork="true"
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/automation_airspark_rb.swc"
@@ -40,8 +46,10 @@
 				<source-path path-element="${basedir}/bundles/@{locale}"/>
 				<include-libraries/>
 				<library-path/>
+                <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                    <include name="playerglobal.swc"/>
+                </external-library-path>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 					<include name="framework.swc"/>
    					<include name="mx/mx.swc"/>
 				</external-library-path>
@@ -96,6 +104,8 @@
 		
 	<target name="compile" description="Compiles automation_airspark.swc">
 		<echo message="Compiling frameworks/libs/automation/automation_airspark.swc"/>
+		<echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -121,12 +131,14 @@
 			<include-classes>AutomationAirSparkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
+			<external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
+                <include name="airglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
-		    <include name="mx/mx.swc"/>
+		        <include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
-				<include name="air/airglobal.swc"/>
 				<include name="air/airframework.swc"/>
 				<include name="air/airspark.swc"/>
 				<include name="automation/automation.swc"/>
@@ -166,12 +178,14 @@
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest_automation_airspark.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 			<library-path/>
+            <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
+                <include name="airglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
-				<include name="air/airglobal.swc"/>
 				<include name="air/airframework.swc"/>
 				<include name="air/airspark.swc"/>
 				<include name="automation/automation.swc"/>

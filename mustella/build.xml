@@ -36,7 +36,7 @@
     <property name="excludes_done" value="true" />
 
 	
-<property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
+    <property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
 
     <pathconvert property="mustella.dir" dirsep="/" >
        <path location="${basedir}" />
@@ -82,7 +82,7 @@
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
     <property name="librarypath" value="${frameworks.dir1}/libs/framework.swc,${frameworks.dir1}/libs/charts.swc,${frameworks.dir1}/libs/rpc.swc"/>
-    <property name="external.librarypath" value="libs/playerglobal.swc"/>
+    <property name="external.librarypath" value="${env.PLAYERGLOBAL_HOME}/playerglobal.swc"/>
     <property name="rsl" value="" />
 
     <property name="coach" value="true" />
@@ -2799,14 +2799,14 @@ we could have pmd_doler do the dir split and write property files (per user)
 	</target>
 		
     <target name="compilemustellaswc" if="do_mustellaswc_compile" >
-            	<exec  executable="${compc.dir}/${compc.exe}" >
+            <exec  executable="${compc.dir}/${compc.exe}" >
         	<!-- output swc name    -->
         	<arg value="-output=${mustella.swc.dir}/${mustella.swc.name}" />
         	<!-- include path -->
         	<arg value="-source-path=${mustella.dir}/as3/src/mustella" />
             <!-- clear library path -->
             <arg value="-library-path="/>
-            <arg value="-external-library-path=${sdk.dir}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
+            <arg value="-external-library-path=${env.AIR_HOME}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
         	<arg value="ApolloFilePath"/>
         	<arg value="Assert"/>
         	<arg value="AssertError"/>

@@ -21,13 +21,19 @@
 
 <project name="spark" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+        <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
+
 	<property name="locale" value="en_US"/>
     
     <macrodef name="bundle">
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="Compiling frameworks/locale/@{locale}/spark_rb.swc"/>
+			<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 			<!-- Load the <compc> task. We can't do this at the <project> level -->
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
 			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -52,8 +58,10 @@
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/spark/src"/>
 				<include-libraries/>
 				<library-path/>
+                <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                    <include name="playerglobal.swc"/>
+                </external-library-path>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 					<include name="framework.swc"/>
 				</external-library-path>
 			</compc>
@@ -180,6 +188,8 @@
 	<target name="compile" depends="prepare" description="Compiles spark.swc">
 		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
 		<echo message="Compiling frameworks/libs/spark.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -204,8 +214,10 @@
 			<include-classes>SparkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path />
+			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
                 <include name="osmf.swc"/>

@@ -21,16 +21,19 @@
 
 <project name="rpc" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
-	<property name="locale" value="en_US"/>
+	
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="11.1"/>
-	
+	<property name="locale" value="en_US"/>
+
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 		<sequential>
 		<echo message="Compiling frameworks/locale/@{locale}/rpc_rb.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -52,8 +55,10 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
 			<include-libraries/>
 			<library-path/>
+			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
 			</external-library-path>
 		</compc>
@@ -170,6 +175,8 @@
 	<target name="compile" description="Compiles rpc.swc">
 		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
 		<echo message="Compiling frameworks/libs/rpc.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -190,7 +197,6 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/rpc.swc"
                resource-bundle-list="${basedir}/bundles.properties">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>11.1</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
@@ -199,8 +205,10 @@
 			<include-classes>RPCClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
+			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>

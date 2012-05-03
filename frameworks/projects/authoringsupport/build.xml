@@ -22,6 +22,8 @@
 <project name="authoringsupport" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of authoringsupport.swc"/>
@@ -38,6 +40,8 @@
 
 	<target name="compile" description="Compiles authoringsupport.swc">
 		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -61,8 +65,10 @@
             <library-path dir="${basedir}/libs/">
 				<include name="FlexContentHolderThumbnail.swc"/>
 			</library-path>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
                 <include name="flash-integration.swc"/>
@@ -95,9 +101,9 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <doc-classes class="AuthoringSupportClasses"/>
-		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${global.playerglobal.version}">
-		    	<include name="playerglobal.swc" />
-		    </external-library-path>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
 		    	<include name="mx/mx.swc"/>

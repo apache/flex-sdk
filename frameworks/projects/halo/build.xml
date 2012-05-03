@@ -23,10 +23,9 @@
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
-
-    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="11.1"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of halo.swc"/>
 
@@ -42,6 +41,8 @@
 
 	<target name="compile" description="Compiles halo.swc">
 		<echo message="Compiling frameworks/themes/Halo/halo.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -58,12 +59,13 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/themes/Halo/halo.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>11.1</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
 	                  <include name="textLayout.swc"/>

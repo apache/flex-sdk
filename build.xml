@@ -21,7 +21,7 @@
 <project name="sdk" default="main" basedir=".">
 
     <property name="FLEX_HOME" location="${basedir}"/>
-
+    
     <!-- Required for OSX 10.6 / Snow Leopard Performance -->
     <condition property="local.d32" value="-d32" >
         <and>
@@ -31,9 +31,11 @@
         </and>
     </condition>
 
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
     <property file="${FLEX_HOME}/local.properties"/>
     <property file="${FLEX_HOME}/build.properties"/>
-    <property environment="env"/>
+    
     <property name="debug" value="true"/>
     <property name="strict" value="true"/>
     <property name="javac.src" value="1.5"/>
@@ -49,44 +51,6 @@
     <property name="no.doc" value="set"/>
     <property name="no.air.integration" value="set"/>
     
-    <!-- Paths to the debug standalone flashplayer. -->
-    <condition property="flash.player" value="${FLEX_HOME}/in/player/${target.player}/win/FlashPlayerDebugger.exe">
-        <os family="windows"/>
-    </condition>
-    <condition property="flash.player" value="${FLEX_HOME}/in/player/${target.player}/mac/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger">
-        <os family="mac"/>
-    </condition>
-    <condition property="flash.player" value="${FLEX_HOME}/in/player/${target.player}/lnx/flashplayerdebugger">
-        <os family="unix"/>
-    </condition>
-
-    <!-- Property for the platform.  -->
-    <condition property="isMac" value="true">
-        <os family="mac"/>
-    </condition>
-    <condition property="isWindows">
-        <os family="windows" />
-    </condition>    
-    <condition property="isLnx">
-        <and>
-          <os family="unix"/>    
-          <not>
-            <os family="mac"/>    
-          </not>
-        </and>
-    </condition>
-
-    <!-- Paths to the adl. -->
-    <condition property="adl" value="${basedir}/bin/adl.exe">
-        <os family="windows"/>
-    </condition>
-    <condition property="adl" value="${basedir}/bin/adl">
-        <os family="mac"/>
-    </condition>
-    <condition property="adl" value="${basedir}/bin/adl">
-        <os family="unix"/>
-    </condition>
-
     <!--
         Notes: If you're running the main target, then there is no need to call clean first.
         Each of the main targets for the modules will call clean themselves before proceeding.
@@ -102,7 +66,7 @@
     <target name="dev" depends="modules-dev" description="Runs src.depend build for development"/>
 
     <target name="release" 
-        depends="source-release,binary-release"
+        depends="check-compile-env,check-runtime-env,source-release,binary-release"
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
@@ -129,12 +93,24 @@
        To clean these you must call thirdparty-clean or super-clean to clean everything.  
        clean does not remove these since they don't change often and the downloads take time.
     -->
-    <target name="thirdparty-downloads" depends="flashplayer-download" description="Downloads all the required thirdparty code.">
+    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>
     </target>
 
-    <target name="pre-build" depends="create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
+    <target name="pre-build" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
+
+    <target name="check-compile-env" 
+        description="Check for the required environment variables for compilation">
+        <condition property="PLAYERGLOBAL_HOME.notset">
+            <equals arg1="${env.PLAYERGLOBAL_HOME}" arg2="must_set_environment_variable_PLAYERGLOBAL_HOME" casesensitive="true"/>
+        </condition>
+        <fail message="PLAYERGLOBAL_HOME environment variable is not set" if="PLAYERGLOBAL_HOME.notset"/>
+        <condition property="AIR_HOME.notset">
+            <equals arg1="${env.AIR_HOME}" arg2="must_set_environment_variable_AIR_HOME" casesensitive="true"/>
+        </condition>
+        <fail message="AIR_HOME environment variable is not set" if="AIR_HOME.notset"/>
+    </target>
 
     <!-- ToDo: automate setting the build number for non-dev builds. -->
     <target name="create-description">
@@ -154,14 +130,12 @@
     <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
 
     <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
-        <delete file="${flash.player}" failonerror="false"/>
         <ant dir="${basedir}/modules" target="thirdparty-clean"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-clean"/>
     </target>
 
     <target name="clean" depends="modules-clean,frameworks-clean,package-clean,checkintests-clean" description="Full clean excluding thirdparty downloads">
         <delete file="${basedir}/flex-sdk-description.xml" failonerror="false"/>
-        <!--delete file="${flash.player}" failonerror="false"/-->
         <delete dir="${basedir}/lib/win" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
@@ -286,38 +260,6 @@
 
     <target name="post-build" depends="" description="Handle post-build activities" />
 
-    <target name="flashplayer-check">
-        <available file="${flash.player}" property="flash.player.present"/>
-    </target>
-    
-    <target name="flashplayer-download" depends="flashplayer-mac-download,flashplayer-win-download,flashplayer-lnx-download" />
-
-    <!-- Mac: Debug Projector FlashPlayer 11.1 -->
-    <target name="flashplayer-mac-download" if="isMac" depends="flashplayer-check" unless="flash.player.present" description="Downloads Mac debug standalone player from the Adobe website">
-        <mkdir dir="${basedir}/in/player/${target.player}/mac"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.app.zip" 
-            dest="${basedir}/in/player/${target.player}/mac/flashplayer_11_sa_debug.app.zip" 
-            verbose="false"/>
-        <unzip dest="${basedir}/in/player/${target.player}/mac" src="${basedir}/in/player/${target.player}/mac/flashplayer_11_sa_debug.app.zip" />
-        <chmod file="${basedir}/in/player/${target.player}/mac/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger" perm="777" />
-    </target>
-
-    <!-- Win: Debug Projector FlashPlayer 11.1 -->
-    <target name="flashplayer-win-download" if="isWindows" depends="flashplayer-check" unless="flash.player.present" description="Downloads Win debug standalone player from the Adobe website">
-        <mkdir dir="${basedir}/in/player/${target.player}/win"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug_32bit.exe" 
-            dest="${basedir}/in/player/${target.player}/win/FlashPlayerDebugger.exe" 
-            verbose="false"/>
-    </target>
-
-    <!-- Linux: Debug Projector FlashPlayer 11.1 -->
-    <target name="flashplayer-lnx-download" if="isLnx" depends="flashplayer-check" unless="flash.player.present" description="Downloads Win debug standalone player from the Adobe website">
-        <mkdir dir="${basedir}/in/player/${target.player}/lnx"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.i386.tar.gz" 
-            dest="${basedir}/in/player/${target.player}/lnx/flashplayerdebugger.tar.gz" 
-            verbose="false"/>
-    </target>
-
     <!--
         Build the ASDoc html pages.
     -->
@@ -351,7 +293,8 @@
         
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
-                <include name="build.*"/>
+                <include name="build.xml"/>
+                <include name="*.properties"/>
                 <include name="flex-sdk-description.xml"/>
                 <include name="KEYS"/>
                 <include name="CHANGES"/>
@@ -359,12 +302,16 @@
                 <include name="NOTICE"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
-                <include name="setup.sh"/>
-                <include name="bin/*.bat"/>
-                <include name="bin/*.sh"/>
-                <exclude name="bin/adl*"/>
-                <exclude name="bin/adt*"/>
-                <include name="asdocs/**"/>
+            </fileset>
+        </copy>  
+
+        <!-- bin -->
+        <copy todir="${basedir}/temp/bin" includeEmptyDirs="false">
+            <fileset dir="${basedir}/bin">
+                <include name="*.bat"/>
+                <include name="*.sh"/>
+                <exclude name="adl*"/>
+                <exclude name="adt*"/>
             </fileset>
         </copy>  
 
@@ -573,8 +520,7 @@
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
-                <include name="player/${target.player}/playerglobal.swc"/>
-				<include name="player/11.1/playerglobal.swc"/>
+                <include name="${env.FLASHPLAYER_HOME}/playerglobal.swc"/>
             </fileset>
         </copy>
         
@@ -1021,13 +967,54 @@
     <target name="basictests-mustella" depends="mustella-setup,basictests"/>
     <target name="airmobile-basictests-mustella" depends="mustella-setup,airmobile-basictests"/>
 
-    <target name="mustella-setup" description="compile mustella java file">
+    <target name="mustella-setup" depends="runtime-setup" description="compile mustella java file">
         <!-- delete and rebuild mustella.swc -->
         <ant dir="${basedir}/mustella" target="cleanmustellaswc"/>
         <ant dir="${basedir}/mustella" target="makemustellaswc"/>
         <property name="moreCompilerArgs" value=""/>
         <!-- compile the results parser -->
         <javac srcdir="mustella" includes="MustellaResultsParser.java"/>
+    </target>
+
+    <target name="check-runtime-env" 
+        description="Check for the required runtime environment variables for the checkintests">
+        
+        <!-- for adl -->
+        <condition property="AIR_HOME.notset">
+            <equals arg1="${env.AIR_HOME}" arg2="must_set_environment_variable_AIR_HOME" casesensitive="true"/>
+        </condition>
+        <fail message="AIR_HOME environment variable is not set" if="ANT_HOME.notset"/>
+        <!-- for the flashplayer content debugger -->
+        <condition property="FLASHPLAYER_DEBUGGER.notset">
+            <equals arg1="${env.FLASHPLAYER_DEBUGGER}" arg2="must_set_environment_variable_FLASHPLAYER_DEBUGGER" casesensitive="true"/>
+        </condition>
+        <fail message="FLASHPLAYER_DEBUGGER environment variable is not set" if="FLASHPLAYER_DEBUGGER.notset"/>
+    </target>
+    
+    <target name="runtime-setup" depends="check-runtime-env" 
+        description="Set flash.player and adl properties"> 
+        
+        <!-- Paths to the debug standalone flashplayer. -->
+        <condition property="flash.player" value="${env.FLASHPLAYER_DEBUGGER}/FlashPlayerDebugger.exe">
+            <os family="windows"/>
+        </condition>
+        <condition property="flash.player" value="${env.FLASHPLAYER_DEBUGGER}/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger">
+            <os family="mac"/>
+        </condition>
+        <condition property="flash.player" value="${env.FLASHPLAYER_DEBUGGER}/flashplayerdebugger">
+            <os family="unix"/>
+        </condition>
+    
+        <!-- Paths to the adl. -->
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl.exe">
+            <os family="windows"/>
+        </condition>
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl">
+            <os family="mac"/>
+        </condition>
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl">
+            <os family="unix"/>
+        </condition>
     </target>
 
     <target name="load-task">

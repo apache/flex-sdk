@@ -23,14 +23,18 @@
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
+
     <property name="locale" value="en_US"/>
-	<property name="local.playerglobal.version" value="11.1"/>
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 			<sequential>
 				<copy file="${basedir}/bundles/en_US/empty.properties" tofile="${basedir}/bundles/@{locale}/empty.properties"/>
+				<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 				<echo message="Compiling frameworks/locale/@{locale}/flash-integration_rb.swc"/>
 				<!-- Load the <compc> task. We can't do this at the <project> level -->
 				<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -38,11 +42,6 @@
 				<compc fork="true"
 					output="${FLEX_HOME}/frameworks/locale/@{locale}/flash-integration_rb.swc"
 					locale="@{locale}">
-					<!--
-						NOTE: we are continuing to build against player 9 so that airframework.swc
-							  can externally link against framework.swc, since air is player 9.
-							  If you change this, update ${local.playerglobal.version} above.
-					-->
 					<target-player>11.1</target-player>
 					<jvmarg line="${compc.jvm.args}"/>
 					<include-resource-bundles bundle="empty"/>
@@ -52,8 +51,10 @@
 					<source-path path-element="${FLEX_HOME}/frameworks/projects/flash-integration/src"/>
 					<include-libraries/>
 					<library-path/>
+                    <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                        <include name="playerglobal.swc"/>
+                    </external-library-path>
 					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-						<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 						<include name="framework.swc"/>
 					</external-library-path>
 				</compc>
@@ -118,6 +119,8 @@
 
 	<target name="compile" description="Compiles flash-integration.swc">
 		<echo message="Compiling frameworks/projects/flash-integration/libs/flash-integration.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -143,8 +146,10 @@
 			<source-path path-element="${basedir}/src"/>
             <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 			<library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="textLayout.swc"/>
 				<include name="framework.swc"/>
 			</external-library-path>
@@ -188,9 +193,9 @@
 				it just needs to be linked through a manifest file -->
 			<namespace uri="http://www.adobe.com/someNonSensicalURI" manifest="${basedir}/manifest.xml"/>
 			<doc-namespaces uri="http://www.adobe.com/someNonSensicalURI"/>
-		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${local.playerglobal.version}">
-		    	<include name="playerglobal.swc" />
-		    </external-library-path>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
 				<include name="mx/mx.swc"/>

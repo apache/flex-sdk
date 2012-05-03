@@ -26,15 +26,14 @@
 <project name="frameworks" default="main" basedir=".">
 
     <property name="FLEX_HOME" location=".."/>
-    <property name="playerglobal.version" value="11.1"/>
-
+    
     <!-- Required for OSX 10.6 / Snow Leopard Performance -->
     <condition property="local.d32" value="-d32" >
-            <and>
+        <and>
             <equals arg1="${sun.arch.data.model}" arg2="64"/>
             <equals arg1="${os.arch}" arg2="x86_64"/>
             <os family="mac"/>
-            </and>
+        </and>
     </condition>
     
     <!-- Property for the platform.  -->
@@ -45,10 +44,17 @@
         <os family="windows" />
     </condition>    
 
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
     <property file="${FLEX_HOME}/build.properties"/>
         
-    <target name="main" depends="clean,thirdparty-downloads,airsdk-prepare,javascript,compile" description="Clean build of all SWCs"/>
+    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,javascript,compile" 
+        description="Clean build of all SWCs"/>
 
+    <target name="check-compile-env" description="Check for the required environment variables">
+        <ant antfile="${FLEX_HOME}/build.xml" target="check-compile-env" dir="${FLEX_HOME}"/>
+    </target>
+    
     <!-- Note:
        Removed osmf from build.  For now, just use the downloaded swc.
        We can move the osmf source from osmf-download to projects/osmf and add back the
@@ -186,7 +192,7 @@
     <target name="thirdparty-clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
         <delete failonerror="false" verbose="true">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
-            <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/>
         </delete>
         <delete dir="${FLEX_HOME}/in/air/**"/>
         <delete includeEmptyDirs="true" failonerror="false">
@@ -297,7 +303,7 @@ tar -xjf "AIR Integration Kit.tbz2"
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="thirdparty-downloads" 
-        depends="airsdk-download,playerglobal-download,osmf-download,swfobject-download,textLayout-download" 
+        depends="osmf-download,swfobject-download,textLayout-download" 
         description="Copies third-party software into place for build">
         <echo message="Use the thirdparty-clean target to remove these."/> 
     </target>
@@ -307,10 +313,6 @@ tar -xjf "AIR Integration Kit.tbz2"
         <available file="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" property="airsdk.win.present"/>
     </target>
 
-    <target name="playerglobal-check" description="Checks if the Adobe Air SDK has been downloaded.">
-        <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
-    </target>
-    
     <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
@@ -345,15 +347,6 @@ tar -xjf "AIR Integration Kit.tbz2"
             verbose="false"/>
     </target>
     
-    <!-- playerglobal.swc -->
-    <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
-    <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
-        <mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>        
-        <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/libs/player/11.1/playerglobal.swc" 
-            dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
-            verbose="false"/>
-    </target>
-
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
     <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->

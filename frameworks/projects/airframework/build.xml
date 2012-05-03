@@ -21,24 +21,26 @@
 
 <project name="airframework" default="main" basedir=".">
 
-	<property name="FLEX_HOME" location="${basedir}/../../.."/>
-
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>  
+	  
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
     <property file="${FLEX_HOME}/build.properties"/>
+
 	<property name="locale" value="en_US"/>
-    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="11.1"/>
   	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
-			<sequential>
-				<echo message="Compiling frameworks/locale/@{locale}/airframework_rb.swc"/>
+		<sequential>
+		<echo message="Compiling frameworks/locale/@{locale}/airframework_rb.swc"/>
+		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/@{locale}/airframework_rb.swc"
 			   locale="@{locale}">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
 			<target-player>11.1</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="SharedResources"/>
@@ -58,8 +60,10 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/mx/bundles/@{locale}"/>
 			<include-libraries/>
 			<library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
 			</external-library-path>
 		</compc>
@@ -181,6 +185,8 @@
 	
 	<target name="compile" description="Compiles airframework.swc">
 		<echo message="Compiling frameworks/libs/air/airframework.swc"/>
+		<echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
+
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -200,7 +206,6 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
 		    <target-player>11.1</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
@@ -208,8 +213,10 @@
 			<include-classes>AIRFrameworkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
+            <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
+                <include name="airglobal.swc"/>
+            </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="air/airglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
@@ -271,9 +278,9 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true" >
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <doc-classes class="AIRFrameworkClasses"/>
-		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/air">
-		    	<include name="airglobal.swc" />
-		    </external-library-path>
+            <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
+                <include name="airglobal.swc"/>
+            </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
 		    	<include name="mx/mx.swc" />

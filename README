@@ -40,23 +40,54 @@ Building Apache Flex
     Apache Flex is a large project and depends on several external libraries which
     are downloaded as part of the build process.
     
-    Before building Flex you must install:
-    
-        Java SDK 1.5.0_13 or greater
-        Ant 1.7.0 or greater
-        on Windows you need to run from a shell like Cygwin or git bash
-        
-    The following environment variables must be set:
-    
-        JAVA_HOME
-        ANT_HOME
+Building Apache Flex 4.8.0
+==========================
 
-    The PATH must include
+    Apache Flex is a large project. It requires some build tools which must be installed
+    prior to building Flex and it depends on some external libraries which
+    are downloaded as part of the build process.
     
-        bin directory of Flex SDK
-        bin directory of Ant
-        bin directory of Java
+    Apache Flex 4.8.0 is a parity release from Apache of Adobe Flex 4.6.
     
+Install Prerequisites
+---------------------
+
+    Before building Flex you must install the following software and set the
+    corresponding environment variables.  Alternatively, PLAYERGLOBAL_HOME, AIR_HOME
+    and FLASHPLAYER_DEBUGGER may be set in env.properties.
+
+    ==================================================================================
+    Software                                Environment Variable
+    
+    Java SDK 1.5 (0_13 or greater)          JAVA_HOME
+    or Java SDK 1.6
+    
+    Ant 1.7.0 or greater                    ANT_HOME
+    
+    Cygwin, git bash 
+    or other unix-like shell
+    (if Windows)
+    
+    Adobe Flash Player                     PLAYERGLOBAL_HOME
+    playerglobal.swc
+    
+    Adobe AIR Integration Kit               AIR_HOME 
+    
+    Adobe Flash Player Content Debugger     FLASHPLAYER_DEBUGGER
+    
+    ==================================================================================
+
+    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.
+         
+    The Adobe AIR integration kit for Windows can be downloaded from:
+        http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip
+        
+    The Adobe AIR integration kit for Mac can be downloaded from:
+        http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
+        
+    The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
+        http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/libs/player/11.1/playerglobal.swc
+                    
     For testing, the Flash Player's mm.cfg file must have the following entries
     
         ErrorReportingEnable=1
@@ -64,7 +95,10 @@ Building Apache Flex
     
     and a FlashPlayerTrust file must allow local SWFs to access local files.
 
-    With you have all the prerequisites in place, use
+Building the Source
+-------------------
+
+    When you have all the prerequisites in place and the environment variables set, use
 
         cd <flex.dir>
         ant main        (or just ant since the default target is main)
