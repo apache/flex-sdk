@@ -74,7 +74,9 @@ Install Prerequisites
     Adobe AIR Integration Kit               AIR_HOME 
     
     Adobe Flash Player Content Debugger     FLASHPLAYER_DEBUGGER
-    
+    (windows) FlashPlayerDebugger.exe
+    (mac) Flash Player Debugger in Flash Player Debugger.app/Contents/MacOS
+    (linux) flashplayerdebugger
     ==================================================================================
 
     Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.
@@ -87,7 +89,7 @@ Install Prerequisites
         
     The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
         http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/libs/player/11.1/playerglobal.swc
-                    
+    
     For testing, the Flash Player's mm.cfg file must have the following entries
     
         ErrorReportingEnable=1

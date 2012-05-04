@@ -995,15 +995,10 @@
         description="Set flash.player and adl properties"> 
         
         <!-- Paths to the debug standalone flashplayer. -->
-        <condition property="flash.player" value="${env.FLASHPLAYER_DEBUGGER}/FlashPlayerDebugger.exe">
-            <os family="windows"/>
-        </condition>
-        <condition property="flash.player" value="${env.FLASHPLAYER_DEBUGGER}/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger">
-            <os family="mac"/>
-        </condition>
-        <condition property="flash.player" value="${env.FLASHPLAYER_DEBUGGER}/flashplayerdebugger">
-            <os family="unix"/>
-        </condition>
+        <!-- (windows) path to FlashPlayerDebugger.exe -->
+        <!-- (mac) path to Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger -->
+        <!-- (linux) path to flashplayerdebugger -->
+        <property name="flash.player" value="${env.FLASHPLAYER_DEBUGGER}"/>
     
         <!-- Paths to the adl. -->
         <condition property="adl" value="${env.AIR_HOME}/bin/adl.exe">
