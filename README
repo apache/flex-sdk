@@ -53,30 +53,38 @@ Install Prerequisites
 ---------------------
 
     Before building Flex you must install the following software and set the
-    corresponding environment variables.  Alternatively, PLAYERGLOBAL_HOME, AIR_HOME
-    and FLASHPLAYER_DEBUGGER may be set in env.properties.
+    corresponding environment variables using absolute file paths.  Relative file paths
+    will result in build errors. 
+    
+    Alternatively, PLAYERGLOBAL_HOME, AIR_HOME and FLASHPLAYER_DEBUGGER may be set in 
+    env.properties located in the top-level directory.
 
     ==================================================================================
-    Software                                Environment Variable
+    SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
+    ==================================================================================
     
-    Java SDK 1.5 (0_13 or greater)          JAVA_HOME
+    Java SDK 1.5 (0_13 or greater)              JAVA_HOME
     or Java SDK 1.6
     
-    Ant 1.7.0 or greater                    ANT_HOME
+    Ant 1.7.0 or greater                        ANT_HOME
     
     Cygwin, git bash 
     or other unix-like shell
     (if Windows)
     
-    Adobe Flash Player                     PLAYERGLOBAL_HOME
-    playerglobal.swc
+    Adobe Flash Player                          PLAYERGLOBAL_HOME
+    (rename playerglobal11_1.swc to 
+    playerglobal.swc and point to this file)
     
-    Adobe AIR Integration Kit               AIR_HOME 
+    Adobe AIR Integration Kit                   AIR_HOME 
+    (unzip and point to 'AIR Integration Kit' 
+    directory)
     
-    Adobe Flash Player Content Debugger     FLASHPLAYER_DEBUGGER
-    (windows) FlashPlayerDebugger.exe
-    (mac) Flash Player Debugger in Flash Player Debugger.app/Contents/MacOS
-    (linux) flashplayerdebugger
+    Adobe Flash Player Content Debugger         FLASHPLAYER_DEBUGGER
+    (windows) point to FlashPlayerDebugger.exe
+    (mac) point to Flash Player Debugger in Flash Player Debugger.app/Contents/MacOS
+    (linux) point to flashplayerdebugger
+    
     ==================================================================================
 
     Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.
@@ -88,8 +96,11 @@ Install Prerequisites
         http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
         
     The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
-        http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/libs/player/11.1/playerglobal.swc
+        http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
     
+    The Adobe Flash Player content debuggers can be found here:
+        http://www.adobe.com/support/flashplayer/downloads.html
+        
     For testing, the Flash Player's mm.cfg file must have the following entries
     
         ErrorReportingEnable=1
