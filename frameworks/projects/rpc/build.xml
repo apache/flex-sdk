@@ -32,7 +32,7 @@
 		<attribute name="locale"/>
 		<sequential>
 		<echo message="Compiling frameworks/locale/@{locale}/rpc_rb.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -55,7 +55,7 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
 			<include-libraries/>
 			<library-path/>
-			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+			<external-library-path dir="${env.PLAYERGLOBAL}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -175,7 +175,7 @@
 	<target name="compile" description="Compiles rpc.swc">
 		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
 		<echo message="Compiling frameworks/libs/rpc.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -205,7 +205,7 @@
 			<include-classes>RPCClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
-			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+			<external-library-path dir="${env.PLAYERGLOBAL}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">

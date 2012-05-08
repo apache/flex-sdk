@@ -41,7 +41,7 @@
 
 	<target name="compile" description="Compiles halo.swc">
 		<echo message="Compiling frameworks/themes/Halo/halo.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -62,7 +62,7 @@
             <target-player>11.1</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<library-path/>
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+            <external-library-path dir="${env.PLAYERGLOBAL}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">

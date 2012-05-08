@@ -33,7 +33,7 @@
 		<attribute name="locale"/>
 			<sequential>
 				<copy file="${basedir}/bundles/en_US/empty.properties" tofile="${basedir}/bundles/@{locale}/empty.properties"/>
-				<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+				<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 				<echo message="Compiling frameworks/locale/@{locale}/flash-integration_rb.swc"/>
 				<!-- Load the <compc> task. We can't do this at the <project> level -->
@@ -51,7 +51,7 @@
 					<source-path path-element="${FLEX_HOME}/frameworks/projects/flash-integration/src"/>
 					<include-libraries/>
 					<library-path/>
-                    <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                    <external-library-path dir="${env.PLAYERGLOBAL}">
                         <include name="playerglobal.swc"/>
                     </external-library-path>
 					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -119,7 +119,7 @@
 
 	<target name="compile" description="Compiles flash-integration.swc">
 		<echo message="Compiling frameworks/projects/flash-integration/libs/flash-integration.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL_HOME}/playerglobal.swc" level="info"/>
+		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -146,7 +146,7 @@
 			<source-path path-element="${basedir}/src"/>
             <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 			<library-path/>
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+            <external-library-path dir="${env.PLAYERGLOBAL}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -193,7 +193,7 @@
 				it just needs to be linked through a manifest file -->
 			<namespace uri="http://www.adobe.com/someNonSensicalURI" manifest="${basedir}/manifest.xml"/>
 			<doc-namespaces uri="http://www.adobe.com/someNonSensicalURI"/>
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+            <external-library-path dir="${env.PLAYERGLOBAL}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">

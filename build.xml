@@ -56,7 +56,7 @@
         Each of the main targets for the modules will call clean themselves before proceeding.
     -->
 
-    <target name="main" depends="pre-build,modules,frameworks,sample-themes,post-build" description="Full build">
+    <target name="main" depends="pre-build,modules,frameworks,frameworks-rsls,sample-themes,post-build" description="Full build">
         <tstamp>
             <format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
         </tstamp>
@@ -102,10 +102,10 @@
 
     <target name="check-compile-env" 
         description="Check for the required environment variables for compilation">
-        <condition property="PLAYERGLOBAL_HOME.notset">
-            <equals arg1="${env.PLAYERGLOBAL_HOME}" arg2="must_set_environment_variable_PLAYERGLOBAL_HOME" casesensitive="true"/>
+        <condition property="PLAYERGLOBAL.notset">
+            <equals arg1="${env.PLAYERGLOBAL}" arg2="must_set_environment_variable_PLAYERGLOBAL" casesensitive="true"/>
         </condition>
-        <fail message="PLAYERGLOBAL_HOME environment variable is not set" if="PLAYERGLOBAL_HOME.notset"/>
+        <fail message="PLAYERGLOBAL environment variable is not set" if="PLAYERGLOBAL.notset"/>
         <condition property="AIR_HOME.notset">
             <equals arg1="${env.AIR_HOME}" arg2="must_set_environment_variable_AIR_HOME" casesensitive="true"/>
         </condition>
@@ -134,7 +134,9 @@
         <ant dir="${basedir}/frameworks" target="thirdparty-clean"/>
     </target>
 
-    <target name="clean" depends="modules-clean,frameworks-clean,package-clean,checkintests-clean" description="Full clean excluding thirdparty downloads">
+    <target name="clean" depends="modules-clean,frameworks-clean,frameworks-clean,frameworks-rsls-clean,package-clean,checkintests-clean" 
+        description="Full clean excluding thirdparty downloads">
+        
         <delete file="${basedir}/flex-sdk-description.xml" failonerror="false"/>
         <delete dir="${basedir}/lib/win" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
@@ -149,6 +151,10 @@
     <target name="frameworks-clean">
         <ant dir="${basedir}/frameworks" target="clean"/>
     </target>
+
+	<target name="frameworks-rsls-clean">
+       	<delete dir="${basedir}/frameworks/rsls" includeEmptyDirs="true" quiet="true"/>
+	</target>
 
     <target name="package-clean">
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
@@ -227,6 +233,57 @@
     <target name="airspark-compile" description="Recompile airspark.swc">
         <ant dir="${basedir}/frameworks/projects/airspark" target="compile"/>
     </target>
+
+     <!-- Build framework RSLs -->
+
+    <macrodef name="create-rsl">
+        <attribute name="rsl-dir"/>
+        <attribute name="swc-dir"/>
+        <attribute name="swc-name"/>
+        <attribute name="build-number"/>
+
+        <sequential>
+            <unzip src="@{swc-dir}/@{swc-name}.swc"
+                   dest="@{rsl-dir}" >
+                <patternset>
+                    <include name="library.swf" />
+                </patternset>
+            </unzip>
+            <!-- optimize out metadata but keep debug info for the unsigned RSL -->
+            <java jar="${basedir}/lib/optimizer.jar" fork="true" failonerror="true">
+                <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${basedir}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+                <arg line="'@{rsl-dir}/library.swf' --output '@{rsl-dir}/@{swc-name}_@{build-number}.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,SkinPart' --debug='true' "/>	
+            </java>
+            <delete file="@{rsl-dir}/library.swf"/>
+            <java jar="${basedir}/lib/digest.jar" fork="true" failonerror="true">
+                <jvmarg line="-ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+                <arg line="--digest.rsl-file '@{rsl-dir}/@{swc-name}_@{build-number}.swf' --digest.swc-path  '@{swc-dir}/@{swc-name}.swc' --digest.signed=false"/>
+            </java>
+        </sequential>
+    </macrodef>
+
+	<target name="frameworks-rsls" description="Build signed framework RSLs">
+		<!-- framework RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number}"/>
+		<!-- mx RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs/mx" swc-name="mx" build-number="${release.version}.${build.number}"/>
+		<!-- rpc RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="rpc" build-number="${release.version}.${build.number}"/>
+		<!-- Spark -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark" build-number="${release.version}.${build.number}"/>
+    	<!-- sparkskins RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="sparkskins" build-number="${release.version}.${build.number}"/>
+		<!-- charts RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="charts" build-number="${release.version}.${build.number}"/>
+		<!-- advancedgrids RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number}"/>
+		<!-- spark_dmv RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number}"/>		
+		<!-- OSMF RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="osmf" build-number="${release.version}.${build.number}"/>		
+		<!-- textLayout RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>
+	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
         <ant dir="${basedir}/frameworks" target="other.locales"/>
@@ -522,6 +579,11 @@
                 <include name="spark_dmv.swc"/>
                 <include name="${env.FLASHPLAYER_HOME}/playerglobal.swc"/>
             </fileset>
+        </copy>
+
+        <!-- frameworks/rsls -->
+        <copy todir="${basedir}/temp/frameworks/rsls">
+            <fileset dir="${basedir}/frameworks/rsls"/>
         </copy>
         
         <!-- not currently in Apache Flex (formerly qtp and qtp_air) -->
