@@ -22,8 +22,6 @@
 
     <property name="mustella.dir" value="${basedir}" />
 	
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${mustella.dir}/lib/ant-contrib-1.0b2.jar"/>
-
     <property name="feature" value=""/>
     <property file="${basedir}/properties/${feature}.properties" />
     <property name="debug" value="false" />
@@ -36,7 +34,7 @@
     <property name="excludes_done" value="true" />
 
 	
-    <property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
+<property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
 
     <pathconvert property="mustella.dir" dirsep="/" >
        <path location="${basedir}" />
@@ -571,362 +569,6 @@
 		<excluder property="exclude_ids" type="${exclude_type}" filename="${exclude_filename}" branch="${branch_name}" os="${target_os_name}" browser="${browser_name}" apollo="${use_apollo}" bbrowser="${use_browser}" untilTime="${db_time}" write="false" excludeIds=""/>
 	</target>
 
-	<!-- Point to a different database for mobile.
-	<if>
-		<istrue value="${run_mobile_tests}"/>
-		<then>
-			<property name="db_url" value="jdbc:mysql://fbapps.corp.adobe.com:3306/mustella"  />
-		</then>
-		<else> -->
-			<property name="db_url" value="jdbc:mysql://beachwagon.macromedia.com:3306/mustella" />
-	<!--	</else>
-	</if>-->
-
-	<!-- this is a test loop target to populate local.properties from the db -->
-
-	<!-- this is a test loop target to populate local.properties from the db -->
-	<target name="settings_fetch" if="hostname">
-
-	<!-- 
-		hostname gets passed in as var 
-
-
-		This gets copied to local.properties (in two locations), namely, mustella.dir
-		and the sdk/build dir way the hell up ../../../../
-
-		WILL OVERWRITE EXISTING PROPERTIES FILES!
-		
-	-->
-	<echo> from this: from mustella_settings.dist_settings where and host like '%=${hostname}' task = ${task_iterator} </echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}_settings"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/local.properties.tmp"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(
-		host, char(10),
-		use_db_settings, char(10),
-		air_setting, char(10),
-		browser_setting, char(10),
-		branch_name, char(10),
-		run_in_branch_setting, char(10),
-		lone_runner_setting, char(10),
-		ant_target_setting, char(10),
-		fetch_user_name, char(10),
-		fetch_user_p, char(10),
-		pmd_setting, char(10),
-		pmd_num_runners_setting, char(10),
-		results_parse_setting, char(10),
-		player_name_setting, char(10),
-		player_version_setting, char(10),
-		pmd_skip_retry_failures, char(10),
-		install_skip_utilities_fetch, char(10),
-		server, char(10),
-		installbuild, char(10),
-		DO_TESTRUN, char(10),
-		DO_PERFORCE, char(10),
-		DO_HURRICANE, char(10),
-		FAIL_IF_NOT_NEW, char(10),
-		DO_GRAB_BUILD, char(10),
-		recipients, char(10),
-		always_recipients, char(10),
-		depot_name, char(10),
-		P4USER, char(10),
-		P4PASSWD, char(10),
-		FILEDROP, char(10),
-		DO_PERFORCE_TEST, char(10),
-		RUNNER_ONLY, char(10),
-		user_args, char(10),
-		browser, char(10),
-		browser_prefix, char(10),
-		run_mobile_tests, char(10),
-		device_name, char(10),
-		clean_devices, char(10),
-		player_timeout, char(10),
-		feature, char(10),
-		adt_target_setting, char(10),
-		adt_interpreter_setting, char(10),
-		qnx_device_password_setting, char(10),
-		qnx_cmdline_user_setting, char(10),
-		qnx_cmdline_password_setting, char(10),
-		adl_extras_setting, char(10),
-		concurrent_packagers_setting, char(10),
-		subtitle, char(10)
-		) from mustella_settings.dist_settings where host like 'host=${hostname}' and task_id=${task_iterator};
-
-               ]]>
-	</sql>
-
-	<!-- 
-		clean it up a little 
-		if there are zero rows, exit/fail
-	-->
-
-
-	<loadfile property="get_out" srcFile="${mustella.dir}/local.properties.tmp" />
-
-	<!-- search for some setting that would always be there -->
-	<condition property="exit_with_msg" value="true" >
-		<not>
-		<contains string="${get_out}" substring="get_results_from_log" />
-		</not>
-	</condition>
-
-
-	<antcall target="do_fail" >
-		<param name="msg" value="No settings for ${hostname} / ${task_iterator}" />
-	</antcall>
-
-
-	
-	<copy file="${mustella.dir}/local.properties.tmp" tofile="${mustella.dir}/local.properties" overwrite="true" >
-		<filterchain>
-			<linecontains negate="true">	
-				<contains value="rows affected" />
-			</linecontains>	
-			<linecontainsregexp negate="true">	
-				<regexp pattern='^""' />
-			</linecontainsregexp>
-			<fixcrlf />
-			<linecontainsregexp negate="true">	
-				<regexp pattern='^$' />
-			</linecontainsregexp>
-		</filterchain>
-
-	</copy>
-
-
-	<fixcrlf file="${mustella.dir}/local.properties" eol="lf" eof="remove" />
-
-
-	<copy file="${mustella.dir}/local.properties.tmp" tofile="${basedir}/../sdk/build/local.properties" overwrite="true" >
-
-		<filterchain>
-			<linecontains negate="true">	
-				<contains value="#browser" />
-			</linecontains>	
-			<linecontains negate="true">	
-				<contains value="player.name" />
-			</linecontains>	
-			<linecontains negate="true">	
-				<contains value="player.timeout" />
-			</linecontains>	
-			<linecontains negate="true">	
-				<contains value="player.version" />
-			</linecontains>	
-			<linecontains negate="true">	
-				<contains value="rows affected" />
-			</linecontains>	
-			<linecontainsregexp negate="true">	
-				<regexp pattern='^""' />
-			</linecontainsregexp>
-			<fixcrlf />
-			<linecontainsregexp negate="true">	
-				<regexp pattern='^$' />
-			</linecontainsregexp>
-		</filterchain>
-
-	</copy>
-
-    </target>
-	<target name="keyword_query" >
-	<!-- if there are directories we want to narrow to those -->
-	<echo>Query testcases having keyword: ${keyword}</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/${kw_query_outfile}"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(dir_name, test_file, "$", test_id) from keywords k, keyword_matchings km, test_cases t, test_files tf  where t.id = km.test_case_id and tf.file_name = t.test_file and  k.id = km.keyword_id and k.keyword = "${keyword}" order by dir_name, test_file	
-               ]]>
-	</sql>
-    </target>
-
-    <target name="write_keyword_includes" depends="prepare">
-
-
-	<condition property="feed_it" value="${sdk.mustella.includes}" >
-		<and>
-		<isset property="sdk.mustella.includes" />
-		<not>
-		<equals arg1="${sdk.mustella.includes}" arg2="" />
-		</not>
-		</and>
-	</condition>
-
-        <fileset id="tmp.includer" dir="${sdk.mustella.dir}"
-            includes="${sdk.mustella.includes}"
-            excludes="${sdk.mustella.excludes},**/SWFs/Components/*.mxml,**/Baselines/,**/baselines/,**/comps/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf,${browser_excludes},${apollo_excludes},${other.mustella.excludes},${apollo_specific_excludes}" >
-
-        </fileset>
-
-	<property name="showit0" refid="tmp.includer" />
-
-	<pathconvert property="showit2" dirsep="/" >
-       		<path location="${showit0}" />
-    	</pathconvert>
-
-
-
-       	<taskdef name="includer" classname="mustella.GenIncludesTask" classpathref="flex.test.classpath"/>
-
-	<includer fileOut="${mustella.dir}/classes/CurrentIncludeList.as" property="write_files_tmp" keywords="${keyword_list}" files="${showit0}" />
-
-
-	<echo file="${mustella.dir}/.tmp_file_list">sdk.mustella.includes=${write_files_tmp}</echo>
-	
-	
-    </target>
-
-    <target name="query_from_bug_id" >
-	<echo>querying testcases for bug-based run</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/tmp_mustella_tmp"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(dir_name, test_file, ".mxml") from test_cases, test_files, excludes where test_cases.test_dir = test_files.id and excludes.testcase_id = test_cases.id and bug_id = '${bug_retry}'
-               ]]>
-	</sql>
-	<!-- part 2, write the include file -->
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="/tmp/IncludeList.txt.tmp"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(dir_name, test_file, "$", test_id) from test_cases, test_files, excludes where test_cases.test_dir = test_files.id and excludes.testcase_id = test_cases.id and bug_id = '${bug_retry}'
-               ]]>
-	</sql>
-    </target>
-
-    <target name="fetchFailures" >
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/failures.txt"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(test_files.dir_name,test_cases.test_file, " ", test_cases.test_id) from results,test_cases,test_files where results.test_case = test_cases.id and results.test_run = ${runId} and test_cases.test_dir = test_files.id and results.result=1;
-		select concat(test_file, " ", test_id) from orphaned_results where result=1 and test_run = ${runId};
-               ]]>
-	</sql>
-	<replaceregexp file="${mustella.dir}/failures.txt"
-		match=".*rows affected" replace="" flags="g"/>
-
-    </target>
-
-    <target name="query_run_failures" >
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/tmp_failures1"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(test_files.dir_name,test_cases.test_file, " ", test_cases.test_id) from results,test_cases,test_files where results.test_case = test_cases.id and results.test_run = ${current.run.id} and test_cases.test_dir = test_files.id and results.result=1;
-		select concat(test_file, " ", test_id) from orphaned_results where result=1 and test_run = ${current.run.id};
-               ]]>
-	</sql>
-    </target>
-
-    <target name="query_recent_failures" >
-	<property name="test_runs_considered" value="20" />
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/.tmp_target1"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(dir_name, test_file, ".mxml") from results, test_cases, test_files  where test_cases.id = results.test_case and test_dir = test_files.id and result=1 and test_run >= (select max(id)-${test_runs_considered} from test_runs)
-               ]]>
-	</sql>
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/.tmp_target2"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(test_file, ".mxml") from orphaned_results  where result=1 and test_run >= (select max(id)-${test_runs_considered} from test_runs) and test_file not like '%.swf'
-               ]]>
-	</sql>
-
-    </target>
-
-
-
-    <target name="excludes_by_file" if="exclude_ids" >
-	<echo>excludes by file: tmp_filename is ${mustella.dir}/tmpexc</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/tmpexc"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat(",**/", dir_name, file_name, '.mxml,') from test_files, excludes_files where excludes_files.test_file_id = test_files.id and exclude_config_id in ${exclude_ids};
-               ]]>
-	</sql>
-
-    </target>
-
-    <target name="get_last_vetting" >
-	<echo>Get the last mini run sync time</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/vetting_time"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select `time` from test_runs where run_type = 'mini' and  config_id = ${config_id} and run_end > 0 order by `time` desc limit 1;
-               ]]>
-	</sql>
-
-    </target>
-
-
-
 
      <property name="sdk.mustella.shellincludes" value="" />
      <property name="sdk.mustella.shellexcludes" value="" />
@@ -1368,82 +1010,13 @@
     <property name="result_include" value="-includes=SendFormattedResultsToLog" />
     <property name="exit_include" value="" />
 
-	<if>
-		<equals arg1="${run_mobile_tests}" arg2="true" />
-		<then>
-			<property name="get_results_from_log" value="true" />
-		</then>
-		<else>
-			<property name="get_results_from_log" value="" />
-		</else>
-	</if>
+    <condition property="get_results_from_log" value="true" else="false" >
+	<not>
+		<isset property="${run_mobile_tests}" />
+	</not>
+    </condition>
 
     <property name="build_version" value="${server}" />
-
-    <target name="get_host_id" >
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-		output="${mustella.dir}/.host_id"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat("host_id=",id) from hosts where name='${hostname}'
-		]]>
-	</sql>
-    </target>
-
-    <target name="set_host_id" >
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-		output="${mustella.dir}/.host_id"
-    		password="${db_passwd}" >
-		<![CDATA[
-		insert into hosts (name) values ('${hostname}')
-		]]>
-	</sql>
-    </target>
-
-
-    <target name="set_db_sync_time" >
-	<!-- should have the sync time and db_time before calling this (getConfigId) and db_time -->
-
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-		output="${mustella.dir}/sync_time_file"
-    		password="${db_passwd}" >
-		<![CDATA[
-		insert into sync_times (sync_time, db_time, config_id) values ('${server_time}', '${db_time}', ${config_id} ) ON DUPLICATE KEY UPDATE sync_time=values(sync_time), db_time=values(db_time)
-		]]>
-	</sql>
-    </target>
-
-    <target name="get_db_sync_time" >
-	<!-- where to send the output? -->
-	<echo>output to ${arg.propertyfile}</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-		output="${mustella.dir}/sync_time_file"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat("server_time=",sync_time, ";", "db_time=", db_time, ";export server_time db_time") from sync_times where config_id=${config_id}
-		]]>
-	</sql>
-    </target>
 
     <target name="fast_run_filesets" depends="get_os,setup_mac,setup_windows,setup_linux">
 
@@ -1655,122 +1228,6 @@
 
     <property name="work_table" value="hurricane_work_list" />
 
-    <!-- hurricane, client side -->
-    <target name="zip_materials"  depends="get_db_time" description="- package test materials for hurricane run">
-
-	<property name="userid" value="${env.USER}" />
-
-
-	<!-- build a fileset -->
-	<!-- the includes should look like this: dir/**/*.* -->
-
-
-	<fileset id="sdk.mustella.fileset.send" dir="${sdk.mustella.dir}" 
-			includes="${sdk.mustella.includes.send}"  >
-	</fileset>
-
-	<property name="sh2" refid="sdk.mustella.fileset.send" />
-
-	<!-- a bit of debugging -->
-	<echo>fileset building with:  ${sdk.mustella.includes.send}</echo>
-	<echo>Result:</echo>
-	<echo>${sh2}</echo>
-	<echo> </echo>
-
-	<tstamp prefix="tmpf" >
-		<format pattern="MMddyyyy_hhmmss" property="file_suffix" />
-	</tstamp>
-
-	<property name="file_suffix" value="${tmpf.file_suffix}.${userid}.zip" />
-
-	<property name="tmp_send_file" value="send_mustella.${file_suffix}" />
-	<echo>the filename will be: ${tmp_send_file} </echo>
-
-	<delete failonerror="false" file="${mustella.dir}/${tmp_send_file}" />
-
-
-
-	<zip destfile="${mustella.dir}/${tmp_send_file}" >
-		<fileset refid="sdk.mustella.fileset.send"  />
-		<fileset dir="${sdk.mustella.dir}" file="${mustella.dir}/properties/mustella_tmp.properties" />
-	</zip>
-
-
-	<!-- now we send it via FTP -->
-	<!-- consider putting the user/pass into a separate properties file -->
-	<!-- the hurricane server has to have an ftp server. We're over it. -->
-	<ftp server="${hurricane_server}"
-		userid="${local_build_user}"
-		password="${local_build_password}"
-		remotedir="${branch}"
-		action="put"	
-		binary="yes"
-		verbose="true" >
-		<fileset file="${mustella.dir}/${tmp_send_file}" />
-	</ftp>
-
-
-	<!-- if that worked, put an entry in the database.
-	     The hurricane server will notice that.
-	-->
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}_settings"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		insert into ${work_table} (zip_name, submitter, submitted, branch) values ('${tmp_send_file}',  '${user.name}', '${db_time}', '${branch_name}')
-		]]>
-	</sql>
-	
-    </target>
-    
-    <property name="hurricane_output_file" value="${mustella.dir}/hurricane_work_file" />
-
-
-    <!-- hurricane, server side -->
-    <target name="get_hurricane_work" depends="get_db_time">
-
-
-	<!-- the update can accompany the select. if there's nothing to select, 
-	there's nothing to update. 
-	-->
-
-	<sql driver="com.mysql.jdbc.Driver"
-		onerror="continue"
-		url="${db_url}_settings"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${hurricane_output_file}"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat("zip_file=", zip_name) from ${work_table} where branch="${branch_name}" and processed=0 limit 1;
-		update ${work_table} set processed = 1, grabbed="${db_time}" where branch="${branch_name}" and processed=0 limit 1;
-		]]>
-	</sql>
-
-	<!-- it would be nice to fail on exit if there are zero rows -->
-	<!-- check if zip_file is set and exit with an error if it isn't -->
-	<property file="${hurricane_output_file}" />	
-
-
-	<condition property="exit_with_msg" value="true" >
-		<not>
-		<isset property="zip_file" />
-		</not>
-	</condition>
-
-	<antcall target="do_fail" >
-		<param name="msg" value="No hurricane work to do, exiting" />
-	</antcall>
-
-    </target>
-
 
     <target name="update_volatiles" >
 
@@ -1859,62 +1316,6 @@
 	<p4submit change="${p4.change}" />
 
     </target>
-
-    <target name="fetch_old_runid" >
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-		output="${arg.propertyfile}"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat("run_id=", id) from test_runs where run_type="" and branch="Mainline" and os like '${arg.os}' order by id desc limit 1
-		]]>
-	</sql>
-
-    </target>
-
-
-    <target name="do_excludes_update" if="update_excludes" >
-
-
-	<copy overwrite="true" verbose="true" file="${arg.runid_filename}.tmp" tofile="${arg.runid_filename}" />
-
-
-	<echo>Doing excludes update</echo>
-	<!-- get the timestamp from that run -->
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-		output="${mustella.dir}/.db.time.properties"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat("db_time=", time) from test_runs where id = ${arg.run_id}
-		]]>
-	</sql>
-
-	<property file="${mustella.dir}/.db.time.properties" prefix="tmp." />
-
-	<!-- this target is called excludeFromRunId, but what it does is fetch the failures from a run -->
-	<antcall target="excludeFromRunId" >
-		<param name="failures_filename" value="${arg.failures_filename}" />
-		<param name="current.run.id" value="${arg.run_id}" />
-	</antcall>
-
-	<!-- get the actual excludes -->
-	<antcall target="getExcludes" >
-		<param name="exclude_filename" value="${arg.excludes_filename}" />
-		<param name="db_time" value="${tmp.db_time}" />
-	</antcall>
-
-
-    </target>
-
 
 
     <target name="do_jar_update" unless="jar_not_needed" >
@@ -2070,140 +1471,6 @@ we could have pmd_doler do the dir split and write property files (per user)
 
     <property name="retry_failures_file" value="${mustella.dir}/tmp_failures.txt" />
 
-    <target name="retry_failures" unless="skip_retry_failures" >
-  	<!-- for pmd, get the list of failures, figure out which swfs and rerun them
-                select concat(test_file, " ", test_id) from orphaned_results where result=1 and test_run = ${runId};
-	-->
-        <sql driver="com.mysql.jdbc.Driver"
-                onerror="continue"
-                url="${db_url}"
-                userid="mustella"
-                classpathref="flex.test.classpath"
-                print="true"
-                output="${retry_failures_file}"
-                showheaders="false"
-                password="${db_passwd}" >
-                <![CDATA[
-		select test_files.dir_name, swf_file from results,test_cases,test_files where results.test_case = test_cases.id and results.test_run = ${current.run.id} and test_cases.test_dir = test_files.id and results.result=1
-               ]]>
-        </sql>
-        <replaceregexp file="${retry_failures_file}"
-                match=".mxml" replace=".swf" flags="g"/>
-
-        <replaceregexp file="${retry_failures_file}"
-                match="../SWFs/" replace="" flags="g"/>
-
-	<replaceregexp file="${retry_failures_file}"
-		match=".*rows affected" replace="" flags="g"/>
-
-
-	<exec osfamily="windows" executable="gawk.exe" dir="/cygwin/bin" output="${retry_failures_file}.tmp">
-		<arg value="-f" />
-		<arg value="${mustella.dir}/fix.awk"  />
-		<arg value="${retry_failures_file}"  />
-	</exec>
-
-	<exec osfamily="mac" executable="awk" dir="/bin" output="${retry_failures_file}.tmp">
-		<arg value="-f" />
-		<arg value="${mustella.dir}/fix.awk"  />
-		<arg value="${retry_failures_file}"  />
-	</exec>
-
-	<!-- test that there are any files to re-run (and not too many) -->
-	<!-- if the re-run list size is zero, fileset will match everything.  -->
-	<condition property="found_failures_to_retry0" value="true" >
-		<length file="${retry_failures_file}.tmp" when="greater" length="5" />
-	</condition>
-
-
-	<!-- check if there are too many retry swfs. at some point, it's not worth it -->
-    	<if>
-		<equals arg1="true" arg2="${found_failures_to_retry0}"/>
-		<then>
-
-        	<fileset id="sdk.mustella.swffileset" dir="${sdk.mustella.dir}"
-           		excludes="${sdk.mustella.excludes},**/*.log,**/*.png,**/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf" 
-			includesfile="${retry_failures_file}.tmp" >
-		</fileset>
-
-		<!-- if the number of swfs is to great, skip the retry -->
-		<condition property="found_failures_to_retry1" value="true" >
-			<resourcecount count="30" when="lt">
-        			<fileset refid="sdk.mustella.swffileset" />
-			</resourcecount>
-		</condition>
-		</then>
-
-		<else>
-			<echo>no failures to retry</echo>	
-		</else>
-
-	</if>
-
-
-	<!-- set to false if we fall through here -->
-	<property name="found_failures_to_retry1" value="false" />
-	
-
-	<echo> retry check: any to run? ${found_failures_to_retry0} </echo>
-	<echo> retry check: not too many? ${found_failures_to_retry1} </echo>
-
-
-    	<if>
-		<equals arg1="true" arg2="${found_failures_to_retry1}"/>
-		<then>
-
-		<!-- show things, in any case -->
-		<property name="showset" refid="sdk.mustella.swffileset" />
-		<echo>${showset}</echo>
-
-		<!-- re-set out the failures -->
-
-                <sql driver="com.mysql.jdbc.Driver"
-               	 onerror="continue"
-                url="${db_url}"
-                userid="mustella"
-                classpathref="flex.test.classpath"
-                print="true"
-                output="${mustella.dir}/out.delete"
-                showheaders="false"
-                password="${db_passwd}" >
-                <![CDATA[
-		delete from results where test_run = ${current.run.id} and result=1
-               ]]>
-        	</sql>
-
-		<!-- count items (for posterity) -->
-		<resourcecount property="number_reran" refid="sdk.mustella.swffileset">
-		</resourcecount>
-
-		<echo>number reran=${number_reran}</echo>
-
-		<!-- remove "Timed out" failures if we're re-running a swf that timed out  -->
-		<antcall target="clean_overlapping">
-		</antcall>
-
-		<!-- rerun  -->
-		<!-- antcall just run with pmd NOT true so it will loop normally -->
-		<antcall target="justrun">
-		<param name="pmd" value="false" />
-		<param name="db_time_vetting_file" value="/tmp/.db.time.mini" />
-		</antcall>
-		
-		</then>
-		<else>
-			<property name="number_reran" value="0" />
-			<!-- if it never entered the Runner, it won't note an end
-			     so put a timestamp on the end run 
-			-->
-			<antcall target="update_milestones2" >
-				<param name="skip_retry_failures" value="true" />
-			</antcall>
-
-		</else>
-	</if>
-
-    </target>
 
     <target name="test_clean_overlapping" >
 	<!-- just a test target -->
@@ -2259,9 +1526,13 @@ we could have pmd_doler do the dir split and write property files (per user)
 		<param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
 	</antcall>
 
-	<if>
-		<equals arg1="${use_android_runner}" arg2="true" />
-			<then>
+    <antcall target="call_runners" />
+    </target>
+    
+    <target name="call_runners" depends="android_runner, ios_runner, qnx_runner, desktop_runner">
+    </target>
+    
+    <target name="android_runner" if="${use_android_runner}">
 				<echo message="**** Willkommen auf AndroidRunner ****" />
 				<java classname="mustella.AndroidRunner" failonerror="true" fork="false">
 					<classpath refid="flex.test.classpath"/>
@@ -2298,11 +1569,10 @@ we could have pmd_doler do the dir split and write property files (per user)
 					<sysproperty key="runtimeApk" value="${runtimeApk}" />
 					<arg path="${sdk.mustella.swffiles}"/>
 				</java>
-			</then>
-		<elseif>
-			<equals arg1="${use_ios_runner}" arg2="true" />
-			<then>
-				<echo message="**** Willkommen auf IOSRunner ****" />
+    </target>
+    
+    <target name="ios_runner" if="${use_ios_runner}" >
+ 				<echo message="**** Willkommen auf IOSRunner ****" />
 				<java classname="mustella.IOSRunner" failonerror="true" fork="false">
 					<classpath refid="flex.test.classpath"/>
 					<sysproperty key="clean_devices" value="${clean_devices}" />
@@ -2328,11 +1598,9 @@ we could have pmd_doler do the dir split and write property files (per user)
 					<sysproperty key="rerun" value="${rerun_property}" />
 					<arg path="${sdk.mustella.swffiles}"/>
 				</java>
-			</then>
-		</elseif>
-		<elseif>
-			<equals arg1="${use_qnx_runner}" arg2="true" />
-			<then>
+    </target>
+    
+    <target name="qnx_runner" if="${use_qnx_runner}" >
 				<echo message="**** Willkommen auf QNXRunner ****" />
 				<echo message="Copying QNX Tools..." />
 				<copy todir="${sdk.dir}/bin">
@@ -2372,9 +1640,9 @@ we could have pmd_doler do the dir split and write property files (per user)
 					<sysproperty key="qnx_cmdline_password" value="${qnx_cmdline_password}"/>
 					<arg path="${sdk.mustella.swffiles}"/>
 				</java>
-			</then>
-		</elseif>
-		<else>
+    </target>
+
+    <target name="desktop_runner" unless="${use_android_runner}, ${use_ios_runner}, ${use_qnx_runner}" >
 			<echo message="**** Willkommen auf Runner ****" />
 			<java classname="mustella.Runner" failonerror="true" fork="${runner_fork}">
 				<classpath refid="flex.test.classpath"/>
@@ -2422,8 +1690,6 @@ we could have pmd_doler do the dir split and write property files (per user)
 				<sysproperty key="prevent_baseline_server" value="${prevent_baseline_server}" />				
 				<arg path="${sdk.mustella.swffiles}"/>
 			</java>
-		</else>
-	</if>
     </target>
 
     <target name="rerun" depends="setrerun,prepare,setup,justrun" >
@@ -2439,16 +1705,6 @@ we could have pmd_doler do the dir split and write property files (per user)
     <target name="run" depends="clean,prepare,setup,cleanswfs,compileswfs,getRunId,getExcludes,populateExcludeTable,justrun" description="-->run tests">
     </target>
 
-
-    <!-- the swffileset would already be set in the main caller, so so the main guy (who calls runPMD) runs nothing
-         only waits for other runners to do the work. less painful way to dole out the work
-     -->
-    <target name="debugrunPMD" depends="clean,prepare,setup,cleanswfs,compileswfs" />
-
-    <target name="runPMD" depends="clean,prepare,setup,cleanswfs,compileswfs,getRunId,getExcludes,populateExcludeTable,dolePMD,waitPMD,retry_failures,update_milestones" description="-->run tests">
-    </target>
-
-
     <property name="tmp_exclude_script" value="exclude_tmp.sh" />
 
     <target name="genExcludeScript" >
@@ -2463,137 +1719,8 @@ we could have pmd_doler do the dir split and write property files (per user)
     </target>
 
 
-    <target name="showExcludeIds">
-	<echo>os	runtime	browser	branch</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat_ws('\t', id, os,runtime, browser,branch ) from exclude_config;
-		]]>
-	</sql>
-    </target>
-
-    <target name="showExcludedCases">
-	<echo>test_file	test_id	date_begin	exclude_config_id</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="true"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select concat_ws('\t', test_file, test_id, date_begin, exclude_config_id) from excludes, test_cases where test_cases.id = excludes.testcase_id and date_end = 0 and excludes.bug_id = '${bug_id}%';
-		select concat_ws('\t', file_name, date_begin, exclude_config_id) from excludes_files, test_files where test_files.id = excludes_files.test_file_id and date_end = 0 and excludes_files.bug_id = '${bug_id}%';
-		]]>
-	</sql>
-    </target>
-
-
     <property name="tmp_error_files" value="${mustella.dir}/.errors_tmp" />
 
-    <!-- given a list of test files (and other exclude relevancies), create new excludes in excludes_files table -->
-    <target name="insertFileWiseExcludes" depends="get_db_time">
-    <!-- depends on excludeFileWise. It's possible we would want to decouple them? -->
-
-	<loadfile srcFile="${tmp_error_files}" property="tmp_file_list" >
-		<filterchain>
-			<linecontains negate="true">
-  			<contains value="rows affected"/>
-			</linecontains>
-			<ignoreblank/>
-			<replaceregex pattern="^" replace="'" />
-			<replaceregex pattern="$" replace="'" />
-			<prefixlines prefix=" "/>
-			<striplinebreaks/>
-			<replaceregex pattern="' '" replace="', '" flags="g"/>
-		</filterchain>
-	</loadfile>
-	<echo>insert into excludes_files (bug_id, date_begin, exclude_config_id, test_file_id) select '${bug_id}', '${DB_TIME}', "${exclude_id}", id from test_files where file_name in (${tmp_file_list});</echo>
-
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		insert into excludes_files (bug_id, date_begin, exclude_config_id, test_file_id) select '${bug_id}', '${DB_TIME}', "${exclude_id}", id from test_files where file_name in (${tmp_file_list});
-		]]>
-	</sql>
-
-    </target>
-
-    <target name="findFileWiseErrors" >
-
-	<echo>exclude a test  file</echo>
-	<echo>exclude a file, bug id ${bug_id}</echo>
-	<echo>exclude a file, exclude id ${exclude_id}</echo>
-	<echo>exclude a file, the test_file is ${test_file}</echo>
-
-	<!-- take the name of a file, find its db connection, insert it -->
-	<echo>tmp_filename is ${mustella.dir}/tmpexc</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${tmp_error_files}"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-
-		select distinct(test_file) from test_cases where swf_file in (select substring_index(test_file, '/', -1) from errors where test_run = ${current.run.id})
-
-               ]]>
-	</sql>
-
-    </target>
-
-    <target name="tmp_getNonCompilingFiles" >
-		<!-- this will give a list of the files pointed to in errors.
-		select distinct(test_file) from test_cases where swf_file in (select substring_index(test_file, '/', -1) from errors where test_run = 8579)
-
-		-->
-
-    </target>
-
-    <target name="reIncludeExcludesByBugId" depends="get_db_time">
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		update excludes set date_end = '${DB_TIME}' where bug_id = '${bug_id}' and date_end = 0;
-		update excludes_files set date_end = '${DB_TIME}' where bug_id = '${bug_id}' and date_end = 0;
-               ]]>
-	</sql>
-    </target>
-
-
-    <target name="showExcludesByBugId" >
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select test_file, test_id from excludes, test_cases where test_cases.id = excludes.testcase_id and date_end = 0 and bug_id like '${bug_id}';
-		select file_name from excludes_files, test_files where test_files.id = excludes_files.test_file_id and date_end = 0 and bug_id like '${bug_id}';
-               ]]>
-	</sql>
-    </target>
 
     <target name="excludeFromFile" >
 	<echo>exclude from file</echo>
@@ -2649,137 +1776,6 @@ we could have pmd_doler do the dir split and write property files (per user)
     <!-- shbe 5 -->
     <property name="test_interval" value="15" />
 
-    <property name="dmeb_url" value="jdbc:mysql://beachwagon.macromedia.com:3306/mustella"  />
-
-
-
-    <target name="getRecentIncludes" >
-	<!-- select dir_name, test_cases.test_file from test_cases, excludes, test_files where timestampdiff(MINUTE, date_end, now()) <= ${test_interval} and test_cases.id = excludes.testcase_id and test_cases.test_file = test_files.file_name; -->
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/.new_includes"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select included_by, dir_name, test_cases.test_file from test_cases, excludes, test_files where date_end > "${env.last_db_time}" and test_cases.id = excludes.testcase_id and test_cases.test_dir = test_files.id;
-		]]>
-	</sql>
-    </target>
-
-    <!-- this looks for things that are expected to pass after a certain build ; this is untested and the update is suspicious-->
-    <target name="getScheduledIncludes" >
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${mustella.dir}/.new_includes2"
-		showheaders="false"
-    		password="${db_passwd}" >
-		<![CDATA[
-		select dir_name, test_cases.test_file from test_cases, excludes, test_files where date_end = 0 and include_with >= ${build.id} and test_cases.id = excludes.testcase_id and test_cases.test_file = test_files.file_name;
-		update excludes set date_end = now() where date_end = 0 and include_with >= ${build.id};
-		]]>
-	</sql>
-    </target>
-
-    <target name="doExcludeOfFailuresBasedOnRun" >
-	<property name="failures_filename" value="${mustella.dir}/failures.out" />
-
-	<antcall target="excludeFromRunId"/>
-
-	<antcall target="excludeFromFile">
-		<param name="exclude_filename" value="${failures_filename}" />
-	</antcall>
-    </target>
-
-
-    <target name="excludeFromRunId" >
-	<property name="failures_filename" value="${mustella.dir}/failures.out" />
-
-	<echo>failures_filename is ${failures_filename}</echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${failures_filename}"
-		showheaders="false"
-    		password="${db_passwd}" >
-		select concat(dir_name, test_file), test_id from test_cases, test_files, results where test_cases.test_dir = test_files.id and results.test_case = test_cases.id and results.test_run = ${current.run.id} and result=1;
-		select test_file, test_id from orphaned_results where test_run = ${current.run.id} and result=1;
-	</sql>
-
-    </target>
-
-    <target name="excludeAllFailures" depends="get_os,setup_mac,setup_windows,setup_linux" >
-	<antcall target="genExcludeScript" />
-	<exec executable="${shell}" dir="${mustella.dir}" >
-		<arg value="${tmp_exclude_script}" />
-	</exec>
-        <delete file="${mustella.dir}/${tmp_exclude_script}" />
-	<!-- check for orphaned failures that we couldn't exclude -->
-	<antcall target="orphanFailureCheck" />
-    </target>
-
-
-
-    <target name="orphanFailureCheck" >
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		showheaders="false"
-    		password="${db_passwd}" >
-
-	select 'Exclude FAILED for test not in db: ', test_id, test_file from orphaned_results where test_run = ${current.run.id} and result=1;
-	</sql>
-
-    </target>
-
-    <target name="getDirectoriesFromFailuresFile" >
-	<echo>filename is ${exclude_filename} </echo>
-	<loadfile srcFile="${mustella.dir}/failures.txt" property="inlist" />
-	<echo>inlist is: ${inlist} </echo>
-	<sql driver="com.mysql.jdbc.Driver"
-		url="${db_url}"
-    		userid="mustella"
-		classpathref="flex.test.classpath"
-		print="true"
-		output="${exclude_filename}.tmp"
-		showheaders="false"
-    		password="${db_passwd}" >
-		select dir_name, test_file, test_id  from test_files, test_cases where test_files.file_name = test_cases.test_file and test_file in (${inlist})
-	</sql>
-
-    </target>
-
-    <!-- runFromFailures is a wip -->
-    <target name="runFromFailures" >
-	<!-- if we have a run id, call the getFailuresFromRunId class; otherwise, use  -->
-
-	<antcall target="getFailuresFromRunId" />
-
-
-        <java classname="mustella.GenRunFromFailures" resultproperty="jreturn" >
-          <classpath refid="flex.test.classpath"/>
-          <sysproperty key="current.run.id" value="${current.run.id}" />
-		<!-- not sure about feature usage here -->
-          <sysproperty key="antInFile" value="${basedir}/properties/${feature}" />
-          <sysproperty key="antOutFile" value="${basedir}/properties/musella_tmp.properties" />
-          <sysproperty key="casesFile" value="${current.run.id}" />
-          <sysproperty key="outIncludeFile" value="${mustella.dir}/classes/CurrentIncludeList.as" />
-        </java>
-        <property file="${basedir}/properties/${feature}.properties" />
-
-
-    </target>
-
-
     <!-- make the mustella swc. Defaulting to putting that in the suites area for the moment -->
     <property name="mustella.swc.dir" value="${mustella.dir}" />
     <property name="mustella.swc.name" value="mustella.swc" />
@@ -2799,7 +1795,7 @@ we could have pmd_doler do the dir split and write property files (per user)
 	</target>
 		
     <target name="compilemustellaswc" if="do_mustellaswc_compile" >
-            <exec  executable="${compc.dir}/${compc.exe}" >
+            	<exec  executable="${compc.dir}/${compc.exe}" >
         	<!-- output swc name    -->
         	<arg value="-output=${mustella.swc.dir}/${mustella.swc.name}" />
         	<!-- include path -->
@@ -3421,17 +2417,8 @@ we could have pmd_doler do the dir split and write property files (per user)
 	</java>
 
     </target>
-    <!-- target for run and compile -->
-    <target name="sendResultsPMD" depends="runPMD,queryResults,do_sendResults" if="sdk.mustella.includes">
-    </target>
-
+ 
     <target name="sendResults" depends="run,queryResults,do_sendResults" if="sdk.mustella.includes">
-    </target>
-
-    <target name="sendResultsPMDSubsequent" depends="runPMDSubsequent,queryResults,do_sendResults" if="sdk.mustella.includes">
-    </target>
-
-    <target name="runPMDSubsequent" depends="clean,setup,getRunId,getExcludes,populateExcludeTable,dolePMD,waitPMD,retry_failures,update_milestones" description="-->rerun tests with a different configuration">
     </target>
 
     <target name="autoExcludeFailures" if="auto_exclude_and_failures" >

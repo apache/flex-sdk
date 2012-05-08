@@ -19,8 +19,6 @@
 -->
 <project name="Flex Mustella Source" default="main" basedir="../..">
 	<property environment="env"/>
-    <property name="ant-contrib.jar" location="${env.ANT_HOME}/lib/ant-contrib-1.0b2.jar"/>
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
 
     <property name="mustella.dir" value="${basedir}"/>
     <property file="${mustella.dir}/local.properties"/>
