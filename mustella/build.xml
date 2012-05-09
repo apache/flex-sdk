@@ -18,6 +18,8 @@
 
 -->
 <project name="mustella" default="run" basedir=".">
+    <property name="FLEX_HOME" location=".."/>
+
     <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
 
@@ -33,9 +35,8 @@
     
     <!-- AJH shut off excludes for now -->
     <property name="excludes_done" value="true" />
-
 	
-<property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
+    <property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
 
     <pathconvert property="mustella.dir" dirsep="/" >
        <path location="${basedir}" />
