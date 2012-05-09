@@ -21,6 +21,7 @@
 	<property environment="env"/>
 
     <property name="mustella.dir" value="${basedir}"/>
+    <property file="${mustella.dir}/../env.properties"/>
     <property file="${mustella.dir}/local.properties"/>
     <property file="${mustella.dir}/build.properties"/>
     <property name="sdk.dir" value="$.."/>
@@ -46,6 +47,12 @@
             <include name="*.jar"/>
         </fileset>
     </path>
+
+	<path id="airsdk.lib.classpath">
+		<fileset dir="${airsdk.dir}/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
 
 	<path id="sdk.lib.classpath">
 		<fileset dir="${sdk.dir}/lib">
@@ -74,13 +81,13 @@
 			<classpath>
                 <!--<path refid="flex.mustella.lib.classpath"/>-->
                 <path refid="ant.lib.classpath"/>
+                <path refid="airsdk.lib.classpath"/>
                 <path refid="swfutils.classpath"/>
 				<path refid="sdk.lib.classpath"/>
 			</classpath>
 		</javac>
 
 	</target>
-
 
 	<target name="compile" depends="prepare">
 		<echo message="Compiling source code..."/>

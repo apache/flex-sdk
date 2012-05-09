@@ -24,6 +24,7 @@
     <property file="${FLEX_HOME}/env.properties"/>
 
     <property name="mustella.dir" value="${basedir}" />
+    <property name="airsdk.dir" value="${env.AIR_HOME}" />
 	
     <property name="feature" value=""/>
     <property file="${basedir}/properties/${feature}.properties" />
@@ -851,7 +852,7 @@
 	</target>
 	
 	<target name="handle_adt_jar" if="copy_adt_jar">
-		<copy file="${sdk.dir}/lib/adt.jar" tofile="${mustella.dir}/lib/adt.jar" overwrite="true" />		
+		<copy file="${airsdk.dir}/lib/adt.jar" tofile="${mustella.dir}/lib/adt.jar" overwrite="true" />		
 	</target>
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
@@ -1780,7 +1781,7 @@ we could have pmd_doler do the dir split and write property files (per user)
         	<arg value="-source-path=${mustella.dir}/as3/src/mustella" />
             <!-- clear library path -->
             <arg value="-library-path="/>
-            <arg value="-external-library-path=${env.AIR_HOME}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
+            <arg value="-external-library-path=${airsdk.dir}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
         	<arg value="ApolloFilePath"/>
         	<arg value="Assert"/>
         	<arg value="AssertError"/>
