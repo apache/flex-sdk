@@ -19,6 +19,7 @@
 -->
 <project name="mustella" default="run" basedir=".">
     <property environment="env"/>
+    <property file="${FLEX_HOME}/env.properties"/>
 
     <property name="mustella.dir" value="${basedir}" />
 	
@@ -407,8 +408,8 @@
 	<target name="setup_windows" if="is_win">
 		<echo>doing windows setup</echo>
 	    <echo>homepath: ${HOMEPATH} </echo>
-		<property name="mxmlc.exe" value="mxmlc.exe"/>
-		<property name="compc.exe" value="compc.exe" />
+		<property name="mxmlc.exe" value="mxmlc.bat"/>
+		<property name="compc.exe" value="compc.bat" />
 		<property name="shell" value="${cygwinshell}" />
 		<property file="${HOMEPATH}/mm.cfg"/>
 		<echo>trace output file: ${TraceOutputFileEnable} </echo>
@@ -817,20 +818,17 @@
 	</target>
 
 	<!-- not sure about that unless -->
-    <target name="getRunId" unless="current.run.id" depends="setbuildID,setHostName,getConfigId,getActualRunId">
-    </target>
+    <target name="getRunId" unless="current.run.id" depends="setbuildID,setHostName,getConfigId,getActualRunId"/>
 
     <target name="invokeVersion" depends="get_os,setup_mac,setup_windows,setup_linux" description="Fetch the flex version">
-	<exec executable="${sdk.dir}/bin/${mxmlc.exe}" output="${mustella.dir}/.flex.version">
-		<arg value="-version"  />
-	</exec>
+        <exec executable="${sdk.dir}/bin/${mxmlc.exe}" output="${mustella.dir}/.flex.version">
+            <arg value="-version"  />
+        </exec>
     </target>
 
     <fileset id="sdk.mustella.fileset" dir="${sdk.mustella.dir}"
             includes="${sdk.mustella.includes}"
             excludes="${sdk.mustella.excludes},${other.mustella.excludes}" />
-
-
 
 	<target name="clean" description="--> cleanup old report and actual files">
 		<echo message="Deleting old results and files from previous testsuite build"/>
@@ -1480,32 +1478,32 @@ we could have pmd_doler do the dir split and write property files (per user)
     <property name="runner_fork" value="false" />
 
     <target name="justrun" if="sdk.mustella.includes">
-	<property name="frameworks.dir" value="${sdk.dir}/frameworks" />
-	<property name="mxmlc.dir" value="${sdk.dir}/bin" />
-	<property name="mxmlc.exe" value="mxmlc.exe" />
-	<property name="pfchange" value="workspace" />
-	<!--- I'm thinking it will be okay because this will be set already -->
-	<pathconvert pathSep=";" dirSep="/" property="sdk.mustella.swffiles" refid="sdk.mustella.swffileset"/>
-	<!-- echo message="the player ${player}" / -->
-	<chmod file="${player}" perm="777"/>
-
-
-	<!-- be safe, clear the cache (in pmd, each user must do this) -->
-	<!-- some of these targets won't exist  -->
-	<!-- mac -->
-	<antcall target="delete_cache">
-		<param name="directory" value="/Users/${env.USER}/Library/Caches/Adobe/Flash Player/AssetCache" />
-	</antcall>
-	<!-- win 7 -->
-	<antcall target="delete_cache">
-		<param name="directory" value="/Users/${env.USER}/AppData/Roaming/Adobe/Flash Player/AssetCache" />
-	</antcall>
-	<!-- older win -->
-	<antcall target="delete_cache">
-		<param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
-	</antcall>
-
-    <antcall target="call_runners" />
+        <property name="frameworks.dir" value="${sdk.dir}/frameworks" />
+        <property name="mxmlc.dir" value="${sdk.dir}/bin" />
+        <property name="mxmlc.exe" value="mxmlc.exe" />
+        <property name="pfchange" value="workspace" />
+        <!--- I'm thinking it will be okay because this will be set already -->
+        <pathconvert pathSep=";" dirSep="/" property="sdk.mustella.swffiles" refid="sdk.mustella.swffileset"/>
+        <!-- echo message="the player ${player}" / -->
+        <chmod file="${player}" perm="777"/>
+    
+    
+        <!-- be safe, clear the cache (in pmd, each user must do this) -->
+        <!-- some of these targets won't exist  -->
+        <!-- mac -->
+        <antcall target="delete_cache">
+            <param name="directory" value="/Users/${env.USER}/Library/Caches/Adobe/Flash Player/AssetCache" />
+        </antcall>
+        <!-- win 7 -->
+        <antcall target="delete_cache">
+            <param name="directory" value="/Users/${env.USER}/AppData/Roaming/Adobe/Flash Player/AssetCache" />
+        </antcall>
+        <!-- older win -->
+        <antcall target="delete_cache">
+            <param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
+        </antcall>
+    
+        <antcall target="call_runners" />
     </target>
     
     <target name="call_runners" depends="android_runner, ios_runner, qnx_runner, desktop_runner">
