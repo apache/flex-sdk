@@ -64,7 +64,7 @@ public class CompilerConfiguration implements As3Configuration,
 	public static final String LOCALE_TOKEN = "{locale}";
     public static final String TARGET_PLAYER_MAJOR_VERSION_TOKEN = "{targetPlayerMajorVersion}";
     public static final String TARGET_PLAYER_MINOR_VERSION_TOKEN = "{targetPlayerMinorVersion}";
-    public static final String PLAYERGLOBAL_TOKEN = "{playerglobalHome}";
+    public static final String PLAYERGLOBAL_HOME_TOKEN = "{playerglobalHome}";
     public static final String AIR_HOME_TOKEN = "{airHome}";
     
     // this is passed as the list of soft prerequisites for options like
@@ -176,14 +176,14 @@ public class CompilerConfiguration implements As3Configuration,
     {
         final String[] processed = new String[pathlist.length];
         
-        String playerglobalHome = System.getenv("PLAYERGLOBAL");
+        String playerglobalHome = System.getenv("PLAYERGLOBAL_HOME");
         if (playerglobalHome == null)
             playerglobalHome = "";
 
         for (int i = 0; i < pathlist.length; i++)
         {
             processed[i] = StringUtils.substitute(pathlist[i], 
-            	PLAYERGLOBAL_TOKEN, playerglobalHome);
+            	PLAYERGLOBAL_HOME_TOKEN, playerglobalHome);
         }
 
         return processed;

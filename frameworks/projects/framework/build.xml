@@ -33,7 +33,6 @@
 		<attribute name="locale"/>
 			<sequential>
 				<echo message="Compiling frameworks/locale/@{locale}/framework_rb.swc"/>
-				<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 			<!-- Load the <compc> task. We can't do this at the <project> level -->
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -62,7 +61,7 @@
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 				<include-libraries/>
 				<library-path/>
-				<external-library-path dir="${env.PLAYERGLOBAL}">
+				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
 					<include name="playerglobal.swc"/>
 				</external-library-path>
 			</compc>
@@ -177,7 +176,6 @@
 	
 	<target name="compile" description="Compiles framework.swc">
 		<echo message="Compiling frameworks/libs/framework.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -208,7 +206,7 @@
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="textLayout.swc"/>
 			</external-library-path>
-            <external-library-path dir="${env.PLAYERGLOBAL}">
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="playerglobal.swc"/>
 			</external-library-path>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>

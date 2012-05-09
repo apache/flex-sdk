@@ -33,7 +33,6 @@
 		
 	<target name="compile" description="Compiles automation_dmv.swc">
 		<echo message="Compiling frameworks/libs/automation/automation_dmv.swc"/>
-	    <echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -60,7 +59,7 @@
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
 			<library-path/>
-            <external-library-path dir="${env.PLAYERGLOBAL}">
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">

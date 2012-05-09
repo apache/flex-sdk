@@ -40,7 +40,6 @@
 
 	<target name="compile" description="Compiles authoringsupport.swc">
 		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -65,7 +64,7 @@
             <library-path dir="${basedir}/libs/">
 				<include name="FlexContentHolderThumbnail.swc"/>
 			</library-path>
-            <external-library-path dir="${env.PLAYERGLOBAL}">
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -101,7 +100,7 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <doc-classes class="AuthoringSupportClasses"/>
-            <external-library-path dir="${env.PLAYERGLOBAL}">
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">

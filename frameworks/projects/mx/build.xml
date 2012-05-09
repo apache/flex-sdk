@@ -33,7 +33,6 @@
 		<attribute name="locale"/>
 			<sequential>
 				<echo message="Compiling frameworks/locale/@{locale}/mx_rb.swc"/>
-				<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 			<!-- Load the <compc> task. We can't do this at the <project> level -->
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -50,7 +49,7 @@
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/mx/src"/>
 				<include-libraries/>
 				<library-path/>
-				<external-library-path dir="${env.PLAYERGLOBAL}">
+				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
 					<include name="playerglobal.swc"/>
 				</external-library-path>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -168,7 +167,6 @@
 	
 	<target name="compile" description="Compiles mx.swc">
 		<echo message="Compiling frameworks/libs/mx/mx.swc"/>
-		<echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -197,7 +195,7 @@
 			<include-classes>MxClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
-			<external-library-path dir="${env.PLAYERGLOBAL}">
+			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="playerglobal.swc"/>
             </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">

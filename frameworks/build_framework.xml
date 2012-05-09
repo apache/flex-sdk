@@ -30,6 +30,10 @@
 
     <property name="FLEX_HOME" value="${basedir}/.."/>
     <property name="build.number" value="0"/>
+
+    <property environment="env"/>    
+    <property name="playerglobal.dir" value="${env.PLAYERGLOBAL_HOME}"/>
+    <property name="airsdk.dir" value="${env.AIR_HOME}"/>
     
     <property name="locale" value="en_US"/>
     <property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
@@ -56,14 +60,43 @@
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
 	<!-- This does not contain the automation jars but they could be added.  -->
-    <target name="main" depends="clean,thirdparty-downloads,prepare,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,bundles,themes,sparkskins,spark_dmv"/>
+    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,bundles,themes,sparkskins,spark_dmv"/>
 
     <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb"/>
     
-    <target name="prepare" description="Copies manifests to project directories so the IDE can find them">
+    <target name="prepare"
+        description="Copies manifests to project directories so the IDE can find them">
+        
         <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${FLEX_HOME}/frameworks/projects/spark/manifest.xml" overwrite="true"/>
     </target>
     
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
+        description="Check for the required environment variables for compilation"/>
+
+    <target name="check-playerglobal-home"
+        description="Check PLAYERGLOBAL for both a directory and a swc file">
+
+        <available file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc" type="file" 
+            property="PLAYERGLOBAL_HOME.set"/>
+        
+        <fail message="The environemnt variable PLAYERGLOBAL_HOME must be set to a valid directory that contains playerglobal.swc" 
+            unless="PLAYERGLOBAL_HOME.set"/>
+    </target>
+    
+    <target name="check-air-home"
+        description="Check that AIR_HOME is a directory">
+        
+        <condition property="AIR_HOME.set">
+            <and>
+                <length string="${env.AIR_HOME}" when="greater" length="0" />
+                <available file="${env.AIR_HOME}" type="dir"/>
+            </and>
+        </condition>
+        
+        <fail message="The environment variable AIR_HOME must be set to the AIR Integration Kit directory" 
+            unless="AIR_HOME.set"/>
+    </target>
+
     <target name="advancedgrids" description="Builds advancedgrids.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="" 
             accessible="true" show-deprecation-warnings="false"
@@ -75,8 +108,8 @@
             <source-path path-element="${advancedgrids.dir}/src"/>
             <source-path path-element="${basedir}/projects/mx/src"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="rpc.swc"/>
@@ -95,7 +128,7 @@
             <include-resource-bundles bundle="olap"/>
             <source-path path-element="${advancedgrids.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -110,8 +143,10 @@
             <include-namespaces uri="library://ns.adobe.com/flex/mx"/>
             <source-path path-element="${airframework.dir}/src"/>
             <library-path/>
-            <external-library-path dir="${basedir}/libs">
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
                 <include name="air/airglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${basedir}/libs">
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
@@ -168,7 +203,7 @@
             <source-path path-element="${framework.dir}/src"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
             <source-path path-element="${basedir}/projects/mx/bundles/${locale}"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -182,8 +217,10 @@
             <include-namespaces uri="library://ns.adobe.com/flex/spark"/>
             <source-path path-element="${airspark.dir}/src"/>
             <library-path/>
-            <external-library-path dir="${basedir}/libs">
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
                 <include name="air/airglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${basedir}/libs">
                 <include name="air/airframework.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
@@ -202,7 +239,7 @@
             <include-resource-bundles bundle="core"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -219,8 +256,8 @@
             <source-path path-element="${charts.dir}/src"/>
             <source-path path-element="${basedir}/projects/mx/src"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="rpc.swc"/>
                 <include name="textLayout.swc"/>
@@ -239,7 +276,7 @@
             <include-resource-bundles bundle="charts"/>
             <source-path path-element="${charts.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -253,8 +290,8 @@
             <source-path path-element="${framework.dir}/src"/>
             <load-config filename="${framework.dir}/framework-config.xml"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
             </external-library-path>
@@ -278,8 +315,8 @@
             <source-path path-element="${flash-integration.dir}/src"/>
             <load-config filename="${basedir}/projects/framework/framework-config.xml"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="textLayout.swc"/>
                 <include name="framework.swc"/>
             </external-library-path>
@@ -296,8 +333,8 @@
             <namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
             <include-namespaces uri="library://ns.adobe.com/flex/mx"/>
             <source-path path-element="${framework.dir}/src"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
             </external-library-path>
@@ -335,7 +372,7 @@
             <include-resource-bundles bundle="validators"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -350,8 +387,10 @@
             <include-namespaces uri="library://ns.adobe.com/flex/spark"/>
             <source-path path-element="${mobilecomponents.dir}/src"/>
             <library-path/>
-            <external-library-path dir="${basedir}/libs">
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
                 <include name="air/airglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${basedir}/libs">
                 <include name="framework.swc"/>
                 <include name="spark.swc"/>
                 <include name="textLayout.swc"/>
@@ -367,7 +406,7 @@
             <include-resource-bundles bundle="core"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -383,8 +422,8 @@
             <include-namespaces uri="library://ns.adobe.com/flex/mx"/>
             <source-path path-element="${mx.dir}/src"/>
             <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="textLayout.swc"/>
             </external-library-path>
@@ -405,9 +444,8 @@
             <include-resource-bundles bundle="containers"/>
             <source-path path-element="${mx.dir}/bundles/${locale}"/>
             <source-path path-element="${mx.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
             </external-library-path>
             <library-path/>
@@ -424,8 +462,8 @@
             <include-file name="version.properties" path="${basedir}/version.properties"/>
             <include-namespaces uri="library://ns.adobe.com/flex/mx"/>
             <source-path path-element="${rpc.dir}/src"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
@@ -449,7 +487,7 @@
             <source-path path-element="${rpc.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
             <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
@@ -463,8 +501,8 @@
             <include-namespaces uri="library://ns.adobe.com/flex/spark"/>
             <source-path path-element="${spark.dir}/src"/>
             <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
@@ -486,8 +524,8 @@
             <include-namespaces uri="library://ns.adobe.com/flex/spark"/>
             <source-path path-element="${spark_dmv.dir}/src"/>
             <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="spark.swc"/>
@@ -513,8 +551,8 @@
             <source-path path-element="${framework.dir}/src"/>
             <include-libraries/>
             <library-path/>
-           <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
-               <jvmarg line="${compc.jvm.args}"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
     
@@ -525,8 +563,8 @@
             resource-bundle-list="${core.dir}/bundles.properties">
              <source-path path-element="${sparkskin.dir}/src"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="spark.swc"/>
                 <include name="textLayout.swc"/>
@@ -545,8 +583,8 @@
             <library-path dir="${authoringsupport.dir}/libs">
                 <include name="FlexContentHolderThumbnail.swc"/>
             </library-path>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="flash-integration.swc"/>
@@ -565,8 +603,8 @@
             resource-bundle-list="${halo.dir}/bundles.properties">            
             <source-path/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
@@ -582,8 +620,8 @@
             resource-bundle-list="${mobiletheme.dir}/bundles.properties">            
             <source-path path-element="${mobiletheme.dir}/src"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="mobile/mobilecomponents.swc"/>
                 <include name="framework.swc"/>
                 <include name="spark.swc"/>
@@ -602,8 +640,8 @@
             <include-classes>WireframeClasses</include-classes>
             <source-path path-element="${wireframe.dir}/src"/>
             <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="spark.swc"/>
                 <include name="airspark.swc"/>
@@ -622,16 +660,8 @@
     <!-- Download thirdparty code -->
     
     <target name="thirdparty-downloads" 
-        depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download, swfobject-download" 
+        depends="osmf-download, textLayout-download, swfobject-download" 
         description="Copies third-party software into place for build" />
-    
-    <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
-        <available file="${basedir}/libs/air/airglobal.swc" property="airsdk.present"/>
-    </target>
-
-    <target name="playerglobal-check" description="Checks if the Adobe Air SDK has been downloaded.">
-        <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
-    </target>
     
     <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
@@ -645,31 +675,6 @@
         <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
     </target>
     
-    <!-- Adobe AIR SDK  -->
-    <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
-    <!-- Regardless of platform use the win kit to get airglobal.swc. -->
-    
-    <target name="airsdk-download" depends="airsdk-check" unless="airsdk.present" description="Copies Adobe AIR SDK for the Mac from the Adobe website">
-        <echo message="Be patient.  This takes a few minutes..." />
-        <mkdir dir="${FLEX_HOME}/in/air/win"/>
-        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
-            dest="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/AIR Integration Kit" src="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/AIR Integration Kit/frameworks/libs/air/airglobal.swc" 
-            toDir="${basedir}/libs/air"/>
-        <delete dir="${FLEX_HOME}/in/downloads/AIR Integration Kit" failonerror="false"/>
-    </target>
-        
-    <!-- playerglobal.swc -->
-    <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
-    <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
-        <mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
-            dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
-            verbose="false"/>
-    </target>
-
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
     <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
@@ -720,8 +725,6 @@
     <target name="clean" depends="bundles-clean" description="Cleans all SWCs.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs">
-                <include name="air/airframework.swc"/>
-                <include name="air/airspark.swc"/>
                 <include name="mobile/mobilecomponents.swc"/>
                 <include name="spark_dmv.swc"/>
                 <include name="charts.swc"/>
@@ -766,7 +769,7 @@
         <delete failonerror="false" verbose="true">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <fileset dir="${basedir}/libs/air"/>
-            <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <fileset dir="${basedir}/libs/**/playerglobal.swc"/>
         </delete>
         <delete dir="${FLEX_HOME}/in/air" excludes="*.xml"/>
         <delete dir="${FLEX_HOME}/in/downloads"/>

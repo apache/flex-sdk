@@ -35,7 +35,7 @@
     <property file="${FLEX_HOME}/env.properties"/>
     <property file="${FLEX_HOME}/local.properties"/>
     <property file="${FLEX_HOME}/build.properties"/>
-    
+
     <property name="debug" value="true"/>
     <property name="strict" value="true"/>
     <property name="javac.src" value="1.5"/>
@@ -56,7 +56,7 @@
         Each of the main targets for the modules will call clean themselves before proceeding.
     -->
 
-    <target name="main" depends="pre-build,modules,frameworks,frameworks-rsls,sample-themes,post-build" description="Full build">
+    <target name="main" depends="pre-build,modules,frameworks,sample-themes,post-build" description="Full build">
         <tstamp>
             <format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
         </tstamp>
@@ -74,7 +74,7 @@
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
-        depends="main,checkintests,doc,other.locales,binary-distro,doc-packages,additional-packages" 
+        depends="main,frameworks-rsls,checkintests,doc,other.locales,binary-distro,doc-packages,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
     <target name="doc-packages" 
@@ -100,18 +100,33 @@
 
     <target name="pre-build" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
 
-    <target name="check-compile-env" 
-        description="Check for the required environment variables for compilation">
-        <condition property="PLAYERGLOBAL.notset">
-            <equals arg1="${env.PLAYERGLOBAL}" arg2="must_set_environment_variable_PLAYERGLOBAL" casesensitive="true"/>
-        </condition>
-        <fail message="PLAYERGLOBAL environment variable is not set" if="PLAYERGLOBAL.notset"/>
-        <condition property="AIR_HOME.notset">
-            <equals arg1="${env.AIR_HOME}" arg2="must_set_environment_variable_AIR_HOME" casesensitive="true"/>
-        </condition>
-        <fail message="AIR_HOME environment variable is not set" if="AIR_HOME.notset"/>
-    </target>
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
+        description="Check for the required environment variables for compilation"/>
 
+    <target name="check-playerglobal-home"
+        description="Check PLAYERGLOBAL for both a directory and a swc file">
+
+        <available file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc" type="file" 
+            property="PLAYERGLOBAL_HOME.set"/>
+        
+        <fail message="The environemnt variable PLAYERGLOBAL_HOME must be set to a valid directory that contains playerglobal.swc" 
+            unless="PLAYERGLOBAL_HOME.set"/>
+    </target>
+    
+    <target name="check-air-home"
+        description="Check that AIR_HOME is a directory">
+        
+        <condition property="AIR_HOME.set">
+            <and>
+                <length string="${env.AIR_HOME}" when="greater" length="0" />
+                <available file="${env.AIR_HOME}" type="dir"/>
+            </and>
+        </condition>
+        
+        <fail message="The environment variable AIR_HOME must be set to the AIR Integration Kit directory" 
+            unless="AIR_HOME.set"/>
+    </target>
+    
     <!-- ToDo: automate setting the build number for non-dev builds. -->
     <target name="create-description">
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
@@ -355,6 +370,7 @@
                 <include name="flex-sdk-description.xml"/>
                 <include name="KEYS"/>
                 <include name="CHANGES"/>
+                <include name="DISCLAIMER"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
                 <include name="README"/>
@@ -466,7 +482,7 @@
         <!-- delete file from source distro that are not in binary distro -->
 
         <delete dir="${basedir}/temp/">
-            <include name="build.properties"/>
+            <include name="*.properties"/>
             <include name="**/build.xml"/>
             <exclude name="asdoc/build.xml"/>
         </delete>
@@ -493,9 +509,6 @@
             <include name="**/src/**"/>
         </delete>
         
-        <!-- there are no compiler sources in the bin kit -->
-        <!--delete dir="${basedir}/temp/modules"/-->
-        
         <!-- delete any left-over empty directories -->
         <delete includeemptydirs="true">
             <fileset dir="${basedir}/temp/frameworks">
@@ -508,8 +521,6 @@
 
         <!-- these files are in addition to the remaining source files -->
         
-        <!--copy file="${basedir}/flex-sdk-description.xml" todir="${basedir}/temp"/-->
-
         <!-- concat the license file with the binary license file for the 3rd party deps -->
         <concat destfile="${basedir}/temp/LICENSE">
             <filelist dir="${FLEX_HOME}" files="LICENSE,LICENSE.bin"/>
@@ -577,7 +588,6 @@
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
-                <include name="${env.FLASHPLAYER_HOME}/playerglobal.swc"/>
             </fileset>
         </copy>
 
@@ -1038,22 +1048,18 @@
         <javac srcdir="mustella" includes="MustellaResultsParser.java"/>
     </target>
 
-    <target name="check-runtime-env" 
+    <!-- To run the checkintests as well as any mustella tests need AIR for the adl and
+         a flash player content debugger.
+    -->
+    <target name="check-runtime-env" depends="check-air-home"
         description="Check for the required runtime environment variables for the checkintests">
         
-        <!-- for adl -->
-        <condition property="AIR_HOME.notset">
-            <equals arg1="${env.AIR_HOME}" arg2="must_set_environment_variable_AIR_HOME" casesensitive="true"/>
-        </condition>
-        <fail message="AIR_HOME environment variable is not set" if="ANT_HOME.notset"/>
-        <!-- for the flashplayer content debugger -->
-        <condition property="FLASHPLAYER_DEBUGGER.notset">
-            <equals arg1="${env.FLASHPLAYER_DEBUGGER}" arg2="must_set_environment_variable_FLASHPLAYER_DEBUGGER" casesensitive="true"/>
-        </condition>
-        <fail message="FLASHPLAYER_DEBUGGER environment variable is not set" if="FLASHPLAYER_DEBUGGER.notset"/>
+        <available file="${env.FLASHPLAYER_DEBUGGER}" property="FLASHPLAYER_DEBUGGER.set"/>
+        <fail message="FLASHPLAYER_DEBUGGER is ${env.FLASHPLAYER_DEBUGGER} which is not an Adobe Flash Player content debugger" 
+            unless="FLASHPLAYER_DEBUGGER.set"/>
     </target>
     
-    <target name="runtime-setup" depends="check-runtime-env" 
+    <target name="runtime-setup" depends="check-runtime-env" unless="runtime.setup"
         description="Set flash.player and adl properties"> 
         
         <!-- Paths to the debug standalone flashplayer. -->
@@ -1072,9 +1078,11 @@
         <condition property="adl" value="${env.AIR_HOME}/bin/adl">
             <os family="unix"/>
         </condition>
+        
+        <property name="runtime.setup" value="done"/>
     </target>
 
-    <target name="load-task">
+    <target name="load-task" depends="runtime-setup">
         <!-- load the <mxmlc> task; we can't do this at the <project> level -->
         <!-- because targets that run before flexTasks.jar gets built would fail -->
         <taskdef resource="flexTasks.tasks" classpath="${basedir}/lib/flexTasks.jar"/>

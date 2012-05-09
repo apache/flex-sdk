@@ -80,7 +80,7 @@
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
     <property name="librarypath" value="${frameworks.dir1}/libs/framework.swc,${frameworks.dir1}/libs/charts.swc,${frameworks.dir1}/libs/rpc.swc"/>
-    <property name="external.librarypath" value="${env.PLAYERGLOBAL}/playerglobal.swc"/>
+    <property name="external.librarypath" value="${env.PLAYERGLOBAL_HOME}/playerglobal.swc"/>
     <property name="rsl" value="" />
 
     <property name="coach" value="true" />
@@ -391,18 +391,7 @@
 		<property name="compc.exe" value="compc" />
 		<property name="shell" value="/bin/sh" />
 
-		<condition property="player.name" value="Flash Player Debugger" >
-			<and>
-			<available file="${sdk.dir}/in/player/${player.version}/mac/Flash Player Debugger.app" />
-			<not>
-			<equals arg1="player.version" arg2="10" />
-			</not>
-			</and>
-		</condition>
-
-		<property name="player.name" value="Flash Player" />
-		<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/mac/${player.name}.app/Contents/MacOS" />
-		<property name="player" value="${player.dir}/${player.name}" />
+		<property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />
 		<!-- these values are sort of magic numbers, corresponding to db entries -->
 		<property name="auto_exclude_config_value" value="9"/>
 		<property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
@@ -412,7 +401,7 @@
 		<property name="unzip" value="/usr/bin/unzip" />
 		<property name="auto_exclude_config_value" value="9"/>
 		<property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
-		<echo> player is ${player.dir}/${player.name} </echo>
+		<echo>player is ${player} </echo>
 	</target>
 
 	<target name="setup_windows" if="is_win">
@@ -423,18 +412,8 @@
 		<property name="shell" value="${cygwinshell}" />
 		<property file="${HOMEPATH}/mm.cfg"/>
 		<echo>trace output file: ${TraceOutputFileEnable} </echo>
-		<condition property="player.name" value="FlashPlayerDebugger.exe" >
-			<and>
-			<available file="${sdk.dir}/in/player/${player.version}/win/FlashPlayerDebugger.exe" />
-			<not>
-			<equals arg1="player.version" arg2="10" />
-			</not>
-			</and>
-		</condition>
 
-		<property name="player.name" value="FlashPlayer.exe" />
-		<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/win" />
-		<property name="player" value="${player.dir}/${player.name}" />
+		<property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />
 		<property name="apollo_exe" value="adl.exe" />
 
 		<echo>apollo_exe: ${apollo_exe}</echo>
@@ -464,7 +443,7 @@
 		<condition property="auto_exclude_bug_id" value="unproven_browser_${fetched_date}">
 			<istrue value="${use_browser}"/>
 		</condition>
-		<echo> player is ${player.name} </echo>
+		<echo> player is ${player} </echo>
 	</target>
 
     <!-- get the database time, used for time syncing in exclude db queries
@@ -1858,181 +1837,198 @@ we could have pmd_doler do the dir split and write property files (per user)
     </target>
 
 
-
+    <!-- 
+        FixMe: if used with Apache the player stuff has to be updated to use 
+               FLASHPLAYER_DEBUGGER.
+    -->
     <target name="post_install_mac" if="is_mac" >
-	<echo message="setting to MAC, got ${host_os_name}" />
-	<chmod perm="777" verbose="true" maxparallel="50">
-		<dirset dir="${sdk.dir}/in"  >
-		</dirset>
-	</chmod>
-	<chmod perm="777" verbose="true" maxparallel="50" >
-		<fileset dir="${sdk.dir}/in" />
-	</chmod>
-	<condition property="player.name" value="Flash Player Debugger" >
-		<and>
-		<available file="${sdk.dir}/in/player/${player.version}/mac/Flash Player Debugger.app.zip" />
-		<not>
-		<equals arg1="player.version" arg2="10" />
-		</not>
-		</and>
-	</condition>
-
-	<property name="player.name" value="Flash Player" />
-
-	<echo>player name: ${player.name}</echo>
-	
+        <echo message="setting to MAC, got ${host_os_name}" />
+        <chmod perm="777" verbose="true" maxparallel="50">
+            <dirset dir="${sdk.dir}/in"  >
+            </dirset>
+        </chmod>
+        <chmod perm="777" verbose="true" maxparallel="50" >
+            <fileset dir="${sdk.dir}/in" />
+        </chmod>
+        <condition property="player.name" value="Flash Player Debugger" >
+            <and>
+            <available file="${sdk.dir}/in/player/${player.version}/mac/Flash Player Debugger.app.zip" />
+            <not>
+            <equals arg1="player.version" arg2="10" />
+            </not>
+            </and>
+        </condition>
+    
+        <property name="player.name" value="Flash Player" />
+    
+        <echo>player name: ${player.name}</echo>
+        
         <unzip dest="${mustella.dir}/build/in/player/${player.version}/mac" src="${mustella.dir}/build/in/player/${player.version}/mac/${player.name}.app.zip" />
-    	<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/mac/${player.name}.app/Contents/MacOS" />
-    	<property name="player" value="${player.dir}/${player.name}" />
-	<!-- for some reason, nothing is executable on the mac, change all that -->
-	<chmod file="${player}" perm="777" />
-	<chmod file="${sdk.dir}/bin/mxmlc" perm="777" />
-	<chmod file="${sdk.dir}/bin/compc" perm="777" />
-	<antcall target="chmod_shells" />
-	<chmod perm="777" verbose="true" maxparallel="50" >
-		<fileset dir="${sdk.dir}/bin" />
-	</chmod>
-	<chmod perm="777" verbose="true"  >
-		<fileset dir="${sdk.dir}/lib" />
-	</chmod>
-	<chmod perm="777" verbose="true"  >
-		<fileset dir="${sdk.dir}/frameworks/libs" />
-	</chmod>
-	<chmod perm="777" verbose="true"  >
-		<fileset dir="${sdk.dir}/frameworks/rsls" />
-	</chmod>
-	<chmod perm="777" verbose="true"  >
-		<fileset dir="${sdk.dir}/frameworks/themes" />
-	</chmod>
-	<chmod perm="777" verbose="true"  maxparallel="50" >
-		<fileset dir="${sdk.dir}/frameworks/locale" />
-	</chmod>
-	<chmod perm="777" verbose="true" dir="${sdk.dir}/frameworks" includes="*" >
-	</chmod>
-	<chmod perm="777" verbose="true" maxparallel="50">
-		<dirset dir="${mustella.dir}/tests"  >
-		</dirset>
-	</chmod>
-	<antcall target="delete_cache">
-		<param name="directory" value="/Users/${env.USER}/Library/Caches/Adobe/Flash Player/AssetCache" />
-	</antcall>
+        <property name="player.dir" value="${sdk.dir}/in/player/${player.version}/mac/${player.name}.app/Contents/MacOS" />
+        <property name="player" value="${player.dir}/${player.name}" />
+        <!-- for some reason, nothing is executable on the mac, change all that -->
+        <chmod file="${player}" perm="777" />
+        <chmod file="${sdk.dir}/bin/mxmlc" perm="777" />
+        <chmod file="${sdk.dir}/bin/compc" perm="777" />
+        <antcall target="chmod_shells" />
+        <chmod perm="777" verbose="true" maxparallel="50" >
+            <fileset dir="${sdk.dir}/bin" />
+        </chmod>
+        <chmod perm="777" verbose="true"  >
+            <fileset dir="${sdk.dir}/lib" />
+        </chmod>
+        <chmod perm="777" verbose="true"  >
+            <fileset dir="${sdk.dir}/frameworks/libs" />
+        </chmod>
+        <chmod perm="777" verbose="true"  >
+            <fileset dir="${sdk.dir}/frameworks/rsls" />
+        </chmod>
+        <chmod perm="777" verbose="true"  >
+            <fileset dir="${sdk.dir}/frameworks/themes" />
+        </chmod>
+        <chmod perm="777" verbose="true"  maxparallel="50" >
+            <fileset dir="${sdk.dir}/frameworks/locale" />
+        </chmod>
+        <chmod perm="777" verbose="true" dir="${sdk.dir}/frameworks" includes="*" >
+        </chmod>
+        <chmod perm="777" verbose="true" maxparallel="50">
+            <dirset dir="${mustella.dir}/tests"  >
+            </dirset>
+        </chmod>
+        <antcall target="delete_cache">
+            <param name="directory" value="/Users/${env.USER}/Library/Caches/Adobe/Flash Player/AssetCache" />
+        </antcall>
     </target>
 
+    <!-- 
+        FixMe: if used with Apache the player stuff has to be updated to use 
+               FLASHPLAYER_DEBUGGER. 
+    -->
     <target name="post_install_win_2" if="version_in_name" >
 
-	<exec   executable="chmod.exe" dir="/cygwin/bin" > 
-		<arg value="777" />
-		<arg value="${player.dir}/Install Flash Player ${player.version} Plugin.exe" />
-		<arg value="${player.dir}/Install Flash Player ${player.version} ActiveX.exe" />
-	</exec>
-
-	<exec executable="${player.dir}/Install Flash Player ${player.version} Plugin.exe" >
-		<arg value="/s" />
-	</exec>
-		
-	<exec executable="${player.dir}/Install Flash Player ${player.version} ActiveX.exe" >
-		<arg value="/s" />
-	</exec>
+        <exec   executable="chmod.exe" dir="/cygwin/bin" > 
+            <arg value="777" />
+            <arg value="${player.dir}/Install Flash Player ${player.version} Plugin.exe" />
+            <arg value="${player.dir}/Install Flash Player ${player.version} ActiveX.exe" />
+        </exec>
+    
+        <exec executable="${player.dir}/Install Flash Player ${player.version} Plugin.exe" >
+            <arg value="/s" />
+        </exec>
+            
+        <exec executable="${player.dir}/Install Flash Player ${player.version} ActiveX.exe" >
+            <arg value="/s" />
+        </exec>
+        </target>
+    
+        <target name="post_install_win_2a" unless="version_in_name" >
+        <echo>calling ${player.dir}/InstallPlugin.exe</echo>
+        <exec   executable="chmod.exe" dir="/cygwin/bin" > 
+            <arg value="777" />
+            <arg value="${player.dir}/InstallPlugin.exe" />
+            <arg value="${player.dir}/InstallAX.exe" />
+        </exec>
+        <exec executable="${player.dir}/InstallPlugin.exe" >
+            <arg value="-install" />
+            <arg value="plugin" />
+        </exec>
+        <exec executable="${player.dir}/InstallAX.exe" >
+            <arg value="-install" />
+            <arg value="activex" />
+        </exec>
     </target>
 
-    <target name="post_install_win_2a" unless="version_in_name" >
-	<echo>calling ${player.dir}/InstallPlugin.exe</echo>
-	<exec   executable="chmod.exe" dir="/cygwin/bin" > 
-		<arg value="777" />
-		<arg value="${player.dir}/InstallPlugin.exe" />
-		<arg value="${player.dir}/InstallAX.exe" />
-	</exec>
-	<exec executable="${player.dir}/InstallPlugin.exe" >
-		<arg value="-install" />
-		<arg value="plugin" />
-	</exec>
-	<exec executable="${player.dir}/InstallAX.exe" >
-		<arg value="-install" />
-		<arg value="activex" />
-	</exec>
-    </target>
-
-
+    <!-- 
+        FixMe: if used with Apache the player stuff has to be updated to use 
+               FLASHPLAYER_DEBUGGER. 
+    -->
     <target name="post_install_win" if="is_win" >
 
-	<condition property="player.name" value="FlashPlayerDebugger.exe" >
-		<and>
-		<available file="${sdk.dir}/in/player/${player.version}/win/FlashPlayerDebugger.exe" />
-		<not>
-		<equals arg1="player.version" arg2="10" />
-		</not>
-		</and>
-	</condition>
-
-	<property name="player.name" value="FlashPlayer.exe" />
-
-    	<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/win" />
-    	<property name="player" value="${player.dir}/${player.name}" />
-
-	<echo>player is ${player}</echo>
-
-	<exec   executable="chmod.exe" dir="/cygwin/bin" > 
-		<arg value="+x" />
-		<arg value="${player}" />
-	</exec>
-
-	<antcall target="delete_cache">
-		<param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
-	</antcall>
-	<!-- run the installer (for the browsers) -->
-	<condition property="version_in_name" value="true" >
-		<and>	
-		<not>
-		<equals arg1="10.1" arg2="${player.version}" />
-		</not>
-		<not>
-		<equals arg1="10.2" arg2="${player.version}" />
-		</not>
-		</and>	
-	</condition>
-
-	<echo> version in name: ${version_in_name}</echo>
-
-	<antcall target="post_install_win_2" />
-	<antcall target="post_install_win_2a" />
+        <condition property="player.name" value="FlashPlayerDebugger.exe" >
+            <and>
+            <available file="${sdk.dir}/in/player/${player.version}/win/FlashPlayerDebugger.exe" />
+            <not>
+            <equals arg1="player.version" arg2="10" />
+            </not>
+            </and>
+        </condition>
+    
+        <property name="player.name" value="FlashPlayer.exe" />
+    
+            <property name="player.dir" value="${sdk.dir}/in/player/${player.version}/win" />
+            <property name="player" value="${player.dir}/${player.name}" />
+    
+        <echo>player is ${player}</echo>
+    
+        <exec   executable="chmod.exe" dir="/cygwin/bin" > 
+            <arg value="+x" />
+            <arg value="${player}" />
+        </exec>
+    
+        <antcall target="delete_cache">
+            <param name="directory" value="${HOMEPATH}/Application Data/Adobe/Flash Player/AssetCache" />
+        </antcall>
+        <!-- run the installer (for the browsers) -->
+        <condition property="version_in_name" value="true" >
+            <and>	
+            <not>
+            <equals arg1="10.1" arg2="${player.version}" />
+            </not>
+            <not>
+            <equals arg1="10.2" arg2="${player.version}" />
+            </not>
+            </and>	
+        </condition>
+    
+        <echo> version in name: ${version_in_name}</echo>
+    
+        <antcall target="post_install_win_2" />
+        <antcall target="post_install_win_2a" />
 
     </target>
 
+    <!-- 
+        FixMe: if used with Apache the player stuff has to be updated to use 
+               FLASHPLAYER_DEBUGGER. 
+    -->
     <target name="post_install_linux" if="is_linux" >
-	<!-- on Linux, this doesn't really finish the installation task -->
-	<echo message="setting to linux, got ${host_os_name}" />
-    	<property name="player.dir" value="${sdk.dir}/in/player/${player.version}/lnx" />
-    	<property name="player" value="${player.dir}/flashplayer" />
-	<!-- untar the player and reset its mode -->
-	<untar src="${player.dir}/flashplayer.tar.gz" compression="gzip" dest="${player.dir}" />
-	<chmod file="${player.dir}/flashplayer" perm="777" />
-	<chmod file="${sdk.dir}/bin/mxmlc" perm="777" />
-	<chmod file="${sdk.dir}/bin/compc" perm="777" />
-	<chmod file="${mustella.dir}/mini_run.sh" perm="777" />
-	<chmod file="${mustella.dir}/shellrunner.sh" perm="777" />
-	<antcall target="chmod_shells" />
-	<untar src="${player.dir}/install_flash_player_${player.version}_linux.tar.gz" compression="gzip" dest="${player.dir}" />
+        <!-- on Linux, this doesn't really finish the installation task -->
+        <echo message="setting to linux, got ${host_os_name}" />
+            <property name="player.dir" value="${sdk.dir}/in/player/${player.version}/lnx" />
+            <property name="player" value="${player.dir}/flashplayer" />
+        <!-- untar the player and reset its mode -->
+        <untar src="${player.dir}/flashplayer.tar.gz" compression="gzip" dest="${player.dir}" />
+        <chmod file="${player.dir}/flashplayer" perm="777" />
+        <chmod file="${sdk.dir}/bin/mxmlc" perm="777" />
+        <chmod file="${sdk.dir}/bin/compc" perm="777" />
+        <chmod file="${mustella.dir}/mini_run.sh" perm="777" />
+        <chmod file="${mustella.dir}/shellrunner.sh" perm="777" />
+        <antcall target="chmod_shells" />
+        <untar src="${player.dir}/install_flash_player_${player.version}_linux.tar.gz" compression="gzip" dest="${player.dir}" />
     </target>
 
     <target name="fix_rsl_failover_target" description="Edit flex-config.xml file failover targets">
-	<exec  executable="${shell}" failonerror="false">
-		<arg value="${mustella.dir}/scripts/fix_rsls.sh" />
-		<arg value="${mustella.dir}" />
-	</exec>
-
+        <exec executable="${shell}" failonerror="false">
+            <arg value="${mustella.dir}/scripts/fix_rsls.sh" />
+            <arg value="${mustella.dir}" />
+        </exec>
     </target>
 
 
     <target name="delete_cache" >
-	<echo>delete cache: ${directory}</echo>
-	<!-- chmod dir="${directory}" perm="777" / -->
-	<delete quiet="false" dir="${directory}" verbose="true" failonerror="false"/>
+        <echo>delete cache: ${directory}</echo>
+        <!-- chmod dir="${directory}" perm="777" / -->
+        <delete quiet="false" dir="${directory}" verbose="true" failonerror="false"/>
     </target>
 
-    <target name="postinstall" depends="get_os,post_install_mac,post_install_win,post_install_linux" description="browser install, etc against the sdk.dir">
-
+    <!-- 
+        FixMe: For Apache, if this is needed, all the player.dir and player.name stuff 
+            needs to be updated to use FLASHPLAYER_DEBUGGER.
+    -->
+    <target name="postinstall">
+        <echo message="If this target is needed it needs to be updated for Apache"/>
     </target>
-
+    <!--target name="postinstall" depends="get_os,post_install_mac,post_install_win,post_install_linux" description="browser install, etc against the sdk.dir"/-->
 
     <!-- some settings for a specialized run that grabs the latest aik kit and unzips it over
          a regular installation

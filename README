@@ -67,10 +67,6 @@ Install Prerequisites
     used by checkintests and other pieces of the test subsystem to run compiled
     applications.
     
-    Rather than defining environment variables for PLAYERGLOBAL, AIR_HOME and 
-    FLASHPLAYER_DEBUGGER, these properties may be set in env.properties located in the 
-    top-level directory.  If both are set, the environment variables take precedence.
-
     ==================================================================================
     SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
     ==================================================================================
@@ -84,18 +80,20 @@ Install Prerequisites
     or other unix-like shell
     (if Windows)
     
-    Adobe Flash Player                          PLAYERGLOBAL
+    Adobe Flash Player                          PLAYERGLOBAL_HOME
     (rename playerglobal swc to 
-    playerglobal.swc and point to this file)
+    playerglobal.swc and set to absolute  
+    path of directory containing 
+    playerglobal.swc file) 
     
     Adobe AIR Integration Kit                   AIR_HOME 
-    (unzip and point to 'AIR Integration Kit' 
-    directory)
+    (unzip and set to absolute path of 
+    'AIR Integration Kit' directory)
     
     Adobe Flash Player Content Debugger         FLASHPLAYER_DEBUGGER
-    (windows) point to FlashPlayerDebugger.exe
-    (mac) point to Flash Player Debugger in Flash Player Debugger.app/Contents/MacOS
-    (linux) point to flashplayerdebugger
+    (windows) absolute path of FlashPlayerDebugger.exe
+    (mac) absolute path of Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
+    (linux) absolute path of flashplayerdebugger
     
     ==================================================================================
 

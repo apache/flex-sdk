@@ -26,14 +26,13 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
     <property file="${FLEX_HOME}/build.properties"/>
-    
+
     <property name="locale" value="en_US"/>
 
         <macrodef name="bundle">
             <attribute name="locale"/>
             <sequential>
                 <echo message="Compiling frameworks/locale/@{locale}/airspark_rb.swc"/>
-                <echo message="Using ${env.PLAYERGLOBAL}/playerglobal.swc" level="info"/>
 
                 <!-- Load the <compc> task. We can't do this at the <project> level -->
                 <!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -50,7 +49,7 @@
                     <source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/> 
                     <include-libraries/>
                     <library-path/>
-                    <external-library-path dir="${env.PLAYERGLOBAL}">
+                    <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                         <include name="playerglobal.swc"/>
                     </external-library-path>
                     <external-library-path dir="${FLEX_HOME}/frameworks/libs">
