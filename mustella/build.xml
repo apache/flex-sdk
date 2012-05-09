@@ -25,6 +25,7 @@
 
     <property name="mustella.dir" value="${basedir}" />
     <property name="airsdk.dir" value="${env.AIR_HOME}" />
+    <property name="tmp.dir" value="${mustella.dir}/tmp" />
 	
     <property name="feature" value=""/>
     <property file="${basedir}/properties/${feature}.properties" />
@@ -360,7 +361,7 @@
     <property name="bug_retry" value="" />
     <target name="getExcludes" unless="excludes_done" description="Fetch exclude values from db" >
 		<echo>Write excludes file</echo>
-		<mkdir dir="/tmp/flex" />
+		<mkdir dir="${tmp.dir}/flex" />
 		<mkdir dir="${mustella.dir}/classes" />
 		<delete file="${mustella.dir}/classes/${default.excludes.swc}" />
 		<taskdef name="excluder" classname="mustella.GetExcludeIdsTask" classpathref="flex.test.classpath"/>
@@ -463,9 +464,9 @@
 	<target name="setup" depends="get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config"  description="--> set platform specific properties">
 		<!-- antcall target="db_time">
 			<param name="no_quote" value="true" />
-			<param name="db_time_vetting_file" value="/tmp/.db.time.mini" />
+			<param name="db_time_vetting_file" value="${tmp.dir}/.db.time.mini" />
 		</antcall>
-		<property file="/tmp/.db.time.mini" / -->
+		<property file="${tmp.dir}/.db.time.mini" / -->
 
 		<!-- Browser stuff lives in a particular directory, as does apollo.  And they
 		are mutually exclusive.
@@ -558,46 +559,42 @@
 
      <target name="build_shell_set" description=" create list of shell names">
 
-	<!-- this gets all the .sh equiv files -->
-	<pathconvert property="shell_file_mxml_equivs" pathsep="," dirsep="/" >
-		<path path="${sdk.mustella.includes}" />
-		<filtermapper>
-			<replacestring from=".mxml" to=".sh"  />
-		</filtermapper>
-		<map from="${mustella.dir}/" to="" />
-	</pathconvert>
-
-	<!-- this does likewise for the excluded ones -->
-	<pathconvert property="shell_file_mxml_excludes" pathsep="," dirsep="/" >
-		<path path="${sdk.mustella.excludes}" />
-		<filtermapper>
-			<replacestring from=".mxml" to=".sh"  />
-		</filtermapper>
-		<map from="${mustella.dir}/" to="" />
-	</pathconvert>
-
-
-	<!-- build the fileset -->
-	<fileset id="mxml_equiv_shells" dir="${sdk.mustella.dir}" includes="${shell_file_mxml_equivs}" excludes="${shell_file_mxml_excludes}">
-	</fileset>
-
-
-	<property name="showx0" refid="mxml_equiv_shells" />
-
-	<!-- There mayb be NO shell equiv files, but we need to to check for
-	    a pre_compile.sh file (in a swfs dir). Loop the .mxml files to check for them.
-	    Not wildly efficient.  -->
-	<pathconvert  dirsep="/" property="tmp111a" refid="sdk.mustella.fileset" />
-
-	<pathconvert  dirsep="/" property="tmp111" refid="mxml_equiv_shells" />
-
-	<!-- call the custom filter. This looks for sibling swf directories with
-	pre_compile.sh files in there. Maybe this was possible with filesets, but
-	it seemed unreachable -->
+        <!-- this gets all the .sh equiv files -->
+        <pathconvert property="shell_file_mxml_equivs" pathsep="," dirsep="/" >
+            <path path="${sdk.mustella.includes}" />
+            <filtermapper>
+                <replacestring from=".mxml" to=".sh"  />
+            </filtermapper>
+            <map from="${mustella.dir}/" to="" />
+        </pathconvert>
+        
+        <!-- this does likewise for the excluded ones -->
+        <pathconvert property="shell_file_mxml_excludes" pathsep="," dirsep="/" >
+            <path path="${sdk.mustella.excludes}" />
+            <filtermapper>
+                <replacestring from=".mxml" to=".sh"  />
+            </filtermapper>
+            <map from="${mustella.dir}/" to="" />
+        </pathconvert>
+        
+        <!-- build the fileset -->
+        <fileset id="mxml_equiv_shells" dir="${sdk.mustella.dir}" includes="${shell_file_mxml_equivs}" excludes="${shell_file_mxml_excludes}">
+        </fileset>
+              
+        <property name="showx0" refid="mxml_equiv_shells" />
+        
+        <!-- There mayb be NO shell equiv files, but we need to to check for
+            a pre_compile.sh file (in a swfs dir). Loop the .mxml files to check for them.
+            Not wildly efficient.  -->
+        <pathconvert  dirsep="/" property="tmp111a" refid="sdk.mustella.fileset" />
+        
+        <pathconvert  dirsep="/" property="tmp111" refid="mxml_equiv_shells" />
+        
+        <!-- call the custom filter. This looks for sibling swf directories with
+        pre_compile.sh files in there. Maybe this was possible with filesets, but
+        it seemed unreachable -->
         <taskdef name="getSiblingSwfs" classname="mustella.CousinPreCompile" classpathref="flex.test.classpath"/>
         <getSiblingSwfs files="${tmp111}${path.separator}${tmp111a}" root="${sdk.mustella.dir}" property="tmp.sdk.mustella.scripts2"  />
-
-
 
      </target>
 
@@ -1190,15 +1187,15 @@
 	<!-- actual location should be build number(directory) with packages in it   -->
 	<property file="${mustella.dir}/successfulBuild.properties" />
 	<echo>This is the build I'm acting on ${server}</echo>
-	<mkdir dir="/tmp/flex/${server}" />
-	<zip destfile="/tmp/flex/${server}/${testpkg}" >
+	<mkdir dir="${tmp.dir}/flex/${server}" />
+	<zip destfile="${tmp.dir}/flex/${server}/${testpkg}" >
 		<fileset refid="sdk.mustella.swffileset" />
 	</zip>
-	<copy verbose="true" file="${mustella.dir}/successfulBuild.properties" todir="/tmp/flex" />
-    	<copy verbose="true" file="${mustella.dir}/${langZip}" todir="/tmp/flex/${server}" />
-	<copy verbose="true" file="${mustella.dir}/${mainZip}" todir="/tmp/flex/${server}" />
-	<copy verbose="true" file="${db_time_file}" todir="/tmp/flex/${server}" />
-	<copy verbose="true" file="${server_time_file}" todir="/tmp/flex/${server}" />
+	<copy verbose="true" file="${mustella.dir}/successfulBuild.properties" todir="${tmp.dir}/flex" />
+    	<copy verbose="true" file="${mustella.dir}/${langZip}" todir="${tmp.dir}/flex/${server}" />
+	<copy verbose="true" file="${mustella.dir}/${mainZip}" todir="${tmp.dir}/flex/${server}" />
+	<copy verbose="true" file="${db_time_file}" todir="${tmp.dir}/flex/${server}" />
+	<copy verbose="true" file="${server_time_file}" todir="${tmp.dir}/flex/${server}" />
 
     </target>
 
@@ -1357,7 +1354,7 @@
 
 
 	<antcall target="server_time" />
-	<copy verbose="true" file="/tmp/.server.time.vetting" tofile="${mustella.dir}/.server.time" />
+	<copy verbose="true" file="${tmp.dir}/.server.time.vetting" tofile="${mustella.dir}/.server.time" />
 
 	<fileset id="testdiritself" dir="${mustella.dir}"  >
 		<include name="sdk/testsuites/mustella/**" />
@@ -1384,11 +1381,11 @@
 		<fileset refid="fwkstuff" />
 		<fileset refid="testdiritself" />
 	</zip>
-	<!-- copy verbose="true" file="${mustella.dir}/successfulBuild.properties" todir="/tmp/flex" />
-    	<copy verbose="true" file="${mustella.dir}/${langZip}" todir="/tmp/flex/${server}" />
-	<copy verbose="true" file="${mustella.dir}/${mainZip}" todir="/tmp/flex/${server}" />
-	<copy verbose="true" file="${db_time_file}" todir="/tmp/flex/${server}" />
-	<copy verbose="true" file="${server_time_file}" todir="/tmp/flex/${server}" / -->
+	<!-- copy verbose="true" file="${mustella.dir}/successfulBuild.properties" todir="${tmp.dir}/flex" />
+    	<copy verbose="true" file="${mustella.dir}/${langZip}" todir="${tmp.dir}/flex/${server}" />
+	<copy verbose="true" file="${mustella.dir}/${mainZip}" todir="${tmp.dir}/flex/${server}" />
+	<copy verbose="true" file="${db_time_file}" todir="${tmp.dir}/flex/${server}" />
+	<copy verbose="true" file="${server_time_file}" todir="${tmp.dir}/flex/${server}" / -->
 
 
 	<delete file="${mustella.dir}/${external_properties}" />
@@ -2245,7 +2242,7 @@ we could have pmd_doler do the dir split and write property files (per user)
 			<arg value="${mustella.dir}/build" />
 		</exec>
 		<!-- the signing cert should go to a neutral location, because vetting and regular runs share it -->
-		<copy verbose="true" file="${mustella.dir}/build/frameworks/rsls/rootcert.der" todir="/tmp/" />
+		<copy verbose="true" file="${mustella.dir}/build/frameworks/rsls/rootcert.der" todir="${tmp.dir}/" />
 
     </target>
 
@@ -2619,8 +2616,8 @@ we could have pmd_doler do the dir split and write property files (per user)
        The p4 sync with times uses server local time and the p4 server is in Newton
        The db server is in SF
    -->
-  <property name="server_time_vettting_file" value="/tmp/.server.time.vetting" />
-  <property name="server_time_file" value="/tmp/.server.time" />
+  <property name="server_time_vettting_file" value="${tmp.dir}/.server.time.vetting" />
+  <property name="server_time_file" value="${tmp.dir}/.server.time" />
   <target name="server_time" unless="server_time">
 	<!-- if this is a local run(run id = -1), get the time stamp now. If
 	this is a test server run, use the sync'd time which should have previously been created
@@ -2631,27 +2628,26 @@ we could have pmd_doler do the dir split and write property files (per user)
 	</tstamp>
 	<echo>server_time=${SERVER_TSTAMP}</echo>
 	<property name="server_time" value="${SERVER_TSTAMP}" />
-	<mkdir dir="/tmp"/>
+	<mkdir dir="${tmp.dir}"/>
 	<echo> file="${server_time_vettting_file}"</echo>
 	<echo file="${server_time_vettting_file}" append="false">server_time="${SERVER_TSTAMP}"</echo>
 	<echo>server_time=${SERVER_TSTAMP}</echo>
 	<chmod file="${server_time_vettting_file}" perm="666" />
   </target>
 
-  <property name="db_time_vetting_file" value="/tmp/.db.time.vetting" />
-  <property name="db_time_file" value="/tmp/.db.time" />
+  <property name="db_time_vetting_file" value="${tmp.dir}/.db.time.vetting" />
+  <property name="db_time_file" value="${tmp.dir}/.db.time" />
   <target name="db_time" unless="db_time">
 	<!-- if this is a local run (run id = -1), get the time stamp now. If
 	this is a test server run, use the sync'd time which should have previously been created
 	db_time is used as a sync point for excludes
 	-->
 	<tstamp>
-	 <format pattern="yyyy/MM/dd HH:mm:ss" property="DB_TIME" />
+        <format pattern="yyyy/MM/dd HH:mm:ss" property="DB_TIME" />
 	</tstamp>
-	<mkdir dir="/tmp"/>
+	<mkdir dir="${tmp.dir}"/>
 	<echo>db_time=${DB_TIME}</echo>
 	<property name="db_time" value="${DB_TIME}" />
-
 
 	<condition property="quoted_value" value="db_time=${DB_TIME}" >
 		<equals arg1="${no_quote}" arg2="true" />
@@ -2680,7 +2676,7 @@ we could have pmd_doler do the dir split and write property files (per user)
 	<property name="db_time" value="${SERVER_TIME}" />
   </target>
 
-  <property name="time_file" value="/tmp/.sync_time" />
+  <property name="time_file" value="${tmp.dir}/.sync_time" />
   <target name="get_time_to_file" depends="get_db_time,get_server_time" >
 	
 	<echo>writing ${time_file}</echo>	
