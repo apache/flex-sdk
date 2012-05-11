@@ -400,7 +400,7 @@
         <!-- ide -->
         <copy todir="${basedir}/temp/ide">
             <fileset dir="${basedir}/ide" >
-                <include name="flashbuilder/build.xml"/>
+                <include name="flashbuilder/**"/>
             </fileset>
         </copy>
 
@@ -665,7 +665,7 @@
         <!-- ide -->
         <copy todir="${basedir}/temp/ide">
             <fileset dir="${basedir}/ide" >
-                <include name="flashbuilder/frameworks/*-config.xml"/>
+                <include name="flashbuilder/config"/>
             </fileset>
         </copy>
 
