@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="sdk" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="${basedir}/../.."/>
+
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+
+    <property file="${FLEX_HOME}/local.properties"/>
+    <property file="${FLEX_HOME}/build.pr/operties"/>
+
+    <!-- comes from build.propertes unless bin distro -->
+    <property name="playerglobal.version" value="11.1"/>
+
+    <property name="frameworks.dir" value="${FLEX_HOME}/frameworks"/>
+
+    <property name="air.dir" value="${env.AIR_HOME}"/>
+    <property name="debugger" value="${env.FLASHPLAYER_DEBUGGER}"/>
+    
+    <target name="main" depends="create-config-files,expand-config-tokens" 
+        description="Create framework config files in format expected by Adobe FlashBuilder"/>
+
+    <target name="clean">
+        <delete dir="${basedir}/config"/>
+    </target>
+    
+    <!-- For testing.  Run this to integrate this SDK (in-place) with playerglobal.swc and
+         AIR, and modify the framework config files to be the format FB expects.  Only
+         the AIR kit for the platform specified by AIR_HOME will be incorporated.
+         
+         There is no clean for this operation.
+    -->
+    <target name="make-sdk" depends="install-config,install-playerglobal,install-air"
+        description="Converts this SDK into the layout FlashBuilder expects."/>
+    
+    <target name="create-config-files" 
+        description="Framework config files for Adobe FlashBuilder">
+        <copy todir="${basedir}/config" overwrite="true">
+            <fileset dir="${FLEX_HOME}/frameworks">
+                <include name="air-config.xml"/>
+                <include name="airmobile-config.xml"/>
+                <include name="flex-config.xml"/>
+            </fileset>            
+        </copy>
+    </target>
+
+    <target name="expand-config-tokens" description="Expand {airHome} and {playerglobalHome} tokens">        
+        <echo message="expanding {airHome} and {playerglobalHome} tokens"/>
+        <fix-config-file-for-flashbuilder file="${basedir}/config/air-config.xml" />
+        <fix-config-file-for-flashbuilder file="${basedir}/config/airmobile-config.xml" />
+        <fix-config-file-for-flashbuilder file="${basedir}/config/flex-config.xml" />
+    </target>
+
+    <!--
+        {airHome}/frameworks/ is removed so path left as libs/air
+        {playerglobalHome} replaced with libs/player/{targetPlayerMajorVersion}.{targetPlayerMinorVersion}
+            the compiler expands the version tokens with the configured target player
+            
+        Note that FlashBuilder does not appear to use the playerglobal path since it seems
+        to have hard-coded the path to libs/player/targetVersion/playglobal.swc where
+        target version is set thru its gui.
+        
+        After token replacement the library-path may end up with duplicate lines
+        but the compiler seems to detect that and removes one of them.
+        
+        In air-config.xml these two lines are identical after token replacement.
+             <path-element>libs/air</path-element>
+             <path-element>{airHome}/frameworks/libs/air</path-element>
+    -->
+    <macrodef name="fix-config-file-for-flashbuilder">
+        <attribute name="file"/>
+            <sequential>
+                <replace file="@{file}">
+                    <replacefilter
+                        token="{airHome}/frameworks/"
+                        value=""/>
+                    <replacefilter
+                        token="{playerglobalHome}"
+                        value="libs/player/{targetPlayerMajorVersion}.{targetPlayerMinorVersion}"/>
+                </replace>
+        </sequential>
+    </macrodef>	
+    
+    <target name="install-config">
+        <copy todir="${frameworks.dir}" verbose="true">
+            <fileset dir="${basedir}/config"/> 
+        </copy>
+    </target>
+    
+    <target name="install-playerglobal">
+        <copy todir="${frameworks.dir}/libs/player/${playerglobal.version}" verbose="true">
+            <fileset file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc"/> 
+        </copy>
+    </target>
+    
+    <!-- Warning: symlinks may not be maintained on unix platforms -->
+    <target name="install-air">
+        <copy todir="${FLEX_HOME}" preservelastmodified="true" verbose="true">
+            <fileset dir="${air.dir}"/>
+        </copy>
+        <chmod dir="${basedir}" perm="755" includes="bin/*, **/*.bat, **/*.sh" />
+    </target>
+
+</project>

@@ -157,6 +157,7 @@
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
         <ant dir="${basedir}/asdoc" target="clean" />
+        <ant dir="${basedir}/ide/flashbuilder" target="clean" />
     </target>
 
     <target name="modules-clean">
@@ -330,7 +331,11 @@
         <delete dir="${basedir}/javadoc" failonerror="false" includeEmptyDirs="true"/>
     </target>
 
-    <target name="post-build" depends="" description="Handle post-build activities" />
+	<target name="ide" description="Build any ide specific files">
+        <ant dir="${basedir}/ide/flashbuilder" />
+    </target>
+    
+    <target name="post-build" depends="ide" description="Handle post-build activities" />
 
     <!--
         Build the ASDoc html pages.
@@ -391,6 +396,13 @@
         <copy todir="${basedir}/temp/asdoc" includeEmptyDirs="false">
             <fileset dir="${basedir}/asdoc"/>
         </copy>  
+
+        <!-- ide -->
+        <copy todir="${basedir}/temp/ide">
+            <fileset dir="${basedir}/ide" >
+                <include name="flashbuilder/build.xml"/>
+            </fileset>
+        </copy>
 
         <!-- templates -->
         <copy todir="${basedir}/temp/templates">
@@ -647,6 +659,13 @@
         <copy todir="${basedir}/temp/frameworks/locale">
             <fileset dir="${basedir}/frameworks/locale">
                 <include name="**/*.swc"/>
+            </fileset>
+        </copy>
+
+        <!-- ide -->
+        <copy todir="${basedir}/temp/ide">
+            <fileset dir="${basedir}/ide" >
+                <include name="flashbuilder/frameworks/*-config.xml"/>
             </fileset>
         </copy>
 
