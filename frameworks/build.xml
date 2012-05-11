@@ -78,7 +78,8 @@
         <antcall target="mobiletheme"/>     
         <antcall target="core"/>
         <antcall target="flash_integration"/>
-        <antcall target="authoringsupport"/>
+        <!-- authoringsupport removed until source found for FlexContentHolderThumbnail.swc found -->
+        <!--antcall target="authoringsupport"/-->
         <antcall target="halo"/>
         <antcall target="wireframe"/>
         <!-- automation removed until sources donated to Apache -->

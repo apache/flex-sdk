@@ -379,14 +379,7 @@
         </copy>  
 
         <!-- bin -->
-        <copy todir="${basedir}/temp/bin" includeEmptyDirs="false">
-            <fileset dir="${basedir}/bin">
-                <include name="*.bat"/>
-                <include name="*.sh"/>
-                <exclude name="adl*"/>
-                <exclude name="adt*"/>
-            </fileset>
-        </copy>  
+        <antcall target="stage-bin"/>
 
         <!-- frameworks -->
         <antcall target="stage-frameworks"/>
@@ -408,7 +401,7 @@
             </fileset>
         </copy>
                 
-        <chmod dir="${basedir}/temp" perm="755" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" />
+        <chmod dir="${basedir}/temp" perm="755" includes="**/*.bat, **/*.sh, **/*.linux" />
     </target>
     
     <target name="stage-frameworks">
@@ -418,7 +411,6 @@
                 <include name="**"/>
                 <exclude name="**/libs/**"/>
                 <exclude name="**/*.swc"/>
-                <exclude name="**/bundles/**/empty.properties"/>
                 <exclude name="test*/**"/>
                 <exclude name="projects/automation*/**"/>
                 <exclude name="projects/air/**"/>
@@ -441,6 +433,18 @@
         <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" />
     </target>
 
+    <target name="stage-bin">
+        <copy todir="${basedir}/temp/bin" includeEmptyDirs="false">
+            <fileset dir="${basedir}/bin">
+                <include name="*"/>
+                <exclude name="adl*"/>
+                <exclude name="adt*"/>
+            </fileset>
+        </copy>  
+        <fixcrlf eol="unix" excludes="*.bat" srcdir="${basedir}/temp/bin" />
+        <chmod dir="${basedir}/temp/bin" perm="755" excludes="*.bat"/>
+    </target>
+    
     <target name="stage-modules" unless="no.modules">
         <!-- modules -->
         <copy todir="${basedir}/temp/modules" includeEmptyDirs="false">
@@ -528,46 +532,10 @@
         
         <!-- use this to build frameworks -->
         <copy file="${basedir}/frameworks/build_framework.xml" 
-            tofile="${basedir}/temp/frameworks/build.xml"/>
+            tofile="${basedir}/temp/frameworks/build.xml" failonerror="true" verbose="true"/>
 
         <!-- ant is pre-built and in FLEX_HOME/ant rather than modules/antTasks -->
         <antcall target="stage-antTasks"/>
-
-        <!-- bin -->
-        <copy todir="${basedir}/temp/bin">
-            <fileset dir="${basedir}/bin">
-                <include name="acompc"/>
-                <include name="acompc.bat"/>
-                <include name="amxmlc"/>
-                <include name="amxmlc.bat"/>
-                <include name="asdoc"/>
-                <include name="asdoc.bat"/>
-                <include name="aasdoc"/>
-                <include name="aasdoc.bat"/>
-                <include name="compc"/>
-                <include name="compc.bat"/>
-                <include name="copylocale"/>
-                <include name="copylocale.bat"/>
-                <include name="digest"/>
-                <include name="digest.bat"/>
-                <include name="fcsh"/>
-                <include name="fcsh.bat"/>
-                <include name="fdb"/>
-                <include name="fdb.bat"/>
-                <include name="jvm.config"/>
-                <include name="mxmlc"/>
-                <include name="mxmlc.bat"/>
-                <include name="optimizer"/>
-                <include name="optimizer.bat"/>
-                <include name="swcdepends"/>
-                <include name="swcdepends.bat"/>
-                <include name="swfdump"/>
-                <include name="swfdump.bat"/>
-            </fileset>
-        </copy>
-        <fixcrlf eol="unix" 
-            srcdir="${basedir}/temp/bin" 
-            includes="acompc,amxmlc,asdoc,compc,copylocale,fdb,mxmlc,fcsh,optimizer,digest,fontswf"/>
         
         <!-- frameworks/libs -->
         <copy todir="${basedir}/temp/frameworks/libs">

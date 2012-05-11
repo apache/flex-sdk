@@ -80,6 +80,7 @@
          <path-element>libs</path-element>
          <path-element>libs/mx</path-element>
          <path-element>libs/air</path-element>
+         <path-element>{airHome}/frameworks/libs/air</path-element>
          <path-element>locale/{locale}</path-element>
       </library-path>
      

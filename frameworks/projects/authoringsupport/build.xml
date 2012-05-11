@@ -40,7 +40,11 @@
 
 	<target name="compile" description="Compiles authoringsupport.swc">
 		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
+		<echo message="Disabled for Apache Flex since source for FlexContentHolderThumbnail.swc is not available"/>
+	</target>
 
+	<target name="compile-save" description="Compiles authoringsupport.swc">
+		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -79,6 +83,10 @@
 	</target>
 
 	<target name="doc" depends="clean-temp-docs" description="updates authoringsupport.swc with asdoc xml">
+		<echo message="Disabled for Apache Flex since source for FlexContentHolderThumbnail.swc is not available"/>
+	</target>
+
+	<target name="doc-save" depends="clean-temp-docs" description="updates authoringsupport.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
