@@ -454,6 +454,7 @@
             </fileset>
         </copy>  
         <fixcrlf eol="unix" excludes="*.bat" srcdir="${basedir}/temp/bin" />
+        <fixcrlf eol="dos" includes="*.bat" srcdir="${basedir}/temp/bin" />
         <chmod dir="${basedir}/temp/bin" perm="755" excludes="*.bat"/>
     </target>
     
