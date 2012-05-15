@@ -267,9 +267,9 @@
 
         <antcall target="download-zip">
           <param name="download.dir" value="${download.dir}"/>
-          <param name="srcUrl" value="http://download.macromedia.com/pub/security/bulletins"/>
-          <param name="zipFile" value="fds201_hf_308104.zip"/>
-          <param name="srcJarPath" value="fds201_hf_308104/flex-messaging-common.jar"/>
+          <param name="srcUrl" value="http://flexorg.wip3.adobe.com/blazeds/4.x/21287"/>
+          <param name="zipFile" value="blazeds-turnkey-4.0.1.21287.zip"/>
+          <param name="srcJarPath" value="resources/lib/flex-messaging-common.jar"/>
           <param name="destJarFile" value="flex-messaging-common.jar"/>
         </antcall>
         
