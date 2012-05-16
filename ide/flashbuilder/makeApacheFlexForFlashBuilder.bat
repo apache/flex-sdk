@@ -83,7 +83,7 @@ echo Uncompressing Apache Flex SDK to "%FLEX_HOME%"
 if defined hasJarExe (
     pushd "%FLEX_HOME%" & jar xf "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" & popd
 ) else (
-    cscript //B //nologo extractAll.vbs "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" "%FLEX_HOME%"
+    PowerShell -Command "& {$zipPackage=(new-object -com shell.application).NameSpace('%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%'); $destinationFolder=(new-object -com shell.application).NameSpace('%FLEX_HOME%'); $destinationFolder.CopyHere($zipPackage.Items(),20)}"
     if %errorlevel% neq 0 goto errorExit
 )
 
@@ -98,7 +98,7 @@ echo Uncompressing Adobe AIR Runtime Kit for Windows from "%tempDir%\%ADOBE_AIR_
 if defined hasJarExe (
     pushd "%FLEX_HOME%" & jar xf "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" & popd
 ) else (
-    cscript //B //nologo extractAll.vbs "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" "%FLEX_HOME%"
+    PowerShell -Command "& {$zipPackage=(new-object -com shell.application).NameSpace('%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%'); $destinationFolder=(new-object -com shell.application).NameSpace('%FLEX_HOME%'); $destinationFolder.CopyHere($zipPackage.Items(),20)}"
     if %errorlevel% neq 0 goto errorExit
 )
 
@@ -109,7 +109,7 @@ set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
 if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
 echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
-cscript //B //nologo downloadFile.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+PowerShell -Command "& {(new-object System.Net.WebClient).DownloadFile('%ADOBE_FB_GLOBALPLAYER_SWC_URL%', '%FB_GLOBALPLAYER_DIR%\playerglobal.swc')}"
 if %errorlevel% neq 0 goto errorExit
 
 REM
