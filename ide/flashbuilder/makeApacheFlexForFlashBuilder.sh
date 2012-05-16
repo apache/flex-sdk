@@ -37,7 +37,6 @@ APACHE_FLEX_BIN_DISTRO_URL=http://people.apache.org/~cframpton/ApacheFlexRC/curr
 
 # Adobe AIR SDK Version 3.1
 ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
-ADOBE_AIR_SDK_WIN_URL=http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip
 
 # Adobe Flash Player Version 11.1
 ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
@@ -59,22 +58,16 @@ mkdir -p "$tempDir"
 # the names of the tar/zip files
 APACHE_FLEX_BIN_DISTRO_FILE=`basename "${APACHE_FLEX_BIN_DISTRO_URL}"`
 ADOBE_AIR_SDK_MAC_FILE=`basename "${ADOBE_AIR_SDK_MAC_URL}"`
-ADOBE_AIR_SDK_WIN_FILE=`basename "${ADOBE_AIR_SDK_WIN_URL}"`
 
 # download the Apache Flex SDK
 echo "Downloading the Apache Flex SDK from $APACHE_FLEX_BIN_DISTRO_URL"
 curl "$APACHE_FLEX_BIN_DISTRO_URL" --output "$tempDir/$APACHE_FLEX_BIN_DISTRO_FILE"
 tar xf "$tempDir/$APACHE_FLEX_BIN_DISTRO_FILE" -C "$FLEX_HOME"
 
-# download the AIR Integration Kit for Mac
-echo "Downloading the Adobe AIR Integration Kit for Mac from $ADOBE_AIR_SDK_MAC_URL"
+# download the AIR SDK for Mac
+echo "Downloading the Adobe AIR SDK for Mac from $ADOBE_AIR_SDK_MAC_URL"
 curl "$ADOBE_AIR_SDK_MAC_URL" --output "$tempDir/$ADOBE_AIR_SDK_MAC_FILE"
 tar xf "$tempDir/$ADOBE_AIR_SDK_MAC_FILE" -C "$FLEX_HOME"
-
-# download the AIR Integration Kit for Windows
-echo "Downloading the Adobe AIR Integration Kit for Windows from $ADOBE_AIR_SDK_WIN_URL"
-curl "$ADOBE_AIR_SDK_WIN_URL" --output "$tempDir/$ADOBE_AIR_SDK_WIN_FILE"
-tar xf "$tempDir/$ADOBE_AIR_SDK_WIN_FILE" -C "$FLEX_HOME"
 
 # download playerglobal.swc
 echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL"
@@ -82,8 +75,8 @@ mkdir -p "$FLEX_HOME/frameworks/libs/player/11.1"
 curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.1/playerglobal.swc" --silent
 
 # copy the config files formatted for Flash Builder to frameworks 
-#echo "Install the frameworks config file configured for use with Adobe Flash Builder"
-cp -p -v "$FLEX_HOME"/ide/flashbuilder/config/*-config.xml "$FLEX_HOME/frameworks"
+echo "Installing the frameworks config files configured for use with Adobe Flash Builder"
+cp -p -v "$FLEX_HOME/ide/flashbuilder/config/*-config.xml" "$FLEX_HOME/frameworks"
 
 # remove the zipped kits
 rm -rf "$tempDir"

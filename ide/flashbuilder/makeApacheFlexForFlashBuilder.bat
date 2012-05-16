@@ -48,12 +48,6 @@ REM     Adobe Flash Player Version 11.1
 REM
 set ADOBE_FB_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
 
-REM
-REM     Location of Adobe Flash Player within Flex SDK for FlashBuilder 
-REM
-set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
-set FB_GLOBALPLAYER_SWC=playerglobal.swc
-
 if not [%1] == [] goto gotDir
 echo Usage: %0 [directory for Apache Flex SDK for Adobe Flash Builder]
 goto :eof
@@ -87,7 +81,7 @@ if %errorlevel% neq 0 goto errorExit
 
 echo Uncompressing Apache Flex SDK to "%FLEX_HOME%"
 if defined hasJarExe (
-    pushd "%FLEX_HOME%" & jar xvf "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" & popd
+    pushd "%FLEX_HOME%" & jar xf "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" & popd
 ) else (
     cscript //B //nologo extractAll.vbs "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" "%FLEX_HOME%"
     if %errorlevel% neq 0 goto errorExit
@@ -102,7 +96,7 @@ if %errorlevel% neq 0 goto errorExit
 
 echo Uncompressing Adobe AIR Runtime Kit for Windows from "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" to "%FLEX_HOME%"
 if defined hasJarExe (
-    pushd "%FLEX_HOME%" & jar xvf "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" & popd
+    pushd "%FLEX_HOME%" & jar xf "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" & popd
 ) else (
     cscript //B //nologo extractAll.vbs "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" "%FLEX_HOME%"
     if %errorlevel% neq 0 goto errorExit
@@ -111,19 +105,18 @@ if defined hasJarExe (
 REM
 REM     Download playerglobal.swc
 REM
+set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
 if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
-echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\%FB_GLOBALPLAYER_SWC%"
-cscript //B //nologo downloadFile.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\%FB_GLOBALPLAYER_SWC%"
+echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+cscript //B //nologo downloadFile.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
 if %errorlevel% neq 0 goto errorExit
 
 REM
 REM     Copy config files formatted for Flash Builder to frameworks.
 REM
-echo Installing frameworks config file configured for use with Adobe Flash Builder
-set fbConfigDir=%FLEX_HOME%\ide\flashbuilder\config
-if not exist "%fbConfigDir%" mkdir "%fbConfigDir%"
-copy /y "%fbConfigDir%"\*-config.xml "%FLEX_HOME%\frameworks"
+echo Installing frameworks config files configured for use with Adobe Flash Builder
+copy /y "%FLEX_HOME%\ide\flashbuilder\config\*-config.xml" "%FLEX_HOME%\frameworks"
 if %errorlevel% neq 0 goto errorExit
 
 REM
