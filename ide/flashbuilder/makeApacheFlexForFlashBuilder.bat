@@ -111,7 +111,7 @@ if defined hasJarExe (
 REM
 REM     Download playerglobal.swc
 REM
-if not exist "%FLASHPLAYER_GLOBALPLAYER_DIR%" mkdir "%FLASHPLAYER_GLOBALPLAYER_DIR%"
+if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
 echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\%FB_GLOBALPLAYER_SWC%"
 cscript //B //nologo downloadFile.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\%FB_GLOBALPLAYER_SWC%"
