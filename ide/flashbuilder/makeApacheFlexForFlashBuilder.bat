@@ -76,7 +76,7 @@ REM
 REM     Download Apache Flex SDK.
 REM
 echo Downloading Apache Flex SDK from "%APACHE_FLEX_BIN_DISTRO_URL%" to "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%"
-cscript //B //nologo downloadFile.vbs "%APACHE_FLEX_BIN_DISTRO_URL%" "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%"
+PowerShell -Command "& {(new-object System.Net.WebClient).DownloadFile('%APACHE_FLEX_BIN_DISTRO_URL%', '%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%')}"
 if %errorlevel% neq 0 goto errorExit
 
 echo Uncompressing Apache Flex SDK to "%FLEX_HOME%"
@@ -91,7 +91,7 @@ REM
 REM     Download AIR Runtime Kit for Windows
 REM
 echo Downloading Adobe AIR Runtime Kit for Windows from "%ADOBE_AIR_SDK_WIN_URL%" to "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%"
-cscript //B //nologo downloadFile.vbs "%ADOBE_AIR_SDK_WIN_URL%" "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%"
+PowerShell -Command "& {(new-object System.Net.WebClient).DownloadFile('%ADOBE_AIR_SDK_WIN_URL%', '%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%')}"
 if %errorlevel% neq 0 goto errorExit
 
 echo Uncompressing Adobe AIR Runtime Kit for Windows from "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" to "%FLEX_HOME%"
@@ -116,7 +116,7 @@ REM
 REM     Copy config files formatted for Flash Builder to frameworks.
 REM
 echo Installing frameworks config files configured for use with Adobe Flash Builder
-copy /y "%FLEX_HOME%\ide\flashbuilder\config\*-config.xml" "%FLEX_HOME%\frameworks"
+copy /y "%FLEX_HOME%"\ide\flashbuilder\config\*-config.xml "%FLEX_HOME%\frameworks"
 if %errorlevel% neq 0 goto errorExit
 
 REM
