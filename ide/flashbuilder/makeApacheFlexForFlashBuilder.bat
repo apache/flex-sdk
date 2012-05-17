@@ -67,40 +67,18 @@ set tempDir=%FLEX_HOME%\temp
 if not exist "%tempDir%" mkdir "%tempDir%"
 
 REM
-REM     See if jar.exe is in the PATH.   If so we can use it to uncompress the zip files
-REM     since it is much faster than the vbs script.
-REM
-for %%X in (jar.exe) do (set hasJarExe=%%~$PATH:X)
-
-REM
 REM     Download Apache Flex SDK.
 REM
-echo Downloading Apache Flex SDK from "%APACHE_FLEX_BIN_DISTRO_URL%" to "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%"
-PowerShell -Command "& {(new-object System.Net.WebClient).DownloadFile('%APACHE_FLEX_BIN_DISTRO_URL%', '%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%')}"
+echo Downloading and unzipping Apache Flex SDK from "%APACHE_FLEX_BIN_DISTRO_URL%" to "%FLEX_HOME%
+cscript //B //nologo winUtil.vbs "%APACHE_FLEX_BIN_DISTRO_URL%" "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" "%FLEX_HOME%"
 if %errorlevel% neq 0 goto errorExit
-
-echo Uncompressing Apache Flex SDK to "%FLEX_HOME%"
-if defined hasJarExe (
-    pushd "%FLEX_HOME%" & jar xf "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" & popd
-) else (
-    PowerShell -Command "& {$zipPackage=(new-object -com shell.application).NameSpace('%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%'); $destinationFolder=(new-object -com shell.application).NameSpace('%FLEX_HOME%'); $destinationFolder.CopyHere($zipPackage.Items(),20)}"
-    if %errorlevel% neq 0 goto errorExit
-)
 
 REM
 REM     Download AIR Runtime Kit for Windows
 REM
-echo Downloading Adobe AIR Runtime Kit for Windows from "%ADOBE_AIR_SDK_WIN_URL%" to "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%"
-PowerShell -Command "& {(new-object System.Net.WebClient).DownloadFile('%ADOBE_AIR_SDK_WIN_URL%', '%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%')}"
+echo Downloading and unzipping Adobe AIR Runtime Kit for Windows from "%ADOBE_AIR_SDK_WIN_URL%" to "%FLEX_HOME%
+cscript //B //nologo winUtil.vbs "%ADOBE_AIR_SDK_WIN_URL%" "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" "%FLEX_HOME%"
 if %errorlevel% neq 0 goto errorExit
-
-echo Uncompressing Adobe AIR Runtime Kit for Windows from "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" to "%FLEX_HOME%"
-if defined hasJarExe (
-    pushd "%FLEX_HOME%" & jar xf "%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%" & popd
-) else (
-    PowerShell -Command "& {$zipPackage=(new-object -com shell.application).NameSpace('%tempDir%\%ADOBE_AIR_SDK_WIN_FILE%'); $destinationFolder=(new-object -com shell.application).NameSpace('%FLEX_HOME%'); $destinationFolder.CopyHere($zipPackage.Items(),20)}"
-    if %errorlevel% neq 0 goto errorExit
-)
 
 REM
 REM     Download playerglobal.swc
@@ -109,7 +87,7 @@ set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
 if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
 echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
-PowerShell -Command "& {(new-object System.Net.WebClient).DownloadFile('%ADOBE_FB_GLOBALPLAYER_SWC_URL%', '%FB_GLOBALPLAYER_DIR%\playerglobal.swc')}"
+cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
 if %errorlevel% neq 0 goto errorExit
 
 REM
