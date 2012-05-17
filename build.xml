@@ -46,7 +46,7 @@
     <property name="source.kit" value="${kit.prefix}-src.zip"/>
     <property name="binary.kit" value="${kit.prefix}-bin.zip"/>
     
-    <property name="no.doc-packages" value="set"/>
+    <!--property name="no.doc-packages" value="set"/-->
     <property name="no.additional-packages" value="set"/>
     <property name="no.doc" value="set"/>
     <property name="no.air.integration" value="set"/>

@@ -16,6 +16,9 @@
 	<property name="lenient" value="true"/>
 	<property name="flexlib" location="${FLEX_HOME}/frameworks"/>
 
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+
 	<target name="main" depends="clean,doc" description="Clean build of all ASDocs"/>
 
 	<target name="clean" description="Cleans all ASDocs">
@@ -108,9 +111,9 @@
 			<namespace uri="library://ns.adobe.com/flex/spark-dmv" manifest="${flexlib}/projects/spark_dmv/manifest_spark_dmv.xml"/>
 
 			<library-path/>
-			<external-library-path dir="${flexlib}/libs/air">
-		    	<include name="airglobal.swc" />
-		    </external-library-path>
+            <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
+                <include name="airglobal.swc"/>
+            </external-library-path>
 			<external-library-path dir="${flexlib}/libs">
 		    	<include name="framework.swc" />
 		    	<!-- if no osfm sources -->
