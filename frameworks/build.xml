@@ -44,8 +44,8 @@
         <os family="windows" />
     </condition>    
 
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
         
     <target name="main" depends="check-compile-env,clean,thirdparty-downloads,javascript,compile" 

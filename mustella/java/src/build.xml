@@ -18,10 +18,9 @@
 
 -->
 <project name="Flex Mustella Source" default="main" basedir="../..">
-	<property environment="env"/>
-
     <property name="mustella.dir" value="${basedir}"/>
     <property file="${mustella.dir}/../env.properties"/>
+	<property environment="env"/>
     <property file="${mustella.dir}/local.properties"/>
     <property file="${mustella.dir}/build.properties"/>
     <property name="sdk.dir" value="$.."/>

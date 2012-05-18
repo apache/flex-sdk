@@ -20,8 +20,8 @@
 <project name="combined" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>

@@ -20,8 +20,8 @@
 <project name="mustella" default="run" basedir=".">
     <property name="FLEX_HOME" location=".."/>
 
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
 
     <property name="mustella.dir" value="${basedir}" />
     <property name="airsdk.dir" value="${env.AIR_HOME}" />

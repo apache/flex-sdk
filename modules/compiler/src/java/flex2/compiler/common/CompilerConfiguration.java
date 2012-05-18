@@ -36,6 +36,7 @@ import macromedia.asc.embedding.ConfigVar;
 import macromedia.asc.util.ObjectList;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -64,6 +66,8 @@ public class CompilerConfiguration implements As3Configuration,
 	public static final String LOCALE_TOKEN = "{locale}";
     public static final String TARGET_PLAYER_MAJOR_VERSION_TOKEN = "{targetPlayerMajorVersion}";
     public static final String TARGET_PLAYER_MINOR_VERSION_TOKEN = "{targetPlayerMinorVersion}";
+ 
+    // Special Case for Apache.  These are not currently exposed with command line options.
     public static final String PLAYERGLOBAL_HOME_TOKEN = "{playerglobalHome}";
     public static final String AIR_HOME_TOKEN = "{airHome}";
     
@@ -128,14 +132,11 @@ public class CompilerConfiguration implements As3Configuration,
     public VirtualFile[] expandTokens(String[] pathlist, String[] locales, ConfigurationValue cv)
         throws ConfigurationException
     {
+        // {playerglobalHome} and {airHome}
+        pathlist = expandRuntimeTokens(pathlist);
+        
         // {targetPlayerMajorVersion}, {targetPlayerMinorVersion}
         pathlist = expandTargetPlayerToken(pathlist, parentConfiguration);
-        
-        // {playerglobalHome}
-        pathlist = expandPlayerglobalHomeToken(pathlist);
-
-        // {airHome}
-        pathlist = expandAirHomeToken(pathlist);
         
         // {locale}
         return expandLocaleToken(pathlist, locales, cv);
@@ -166,48 +167,73 @@ public class CompilerConfiguration implements As3Configuration,
 
         return processed;
     }
-
+      
     /**
-     * Replaces instances of {playerglobalHome} with the environment variable
-     * PLAYERGLOBAL.  Doesn't turn the paths into VirtualFiles (yet, 
-     * @see expandLocaleToken()). 
+     * Load the env.properties file from the classpath.
+     
+     * @return null if env.properties does not exist in classpath or could not be loaded
      */
-    private static String[] expandPlayerglobalHomeToken(String[] pathlist)
+    private Properties loadEnvPropertyFile()
     {
-        final String[] processed = new String[pathlist.length];
-        
-        String playerglobalHome = System.getenv("PLAYERGLOBAL_HOME");
-        if (playerglobalHome == null)
-            playerglobalHome = "";
-
-        for (int i = 0; i < pathlist.length; i++)
+        Properties properties = null;
+        InputStream in = null;
+         
+        try 
         {
-            processed[i] = StringUtils.substitute(pathlist[i], 
-            	PLAYERGLOBAL_HOME_TOKEN, playerglobalHome);
+            in = getClass().getClassLoader().getResourceAsStream("env.properties");
+            if (in == null)
+               return null;
+            
+            properties = new Properties();
+            properties.load(in);
+            in.close();
+        } 
+        catch (Exception e) 
+        {
         }
-
-        return processed;
+        
+        return properties;
     }
 
     /**
-     * Replaces instances of {airHome} with the environment variable
-     * AIR_HOME.  Doesn't turn the paths into VirtualFiles (yet, 
-     * @see expandLocaleToken()). 
+     * Replaces instances of {playerglobalHome} and {airHome}.
+     * Values can come from either ../env.properties (relative to jar file) or
+     * environment variables. The property file values have precedence.
+     * The pairs are env.PLAYERGLOBAL_HOME and PLAYERGLOBAL_HOME, and,
+     * env.AIR_HOME and AIR_HOME.
      */
-    private static String[] expandAirHomeToken(String[] pathlist)
+    private String[] expandRuntimeTokens(String[] pathlist)
     {
         final String[] processed = new String[pathlist.length];
+           
+        // Look at property file first and then environment variable.
+        // If there is neither leave the token in place since it is easier to
+        // diagnose the problem with a token in the error message path then it is with
+        // a "" in the path.
+        Properties envProperties = loadEnvPropertyFile();
         
-        String airHome = System.getenv("AIR_HOME");
-        if (airHome == null)
-            airHome = "";
+        String playerglobalHome = envProperties != null ?
+            envProperties.getProperty("env.PLAYERGLOBAL_HOME") :
+            System.getenv("PLAYERGLOBAL_HOME");
+        
+        if (playerglobalHome == null)
+            playerglobalHome = PLAYERGLOBAL_HOME_TOKEN;
+            
+        String airHome = envProperties != null ?
+            envProperties.getProperty("env.AIR_HOME") :
+            System.getenv("AIR_HOME");
 
+        if (airHome == null)
+            airHome = AIR_HOME_TOKEN;
+            
         for (int i = 0; i < pathlist.length; i++)
         {
             processed[i] = StringUtils.substitute(pathlist[i], 
-            	AIR_HOME_TOKEN, airHome);
+                PLAYERGLOBAL_HOME_TOKEN, playerglobalHome);
+            processed[i] = StringUtils.substitute(processed[i], 
+                AIR_HOME_TOKEN, airHome);
         }
-
+        
         return processed;
     }
 

@@ -39,11 +39,14 @@
     <property name="module.jar" value="${lib.dir}/mxmlc.jar"/>
     <property name="module.ja.jar" value="${lib.dir}/mxmlc_ja.jar"/>
     <property name="mxmlc.main" value="flex2.tools.Mxmlc"/>
+    
+    <!-- env.properties is in FLEX_HOME which is .. from FLEX_HOME/lib where the jars live -->
+    <property name="env.property.dir" value=".."/>
 	
 	<property name="localized.mxmlc.jars" value="mxmlc_da.jar mxmlc_de.jar mxmlc_es.jar mxmlc_fi.jar mxmlc_fr.jar mxmlc_it.jar mxmlc_ja.jar mxmlc_ko.jar mxmlc_nb.jar mxmlc_nl.jar mxmlc_pt.jar mxmlc_ru.jar mxmlc_sv.jar mxmlc_zh_CN.jar mxmlc_zh_TW.jar"/>
 
 	<!-- Excludes Adobe proprietary font and license code. -->
-    <property name="mxmlc.classpath" value="asc.jar xmlParserAPIs.jar batik-all-flex.jar velocity-dep-1.4-flex.jar commons-collections.jar commons-discovery.jar commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} xalan.jar"/>
+    <property name="mxmlc.classpath" value="asc.jar xmlParserAPIs.jar batik-all-flex.jar velocity-dep-1.4-flex.jar commons-collections.jar commons-discovery.jar commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} xalan.jar ${env.property.dir}"/>
 
 	<!-- Including Adobe proprietary font and license code.  -->
 	<!--property name="mxmlc.mpl_excludes.classpath" value="afe.jar aglj40.jar rideau.jar license.jar flex-fontkit.jar "/-->

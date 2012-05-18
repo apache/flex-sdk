@@ -22,8 +22,8 @@
 <project name="spark_dmv" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 		
 	<target name="main" depends="clean,compile" description="Clean build of spark_dmv.swc and en_US"/>

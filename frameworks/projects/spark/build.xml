@@ -22,8 +22,8 @@
 <project name="spark" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<property name="locale" value="en_US"/>

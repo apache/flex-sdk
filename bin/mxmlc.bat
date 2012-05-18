@@ -14,13 +14,12 @@ rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 rem See the License for the specific language governing permissions and
 rem limitations under the License.
 
-if "%PLAYERGLOBAL_HOME%"=="" goto NO_PLAYERGLOBAL_HOME
+rem
+rem Either the PLAYERGLOBAL_HOME environment variable must be set or
+rem or the env.PLAYERGLOBAL_HOME property must be set in %FLEX_HOME%\env.properties.
+rem If both are set the property takes precedence.
+rem
+
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
 java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\mxmlc.jar" +flexlib="%FLEX_HOME%\frameworks" %*
-goto END
-
-:NO_PLAYERGLOBAL_HOME
-echo error: PLAYERGLOBAL_HOME not set
-
-:END

@@ -23,8 +23,8 @@
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of wireframe.swc"/>

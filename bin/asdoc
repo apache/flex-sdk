@@ -24,6 +24,12 @@
 # java settings are managed in jvm.config in this directory.
 #
 
+#
+# Either the AIR_HOME environment variable must be set or
+# or the env.AIR_HOME property must be set in %FLEX_HOME%/env.properties.
+# If both are set the property takes precedence.
+#
+
 case `uname` in
 		CYGWIN*)
 			OS="Windows"

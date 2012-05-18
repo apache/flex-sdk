@@ -14,7 +14,6 @@ rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 rem See the License for the specific language governing permissions and
 rem limitations under the License.
 
-
 rem
 rem acompc.bat script for Windows.
 rem This simply executes compc.jar in the same directory,
@@ -23,13 +22,12 @@ rem compc use air-config.xml instead of flex-config.xml.
 rem On Unix, acompc is used instead.
 rem
 
-if "%AIR_HOME%"=="" goto NO_AIR_HOME
+rem
+rem Either the AIR_HOME environment variable must be set or
+rem or the env.AIR_HOME property must be set in %FLEX_HOME%\env.properties.
+rem If both are set the property takes precedence.
+rem
+
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
 java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\compc.jar" +configname=air +flexlib="%FLEX_HOME%\frameworks" %*
-goto END
-
-:NO_AIR_HOME
-echo error: AIR_HOME not set
-
-:END

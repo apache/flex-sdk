@@ -31,8 +31,8 @@
         </and>
     </condition>
 
-    <property environment="env"/>
     <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
     <property file="${FLEX_HOME}/local.properties"/>
     <property file="${FLEX_HOME}/build.properties"/>
 
@@ -103,8 +103,10 @@
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
         description="Check for the required environment variables for compilation"/>
 
-    <target name="check-playerglobal-home"
+    <target name="check-playerglobal-home" unless="PLAYERGLOBAL_HOME.set"
         description="Check PLAYERGLOBAL for both a directory and a swc file">
+
+        <echo message="PLAYERGLOBAL_HOME is ${env.PLAYERGLOBAL_HOME}"/>
 
         <available file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc" type="file" 
             property="PLAYERGLOBAL_HOME.set"/>
@@ -113,8 +115,10 @@
             unless="PLAYERGLOBAL_HOME.set"/>
     </target>
     
-    <target name="check-air-home"
+    <target name="check-air-home" unless="AIR_HOME.set"
         description="Check that AIR_HOME is a directory">
+        
+        <echo message="AIR-HOME is ${env.AIR_HOME}"/>
         
         <condition property="AIR_HOME.set">
             <and>
@@ -381,8 +385,8 @@
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
             </fileset>
-        </copy>  
-
+        </copy>
+         
         <!-- bin -->
         <antcall target="stage-bin"/>
 
@@ -669,7 +673,7 @@
                 <include name="flashbuilder/config"/>
             </fileset>
         </copy>
-
+        
         <!-- swfobject templates -->
         <copy todir="${basedir}/temp/templates">
             <fileset dir="${basedir}/templates" >
