@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="framework" default="main" basedir=".">
+    <property name="FLEX_HOME" value="${basedir}"/>
+	
+	<!-- Set plyerglobal.version and locale -->
+	<loadproperties srcFile="${FLEX_HOME}/build.properties"/>
+
+    <target name="main" depends="thirdparty-downloads"/>
+    
+    <target name="thirdparty-downloads" depends="airsdk-download,playerglobal-download" description="Copies AIR SDK and playerglobal.swc into place for build" />
+    
+    <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
+        <available file="${basedir}/lib/air/airglobal.swc" property="airsdk.present"/>
+    </target>
+
+    <target name="playerglobal-check" description="Checks if the playerglobal.swc has been downloaded.">
+        <available file="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
+    </target>
+    
+    <!-- Adobe AIR SDK  -->
+    <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
+    <!-- Regardless of platform use the win kit to get airglobal.swc. --> 
+    <target name="airsdk-download" depends="airsdk-check" unless="airsdk.present" description="Copies Adobe AIR SDK for the Mac from the Adobe website">
+        <echo message="Be patient.  This takes a few minutes..." />
+        <mkdir dir="${FLEX_HOME}/lib/air"/>
+        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
+            dest="${FLEX_HOME}/temp/AIR Integration Kit.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/temp/AIR Integration Kit" src="${FLEX_HOME}/temp/AIR Integration Kit.zip" />
+        <copy file="${FLEX_HOME}/temp/AIR Integration Kit/frameworks/libs/air/airglobal.swc" 
+            toDir="${basedir}/lib/air"/>
+        <delete dir="${FLEX_HOME}/temp/AIR Integration Kit" failonerror="false"/>
+    </target>
+        
+    <!-- playerglobal.swc -->
+    <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download" description="Copies playerglobal.swc from the Adobe website">
+    </target>
+	
+	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
+		<condition property="target10.3">
+			<equals arg1="${playerglobal.version}" arg2="10.3" />
+		</condition>
+		<condition property="target11.0">
+			<equals arg1="${playerglobal.version}" arg2="11.0" />
+		</condition>
+		<condition property="target11.1">
+			<equals arg1="${playerglobal.version}" arg2="11.1" />
+		</condition>
+		<condition property="target11.2">
+			<equals arg1="${playerglobal.version}" arg2="11.2" />
+		</condition>
+		<condition property="target11.3">
+			<equals arg1="${playerglobal.version}" arg2="11.3" />
+		</condition>
+	 </target>
+	 
+    <target name="playerglobal10.3-download" if="target10.3">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.0-download" if="target11.0">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target> 
+	
+    <target name="playerglobal11.1-download" if="target11.1">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_1.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target> 
+    
+    <target name="playerglobal11.2-download" if="target11.2">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_2.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.3-download" if="target11.3">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://labsdownload.adobe.com/pub/labs/flashplatformruntimes/flashplayer11-3/flashplayer11-3_p1_playerglobal_040512.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+
+    <target name="clean" description="Cleans third party downloaded files.">
+    	<delete dir="${FLEX_HOME}/temp" />
+        <delete dir="${FLEX_HOME}/lib/air" />
+        <delete dir="${FLEX_HOME}/lib/player"/>
+     </target>
+
+</project>
