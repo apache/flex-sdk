@@ -41,7 +41,8 @@
 	        commons-discovery (0.2) - Apache 1.1
 	        commons-logging (1.0.4) - Apache 2.0
 	        batik (1.6) - Apache 2.0
-	        flex-messaging-common.jar - MPLv1  (From Adobe BlazeDS)
+	        flex-messaging-common.jar - GNU Lesser General Public License, Version 3 
+	                                    which is not an Apache compatible licenses
 	        saxon9 (9.1.0.8) - MPLv1
 	        xalan (2.6.0) - Apache 2.0
 	        xercesImpl and xml-apis (2.9.1.2) - Apache 2.0
@@ -498,7 +499,7 @@
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
             </fileset>            
-            <globmapper from="*" to="javacc-*"/>
+            <globmapper from="*" to="xalan-*"/>
         </copy>
     </target>
 
