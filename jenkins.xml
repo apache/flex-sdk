@@ -42,6 +42,7 @@
     <target name="airsdk-download" depends="airsdk-check" unless="airsdk.present" description="Copies Adobe AIR SDK for the Mac from the Adobe website">
         <echo message="Be patient.  This takes a few minutes..." />
         <mkdir dir="${FLEX_HOME}/lib/air"/>
+        <mkdir dir="${FLEX_HOME}/temp"/>
         <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
             dest="${FLEX_HOME}/temp/AIR Integration Kit.zip" 
             verbose="false"/>
