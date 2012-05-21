@@ -111,7 +111,7 @@
         <available file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc" type="file" 
             property="PLAYERGLOBAL_HOME.set"/>
         
-        <fail message="The environemnt variable PLAYERGLOBAL_HOME must be set to a valid directory that contains playerglobal.swc" 
+        <fail message="The environment variable PLAYERGLOBAL_HOME must be set to a valid directory that contains playerglobal.swc" 
             unless="PLAYERGLOBAL_HOME.set"/>
     </target>
     
