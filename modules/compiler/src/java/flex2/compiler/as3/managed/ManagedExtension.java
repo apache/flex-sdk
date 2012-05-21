@@ -19,7 +19,7 @@
 
 package flex2.compiler.as3.managed;
 
-import flex.messaging.config.ServicesDependencies;
+import flex2.compiler.config.ServicesDependenciesWrapper;
 import flex2.compiler.CompilationUnit;
 import flex2.compiler.as3.binding.TypeAnalyzer;
 import flex2.compiler.as3.genext.GenerativeExtension;
@@ -38,7 +38,7 @@ public final class ManagedExtension extends GenerativeExtension
 {
     public static final String IMANAGED = "IManaged";
 
-	private ServicesDependencies servicesDependencies;
+	private ServicesDependenciesWrapper servicesDependencies;
     
 	public ManagedExtension(String generatedOutputDirectory, boolean generateAbstractSyntaxTree, boolean processComments)
 	{
@@ -46,7 +46,7 @@ public final class ManagedExtension extends GenerativeExtension
 	}
 
     public ManagedExtension(String generatedOutputDirectory, boolean generateAbstractSyntaxTree,
-                            ServicesDependencies services, boolean processComments)
+                            ServicesDependenciesWrapper services, boolean processComments)
     {
         super(generatedOutputDirectory, generateAbstractSyntaxTree, processComments );
         servicesDependencies = services;

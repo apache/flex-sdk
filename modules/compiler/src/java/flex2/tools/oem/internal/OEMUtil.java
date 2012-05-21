@@ -267,14 +267,26 @@ public class OEMUtil
 			Mxmlc.processConfigurationException(ex, "oem");
 			return null;
 		}
-		catch (flex.messaging.config.ConfigurationException ex)
+		catch (IOException ex)
 		{
 			ThreadLocalToolkit.logError(ex.getMessage());
 			return null;
 		}
-		catch (IOException ex)
+		catch (RuntimeException ex)
 		{
-			ThreadLocalToolkit.logError(ex.getMessage());
+			Class c;
+			try
+			{
+				c = Class.forName("flex.messaging.config.ConfigurationException");
+				if (c.isInstance(ex))
+				{
+					ThreadLocalToolkit.logError(ex.getMessage());
+				}
+			}
+			catch (ClassNotFoundException ex2)
+			{
+				
+			}
 			return null;
 		}
 	}
@@ -337,14 +349,26 @@ public class OEMUtil
 			Mxmlc.processConfigurationException(ex, "oem");
 			return null;
 		}
-		catch (flex.messaging.config.ConfigurationException ex)
+		catch (IOException ex)
 		{
 			ThreadLocalToolkit.logError(ex.getMessage());
 			return null;
 		}
-		catch (IOException ex)
+		catch (RuntimeException ex)
 		{
-			ThreadLocalToolkit.logError(ex.getMessage());
+			Class c;
+			try
+			{
+				c = Class.forName("flex.messaging.config.ConfigurationException");
+				if (c.isInstance(ex))
+				{
+					ThreadLocalToolkit.logError(ex.getMessage());
+				}
+			}
+			catch (ClassNotFoundException ex2)
+			{
+				
+			}
 			return null;
 		}
 	}
@@ -389,14 +413,26 @@ public class OEMUtil
 			Mxmlc.processConfigurationException(ex, "oem");
 			return null;
 		}
-		catch (flex.messaging.config.ConfigurationException ex)
+		catch (IOException ex)
 		{
 			ThreadLocalToolkit.logError(ex.getMessage());
 			return null;
 		}
-		catch (IOException ex)
+		catch (RuntimeException ex)
 		{
-			ThreadLocalToolkit.logError(ex.getMessage());
+			Class cls;
+			try
+			{
+				cls = Class.forName("flex.messaging.config.ConfigurationException");
+				if (cls.isInstance(ex))
+				{
+					ThreadLocalToolkit.logError(ex.getMessage());
+				}
+			}
+			catch (ClassNotFoundException ex2)
+			{
+				
+			}
 			return null;
 		}
 	}

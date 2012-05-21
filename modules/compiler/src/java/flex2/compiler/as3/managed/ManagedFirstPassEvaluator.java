@@ -19,7 +19,7 @@
 
 package flex2.compiler.as3.managed;
 
-import flex.messaging.config.ServicesDependencies;
+import flex2.compiler.config.ServicesDependenciesWrapper;
 import flex2.compiler.as3.genext.GenerativeFirstPassEvaluator;
 import flex2.compiler.as3.reflect.NodeMagic;
 import flex2.compiler.as3.reflect.TypeTable;
@@ -49,9 +49,9 @@ public class ManagedFirstPassEvaluator extends GenerativeFirstPassEvaluator
 
     private Map<DefinitionNode, ManagedClassInfo> managedProperties;  // used to set prop-level modes and detect wayward [Managed] tags
 
-    private ServicesDependencies servicesDependencies;
+    private ServicesDependenciesWrapper servicesDependencies;
 
-    public ManagedFirstPassEvaluator(TypeTable typeTable, StandardDefs defs, Set metaData, ServicesDependencies servicesDependencies)
+    public ManagedFirstPassEvaluator(TypeTable typeTable, StandardDefs defs, Set metaData, ServicesDependenciesWrapper servicesDependencies)
     {
         super(typeTable, defs);
         this.metaData = metaData;

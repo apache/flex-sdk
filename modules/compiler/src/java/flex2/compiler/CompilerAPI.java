@@ -30,7 +30,7 @@ import flash.swf.TagEncoderReporter;
 import flash.swf.tools.SizeReport;
 import flash.util.FileUtils;
 
-import flex.messaging.config.ServicesDependencies;
+import flex2.compiler.config.ServicesDependenciesWrapper;
 
 import flex2.compiler.as3.As3Compiler;
 import flex2.compiler.as3.SignatureExtension;
@@ -1724,7 +1724,7 @@ public final class CompilerAPI
                                             Configuration configuration)
     {
         // The enterprise messaging config file may refer to some classes. We want to load them up-front.
-        ServicesDependencies services = configuration.getCompilerConfiguration().getServicesDependencies();
+        ServicesDependenciesWrapper services = configuration.getCompilerConfiguration().getServicesDependencies();
         if (services != null)
         {
             for (Iterator i = services.getChannelClasses().iterator(); i.hasNext();)

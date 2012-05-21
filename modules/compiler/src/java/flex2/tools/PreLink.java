@@ -29,7 +29,7 @@ import flash.swf.tags.DefineTag;
 import flash.util.FileUtils;
 import flash.util.StringJoiner;
 import flash.util.Trace;
-import flex.messaging.config.ServicesDependencies;
+import flex2.compiler.config.ServicesDependenciesWrapper;
 import flex2.compiler.*;
 import flex2.compiler.abc.AbcClass;
 import flex2.compiler.as3.binding.ClassInfo;
@@ -877,7 +877,7 @@ public class PreLink implements flex2.compiler.PreLink
     {
         StandardDefs standardDefs = ThreadLocalToolkit.getStandardDefs();
         CompilerConfiguration compilerConfig = configuration.getCompilerConfiguration();
-        ServicesDependencies servicesDependencies = compilerConfig.getServicesDependencies();
+        ServicesDependenciesWrapper servicesDependencies = compilerConfig.getServicesDependencies();
 
         StringBuilder sb = new StringBuilder();
         sb.append("package {\n");

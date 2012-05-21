@@ -21,7 +21,7 @@ package flex2.compiler.common;
 
 import flash.util.FileUtils;
 import flash.util.StringUtils;
-import flex.messaging.config.ServicesDependencies;
+import flex2.compiler.config.ServicesDependenciesWrapper;
 import flex2.compiler.io.LocalFile;
 import flex2.compiler.io.VirtualFile;
 import flex2.compiler.as3.As3Configuration;
@@ -1535,7 +1535,7 @@ public class CompilerConfiguration implements As3Configuration,
 
 	private VirtualFile servicesConfigFile;
 
-	protected ServicesDependencies servicesDependencies;
+	protected ServicesDependenciesWrapper servicesDependencies;
 
 	public VirtualFile getServices()
 	{
@@ -1546,18 +1546,18 @@ public class CompilerConfiguration implements As3Configuration,
      * Used by the compiler to record the client dependencies
      * from the Flex Data Services configuration file.
      */
-    public ServicesDependencies getServicesDependencies()
+    public ServicesDependenciesWrapper getServicesDependencies()
     {
         if (servicesDependencies == null && servicesConfigFile != null)
         {
             String servicesPath = servicesConfigFile.getName();
-            servicesDependencies = new ServicesDependencies(servicesPath, null, getContextRoot());
+            servicesDependencies = new ServicesDependenciesWrapper(servicesPath, null, getContextRoot());
         }
 
         return servicesDependencies;
     }
 
-    public void setServicesDependencies(ServicesDependencies deps)
+    public void setServicesDependencies(ServicesDependenciesWrapper deps)
     {
         servicesDependencies = deps;
     }

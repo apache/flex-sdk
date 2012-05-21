@@ -19,7 +19,7 @@
 
 package flex2.compiler.mxml;
 
-import flex.messaging.config.ServicesDependencies;
+import flex2.compiler.config.ServicesDependenciesWrapper;
 import flex2.compiler.common.FontsConfiguration;
 import flex2.compiler.io.VirtualFile;
 
@@ -108,7 +108,7 @@ public interface MxmlConfiguration
     /**
      * Compiler-specific representation of flex-enterprise-services.xml config file
      */
-    ServicesDependencies getServicesDependencies();
+    ServicesDependenciesWrapper getServicesDependencies();
 
 	/**
 	 * The compatibility version as a String.
