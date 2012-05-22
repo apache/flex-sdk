@@ -46,10 +46,13 @@
     <property name="source.kit" value="${kit.prefix}-src.zip"/>
     <property name="binary.kit" value="${kit.prefix}-bin.zip"/>
     
-    <!--property name="no.doc-packages" value="set"/-->
-    <property name="no.additional-packages" value="set"/>
-    <property name="no.doc" value="set"/>
-    <property name="no.air.integration" value="set"/>
+    <!-- 
+        For conditions, properties are set or not set.  The value doesn't matter.
+    -->    
+    <!--property name="no.doc-packages" value="true"/-->
+    <property name="no.additional-packages" value="true"/>
+    <property name="no.doc" value="true"/>
+    <property name="no.air.integration" value="true"/>
     
     <!--
         Notes: If you're running the main target, then there is no need to call clean first.
@@ -74,7 +77,7 @@
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
-        depends="main,frameworks-rsls,checkintests,doc,other.locales,binary-distro,doc-packages,additional-packages" 
+        depends="setup-binary-release,main,frameworks-rsls,checkintests,doc,other.locales,binary-distro,doc-packages,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
     <target name="doc-packages" 
@@ -119,7 +122,7 @@
         description="Check that AIR_HOME is a directory">
         
         <echo message="AIR-HOME is ${env.AIR_HOME}"/>
-        
+
         <condition property="AIR_HOME.set">
             <and>
                 <length string="${env.AIR_HOME}" when="greater" length="0" />
@@ -142,6 +145,12 @@
         </echo>
     </target>
 
+    <target name="setup-binary-release"
+        description="Set properties needed to turn on features for release sdk">
+        <!-- generate localized compiler message jars -->
+	    <property name="localized.jars" value="true" />
+    </target>
+    
     <!--
         Cleanup
     -->
@@ -780,8 +789,7 @@
         </sequential>
     </macrodef>	
     
-    <!-- ToDo: this just stages the files but doesn't zip them?? -->
-    <target name="locale-package" unless="no.additional-packages"
+    <target name="locale-package"
         description="Stage all the locale swc's built">
         
         <copy todir="${basedir}/temp/frameworks/locale" verbose="true">
@@ -842,6 +850,27 @@
         </copy>
 
         <!-- lib -->
+        <!-- these are built when the compiler is built with localized.jars set -->
+        <copy todir="${basedir}/temp/lib">
+            <fileset dir="${basedir}/lib">
+                <include name="mxmlc_da.jar"/>
+                <include name="mxmlc_de.jar"/>
+                <include name="mxmlc_es.jar"/>
+                <include name="mxmlc_fi.jar"/>
+                <include name="mxmlc_fr.jar"/>
+                <include name="mxmlc_it.jar"/>
+                <include name="mxmlc_ja.jar"/>
+                <include name="mxmlc_ko.jar"/>
+                <include name="mxmlc_nb.jar"/>
+                <include name="mxmlc_nl.jar"/>
+                <include name="mxmlc_pt.jar"/>
+                <include name="mxmlc_ru.jar"/>
+                <include name="mxmlc_sv.jar"/>
+                <include name="mxmlc_zh_CN.jar"/>
+                <include name="mxmlc_zh_TW.jar"/>
+            </fileset>
+        </copy>
+        
         <!-- FixMe: Apache is missing all these language jars. -->
         <copy todir="${basedir}/temp/lib">
             <fileset dir="${basedir}/lib">
@@ -860,21 +889,6 @@
                 <include name="batik_sv.jar"/>
                 <include name="batik_zh_CN.jar"/>
                 <include name="batik_zh_TW.jar"/>
-                <include name="mxmlc_da.jar"/>
-                <include name="mxmlc_de.jar"/>
-                <include name="mxmlc_es.jar"/>
-                <include name="mxmlc_fi.jar"/>
-                <include name="mxmlc_fr.jar"/>
-                <include name="mxmlc_it.jar"/>
-                <include name="mxmlc_ja.jar"/>
-                <include name="mxmlc_ko.jar"/>
-                <include name="mxmlc_nb.jar"/>
-                <include name="mxmlc_nl.jar"/>
-                <include name="mxmlc_pt.jar"/>
-                <include name="mxmlc_ru.jar"/>
-                <include name="mxmlc_sv.jar"/>
-                <include name="mxmlc_zh_CN.jar"/>
-                <include name="mxmlc_zh_TW.jar"/>
                 <include name="xercesImpl_da.jar"/>
                 <include name="xercesImpl_de.jar"/>
                 <include name="xercesImpl_es.jar"/>
