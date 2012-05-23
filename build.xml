@@ -121,7 +121,7 @@
     <target name="check-air-home" unless="AIR_HOME.set"
         description="Check that AIR_HOME is a directory">
         
-        <echo message="AIR-HOME is ${env.AIR_HOME}"/>
+        <echo message="AIR_HOME is ${env.AIR_HOME}"/>
 
         <condition property="AIR_HOME.set">
             <and>
