@@ -85,8 +85,8 @@
         description="Build and package the asdocs for the framework clases and the javadocs."/>
                 
     <target name="additional-packages"
-        depends="locale-package,ja-locale-samples,antTasks-package" 
-        description="Package locales, locale-samples and antTasks."/>
+        depends="ja-locale-samples,antTasks-package" 
+        description="Package locale-samples and antTasks."/>
 
     <target name="help">
         <echo message="run ant -projecthelp to see the available targets"/>
@@ -166,7 +166,14 @@
         description="Full clean excluding thirdparty downloads">
         
         <delete file="${basedir}/flex-sdk-description.xml" failonerror="false"/>
-        <delete dir="${basedir}/lib/win" failonerror="false" includeEmptyDirs="true"/>
+        <delete file="${basedir}/rat.log" failonerror="false"/>
+        
+        <!-- These directory would exist if the AIR SDK was merged in. -->
+        <delete dir="${basedir}/lib" failonerror="false" includeEmptyDirs="true">
+            <include name="aot/**"/>
+            <include name="nai/**"/>
+            <include name="win/**"/>
+        </delete>
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
         <ant dir="${basedir}/asdoc" target="clean" />
@@ -563,6 +570,9 @@
         <!-- ant is pre-built and in FLEX_HOME/ant rather than modules/antTasks -->
         <antcall target="stage-antTasks"/>
         
+        <!-- locales -->
+        <antcall target="stage-locales"/>
+
         <!-- frameworks/libs -->
         <copy todir="${basedir}/temp/frameworks/libs">
             <fileset dir="${basedir}/frameworks/libs">
@@ -789,7 +799,7 @@
         </sequential>
     </macrodef>	
     
-    <target name="locale-package"
+    <target name="stage-locales"
         description="Stage all the locale swc's built">
         
         <copy todir="${basedir}/temp/frameworks/locale" verbose="true">
@@ -1372,9 +1382,10 @@
     <target name="rat-check">
        <typedef resource="org/apache/rat/anttasks/antlib.xml"
              uri="antlib:org.apache.rat.anttasks"/>
-       <rat:report xmlns:rat="antlib:org.apache.rat.anttasks">
-           <fileset dir="src/">
-              <!--exclude name="documentation/content/xdocs/dtd/" /-->
+       <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" reportFile="${basedir}/rat.log">
+           <fileset dir="${basedir}">
+              <exclude name="modules/compiler/src/**" />
+              <exclude name="**/.project" />
            </fileset>
        </rat:report>
     </target>
