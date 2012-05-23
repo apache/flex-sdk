@@ -20,8 +20,7 @@
 ################################################################################
 
 #
-# swcdepends launch script for unix.  On windows, swcdepends.exe is used and
-# java settings are managed in jvm.config in this directory.
+# swcdepends launch script for unix. On windows, swcdepends.bat is used instead.
 #
 
 case `uname` in

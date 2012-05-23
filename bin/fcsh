@@ -20,8 +20,7 @@
 ################################################################################
 
 #
-# fcsh launch script for unix.  On windows, fcsh.exe is used and
-# java settings are managed in jvm.config in this directory.
+# fcsh launch script for unix. On windows, fcsh.bat is used instead.
 #
 
 case `uname` in

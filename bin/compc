@@ -20,8 +20,7 @@
 ################################################################################
 
 #
-# compc launch script for unix.  On windows, compc.exe is used and
-# java settings are managed in jvm.config in this directory.
+# compc launch script for unix. On windows, compc.bat is used instead.
 #
 
 #

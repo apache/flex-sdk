@@ -15,4 +15,5 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
+
 java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\optimizer.jar" +flexlib="%FLEX_HOME%\frameworks" %*

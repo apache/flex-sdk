@@ -20,8 +20,7 @@
 ################################################################################
 
 #
-# mxmlc launch script for unix.  On windows, mxmlc.exe is used and
-# java settings are managed in jvm.config in this directory.
+# mxmlc launch script for unix. On windows, mxmlc.bat is used instead.
 #
 
 #

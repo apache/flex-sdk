@@ -15,4 +15,5 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
+
 java -ea -Dapplication.home="%FLEX_HOME%" -Xms32m -Xmx384m -jar "%FLEX_HOME%\lib\swfdump.jar" %*

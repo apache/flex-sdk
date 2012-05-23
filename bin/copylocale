@@ -20,8 +20,7 @@
 ################################################################################
 
 #
-# copylocale launch script for unix.  On windows, copylocale.exe is used and
-# java settings are managed in jvm.config in this directory.
+# copylocale launch script for unix. On windows, copylocale.bat is used instead.
 #
 
 case `uname` in
