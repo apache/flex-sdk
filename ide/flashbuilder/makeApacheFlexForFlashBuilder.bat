@@ -20,7 +20,7 @@ REM ##
 REM ################################################################################
 
 REM     This script should be used to create an Apache Flex SDK that has the
-REM     directory structure that the Adobe Flash Player IDE expects.
+REM     directory structure that the Adobe Flash Builder IDE expects.
 REM
 REM     The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are integrated
 REM     into the directory structure.  The paths in the framework configuration files are 

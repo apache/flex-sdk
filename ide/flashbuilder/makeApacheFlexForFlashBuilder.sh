@@ -20,7 +20,7 @@
 ################################################################################
 
 # This script should be used to create an Apache Flex SDK that has the
-# directory structure that the Adobe Flash Player IDE expects.
+# directory structure that the Adobe Flash Builder IDE expects.
 #
 # The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are integrated
 # into the directory structure.  The paths in the framework configuration files are 
