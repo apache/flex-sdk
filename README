@@ -58,7 +58,10 @@ Install Prerequisites
 
     Before building Flex you must install the following software and set the
     corresponding environment variables using absolute file paths.  Relative file paths
-    will result in build errors. 
+    will result in build errors.
+	
+	The environment variables PLAYERGLOBAL_HOME, AIR_HOME and FLASHPLAYER_DEBUGGER can
+	also be set in a file. See the env-template.properties file for instructions.
     
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
     with the exception of the airframework and airspark components which require
