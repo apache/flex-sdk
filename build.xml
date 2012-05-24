@@ -134,9 +134,26 @@
             unless="AIR_HOME.set"/>
     </target>
     
-    <!-- ToDo: automate setting the build number for non-dev builds. -->
-    <target name="create-description">
+    <target name="create-description" description="Generate flex-sdk-description.xml">
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
+&lt;!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+--&gt;
 &lt;flex-sdk-description&gt;
 &lt;name&gt;${release}&lt;/name&gt;
 &lt;version&gt;${release.version}&lt;/version&gt;
@@ -206,6 +223,8 @@
         <delete file="${basedir}/frameworks/tests/fxgCompile/fxgCompileTest.swf" failonerror="false"/>
         <delete file="${basedir}/frameworks/tests/graphics/GraphicTags_checkin.swf" failonerror="false"/>
         <delete file="${basedir}/frameworks/tests/basicTests/BasicTests.swf" failonerror="false"/>
+        <delete file="${basedir}/frameworks/tests/basicTests/spark/views/HelloWorld.swf" failonerror="false"/>
+        <delete file="${basedir}/frameworks/tests/basicTests/spark/views/StyleManagerModuleTest.swf" failonerror="false"/>
         <delete file="${basedir}/mustella/MustellaResultsParser.class" failonerror="false"/>
         <!-- not currently in Apache Flex -->
         <!--
@@ -234,12 +253,6 @@
     <target name="antTasks" description="Full build of antTasks" unless="antTasks.compiled" >
         <ant dir="${basedir}/modules/antTasks"/>
         <property name="antTasks.compiled" value="true"/>
-    </target>
-
-    <target name="test" description="Build src.depend JARs">
-        <echo message="test basedir ${basedir}"/>
-        <ant antfile="${basedir}/modules/build.xml" target="test"/>     
-        <ant antfile="${basedir}/frameworks/build.xml" target="test"/>     
     </target>
 
     <!--
@@ -443,7 +456,7 @@
                 <include name="**"/>
                 <exclude name="**/libs/**"/>
                 <exclude name="**/*.swc"/>
-                <exclude name="test*/**"/>
+                <!--exclude name="test*/**"/-->
                 <exclude name="projects/automation*/**"/>
                 <exclude name="projects/air/**"/>
                 <exclude name="projects/textLayout/**"/>
@@ -452,14 +465,6 @@
             </fileset>
         </copy>
 
-        <!-- frameworks/textLayout -->
-        <copy todir="${basedir}/temp/frameworks/projects/textLayout" includeEmptyDirs="false">
-            <fileset dir="${basedir}/frameworks/projects/textLayout">
-                <include name="build.xml"/>
-                <include name=".settings/**"/>
-            </fileset>
-        </copy>
-          
         <!-- now that air-config.xml and flex-config.xml are in temp, fix them up for release. -->
         <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" />
         <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" />
@@ -495,6 +500,8 @@
                 <exclude name="compiler/**/TokenMgrError.java"/>
                 <exclude name="thirdparty/*/merged/**"/>
                 <exclude name="**/classes/**"/>
+                <exclude name="**/.classpath"/>
+                <exclude name="**/.project"/>
             </fileset>
         </copy>  
     </target>
@@ -1377,17 +1384,24 @@
     
     <!-- Runs Apache Rat against the source code, to spot any files -->
     <!--  which are missing the correct license headers -->
-    <!-- You need to download rat from http://incubator.apache.org/rat/ -->
-    <!--  and place the Rat jar into your ant lib before running -->
-    <target name="rat-check">
-       <typedef resource="org/apache/rat/anttasks/antlib.xml"
+    <!-- You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar -->
+    <!--  into your ant lib before running this target. -->
+    <target name="rat-check" description="Report licenses in source kit">
+    
+        <!-- Stage the src kit files in the temp directory. -->
+        <property name="no.zip" value="set" />
+        <antcall target="source-release"/>
+        
+        <!-- Run Rat on the staged files to check for license violations. -->
+        <property name="rat.dir" value="${basedir}/temp"/>
+        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.log"/>
+        <typedef resource="org/apache/rat/anttasks/antlib.xml"
              uri="antlib:org.apache.rat.anttasks"/>
-       <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" reportFile="${basedir}/rat.log">
-           <fileset dir="${basedir}">
-              <exclude name="modules/compiler/src/**" />
-              <exclude name="**/.project" />
-           </fileset>
-       </rat:report>
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
+            reportFile="${basedir}/rat.log">
+            <fileset dir="${rat.dir}">
+                <exclude name="modules/asc/src/**" />
+            </fileset>
+        </rat:report>
     </target>
-
 </project>
