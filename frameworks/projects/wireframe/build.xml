@@ -75,7 +75,6 @@
 				<include name="spark.swc"/>
 				<include name="airspark.swc"/>
                 <include name="textLayout.swc"/>
-                <include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<include-file name="assets/Tree_folderClosedIcon.png" path="${basedir}/assets/Tree_folderClosedIcon.png"/>

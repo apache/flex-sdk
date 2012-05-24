@@ -306,7 +306,7 @@ tar -xjf "AIR Integration Kit.tbz2"
     <target name="thirdparty-downloads" 
         depends="osmf-download,swfobject-download,textLayout-download" 
         description="Copies third-party software into place for build">
-        <echo message="Use the thirdparty-clean target to remove these."/> 
+        <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>
     
     <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
@@ -394,14 +394,14 @@ tar -xjf "AIR Integration Kit.tbz2"
             verbose="false"/>
         <unzip dest="${FLEX_HOME}/in/downloads/textLayout_build" src="${FLEX_HOME}/in/downloads/textLayout_build.zip" />
         <copy file="${FLEX_HOME}/in/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
-        <copy todir="${basedir}/projects/textLayout">
+        <!--copy todir="${basedir}/projects/textLayout">
             <fileset dir="${FLEX_HOME}/in/downloads/textLayout_build">
                 <include name="**/**"/>
                 <exclude name="textLayout_build.zip"/>
                 <exclude name="build.xml"/>
                 <exclude name="libs/**"/>
             </fileset>
-        </copy>
+        </copy-->
         <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
     </target>
 

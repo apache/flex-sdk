@@ -62,7 +62,7 @@
     <target name="thirdparty-downloads" unless="downloads.jar.done" 
         description="Downloads all the required thirdparty JARs.">
         <ant antfile="${basedir}/downloads.xml" target="main" dir="${basedir}"/>
-        <echo message="Use the thirdparty-clean target to remove these."/> 
+        <echo message="Use thirdparty-clean or super-clean to remove these."/> 
         <property name="downloads.jar.done" value="true"/>
     </target>
     
