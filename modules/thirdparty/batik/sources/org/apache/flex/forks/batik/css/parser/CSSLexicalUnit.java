@@ -20,9 +20,9 @@
  *  Modified by Adobe Flex.
  */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.css.sac.LexicalUnit;
+import org.w3c.flex.forks.css.sac.LexicalUnit;
 
 /**
  * This class implements the {@link LexicalUnit} interface.

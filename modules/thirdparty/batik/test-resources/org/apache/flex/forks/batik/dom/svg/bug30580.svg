@@ -1,0 +1,84 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink" 
+     xmlns:test="http://xml.apache.org/batik/test"
+     width="450" height="500" viewBox="0 0 450 500"
+     onload="runTest(evt)">
+
+  <test:testResult id="testResult" />
+
+  <script type="text/ecmascript"><![CDATA[
+     var testNS = "http://xml.apache.org/batik/test";
+
+     function runTest() {
+         var result = document.getElementById("testResult");
+         result.setAttributeNS(null, "result", "failed");
+        
+         var img1 = document.getElementById("testImage");
+         if (img1 == null){
+          result.setAttributeNS(null, "errorCode", "cannot.find.test.element");
+          var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+          entry.setAttributeNS(null, "id", "missing.element.id");
+          entry.setAttributeNS(null, "value", "img1");
+          result.appendChild(entry);
+          return;
+         }
+
+         var attr1 = img1.getAttributeNodeNS(null,"preserveAspectRatio");
+         if (attr1.value != "xMidYMid meet") {
+           result.setAttributeNS(null, "errorCode", "wrong.attribute");
+           var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+           entry.setAttributeNS(null, "value", "invalid.value");
+           entry.setAttributeNS(null, "value", attr1.value);
+           result.appendChild(entry);
+           return;
+         }
+
+	 ///////////////////////////////////////////////
+	 // test using standard dom setValue interface
+	 attr1.value = "xMaxYMax slice";
+	 	 
+         if (img1.preserveAspectRatio.baseVal.align != 10 && img1.preserveAspectRatio.baseVal.meetOrSlice != 2) {
+           result.setAttributeNS(null, "errorCode", "wrong.attribute");
+           var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+           entry.setAttributeNS(null, "value", "invalid.value");
+           entry.setAttributeNS(null, "value", attr1.value);
+           result.appendChild(entry);
+           return;
+         }
+
+	 /////////////////////////////////////////////////
+	 // test using new preserveAspectRatio interface
+	 img1.preserveAspectRatio.baseVal.align = 2;
+	 img1.preserveAspectRatio.baseVal.meetOrSlice = 1;
+	 	 
+         if (img1.preserveAspectRatio.baseVal.align != 2 && img1.preserveAspectRatio.baseVal.meetOrSlice != 1) {
+           result.setAttributeNS(null, "errorCode", "wrong.attribute");
+           var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+           entry.setAttributeNS(null, "value", "invalid.value");
+           entry.setAttributeNS(null, "value", img1.preserveAspectRatio.baseVal.align + " " +  img1.preserveAspectRatio.baseVal.meetOrSlice);
+           result.appendChild(entry);
+           return;
+         }
+	 
+	 if (attr1.value != "xMinYMin meet") {
+           result.setAttributeNS(null, "errorCode", "wrong.attribute");
+           var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+           entry.setAttributeNS(null, "value", "invalid.value");
+           entry.setAttributeNS(null, "value", attr1.value);
+           result.appendChild(entry);
+           return;
+         }
+	 
+         result.setAttributeNS(null, "result", "passed");
+	 
+     }
+  ]]></script>
+
+  <image id="testImage" x="10" y="10" width="256" height="256" xlink:href="bug30580_image.png" preserveAspectRatio="xMidYMid meet" />
+</svg>
+ 

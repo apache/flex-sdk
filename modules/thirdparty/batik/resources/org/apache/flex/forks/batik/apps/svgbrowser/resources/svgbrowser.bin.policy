@@ -1,0 +1,93 @@
+// -------------------------------------------------------------------------
+// Copyright 2002-2003 The Apache Software Foundation
+// 
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+// 
+//        http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+// -------------------------------------------------------------------------
+
+grant codeBase "${app.jar.base}/lib/xerces_2_5_0.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/batik-squiggle.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-ext.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-dom.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-css.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-svg-dom.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-gvt.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-parser.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-script.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-bridge.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-swing.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-transcoder.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-gui-util.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-awt-util.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-util.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/batik-xml.jar" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "${app.jar.base}/lib/js.jar" {
+  permission java.lang.RuntimePermission "createClassLoader";
+  permission java.net.SocketPermission "*", "listen, connect, resolve, accept";
+  permission java.lang.RuntimePermission "accessDeclaredMembers";
+  permission java.util.PropertyPermission "org.mozilla.javascript.JavaAdapter", "read";
+  permission java.util.PropertyPermission "org.mozilla.javascript.JavaAdapterClassName", "read";
+  permission java.io.FilePermission "<<ALL FILES>>", "read";
+};
+
+grant {
+  permission java.io.FilePermission "lib/batik-svg-dom.jar", "read";
+};
+

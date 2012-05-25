@@ -20,7 +20,7 @@
  *  Modified by Adobe Flex.
  */
  
-package org.apache.batik.test.svg;
+package org.apache.flex.forks.batik.test.svg;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -29,28 +29,28 @@ import java.net.URL;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import org.apache.batik.bridge.BaseScriptingEnvironment;
-import org.apache.batik.bridge.BridgeContext;
-import org.apache.batik.bridge.BridgeException;
-import org.apache.batik.bridge.DefaultExternalResourceSecurity;
-import org.apache.batik.bridge.DefaultScriptSecurity;
-import org.apache.batik.bridge.EmbededExternalResourceSecurity;
-import org.apache.batik.bridge.EmbededScriptSecurity;
-import org.apache.batik.bridge.ExternalResourceSecurity;
-import org.apache.batik.bridge.GVTBuilder;
-import org.apache.batik.bridge.NoLoadExternalResourceSecurity;
-import org.apache.batik.bridge.NoLoadScriptSecurity;
-import org.apache.batik.bridge.RelaxedExternalResourceSecurity;
-import org.apache.batik.bridge.RelaxedScriptSecurity;
-import org.apache.batik.bridge.ScriptSecurity;
-import org.apache.batik.bridge.UserAgent;
-import org.apache.batik.bridge.UserAgentAdapter;
-import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
-import org.apache.batik.test.AbstractTest;
-import org.apache.batik.test.TestReport;
-import org.apache.batik.util.ParsedURL;
-import org.apache.batik.util.XMLResourceDescriptor;
-import org.apache.batik.util.ApplicationSecurityEnforcer;
+import org.apache.flex.forks.batik.bridge.BaseScriptingEnvironment;
+import org.apache.flex.forks.batik.bridge.BridgeContext;
+import org.apache.flex.forks.batik.bridge.BridgeException;
+import org.apache.flex.forks.batik.bridge.DefaultExternalResourceSecurity;
+import org.apache.flex.forks.batik.bridge.DefaultScriptSecurity;
+import org.apache.flex.forks.batik.bridge.EmbededExternalResourceSecurity;
+import org.apache.flex.forks.batik.bridge.EmbededScriptSecurity;
+import org.apache.flex.forks.batik.bridge.ExternalResourceSecurity;
+import org.apache.flex.forks.batik.bridge.GVTBuilder;
+import org.apache.flex.forks.batik.bridge.NoLoadExternalResourceSecurity;
+import org.apache.flex.forks.batik.bridge.NoLoadScriptSecurity;
+import org.apache.flex.forks.batik.bridge.RelaxedExternalResourceSecurity;
+import org.apache.flex.forks.batik.bridge.RelaxedScriptSecurity;
+import org.apache.flex.forks.batik.bridge.ScriptSecurity;
+import org.apache.flex.forks.batik.bridge.UserAgent;
+import org.apache.flex.forks.batik.bridge.UserAgentAdapter;
+import org.apache.flex.forks.batik.dom.svg.SAXSVGDocumentFactory;
+import org.apache.flex.forks.batik.test.AbstractTest;
+import org.apache.flex.forks.batik.test.TestReport;
+import org.apache.flex.forks.batik.util.ParsedURL;
+import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
+import org.apache.flex.forks.batik.util.ApplicationSecurityEnforcer;
 
 import java.security.AccessController;
 import java.security.AccessControlContext;
@@ -178,7 +178,7 @@ public class SVGOnLoadExceptionTest extends AbstractTest {
     /**
      * Name of the expected exception class
      */
-    protected String expectedExceptionClass = "org.apache.batik.bridge.Exception";
+    protected String expectedExceptionClass = "org.apache.flex.forks.batik.bridge.Exception";
 
     /**
      * Expected error code (for BridgeExceptions)

@@ -20,9 +20,9 @@
  *  Modified by Adobe Flex.
  */
  
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.css.sac.SACMediaList;
+import org.w3c.flex.forks.css.sac.SACMediaList;
 
 /**
  * This class implements the {@link SACMediaList} interface.

@@ -20,7 +20,7 @@
  *  Added by Adobe Flex.
  */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 public class CSSSACMediaQuery {
 	protected boolean not;

@@ -20,17 +20,17 @@
  *  Modified by Adobe Flex.
  */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.MissingResourceException;
 
-import org.apache.batik.i18n.LocalizableSupport;
-import org.apache.batik.util.io.NormalizingReader;
-import org.apache.batik.util.io.StreamNormalizingReader;
-import org.apache.batik.util.io.StringNormalizingReader;
+import org.apache.flex.forks.batik.i18n.LocalizableSupport;
+import org.apache.flex.forks.batik.util.io.NormalizingReader;
+import org.apache.flex.forks.batik.util.io.StreamNormalizingReader;
+import org.apache.flex.forks.batik.util.io.StringNormalizingReader;
 
 /**
  * This class represents a CSS scanner - an object which decodes CSS lexical

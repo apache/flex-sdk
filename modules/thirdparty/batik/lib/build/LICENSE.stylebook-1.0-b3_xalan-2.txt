@@ -1,0 +1,2 @@
+The stylebook-1.0-b3_xalan-2.jar file is under Apache license found in
+the xml-batik root directory in the LICENSE file.

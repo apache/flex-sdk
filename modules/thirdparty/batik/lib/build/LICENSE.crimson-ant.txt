@@ -1,0 +1,2 @@
+The crimson-ant.jar file is under Apache license found in the xml-batik 
+root directory in the LICENSE file.

@@ -1,0 +1,164 @@
+
+                         Project Maintanance Howto
+                         -------------------------
+                     
+This document introduces newcomers to the management and maintenance of 
+the Batik project hosted under xml.apache.org (http://xml.apache.org/batik).
+
+Each project is required to use Ant as build tool and to be coherent with the
+rest of the build systems of the other projects, so that nightly builds and
+distribution creation can be done automatically without per-project scripts.
+
+This implies it is *very* important that properties names are not changed
+but kept consistent with the other projects.
+
+Distribution Creation
+---------------------
+
+For creating a distribution the following steps must be done:
+
+ 1) Modify build.xml with the distribution version. Only modify the version 
+    for main releases (e.g. version value="1.1") but not for release 
+    candidates or beta versions where only the revision type and
+    number should be updated(e.g. revisionType value="beta" and
+    revisionNumber value="3")
+
+ 2) Add your public key to the KEYS file in the root directory of
+    Batik if it isn't already there.  The following link has the
+    details on what this means and how to do it.
+
+        http://nagoya.apache.org/wiki/apachewiki.cgi?SigningReleases
+
+ 3) Update the splash screens:
+    build splash
+
+ 4) Commit these changes to CVS, in general only the following files
+    should be modified:
+
+    build.xml
+    KEYS
+    xdocs/images/splash.png  
+    xdocs/images/splash.svg
+    resources/org/apache/batik/apps/svgbrowser/resources/squiggle.png
+
+ 5) tag the release on CVS:
+      cvs rtag <tag> <module>
+      e.g., cvs rtag batik-1_1rc3 xml-batik. 
+    Note: sometimes, it is necessary to remove a tag because the 
+    tests failed and a fix was required. To remove a tag, use
+    the rtag command:
+      cvs rtag -d <tag> <module>
+      e.g., cvs rtag -d batik-1_1rc3 xml-batik
+
+ 6) checkout the tagged release to a new directory:
+      cvs co -r <tag> xml-batik
+      e.g., cvs co -r batik-1_1rc3 xml-batik
+
+ 7) run the build script with target "dist-zip"
+      build dist-zip 
+    this will create the binary release zip, the source release zip and the
+    javadoc zip.
+
+ 8) test the distributions
+      build regard
+      build regard.manual
+    The build results are in xml-batik/test-reports. Check that there
+    are no show-stoppers for the release. If there are fixes required,
+    you need to remove the tag (as explained in step 2) and then fix
+    any problem that requires attention. Then, you need to start at
+    step 1) again.
+
+    Note that you will need to have a copy of the W3C SVG 
+    working group test suite in the 'beSuite' directory and
+    have that directory under the same root as xml-batik. See
+    http://www.w3.org/Graphics/SVG for instructions on how to get
+    the SVG test suite.
+
+ 9) Update the README file describing the content of the release and
+    the modifications which have taken place:
+    http://xml.apache.org/batik/dist/README 
+
+10) If you are creating a release candidate, rename the distribution files
+    to an rc name. For example:
+      mv batik-src-1.1.zip batik-src-1.1rc1.zip
+
+11) Sign and create md5 hashes for the releases. The following link
+    has full details on how to sign things (if you don't want to know
+    anything the last section 'Using GPG' tells you what commands work).
+
+        http://nagoya.apache.org/wiki/apachewiki.cgi?SigningReleases
+
+    e.g. gpg --detach-sig --armor --output batik-1.5.zip.asc batik-1.5.zip
+         md5 batik-1.5.zip > batik-1.5.zip.md5
+
+11) Use 'scp' to copy  the distributions (with md5 hashes, and signature 
+    files), the README, and the KEYS file under 
+        /www/www.apache.org/dist/xml/batik/
+
+     e.g., 'scp batik-1.1rc1.zip* vhardy@xml.apache.org:/www/www.apache.org/dist/xml/batik/'
+
+11) Finish setting up the distribution directory in accordance with:
+
+      http://www.apache.org/dev/mirrors.html
+      http://cvs.apache.org/~bodewig/mirror.html
+    
+    This makes sure that the distribution is mirrored nicely around
+    the world.
+
+    Start by logging into cvs.apache.org (e.g. 'ssh vhardy@cvs.apache.org').
+
+    First make sure file permissions are correct.  The
+    new files should be owned by group 'xml' and be group writable.
+    The following commands can do this (don't worry about links):
+       chgrp xml batik-1.5.zip
+       chmod 664 batik-1.5.zip
+
+    If you are making a 'final' release you should delete the existing
+    'current' links and re-point them at the new release (do this
+    for every file with a version number in it - including md5, and
+    asc files):
+       cd /www/www.apache.org/dist/xml/batik
+       rm batik-current.zip
+       ln -s batik-1.5.zip batik-current.zip
+       rm batik-current.zip.md5
+       ln -s batik-1.5.zip.md5 batik-current.zip.md5
+       rm batik-current.zip.asc
+       ln -s batik-1.5.zip.asc batik-current.zip.asc
+       <- lots more files ->
+
+    Finally remove the old releases (every release is automatically copied 
+    to 'archives.apache.org/dist/xml/batik' from
+    'www.apache.org/dist/xml/batik' so you can just remove an old
+    release from www.apache.org:
+       rm batik-1.5b4.zip
+
+10) Wait approximately 24hrs for the files to get to all the mirrors,
+    then send an email to the batik-dev and batik-users mailing lists
+    announcing the release.
+
+Site Creation
+-------------
+
+For creating the web site, the following steps must be done:
+
+[Note: due to JVM font-rendering problems, this is best done on a windows machine]
+
+ 1) make sure you checked out the module "xml-site/targets/batik" in
+    the same directory as your project module
+ 2) run the build script with target "site"
+ 3) commit the xml-site/targets/[project] directory
+ 4) connect to xml.apache.org with your account
+ 5) execute "cd /www/xml.apache.org/[project]"
+ 6) execute "cvs update"
+ 7) zip the Batik javadoc of the latest stable Batik release
+ 8) ftp the Batik javadoc to xml.apache.org/batik 
+ 9) upzip the Batik java so that the javadoc is available
+    at xml.apache.org/batik/javadoc/index.html
+ 
+[NOTE: you must have commit access on xml-site to be able to do this]
+
+Nightly Builds
+--------------
+
+The nightly builds are current performed by a crontab entry in
+Thomas DeWeese's cvs.apache.org account: /home/deweese/bin/nightly.csh

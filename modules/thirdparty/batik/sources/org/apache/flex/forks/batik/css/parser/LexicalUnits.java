@@ -20,7 +20,7 @@
   *  Modified by Adobe Flex.  Added DPI, DPMC, NAMESPACE_QUALIFIED and NAMESPACE>
   */
   
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 /**
  * This interface defines the constants that represent CSS lexical units.

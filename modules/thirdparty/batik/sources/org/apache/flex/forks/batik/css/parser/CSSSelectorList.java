@@ -15,10 +15,10 @@
    limitations under the License.
 
  */
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.css.sac.Selector;
-import org.w3c.css.sac.SelectorList;
+import org.w3c.flex.forks.css.sac.Selector;
+import org.w3c.flex.forks.css.sac.SelectorList;
 
 /**
  * This class implements the {@link SelectorList} interface.

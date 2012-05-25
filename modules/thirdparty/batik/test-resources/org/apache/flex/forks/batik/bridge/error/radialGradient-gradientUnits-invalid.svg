@@ -1,0 +1,72 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20000802//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20000802/DTD/svg-20000802.dtd">
+
+<!--
+
+   Copyright 2002  The Apache Software Foundation 
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!-- ========================================================================= -->
+<!-- Error on rect                                                             -->
+<!--                                                                           -->
+<!-- @author tkormann@apache.org                                               -->
+<!-- @version $Id: radialGradient-gradientUnits-invalid.svg,v 1.3 2004/08/18 07:16:19 vhardy Exp $  -->
+<!-- ========================================================================= -->
+
+<?xml-stylesheet type="text/css" href="test.css" ?>
+
+<svg id="body" width="450" height="500" viewBox="0 0 450 500">
+<title>Error: "gradientUnits" on &lt;radialGradient> is invalid</title>
+
+    <!-- ============================================================= -->
+    <!-- Batik sample mark                                             -->
+    <!-- ============================================================= -->
+    <use xlink:href="./batikMark.svg#BatikTag" />
+
+    <!-- ============================================================= -->
+    <!-- Test content                                                  -->
+    <!-- ============================================================= -->
+    <g id="testContent">
+
+    <text x="225" y="40" class="title">
+      Error: "gradientUnits" on &lt;radialGradient>
+    </text>
+    <text x="225" y="60" class="title">
+      is invalid
+    </text>
+
+    <defs>
+      <radialGradient id="good" cx="50%" cy="50%" r="50%" fx="20%" fy="20%" 
+                      gradientUnits="objectBoundingBox">
+        <stop offset="0%"   style="stop-color:yellow"/>
+        <stop offset="100%" style="stop-color:green"/>
+      </radialGradient>
+      <radialGradient id="bad"  cx="50%" cy="50%" r="-10" fx="20%" fy="20%"
+                      gradientUnits="objectBoundingBoX">
+        <stop offset="0%"   style="stop-color:yellow"/>
+        <stop offset="100%" style="stop-color:green"/>
+      </radialGradient>
+    </defs>
+
+    <text x="225" y="240" class="legend">A &lt;radialGradient></text>
+    <text x="225" y="440" class="legend">A &lt;radialGradient> with an invalid "gradientUnits"</text>
+
+    <circle cx="220" cy="140" r="70" style="fill:url(#good)"/>
+    <circle cx="220" cy="330" r="70" style="fill:url(#bad)"/>
+
+
+    </g>    
+</svg>

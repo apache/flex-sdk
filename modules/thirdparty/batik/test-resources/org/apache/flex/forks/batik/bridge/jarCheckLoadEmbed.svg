@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<!--
+
+   Copyright 2004  The Apache Software Foundation 
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!-- ========================================================================= -->
+<!--                                                                           -->
+<!-- @author vincent.hardy@sun.com                                             -->
+<!-- @version $Id: jarCheckLoadEmbed.svg,v 1.2 2004/08/18 07:16:06 vhardy Exp $   -->
+<!-- ========================================================================= -->
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink" 
+     xmlns:test="http://xml.apache.org/batik/test"
+     width="450" height="500" viewBox="0 0 450 500">
+
+    <test:testResult id="testResult" result="failed" errorCode="IWasLoadedToo.jar should have been loaded"/>
+    <script type="application/java-archive" xlink:href="data:,UEsDBAoAAAAAAKZaVzAAAAAAAAAAAAAAAAAJAAAATUVUQS1JTkYvUEsDBBQACAAI
+AKVaVzAAAAAAAAAAAAAAAAAUAAAATUVUQS1JTkYvTUFOSUZFU1QuTUZNjLEKwjAQ
+QPdA/uFGHXK0VEG6qYsFO1V0lGty1qAm5RKH/r3VyfU93msp+BunbM4sycdQQ4mF
+VtvwR7Yj2TvDzGa5xhVotRemzM7spm9QYXktNqYvKlh07wCttxLTlDK/EjTB4lKr
+zoofszlQcE+WGqIMSL8x9pT9A3vxbmBsLpSOkRy7U4xaafUBUEsHCCmX1lGLAAAA
+ogAAAFBLAwQKAAAAAACrWVIwAAAAAAAAAAAAAAAABAAAAG9yZy9QSwMECgAAAAAA
+q1lSMAAAAAAAAAAAAAAAAAsAAABvcmcvYXBhY2hlL1BLAwQKAAAAAACrWVIwAAAA
+AAAAAAAAAAAAEQAAAG9yZy9hcGFjaGUvYmF0aWsvUEsDBAoAAAAAAKtZUjAAAAAA
+AAAAAAAAAAAYAAAAb3JnL2FwYWNoZS9iYXRpay9icmlkZ2UvUEsDBBQACAAIAKtZ
+UjAAAAAAAAAAAAAAAAArAAAAb3JnL2FwYWNoZS9iYXRpay9icmlkZ2UvSVdhc0xv
+YWRlZFRvby5jbGFzc41Ry07CQBQ9w6sIqFDA94uFCdXoLFyZGhNfiSQEEzGwnnYm
+tVha0k4lfpYrgws/wI8yDkhiDCycSebMOfc1c+/n1/sHgGPs5ZDFchbFPErQsyhn
+UcmjihUNqxrWNKwTZM5c35XnBMm60SFIXQVcKBLGPsFpvRmEDh2e2JQHfXod2HFf
++NKcqGzA7EdBLSbdJxrZoTuQtOv6PBiaRqeAHPIEOSkieS+i2JMaNgrYxJaqGE4E
+dRmwKBJcw3YBO9gl2J/Ja4UudwRtdFnUDBgX/CEICIo99syox3yH3lk9Yct5odMn
+tSdwy3zuiZCgMu9DBEuOkDeeGJPLlwYnMOrN3yJtGbq+Yxp/ujF1NwnKc2SVMhLy
+QqpIK5ai1Z50cyblfxSjgxo0NUmCBTXWhELVXHUWFCspJArTB28grxgvgkUsTc01
+pNQGqod6YoRkAq0joqf09AiZFH7c8Q1QSwcInl3r+VoBAAAvAgAAUEsBAhQDCgAA
+AAAAplpXMAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAQAO1BAAAAAE1FVEEtSU5GL1BL
+AQIUAxQACAAIAKVaVzApl9ZRiwAAAKIAAAAUAAAAAAAAAAAAAACkgScAAABNRVRB
+LUlORi9NQU5JRkVTVC5NRlBLAQIUAwoAAAAAAKtZUjAAAAAAAAAAAAAAAAAEAAAA
+AAAAAAAAEADtQfQAAABvcmcvUEsBAhQDCgAAAAAAq1lSMAAAAAAAAAAAAAAAAAsA
+AAAAAAAAAAAQAO1BFgEAAG9yZy9hcGFjaGUvUEsBAhQDCgAAAAAAq1lSMAAAAAAA
+AAAAAAAAABEAAAAAAAAAAAAQAO1BPwEAAG9yZy9hcGFjaGUvYmF0aWsvUEsBAhQD
+CgAAAAAAq1lSMAAAAAAAAAAAAAAAABgAAAAAAAAAAAAQAO1BbgEAAG9yZy9hcGFj
+aGUvYmF0aWsvYnJpZGdlL1BLAQIUAxQACAAIAKtZUjCeXev5WgEAAC8CAAArAAAA
+AAAAAAAAAACkgaQBAABvcmcvYXBhY2hlL2JhdGlrL2JyaWRnZS9JV2FzTG9hZGVk
+VG9vLmNsYXNzUEsFBgAAAAAHAAcAwgEAAFcDAAAAAA==" />
+
+</svg>

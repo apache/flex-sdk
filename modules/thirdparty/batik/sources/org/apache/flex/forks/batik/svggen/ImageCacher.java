@@ -20,7 +20,7 @@
  *  Modified by Adobe Flex.  Made ImageCacheEntry class static.
  */
 
-package org.apache.batik.svggen;
+package org.apache.flex.forks.batik.svggen;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

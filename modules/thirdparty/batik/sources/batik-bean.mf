@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+
+Name: org/apache/batik/swing/JSVGCanvas.class
+Java-Bean: True
+

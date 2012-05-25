@@ -1,0 +1,2 @@
+The ant_1_4_1.jar file is under Apache license found in the xml-batik root 
+directory in the LICENSE file.

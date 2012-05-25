@@ -1,0 +1,27 @@
+
+	SVG pretty-printer - (C) Apache Software Foundation      
+		http://xml.apache.org/batik
+
+Syntax:
+	svgpp [options] <input file> [<output file>]
+
+Available Options:
+-no-format
+	Disables any formatting. Useful for doctype modifications,
+	newline conversion, ...
+-xml-decl <string>
+	The value to set to the XML declaraction.
+-system-id <string>
+	The value to set to the system ID of the doctype.
+-doc-width <number>
+	Sets the document preferred number of columns. The default is 80.
+-tab-width <number>
+	Sets the tabulation width. The default is 4.
+-public-id <string>
+	The value to set to the public ID of the doctype.
+-newline (cr | cr-lf | lf)
+	Specifies the type of newline to output. Possible values are:
+	cr (mac), cr-lf (dos), lf (unix - the default).
+-doctype (change | remove)
+	Removes or changes the DOCTYPE declaration. change is used 
+	in conjonction with the -public-id and -system-id options.

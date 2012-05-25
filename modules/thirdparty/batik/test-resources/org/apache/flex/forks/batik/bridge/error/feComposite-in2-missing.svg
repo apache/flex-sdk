@@ -1,0 +1,87 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20000802//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20000802/DTD/svg-20000802.dtd">
+
+<!--
+
+   Copyright 2002  The Apache Software Foundation 
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!-- ========================================================================= -->
+<!-- Error on rect                                                             -->
+<!--                                                                           -->
+<!-- @author tkormann@apache.org                                               -->
+<!-- @version $Id: feComposite-in2-missing.svg,v 1.3 2004/08/18 07:16:16 vhardy Exp $  -->
+<!-- ========================================================================= -->
+
+<?xml-stylesheet type="text/css" href="test.css" ?>
+
+<svg id="body" width="450" height="500" viewBox="0 0 450 500">
+<title>Error: attribute "in2" on &lt;feComposite> is missing</title>
+
+    <!-- ============================================================= -->
+    <!-- Batik sample mark                                             -->
+    <!-- ============================================================= -->
+    <use xlink:href="./batikMark.svg#BatikTag" />
+
+    <!-- ============================================================= -->
+    <!-- Test content                                                  -->
+    <!-- ============================================================= -->
+    <g id="testContent">
+
+    <text x="225" y="40" class="title">
+      Error: attribute "in2" on &lt;feComposite> is missing
+    </text>
+
+    <defs>
+       <circle id="Circle1" cx="40" cy="60" r="30" style="fill:orange" />
+  
+       <circle id="Circle2" cx="80" cy="60" r="30" style="fill:blue" />
+  
+        <filter id="feImage1" x="0" y="0" width="1" height="1">
+          <feImage xlink:href="#Circle1"/>
+        </filter>
+  
+        <filter id="feImage2" x="0" y="0" width="1" height="1">
+          <feImage xlink:href="#Circle2"/>
+        </filter>
+  
+        <filter id="good" x="0" y="0" width="1" height="1">
+          <feImage xlink:href="#Circle1" result="c1" />
+          <feImage xlink:href="#Circle2" result="c2" />
+          <feComposite in="c1" in2="c2" operator="over" />
+        </filter>
+        <filter id="bad" x="0" y="0" width="1" height="1">
+          <feImage xlink:href="#Circle1" result="c1" />
+          <feImage xlink:href="#Circle2" result="c2" />
+          <feComposite in="c1" operator="over" />
+        </filter>
+
+    </defs>
+
+    <text x="225" y="240" class="legend">A filtered rectangle using &lt;feComposite></text>
+    <text x="225" y="440" class="legend">
+      A filtered rectangle using &lt;feComposite>.
+    </text>
+    <text x="225" y="454" class="legend">
+      The attribute "in2" of  &lt;feComposite> is missing
+    </text>
+
+    <rect x="165" y="100" width="120" height="100" style="filter:url(#good)"/>
+    <rect x="165" y="300" width="120" height="100" style="filter:url(#bad)"/>
+
+
+    </g>
+</svg>

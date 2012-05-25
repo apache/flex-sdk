@@ -11,7 +11,7 @@
  *  Modified by Adobe Flex.
  */
  
-package org.w3c.css.sac;
+package org.w3c.flex.forks.css.sac;
 
 /**
  * This is a lexical unit for CSS values.

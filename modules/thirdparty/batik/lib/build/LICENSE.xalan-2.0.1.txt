@@ -1,0 +1,2 @@
+The xalan-2.0.1.jar file is under Apache license found in the
+xml-batik root directory in the LICENSE file.

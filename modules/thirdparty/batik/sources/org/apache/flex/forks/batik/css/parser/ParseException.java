@@ -20,7 +20,7 @@
  *  Modified by Adobe Flex.
  */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 /**
  * This class encapsulates a general parse error or warning.

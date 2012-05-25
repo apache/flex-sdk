@@ -1,0 +1,117 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<!--
+
+   Copyright 2002  The Apache Software Foundation 
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!-- ========================================================================= -->
+<!-- This test checks that the various RGB values read from the SVGColor       -->
+<!-- interface return accurate values.                                         -->
+<!--                                                                           -->
+<!-- @author shillion@ilog.fr                                                  -->
+<!-- @version $Id: lengthTest.svg,v 1.4 2004/08/18 07:16:30 vhardy Exp $            -->
+<!-- ========================================================================= -->
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink" 
+     xmlns:test="http://xml.apache.org/batik/test"
+     width="450" height="500" viewBox="0 0 450 500"
+     onload="runTest(evt)">
+
+  <test:testResult id="testResult" />
+
+  <script type="text/ecmascript"><![CDATA[
+     var testNS = "http://xml.apache.org/batik/test";
+
+     function runTest() {
+         var result = document.getElementById("testResult");
+         result.setAttributeNS(null, "result", "failed");
+         
+         var r1 = document.getElementById("r1")
+         if (r1 == null){
+          result.setAttributeNS(null, "errorCode", "cannot.find.test.element");
+          var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+          entry.setAttributeNS(null, "id", "missing.element.id");
+          entry.setAttributeNS(null, "value", "r1");
+          result.appendChild(entry);
+          return;
+         }
+
+         var r2 = document.getElementById("r2")
+         if (r2 == null){
+          result.setAttributeNS(null, "errorCode", "cannot.find.test.element");
+          var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+          entry.setAttributeNS(null, "id", "missing.element.id");
+          entry.setAttributeNS(null, "value", "r2");
+          result.appendChild(entry);
+          return;
+         }
+
+         var r3 = document.getElementById("r3")
+         if (r3 == null){
+          result.setAttributeNS(null, "errorCode", "cannot.find.test.element");
+          var entry = document.createElementNS(testNS, "errorDescriptionEntry");
+          entry.setAttributeNS(null, "id", "missing.element.id");
+          entry.setAttributeNS(null, "value", "r3");
+          result.appendChild(entry);
+          return;
+         }
+
+         if (r1.width.baseVal.value != 20) {
+           result.setAttributeNS(null, "errorCode", "invalid.r1.width");
+           var entry = document.createElementNS(testNS,
+                                                "errorDescriptionEntry");
+           entry.setAttributeNS(null, "id", "r1.value.found");
+           entry.setAttributeNS(null, "value", r1.width.baseVal.value);
+           result.appendChild(entry);
+           return;
+         }
+
+         if (r2.width.baseVal.value > 20.00001 ||
+             r2.width.baseVal.value < 19.99999) {
+           result.setAttributeNS(null, "errorCode", "invalid.r2.width");
+           var entry = document.createElementNS(testNS,
+                                                "errorDescriptionEntry");
+           entry.setAttributeNS(null, "id", "r2.value.found");
+           entry.setAttributeNS(null, "value", r2.width.baseVal.value);
+           result.appendChild(entry);
+           return;
+         }
+
+         if (r3.width.baseVal.value > 20.00001 ||
+             r3.width.baseVal.value < 19.99999) {
+           result.setAttributeNS(null, "errorCode", "invalid.r3.width");
+           var entry = document.createElementNS(testNS,
+                                                "errorDescriptionEntry");
+           entry.setAttributeNS(null, "id", "r3.value.found");
+           entry.setAttributeNS(null, "value", r3.width.baseVal.value);
+           result.appendChild(entry);
+           return;
+         }
+
+         result.setAttributeNS(null, "result", "passed");
+     }
+  ]]></script>
+
+  <g>
+     <rect id="r1" x="0" y="10" width="20" height="80"/>
+     <rect id="r2" x="6.66%" y="2%" width="4.4444444444%" height="16%"/>
+     <rect id="r3" x="15.87mm" y="2.645mm" width="5.2916666666mm"
+                   height="21.16mm"/>
+  </g>
+</svg>

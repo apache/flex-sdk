@@ -1,0 +1,82 @@
+body {
+  margin: 2em 1em 2em 70px;
+  font-family: serif;
+  font-size: 10px;
+  color: black;
+  background: white;
+  background-position: top left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: white;
+
+}
+:link { color: #00C; background: transparent }
+:visited { color: #609; background: transparent }
+:active { color: #C00; background: transparent }
+
+th, tr, td { /* ns 4 */
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+table tr td {
+    font-family: sans-serif;
+}
+
+ol li { font-size: 10px; }
+
+p,ol,ul,li { font-family: sans-serif;}
+h1, h2, h3, h4, h5, h6 { text-align: left }
+h1, h2, h3 { color: #444; background: white; }
+h1 { font: 27px serif; }
+h2 { font: 18px serif }
+h3 { font: 16px serif }
+h4 { font: bold 12px serif }
+h5 { font: italic 12px serif }
+h6 { font: small-caps 12px serif }
+h7 { font-family: serif; }
+
+.titlefailed { font-family: Arial; font-weight: bolder; font-size: 12;}
+.titlepassed {}
+.reportDate {
+    text-align: right;
+    font-family: sans-serif;
+}
+div.head { margin-bottom: 1em }
+div.head h1 { margin-top: 2em; clear: both }
+div.head table { margin-left: 2em; margin-top: 2em }
+div.head img { color: white; border: none } /* remove border from top image */
+
+.margin0 { background: red;}
+
+p.copyright { font-size: small }
+p.copyright small { font-size: small }
+
+@media screen {  /* hide from IE3 */
+a:hover { background: #ffa } 
+}
+
+pre { color: #99F; }
+
+dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */
+dt { font-weight: bold }
+
+tt, pre, code { font-family: monospace } /* navigator 4 requires this */
+
+ul.toc {
+  list-style: disc;		/* Mac NS has problem with 'none' */
+  list-style: none;
+}
+
+@media aural {  
+  h1, h2, h3 { stress: 20; richness: 90 }
+  .hide { speak: none }
+  p.copyright { volume: x-soft; speech-rate: x-fast }
+  dt { pause-before: 20% }
+  pre { speak-punctuation: code } 
+}
+
+table {
+    font-size: 10;
+    font-family: sans-serif;
+}

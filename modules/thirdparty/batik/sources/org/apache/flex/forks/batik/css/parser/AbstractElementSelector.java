@@ -20,9 +20,9 @@
  *  Modified by Adobe Flex to extend AbstractSelector.
  */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.css.sac.ElementSelector;
+import org.w3c.flex.forks.css.sac.ElementSelector;
 
 /**
  * This class provides an abstract implementation of the

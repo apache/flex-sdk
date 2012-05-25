@@ -21,7 +21,7 @@
  *  Modified by Adobe Flex.
  */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 /**
  * A collection of utility functions for a CSS scanner.

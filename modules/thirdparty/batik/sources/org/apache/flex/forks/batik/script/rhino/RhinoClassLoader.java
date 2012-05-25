@@ -19,7 +19,7 @@
  /**
   *  Modified by Adobe Flex.  Added Certificate.
   */
-package org.apache.batik.script.rhino;
+package org.apache.flex.forks.batik.script.rhino;
 
 import java.io.File;
 import java.io.FilePermission;

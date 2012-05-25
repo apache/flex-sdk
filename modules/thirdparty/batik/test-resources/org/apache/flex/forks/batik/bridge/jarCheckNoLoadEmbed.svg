@@ -1,0 +1,75 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<!--
+
+   Copyright 2004  The Apache Software Foundation 
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!-- ========================================================================= -->
+<!--                                                                           -->
+<!-- @author vincent.hardy@sun.com                                             -->
+<!-- @version $Id: jarCheckNoLoadEmbed.svg,v 1.2 2004/08/18 07:16:07 vhardy Exp $   -->
+<!-- ========================================================================= -->
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink" 
+     xmlns:test="http://xml.apache.org/batik/test"
+     width="450" height="500" viewBox="0 0 450 500">
+
+    <test:testResult id="testResult" result="passed" />
+    <script type="application/java-archive" xlink:href="data:,UEsDBAoAAAAAAKZaVzAAAAAAAAAAAAAAAAAJAAAATUVUQS1JTkYvUEsDBBQACAAI
+AKVaVzAAAAAAAAAAAAAAAAAUAAAATUVUQS1JTkYvTUFOSUZFU1QuTUZNjLEKwjAQ
+QPdA/uFGHXK0VEG6VRcLdiroKNfkrEFNyiUO/Xurk+t7vNdR8DdO2ZxZko+hhhIL
+rZrwR5qJ7J1hYYvc4ga0OghTZmf28zeosLwWOzMUFaz6d4DOW4lpTplfCdpgca1V
+b8VP2RwpuCdLDVFGpN8YB8r+gYN4NzK2F0qnSI6dVlp9AFBLBwgPL0xMiQAAAJ8A
+AABQSwMECgAAAAAAq1lSMAAAAAAAAAAAAAAAAAQAAABvcmcvUEsDBAoAAAAAAKtZ
+UjAAAAAAAAAAAAAAAAALAAAAb3JnL2FwYWNoZS9QSwMECgAAAAAAq1lSMAAAAAAA
+AAAAAAAAABEAAABvcmcvYXBhY2hlL2JhdGlrL1BLAwQKAAAAAACrWVIwAAAAAAAA
+AAAAAAAAGAAAAG9yZy9hcGFjaGUvYmF0aWsvYnJpZGdlL1BLAwQUAAgACACrWVIw
+AAAAAAAAAAAAAAAAKAAAAG9yZy9hcGFjaGUvYmF0aWsvYnJpZGdlL0lXYXNMb2Fk
+ZWQuY2xhc3ONUttO3DAQPV4WEna3FAK938JN2kCLH/pUbVWpN6lIKyp1peXZiYds
+lmAjxwH1s/pU0Yd+QD+q6hCQUAWVaks+M2c8F8/41+8fPwHsYKODDpZCRF0sYyXE
+nRB3u7iH+yEehHgY4FGAxwGeCMy9Lkzh3wjM9JOxQPu91cSKq43Aq/7Qulyevsyk
+tkfyg83qIzJ+0LDqWGUTkqnyxaGsMlcce7lfGG1PB8m4hx5uCXQ8Vf4LVXXpAzzt
+4RlizugagoUDVZSkA6z2sIZ1gXlyzrqLCrZ291U1tEqT3pkqF1cTW5c6NtbHE3VC
+cUpk4rKxC6xdKyh1hc5JXgURWJyqEyVLZXL5OZ1SxhVs/ushowY+KaNLcgIrN7VB
+YCEn/7Gkc+Xd111OkfSHV0lG3hUmHyR/9fDy+kBg+QaaQ1bk33r2TGtPe6NmBtdC
+/g+TjLGKef4FAl3+Ei1GHgmfC6wtMQrG2a3vEN9wvgRuY/HS/Bxt3kC8HbXOMNPC
+3gsRtaPZM8y1wWIQhY144Yk/UEsHCA+1JmqKAQAAdgIAAFBLAwQUAAgACACrWVIw
+AAAAAAAAAAAAAAAAKwAAAG9yZy9hcGFjaGUvYmF0aWsvYnJpZGdlL0lXYXNMb2Fk
+ZWRUb28uY2xhc3ONUctOwkAUPcOrCKhQwPeLhQnV6CxcmRoTX4kkBBMxsJ52JrVY
+WtJOJX6WK4MLP8CPMg5IYgwsnEnmzDn3NXPv59f7B4Bj7OWQxXIWxTxK0LMoZ1HJ
+o4oVDasa1jSsE2TOXN+V5wTJutEhSF0FXCgSxj7Bab0ZhA4dntiUB316HdhxX/jS
+nKhswOxHQS0m3Sca2aE7kLTr+jwYmkangBzyBDkpInkvotiTGjYK2MSWqhhOBHUZ
+sCgSXMN2ATvYJdifyWuFLncEbXRZ1AwYF/whCAiKPfbMqMd8h95ZPWHLeaHTJ7Un
+cMt87omQoDLvQwRLjpA3nhiTy5cGJzDqzd8ibRm6vmMaf7oxdTcJynNklTIS8kKq
+SCuWotWedHMm5X8Uo4MaNDVJggU11oRC1Vx1FhQrKSQK0wdvIK8YL4JFLE3NNaTU
+BqqHemKEZAKtI6Kn9PQImRR+3PENUEsHCJ5d6/laAQAALwIAAFBLAQIUAwoAAAAA
+AKZaVzAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAEADtQQAAAABNRVRBLUlORi9QSwEC
+FAMUAAgACAClWlcwDy9MTIkAAACfAAAAFAAAAAAAAAAAAAAApIEnAAAATUVUQS1J
+TkYvTUFOSUZFU1QuTUZQSwECFAMKAAAAAACrWVIwAAAAAAAAAAAAAAAABAAAAAAA
+AAAAABAA7UHyAAAAb3JnL1BLAQIUAwoAAAAAAKtZUjAAAAAAAAAAAAAAAAALAAAA
+AAAAAAAAEADtQRQBAABvcmcvYXBhY2hlL1BLAQIUAwoAAAAAAKtZUjAAAAAAAAAA
+AAAAAAARAAAAAAAAAAAAEADtQT0BAABvcmcvYXBhY2hlL2JhdGlrL1BLAQIUAwoA
+AAAAAKtZUjAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAEADtQWwBAABvcmcvYXBhY2hl
+L2JhdGlrL2JyaWRnZS9QSwECFAMUAAgACACrWVIwD7UmaooBAAB2AgAAKAAAAAAA
+AAAAAAAApIGiAQAAb3JnL2FwYWNoZS9iYXRpay9icmlkZ2UvSVdhc0xvYWRlZC5j
+bGFzc1BLAQIUAxQACAAIAKtZUjCeXev5WgEAAC8CAAArAAAAAAAAAAAAAACkgYID
+AABvcmcvYXBhY2hlL2JhdGlrL2JyaWRnZS9JV2FzTG9hZGVkVG9vLmNsYXNzUEsF
+BgAAAAAIAAgAGAIAADUFAAAAAA==" />
+
+</svg>

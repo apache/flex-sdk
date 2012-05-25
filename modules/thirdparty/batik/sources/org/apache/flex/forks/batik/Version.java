@@ -16,7 +16,7 @@
 
  */
 
-package org.apache.batik;
+package org.apache.flex.forks.batik;
 
 /**
  * This class defines the Batik version number.

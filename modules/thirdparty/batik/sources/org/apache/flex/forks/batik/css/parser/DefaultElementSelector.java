@@ -15,10 +15,10 @@
    limitations under the License.
 
  */
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 /**
- * This class implements the {@link org.w3c.css.sac.ElementSelector} interface.
+ * This class implements the {@link org.w3c.flex.forks.css.sac.ElementSelector} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
  * @version $Id: DefaultElementSelector.java,v 1.3 2004/08/18 07:13:02 vhardy Exp $
@@ -33,7 +33,7 @@ public class DefaultElementSelector extends AbstractElementSelector {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.css.sac.Selector#getSelectorType()}.
+     * org.w3c.flex.forks.css.sac.Selector#getSelectorType()}.
      */
     public short getSelectorType() {
 	return SAC_ELEMENT_NODE_SELECTOR;

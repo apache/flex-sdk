@@ -1,0 +1,25 @@
+
+Consider the following GVT node tree:
+
+	      +----+
+	      | N1 | BKGRND = new
+	      +----+
+                /\
+	       /  \
+	      /    \
+         +----+   +----+    
+	 | N2 |	  | N3 | Opacity=0.5
+	 +----+	  +----+
+          /|\       |  \
+         .....      |   \
+                    |    \
+                  +----+ +----+
+		  | N4 | | N5 | Filter = feOffset(src=Background)
+		  +----+ +----+
+
+
+N1.paint(G)
+  Calls N2.paint(G)
+  N2.paint does it's thing...
+  
+  

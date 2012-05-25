@@ -19,7 +19,7 @@
   *  Added by Apache Flex.
   */
 
-package org.apache.batik.css.parser;
+package org.apache.flex.forks.batik.css.parser;
 
 public abstract class AbstractSelector
 {

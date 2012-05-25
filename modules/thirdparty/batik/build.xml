@@ -132,19 +132,19 @@ To display the available targets type:
     </available>
 
     <condition property="javadoc-exclusions"
-               value="org.apache.batik.script.rhino">
+               value="org.apache.flex.forks.batik.script.rhino">
       <not>
         <equals arg1="${rhino.present}" arg2="true"/>
       </not>
     </condition>
     <condition property="javadoc-exclusions"
-               value="${javadoc-exclusions},org.apache.batik.script.jpython">
+               value="${javadoc-exclusions},org.apache.flex.forks.batik.script.jpython">
       <not>
         <equals arg1="${jpython.present}" arg2="true"/>
       </not>
     </condition>
     <condition property="javadoc-exclusions"
-               value="${javadoc-exclusions},org.apache.batik.script.jacl">
+               value="${javadoc-exclusions},org.apache.flex.forks.batik.script.jacl">
       <not>
         <equals arg1="${jacl.present}" arg2="true"/>
       </not>
@@ -726,7 +726,7 @@ To display the available targets type:
       </fileset>
       <fileset dir="${resources}" excludes="${resources}/**/CVS">
         <include name="${package-prefix}/script/**/resources/*"/>
-        <include name="META-INF/services/org.apache.batik.script.InterpreterFactory"/>
+        <include name="META-INF/services/org.apache.flex.forks.batik.script.InterpreterFactory"/>
       </fileset>
     </jar>
   </target>
@@ -786,7 +786,7 @@ To display the available targets type:
     <jar jarfile="${build}/lib/${project}-extension.jar">
       <fileset dir="${resources}" excludes="${resources}/**/CVS">
         <include name="META-INF/services/*"/>
-        <exclude name="META-INF/services/org.apache.batik.script.InterpreterFactory"/>
+        <exclude name="META-INF/services/org.apache.flex.forks.batik.script.InterpreterFactory"/>
       </fileset>
       <fileset dir="${dest}">
         <include name="${package-prefix}/extension/**/*.class"/>
@@ -1287,8 +1287,8 @@ To display the available targets type:
     <mkdir dir="${docs}/javadoc"/>
     <javadoc packagenames="${class-prefix}.*,
                            org.xml.*,
-                           org.w3c.css.*,
-                           org.w3c.dom.*"
+                           org.w3c.flex.forks.css.*,
+                           org.w3c.flex.forks.dom.*"
              excludepackagenames="${javadoc-exclusions}"
              maxmemory="128m"
              sourcepath="${src}"
