@@ -25,7 +25,7 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<property name="FLEX_LIB" value="${FLEX_HOME}/lib"/>
-	<property name="download.dir" value="${FLEX_HOME}/in/downloads"/>
+	<property name="download.dir" value="${FLEX_HOME}/in"/>
 	
 	<!-- 
 	   Notes:
@@ -47,7 +47,9 @@
 	        xalan (2.6.0) - Apache 2.0
 	        xercesImpl and xml-apis (2.9.1.2) - Apache 2.0
 	        javacc (5.0) - BSD - http://en.wikipedia.org/wiki/BSD_licenses
-	        velocity (1.4) - Apache 2.0	        
+	        velocity (1.4) - Apache 2.0
+	        
+	        OSMF - MPL1.1       
 	-->
 	
     <property name="commons-collections.name" value="commons-collections-3.0"/>
@@ -68,7 +70,7 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="batik-sources, blazeds-jar, commons-jars, javacc-jar, saxon9-jar, velocity-sources, xalan-jar, xerces-jars" 
+	<target name="main" depends="blazeds-jar, batik-sources, commons-jars, javacc-jar, saxon9-jar, velocity-sources, xalan-jar, xerces-jars" 
 		description="Downloads all the required thirdparty JARs"/>
     
     <!--
@@ -254,18 +256,33 @@
     
     <!--
         flex-messaging-common.jar - BlazeDS interface for -service compiler option
-        
-        ToDo: This is temporary until we make this dependency optional or BlazeDS is 
-        contributed to Apache.
     -->
     
-    <target name="blazeds-jar-check" description="Checks if flex-messaging-common.jar is in lib directory.">
+    <target name="blazeds-jar-check" 
+        description="Checks if flex-messaging-common.jar is in lib directory.">
         <available file="${FLEX_LIB}/flex-messaging-common.jar" property="blazeds.jar.exists"/>
     </target>
     
-    <target name="blazeds-jar" depends="blazeds-jar-check" unless="blazeds.jar.exists" 
-        description="Downloads and copies flex-messaging-common.jar to the lib directory.">
+    <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
+        description="Downloads and copies flex-messaging-common.jar to the lib directory."/>
 
+    <!-- Prompt before downloading BlazeDS.  -->
+    <target name="ask-blazeds" unless="blazeds.jar.exists"
+        description="Prompt the user before downloading BlaseDS">
+        <echo message="Flex can optionally integrate with Adobe BlazeDS."/>
+        <echo message="This feature requires flex-messaging-common.jar from Adobe BlazeDS."/>
+        <echo message="Adobe BlazeDS has a GNU Lesser General Public License, Version 3."/>
+        <input
+            message="Do you want to download Adobe BlazeDS?"
+            validargs="y,n"
+            defaultvalue="n"
+            addproperty="input.blazeds.download"/>
+        <condition property="do.blazeds.install">
+            <equals arg1="y" arg2="${input.blazeds.download}"/>
+        </condition>
+    </target>
+    
+    <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">
         <antcall target="download-zip">
           <param name="download.dir" value="${download.dir}"/>
           <param name="srcUrl" value="http://flexorg.wip3.adobe.com/blazeds/4.x/21287"/>
@@ -273,6 +290,7 @@
           <param name="srcJarPath" value="resources/lib/flex-messaging-common.jar"/>
           <param name="destJarFile" value="flex-messaging-common.jar"/>
         </antcall>
+        <copy file="${download.dir}/blazeds-turnkey-readme.htm" tofile="${FLEX_LIB}/flex-messaging-common-LICENSE.htm"/>
         
         <!--
         <antcall target="download-zip">
@@ -284,7 +302,7 @@
         </antcall>
         -->
     </target>
-
+    
     <!--
 	    commons
 	-->

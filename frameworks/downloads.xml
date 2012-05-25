@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="downloads" default="main" basedir=".">
+	<property name="FLEX_HOME" location=".."/>
+
+	<!-- properties -->
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<property name="download.dir" value="${FLEX_HOME}/in"/>
+	
+    <!-- Download thirdparty code -->
+    
+    <!-- 
+       To clean these you must call thirdparty-clean or super-clean to clean everything.  
+       clean does not remove these since they don't change often and the downloads take time.
+    -->
+    <target name="main" 
+        depends="osmf-download,swfobject-download,textLayout-download" 
+        description="Copies third-party software into place for build">
+        <echo message="Use thirdparty-clean or super-clean to remove these."/> 
+    </target>
+    
+    <target name="clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
+        <delete failonerror="false">
+            <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
+            <fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/>
+        </delete>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${download.dir}">
+                <include name="OSMF*/**"/>
+                <include name="textLayout*/**"/>
+            </fileset>
+        </delete>
+     </target>
+
+    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
+        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
+    </target>
+   
+   <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
+        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
+    </target>
+
+    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
+        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
+    </target>
+    
+    <!-- osmf.swc (Version 1.0) -->
+    <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
+    <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
+    <target name="osmf-download" depends="osmf-check,get-osmf" description="Copies OSMF from Sourceforge"/>    
+
+    <!-- Prompt before downloading OSMF.  -->
+    <target name="ask-osmf" unless="osmf.swc.present" description="Prompt the user before downloading OSMF">
+        <!--input
+            message="Do you want to download OSMF ....FIXME... ?"
+            validargs="y,n"
+            defaultvalue="n"
+            addproperty="input.osmf.download"/>
+        <condition property="do.osmf.install">
+            <or>
+                <equals arg1="y" arg2="${input.osmf.download}"/>
+                <equals arg1="Y" arg2="${input.osmf.download}"/>
+            </or>
+        </condition-->
+        <property name="do.osmf.install" value="set" />
+    </target>
+    
+    <!--target name="get-osmf" depends="ask-osmf" if="do.osmf.install"-->
+    <target name="get-osmf" depends="ask-osmf" if="do.osmf.install">
+        <mkdir dir="${download.dir}/OSMF_1.0"/>
+        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
+            dest="${download.dir}/OSMF_1.0.zip" 
+            verbose="false"/>
+        <unzip dest="${download.dir}/OSMF_1.0" src="${download.dir}/OSMF_1.0.zip" />
+        <unzip dest="${download.dir}/OSMF_1.0/osmf_source_v1-0" src="${download.dir}/OSMF_1.0/osmf_source_v1-0.zip" />
+        <copy file="${download.dir}/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
+        <delete dir="${download.dir}/OSMF_1.0" failonerror="false"/>
+    </target>
+    
+    <!-- swfobject.js (Version 2.2) -->
+    <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
+    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" description="Copies SWFObject from code.google.com">
+        <mkdir dir="${download.dir}/swfobject"/>
+        <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip" 
+            dest="${download.dir}/swfobject_2_2.zip" 
+            verbose="false"/>
+        <unzip dest="${download.dir}/swfobject" src="${download.dir}/swfobject_2_2.zip" />
+        <copy file="${download.dir}/swfobject/swfobject/expressInstall.swf" todir="${FLEX_HOME}/templates/swfobject"/>
+        <copy file="${download.dir}/swfobject/swfobject/swfobject.js" todir="${FLEX_HOME}/templates/swfobject"/>
+        <delete dir="${download.dir}/swfobject" failonerror="false"/>
+    </target>
+
+    <target name="swfobject-clean" description="Deletes the swfobject directory">
+        <delete failonerror="false">
+            <fileset dir="${FLEX_HOME}/templates/swfobject">
+                <include name="**/**"/>
+                <exclude name="history/*"/>
+                <exclude name="index.template.html"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <!-- textLayout.swc (Version 2.0.232) -->
+    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
+    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
+        <mkdir dir="${download.dir}/textLayout_build"/>
+        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
+            dest="${download.dir}/textLayout_build.zip" 
+            verbose="false"/>
+        <unzip dest="${download.dir}/textLayout_build" src="${download.dir}/textLayout_build.zip" />
+        <copy file="${download.dir}/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
+        <!--copy todir="${basedir}/projects/textLayout">
+            <fileset dir="${download.dir}/textLayout_build">
+                <include name="**/**"/>
+                <exclude name="textLayout_build.zip"/>
+                <exclude name="build.xml"/>
+                <exclude name="libs/**"/>
+            </fileset>
+        </copy-->
+        <delete dir="${download.dir}/textLayout_build" failonerror="false"/>
+    </target>
+
+    <!-- FixMe: should this be removed? -->
+    <target name="ide-clean" depends="airsdk-clean" 
+        description="Delete AIR SDK and playerglobal files copied into FLEX_HOME.">
+        <delete failonerror="false">
+            <fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/>
+        </delete>
+    </target>    
+
+    <!-- FixMe: should this be removed? -->
+    <target name="airsdk-clean" description="Delete files copied from the AIR SDK">
+        <!-- Delete AIR files and directories from 'prepare' target -->
+        <delete file="${FLEX_HOME}/AIR SDK license.pdf"/>
+        <delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
+        <delete file="${FLEX_HOME}/bin/adl"/>
+        <delete file="${FLEX_HOME}/bin/adl.exe"/>
+        <delete file="${FLEX_HOME}/bin/adt"/>
+        <delete file="${FLEX_HOME}/bin/adt.bat"/>
+        <delete dir="${FLEX_HOME}/include"/>
+        <delete dir="${FLEX_HOME}/install"/>
+        <delete dir="${FLEX_HOME}/frameworks/libs/air"/>
+        <delete dir="${FLEX_HOME}/frameworks/projects/air"/>
+        <delete file="${FLEX_HOME}/lib/adt.jar"/>
+        <delete file="${FLEX_HOME}/lib/win/FlashRuntimeExtensions.lib"/>
+        <delete dir="${FLEX_HOME}/runtimes"/>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${FLEX_HOME}/samples">
+                <include name="badges/**" />
+                <include name="descriptor-sample.xml" />
+                <include name="icons/**" />
+            </fileset>
+        </delete>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${FLEX_HOME}/templates">
+                <include name="air/**" />
+                <include name="extensions/**" />
+            </fileset>
+        </delete>
+    </target>
+</project>

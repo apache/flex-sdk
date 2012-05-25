@@ -51,6 +51,10 @@
     <target name="main" depends="check-compile-env,clean,thirdparty-downloads,javascript,compile" 
         description="Clean build of all SWCs"/>
 
+    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
+        <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
+    </target>
+
     <target name="check-compile-env" description="Check for the required environment variables">
         <ant antfile="${FLEX_HOME}/build.xml" target="check-compile-env" dir="${FLEX_HOME}"/>
     </target>
@@ -144,8 +148,16 @@
         -->
     </target>
    
-    <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
+    <!--
+		Cleanup
+	-->
 
+    <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
+	
+    <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
+        <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
+    </target>
+    
     <target name="clean" depends="airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/framework" target="clean"/>
@@ -190,31 +202,6 @@
         </delete>    
     </target>
     
-    <target name="thirdparty-clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
-        <delete failonerror="false" verbose="true">
-            <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
-            <fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/>
-        </delete>
-        <delete dir="${FLEX_HOME}/in/air/**"/>
-        <delete includeEmptyDirs="true" failonerror="false">
-            <fileset dir="${FLEX_HOME}/in/downloads">
-                <include name="OSMF*/**"/>
-                <include name="textLayout*/**"/>
-            </fileset>
-        </delete>
-        <!-- textLayout source -->
-        <delete failonerror="false" verbose="false">
-             <fileset dir="${basedir}/projects/textLayout">
-                 <include name="**/**"/>
-                 <exclude name="build.xml"/>
-                 <exclude name="**/.settings/**"/>
-                 <exclude name="**/.actionScriptProperties"/>
-                 <exclude name="**/.flexLibProperties"/>
-                 <exclude name="**/.project"/>
-             </fileset>
-         </delete>
-     </target>
-
     <target name="airsdk-clean" description="Delete files copied from the AIR SDK">
         <!-- Delete AIR files and directories from 'prepare' target -->
         <delete file="${FLEX_HOME}/AIR SDK license.pdf"/>
@@ -245,166 +232,6 @@
         </delete>
     </target>
     
-    <!-- FixMe: what file should be used? -->
-    <target name="airsdk-prepare-mac-check">
-        <available file="${FLEX_HOME}/bin/adt" property="airsdk.prepare.mac.done"/>
-    </target>
-
-    <!-- FixMe: what file should be used? -->
-    <target name="airsdk-prepare-win-check">
-        <available file="${FLEX_HOME}/bin/adt.bat" property="airsdk.prepare.win.done"/>
-    </target>
-    
-    <!-- FixMe: Can we get rid of this exec? -->
-    <target name="airsdk-prepare-mac" depends="airsdk-mac-download,airsdk-prepare-mac-check" 
-        unless="airsdk.prepare.mac.done" 
-        description="Prepares for building framework SWCs">
-        
-        <!-- Expand the Mac AIK on top of the SDK -->
-        <!-- Note: any symlinks in this package will be lost since ant tar doesn't support them. -->
-        <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}" verbose="true"/>
-        <echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
-tar -xjf "AIR Integration Kit.tbz2" 
-        </echo>
-        <exec executable="sh" dir="${FLEX_HOME}">
-            <arg line="${FLEX_HOME}/air_unzip.sh"/>
-        </exec>
-        <delete file="${FLEX_HOME}/air_unzip.sh"/>
-        <delete file="${FLEX_HOME}/AIR Integration Kit.tbz2"/>
-    </target>
-
-    <target name="airsdk-prepare-win" depends="airsdk-win-download,airsdk-prepare-win-check" 
-        unless="airsdk.prepare.win.done" 
-        description="Prepares for building framework SWCs">
-        
-        <!-- Expand the Win AIK on top of the SDK -->
-        <unzip src="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" dest="${FLEX_HOME}"/>
-    </target>
-
-    <target name="airsdk-prepare" depends="airsdk-prepare-mac,airsdk-prepare-win" 
-        description="Prepares for building framework SWCs">
-        
-        <!-- Delete AIK files that we don't put in the Open Source SDK -->
-        <!--
-        <delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
-        <delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
-        <delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
-        <delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
-        <delete dir="${FLEX_HOME}/lib/aot/bin/as"/>
-        <delete dir="${FLEX_HOME}/lib/aot/bin/strip"/>
-        <delete dir="${FLEX_HOME}/lib/aot/lib/gcc"/>
-        <delete dir="${FLEX_HOME}/lib/nai"/>
-        -->
-    </target>
-
-    <!-- Download thirdparty code -->
-    
-    <!-- 
-       To clean these you must call thirdparty-clean or super-clean to clean everything.  
-       clean does not remove these since they don't change often and the downloads take time.
-    -->
-    <target name="thirdparty-downloads" 
-        depends="osmf-download,swfobject-download,textLayout-download" 
-        description="Copies third-party software into place for build">
-        <echo message="Use thirdparty-clean or super-clean to remove these."/> 
-    </target>
-    
-    <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
-        <available file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" property="airsdk.mac.present"/>
-        <available file="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" property="airsdk.win.present"/>
-    </target>
-
-    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
-        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
-    </target>
-   
-   <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
-        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
-    </target>
-
-    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
-        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
-    </target>
-
-    <target name="airsdk-download" depends="airsdk-mac-download,airsdk-win-download" />
-
-    <!-- Adobe AIR SDK  -->
-    <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
-    <!-- ToDo: prepare uses both the mac and win kits.  Need to figure out why. -->
-    
-    <target name="airsdk-mac-download" depends="airsdk-check" unless="airsdk.mac.present" description="Copies Adobe AIR SDK for the Mac from the Adobe website">
-        <echo message="Be patient.  This takes a few minutes..." />
-        <mkdir dir="${FLEX_HOME}/in/air/mac"/>
-        <get src="http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2" 
-            dest="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" 
-            verbose="false"/>
-    </target>
-    
-    <target name="airsdk-win-download" depends="airsdk-check" unless="airsdk.win.present" description="Copies Adobe AIR SDK for Windows from the Adobe website">
-        <echo message="Be patient.  This takes a few minutes..." />
-        <mkdir dir="${FLEX_HOME}/in/air/win"/>
-        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
-            dest="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" 
-            verbose="false"/>
-    </target>
-    
-    <!-- osmf.swc (Version 1.0) -->
-    <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
-    <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
-    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
-        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
-            dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0" src="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" />
-        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0" src="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
-        <delete dir="${FLEX_HOME}/in/downloads/OSMF_1.0" failonerror="false"/>
-    </target>
-
-    <!-- swfobject.js (Version 2.2) -->
-    <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
-    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" description="Copies SWFObject from code.google.com">
-        <mkdir dir="${FLEX_HOME}/in/downloads/swfobject"/>
-        <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip" 
-            dest="${FLEX_HOME}/in/downloads/swfobject_2_2.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/swfobject" src="${FLEX_HOME}/in/downloads/swfobject_2_2.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/swfobject/swfobject/expressInstall.swf" todir="${FLEX_HOME}/templates/swfobject"/>
-        <copy file="${FLEX_HOME}/in/downloads/swfobject/swfobject/swfobject.js" todir="${FLEX_HOME}/templates/swfobject"/>
-        <delete dir="${FLEX_HOME}/in/downloads/swfobject" failonerror="false"/>
-    </target>
-
-    <target name="swfobject-clean" description="Deletes the swfobject directory">
-        <delete failonerror="false">
-            <fileset dir="${FLEX_HOME}/templates/swfobject">
-                <include name="**/**"/>
-                <exclude name="history/*"/>
-                <exclude name="index.template.html"/>
-            </fileset>
-        </delete>
-    </target>
-    
-    <!-- textLayout.swc (Version 2.0.232) -->
-    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
-    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${FLEX_HOME}/in/downloads/textLayout_build"/>
-        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${FLEX_HOME}/in/downloads/textLayout_build.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/textLayout_build" src="${FLEX_HOME}/in/downloads/textLayout_build.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
-        <!--copy todir="${basedir}/projects/textLayout">
-            <fileset dir="${FLEX_HOME}/in/downloads/textLayout_build">
-                <include name="**/**"/>
-                <exclude name="textLayout_build.zip"/>
-                <exclude name="build.xml"/>
-                <exclude name="libs/**"/>
-            </fileset>
-        </copy-->
-        <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
-    </target>
-
     <target name="airframework" description="Clean build of airframework.swc">
         <ant dir="${basedir}/projects/airframework"/>
     </target>
@@ -524,21 +351,4 @@ tar -xjf "AIR Integration Kit.tbz2"
     <target name="tool_air" description="Clean build of tool_air swc">
         <ant dir="${basedir}/projects/tool_air"/>
     </target>
-
-<!--    
-    <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
-        <property name="flex.home" value="${FLEX_HOME}" />     
-        
-        <delete dir="${basedir}/projects/air/build" quiet="true" />
-        <ant dir="${basedir}/projects/air" antfile="sample-frameworks-build.xml" target="application_updater.application_updater_ui" />
-        <copy todir="${basedir}/libs/air">
-            <fileset dir="${basedir}/projects/air/build/results">
-                <include name="applicationupdater_ui.swc"/>
-                <include name="applicationupdater_ui.swf"/>
-            </fileset>
-        </copy>
-        <delete dir="${basedir}/projects/air/build" quiet="true" />
-    </target>
--->
-
 </project>
