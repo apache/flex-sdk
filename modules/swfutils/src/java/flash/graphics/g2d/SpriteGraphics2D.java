@@ -371,7 +371,7 @@ public class SpriteGraphics2D extends AbstractGraphics2D
 	{
 		return (paint != null
 				&& (paint instanceof GradientPaint
-						|| paint.getClass().getName().equals("org.apache.batik.ext.awt.MultipleGradientPaint")));
+						|| paint.getClass().getName().equals("org.apache.flex.forks.batik.ext.awt.MultipleGradientPaint")));
 	}
 
 	/**

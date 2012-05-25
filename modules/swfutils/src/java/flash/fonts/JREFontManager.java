@@ -128,7 +128,7 @@ public class JREFontManager extends CachedFontManager
                 // though, anytime we create a font.  So it may mean we don't need the JRE font manager anymore,
                 // but since I'm not sure of that, it'll be kept in for awhile.
                 String locationStr = BatikFontManager.processLocation(location);
-                org.apache.batik.svggen.font.Font batikFont = org.apache.batik.svggen.font.Font.create(locationStr);
+                org.apache.flex.forks.batik.svggen.font.Font batikFont = org.apache.flex.forks.batik.svggen.font.Font.create(locationStr);
                 if (batikFont == null)
                 {
                     throw new FontFormatException ("Unable to create font." );

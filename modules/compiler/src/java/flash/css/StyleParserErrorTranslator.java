@@ -19,7 +19,7 @@
 
 package flash.css;
 
-import org.apache.batik.css.parser.LexicalUnits;
+import org.apache.flex.forks.batik.css.parser.LexicalUnits;
 
 import java.text.MessageFormat;
 import flex2.compiler.util.CompilerMessage.CompilerError;

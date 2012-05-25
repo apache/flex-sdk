@@ -36,11 +36,11 @@ import flex2.compiler.Logger;
 import flex2.compiler.util.CompilerMessage;
 import flex2.compiler.util.ThreadLocalToolkit;
 
-import org.apache.batik.css.parser.Parser;
-import org.w3c.css.sac.CSSException;
-import org.w3c.css.sac.CSSParseException;
-import org.w3c.css.sac.ErrorHandler;
-import org.w3c.css.sac.InputSource;
+import org.apache.flex.forks.batik.css.parser.Parser;
+import org.w3c.flex.forks.css.sac.CSSException;
+import org.w3c.flex.forks.css.sac.CSSParseException;
+import org.w3c.flex.forks.css.sac.ErrorHandler;
+import org.w3c.flex.forks.css.sac.InputSource;
 
 /**
  * The class is a wrapper around the Batik CSS Parser.  It uses a
@@ -219,7 +219,7 @@ public class StyleParser
     }
 
     // preilly: Be careful using this method, because in some cases,
-    // org.apache.batik.css.parser.Parser calls nextIgnoreSpaces() before calling handler
+    // org.apache.flex.forks.batik.css.parser.Parser calls nextIgnoreSpaces() before calling handler
     // functions, so the line number could have been advanced one or more times.  We store
     // line numbers in CSSLexicalUnit's and DefaultElementSelector's when they are
     // created, so if possible get the line number from there instead of here.

@@ -59,7 +59,6 @@
     <property name="saxon9.bin.zip" value="saxonb9-1-0-8j.zip"/>
     <property name="saxon9.jar.dir" value="saxonb9-1-0-8j"/>
     
-    <property name="batik.dir" value="thirdparty/batik"/>
     <property name="xerces.dir" value="xerces-2_9_1"/>
         
     <property name="velocity.src.dir" value="velocity-1.4"/>
@@ -70,14 +69,14 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="blazeds-jar, batik-sources, commons-jars, javacc-jar, saxon9-jar, velocity-sources, xalan-jar, xerces-jars" 
+	<target name="main" depends="blazeds-jar, commons-jars, javacc-jar, saxon9-jar, velocity-sources, xalan-jar, xerces-jars" 
 		description="Downloads all the required thirdparty JARs"/>
     
     <!--
 		Cleanup
 	-->
 	
-   <target name="clean" depends="batik-sources-clean, velocity-sources-clean" description="Removes all thirdparty downloads.">
+   <target name="clean" depends="velocity-sources-clean" description="Removes all thirdparty downloads.">
         <delete dir="${download.dir}" failonerror="false"/>
         <delete file="${FLEX_LIB}/commons-collections.jar"/>
         <delete file="${FLEX_LIB}/commons-discovery.jar"/>
@@ -200,74 +199,21 @@
         description="Conditionally fails with the specified message">                
         <fail message="${message}"/>
     </target>
-    
-    <!--
-        batik - SVG toolkit
-    -->
-    
-    <target name="batik-sources-check" description="Checks if batik build lib exists.">
-    	<condition property="batik.src.exists">
-    	    <available file="${download.dir}/xml-batik" type="dir"/>
-        </condition>
-    </target>
-    
-    <target name="batik-sources" depends="batik-sources-check" unless="batik.src.exists"
-        description="Downloads and copies the batik sources.">
-                
-        <antcall target="download-zip">
-            <param name="srcUrl" value="http://archive.apache.org/dist/xmlgraphics/batik"/>
-            <param name="zipFile" value="batik-src-1.6.zip"/>
-            <param name="md5" value="b65e12f520f8342605f700204c96cd2b"/>
-        </antcall>
         
-        <copy todir="${FLEX_LIB}">
-            <fileset dir="${download.dir}/xml-batik">
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
-            </fileset>            
-            <globmapper from="*" to="xml-batik-*"/>
-        </copy>
-    </target>
-    
-    <target name="batik-merge-sources" depends="batik-sources-clean"
-        description="Merges the batik files from the distro with the files changed by Flex.">
-
-    	<copy todir="${batik.dir}/merged" preservelastmodified="true">
-            <fileset dir="${download.dir}/xml-batik">
-                <exclude name="contrib/"/>
-                <exclude name="samples/"/>
-                <exclude name="xdocs/"/>
-            </fileset>
-        </copy>
-        
-        <!-- 
-             There are now files in resources, sources, test-source and build.xml for 
-             changes listed in thirdparty/batik/README.flex.txt.
-             (Adding support for css media queries to the batik css parser).             
-        -->
-        <copy todir="${batik.dir}/merged" preservelastmodified="true">
-            <fileset dir="${batik.dir}" excludes="merged/**"/>
-        </copy>
-    </target>
-
-	<target name="batik-sources-clean">
-        <delete dir="${batik.dir}/merged"/>
-    </target>
-    
     <!--
         flex-messaging-common.jar - BlazeDS interface for -service compiler option
     -->
     
     <target name="blazeds-jar-check" 
         description="Checks if flex-messaging-common.jar is in lib directory.">
-        <available file="${FLEX_LIB}/flex-messaging-common.jar" property="blazeds.jar.exists"/>
+        <available file="${FLEX_LIB}/flex-messaging-common.jar" property="blazeds.donot.ask"/>
     </target>
     
     <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
         description="Downloads and copies flex-messaging-common.jar to the lib directory."/>
 
     <!-- Prompt before downloading BlazeDS.  -->
-    <target name="ask-blazeds" unless="blazeds.jar.exists"
+    <target name="ask-blazeds" unless="blazeds.donot.ask"
         description="Prompt the user before downloading BlaseDS">
         <echo message="Flex can optionally integrate with Adobe BlazeDS."/>
         <echo message="This feature requires flex-messaging-common.jar from Adobe BlazeDS."/>
@@ -280,6 +226,8 @@
         <condition property="do.blazeds.install">
             <equals arg1="y" arg2="${input.blazeds.download}"/>
         </condition>
+        <!-- Only ask once per ant run.  -->
+        <property name="blazeds.donot.ask" value="set"/>
     </target>
     
     <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">

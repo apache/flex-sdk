@@ -22,8 +22,8 @@ package flash.css;
 import flash.util.Trace;
 import flex2.compiler.util.CompilerMessage.CompilerError;
 import flex2.compiler.util.ThreadLocalToolkit;
-import org.apache.batik.css.parser.CSSLexicalUnit;
-import org.w3c.css.sac.LexicalUnit;
+import org.apache.flex.forks.batik.css.parser.CSSLexicalUnit;
+import org.w3c.flex.forks.css.sac.LexicalUnit;
 
 /**
  * This class represents a descriptor/property within a CSS rule

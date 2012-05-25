@@ -21,30 +21,30 @@
 
 package flash.svg;
 
-import org.apache.batik.transcoder.XMLAbstractTranscoder;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscodingHints;
-import org.apache.batik.transcoder.image.resources.Messages;
-import org.apache.batik.transcoder.keys.BooleanKey;
-import org.apache.batik.transcoder.keys.StringKey;
-import org.apache.batik.transcoder.keys.FloatKey;
-import org.apache.batik.transcoder.keys.PaintKey;
-import org.apache.batik.util.SVGConstants;
-import org.apache.batik.util.XMLResourceDescriptor;
-import org.apache.batik.util.ParsedURL;
-import org.apache.batik.dom.svg.SVGOMDocument;
-import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
-import org.apache.batik.dom.svg.SVGDOMImplementation;
-import org.apache.batik.dom.util.DocumentFactory;
-import org.apache.batik.bridge.*;
-import org.apache.batik.gvt.event.EventDispatcher;
-import org.apache.batik.gvt.GraphicsNode;
-import org.apache.batik.gvt.text.Mark;
+import org.apache.flex.forks.batik.transcoder.XMLAbstractTranscoder;
+import org.apache.flex.forks.batik.transcoder.TranscoderOutput;
+import org.apache.flex.forks.batik.transcoder.TranscoderException;
+import org.apache.flex.forks.batik.transcoder.TranscodingHints;
+import org.apache.flex.forks.batik.transcoder.image.resources.Messages;
+import org.apache.flex.forks.batik.transcoder.keys.BooleanKey;
+import org.apache.flex.forks.batik.transcoder.keys.StringKey;
+import org.apache.flex.forks.batik.transcoder.keys.FloatKey;
+import org.apache.flex.forks.batik.transcoder.keys.PaintKey;
+import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
+import org.apache.flex.forks.batik.util.ParsedURL;
+import org.apache.flex.forks.batik.dom.svg.SVGOMDocument;
+import org.apache.flex.forks.batik.dom.svg.SAXSVGDocumentFactory;
+import org.apache.flex.forks.batik.dom.svg.SVGDOMImplementation;
+import org.apache.flex.forks.batik.dom.util.DocumentFactory;
+import org.apache.flex.forks.batik.bridge.*;
+import org.apache.flex.forks.batik.gvt.event.EventDispatcher;
+import org.apache.flex.forks.batik.gvt.GraphicsNode;
+import org.apache.flex.forks.batik.gvt.text.Mark;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.svg.SVGAElement;
+import org.w3c.flex.forks.dom.svg.SVGAElement;
 
 import java.awt.Dimension;
 import java.awt.Cursor;
@@ -89,7 +89,7 @@ public class SpriteTranscoder extends XMLAbstractTranscoder
      * @param document the document to transcode
      * @param uri the uri of the document or null if any
      * @param output the ouput where to transcode
-     * @exception org.apache.batik.transcoder.TranscoderException if an error occurred while transcoding
+     * @exception org.apache.flex.forks.batik.transcoder.TranscoderException if an error occurred while transcoding
      */
     protected void transcode(Document document,
                              String uri,

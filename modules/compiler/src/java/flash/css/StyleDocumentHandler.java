@@ -19,11 +19,11 @@
 
 package flash.css;
 
-import org.apache.batik.css.parser.CSSLexicalUnit;
-import org.apache.batik.css.parser.DefaultConditionalSelector;
-import org.apache.batik.css.parser.DefaultDescendantSelector;
-import org.apache.batik.css.parser.DefaultElementSelector;
-import org.w3c.css.sac.*;
+import org.apache.flex.forks.batik.css.parser.CSSLexicalUnit;
+import org.apache.flex.forks.batik.css.parser.DefaultConditionalSelector;
+import org.apache.flex.forks.batik.css.parser.DefaultDescendantSelector;
+import org.apache.flex.forks.batik.css.parser.DefaultElementSelector;
+import org.w3c.flex.forks.css.sac.*;
 
 /**
  * An implementation of DocumentHandler, which creates rules, hands
@@ -116,7 +116,7 @@ public class StyleDocumentHandler implements DocumentHandler
 
     public void startFontFace()
     {
-        // preilly: org.apache.batik.css.parser.Parser does not call nextIgnoreSpaces()
+        // preilly: org.apache.flex.forks.batik.css.parser.Parser does not call nextIgnoreSpaces()
         // before calling startFontFace(), so the line number below should be ok.
 		FontFaceRule rule = new FontFaceRule(styleParser.getPath(), styleParser.getLineNumber());
 
@@ -166,7 +166,7 @@ public class StyleDocumentHandler implements DocumentHandler
 
     public void startSelector(SelectorList selectors)
     {
-        // preilly: By the time we get here, org.apache.batik.css.parser.Parser has called
+        // preilly: By the time we get here, org.apache.flex.forks.batik.css.parser.Parser has called
         // nextIgnoreSpaces(), so the following line number could be off.  If the first
         // selector is an instance of DefaultElementSelector, grab the line number out of
         // it.  We have modified Parser to store the line number in

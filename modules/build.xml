@@ -131,11 +131,11 @@
 		<ant dir="${basedir}/debugger" target="dev"/>
 	</target>
 
-	<target name="compiler" description="Full build of compiler JARs">
+	<target name="compiler" depends="thirdparty" description="Full build of compiler JARs">
 		<ant dir="${basedir}/compiler"/>
 	</target>
 
-	<target name="compiler-dev" description="Build src.depend compiler JARs">
+	<target name="compiler-dev" depends="thirdparty" description="Build src.depend compiler JARs">
 		<ant dir="${basedir}/compiler" target="dev"/>
 	</target>
 
@@ -148,34 +148,34 @@
 		<ant dir="${basedir}/antTasks" target="dev"/>
 	</target>
 
-    <target name="thirdparty" depends="xerces-patch, batik, velocity" />
+    <target name="thirdparty" depends="xerces-patch,batik,velocity" />
     
 	<target name="xerces-patch" description="Build xercesPatch.jar based on xerces 2.9.1" >
         <ant dir="${basedir}/thirdparty/xerces-patch"/>
     </target>
 	
-	<target name="batik" depends="batik-clean" description="Full build of batik-all-flex.jar">
+	<target name="batik" description="Full build of batik-all-flex.jar">
 
 		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
 		
-		<!-- Combine the distro sources with the sources changed by Flex -->
-        <ant antfile="${basedir}/downloads.xml" target="batik-merge-sources" dir="${basedir}"/>
-
-		<ant dir="${basedir}/thirdparty/batik/merged" target="all-jar">
+		<ant dir="${basedir}/thirdparty/batik" target="all-jar">
 	        <property name="deprecation" value="off"/>
 	    </ant>
-		<copy file="${basedir}/thirdparty/batik/merged/batik-1.6/lib/batik-all.jar"
-			  tofile="${FLEX_LIB}/batik-all-flex.jar"/>
-		<ant dir="${basedir}/thirdparty/batik/merged" target="clean"/>
+		<copy file="${basedir}/thirdparty/batik/batik-1.6/lib/batik-all.jar"
+			  tofile="${FLEX_LIB}/batik-all-flex.jar" overwrite="true" verbose="true"/>
+		<!-- 
+		    This adds Class-Path header to manifest for batik_*.jars which have localized 
+		    messages although these haven't been donated to Apache yet. 
+		-->
         <exec executable="jar">
-		<arg value="umf"/>
-            <arg value="${basedir}/thirdparty/batik/merged/sources/batik-all-flex.mf"/>
+		    <arg value="umf"/>
+            <arg value="${basedir}/thirdparty/batik/sources/batik-all-flex.mf"/>
             <arg value="${FLEX_LIB}/batik-all-flex.jar"/>
         </exec>
 	</target>
 
 	<target name="batik-clean">
-        <delete dir="${basedir}/thirdparty/batik/merged"/>
+		<ant dir="${basedir}/thirdparty/batik" target="clean"/>
         <delete file="${FLEX_LIB}/batik-all-flex.jar"/>
 	</target>
 	

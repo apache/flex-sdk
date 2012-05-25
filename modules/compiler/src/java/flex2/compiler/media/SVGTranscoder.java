@@ -28,7 +28,7 @@ import flex2.compiler.util.MimeMappings;
 import flex2.compiler.util.ThreadLocalToolkit;
 import flash.svg.SpriteTranscoder;
 import flash.swf.tags.DefineSprite;
-import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.flex.forks.batik.transcoder.TranscoderInput;
 
 import java.io.BufferedInputStream;
 import java.io.EOFException;

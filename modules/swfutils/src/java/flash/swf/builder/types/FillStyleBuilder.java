@@ -38,8 +38,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
-import org.apache.batik.ext.awt.LinearGradientPaint;
-import org.apache.batik.ext.awt.RadialGradientPaint;
+import org.apache.flex.forks.batik.ext.awt.LinearGradientPaint;
+import org.apache.flex.forks.batik.ext.awt.RadialGradientPaint;
 
 /**
  * This class is used to construct a FillStyle from a Paint,

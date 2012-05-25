@@ -19,8 +19,8 @@
 
 package flash.graphics.g2d;
 
-import org.apache.batik.ext.awt.g2d.TransformStackElement;
-import org.apache.batik.ext.awt.RenderingHintsKeyExt;
+import org.apache.flex.forks.batik.ext.awt.g2d.TransformStackElement;
+import org.apache.flex.forks.batik.ext.awt.RenderingHintsKeyExt;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;

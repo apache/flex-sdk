@@ -30,10 +30,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Method;
 
-import org.apache.batik.svggen.font.Font;
-import org.apache.batik.svggen.font.table.Os2Table;
-import org.apache.batik.svggen.font.table.NameTable;
-import org.apache.batik.svggen.font.table.Table;
+import org.apache.flex.forks.batik.svggen.font.Font;
+import org.apache.flex.forks.batik.svggen.font.table.Os2Table;
+import org.apache.flex.forks.batik.svggen.font.table.NameTable;
+import org.apache.flex.forks.batik.svggen.font.table.Table;
 import flash.fonts.LocalFont;
 
 /**

@@ -19,8 +19,8 @@
 
 package flash.fonts;
 
-import org.apache.batik.svggen.font.Font;
-import org.apache.batik.svggen.font.table.Os2Table;
+import org.apache.flex.forks.batik.svggen.font.Font;
+import org.apache.flex.forks.batik.svggen.font.table.Os2Table;
 
 /**
  * Returns information on the fsType of the font.  More information on
