@@ -61,22 +61,19 @@
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
         
-    <property name="velocity.src.dir" value="velocity-1.4"/>
-    <property name="velocity.dir" value="thirdparty/velocity"/>
-	
     <!-- 
         Because the downloads requires a network connection and the JARs don't change very often, 
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="blazeds-jar, commons-jars, javacc-jar, saxon9-jar, velocity-sources, xalan-jar, xerces-jars" 
+	<target name="main" depends="blazeds-jar, commons-jars, javacc-jar, saxon9-jar, xalan-jar, xerces-jars" 
 		description="Downloads all the required thirdparty JARs"/>
     
     <!--
 		Cleanup
 	-->
 	
-   <target name="clean" depends="velocity-sources-clean" description="Removes all thirdparty downloads.">
+   <target name="clean" description="Removes all thirdparty downloads.">
         <delete dir="${download.dir}" failonerror="false"/>
         <delete file="${FLEX_LIB}/commons-collections.jar"/>
         <delete file="${FLEX_LIB}/commons-discovery.jar"/>
@@ -390,56 +387,6 @@
         <copy todir="${FLEX_LIB}/saxon9-NOTICES">
             <fileset dir="${download.dir}/${saxon9.jar.dir}/notices" includes="**"/>
         </copy>
-    </target>
-
-    <!--
-        velocity - templates to generate code for -keep option
-    -->
-    
-    <target name="velocity-sources-check" description="Checks if velocity build lib exists.">
-        <available file="${download.dir}/${velocity.src.dir}" type="dir" property="velocity.src.exists"/>
-    </target>
-    
-	<target name="velocity-sources" depends="velocity-sources-check" unless="velocity.src.exists" 
-        description="Downloads and copies the velocity build jars.">
-                
-        <antcall target="download-zip">
-            <param name="srcUrl" value="http://archive.apache.org/dist/velocity/engine/1.4"/>
-        	<param name="zipFile" value="${velocity.src.dir}.tar.gz"/>
-        	<param name="md5" value="f280fee7ddb5eac5b354f6dea39a2f51"/>
-        </antcall>
-    	        
-        <copy todir="${FLEX_LIB}">
-            <fileset dir="${download.dir}/${velocity.src.dir}">
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
-            </fileset>            
-            <globmapper from="*" to="velocity-*"/>
-        </copy>
-    </target>
-	
-    <target name="velocity-merge-sources" depends="velocity-sources-clean"
-        description="Merges the velocity files from the distro with the files changed by Flex.">
-
-        <copy todir="${velocity.dir}/merged" preservelastmodified="true">
-            <fileset dir="${download.dir}/${velocity.src.dir}">
-                <exclude name="convert/"/>
-                <exclude name="docs/"/>
-                <exclude name="examples/"/>
-                <exclude name="xdocs/"/>
-            </fileset>
-        </copy>
-        
-        <!-- 
-             There are files modified by Adobe.  See thirdparty/batik/README.flex.txt.            
-        -->
-        <copy todir="${velocity.dir}/merged" preservelastmodified="true">
-            <fileset dir="${velocity.dir}" excludes="merged/**"/>
-        </copy>
-    </target>
-
-    <target name="velocity-sources-clean" description="Removes the velocity sources.">
-        <delete dir="${velocity.dir}/merged"/>
     </target>
     	
     <!--

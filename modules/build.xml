@@ -154,7 +154,7 @@
         <ant dir="${basedir}/thirdparty/xerces-patch"/>
     </target>
 	
-	<target name="batik" description="Full build of batik-all-flex.jar">
+	<target name="batik" description="Build batik-all-flex.jar">
 
 		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
 		
@@ -179,21 +179,26 @@
         <delete file="${FLEX_LIB}/batik-all-flex.jar"/>
 	</target>
 	
-    <target name="velocity" depends="velocity-clean" description="Full build of velocity-dep-1.4-flex.jar">
+    <target name="velocity" description="Build velocity-dep-1.4-flex.jar">
 		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
 
-		<!-- Combine the distro sources with the sources changed by Flex -->
-        <ant antfile="${basedir}/downloads.xml" target="velocity-merge-sources" dir="${basedir}"/>
-
-		<ant dir="${basedir}/thirdparty/velocity/merged/build" target="jar-dep"/>
-		<copy file="${basedir}/thirdparty/velocity/merged/bin/velocity-dep-1.4.jar"
+		<ant dir="${basedir}/thirdparty/velocity/build" target="jar-dep"/>
+		<copy file="${basedir}/thirdparty/velocity/bin/velocity-dep-1.4.jar"
 			  tofile="${FLEX_LIB}/velocity-dep-1.4-flex.jar"/>
-		<ant dir="${basedir}/thirdparty/velocity/merged/build" target="clean"/>
+		<copy todir="${FLEX_LIB}">
+            <fileset dir="${basedir}/thirdparty/velocity">
+                <include name="LICENSE"/>
+                <include name="NOTICE"/>
+            </fileset>            
+            <globmapper from="*" to="velocity-*"/>
+        </copy>
 	</target>
 
     <target name="velocity-clean">
-        <delete dir="${basedir}/thirdparty/velocity/merged"/>
+		<ant dir="${basedir}/thirdparty/velocity/build" target="clean"/>
         <delete file="${FLEX_LIB}/velocity-dep-1.4-flex.jar"/>
+        <delete file="${FLEX_LIB}/velocity-LICENSE"/>
+        <delete file="${FLEX_LIB}/velocity-NOTICE"/>
     </target>
 
 </project>
