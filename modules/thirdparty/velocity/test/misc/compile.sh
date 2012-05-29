@@ -7,4 +7,4 @@ do
     CLASSPATH=${CLASSPATH}:${jar}
 done
 
-java -cp ${CLASSPATH} org.apache.velocity.runtime.compiler.Compiler $1
+java -cp ${CLASSPATH} org.apache.flex.forks.velocity.runtime.compiler.Compiler $1

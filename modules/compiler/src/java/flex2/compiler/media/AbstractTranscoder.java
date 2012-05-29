@@ -43,8 +43,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 /**
  * This is the default transcoder implementation.  The only thing that

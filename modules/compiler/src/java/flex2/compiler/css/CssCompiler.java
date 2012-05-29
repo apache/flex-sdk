@@ -61,8 +61,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 /**
  * This subcompiler is used to translate a CSS file into an AS3

@@ -123,7 +123,7 @@
     <!-- TODO should actually compile them in Velocity for validation before copying -->
     <target name="templates">
         <echo level="info" message="Building serialized velocity templates."/>
-        <java fork="true" classname="flex.util.SerializedTemplateFactory" dir="${module.src}">
+        <java fork="true" classname="org.apache.flex.forks.util.SerializedTemplateFactory" dir="${module.src}">
             <classpath>
                 <fileset dir="${lib.dir}" includes="*.jar"/>
             </classpath>

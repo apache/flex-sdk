@@ -7,4 +7,4 @@ do
     CLASSPATH=${CLASSPATH}:${jar}
 done
 
-java -cp ${CLASSPATH} org.apache.velocity.test.view.TemplateNodeView $1 > output.dump
+java -cp ${CLASSPATH} org.apache.flex.forks.velocity.test.view.TemplateNodeView $1 > output.dump

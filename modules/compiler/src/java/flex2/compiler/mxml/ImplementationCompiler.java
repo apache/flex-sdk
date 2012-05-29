@@ -46,8 +46,8 @@ import flex2.compiler.mxml.rep.DocumentInfo;
 import flex2.compiler.mxml.rep.MxmlDocument;
 import flex2.compiler.util.*;
 import macromedia.asc.util.ContextStatics;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 import java.io.IOException;
 import java.util.Iterator;

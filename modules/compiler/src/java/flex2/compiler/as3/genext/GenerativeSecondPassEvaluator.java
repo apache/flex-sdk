@@ -34,8 +34,8 @@ import macromedia.asc.util.ObjectList;
 import flash.swf.tools.as3.EvaluatorAdapter;
 import flash.util.FileUtils;
 import flash.util.Trace;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 import java.io.*;
 import java.util.*;

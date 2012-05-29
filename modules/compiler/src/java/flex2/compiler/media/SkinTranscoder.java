@@ -36,8 +36,8 @@ import flex2.compiler.util.ThreadLocalToolkit;
 import flex2.compiler.util.VelocityManager;
 import java.io.StringWriter;
 import java.util.Map;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 /**
  * Transcodes non-Flex skins, likely from Flash Authoring, by

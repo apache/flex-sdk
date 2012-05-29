@@ -75,12 +75,12 @@
 
   <property 
     name="default.texen.properties"
-    value="org/apache/velocity/texen/defaults/texen.properties"
+    value="org/apache/flex/forks/velocity/texen/defaults/texen.properties"
   />
 
   <property 
     name="runtime.defaults.dir" 
-    value="org/apache/velocity/runtime/defaults"
+    value="org/apache/flex/forks/velocity/runtime/defaults"
   />
 
   <!-- disabled for now == classpath issues
@@ -208,7 +208,7 @@
       source="${javac.source}"
       target="${javac.target}">
 
-      <exclude  name="org/apache/velocity/runtime/resource/loader/DataSourceResourceLoader.java"/>
+      <exclude  name="org/apache/flex/forks/velocity/runtime/resource/loader/DataSourceResourceLoader.java"/>
       
       <classpath refid="classpath"/>
     </javac>
@@ -240,8 +240,8 @@
   <!-- ====================================================================== -->
   <target name="compile-copy">
 
-    <copy todir="${build.dest}/org/apache/velocity">
-      <fileset dir="${src.java.dir}/org/apache/velocity">
+    <copy todir="${build.dest}/org/apache/flex/forks/velocity">
+      <fileset dir="${src.java.dir}/org/apache/flex/forks/velocity">
         <include name="**/*.class"/>
       </fileset>
     </copy>
@@ -294,7 +294,7 @@
 
       <fileset dir="${build.dest}">
         <exclude name="**/package.html"/>
-        <exclude name="org/apache/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
+        <exclude name="org/apache/flex/forks/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
       </fileset>
      
     </jar>
@@ -311,7 +311,7 @@
 
       <fileset dir="${build.dest}">
         <exclude name="**/package.html"/>
-        <exclude name="org/apache/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
+        <exclude name="org/apache/flex/forks/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
       </fileset>
      
     </jar>
@@ -360,12 +360,12 @@
       <fileset dir="${build.dest}">
         <exclude name="**/package.html"/>
         <exclude name="org/apache/oro/**"/>
-        <exclude name="org/apache/velocity/anakia/**"/>
-        <exclude name="org/apache/velocity/convert/**"/>
-        <exclude name="org/apache/velocity/servlet/**"/>
-        <exclude name="org/apache/velocity/texen/**"/>
-        <exclude name="org/apache/velocity/test/**"/>
-        <exclude name="org/apache/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
+        <exclude name="org/apache/flex/forks/velocity/anakia/**"/>
+        <exclude name="org/apache/flex/forks/velocity/convert/**"/>
+        <exclude name="org/apache/flex/forks/velocity/servlet/**"/>
+        <exclude name="org/apache/flex/forks/velocity/texen/**"/>
+        <exclude name="org/apache/flex/forks/velocity/test/**"/>
+        <exclude name="org/apache/flex/forks/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
       </fileset>
     </jar>
   
@@ -379,10 +379,10 @@
     <jar jarfile="${build.dir}/${project}-util-${version}.jar">
       <fileset dir="${build.dest}">
         <exclude name="**/package.html"/>
-        <include name="org/apache/velocity/anakia/**"/>
-        <include name="org/apache/velocity/convert/**"/>
-        <include name="org/apache/velocity/texen/**"/>
-        <exclude name="org/apache/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
+        <include name="org/apache/flex/forks/velocity/anakia/**"/>
+        <include name="org/apache/flex/forks/velocity/convert/**"/>
+        <include name="org/apache/flex/forks/velocity/texen/**"/>
+        <exclude name="org/apache/flex/forks/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
       </fileset>
     </jar>
   
@@ -396,8 +396,8 @@
     <jar jarfile="${build.dir}/${project}-servlet-${version}.jar">
       <fileset dir="${build.dest}">
         <exclude name="**/package.html"/>
-        <include name="org/apache/velocity/servlet/**"/>
-        <exclude name="org/apache/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
+        <include name="org/apache/flex/forks/velocity/servlet/**"/>
+        <exclude name="org/apache/flex/forks/velocity/runtime/resource/loader/DataSourceResourceLoader.class"/>
       </fileset>
     </jar>
   
@@ -485,7 +485,7 @@
     
     <javadoc
       sourcepath="${build.src}"
-      packagenames="org.apache.velocity.*"
+      packagenames="org.apache.flex.forks.velocity.*"
       destdir="${javadoc.destdir}"
       author="true"
       private="true"
@@ -708,7 +708,7 @@
       />
 -->
       <taskdef name="anakia"
-          classname="org.apache.velocity.anakia.AnakiaTask">
+          classname="org.apache.flex.forks.velocity.anakia.AnakiaTask">
           
           <classpath>
              <pathelement location="${build.dir}/${project}-${version}.jar"/>
@@ -771,7 +771,7 @@
           >
 
       <taskdef name="anakia"
-          classname="org.apache.velocity.anakia.AnakiaTask">
+          classname="org.apache.flex.forks.velocity.anakia.AnakiaTask">
           
           <classpath>
              <pathelement location="${build.dir}/${project}-${version}.jar"/>

@@ -70,8 +70,8 @@ import flash.fonts.FontManager;
 import flash.util.Trace;
 import macromedia.asc.util.ContextStatics;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 /**
  * This class is an MXML document specific override of StyleModule. It provides

@@ -19,21 +19,21 @@
 
 package flex2.compiler.util;
 
-import flex.util.SerializedTemplateFactory;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.app.event.EventCartridge;
-import org.apache.velocity.app.event.EventHandler;
-import org.apache.velocity.app.event.MethodExceptionEventHandler;
-import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
-import org.apache.velocity.runtime.RuntimeServices;
-import org.apache.velocity.runtime.log.LogSystem;
-import org.apache.velocity.util.introspection.Info;
-import org.apache.velocity.util.introspection.UberspectImpl;
-import org.apache.velocity.util.introspection.VelPropertyGet;
-import org.apache.velocity.util.introspection.VelPropertySet;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.app.Velocity;
+import org.apache.flex.forks.velocity.app.VelocityEngine;
+import org.apache.flex.forks.velocity.app.event.EventCartridge;
+import org.apache.flex.forks.velocity.app.event.EventHandler;
+import org.apache.flex.forks.velocity.app.event.MethodExceptionEventHandler;
+import org.apache.flex.forks.velocity.app.event.ReferenceInsertionEventHandler;
+import org.apache.flex.forks.velocity.runtime.RuntimeServices;
+import org.apache.flex.forks.velocity.runtime.log.LogSystem;
+import org.apache.flex.forks.velocity.util.introspection.Info;
+import org.apache.flex.forks.velocity.util.introspection.UberspectImpl;
+import org.apache.flex.forks.velocity.util.introspection.VelPropertyGet;
+import org.apache.flex.forks.velocity.util.introspection.VelPropertySet;
+import org.apache.flex.forks.util.SerializedTemplateFactory;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -76,7 +76,7 @@ public class VelocityManager
 
 	private static final String STRICT_UBERSPECT_IMPL_CLASS = "flex2.compiler.util.VelocityManager$StrictUberspectImpl";
 
-	private static final String CLASSPATH_RESOURCE_LOADER_CLASS = "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader";
+	private static final String CLASSPATH_RESOURCE_LOADER_CLASS = "org.apache.flex.forks.velocity.runtime.resource.loader.ClasspathResourceLoader";
 
 	private static final String UTIL_KEY = "util";
 

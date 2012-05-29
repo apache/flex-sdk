@@ -49,11 +49,11 @@ import flex2.compiler.util.*;
 import macromedia.asc.embedding.ConfigVar;
 import macromedia.asc.util.ObjectList;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.exception.MethodInvocationException;
+import org.apache.flex.forks.velocity.exception.ParseErrorException;
+import org.apache.flex.forks.velocity.exception.ResourceNotFoundException;
 
 import java.io.*;
 import java.util.*;

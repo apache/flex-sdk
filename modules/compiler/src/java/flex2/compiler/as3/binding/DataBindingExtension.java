@@ -40,8 +40,8 @@ import macromedia.asc.embedding.ConfigVar;
 import macromedia.asc.parser.*;
 import macromedia.asc.util.Context;
 import macromedia.asc.util.ObjectList;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
+import org.apache.flex.forks.velocity.Template;
+import org.apache.flex.forks.velocity.VelocityContext;
 
 import java.io.File;
 import java.io.IOException;
