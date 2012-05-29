@@ -66,9 +66,9 @@
 		    <doc-classes class="MobileComponentsClasses"/>		    
 		    <doc-classes class="SparkDmvClasses"/>
 	    		    
-			<doc-classes class="flashx.textLayout.CoreClasses"/>
-			<doc-classes class="flashx.textLayout.EditClasses"/>
-			<doc-classes class="flashx.textLayout.ConversionClasses"/>
+			<!--doc-classes class="flashx.textLayout.CoreClasses"/-->
+			<!--doc-classes class="flashx.textLayout.EditClasses"/-->
+			<!--doc-classes class="flashx.textLayout.ConversionClasses"/-->
 
 			<!-- source path for asdoc -->
 			<compiler.source-path path-element="${flexlib}/projects/airframework/src"/>
@@ -79,8 +79,7 @@
 			<compiler.source-path path-element="${flexlib}/projects/mx/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/sparkskins/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/rpc/src"/>
-		    <compiler.source-path path-element="${flexlib}/projects/textLayout/src"/>
-		    <!-- ToDo: download osmf soures -->
+		    <!--compiler.source-path path-element="${flexlib}/projects/textLayout/src"/-->
 			<!--compiler.source-path path-element="${flexlib}/projects/osmf/src"/-->
 			<compiler.source-path path-element="${flexlib}/projects/advancedgrids/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
@@ -93,14 +92,14 @@
 		    <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
 		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
 		    <doc-namespaces uri="http://www.adobe.com/2006/rpcmxml"/>
- 			<doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
+ 			<!--doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/-->
  			<doc-namespaces uri="http://ns.adobe.com/2009/mx-mxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/advancedgridsmxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/charts"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-mobilecomponents"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-dmv"/>
  			
-		    <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/manifest.xml"/>
+		    <!--namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/manifest.xml"/-->
 
 			<!-- namespace declaration for asdoc -->
 		    <namespace uri="http://www.adobe.com/2006/airmxml" manifest="${flexlib}/projects/airframework/manifest.xml"/>
@@ -124,8 +123,9 @@
 		    	<include name="framework.swc" />
 		    	<!-- if no osfm sources -->
 		    	<include name="osmf.swc" />
+		    	<!-- if no textLayout sources -->
+		    	<include name="textLayout.swc" />
 		    </external-library-path>
-
 
 			<jvmarg line="${asdoc.jvm.args}"/>
 
