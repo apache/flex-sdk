@@ -172,11 +172,20 @@
             <arg value="${basedir}/thirdparty/batik/sources/batik-all-flex.mf"/>
             <arg value="${FLEX_LIB}/batik-all-flex.jar"/>
         </exec>
+		<copy todir="${FLEX_LIB}">
+            <fileset dir="${basedir}/thirdparty/batik">
+                <include name="LICENSE"/>
+                <include name="NOTICE"/>
+            </fileset>            
+            <globmapper from="*" to="batik-*"/>
+        </copy>
 	</target>
 
 	<target name="batik-clean">
 		<ant dir="${basedir}/thirdparty/batik" target="clean"/>
         <delete file="${FLEX_LIB}/batik-all-flex.jar"/>
+        <delete file="${FLEX_LIB}/batik-LICENSE"/>
+        <delete file="${FLEX_LIB}/batik-NOTICE"/>
 	</target>
 	
     <target name="velocity" description="Build velocity-dep-1.4-flex.jar">
