@@ -72,7 +72,7 @@
             <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 			<library-path/>
             <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="playerglobal.swc"/>
+                <include name="${playerglobal.version}/playerglobal.swc"/>
             </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="textLayout.swc"/>

@@ -74,7 +74,7 @@
 			<include-classes>AutomationFlashFlexKitClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
             <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="playerglobal.swc"/>
+                <include name="${playerglobal.version}/playerglobal.swc"/>
             </external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 				<include name="framework.swc"/>

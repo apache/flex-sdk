@@ -62,7 +62,7 @@
 				<include-libraries/>
 				<library-path/>
 				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-					<include name="playerglobal.swc"/>
+					<include name="${playerglobal.version}/playerglobal.swc"/>
 				</external-library-path>
 			</compc>
 		</sequential>
@@ -207,7 +207,7 @@
                 <include name="textLayout.swc"/>
 			</external-library-path>
             <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="playerglobal.swc"/>
+                <include name="${playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
 			<load-config filename="framework-config.xml"/>

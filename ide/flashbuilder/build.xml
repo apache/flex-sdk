@@ -108,7 +108,7 @@
     
     <target name="install-playerglobal">
         <copy todir="${frameworks.dir}/libs/player/${playerglobal.version}" verbose="true">
-            <fileset file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc"/> 
+            <fileset file="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc"/> 
         </copy>
     </target>
     

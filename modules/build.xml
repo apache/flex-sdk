@@ -190,6 +190,7 @@
 	
     <target name="velocity" description="Build velocity-dep-1.4-flex.jar">
 		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
+		<echo message="Note that velocity builds with several 'enum' is a keyword warnings"/>
 
 		<ant dir="${basedir}/thirdparty/velocity/build" target="jar-dep"/>
 		<copy file="${basedir}/thirdparty/velocity/bin/velocity-dep-1.4.jar"

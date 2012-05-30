@@ -40,10 +40,10 @@ Building Apache Flex
     Apache Flex is a large project and depends on several external libraries which
     are downloaded as part of the build process.
     
-Building Apache Flex 4.8.0
-==========================
+Building Apache Flex 4.8
+========================
 
-    Apache Flex 4.8.0 is a parity release from Apache of Adobe Flex 4.6.
+    Apache Flex 4.8 is a parity release from Apache of Adobe Flex 4.6.
     
     Apache Flex is a large project. It requires some build tools which must be installed
     prior to building Flex and it depends on some external libraries which
@@ -55,6 +55,9 @@ Building Apache Flex 4.8.0
     
 Install Prerequisites
 ---------------------
+
+    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.  Adobe Flex 4.8
+    will continue to use these.
 
     Before building Flex you must install the following software and set the
     corresponding environment variables using absolute file paths.  Relative file paths
@@ -83,37 +86,45 @@ Install Prerequisites
     or other unix-like shell
     (if Windows)
     
-    Adobe Flash Player                          PLAYERGLOBAL_HOME
-    (rename playerglobal swc to 
-    playerglobal.swc and set to absolute  
-    path of directory containing 
-    playerglobal.swc file) 
+    Adobe AIR Integration Kit (*1)              AIR_HOME 
     
-    Adobe AIR Integration Kit                   AIR_HOME 
-    (unzip and set to absolute path of 
-    'AIR Integration Kit' directory)
+    Adobe Flash Player Content Debugger (*2)    FLASHPLAYER_DEBUGGER
     
-    Adobe Flash Player Content Debugger         FLASHPLAYER_DEBUGGER
-    (windows) absolute path of FlashPlayerDebugger.exe
-    (mac) absolute path of Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
-    (linux) absolute path of flashplayerdebugger
+    Adobe Flash Player (*3)                     PLAYERGLOBAL_HOME
     
     ==================================================================================
+        
+    *1) The Adobe AIR integration kit for Windows can be downloaded from:
+                http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip
+        
+         The Adobe AIR integration kit for Mac can be downloaded from:
+            http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
+        
+        Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
+        path of the AIR SDK directory.
+               
+    *2) The Adobe Flash Player content debuggers can be found here:
+            http://www.adobe.com/support/flashplayer/downloads.html
+            
+        On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
+        
+        On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of 
+        Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
+        
+        On Linux, set set FLASHPLAYER_DEBUGGER to the absolute path of flashplayerdebugger
+            
+    *3) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
+        
+        Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
+        and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
+        
+        Set PLAYERGLOBAL_HOME to the absolute path of the player directory. The 
+        target-version option controls which PLAYERGLOBAL_HOME subdirectory is used.
 
-    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.
-         
-    The Adobe AIR integration kit for Windows can be downloaded from:
-        http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip
-        
-    The Adobe AIR integration kit for Mac can be downloaded from:
-        http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
-        
-    The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
-        http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
-    
-    The Adobe Flash Player content debuggers can be found here:
-        http://www.adobe.com/support/flashplayer/downloads.html
-        
+FlashPlayer Configuration
+-------------------------
+
     For testing, the Flash Player's mm.cfg file must have the following entries
     
         ErrorReportingEnable=1
@@ -129,16 +140,18 @@ Building the Source
         cd <flex.dir>
         ant main        (or just ant since the default target is main)
     
-    to download the thirdparty dependencies and build all the sources.  Since the thirdparty
-    dependencies take a little while to download and they don't change very often, they are not
-    cleaned with the regular clean target.  They thirdparty dependencies be found in the "in" 
-    directory.
+    to download the thirdparty dependencies and build the source.  Since the 
+    thirdparty dependencies take a little while to download and they don't change very 
+    often, they are not cleaned with the regular clean target.  The thirdparty 
+    dependencies can be found in the "in" directory.
     
-    To clean the build, of everything other than the downloaded third-party dependencies use
+    To clean the build, of everything other than the downloaded third-party dependencies 
+    use
     
         ant clean 
     
-    To clean the build, of everything, including the downloaded third-party dependencies use
+    To clean the build, of everything, including the downloaded third-party dependencies 
+    use
         
         ant super-clean (which is just thirdparty-clean followed by clean)
         
@@ -147,16 +160,7 @@ Building the Source
         ant release
     
     The output distros can be found in the "out" subdirectory.
-    
-    To download the dependencies use
-    
-        ant thirdparty-downloads
             
-    To clean the build ofjust the downloaded third-party dependencies use
-    
-        ant thirdparty-clean
-        
     To get a brief listing of all the targets type
     
-        ant help
-        
+        ant -projecthelp

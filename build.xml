@@ -45,7 +45,7 @@
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
     <property name="source.kit" value="${kit.prefix}-src.zip"/>
     <property name="binary.kit" value="${kit.prefix}-bin.zip"/>
-    
+        
     <!-- 
         For conditions, properties are set or not set.  The value doesn't matter.
     -->    
@@ -98,6 +98,7 @@
     -->
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
+        <property name="blazeds.donot.ask" value="set"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>
     </target>
 
@@ -106,16 +107,30 @@
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
         description="Check for the required environment variables for compilation"/>
 
-    <target name="check-playerglobal-home" unless="PLAYERGLOBAL_HOME.set"
+    <target name="check-playerglobal-home" unless="playerglobal.swc.exists"
         description="Check PLAYERGLOBAL for both a directory and a swc file">
 
         <echo message="PLAYERGLOBAL_HOME is ${env.PLAYERGLOBAL_HOME}"/>
+        <echo message="playerglobal.version is ${playerglobal.version}"/>
 
-        <available file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc" type="file" 
+        <available file="${env.PLAYERGLOBAL_HOME}" 
+            type="dir" 
             property="PLAYERGLOBAL_HOME.set"/>
-        
-        <fail message="The environment variable PLAYERGLOBAL_HOME must be set to a valid directory that contains playerglobal.swc" 
+
+        <fail message="The environment variable PLAYERGLOBAL_HOME is not set to a directory" 
             unless="PLAYERGLOBAL_HOME.set"/>
+
+        <property name="playerglobal.swc" 
+            value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc"/>
+
+        <available file="${playerglobal.swc}" 
+            type="file" 
+            property="playerglobal.swc.exists"/>
+        
+        <fail message="The file ${playerglobal.swc} does not exist" 
+            unless="playerglobal.swc.exists"/>
+            
+        <echo message="playerglobal.swc is ${playerglobal.swc}"/>
     </target>
     
     <target name="check-air-home" unless="AIR_HOME.set"
@@ -484,10 +499,11 @@
     </target>
     
     <target name="stage-modules" unless="no.modules">
-        <!-- modules -->
+            <!-- modules -->
         <copy todir="${basedir}/temp/modules" includeEmptyDirs="false">
             <fileset dir="${basedir}/modules">
                 <include name="**"/>
+                <exclude name="thirdparty/**"/>
                 <exclude name="**/*.jar"/>
                 <exclude name="**/*.vms"/>
                 <exclude name="*/test/**"/>
@@ -498,7 +514,16 @@
                 <exclude name="compiler/**/Token.java"/>
                 <exclude name="compiler/**/TokenManager.java"/>
                 <exclude name="compiler/**/TokenMgrError.java"/>
-                <exclude name="thirdparty/*/merged/**"/>
+                <exclude name="**/classes/**"/>
+                <exclude name="**/.classpath"/>
+                <exclude name="**/.project"/>
+            </fileset>
+        </copy>  
+
+        <!-- modules/thirdparty -->
+        <copy todir="${basedir}/temp/modules/thirdparty" includeEmptyDirs="false">
+            <fileset dir="${basedir}/modules/thirdparty">
+                <include name="**"/>
                 <exclude name="**/classes/**"/>
                 <exclude name="**/.classpath"/>
                 <exclude name="**/.project"/>

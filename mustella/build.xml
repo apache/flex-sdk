@@ -84,7 +84,7 @@
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
     <property name="librarypath" value="${frameworks.dir1}/libs/framework.swc,${frameworks.dir1}/libs/charts.swc,${frameworks.dir1}/libs/rpc.swc"/>
-    <property name="external.librarypath" value="${env.PLAYERGLOBAL_HOME}/playerglobal.swc"/>
+    <property name="external.librarypath" value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc"/>
     <property name="rsl" value="" />
 
     <property name="coach" value="true" />

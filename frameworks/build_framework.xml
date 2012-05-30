@@ -32,7 +32,8 @@
     <property name="build.number" value="0"/>
 
     <property environment="env"/>    
-    <property name="playerglobal.dir" value="${env.PLAYERGLOBAL_HOME}"/>
+    <property name="playerglobal.version" value="11.1"/>
+    <property name="playerglobal.dir" value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}"/>
     <property name="airsdk.dir" value="${env.AIR_HOME}"/>
     
     <property name="locale" value="en_US"/>
@@ -55,7 +56,6 @@
     <property name="mobiletheme.dir" value="${projects.dir}/mobiletheme"/>
     <property name="wireframe.dir" value="${projects.dir}/wireframe"/>
     <property name="compc.jvm.args" value="-Xmx384m" />
-    <property name="playerglobal.version" value="11.1"/>
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
@@ -73,14 +73,30 @@
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
         description="Check for the required environment variables for compilation"/>
 
-    <target name="check-playerglobal-home"
+    <target name="check-playerglobal-home" unless="playerglobal.swc.exists"
         description="Check PLAYERGLOBAL for both a directory and a swc file">
 
-        <available file="${env.PLAYERGLOBAL_HOME}/playerglobal.swc" type="file" 
+        <echo message="PLAYERGLOBAL_HOME is ${env.PLAYERGLOBAL_HOME}"/>
+        <echo message="playerglobal.version is ${playerglobal.version}"/>
+
+        <available file="${env.PLAYERGLOBAL_HOME}" 
+            type="dir" 
             property="PLAYERGLOBAL_HOME.set"/>
-        
-        <fail message="The environemnt variable PLAYERGLOBAL_HOME must be set to a valid directory that contains playerglobal.swc" 
+
+        <fail message="The environment variable PLAYERGLOBAL_HOME is not set to a directory" 
             unless="PLAYERGLOBAL_HOME.set"/>
+
+        <property name="playerglobal.swc" 
+            value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc"/>
+
+        <available file="${playerglobal.swc}" 
+            type="file" 
+            property="playerglobal.swc.exists"/>
+        
+        <fail message="The file ${playerglobal.swc} does not exist" 
+            unless="playerglobal.swc.exists"/>
+            
+        <echo message="playerglobal.swc is ${playerglobal.swc}"/>
     </target>
     
     <target name="check-air-home"
