@@ -43,16 +43,15 @@
     <property name="target.player" value="11.1"/>
     
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
-    <property name="source.kit" value="${kit.prefix}-src.zip"/>
-    <property name="binary.kit" value="${kit.prefix}-bin.zip"/>
+    <property name="source.kit" value="${kit.prefix}-src"/>
+    <property name="binary.kit" value="${kit.prefix}-bin"/>
         
     <!-- 
         For conditions, properties are set or not set.  The value doesn't matter.
     -->    
-    <!--property name="no.doc-packages" value="true"/-->
+    <property name="no.doc-packages" value="true"/>
     <property name="no.additional-packages" value="true"/>
     <property name="no.doc" value="true"/>
-    <property name="no.air.integration" value="true"/>
     
     <!--
         Notes: If you're running the main target, then there is no need to call clean first.
@@ -73,11 +72,11 @@
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
-        depends="clean,create-description,source-distro" 
+        depends="clean,create-description,source-package" 
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
-        depends="setup-binary-release,main,frameworks-rsls,checkintests,doc,other.locales,binary-distro,doc-packages,additional-packages" 
+        depends="setup-binary-release,main,frameworks-rsls,checkintests,doc,other.locales,binary-package,doc-packages,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
     <target name="doc-packages" 
@@ -145,7 +144,7 @@
             </and>
         </condition>
         
-        <fail message="The environment variable AIR_HOME must be set to the AIR Integration Kit directory" 
+        <fail message="The environment variable AIR_HOME must be set to the AIR SDK Kit directory" 
             unless="AIR_HOME.set"/>
     </target>
     
@@ -181,6 +180,8 @@
         description="Set properties needed to turn on features for release sdk">
         <!-- generate localized compiler message jars -->
 	    <property name="localized.jars" value="true" />
+        <!-- don't ask to download blazeds -->	    
+	    <property name="blazeds.donot.ask" value="set" />
     </target>
     
     <!--
@@ -207,6 +208,7 @@
             <include name="win/**"/>
         </delete>
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
+        <delete dir="${basedir}/temp" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
         <ant dir="${basedir}/asdoc" target="clean" />
         <ant dir="${basedir}/ide/flashbuilder" target="clean" />
@@ -400,15 +402,23 @@
         
         FixMe: clean needs to clean - add code to detect unversioned files
     -->
-    <target name="source-distro" depends="stage-source"
-        description="Package source files required to build in zip file">
-        
-        <antcall target="zip-source-distro"/>
+    <target name="source-package" depends="stage-source,source-package-zip,source-package-tgz"
+        description="Package source files required to build in zip and tar-gzip file">
     </target>
 
-    <target name="zip-source-distro" unless="no.zip">
+    <!-- 
+        Packages the source distribution with ZIP.
+    -->
+    <target name="source-package-zip" unless="no.zip">
         <mkdir dir="${basedir}/out"/>
-        <zip destfile="${basedir}/out/${source.kit}" basedir="${basedir}/temp"/>
+        <zip destfile="${basedir}/out/${source.kit}.zip" basedir="${basedir}/temp"/>
+    </target>
+
+    <!-- 
+        Packages the source distribution with TAR-GZIP.
+    -->
+    <target name="source-package-tgz" unless="no.tgz">
+        <tar-gzip name="${source.kit}" />
     </target>
 
     <target name="stage-source"
@@ -460,8 +470,16 @@
                 <exclude name="**/swfobject.js"/>
             </fileset>
         </copy>
-                
-        <chmod dir="${basedir}/temp" perm="755" includes="**/*.bat, **/*.sh, **/*.linux" />
+        
+        <!-- 
+             Source files have Windows line endings.  Most UNIX editors can handle
+             either type of line endings but the converse is often not true.
+        -->
+        <fixcrlf srcdir="${basedir}/temp"
+           eol="crlf"
+           preservelastmodified="true"
+           excludes="**/*.gif, **/*.png, **/*.jpg, **/*.swf, 
+                     **/*.fla, **/*.flv,  **/*.mp3, **/*.pbj"/>
     </target>
     
     <target name="stage-frameworks">
@@ -493,9 +511,6 @@
                 <exclude name="adt*"/>
             </fileset>
         </copy>  
-        <fixcrlf eol="unix" excludes="*.bat" srcdir="${basedir}/temp/bin" />
-        <fixcrlf eol="dos" includes="*.bat" srcdir="${basedir}/temp/bin" />
-        <chmod dir="${basedir}/temp/bin" perm="755" excludes="*.bat"/>
     </target>
     
     <target name="stage-modules" unless="no.modules">
@@ -531,19 +546,8 @@
         </copy>  
     </target>
     
-    <!-- 
-        NOTE:
-        
-        FlashBuilder needs to find these files in order to consider a directory structure
-        a valid Flex SDK:
-            frameworks/flex-config.xml
-            frameworks/mxml–manifest.xml
-            flex-sdk-description.xml or Version.as with version >= 3.
-            lib/mxmlc.jar
-    -->
-
-    <target name="binary-distro"
-        description="Package binary files in zip file.">
+    <target name="binary-package"
+        description="Package binary files in zip and tar-gzip file.">
 
         <property name="no.modules" value="set" />
         <antcall target="stage-source"/>
@@ -662,7 +666,10 @@
             </fileset>
         </copy>
 
-        <!-- lib -->
+        <!-- 
+            lib - Do not include any jars which we prompted to download because of
+            conflicting licenses.
+        -->
         <copy todir="${basedir}/temp/lib">
             <fileset dir="${basedir}/lib">
                 <include name="asc.jar"/>
@@ -685,7 +692,6 @@
                 <include name="fdb.jar"/>
                 <include name="fcsh.jar"/>
                 <include name="flex-compiler-oem.jar"/>
-                <include name="flex-messaging-common.jar"/>
                 <include name="mxmlc.jar"/>
                 <include name="optimizer.jar"/>
                 <include name="swcdepends.jar"/>
@@ -732,91 +738,29 @@
             </fileset>
         </copy>
                 
-        <!-- 
-            Add AIR SDK Files. 
-            
-            Note: bin/adl and templates/air are needed to create a mobile project in FlashBuilder.
-        -->
-        <antcall target="air-package"/>
-    
-        <chmod dir="${basedir}/temp" perm="755" includes="bin/*, **/*.bat, **/*.sh, **/*.linux" />
-        
-        <antcall target="zip-binary-distro"/>        
+        <antcall target="binary-package-zip"/>        
+        <antcall target="binary-package-tgz"/>        
     </target>
         
-    <target name="zip-binary-distro" unless="no.zip"
+    <!-- 
+        Packages the binary distribution with ZIP. 
+    -->
+    <target name="binary-package-zip" unless="no.zip"
         description="Zips up the files in the temp directory into the binary zipfile.">
+        
         <mkdir dir="${basedir}/out"/>
-        <zip destfile="${basedir}/out/${binary.kit}" basedir="${basedir}/temp"/>
+        <zip destfile="${basedir}/out/${binary.kit}.zip" basedir="${basedir}/temp"/>
     </target>
-   
-    <!-- FixMe: do we have the right license to include these in our binary distro? -->
-    <target name="air-package" unless="no.air.integration"
-        description="Add the AIR SDK files to the binary distro">
-    
-        <copy file="${basedir}/AIR SDK license.pdf" 
-            tofile="${basedir}/temp/licenses/Adobe AIR SDK license.pdf"/>
-
-        <!-- FixMe: symlinks are broken -->
-        <copy todir="${basedir}/temp">
-            <fileset dir="${basedir}">
-                <include name="include/**"/>
-                <include name="install/**"/>
-                <include name="runtimes/**"/>
-                <exclude name="runtimes/air/win/**"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${basedir}/temp/bin">
-            <fileset dir="${basedir}/bin">
-                <include name="adl*"/>
-                <include name="adt*"/>
-            </fileset>
-        </copy>
-
-        <chmod dir="${basedir}/temp" perm="755" includes="bin/*" />
-
-        <copy todir="${basedir}/temp/frameworks/libs/air">
-            <fileset dir="${basedir}/frameworks/libs/air"/>
-        </copy>
+       
+    <!-- 
+        Packages the binary distribution with TAR-GZIP.         
+    -->
+    <target name="binary-package-tgz" unless="no.tgz"
+        description="Tar-Gzip up the files in the temp directory into the binary tgz file.">
         
-        <copy todir="${basedir}/temp/frameworks/projects/air">
-            <fileset dir="${basedir}/frameworks/projects/air"/>
-        </copy>
-        
-        <copy todir="${basedir}/temp/lib">
-            <fileset dir="${basedir}/lib" >
-                <include name="adt.jar" />
-                <include name="android/**" />
-                <include name="aot/**" />
-                <include name="nai/**" />
-            </fileset>
-        </copy>
-        
-        <copy todir="${basedir}/temp/lib/win">
-            <fileset dir="${basedir}/lib/win" >
-                <include name="FlashRuntimeExtensions.lib" />
-            </fileset>
-        </copy>
-
-        <!-- samples -->
-        <copy todir="${basedir}/temp/samples">
-            <fileset dir="${basedir}/samples">
-                <include name="badge/**" />
-                <include name="icons/**" />
-                <include name="descriptor-sample.xml" />
-            </fileset>
-        </copy>
-        
-        <!-- templates -->
-        <copy todir="${basedir}/temp/templates">
-            <fileset dir="${basedir}/templates" >
-                <include name="air/**"/>
-                <include name="extensions/**"/>
-            </fileset>
-        </copy>    
+        <tar-gzip name="${binary.kit}" />
     </target>
-    
+       
     <macrodef name="fix-config-file">
         <attribute name="file"/>
             <sequential>
@@ -828,6 +772,37 @@
                         token="$${build.number}"
                         value="${release.version}.${build.number}"/>
                 </replace>
+        </sequential>
+    </macrodef>	
+
+    <!--
+        tar with gzip compression, the temp directory and put it in the out directory.  
+        The shell scripts in the bin directory (no extension) and other .sh files have 
+        mode set to execute.
+        
+        name - the basename name of the kit in out directory, without the .tar.gz extension
+    -->
+    <macrodef name="tar-gzip">
+        <attribute name="name"/>
+            <sequential>
+                <mkdir dir="${basedir}/out"/>        
+                <tar destfile="${basedir}/out/@{name}.tar.gz" 
+                    compression="gzip"
+                    longfile="gnu">
+                    <tarfileset dir="${basedir}/temp" prefix="@{name}">
+                        <include name="**" />
+                        <exclude name="bin/**" />
+                        <exclude name="**/*.sh" />
+                    </tarfileset>
+                    <tarfileset dir="${basedir}/temp" prefix="@{name}">
+                        <include name="bin/*.bat" />
+                    </tarfileset>
+                    <tarfileset dir="${basedir}/temp" prefix="@{name}" mode="755">
+                        <include name="bin/*" />
+                        <include name="**/*.sh" />
+                        <exclude name="bin/*.bat" />
+                    </tarfileset>
+                </tar>
         </sequential>
     </macrodef>	
     
@@ -1033,7 +1008,6 @@
                 <include name="fcsh.exe"/>
             </fileset>
         </copy>
-        <fixcrlf eol="unix" srcdir="${basedir}/temp/bin" includes="fcsh"/>
 
         <!-- lib -->
         <copy todir="${basedir}/temp/lib">
@@ -1415,6 +1389,7 @@
     
         <!-- Stage the src kit files in the temp directory. -->
         <property name="no.zip" value="set" />
+        <property name="no.tgz" value="set" />
         <antcall target="source-release"/>
         
         <!-- Run Rat on the staged files to check for license violations. -->
@@ -1426,6 +1401,7 @@
             reportFile="${basedir}/rat.log">
             <fileset dir="${rat.dir}">
                 <exclude name="modules/asc/src/**" />
+                <exclude name="modules/thirdparty/**" />
             </fileset>
         </rat:report>
     </target>

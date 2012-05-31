@@ -5,6 +5,7 @@ The source for the framework is included in the binary distribution.  It can be 
 if you wish to debug and/or extend components.
 
 Use ../README to complete the "Install Prerequisites" and "FlashPlayer Configuration".
+The exception is that you do not need to have a Java compiler or JAVA_HOME defined.
 
 Building the Framework
 ----------------------
