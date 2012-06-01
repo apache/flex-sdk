@@ -167,9 +167,9 @@ public class MxmlScanner extends DefaultHandler implements TokenManager,
             URL url = MxmlScanner.class.getProtectionDomain().getCodeSource().getLocation();
             String urlString = url.toString();
             String base = urlString.substring(0, urlString.lastIndexOf("/"));
-            URL xercesPatchJarURL = new URL(base + "/xercesPatch.jar");
-            URL xercesImplJarURL = new URL(base + "/xercesImpl.jar");
-            URL xercesImplJaJarURL = new URL(base + "/xercesImpl_ja.jar");
+            URL xercesPatchJarURL = new URL(base + "/external/xercesPatch.jar");
+            URL xercesImplJarURL = new URL(base + "/external/xercesImpl.jar");
+            URL xercesImplJaJarURL = new URL(base + "/external/xercesImpl_ja.jar");
             URL[] classpath = new URL[] {xercesPatchJarURL, xercesImplJarURL, xercesImplJaJarURL};
             xercesClassLoader = new XercesClassLoader(classpath, MxmlScanner.class.getClassLoader());
         }

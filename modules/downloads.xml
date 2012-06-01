@@ -24,9 +24,21 @@
 	<!-- properties -->
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<property name="FLEX_LIB" value="${FLEX_HOME}/lib"/>
+    <property name="lib.dir" value="${FLEX_HOME}/lib"/>
+    
+    <!-- 
+        If you change either lib.ext.dir or lib.opt.dir you need to change
+        classpaths in compiler build.xml.
+        
+        If you change lib.ext.dir you also need to change paths in
+        MxmlScanner.getXercesClassLoader() and classpath in xerces-path build.xml.
+    --> 
+    <property name="lib.ext.dir" value="${lib.dir}/external"/>      
+    <property name="lib.opt.dir" value="${lib.ext.dir}/optional"/>
+
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
-	
+    <property name="adobe.flex.sdk" value="adobe_flex_sdk_4.6"/>
+    
 	<!-- 
 	   Notes:
 	       For Apache, the JARS must be removed from the repository.
@@ -60,40 +72,47 @@
     <property name="saxon9.jar.dir" value="saxonb9-1-0-8j"/>
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
-        
+     
     <!-- 
         Because the downloads requires a network connection and the JARs don't change very often, 
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="blazeds-jar, commons-jars, javacc-jar, saxon9-jar, xalan-jar, xerces-jars" 
+	<target name="main" depends="optional-jars, required-jars"/>
+
+	<target name="required-jars" depends="commons-jars, javacc-jar, saxon9-jar, xalan-jar, xerces-jars" 
 		description="Downloads all the required thirdparty JARs"/>
+
+    <!-- Ask all the questions up front. -->
+    <target name="optional-jars" depends="blazeds-jar, font-jars, clean-adobe-flex-sdk"
+        description="Downloads, after prompt for each, the optional thirdparty JARs"/>
     
     <!--
 		Cleanup
 	-->
 	
-   <target name="clean" description="Removes all thirdparty downloads.">
-        <delete dir="${download.dir}" failonerror="false"/>
-        <delete file="${FLEX_LIB}/commons-collections.jar"/>
-        <delete file="${FLEX_LIB}/commons-discovery.jar"/>
-        <delete file="${FLEX_LIB}/commons-logging.jar"/>
-        <delete file="${FLEX_LIB}/flex-messaging-common.jar"/>
-        <delete file="${FLEX_LIB}/javacc.jar"/>
-        <delete file="${FLEX_LIB}/saxon9.jar"/>
-        <delete file="${FLEX_LIB}/xalan.jar"/>
-        <delete file="${FLEX_LIB}/xercesImpl.jar"/>
-        <delete file="${FLEX_LIB}/xml-apis.jar"/>
-        <delete includeEmptyDirs="true">
-            <fileset dir="${FLEX_LIB}">
-                <include name="*-LICENSE*"/>
-                <include name="*-NOTICE*/**"/>
-                <exclude name="flex-messaging-common-LICENSE*"/>
+    <target name="clean" depends="clean-adobe-flex-sdk"
+        description="Removes thirdparty downloads.">
+        
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${download.dir}">
+                <include name="commons-collections*/**"/>
+                <include name="commons-discovery*/**"/>
+                <include name="commons-logging*/**"/>
+                <include name="javacc*/**"/>
+                <include name="saxon*/**"/>
+                <include name="xalan*/**"/>
+                <include name="xerces*/**"/>
+                <include name="Xerces*/**"/>
             </fileset>
         </delete>
-   </target>
 
-	<!--
+        <delete dir="${download.dir}" failonerror="false"/>
+        <delete dir="${lib.ext.dir}" failonerror="false"/>
+        <delete dir="${lib.opt.dir}" failonerror="false"/>
+    </target>
+    
+    <!--
 	    Download thirdparty JARs    
 	-->
 
@@ -153,9 +172,9 @@
     <target name="download-jar" 
         description="Downloads jar, and optionally verifies checksum.">                
      
-        <get src="${srcUrl}/${srcJarFile}" dest="${FLEX_LIB}/${destJarFile}"/>
+        <get src="${srcUrl}/${srcJarFile}" dest="${destJarFile}"/>
         <antcall target="check-sum">
-            <param name="message" value="Checksum mismatch for ${FLEX_LIB}/${destJarFile}"/>
+            <param name="message" value="Checksum mismatch for ${destJarFile}"/>
         </antcall>
     </target>
 
@@ -167,7 +186,7 @@
         <unzip src="${download.dir}/${zipFile}" dest="${download.dir}"/>    
     </target>
     
-    	<macrodef name="bundle-clean">
+    <macrodef name="bundle-clean">
 		<attribute name="locale"/>
 		<sequential>
 			<delete failonerror="false">
@@ -189,7 +208,8 @@
     </target>
     
     <target name="copy-downloaded-jar" if="destination.known">
-        <copy file="${download.dir}/${srcJarPath}" toFile="${FLEX_LIB}/${destJarFile}" verbose="true"/>
+        <mkdir dir="${lib.ext.dir}"/>
+        <copy file="${download.dir}/${srcJarPath}" toFile="${destJarFile}" verbose="true"/>
     </target>
     
     <target name="fail-with-message" if="we.failed" 
@@ -197,57 +217,6 @@
         <fail message="${message}"/>
     </target>
         
-    <!--
-        flex-messaging-common.jar - BlazeDS interface for -service compiler option
-    -->
-    
-    <target name="blazeds-jar-check" 
-        description="Checks if flex-messaging-common.jar is in lib directory.">
-        <available file="${FLEX_LIB}/flex-messaging-common.jar" property="blazeds.donot.ask"/>
-    </target>
-    
-    <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
-        description="Downloads and copies flex-messaging-common.jar to the lib directory."/>
-
-    <!-- Prompt before downloading BlazeDS.  -->
-    <target name="ask-blazeds" unless="blazeds.donot.ask"
-        description="Prompt the user before downloading BlaseDS">
-        <echo message="Flex can optionally integrate with Adobe BlazeDS."/>
-        <echo message="This feature requires flex-messaging-common.jar from Adobe BlazeDS."/>
-        <echo message="Adobe BlazeDS has a GNU Lesser General Public License, Version 3."/>
-        <input
-            message="Do you want to download Adobe BlazeDS?"
-            validargs="y,n"
-            defaultvalue="n"
-            addproperty="input.blazeds.download"/>
-        <condition property="do.blazeds.install">
-            <equals arg1="y" arg2="${input.blazeds.download}"/>
-        </condition>
-        <!-- Only ask once per ant run.  -->
-        <property name="blazeds.donot.ask" value="set"/>
-    </target>
-    
-    <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">
-        <antcall target="download-zip">
-          <param name="download.dir" value="${download.dir}"/>
-          <param name="srcUrl" value="http://flexorg.wip3.adobe.com/blazeds/4.x/21287"/>
-          <param name="zipFile" value="blazeds-turnkey-4.0.1.21287.zip"/>
-          <param name="srcJarPath" value="resources/lib/flex-messaging-common.jar"/>
-          <param name="destJarFile" value="flex-messaging-common.jar"/>
-        </antcall>
-        <copy file="${download.dir}/blazeds-turnkey-readme.htm" tofile="${FLEX_LIB}/flex-messaging-common-LICENSE.htm"/>
-        
-        <!--
-        <antcall target="download-zip">
-          <param name="download.dir" value="${download.dir}/adobe_flex_sdk_4.6"/>
-          <param name="srcUrl" value="http://download.macromedia.com/pub/flex/sdk"/>
-          <param name="zipFile" value="flex_sdk_4.6.zip"/>
-          <param name="srcJarPath" value="lib/flex-messaging-common.jar"/>
-          <param name="destJarFile" value="flex-messaging-common.jar"/>
-        </antcall>
-        -->
-    </target>
-    
     <!--
 	    commons
 	-->
@@ -259,7 +228,7 @@
 	-->
 	
     <target name="commons-collections-jar-check" description="Checks if common-collections.jar has been downloaded.">
-        <available file="${FLEX_LIB}/commons-collections.jar" property="commons.collections.jar.exists"/>
+        <available file="${lib.ext.dir}/commons-collections.jar" property="commons.collections.jar.exists"/>
     </target>
     
     <target name="commons-collections-jar" depends="commons-collections-jar-check" unless="commons.collections.jar.exists" 
@@ -270,9 +239,9 @@
           <param name="zipFile" value="${commons-collections.name}.tar.gz"/>
           <param name="md5" value="a1df53801d2c73670314958fa0aeec8b"/>
           <param name="srcJarPath" value="${commons-collections.name}/${commons-collections.name}.jar"/>
-          <param name="destJarFile" value="commons-collections.jar"/>
+          <param name="destJarFile" value="${lib.ext.dir}/commons-collections.jar"/>
         </antcall>
-        <copy todir="${FLEX_LIB}">
+        <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/${commons-collections.name}">
                 <include name="LICENSE.txt"/>
             </fileset>            
@@ -285,7 +254,7 @@
     -->
     
     <target name="commons-discovery-jar-check" description="Checks if commons-discovery.jar is in lib directory.">
-        <available file="${FLEX_LIB}/commons-discovery.jar" property="commons.discovery.jar.exists"/>
+        <available file="${lib.ext.dir}/commons-discovery.jar" property="commons.discovery.jar.exists"/>
     </target>
     
     <target name="commons-discovery-jar" depends="commons-discovery-jar-check" 
@@ -297,9 +266,9 @@
           <param name="zipFile" value="${commons-discovery.name}.tar.gz"/>
           <param name="md5" value="2273f5f83a477f4f18fccf3a00e2b48c"/>
           <param name="srcJarPath" value="${commons-discovery.name}/commons-discovery.jar"/>
-          <param name="destJarFile" value="commons-discovery.jar"/>
+          <param name="destJarFile" value="${lib.ext.dir}/commons-discovery.jar"/>
         </antcall>
-        <copy todir="${FLEX_LIB}">
+        <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/${commons-discovery.name}">
                 <include name="LICENSE"/>
             </fileset>            
@@ -312,7 +281,7 @@
     -->
     
     <target name="commons-logging-jar-check" description="Checks if commons-logging.jar is in lib directory.">
-        <available file="${FLEX_LIB}/commons-logging.jar" property="commons.logging.jar.exists"/>
+        <available file="${lib.ext.dir}/commons-logging.jar" property="commons.logging.jar.exists"/>
     </target>
     
     <target name="commons-logging-jar" depends="commons-logging-jar-check" 
@@ -324,9 +293,9 @@
           <param name="zipFile" value="${commons-logging.name}.tar.gz"/>
           <param name="md5" value="6f80ac1fb5f568feb94dd4fdb6b9f7de"/>
           <param name="srcJarPath" value="${commons-logging.name}/commons-logging.jar"/>
-          <param name="destJarFile" value="commons-logging.jar"/>
+          <param name="destJarFile" value="${lib.ext.dir}/commons-logging.jar"/>
         </antcall>
-        <copy todir="${FLEX_LIB}">
+        <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/${commons-logging.name}">
                 <include name="LICENSE.txt"/>
                 <include name="NOTICE.txt"/>
@@ -343,7 +312,7 @@
     -->
     
     <target name="javacc-jar-check" description="Checks if javacc.jar is in lib directory.">
-        <available file="${FLEX_LIB}/javacc.jar" property="javacc.jar.exists"/>
+        <available file="${lib.ext.dir}/javacc.jar" property="javacc.jar.exists"/>
     </target>
     
     <target name="javacc-jar" depends="javacc-jar-check" 
@@ -354,9 +323,9 @@
           <param name="srcUrl" value="http://java.net/projects/javacc/downloads/download"/>
           <param name="zipFile" value="javacc-5.0.tar.gz"/>
           <param name="srcJarPath" value="javacc-5.0/bin/lib/javacc.jar"/>
-          <param name="destJarFile" value="javacc.jar"/>
+          <param name="destJarFile" value="${lib.ext.dir}/javacc.jar"/>
         </antcall>
-        <copy todir="${FLEX_LIB}">
+        <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/javacc-5.0">
                 <include name="LICENSE"/>
             </fileset>            
@@ -369,7 +338,7 @@
     -->
     
     <target name="saxon9-jar-check" description="Checks if saxon9.jar is in lib directory.">
-        <available file="${FLEX_LIB}/saxon9.jar" property="saxon9.jar.exists"/>
+        <available file="${lib.ext.dir}/saxon9.jar" property="saxon9.jar.exists"/>
     </target>
     
     <target name="saxon9-jar" depends="saxon9-jar-check" unless="saxon9.jar.exists" 
@@ -382,9 +351,9 @@
     	<unzip src="${download.dir}/${saxon9.bin.zip}" 
     		dest="${download.dir}/${saxon9.jar.dir}"/>
         
-        <copy file="${download.dir}/${saxon9.jar.dir}/saxon9.jar" toDir="${FLEX_LIB}" verbose="true"/>
+        <copy file="${download.dir}/${saxon9.jar.dir}/saxon9.jar" toDir="${lib.ext.dir}" verbose="true"/>
         
-        <copy todir="${FLEX_LIB}/saxon9-NOTICES">
+        <copy todir="${lib.ext.dir}/saxon9-NOTICES">
             <fileset dir="${download.dir}/${saxon9.jar.dir}/notices" includes="**"/>
         </copy>
     </target>
@@ -394,7 +363,7 @@
     -->
     			
     <target name="xalan-jar-check" description="Checks if xalan.jar is in lib directory.">
-        <available file="${FLEX_LIB}/xalan.jar" property="xalan.jar.exists"/>
+        <available file="${lib.ext.dir}/xalan.jar" property="xalan.jar.exists"/>
     </target>
     
     <target name="xalan-jar" depends="xalan-jar-check" unless="xalan.jar.exists" 
@@ -404,10 +373,10 @@
           <param name="srcUrl" value="http://archive.apache.org/dist/xml/xalan-j/binaries"/>
           <param name="zipFile" value="xalan-j_2_6_0-bin.tar.gz"/>
           <param name="srcJarPath" value="xalan-j_2_6_0/bin/xalan.jar"/>
-          <param name="destJarFile" value="xalan.jar"/>
+          <param name="destJarFile" value="${lib.ext.dir}/xalan.jar"/>
         </antcall>
         
-        <copy todir="${FLEX_LIB}">
+        <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/xalan-j_2_6_0">
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
@@ -423,8 +392,8 @@
     <target name="xerces-jars-check" description="Checks if xercesImpl.jar and and xml-api.jars are in lib directory.">
         <condition property="xercesImpl.jar.exists">
             <and>
-                <available file="${FLEX_LIB}/xercesImpl.jar"/>
-                <available file="${FLEX_LIB}/xml-apis.jar"/>
+                <available file="${lib.ext.dir}/xercesImpl.jar"/>
+                <available file="${lib.ext.dir}/xml-apis.jar"/>
             </and>
         </condition>
     </target>
@@ -436,22 +405,192 @@
           <param name="srcUrl" value="http://archive.apache.org/dist/xerces/j"/>
           <param name="zipFile" value="Xerces-J-bin.2.9.1.zip"/>
           <param name="srcJarPath" value="${xerces.dir}/xercesImpl.jar"/>
-          <param name="destJarFile" value="xercesImpl.jar"/>
+          <param name="destJarFile" value="${lib.ext.dir}/xercesImpl.jar"/>
           <param name="md5" value="a0e07ede1c3bd5231fe15eae24032b2e"/>
         </antcall>
 
-        <copy toDir="${FLEX_LIB}" file="${download.dir}/${xerces.dir}/xml-apis.jar" />
+        <copy toDir="${lib.ext.dir}" file="${download.dir}/${xerces.dir}/xml-apis.jar" />
         
-        <!--mkdir dir="${FLEX_LIB}/xalan-NOTICES"/-->
-        <copy todir="${FLEX_LIB}">
+        <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/${xerces.dir}">
-                <include name="*LICENSE*"/>
                 <include name="*NOTICE*"/>
             </fileset>            
             <globmapper from="*" to="xerces-NOTICES/*"/>
         </copy>
+        <copy todir="${lib.ext.dir}">
+            <fileset dir="${download.dir}/${xerces.dir}">
+                <include name="*LICENSE*"/>
+            </fileset>            
+            <globmapper from="*" to="xerces-LICENSE/*"/>
+        </copy>
     </target>
-		
+	
+	<!--============================================================================= -->
+	<!--      Optional Jars.  Licenses are not compatible with Apache v2 license.     -->
+	<!--============================================================================= -->
+	
+	<!--
+        flex-messaging-common.jar - BlazeDS interface for -service compiler option
+    -->
+    
+    <target name="blazeds-jar-check" unless="blazeds.donot.ask"
+        description="Checks if flex-messaging-common.jar is in optional lib directory.">
+        <available file="${lib.opt.dir}/flex-messaging-common.jar" property="blazeds.donot.ask"/>
+    </target>
+    
+    <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
+        description="Downloads and copies flex-messaging-common.jar to the optional lib directory."/>
+
+    <!-- Prompt before downloading.  -->
+    <target name="ask-blazeds" unless="blazeds.donot.ask"
+        description="Prompt the user before downloading BlaseDS">
+        
+        <echo message="Apache Flex can optionally integrate with Adobe BlazeDS."/>
+        <echo message="This feature requires flex-messaging-common.jar from the Adobe Flex SDK."/>
+        <echo message="The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar."/>
+        <echo message="This license is not compatible with the Apache v2 license."/>
+        <antcall target="echo-adobe-flex-sdk-license"/>
+        <input
+            message="${line.separator}Do you want to install this jar from the Adobe Flex SDK?"
+            validargs="y,n"
+            defaultvalue="n"
+            addproperty="input.blazeds.download"/>
+        <condition property="do.blazeds.install">
+            <equals arg1="y" arg2="${input.blazeds.download}"/>
+        </condition>
+        <!-- Only ask once per ant run.  -->
+        <property name="blazeds.donot.ask" value="set"/>
+    </target>
+        
+    <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">
+
+        <available file="${download.dir}/${adobe.flex.sdk}" type="dir"
+            property="adobe.flex.sdk.exists"/>
+        
+        <antcall target="get-adobe-flex-sdk"/>
+
+        <copy file="${download.dir}/${adobe.flex.sdk}/lib/flex-messaging-common.jar" 
+            todir="${lib.opt.dir}" verbose="true"/>
+        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+            tofile="${lib.opt.dir}/flex-messaging-common-LICENSE.htm" verbose="true"/>
+    </target>
+
+	<!--
+        Embedded Font Support
+    -->
+    
+    <target name="font-jars-check" unless="font.donot.ask"
+        description="Checks if font jars are in the optional lib directory.">        
+        <condition  property="font.donot.ask">
+            <and>
+                <available file="${lib.opt.dir}/flex-fontkit.jar"/>
+                <available file="${lib.opt.dir}/adt.jar"/>
+                <available file="${lib.opt.dir}/afe.jar"/>
+                <available file="${lib.opt.dir}/aglj40.jar"/>
+                <available file="${lib.opt.dir}/rideau.jar"/>
+            </and>
+        </condition>
+    </target>
+    
+    <target name="font-jars" depends="font-jars-check,get-font-jars" 
+        description="Downloads and copies font jars to the optional lib directory."/>
+
+    <!-- Prompt before downloading.  -->
+    <target name="ask-font" unless="font.donot.ask"
+        description="Prompt the user before downloading BlaseDS">
+        
+        <echo message="Apache Flex can optionally integrate with Adobe's embedded font support."/>
+        <echo message="This feature requires a few font jars from the Adobe Flex SDK."/>
+        <echo message="The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars."/>
+        <echo message="This license is not compatible with the Apache v2 license."/>
+        <antcall target="echo-adobe-flex-sdk-license"/>
+        <input
+            message="${line.separator}Do you want to install these jars from the Adobe Flex SDK?"
+            validargs="y,n"
+            defaultvalue="n"
+            addproperty="input.font.download"/>
+        <condition property="do.font.install">
+            <equals arg1="y" arg2="${input.font.download}"/>
+        </condition>
+        <!-- Only ask once per ant run.  -->
+        <property name="font.donot.ask" value="set"/>
+    </target>
+    
+    <target name="get-font-jars" depends="ask-font" if="do.font.install">
+        
+        <available file="${download.dir}/${adobe.flex.sdk}" type="dir"
+            property="adobe.flex.sdk.exists"/>
+        
+        <antcall target="get-adobe-flex-sdk"/>
+        
+        <copy todir="${lib.opt.dir}" verbose="true">
+            <fileset dir="${download.dir}/${adobe.flex.sdk}/lib">
+                <include name="adt.jar" />
+                <include name="afe.jar" />
+                <include name="aglj40.jar" />
+                <include name="flex-fontkit.jar" />
+                <include name="rideau.jar" />
+            </fileset>
+        </copy>
+        
+        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+            tofile="${lib.opt.dir}/flex-fontkit-LICENSE.htm" verbose="true"/>
+        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+            tofile="${lib.opt.dir}/adt-LICENSE.htm" verbose="true"/>
+        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+            tofile="${lib.opt.dir}/afe-LICENSE.htm" verbose="true"/>
+        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+            tofile="${lib.opt.dir}/aglj40-LICENSE.htm" verbose="true"/>
+        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+            tofile="${lib.opt.dir}/rideau.jar-LICENSE.htm" verbose="true"/>
+    </target>
+        	
+    <target name="echo-adobe-flex-sdk-license">
+        
+        <echo message="Adobe Flex SDK License Agreement:
+            ${line.separator}
+            ${line.separator}All files contained in this Adobe Flex SDK download are subject to and governed by the
+            ${line.separator}Adobe Flex SDK License Agreement specified here: 
+            ${line.separator}    http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf, 
+            ${line.separator}By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK, 
+            ${line.separator}you agree to the terms and conditions of the applicable end user license agreement.
+            ${line.separator}
+            ${line.separator}In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here: 
+            ${line.separator}    http://www.adobe.com/products/eula/third_party/. 
+            ${line.separator}Adobe recommends that you review these third-party terms." />
+    </target>
+
+    <target name="get-adobe-flex-sdk" unless="adobe.flex.sdk.exists"
+        description="Downloads the Adobe Flex 4.6 SDK">
+        
+        <!--antcall target="download-zip">
+          <param name="download.dir" value="${download.dir}/${adobe.flex.sdk}"/>
+          <param name="srcUrl" value="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6"/>
+          <param name="zipFile" value="flex_sdk_4.6.0.23201B.zip"/>
+        </antcall-->
+        
+        <property name="zipFile" value="flex_sdk_4.6.0.23201B.zip"/>
+        <mkdir dir="${download.dir}"/>        
+        <get src="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/${zipFile}" 
+            dest="${download.dir}/${zipFile}"/>
+
+        <unzip src="${download.dir}/${zipFile}" dest="${download.dir}/${adobe.flex.sdk}">
+            <patternset>
+                <include name="license-adobesdk.htm"/>
+                <include name="lib/flex-messaging-common.jar"/>
+                <include name="lib/adt.jar" />
+                <include name="lib/afe.jar" />
+                <include name="lib/aglj40.jar" />
+                <include name="lib/flex-fontkit.jar" />
+                <include name="lib/rideau.jar" />
+            </patternset>
+        </unzip>
+    </target>
+    
+    <target name="clean-adobe-flex-sdk">
+        <delete dir="${download.dir}/${adobe.flex.sdk}"/>
+    </target>
+
 	<!--
 	   mpl_excludes
 	   

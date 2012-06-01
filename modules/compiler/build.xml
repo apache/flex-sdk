@@ -29,6 +29,12 @@
     <property name="build.number" value=""/>
 
     <property name="lib.dir" value="${FLEX_HOME}/lib"/>
+    <property name="lib.ext.dir" value="${lib.dir}/external"/>      
+    <property name="lib.opt.dir" value="${lib.ext.dir}/optional"/>
+
+    <property name="ext.dir" value="external"/>      
+    <property name="opt.dir" value="${ext.dir}/optional"/>
+
     <property name="module.dir" value="${basedir}"/>
 	<property name="javac.src" value="1.5"/>
     <property name="templates.dir" value="${FLEX_HOME}/asdoc/templates"/>
@@ -46,20 +52,24 @@
 	<property name="localized.mxmlc.jars" value="mxmlc_da.jar mxmlc_de.jar mxmlc_es.jar mxmlc_fi.jar mxmlc_fr.jar mxmlc_it.jar mxmlc_ja.jar mxmlc_ko.jar mxmlc_nb.jar mxmlc_nl.jar mxmlc_pt.jar mxmlc_ru.jar mxmlc_sv.jar mxmlc_zh_CN.jar mxmlc_zh_TW.jar"/>
 
 	<!-- Excludes Adobe proprietary font and license code. -->
-    <property name="mxmlc.classpath" value="asc.jar xmlParserAPIs.jar batik-all-flex.jar velocity-dep-1.4-flex.jar commons-collections.jar commons-discovery.jar commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} xalan.jar ${env.property.dir}"/>
-
+    <!--property name="mxmlc.classpath" value="asc.jar xmlParserAPIs.jar batik-all-flex.jar velocity-dep-1.4-flex.jar commons-collections.jar commons-discovery.jar commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} xalan.jar ${env.property.dir}"/>
+    -->
+    
 	<!-- Including Adobe proprietary font and license code.  -->
-	<!--property name="mxmlc.mpl_excludes.classpath" value="afe.jar aglj40.jar rideau.jar license.jar flex-fontkit.jar "/-->
-    <!--property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar xmlParserAPIs.jar batik-all-flex.jar velocity-dep-1.4-flex.jar commons-collections.jar commons-discovery.jar commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} xalan.jar"/-->
-
+	<property name="mxmlc.mpl_excludes.classpath" value="${opt.dir}/afe.jar ${opt.dir}/aglj40.jar ${opt.dir}/rideau.jar ${opt.dir}/flex-fontkit.jar "/>
+    <property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar ${ext.dir}/xml-apis.jar batik-all-flex.jar velocity-dep-1.4-flex.jar ${ext.dir}/commons-collections.jar ${ext.dir}/commons-discovery.jar ${ext.dir}/commons-logging.jar swfutils.jar fxgutils.jar ${opt.dir}/flex-messaging-common.jar ${localized.mxmlc.jars} ${ext.dir}/xalan.jar"/>
+    <property name="mxmlc.classpath" value="${mxmlc.adobe.classpath}"/>
+    
 	<property name="compc.main" value="flex2.tools.Compc"/>
     <property name="compc.classpath" value="mxmlc.jar ${mxmlc.classpath}"/>
 	
     <property name="asdoc.main" value="flex2.tools.ASDoc"/>
-    <property name="asdoc.classpath" value="mxmlc.jar ${mxmlc.classpath} saxon9.jar"/>
+    <property name="asdoc.classpath" value="mxmlc.jar ${mxmlc.classpath} ${ext.dir}/saxon9.jar"/>
 
     <path id="classpath">
-        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="${lib.ext.dir}" includes="*.jar"/>
+        <fileset dir="${lib.opt.dir}" includes="*.jar"/>
     </path>
 		
 	<patternset id="locale.properties">
@@ -87,6 +97,8 @@
     <target name="prepare">
         <echo level="info">${ant.file}</echo>
         <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${lib.ext.dir}"/>
+        <mkdir dir="${lib.opt.dir}"/>
         <mkdir dir="${module.classes}"/>
         <mkdir dir="${module.java15.classes}"/>
     </target>
@@ -105,7 +117,7 @@
     <target name="javacc">
         <java classname="javacc" fork="true" failonerror="true">
             <classpath>
-                <fileset dir="${lib.dir}" includes="javacc.jar"/>
+                <fileset dir="${lib.ext.dir}" includes="javacc.jar"/>
             </classpath>
             <arg value="-OUTPUT_DIRECTORY=${module.src}/flex2/compiler/mxml"/>
             <arg value="${module.src}/flex2/compiler/mxml/Grammar.jj"/>
@@ -125,7 +137,7 @@
         <echo level="info" message="Building serialized velocity templates."/>
         <java fork="true" classname="org.apache.flex.forks.util.SerializedTemplateFactory" dir="${module.src}">
             <classpath>
-                <fileset dir="${lib.dir}" includes="*.jar"/>
+                <fileset dir="${lib.dir}" includes="**/*.jar"/>
             </classpath>
             <arg value="flex2/compiler/mxml/gen/ClassDef.vm"/>
             <arg value="flex2/compiler/mxml/gen/ClassDefLib.vm"/>

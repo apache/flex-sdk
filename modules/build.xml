@@ -85,6 +85,11 @@
         <ant dir="${basedir}/thirdparty/xerces-patch" target="clean"/>
         <delete file="${FLEX_LIB}/asc.jar"/>
         <!--delete dir="${FLEX_LIB}/*.jar" failonerror="false"/-->
+        <delete includeemptydirs="true">
+            <fileset dir="${FLEX_LIB}">
+                <exclude name="**/*" />
+            </fileset>
+        </delete>
 	</target>
 
 	<!--

@@ -30,7 +30,7 @@
 	<!-- properties -->
     <property file="../../../build.properties"/>
 
-    <property name="lib.dir" value="../../../lib" />
+    <property name="lib.ext.dir" value="../../../lib/external" />
     <property name="module.dir" value="."/>
     <property name="module.src" value="${module.dir}/src/java"/>
     <property name="module.classes" value="${module.dir}/classes"/>
@@ -41,7 +41,7 @@
     <target name="dev" depends="jar" description="runs src.depend build for development"/>
 
     <path id="xerces.classpath">
-        <fileset dir="${lib.dir}">
+        <fileset dir="${lib.ext.dir}">
             <include name="xercesImpl*.jar" />
             <exclude name="xercesPatch.jar" />
         </fileset>
@@ -66,7 +66,7 @@
         <copy file="../../../NOTICE" todir="${module.classes}/META-INF"/>
 
 		<echo message="Building lib/xercesPatch.jar"/>
-        <jar file="${lib.dir}/xercesPatch.jar" basedir="${module.classes}" includes="**/*">
+        <jar file="${lib.ext.dir}/xercesPatch.jar" basedir="${module.classes}" includes="**/*">
             <manifest>
                 <attribute name="Sealed" value="${manifest.sealed}"/>
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Patch for Apache Xerces 2.9.1"/>
@@ -78,7 +78,7 @@
 
     <target name="clean" description="clean">
         <delete failonerror="false" includeEmptyDirs="true">
-            <fileset file="${lib.dir}/xercesPatch.jar"/>
+            <fileset file="${lib.ext.dir}/xercesPatch.jar"/>
             <fileset dir="${module.classes}">
                 <include name="**/*"/>
             </fileset>
@@ -87,7 +87,7 @@
     </target>
 
     <target name="prepare">
-        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${lib.ext.dir}"/>
         <mkdir dir="${module.classes}"/>
     </target>
 

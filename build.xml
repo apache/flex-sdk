@@ -98,6 +98,7 @@
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
         <property name="blazeds.donot.ask" value="set"/>
+        <property name="font.donot.ask" value="set"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>
     </target>
 
@@ -514,7 +515,7 @@
     </target>
     
     <target name="stage-modules" unless="no.modules">
-            <!-- modules -->
+        <!-- modules -->
         <copy todir="${basedir}/temp/modules" includeEmptyDirs="false">
             <fileset dir="${basedir}/modules">
                 <include name="**"/>
@@ -666,56 +667,8 @@
             </fileset>
         </copy>
 
-        <!-- 
-            lib - Do not include any jars which we prompted to download because of
-            conflicting licenses.
-        -->
-        <copy todir="${basedir}/temp/lib">
-            <fileset dir="${basedir}/lib">
-                <include name="asc.jar"/>
-                <include name="asdoc.jar"/>
-                <include name="batik-all-flex.jar"/>
-                <include name="batik-LICENSE*"/>
-                <include name="batik-NOTICE*/**"/>
-                <include name="commons-collections.jar"/>
-                <include name="commons-collections-LICENSE*"/>
-                <include name="commons-collections-NOTICE*/**"/>
-                <include name="commons-discovery.jar"/>
-                <include name="commons-discovery-LICENSE*"/>
-                <include name="commons-discovery-NOTICE*/**"/>
-                <include name="commons-logging.jar"/>
-                <include name="commons-logging-LICENSE*"/>
-                <include name="commons-logging-NOTICE*/**"/>
-                <include name="compc.jar"/>
-                <include name="copylocale.jar"/>
-                <include name="digest.jar"/>
-                <include name="fdb.jar"/>
-                <include name="fcsh.jar"/>
-                <include name="flex-compiler-oem.jar"/>
-                <include name="mxmlc.jar"/>
-                <include name="optimizer.jar"/>
-                <include name="swcdepends.jar"/>
-                <include name="swfdump.jar"/>
-                <include name="swfutils.jar"/>
-                <include name="fxgutils.jar"/>
-                <include name="saxon9.jar"/>
-                <include name="saxon9-LICENSE*"/>
-                <include name="saxon9-NOTICE*/**"/>
-                <include name="velocity-dep-1.4-flex.jar"/>
-                <include name="velocity-LICENSE*"/>
-                <include name="velocity-NOTICE*/**"/>
-                <include name="xalan.jar"/>
-                <include name="xalan-LICENSE*"/>
-                <include name="xalan-NOTICE*/**"/>
-                <include name="xercesImpl.jar"/>
-                <include name="xercesPatch.jar"/>
-                <include name="xerces-LICENSE*"/>
-                <include name="xerces-NOTICE*/**"/>
-                <include name="xml-apis.jar"/>
-                <include name="xml-batik-LICENSE*"/>
-                <include name="xml-batik-NOTICE*/**"/>
-            </fileset>
-        </copy>
+        <!-- the jar files -->
+        <antcall target="stage-lib"/>
 
         <!-- locale swcs -->
         <copy todir="${basedir}/temp/frameworks/locale">
@@ -742,6 +695,67 @@
         <antcall target="binary-package-tgz"/>        
     </target>
         
+    <target name="stage-lib">
+        <!-- 
+            lib - Do not include any jars which we prompted to download because of
+            conflicting licenses.  These are all in lib/external/optional.
+        -->
+        <copy todir="${basedir}/temp/lib">
+            <fileset dir="${basedir}/lib">
+                <include name="asc.jar"/>
+                <include name="asdoc.jar"/>
+                <include name="batik-all-flex.jar"/>
+                <include name="batik-LICENSE*"/>
+                <include name="batik-NOTICE*/**"/>
+                <include name="compc.jar"/>
+                <include name="copylocale.jar"/>
+                <include name="digest.jar"/>
+                <include name="fdb.jar"/>
+                <include name="fcsh.jar"/>
+                <include name="flex-compiler-oem.jar"/>
+                <include name="mxmlc.jar"/>
+                <include name="optimizer.jar"/>
+                <include name="swcdepends.jar"/>
+                <include name="swfdump.jar"/>
+                <include name="swfutils.jar"/>
+                <include name="fxgutils.jar"/>
+                <include name="velocity-dep-1.4-flex.jar"/>
+                <include name="velocity-LICENSE*"/>
+                <include name="velocity-NOTICE*/**"/>
+            </fileset>
+        </copy>
+
+        <!-- external libraries - ie we don't have the sources to build them -->
+        <copy todir="${basedir}/temp/lib/external">
+            <fileset dir="${basedir}/lib/external">
+                <include name="commons-collections.jar"/>
+                <include name="commons-collections-LICENSE*"/>
+                <include name="commons-collections-NOTICE*/**"/>
+                <include name="commons-discovery.jar"/>
+                <include name="commons-discovery-LICENSE*"/>
+                <include name="commons-discovery-NOTICE*/**"/>
+                <include name="commons-logging.jar"/>
+                <include name="commons-logging-LICENSE*"/>
+                <include name="commons-logging-NOTICE*/**"/>
+                <include name="javacc.jar"/>
+                <include name="javacc-LICENSE*"/>
+                <include name="saxon9.jar"/>
+                <include name="saxon9-LICENSE*"/>
+                <include name="saxon9-NOTICE*/**"/>
+                <include name="xalan.jar"/>
+                <include name="xalan-LICENSE*"/>
+                <include name="xalan-NOTICE*/**"/>
+                <include name="xercesImpl.jar"/>
+                <include name="xercesPatch.jar"/>
+                <include name="xerces-LICENSE*"/>
+                <include name="xerces-NOTICE*/**"/>
+                <include name="xml-apis.jar"/>
+                <include name="xml-batik-LICENSE*"/>
+                <include name="xml-batik-NOTICE*/**"/>
+            </fileset>
+        </copy>
+    </target>
+    
     <!-- 
         Packages the binary distribution with ZIP. 
     -->
@@ -1401,7 +1415,6 @@
             reportFile="${basedir}/rat.log">
             <fileset dir="${rat.dir}">
                 <exclude name="modules/asc/src/**" />
-                <exclude name="modules/thirdparty/**" />
             </fileset>
         </rat:report>
     </target>

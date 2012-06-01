@@ -41,7 +41,7 @@
     <target name="clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
-            <fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/>
+            <!--fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/-->
         </delete>
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${download.dir}">
