@@ -38,7 +38,13 @@
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
     <property name="adobe.flex.sdk" value="adobe_flex_sdk_4.6"/>
-    
+
+    <property name="batik.zip.dir" value="batik-1.6"/>
+    <property name="batik.dir" value="thirdparty/batik"/>
+    <property name="velocity.zip.dir" value="velocity-1.4"/>
+    <property name="velocity.dir" value="thirdparty/velocity"/>
+
+
 	<!-- 
 	   Notes:
 	       For Apache, the JARS must be removed from the repository.
@@ -80,7 +86,7 @@
     
 	<target name="main" depends="optional-jars, required-jars"/>
 
-	<target name="required-jars" depends="commons-jars, javacc-jar, saxon9-jar, xalan-jar, xerces-jars" 
+	<target name="required-jars" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars" 
 		description="Downloads all the required thirdparty JARs"/>
 
     <!-- Ask all the questions up front. -->
@@ -91,7 +97,7 @@
 		Cleanup
 	-->
 	
-    <target name="clean" depends="clean-adobe-flex-sdk"
+    <target name="clean" depends="batik-jars-clean,velocity-jars-clean,clean-adobe-flex-sdk"
         description="Removes thirdparty downloads.">
         
         <delete includeEmptyDirs="true" failonerror="false">
@@ -107,7 +113,6 @@
             </fileset>
         </delete>
 
-        <delete dir="${download.dir}" failonerror="false"/>
         <delete dir="${lib.ext.dir}" failonerror="false"/>
         <delete dir="${lib.opt.dir}" failonerror="false"/>
     </target>
@@ -217,6 +222,50 @@
         <fail message="${message}"/>
     </target>
         
+    <!--
+        batik - SVG toolkit - need the jars for our forked version
+    -->
+    
+    <target name="batik-jars-check" description="Checks if batik jars exists.">
+    	<condition property="batik.jars.exists">
+    	    <and>
+    	        <available file="${basedir}/${batik.dir}/lib/js.jar"/>
+    	        <available file="${basedir}/${batik.dir}/lib/pdf-transcoder.jar"/>
+    	        <available file="${basedir}/${batik.dir}/lib/xerces_2_5_0.jar"/>
+    	        <available file="${basedir}/${batik.dir}/lib/xml-apis.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="batik-jars" depends="batik-jars-check" unless="batik.jars.exists"
+        description="Downloads and copies the batik jars.">
+
+        <antcall target="download-zip">
+            <param name="srcUrl" value="http://archive.apache.org/dist/xmlgraphics/batik"/>
+            <param name="zipFile" value="${batik.zip.dir}.zip"/>
+            <param name="md5" value="edff288fc64f968ff96ca49763d50f3c"/>
+        </antcall>
+                    
+        <copy todir="${basedir}/${batik.dir}/lib" failonerror="true">
+            <fileset dir="${download.dir}/${batik.zip.dir}/lib">
+                <include name="**/**"/>
+            </fileset>            
+        </copy>
+    </target>
+    
+	<target name="batik-jars-clean">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/${batik.dir}/lib">
+                <include name="**/**"/>
+            </fileset>            
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${download.dir}">
+                <include name="${batik.zip.dir}*/**"/>
+            </fileset>            
+        </delete>
+    </target>
+    
     <!--
 	    commons
 	-->
@@ -358,6 +407,48 @@
         </copy>
     </target>
     	
+    <!--
+        velocity - templates to generate code for -keep option
+    -->
+    
+    <target name="velocity-jars-check" description="Checks if velocity build lib exists.">
+    	<condition property="velocity.jars.exists">
+            <and>
+                <available file="${download.dir}/${velocity.zip.dir}/build/lib/commons-collections.jar"/>
+                <available file="${download.dir}/${velocity.zip.dir}/build/lib/oro.jar"/>
+            </and>
+        </condition>
+    </target>
+    
+	<target name="velocity-jars" depends="velocity-jars-check" unless="velocity.jars.exists" 
+        description="Downloads and copies the velocity build jars.">
+                
+        <antcall target="download-zip">
+            <param name="srcUrl" value="http://archive.apache.org/dist/velocity/engine/1.4"/>
+        	<param name="zipFile" value="${velocity.zip.dir}.tar.gz"/>
+        	<param name="md5" value="f280fee7ddb5eac5b354f6dea39a2f51"/>
+        </antcall>
+
+        <copy todir="${basedir}/${velocity.dir}/build/lib" failonerror="true">
+            <fileset dir="${download.dir}/${velocity.zip.dir}/build/lib">
+                <include name="**/**"/>
+            </fileset>            
+        </copy>
+    </target>
+    
+	<target name="velocity-jars-clean">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/${velocity.dir}/build/lib">
+                <include name="**/**"/>
+            </fileset>            
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${download.dir}">
+                <include name="${velocity.zip.dir}*/**"/>
+            </fileset>            
+        </delete>
+    </target>
+    	        	    
     <!--
         xalan - Java API for XML Processing
     -->

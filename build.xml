@@ -537,12 +537,13 @@
         </copy>  
 
         <!-- modules/thirdparty -->
-        <copy todir="${basedir}/temp/modules/thirdparty" includeEmptyDirs="false">
+        <copy todir="${basedir}/temp/modules/thirdparty" includeEmptyDirs="true">
             <fileset dir="${basedir}/modules/thirdparty">
                 <include name="**"/>
                 <exclude name="**/classes/**"/>
                 <exclude name="**/.classpath"/>
                 <exclude name="**/.project"/>
+                <exclude name="*/test*/**"/>
             </fileset>
         </copy>  
     </target>
