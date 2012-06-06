@@ -33,6 +33,8 @@
   <property name="build.dir" value="../bin"/>
   <property name="build.src" value="${build.dir}/src"/>
   <property name="build.dest" value="${build.dir}/classes"/>
+  
+  <property name="build.lib" value="${basedir}/lib"/>
     
   <property name="example.dir" value="../examples"/>
 
@@ -166,6 +168,7 @@
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.dest}"/>
     <mkdir dir="${build.src}"/>
+    <mkdir dir="${build.lib}"/>
 
     <copy todir="${build.src}" filtering="yes">
       <fileset dir="${src.java.dir}"> 
