@@ -97,8 +97,6 @@
     -->
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
-        <property name="blazeds.donot.ask" value="set"/>
-        <property name="font.donot.ask" value="set"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>
     </target>
 
@@ -181,8 +179,10 @@
         description="Set properties needed to turn on features for release sdk">
         <!-- generate localized compiler message jars -->
 	    <property name="localized.jars" value="true" />
-        <!-- don't ask to download blazeds -->	    
+        <!-- don't ask to download blazeds from Adobe Flex SDK -->	    
 	    <property name="blazeds.donot.ask" value="set" />
+        <!-- don't ask to download font jars from Adobe Flex SDK -->	    
+        <property name="font.donot.ask" value="set"/>
     </target>
     
     <!--
