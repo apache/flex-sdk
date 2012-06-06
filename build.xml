@@ -200,7 +200,7 @@
         description="Full clean excluding thirdparty downloads">
         
         <delete file="${basedir}/flex-sdk-description.xml" failonerror="false"/>
-        <delete file="${basedir}/rat.log" failonerror="false"/>
+        <delete file="${basedir}/rat*.log" failonerror="false"/>
         
         <!-- These directory would exist if the AIR SDK was merged in. -->
         <delete dir="${basedir}/lib" failonerror="false" includeEmptyDirs="true">
@@ -1418,6 +1418,12 @@
             reportFile="${basedir}/rat.log">
             <fileset dir="${rat.dir}">
                 <exclude name="modules/asc/src/**" />
+            </fileset>
+        </rat:report>
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
+            reportFile="${basedir}/ratasc.log">
+            <fileset dir="${rat.dir}">
+                <include name="modules/asc/src/**" />
             </fileset>
         </rat:report>
     </target>

@@ -47,18 +47,36 @@
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
-        
-    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,javascript,compile" 
+ 
+    <available file="localFonts.ser" property="localFonts.ser.present"/>
+    <available file="macFonts.ser" property="macFonts.ser.present"/>
+    <available file="winFonts.ser" property="winFonts.ser.present"/>
+       
+    <target name="main" depends="check-compile-env,clean,prepare,javascript,compile" 
         description="Clean build of all SWCs"/>
-
-    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
-        <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
-    </target>
 
     <target name="check-compile-env" description="Check for the required environment variables">
         <ant antfile="${FLEX_HOME}/build.xml" target="check-compile-env" dir="${FLEX_HOME}"/>
     </target>
     
+    <target name="prepare" depends="local-fonts, mac-fonts, win-fonts, thirdparty-downloads"/>
+    
+    <target name="local-fonts" unless="localFonts.ser.present" description="local-fonts-snapshot">
+        <touch file="localFonts.ser"/>
+    </target>
+    
+    <target name="mac-fonts" unless="macFonts.ser.present" description="local-fonts-snapshot for Mac">
+        <touch file="macFonts.ser"/>
+    </target>
+    
+    <target name="win-fonts" unless="winFonts.ser.present" description="local-fonts-snapshot for Windows">
+        <touch file="winFonts.ser"/>
+    </target>
+    
+    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
+        <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
+    </target>
+
     <!-- Note:
        Removed osmf from build.  For now, just use the downloaded swc.
        We can move the osmf source from osmf-download to projects/osmf and add back the
