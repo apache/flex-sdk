@@ -153,7 +153,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 		
-	<target name="clean" depends="bundles-clean">
+	<target name="clean" depends="bundles-clean, pixelbender-clean">
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
@@ -179,12 +179,50 @@
 		</delete>
 	</target>
 	
+	<target name="pixelbender-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets">
+				<include name="**/*.pbj"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects">
+				<include name="**/*.pbj"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="pixelbender-compile">
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/CrossFade.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/CrossFade.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeDown.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeDown.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeUp.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeUp.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeLeft.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeLeft.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeRight.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeRight.pbj" />
+        </exec>
+	</target>
+
 	
 	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
 		<copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
 	</target>
 	
-	<target name="compile" depends="prepare" description="Compiles spark.swc">
+	<target name="compile" depends="prepare, pixelbender-compile" description="Compiles spark.swc">
 		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
 		<echo message="Compiling frameworks/libs/spark.swc"/>
 

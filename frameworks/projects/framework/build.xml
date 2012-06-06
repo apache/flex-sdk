@@ -152,7 +152,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
-	<target name="clean" depends="bundles-clean">
+	<target name="clean" depends="bundles-clean, pixelbender-clean">
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
@@ -174,7 +174,54 @@
 		</delete>
 	</target>
 	
-	<target name="compile" description="Compiles framework.swc">
+	<target name="pixelbender-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses">
+				<include name="**/*.pbj"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="pixelbender-compile">
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorBurn.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorBurn.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorDodge.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorDodge.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Exclusion.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Exclusion.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Hue.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Hue.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Luminosity.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Luminosity.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/LuminosityMaskFilter.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/LuminosityMaskFilter.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Saturation.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Saturation.pbj" />
+        </exec>
+        <exec executable="${env.PIXELBENDER_HOME}/pbutil">
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/SoftLight.pbk" />
+            <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/SoftLight.pbj" />
+        </exec>
+	</target>
+
+	<target name="compile" depends="pixelbender-compile" description="Compiles framework.swc">
 		<echo message="Compiling frameworks/libs/framework.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->

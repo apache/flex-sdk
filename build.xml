@@ -490,6 +490,7 @@
                 <include name="**"/>
                 <exclude name="**/libs/**"/>
                 <exclude name="**/*.swc"/>
+                <exclude name="**/*.pbj"/>
                 <!--exclude name="test*/**"/-->
                 <exclude name="projects/automation*/**"/>
                 <exclude name="projects/air/**"/>
@@ -520,6 +521,7 @@
             <fileset dir="${basedir}/modules">
                 <include name="**"/>
                 <exclude name="thirdparty/**"/>
+                <exclude name=".metadata/**"/>
                 <exclude name="**/*.jar"/>
                 <exclude name="**/*.vms"/>
                 <exclude name="*/test/**"/>
