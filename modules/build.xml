@@ -85,7 +85,7 @@
         <ant dir="${basedir}/thirdparty/xerces-patch" target="clean"/>
         <delete file="${FLEX_LIB}/asc.jar"/>
         <!--delete dir="${FLEX_LIB}/*.jar" failonerror="false"/-->
-        <delete includeemptydirs="true">
+        <delete includeemptydirs="true" failonerror="false">
             <fileset dir="${FLEX_LIB}">
                 <exclude name="**/*" />
             </fileset>
@@ -187,7 +187,9 @@
 	</target>
 
 	<target name="batik-clean">
+	    <mkdir dir="${basedir}/thirdparty/batik/lib"/>
 		<ant dir="${basedir}/thirdparty/batik" target="clean"/>
+	    <delete dir="${basedir}/thirdparty/batik/lib"/>
         <delete file="${FLEX_LIB}/batik-all-flex.jar"/>
         <delete file="${FLEX_LIB}/batik-LICENSE"/>
         <delete file="${FLEX_LIB}/batik-NOTICE"/>
@@ -210,7 +212,9 @@
 	</target>
 
     <target name="velocity-clean">
+	    <mkdir dir="${basedir}/thirdparty/velocity/build/lib"/>
 		<ant dir="${basedir}/thirdparty/velocity/build" target="clean"/>
+	    <delete dir="${basedir}/thirdparty/velocity/build/lib"/>
         <delete file="${FLEX_LIB}/velocity-dep-1.4-flex.jar"/>
         <delete file="${FLEX_LIB}/velocity-LICENSE"/>
         <delete file="${FLEX_LIB}/velocity-NOTICE"/>

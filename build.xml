@@ -97,7 +97,11 @@
     -->
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
-        <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>
+        <!-- don't ask again about these since we just did if these weren't already set -->	    
+	    <property name="blazeds.donot.ask" value="set" />
+        <property name="font.donot.ask" value="set"/>
+
+        <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>        
     </target>
 
     <target name="pre-build" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
@@ -106,7 +110,7 @@
         description="Check for the required environment variables for compilation"/>
 
     <target name="check-playerglobal-home" unless="playerglobal.swc.exists"
-        description="Check PLAYERGLOBAL for both a directory and a swc file">
+        description="Check PLAYERGLOBAL_HOME for both a directory and a swc file">
 
         <echo message="PLAYERGLOBAL_HOME is ${env.PLAYERGLOBAL_HOME}"/>
         <echo message="playerglobal.version is ${playerglobal.version}"/>
@@ -147,6 +151,36 @@
             unless="AIR_HOME.set"/>
     </target>
     
+    <target name="check-pixelbender-home" unless="pbutil.exe.exists"
+        description="Check PIXELBENDER_HOME for both a directory and an exe file">
+
+        <echo message="PIXELBENDER_HOME is ${env.PIXELBENDER_HOME}"/>
+
+        <available file="${env.PIXELBENDER_HOME}" 
+            type="dir" 
+            property="PIXELBENDER_HOME.set"/>
+
+        <fail message="The environment variable PIXELBENDER_HOME is not set to a directory" 
+            unless="PIXELBENDER_HOME.set"/>
+
+        <condition property="pbutil.exe.exists">
+            <and>
+                <os family="mac"/>
+                <available file="${env.PIXELBENDER_HOME}/pbutil" type="file"/> 
+            </and>
+        </condition>
+        
+        <condition property="pbutil.exe.exists">
+            <and>
+                <os family="windows"/>
+                <available file="${env.PIXELBENDER_HOME}/pbutil.exe" type="file"/>
+            </and>
+        </condition>
+
+        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable" 
+            unless="pbutil.exe.exists"/>
+    </target>
+
     <target name="create-description" description="Generate flex-sdk-description.xml">
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
 &lt;!--
