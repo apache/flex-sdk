@@ -517,15 +517,32 @@
         
         <!-- 
              Source files have Windows line endings.  Most UNIX editors can handle
-             either type of line endings but the converse is often not true.
+             either type of line endings but the converse is often not true.             
+             The bin directory is handled in stage-bin.
         -->
-        <fixcrlf srcdir="${basedir}/temp"
-           eol="crlf"
-           preservelastmodified="true"
-           excludes="**/*.gif, **/*.png, **/*.jpg, **/*.swf, 
-                     **/*.fla, **/*.flv,  **/*.mp3, **/*.pbj"/>
+        <fixcrlf srcdir="${basedir}/temp" eol="crlf">
+            <exclude name="bin/**"/>
+            <exclude name="**/*.fla"/>
+            <exclude name="**/*.flv"/>
+            <exclude name="**/*.gif"/>
+            <exclude name="**/*.mp3"/>
+            <exclude name="**/*.jpg"/>
+            <exclude name="**/*.pbj"/>
+            <exclude name="**/*.png"/>
+            <exclude name="**/*.sh"/>
+            <exclude name="**/*.swf"/>
+        </fixcrlf>
+               
+        <!-- 
+            Unix shell scripts need the correct line endings. 
+            The bin directory is handled in stage-bin.
+        -->      
+        <fixcrlf srcdir="${basedir}/temp" eol="unix">  
+            <include name="**.sh"/>
+            <exclude name="bin/**"/>
+        </fixcrlf>
     </target>
-    
+
     <target name="stage-frameworks">
         <!-- frameworks -->
         <copy todir="${basedir}/temp/frameworks" includeEmptyDirs="false">
@@ -555,7 +572,16 @@
                 <exclude name="adl*"/>
                 <exclude name="adt*"/>
             </fileset>
-        </copy>  
+        </copy>
+        
+        <fixcrlf srcdir="${basedir}/temp/bin" eol="crlf">
+            <include name="**/*.bat"/>
+        </fixcrlf>
+  
+          <!-- Unix shell scripts need the correct line endings. -->      
+        <fixcrlf srcdir="${basedir}/temp/bin" eol="unix">  
+            <exclude name="**/*.bat"/>
+        </fixcrlf>
     </target>
     
     <target name="stage-modules" unless="no.modules">

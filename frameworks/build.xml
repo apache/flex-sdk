@@ -48,10 +48,6 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
  
-    <available file="localFonts.ser" property="localFonts.ser.present"/>
-    <available file="macFonts.ser" property="macFonts.ser.present"/>
-    <available file="winFonts.ser" property="winFonts.ser.present"/>
-       
     <target name="main" depends="check-compile-env,clean,prepare,javascript,compile" 
         description="Clean build of all SWCs"/>
 
@@ -59,20 +55,21 @@
         <ant antfile="${FLEX_HOME}/build.xml" target="check-compile-env" dir="${FLEX_HOME}"/>
     </target>
     
-    <target name="prepare" depends="local-fonts, mac-fonts, win-fonts, thirdparty-downloads"/>
+    <target name="prepare" depends="local-fonts-snapshot, thirdparty-downloads"/>
     
-    <target name="local-fonts" unless="localFonts.ser.present" description="local-fonts-snapshot">
+    <!--
+        Font snapshot files for the JREFontManager.  
+        For some fonts it is possible to determine if it is illegal to embed them.  
+        If that information is known for a particular font, a warning message can be 
+        displayed.if an attempt is made to embed that font.
+    -->
+    <target name="local-fonts-snapshot" 
+        description="Files required by FlashBuilder but not by Flex.">
         <touch file="localFonts.ser"/>
-    </target>
-    
-    <target name="mac-fonts" unless="macFonts.ser.present" description="local-fonts-snapshot for Mac">
         <touch file="macFonts.ser"/>
-    </target>
-    
-    <target name="win-fonts" unless="winFonts.ser.present" description="local-fonts-snapshot for Windows">
         <touch file="winFonts.ser"/>
     </target>
-    
+        
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
     </target>
@@ -217,7 +214,11 @@
         <!-- Delete only if it exists and it is empty.  air and swfobject put dirs here. -->
         <delete includeemptydirs="true" failonerror="false">
             <fileset dir="${FLEX_HOME}/templates" excludes="**/*" />
-        </delete>    
+        </delete> 
+        <!-- remove these if/when they actually have content -->
+        <delete file="localFonts.ser"/>
+        <delete file="macFonts.ser"/>
+        <delete file="winFonts.ser"/>
     </target>
     
     <target name="airsdk-clean" description="Delete files copied from the AIR SDK">
