@@ -106,8 +106,8 @@
 
     <target name="prebuild" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
-        description="Check for the required environment variables for compilation"/>
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
+        description="Check for the required environment variables for compilation."/>
 
     <target name="check-playerglobal-home" unless="playerglobal.swc.exists"
         description="Check PLAYERGLOBAL_HOME for both a directory and a swc file">
