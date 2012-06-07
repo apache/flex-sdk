@@ -464,7 +464,8 @@
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
                 <include name="build.xml"/>
-                <include name="*.properties"/>
+                <include name="build.properties"/>
+				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
                 <include name="KEYS"/>
                 <include name="CHANGES"/>
@@ -628,7 +629,7 @@
         <!-- delete file from source distro that are not in binary distro -->
 
         <delete dir="${basedir}/temp/">
-            <include name="*.properties"/>
+            <include name="build.properties"/>
             <include name="**/build.xml"/>
             <exclude name="asdoc/build.xml"/>
         </delete>
