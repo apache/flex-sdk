@@ -63,40 +63,52 @@ Install Prerequisites
     corresponding environment variables using absolute file paths.  Relative file paths
     will result in build errors.
 	
-	The environment variables PLAYERGLOBAL_HOME, AIR_HOME and FLASHPLAYER_DEBUGGER can
-	also be set in a file. See the env-template.properties file for instructions.
+	The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER and
+	PIXELBENDER_HOME can also be set in the property file called env.properties. 
+	See the env-template.properties file for instructions.
     
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
     with the exception of the airframework and airspark components which require
     airglobal.swc from the AIR Integration Kit.  The AIR Integration kit is also needed
     to build and debug mobile applications.  The Flash Player content debugger is
     used by checkintests and other pieces of the test subsystem to run compiled
-    applications.
+    applications.  The Adobe Pixel Bender Toolkit is needed to build some
+    files needed for effects.
     
     ==================================================================================
     SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
     ==================================================================================
     
     Java SDK 1.5 (0_13 or greater)              JAVA_HOME
-    or Java SDK 1.6
+    or Java SDK 1.6 (*1)
     
-    Ant 1.7.0 or greater                        ANT_HOME
+    Ant 1.7.0 or greater (*1)                   ANT_HOME
     
     Cygwin, git bash 
     or other unix-like shell
     (if Windows)
     
-    Adobe AIR Integration Kit (*1)              AIR_HOME 
+    Adobe AIR Integration Kit (*2)              AIR_HOME 
     
-    Adobe Flash Player Content Debugger (*2)    FLASHPLAYER_DEBUGGER
-    
-    Adobe Flash Player (*3)                     PLAYERGLOBAL_HOME
-    
+    Adobe Flash Player Content Debugger (*3)    FLASHPLAYER_DEBUGGER
+        
     Adobe Pixel Bender Toolkit (*4)             PIXELBENDER_HOME
     
+    Adobe Flash Player (*5)                     PLAYERGLOBAL_HOME
+
     ==================================================================================
         
-    *1) The Adobe AIR integration kit for Windows can be downloaded from:
+    *1) The bin directories for ANT_HOME and JAVA_HOME should be added to your PATH.
+        
+        On Windows, set PATH to
+            
+            PATH=%PATH%;%ANT_HOME%\bin;%JAVA_HOME%\bin
+            
+        On the Mac (bash), set PATH to
+            
+            export PATH="$PATH:$ANT_HOME/bin:$JAVA_HOME/bin"
+    
+    *2) The Adobe AIR integration kit for Windows can be downloaded from:
                 http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip
         
          The Adobe AIR integration kit for Mac can be downloaded from:
@@ -105,7 +117,7 @@ Install Prerequisites
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
                
-    *2) The Adobe Flash Player content debuggers can be found here:
+    *3) The Adobe Flash Player content debuggers can be found here:
             http://www.adobe.com/support/flashplayer/downloads.html
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
@@ -115,16 +127,6 @@ Install Prerequisites
         
         On Linux, set set FLASHPLAYER_DEBUGGER to the absolute path of flashplayerdebugger
             
-    *3) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
-        
-        Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
-        and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
-        
-        Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
-		the version subdirectory). The target-version option controls which 
-		PLAYERGLOBAL_HOME subdirectory is used.
-
     *4) The Adobe Pixel Bender Toolkit for Windows can be downloaded from:
             http://www.adobe.com/go/pixelbender_toolkit_zip/
         
@@ -133,6 +135,16 @@ Install Prerequisites
         
         Download the Pixel Bender Toolkit for your platform and install or unzip it.
 	    Set PIXELBENDER_HOME to the absolute path of the Pixel Bender Toolkit directory.
+
+    *5) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
+        
+        Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
+        and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
+        
+        Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
+		the version subdirectory). The target-version option controls which 
+		PLAYERGLOBAL_HOME subdirectory is used.
 
 FlashPlayer Configuration
 -------------------------
@@ -144,8 +156,8 @@ FlashPlayer Configuration
     
     and a FlashPlayerTrust file must allow local SWFs to access local files.
 
-Building the Source
--------------------
+Building the Source in a Source Distribution
+--------------------------------------------
 
     When you have all the prerequisites in place and the environment variables set, use
 
@@ -176,3 +188,29 @@ Building the Source
     To get a brief listing of all the targets type
     
         ant -projecthelp
+
+Building the Source in a Binary Distribution
+--------------------------------------------
+
+The source for the framework is included in the binary distribution.  It can be useful
+if you wish to debug and/or extend components.
+
+    When you have all the prerequisites in place and the environment variables set, use
+
+        cd frameworks
+        ant main        (or just ant since the default target is main)
+    
+    to download the thirdparty dependencies and build the Flex framework.  Since the 
+    thirdparty dependencies take a little while to download and they don't change very 
+    often, they are not cleaned with the regular clean target.  The thirdparty 
+    dependencies can be found in the "in" directory.
+    
+    To clean the build, of everything other than the downloaded third-party dependencies 
+    use
+    
+        ant clean 
+    
+    To clean the build, of everything, including the downloaded third-party dependencies 
+    use
+        
+        ant super-clean (which is just thirdparty-clean followed by clean)
