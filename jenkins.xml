@@ -26,7 +26,7 @@
 
     <target name="main" depends="thirdparty-downloads"/>
     
-    <target name="thirdparty-downloads" depends="airsdk-download,playerglobal-download,pixelbender-download" description="Copies required downloads into place for build" />
+    <target name="thirdparty-downloads" depends="airsdk-download,playerglobal-download,pixelbender-download,flashplayerdebugger-download" description="Copies required downloads into place for build" />
     
     <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
         <available file="${basedir}/lib/air/airglobal.swc" property="airsdk.present"/>
@@ -35,10 +35,15 @@
     <target name="pixelbender-check" description="Checks if the Pixel Bender Toolkit has been downloaded.">
         <available file="${basedir}/pixelbender/Set-up.exe" property="pixelbender.present"/>
     </target>
+	
+    <target name="flashplayerdebugger-check" description="Checks if the Flash Player Content Debugger has been downloaded.">
+        <available file="${FLEX_HOME}/flashplayerdebugger/flashplayer.exe" property="flashplayerdebugger.present"/>
+    </target>
 
     <target name="playerglobal-check" description="Checks if the playerglobal.swc has been downloaded.">
         <available file="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
     </target>
+  
     
     <!-- Adobe AIR SDK  -->
     <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
@@ -67,6 +72,18 @@
             dest="${FLEX_HOME}/temp/pixelbender_toolkit.zip" 
             verbose="false"/>
         <unzip dest="${FLEX_HOME}/pixelbender" src="${FLEX_HOME}/temp/pixelbender_toolkit.zip" />
+    </target>
+	
+    <!-- Flash Player content debugger  -->
+    <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
+	<!-- TODO: Make work for OSX as well -->
+    <target name="flashplayerdebugger-download" depends="flashplayerdebugger-check" unless="flashplayerdebugger.present" description="Copies Flash Player Content Debugger from the Adobe website">
+        <echo message="This might take a minute..." />
+        <mkdir dir="${FLEX_HOME}/flashplayerdebugger"/>
+        <mkdir dir="${FLEX_HOME}/temp"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_ax_debug_32bit.exe" 
+            dest="${FLEX_HOME}/flashplayerdebugger/flashplayer.exe" 
+            verbose="false"/>
     </target>
         
     <!-- playerglobal.swc -->
