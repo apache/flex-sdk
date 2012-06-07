@@ -414,8 +414,8 @@
     <target name="velocity-jars-check" description="Checks if velocity build lib exists.">
     	<condition property="velocity.jars.exists">
             <and>
-                <available file="${download.dir}/${velocity.zip.dir}/build/lib/commons-collections.jar"/>
-                <available file="${download.dir}/${velocity.zip.dir}/build/lib/oro.jar"/>
+                <available file="${basedir}/${velocity.dir}/build/lib/commons-collections.jar"/>
+                <available file="${basedir}/${velocity.dir}/build/lib/oro.jar"/>
             </and>
         </condition>
     </target>
