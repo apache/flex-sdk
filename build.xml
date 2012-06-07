@@ -1187,7 +1187,7 @@
         <!-- run the component smoke  -->
         <echo message="launching player and swf"/>
         <exec executable="${flash.player}" dir="${basedir}/frameworks" failonerror="true">
-            <arg line="${basedir}/frameworks/tests/basicTests/BasicTests.swf"/>
+            <arg value="${basedir}/frameworks/tests/basicTests/BasicTests.swf"/>
         </exec>
         <!-- halt if there was an error -->
         <antcall target="mustellaresultsparser"/>
@@ -1240,7 +1240,7 @@
         <!-- run the component smoke  -->
         <echo message="launching player and swf"/>
         <exec executable="${flash.player}" dir="${basedir}/frameworks" failonerror="true">
-            <arg line="${basedir}/frameworks/tests/componentSmoke/componentSmoke2.swf"/>
+            <arg value="${basedir}/frameworks/tests/componentSmoke/componentSmoke2.swf"/>
         </exec>
         <!-- halt if there was an error -->
         <antcall target="mustellaresultsparser"/>
@@ -1266,7 +1266,7 @@
         <!-- run the component smoke  -->
         <echo message="launching player and swf"/>
         <exec executable="${flash.player}" dir="${basedir}/frameworks">
-            <arg line="${basedir}/frameworks/tests/checkinapp/checkinapp.swf"/>
+            <arg value="${basedir}/frameworks/tests/checkinapp/checkinapp.swf"/>
         </exec>
         <!-- halt if there was an error -->
         <antcall target="mustellaresultsparser"/>
@@ -1288,7 +1288,7 @@
         <!-- run the component smoke  -->
         <echo message="launching player and swf"/>
         <exec executable="${flash.player}" dir="${basedir}/frameworks">
-            <arg line="${basedir}/frameworks/tests/graphics/GraphicTags_checkin.swf"/>
+            <arg value="${basedir}/frameworks/tests/graphics/GraphicTags_checkin.swf"/>
         </exec>
         <!-- halt if there was an error -->
         <antcall target="mustellaresultsparser"/>
@@ -1310,7 +1310,7 @@
         <!-- run the component smoke  -->
         <echo message="launching player and swf"/>
         <exec executable="${flash.player}" dir="${basedir}/frameworks">
-            <arg line="${basedir}/frameworks/tests/spark/sparkTest.swf"/>
+            <arg value="${basedir}/frameworks/tests/spark/sparkTest.swf"/>
         </exec>
         <!-- halt if there was an error -->
         <antcall target="mustellaresultsparser"/>
@@ -1332,7 +1332,7 @@
         <!-- run the component smoke  -->
         <echo message="launching player and swf"/>
         <exec executable="${flash.player}" dir="${basedir}/frameworks">
-            <arg line="${basedir}/frameworks/tests/fxgCompile/fxgCompileTest.swf"/>
+            <arg value="${basedir}/frameworks/tests/fxgCompile/fxgCompileTest.swf"/>
         </exec>
         <!-- halt if there was an error -->
         <antcall target="mustellaresultsparser"/>
@@ -1428,7 +1428,8 @@
             <classpath>
                 <pathelement location="${basedir}/tools/dependencychecker"/>
             </classpath>
-            <arg line="${basedir}/frameworks/libs/framework.swc frameworkSwcExceptionsList.txt"/>
+            <arg value="${basedir}/frameworks/libs/framework.swc" />
+        	<arg value="frameworkSwcExceptionsList.txt"/>
         </java>
     </target>
     
