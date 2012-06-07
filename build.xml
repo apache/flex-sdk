@@ -58,7 +58,7 @@
         Each of the main targets for the modules will call clean themselves before proceeding.
     -->
 
-    <target name="main" depends="pre-build,modules,frameworks,sample-themes,post-build" description="Full build">
+    <target name="main" depends="prebuild,modules,frameworks,sample-themes,post-build" description="Full build">
         <tstamp>
             <format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
         </tstamp>
@@ -104,7 +104,7 @@
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>        
     </target>
 
-    <target name="pre-build" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
+    <target name="prebuild" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
 
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home"
         description="Check for the required environment variables for compilation"/>
@@ -497,6 +497,15 @@
             </fileset>
         </copy>
 
+        <!-- mustella -->
+        <copy todir="${basedir}/temp/mustella">
+            <fileset dir="${basedir}/mustella">
+                <exclude name="**/*.air"/>
+                <exclude name="**/*.swf"/>
+                <exclude name="tmp/**"/>
+            </fileset>
+        </copy>
+        
         <!-- templates -->
         <copy todir="${basedir}/temp/templates">
             <fileset dir="${basedir}/templates" >
@@ -1460,6 +1469,25 @@
             <fileset dir="${rat.dir}">
                 <include name="modules/asc/src/**" />
             </fileset>
+        </rat:report>
+    </target>
+    
+    <target name="rat-check-prompt" 
+        description="Prompt for dir and run RAT on that directory."> 
+         
+        <input
+            message="Enter the directory to run RAT on?"
+            defaultvalue="${basedir}/temp"
+            addproperty="rat.dir"/>
+        <condition property="do.blazeds.install">
+            <equals arg1="y" arg2="${input.blazeds.download}"/>
+        </condition>
+        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.log"/>
+        <typedef resource="org/apache/rat/anttasks/antlib.xml"
+             uri="antlib:org.apache.rat.anttasks"/>
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
+            reportFile="${basedir}/rat.log">
+            <fileset dir="${rat.dir}"/>
         </rat:report>
     </target>
 </project>
