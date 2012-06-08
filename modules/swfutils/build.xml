@@ -62,6 +62,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SWF Kit"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
             </manifest>
         </jar>
 		<echo message="Building lib/swfdump.jar"/>
@@ -73,6 +74,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SWF Dump"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flash.swf.tools.SwfxPrinter"/>
                 <attribute name="Class-Path" value="asc.jar swfutils.jar"/>
             </manifest>

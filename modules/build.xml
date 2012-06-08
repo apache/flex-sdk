@@ -163,61 +163,31 @@
 
 		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
 		
-		<ant dir="${basedir}/thirdparty/batik" target="all-jar">
+        <ant antfile="${basedir}/downloads.xml" target="batik-jars" dir="${basedir}"/>
+		<ant dir="${basedir}/thirdparty/batik" target="batik-all-flex-jar">
 	        <property name="deprecation" value="off"/>
 	    </ant>
-		<copy file="${basedir}/thirdparty/batik/batik-1.6/lib/batik-all.jar"
-			  tofile="${FLEX_LIB}/batik-all-flex.jar" overwrite="true" verbose="true"/>
-		<!-- 
-		    This adds Class-Path header to manifest for batik_*.jars which have localized 
-		    messages although these haven't been donated to Apache yet. 
-		-->
-        <exec executable="jar">
-		    <arg value="umf"/>
-            <arg value="${basedir}/thirdparty/batik/sources/batik-all-flex.mf"/>
-            <arg value="${FLEX_LIB}/batik-all-flex.jar"/>
-        </exec>
-		<copy todir="${FLEX_LIB}">
-            <fileset dir="${basedir}/thirdparty/batik">
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
-            </fileset>            
-            <globmapper from="*" to="batik-*"/>
-        </copy>
 	</target>
 
 	<target name="batik-clean">
 	    <mkdir dir="${basedir}/thirdparty/batik/lib"/>
-		<ant dir="${basedir}/thirdparty/batik" target="clean"/>
+		<ant dir="${basedir}/thirdparty/batik" target="batik-all-flex-clean"/>
 	    <delete dir="${basedir}/thirdparty/batik/lib"/>
-        <delete file="${FLEX_LIB}/batik-all-flex.jar"/>
-        <delete file="${FLEX_LIB}/batik-LICENSE"/>
-        <delete file="${FLEX_LIB}/batik-NOTICE"/>
 	</target>
 	
     <target name="velocity" description="Build velocity-dep-1.4-flex.jar">
+		
 		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
 		<echo message="Note that velocity builds with several 'enum' is a keyword warnings."/>
 
-		<ant dir="${basedir}/thirdparty/velocity/build" target="jar-dep"/>
-		<copy file="${basedir}/thirdparty/velocity/bin/velocity-dep-1.4.jar"
-			  tofile="${FLEX_LIB}/velocity-dep-1.4-flex.jar"/>
-		<copy todir="${FLEX_LIB}">
-            <fileset dir="${basedir}/thirdparty/velocity">
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
-            </fileset>            
-            <globmapper from="*" to="velocity-*"/>
-        </copy>
+        <ant antfile="${basedir}/downloads.xml" target="velocity-jars" dir="${basedir}"/>
+		<ant dir="${basedir}/thirdparty/velocity/build" target="jar-dep-flex"/>
 	</target>
 
     <target name="velocity-clean">
 	    <mkdir dir="${basedir}/thirdparty/velocity/build/lib"/>
-		<ant dir="${basedir}/thirdparty/velocity/build" target="clean"/>
+		<ant dir="${basedir}/thirdparty/velocity/build" target="jar-dep-flex-clean"/>
 	    <delete dir="${basedir}/thirdparty/velocity/build/lib"/>
-        <delete file="${FLEX_LIB}/velocity-dep-1.4-flex.jar"/>
-        <delete file="${FLEX_LIB}/velocity-LICENSE"/>
-        <delete file="${FLEX_LIB}/velocity-NOTICE"/>
     </target>
 
 </project>

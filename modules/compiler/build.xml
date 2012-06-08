@@ -176,6 +176,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - MXML Compiler"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="${mxmlc.main}"/>
                 <attribute name="Class-Path" value="${mxmlc.classpath}"/>
             </manifest>
@@ -191,6 +192,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - MXML Compiler (Japanese)"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="${mxmlc.main}"/>
                 <attribute name="Class-Path" value="batik_ja.jar mxmlc.jar"/>
             </manifest>
@@ -205,6 +207,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SWC Compiler"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="${compc.main}"/>
                 <attribute name="Class-Path" value="${compc.classpath}"/>
             </manifest>
@@ -218,6 +221,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - ASDoc"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="${asdoc.main}"/>
                 <attribute name="Class-Path" value="${asdoc.classpath}"/>
             </manifest>
@@ -232,6 +236,7 @@
         		<attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Compiler Shell"/>
 			    <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
 			    <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flex2.tools.Fcsh"/>
                 <attribute name="Class-Path" value="mxmlc.jar"/>
             </manifest>
@@ -247,6 +252,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - OEM Compiler"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Class-Path" value="mxmlc.jar"/>
             </manifest>
         </jar>
@@ -260,6 +266,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Optimizer"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flex2.tools.Optimizer"/>
                 <attribute name="Class-Path" value="mxmlc.jar"/>
             </manifest>
@@ -274,6 +281,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Digest Tool"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flex2.tools.DigestTool"/>
                 <attribute name="Class-Path" value="compc.jar"/>
             </manifest>
@@ -288,6 +296,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - SwcDependencies"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flex2.tools.SwcDependencies"/>
                 <attribute name="Class-Path" value="mxmlc.jar"/>
             </manifest>
@@ -302,6 +311,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Copy Locale"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/>
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flex2.tools.CopyLocale"/>
                 <attribute name="Class-Path" value="compc.jar"/>
             </manifest>
@@ -385,6 +395,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - MXML Compiler (${lang})"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="${mxmlc.main}"/>
                 <attribute name="Class-Path" value="mxmlc.jar"/>
             </manifest>

@@ -72,6 +72,7 @@
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Patch for Apache Xerces 2.9.1"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
             </manifest>
         </jar>
     </target>

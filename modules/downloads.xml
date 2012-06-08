@@ -226,6 +226,17 @@
         batik - SVG toolkit - need the jars for our forked version
     -->
     
+    <target name="batik-zip-check" description="Checks if batik expanded zip exists.">
+    	<condition property="batik.zip.exists">
+            <and>
+    	        <available file="${download.dir}/${batik.zip.dir}/lib/js.jar"/>
+    	        <available file="${download.dir}/${batik.zip.dir}/lib/pdf-transcoder.jar"/>
+    	        <available file="${download.dir}/${batik.zip.dir}/lib/xerces_2_5_0.jar"/>
+    	        <available file="${download.dir}/${batik.zip.dir}/lib/xml-apis.jar"/>
+            </and>
+        </condition>
+    </target>
+
     <target name="batik-jars-check" description="Checks if batik jars exists.">
     	<condition property="batik.jars.exists">
     	    <and>
@@ -237,15 +248,10 @@
         </condition>
     </target>
     
-    <target name="batik-jars" depends="batik-jars-check" unless="batik.jars.exists"
-        description="Downloads and copies the batik jars.">
+    <target name="batik-jars" depends="batik-download-zip,batik-jars-check" 
+        unless="batik.jars.exists"
+        description="Copies the batik jars to the batik build directory.">
 
-        <antcall target="download-zip">
-            <param name="srcUrl" value="http://archive.apache.org/dist/xmlgraphics/batik"/>
-            <param name="zipFile" value="${batik.zip.dir}.zip"/>
-            <param name="md5" value="edff288fc64f968ff96ca49763d50f3c"/>
-        </antcall>
-                    
         <copy todir="${basedir}/${batik.dir}/lib" failonerror="true">
             <fileset dir="${download.dir}/${batik.zip.dir}/lib">
                 <include name="**/**"/>
@@ -253,6 +259,16 @@
         </copy>
     </target>
     
+    <target name="batik-download-zip" depends="batik-zip-check" unless="batik.zip.exists"
+        description="Downloads the batik jars.">
+        
+        <antcall target="download-zip">
+            <param name="srcUrl" value="http://archive.apache.org/dist/xmlgraphics/batik"/>
+            <param name="zipFile" value="${batik.zip.dir}.zip"/>
+            <param name="md5" value="edff288fc64f968ff96ca49763d50f3c"/>
+        </antcall>
+    </target>
+
 	<target name="batik-jars-clean">
         <delete includeEmptyDirs="true">
             <fileset dir="${basedir}/${batik.dir}/lib">
@@ -411,6 +427,15 @@
         velocity - templates to generate code for -keep option
     -->
     
+    <target name="velocity-zip-check" description="Checks if velocity expanded zip exists.">
+    	<condition property="velocity.zip.exists">
+            <and>
+                <available file="${download.dir}/${velocity.zip.dir}/build/lib/commons-collections.jar"/>
+                <available file="${download.dir}/${velocity.zip.dir}/build/lib/oro.jar"/>
+            </and>
+        </condition>
+    </target>
+
     <target name="velocity-jars-check" description="Checks if velocity build lib exists.">
     	<condition property="velocity.jars.exists">
             <and>
@@ -420,20 +445,23 @@
         </condition>
     </target>
     
-	<target name="velocity-jars" depends="velocity-jars-check" unless="velocity.jars.exists" 
-        description="Downloads and copies the velocity build jars.">
+	<target name="velocity-jars" depends="velocity-download-zip,velocity-jars-check" 
+	    unless="velocity.jars.exists" 
+        description="Copies the velocity build jars.">
                 
-        <antcall target="download-zip">
-            <param name="srcUrl" value="http://archive.apache.org/dist/velocity/engine/1.4"/>
-        	<param name="zipFile" value="${velocity.zip.dir}.tar.gz"/>
-        	<param name="md5" value="f280fee7ddb5eac5b354f6dea39a2f51"/>
-        </antcall>
-
         <copy todir="${basedir}/${velocity.dir}/build/lib" failonerror="true">
             <fileset dir="${download.dir}/${velocity.zip.dir}/build/lib">
                 <include name="**/**"/>
             </fileset>            
         </copy>
+    </target>
+    
+    <target name="velocity-download-zip" depends="velocity-zip-check" unless="velocity.zip.exists">
+        <antcall target="download-zip">
+            <param name="srcUrl" value="http://archive.apache.org/dist/velocity/engine/1.4"/>
+        	<param name="zipFile" value="${velocity.zip.dir}.tar.gz"/>
+        	<param name="md5" value="f280fee7ddb5eac5b354f6dea39a2f51"/>
+        </antcall>
     </target>
     
 	<target name="velocity-jars-clean">

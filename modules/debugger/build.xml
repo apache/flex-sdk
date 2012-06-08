@@ -84,6 +84,7 @@ build outputs: sdk/lib/fdb.jar
                 <attribute name="Implementation-Title" value="${manifest.Implementation-Title} - Debugger"/>
                 <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}"/> 
                 <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}"/>
+                <attribute name="Implementation-Vendor-Id" value="${manifest.Implementation-Vendor-Id}"/>
                 <attribute name="Main-Class" value="flex.tools.debugger.cli.DebugCLI"/>
                 <attribute name="Class-Path" value="${fdb.classpath}"/>
             </manifest>

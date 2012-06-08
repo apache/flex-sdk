@@ -39,7 +39,6 @@
     <property name="debug" value="true"/>
     <property name="strict" value="true"/>
     <property name="javac.src" value="1.5"/>
-    <property name="build.number" value="0"/>
     <property name="target.player" value="11.1"/>
     
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
@@ -282,8 +281,8 @@
         <!--
         <ant dir="${basedir}/frameworks/tests/layout" target="clean"/>
         <ant dir="${basedir}/frameworks/tests/states" target="clean"/>
-        <ant dir="${basedir}/mustella" target="cleanmustellaswc"/>
         -->
+        <ant dir="${basedir}/mustella" target="cleanmustellaswc"/>
     </target>
 
     <target name="player-clean">
@@ -1507,9 +1506,6 @@
             message="Enter the directory to run RAT on?"
             defaultvalue="${basedir}/temp"
             addproperty="rat.dir"/>
-        <condition property="do.blazeds.install">
-            <equals arg1="y" arg2="${input.blazeds.download}"/>
-        </condition>
         <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.log"/>
         <typedef resource="org/apache/rat/anttasks/antlib.xml"
              uri="antlib:org.apache.rat.anttasks"/>
