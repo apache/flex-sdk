@@ -40,7 +40,8 @@
         description="Create framework config files in format expected by Adobe FlashBuilder"/>
 
     <target name="clean">
-        <delete dir="${basedir}/config"/>
+        <delete dir="${basedir}/config" failonerror="false" />
+        <delete file="${FLEX_HOME}/flashbuilder-config.xml" failonerror="false" verbose="true"/>
     </target>
     
     <!-- For testing.  Run this to integrate this SDK (in-place) with playerglobal.swc and
@@ -103,6 +104,9 @@
     <target name="install-config">
         <copy todir="${frameworks.dir}" verbose="true">
             <fileset dir="${basedir}/config"/> 
+        </copy>
+        <copy todir="${FLEX_HOME}" verbose="true">
+            <fileset file="${basedir}/flashbuilder-config.xml"/> 
         </copy>
     </target>
     

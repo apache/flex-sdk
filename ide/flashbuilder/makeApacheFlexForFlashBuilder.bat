@@ -96,6 +96,8 @@ REM
 echo Installing frameworks config files configured for use with Adobe Flash Builder
 copy /y "%FLEX_HOME%"\ide\flashbuilder\config\*-config.xml "%FLEX_HOME%\frameworks"
 if %errorlevel% neq 0 goto errorExit
+copy /y "%FLEX_HOME%"\ide\flashbuilder\flashbuilder-config.xml "%FLEX_HOME%"
+if %errorlevel% neq 0 goto errorExit
 
 REM
 REM         Remove zipped kits.
