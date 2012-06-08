@@ -778,8 +778,8 @@
                 <include name="asc.jar"/>
                 <include name="asdoc.jar"/>
                 <include name="batik-all-flex.jar"/>
-                <include name="batik-LICENSE*"/>
-                <include name="batik-NOTICE*/**"/>
+                <include name="batik*-LICENSE*"/>
+                <include name="batik*-NOTICE*/**"/>
                 <include name="compc.jar"/>
                 <include name="copylocale.jar"/>
                 <include name="digest.jar"/>
@@ -793,8 +793,8 @@
                 <include name="swfutils.jar"/>
                 <include name="fxgutils.jar"/>
                 <include name="velocity-dep-1.4-flex.jar"/>
-                <include name="velocity-LICENSE*"/>
-                <include name="velocity-NOTICE*/**"/>
+                <include name="velocity*-LICENSE*"/>
+                <include name="velocity*-NOTICE*/**"/>
             </fileset>
         </copy>
 
