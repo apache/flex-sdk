@@ -21,35 +21,15 @@ Integrating Apache Flex SDK with Adobe Flash Builder
 ----------------------------------------------------
 
 Adobe Flash Builder performs several checks on the Apache SDK to ensure compatibility of 
-the SDK with Flash Builder.
-
-Identifying the configuration file
-----------------------------------
-
---This section applies to Adobe FlashBuilder v4.7 which is currently in development at 
-  Adobe as of June 2012.--
- 
-Flash Builder searches for the flashbuilder-config.xml configuration file in the root 
-directory of the installed SDK. Once the flashbuilder-config.xml configuration file is 
-found, the SDK is recognized as a version of the Apache Flex SDK.
-
-**Note: The flashbuilder-config.xml configuration file specifies configuration data about 
-the express Install SWF file. The express Install SWF file is used if Adobe Flash Player 
-is not installed.
-
+the SDK with Flash Builder.  
 
 Verifying the validity of the Apache Flex SDK
 ---------------------------------------------
 
---This section applies to the Adobe FlashBuilder v4.6 which has been released as well as
-  to Adobe FlashBuilder v4.7 which is currently in development at Adobe as of June 2012.--
-
 Flash Builder verifies the validity of the Apache Flex SDK by checking for the following:
 
-* The Apache Flex SDK version must be specified in the flex-sdk-description.xml file. 
-  The specified version must be 4.8.0 or higher.
-
 * The following XML files and folders must be present in the root directory of the Flex SDK:
+    flex-sdk-description.xml
 	flex-config.xml
 	mxml-manifest.xml
 	templates
@@ -68,3 +48,11 @@ Flash Builder verifies the validity of the Apache Flex SDK by checking for the f
 	flex-compiler-oem.jar
 	mxmlc.jar
 	adt.jar
+	
+Additional checks made by Adobe FlashBuildder v4.7+
+---------------------------------------------------
+
+* The following XML file must be present in the root directory of the Flex SDK:
+    flashbuilder-config.xml - <express-install-swf> tag required with path to 
+                              expressInstall.swf 
+    flex-sdk-description.xml file - <version> is Apache Flex 4.8.0 or higher

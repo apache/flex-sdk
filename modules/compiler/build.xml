@@ -441,6 +441,7 @@
 				<include name="mxmlc_nb.jar"/>
 				<include name="mxmlc_nl.jar"/>
 				<include name="mxmlc_pt.jar"/>
+				<include name="mxmlc_ru.jar"/>
 				<include name="mxmlc_sv.jar"/>
 				<include name="mxmlc_zh_CN.jar"/>
 				<include name="mxmlc_zh_TW.jar"/>
