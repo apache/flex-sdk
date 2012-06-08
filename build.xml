@@ -668,9 +668,9 @@
         <!-- these files are in addition to the remaining source files -->
         
         <!-- concat the license file with the binary license file for the 3rd party deps -->
-        <concat destfile="${basedir}/temp/LICENSE">
+        <!--concat destfile="${basedir}/temp/LICENSE">
             <filelist dir="${FLEX_HOME}" files="LICENSE,LICENSE.bin"/>
-        </concat>
+        </concat-->
         
         <!-- use this to build frameworks -->
         <copy file="${basedir}/frameworks/build_framework.xml" 
@@ -778,8 +778,6 @@
                 <include name="asc.jar"/>
                 <include name="asdoc.jar"/>
                 <include name="batik-all-flex.jar"/>
-                <include name="batik*-LICENSE*"/>
-                <include name="batik*-NOTICE*/**"/>
                 <include name="compc.jar"/>
                 <include name="copylocale.jar"/>
                 <include name="digest.jar"/>
@@ -793,8 +791,6 @@
                 <include name="swfutils.jar"/>
                 <include name="fxgutils.jar"/>
                 <include name="velocity-dep-1.4-flex.jar"/>
-                <include name="velocity*-LICENSE*"/>
-                <include name="velocity*-NOTICE*/**"/>
             </fileset>
         </copy>
 

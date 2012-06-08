@@ -247,56 +247,8 @@ For the asc compiler in modules/asc:
 
 ------------------------------------------------------------------------------------------
 
-For modules/thirdparty/batik:
-
-Sources from batik-src-1.6.zip
-
-Apache Batik SVG Toolkit 1.6, © 2005, Apache Software Foundation
-
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  
-  
-  See the Apache License, Version 2.0 at the top of this file.
-
-------------------------------------------------------------------------------------------
-
-For the modules/thirdparty/velocity:
-
-Sources from velocity-1.4.tar.gz
-
-Apache Velocity 1.4, © 2004, Apache Software Foundation
-
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  
-  
-  See the Apache License, Version 2.0 at the top of this file.
-
-------------------------------------------------------------------------------------------
-
-For the modules/thirdparty/xerces-patch:
-
-Sources from Xerces-J-bin.2.9.1.zip
-
-Apache Xerces Java
-Copyright 1999-2007 The Apache Software Foundation
-
-Apache XML Commons Resolver
-Copyright 2006 The Apache Software Foundation.
-
-Apache Xalan (Xalan serializer)
-Copyright 1999-2006 The Apache Software Foundation
-
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  
-  
-  See the Apache License, Version 2.0 at the top of this file.
-
-------------------------------------------------------------------------------------------
-
-For all other contents not already explicitly called out above:
+For all directories except for the asc compiler in modules/asc, and modules/thirdparty 
+directories:
 
 Adobe Flex
 Copyright date 2003 - 2012 Adobe Systems Incorporated. All Rights Reserved.

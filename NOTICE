@@ -15,3 +15,9 @@ The easing equations in the mx tween class are based on code written by Rober Pe
     Copyright 2001 Robert Penner
     All rights reserved.
 
+The Batik SVG toolkit source contains code from the World Wide Web Consortium (W3C) for
+     the Document Object Model API (DOM API) and SVG Document Type Definition (DTD).
+
+The Batik SVG toolkit source contains code from the International Organisation for
+     Standardization for the definition of character entities used in the software's 
+     documentation.
