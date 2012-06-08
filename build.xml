@@ -737,6 +737,7 @@
                 <include name="projects/*/bundles.properties"/>
                 <include name="projects/spark/manifest.xml"/>
                 <include name="themes/**/*.swc"/>
+                <include name="**/*.pbj"/>
             </fileset>
         </copy>
 
