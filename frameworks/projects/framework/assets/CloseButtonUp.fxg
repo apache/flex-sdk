@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="CloseButtonUp" afx:baseClassName="flash.display.Sprite" >
+  <Library>
+    <Definition name="Window_Assets_Elements_icon_close" flm:originalName="Window Assets/Elements/icon - close">
+      <Group>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Group>
+              <Path data="M0 6 3 6 3 7 0 7 0 6">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M1 5 3 5 3 6 1 6 1 5">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M1 7 2 7 2 8 1 8 1 7">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M0 1 3 1 3 2 0 2 0 1">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M1 2 3 2 3 3 1 3 1 2">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M1 0 2 0 2 1 1 1 1 0">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M6 0 7 0 7 3 6 3 6 0">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M5 1 8 1 8 2 5 2 5 1">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M5 2 6 2 6 3 5 3 5 2">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M3 3 5 3 5 5 3 5 3 3">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M5 5 7 5 7 7 5 7 5 5">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M7 6 8 6 8 7 7 7 7 6">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M6 7 7 7 7 8 6 8 6 7">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="90" x="10" y="0.5" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="90" x="10" y="-2.5" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="180" x="10.5" y="10" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="180" x="7.5" y="10" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="180" scaleY="0.5" x="12.5" y="10.5" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="180" scaleY="0.5" x="12.5" y="3.5" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="180" scaleY="0.5" x="5.5" y="3.5" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path rotation="180" scaleY="0.5" x="5.5" y="10.5" data="M5.5 7 4.5 7 4.5 5 5.5 5 5.5 7">
+                <fill>
+                  <SolidColor alpha="0.60000002"/>
+                </fill>
+              </Path>
+            </Group>
+          </Group>
+        </Group>
+      </Group>
+    </Definition>
+    <Definition name="Window_Assets_Elements_minibutton_down" flm:originalName="Window Assets/Elements/minibutton_down">
+      <Group>
+        <Group d:type="layer" d:userLabel="background">
+          <Group>
+            <Path data="M14 2 14 12Q14 14 12 14L2 14Q0 14 0 12L0 2Q0 0 2 0L12 0Q14 0 14 2">
+              <fill>
+                <SolidColor color="#6F7777"/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+        <Group d:type="layer" d:userLabel="chrome">
+          <Group>
+            <Path rotation="180" x="14" y="14" data="M13 2 13 12Q13 13 12 13L2 13Q1 13 1 12L1 2Q1 1 2 1L12 1Q13 1 13 2">
+              <fill>
+                <LinearGradient x="7" y="13" scaleX="12" rotation="270">
+                  <GradientEntry ratio="0" color="#C4CCCC"/>
+                  <GradientEntry ratio="1" color="#EEEEEE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+        <Group d:type="layer" d:userLabel="highlight">
+          <Group>
+            <Path data="M13 2.05 13 3Q12.968359 2.05 12 2.05L7.85 2.05 7.85 2 5.85 2 5.85 2.05 2 2.05Q1.0318359 2.05 1 3L1 2.05Q1 1.05 2 1.05L4 1.05 4 1 10 1 10 1.05 12 1.05Q13 1.05 13 2.05">
+              <fill>
+                <SolidColor color="#FFFFFF"/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+      </Group>
+    </Definition>
+  </Library>
+          <Window_Assets_Elements_minibutton_down alpha="0"/>
+          <Window_Assets_Elements_icon_close x="3" y="3"/>
+  <Private/>
+</Graphic>

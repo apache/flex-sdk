@@ -101,6 +101,7 @@
         <!--antcall target="authoringsupport"/-->
         <antcall target="halo"/>
         <antcall target="wireframe"/>
+        <antcall target="aeongraphical"/>
         <!-- automation removed until sources donated to Apache -->
         <!--
             automation: tool was formerly qtp and tool_air was formerly qtp_air
@@ -206,6 +207,7 @@
         <ant dir="${basedir}/projects/tool_air" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
         -->
+        <ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- Delete empty folders -->
         <delete dir="${basedir}/locale">
             <exclude name="**/metadata.properties"/>
@@ -305,6 +307,10 @@
 
     <target name="wireframe" description="Clean build of wireframe.swc">
         <ant dir="${basedir}/projects/wireframe"/>
+    </target>
+
+    <target name="aeongraphical" description="Clean build of aeongraphical.swf">
+        <ant dir="${basedir}/themes/AeonGraphical"/>
     </target>
 
     <target name="flash_integration" description="Clean build of FlexComponentBase.swc">

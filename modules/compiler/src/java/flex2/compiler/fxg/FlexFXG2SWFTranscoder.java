@@ -135,13 +135,29 @@ public class FlexFXG2SWFTranscoder extends FXG2SWFTranscoder
 
             DefineSprite sprite = (DefineSprite)transcode(graphicNode);
             graphicClass.setSymbol(sprite);
+            
+            // use specified className if specified
+            if (graphicNode.className != null)
+            	sprite.name = graphicNode.className;
 
             // Create a new sprite class to map to this Graphic's DefineSprite
             StringBuilder buf = new StringBuilder(512);
             buf.append("package ").append(packageName).append("\n");
             buf.append("{\n\n");
-            buf.append("import spark.core.SpriteVisualElement;\n\n");
-            buf.append("public class ").append(className).append(" extends SpriteVisualElement\n");
+            if (graphicNode.baseClassName != null)
+            {
+            	buf.append("import ");
+            	buf.append(graphicNode.baseClassName);
+            	buf.append(";\n\n");
+            	buf.append("public class ").append(className).append(" extends ");
+            	buf.append(graphicNode.baseClassName);
+            	buf.append("\n");
+            }
+            else
+            {
+            	buf.append("import spark.core.SpriteVisualElement;\n\n");
+            	buf.append("public class ").append(className).append(" extends SpriteVisualElement\n");
+            }
             buf.append("{\n");
             buf.append("    public function ").append(className).append("()\n");
             buf.append("    {\n");

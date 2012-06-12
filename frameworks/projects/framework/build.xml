@@ -152,7 +152,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
-	<target name="clean" depends="bundles-clean, pixelbender-clean">
+	<target name="clean" depends="bundles-clean, pixelbender-clean, assets-clean">
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
@@ -178,6 +178,14 @@
 		<delete failonerror="false">
 			<fileset dir="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses">
 				<include name="**/*.pbj"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="assets-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/projects/framework/assets">
+				<include name="**/*.swf"/>
 			</fileset>
 		</delete>
 	</target>
@@ -221,7 +229,20 @@
         </exec>
 	</target>
 
-	<target name="compile" depends="pixelbender-compile" description="Compiles framework.swc">
+	<target name="assets-compile">
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<mxmlc fork="true"
+               file="${FLEX_HOME}/frameworks/projects/framework/assets/Assets.as"
+			   output="${FLEX_HOME}/frameworks/projects/framework/assets/Assets.swf"
+			   >
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>11.1</target-player>
+		</mxmlc>
+    </target>
+        
+	<target name="compile" depends="assets-compile,pixelbender-compile" description="Compiles framework.swc">
 		<echo message="Compiling frameworks/libs/framework.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->

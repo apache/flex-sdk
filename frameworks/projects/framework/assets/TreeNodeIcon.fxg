@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="TreeNodeIcon" afx:baseClassName="flash.display.Sprite" >
+        <Group d:locked="true" d:type="layer" d:userLabel="bound">
+          <Path data="M16 0 16 16 0 16 0 0 16 0">
+            <fill>
+              <SolidColor color="#FF0000" alpha="0"/>
+            </fill>
+          </Path>
+        </Group>
+        <Group d:type="layer" d:userLabel="icon">
+          <Group>
+            <Path data="M3 3.5 3 2.5 9 2.5 9 3.5 3 3.5">
+              <fill>
+                <SolidColor color="#FFFFFF"/>
+              </fill>
+            </Path>
+            <Group>
+              <Path x="-73" y="-51" data="M88 57 88 67 76 67 76 53 84 53 88 57">
+                <fill>
+                  <SolidColor alpha="0.2"/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path x="-73" y="-51" data="M83 52 87 56 87 66 75 66 75 52 83 52">
+                <fill>
+                  <LinearGradient x="79" y="51.9625" scaleX="13.875" rotation="90">
+                    <GradientEntry ratio="0" color="#929292"/>
+                    <GradientEntry ratio="1" color="#3A3A3A"/>
+                  </LinearGradient>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path x="8.5" y="8.5" data="M1.5 -6.5 1.5 -3.5 4.5 -3.5 4.5 5.5 -5.5 5.5 -5.5 -6.5 1.5 -6.5">
+                <fill>
+                  <LinearGradient x="-0.5" y="-6.5" scaleX="12" rotation="90">
+                    <GradientEntry ratio="0" color="#EAEAEA"/>
+                    <GradientEntry ratio="1" color="#FFFFFF"/>
+                  </LinearGradient>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path data="M2 15 2 1 10 1 11 2 2 15">
+                <fill>
+                  <SolidColor color="#FFFFFF" alpha="0.40000001"/>
+                </fill>
+              </Path>
+            </Group>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

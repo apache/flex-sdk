@@ -37,6 +37,7 @@ import com.adobe.fxg.dom.FXGNode;
 import com.adobe.fxg.util.FXGLocalizationUtil;
 import com.adobe.fxg.util.FXGLog;
 import com.adobe.fxg.util.FXGLogger;
+import com.adobe.internal.fxg.dom.GraphicNode;
 
 import flash.localization.LocalizationManager;
 import flash.util.FileUtils;
@@ -62,6 +63,7 @@ import flex2.compiler.mxml.reflect.TypeTable;
 import flex2.compiler.util.CompilerMessage;
 import flex2.compiler.util.MimeMappings;
 import flex2.compiler.util.MultiName;
+import flex2.compiler.util.NameFormatter;
 import flex2.compiler.util.NameMappings;
 import flex2.compiler.util.QName;
 import flex2.compiler.util.ThreadLocalToolkit;
@@ -564,10 +566,28 @@ public class FXGCompiler extends AbstractSubCompiler
                 QName topLevelQName = getQNameFromSource(source);
                 unit.topLevelDefinitions.add(topLevelQName);
 
+                MultiName baseMultiName = MULTINAME_SPRITEVISUALELEMENT;
+                if (node instanceof GraphicNode)
+                {
+                	GraphicNode graphicNode = (GraphicNode)node;
+                	if (graphicNode.baseClassName != null)
+                	{
+                		String pkg = "";
+                		String baseClassName = graphicNode.baseClassName;
+                		String className = baseClassName;
+                		int lastDot = baseClassName.lastIndexOf(".");
+                		if (lastDot > -1)
+                		{
+                			pkg = baseClassName.substring(0, lastDot);
+                			className = baseClassName.substring(lastDot + 1);
+                		}
+                		baseMultiName = new MultiName(NameFormatter.toColon(pkg, className));
+                	}
+                }
                 // We add the base class for our generated skeleton here so that
                 // the type will be resolved after returning from parse1() and
                 // before we get to analyze2().
-                unit.inheritance.add(MULTINAME_SPRITEVISUALELEMENT);
+                unit.inheritance.add(baseMultiName);
             }
             catch (FXGException ex)
             {
@@ -600,6 +620,7 @@ public class FXGCompiler extends AbstractSubCompiler
             // Determine whether we need to introduce text class dependencies
             FXGNode rootNode = (FXGNode)unit.getContext().getAttribute(FXG_DOM_ROOT);
             boolean hasTextGraphic = false;
+            String baseClassName = null;
             double version = 1.0;
 
             if (rootNode instanceof FlexGraphicNode)
@@ -608,11 +629,12 @@ public class FXGCompiler extends AbstractSubCompiler
                 FXGVersion v = graphicNode.getVersion();
                 version = v != null ? v.asDouble() : 1.0;
                 hasTextGraphic = graphicNode.hasText;
+                baseClassName = graphicNode.baseClassName;
             }
 
             try
             {
-                generatedSource = generateSource(originalSource, symbolTable, version, hasTextGraphic);
+                generatedSource = generateSource(originalSource, symbolTable, version, hasTextGraphic, baseClassName);
             }
             catch (IOException ex)
             {
@@ -689,7 +711,7 @@ public class FXGCompiler extends AbstractSubCompiler
          * @param hasText - whether the document made use of text 
          */
         private Source generateSource(Source originalSource, SymbolTable symbolTable,
-                double version, boolean hasText) throws IOException
+                double version, boolean hasText, String baseClassName) throws IOException
         {
             // Derive package/class names from source name and location
             String className = originalSource.getShortName();
@@ -715,8 +737,20 @@ public class FXGCompiler extends AbstractSubCompiler
                 buf.append("import spark.components.RichText;\n");
             }
 
-            buf.append("import spark.core.SpriteVisualElement;\n\n");
-            buf.append("public class ").append(className).append(" extends SpriteVisualElement\n{\n");
+            if (baseClassName != null)
+            {
+                buf.append("import ");
+                buf.append(baseClassName);
+                buf.append(";\n\n");
+                buf.append("public class ").append(className).append(" extends ");
+                buf.append(baseClassName);
+                buf.append("\n{\n");            	
+            }
+            else
+            {
+                buf.append("import spark.core.SpriteVisualElement;\n\n");
+                buf.append("public class ").append(className).append(" extends SpriteVisualElement\n{\n");            	
+            }
             buf.append("    public function ").append(className).append("()\n");
             buf.append("    {\n");
             buf.append("        super();\n");

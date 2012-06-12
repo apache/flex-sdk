@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="DateField_upSkin" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path x="0.15" y="-1.05" data="M13.85 2.05 13.85 15.05 0.85 15.05 0.85 14.05 12.85 14.05 12.85 2.05 13.85 2.05">
+              <fill>
+                <SolidColor alpha="0.2"/>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="0.15" y="-1.05" data="M11.85 2.05 11.85 13.05 0.85 13.05 0.85 2.05 11.85 2.05">
+              <fill>
+                <LinearGradient x="4.85" y="5.05" scaleX="8" rotation="90">
+                  <GradientEntry ratio="0" color="#FFFFFF"/>
+                  <GradientEntry ratio="1" color="#D2FFFF"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="0.15" y="-1.05" data="M7.45 13.05 7.45 14.05 -0.15 14.05Q-0.15 9.05 -0.15 1.05L12.85 1.05 11.5 2.05 0.85 2.05 0.85 4.05 8.8 4.05 7.45 5.05 6.85 5.05 6.85 7.05 7.45 7.05 7.45 8.05 6.85 8.05 6.85 10.05 7.45 10.05 7.45 11.05 6.85 11.05 6.85 13.05 7.45 13.05M5.85 11.05
+ 3.85 11.05 3.85 13.05 5.85 13.05 5.85 11.05M3.85 7.05 5.85 7.05 5.85 5.05 3.85 5.05 3.85 7.05M0.85 10.05 2.85 10.05 2.85 8.05 0.85 8.05 0.85 10.05M2.85 11.05 0.85 11.05 0.85 13.05 2.85 13.05 2.85 11.05M3.85 8.05 3.85 10.05 5.85 10.05 5.85 8.05
+ 3.85 8.05M2.85 5.05 0.85 5.05 0.85 7.05 2.85 7.05 2.85 5.05">
+              <fill>
+                <LinearGradient x="3.2" y="4.0125" scaleX="10.275" rotation="90">
+                  <GradientEntry ratio="0" color="#888C8E"/>
+                  <GradientEntry ratio="1" color="#4B4B4D"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path x="0.15" y="-1.05" data="M11.85 5.05 9.85 5.05 9.85 7.05 11.85 7.05 11.85 5.05M11.85 8.05 9.85 8.05 9.85 10.05 11.85 10.05 11.85 8.05M12.85 1.05Q12.85 9.05 12.85 14.05L7.45 14.05 7.45 13.05 8.85 13.05 8.85 11.05 7.45 11.05 7.45 10.05 8.85 10.05 8.85 8.05 7.45 8.05 7.45
+ 7.05 8.85 7.05 8.85 5.05 7.45 5.05 8.8 4.05 11.85 4.05 11.85 2.05 11.5 2.05 12.85 1.05M11.85 13.05 11.85 11.05 9.85 11.05 9.85 13.05 11.85 13.05">
+              <fill>
+                <LinearGradient x="9.5" y="4.0125" scaleX="-10.275" rotation="270">
+                  <GradientEntry ratio="0" color="#888C8E"/>
+                  <GradientEntry ratio="1" color="#4B4B4D"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="-138" y="-55" data="M142 64 144 64 144 62 142 62 142 64M145 65 141 65 141 61 145 61 145 65">
+              <fill>
+                <LinearGradient x="143" y="61" scaleX="4" rotation="90">
+                  <GradientEntry ratio="0" color="#FF6666"/>
+                  <GradientEntry ratio="1" color="#FF1C1C"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="0.15" y="-1.05" data="M0.85 3.05 11.85 3.05 11.85 4.05 0.85 4.05 0.85 3.05">
+              <fill>
+                <SolidColor color="#6699CC"/>
+              </fill>
+            </Path>
+            <Path x="0.15" y="-1.05" data="M0.85 3.05 0.85 2.05 11.85 2.05 11.85 3.05 0.85 3.05">
+              <fill>
+                <SolidColor color="#99CCFF"/>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="0.15" y="-1.05" data="M-0.15 1.05 12.85 1.05 -0.15 14.05 -0.15 1.05">
+              <fill>
+                <SolidColor color="#FFFFFF" alpha="0.40000001"/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

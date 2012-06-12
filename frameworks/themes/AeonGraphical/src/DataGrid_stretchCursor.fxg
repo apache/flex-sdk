@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="DataGrid_stretchCursor" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="outline">
+          <Group>
+            <Path rotation="270" data="M0 -8.025 5.55 -2.575 6 -2.575 6 2.425 5.625 2.425 0.05 8 -5.525 2.425 -6 2.425 -6 -2.575 -5.55 -2.575 0 -8.025">
+              <fill>
+                <SolidColor color="#FFFFFF" alpha="0.80000001"/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+        <Group d:type="layer" d:userLabel="icon">
+          <Group>
+            <Group>
+              <Path scaleX="1.0084076" x="-8.55" y="-6" data="M7.5 1 7.5 11 6.5 11 6.5 7 4.5 7 4.5 9 1.525 6 4.5 3 4.5 5 6.5 5 6.5 1 7.5 1">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+            <Group>
+              <Path x="-7.5" y="-6" data="M11.475 3 14.475 6 11.475 9 11.475 7 9.5 7 9.5 11 8.5 11 8.5 1 9.5 1 9.5 5 11.475 5 11.475 3">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Path>
+            </Group>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

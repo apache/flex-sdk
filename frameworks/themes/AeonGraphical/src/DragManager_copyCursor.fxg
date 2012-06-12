@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="DragManager_copyCursor" afx:baseClassName="flash.display.Sprite" >
+  <Library>
+    <Definition name="Cursors_Cursor" flm:originalName="Cursors/Cursor">
+      <Group>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Path data="M265.85 158 266.85 158 266.85 159 265.85 159 265.85 158 264.85 158 264.85 157 263.85 157 263.85 168 264.85 168 264.85 169 263.85 169 263.85 170 262.85 170 262.85 155 263.85 155 263.85 156 264.85 156 264.85 157 265.85 157 265.85 158M267.85 160
+ 268.85 160 268.85 161 269.85 161 269.85 162 270.85 162 270.85 163 271.85 163 271.85 164 272.85 164 272.85 165 273.85 165 273.85 166 269.85 166 269.85 167 270.85 167 270.85 169 271.85 169 271.85 172 268.85 172 268.85 171 267.85 171 267.85 169
+ 266.85 169 266.85 167 265.85 167 265.85 168 264.85 168 264.85 167 265.85 167 265.85 166 266.85 166 266.85 167 267.85 167 267.85 169 268.85 169 268.85 171 270.85 171 270.85 169 269.85 169 269.85 167 268.85 167 268.85 165 271.85 165 271.85 164
+ 270.85 164 270.85 163 269.85 163 269.85 162 268.85 162 268.85 161 267.85 161 267.85 160 266.85 160 266.85 159 267.85 159 267.85 160">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+          <Path data="M267.85 160 267.85 161 268.85 161 268.85 162 269.85 162 269.85 163 270.85 163 270.85 164 271.85 164 271.85 165 268.85 165 268.85 167 269.85 167 269.85 169 270.85 169 270.85 171 268.85 171 268.85 169 267.85 169 267.85 167 266.85 167 266.85 166
+ 265.85 166 265.85 167 264.85 167 264.85 168 263.85 168 263.85 157 264.85 157 264.85 158 265.85 158 265.85 159 266.85 159 266.85 160 267.85 160">
+            <fill>
+              <SolidColor/>
+            </fill>
+          </Path>
+        </Group>
+      </Group>
+    </Definition>
+  </Library>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path data="M16.525 17.975Q13.80625 17.972852 11.9 16.075 10.014648 14.18125 10.025 11.475 10.014648 8.7685547 11.9 6.875 13.80625 4.9769531 16.525 4.975 19.231055 4.9769531 21.125 6.875 23.022852 8.7685547 23.025 11.475 23.022852 14.18125 21.125 16.075
+ 19.231055 17.972852 16.525 17.975">
+              <fill>
+                <SolidColor alpha="0.2"/>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="10" y="5" data="M12 6Q12 6.2789063 11.975 6.55 11.795117 8.6492187 10.2 10.2 8.45 11.95 6 12 4.75 12 3.65 11.5 2.55 11.05 1.75 10.2 0.9 9.4 0.45 8.3 0.092773438 7.4269531 0.025 6.5 0 6.2474609 0 6 0 4.75 0.45 3.65 0.9 2.55 1.75 1.75 2.55 0.9 3.65 0.45 4.75
+ 0 6 0 8.45 0 10.2 1.75 11.95 3.5 12 6">
+              <fill>
+                <RadialGradient x="6" y="6" scaleX="12" scaleY="12">
+                  <GradientEntry ratio="0" color="#66DD55"/>
+                  <GradientEntry ratio="1" color="#009900"/>
+                </RadialGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="-114" y="-78" data="M131 85 131 88 134 88 134 90 131 90 131 93 129 93 129 90 126 90 126 88 129 88 129 85 131 85">
+              <fill>
+                <SolidColor color="#FFFFFF"/>
+              </fill>
+            </Path>
+          </Group>
+          <Cursors_Cursor x="-263.85" y="-157"/>
+        </Group>
+  <Private/>
+</Graphic>

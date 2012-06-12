@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="panelBackground" afx:baseClassName="flash.display.Sprite" >
+  <Library>
+    <Definition name="Panels_panelBackground_Shadow" flm:originalName="Panels/panelBackground_Shadow">
+      <Group>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Path data="M271 1Q272.65 1 273.85 2.15 275 3.3 275 5L275 192 3 192 3 5Q3 3.3 4.15 2.15 5.3 1 7 1L271 1">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </Group>
+    </Definition>
+    <Definition name="Panels_panelBackground_Base" flm:originalName="Panels/panelBackground_Base">
+      <Group>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Path x="286" y="-705" data="M-286 709Q-286 707.3 -284.85 706.15 -283.7 705 -282 705L-18 705Q-16.35 705 -15.15 706.15 -14 707.3 -14 709L-14 896 -286 896 -286 709">
+            <fill>
+              <SolidColor color="#FFFFFF" alpha="0.60000002"/>
+            </fill>
+          </Path>
+        </Group>
+      </Group>
+    </Definition>
+  </Library>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Panels_panelBackground_Shadow x="-3" y="-1">
+            <filters>
+              <DropShadowFilter blurX="3" blurY="3" quality="2" knockout="true" alpha="0.6" angle="90" distance="2" hideObject="true"/>
+            </filters>
+          </Panels_panelBackground_Shadow>
+          <Panels_panelBackground_Base/>
+        </Group>
+  <Private/>
+</Graphic>

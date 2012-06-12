@@ -55,6 +55,9 @@ import static com.adobe.fxg.FXGConstants.*;
  */
 public class FXGSAXScanner extends DefaultHandler
 {
+    // Namespaces
+    public static final String APACHE_FLEX_NAMESPACE = "http://ns.apache.org/flex/2012";
+    
     private static boolean REJECT_MAJOR_VERSION_MISMATCH = false;
     
     // A special case needed to short circuit GroupNode creation inside a
@@ -224,7 +227,9 @@ public class FXGSAXScanner extends DefaultHandler
         for (int i = 0; i < attributes.getLength(); i++)
         {
             String attributeURI = attributes.getURI(i);
-            if (attributeURI == null || attributeURI == "" || isFXGNamespace(attributeURI))
+            if (attributeURI == null || attributeURI == "" || 
+            		isFXGNamespace(attributeURI) || 
+            		isApacheFlexNamespace(attributeURI))
             {
                 String attributeName = attributes.getLocalName(i);
                 String attributeValue = attributes.getValue(i);
@@ -399,6 +404,15 @@ public class FXGSAXScanner extends DefaultHandler
     protected boolean isFXGNamespace(String uri)
     {
         return FXG_NAMESPACE.equals(uri);
+    }
+
+    /**
+     * @param uri - the namespace URI to check
+     * @return whether the given namespace URI is considered an Apache Flex namespace. 
+     */
+    protected boolean isApacheFlexNamespace(String uri)
+    {
+        return APACHE_FLEX_NAMESPACE.equals(uri);
     }
 
     /**

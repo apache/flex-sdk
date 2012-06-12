@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="ProgressTrackSkin" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path x="-41" y="-1063" data="M42 1063.95 190 1064 190 1066.05 42 1066 42 1063.95">
+              <fill>
+                <LinearGradient x="47" y="1076.9125" scaleX="13.625" rotation="270">
+                  <GradientEntry ratio="0" color="#CCCCCC" alpha="0.4"/>
+                  <GradientEntry ratio="1" color="#FFFFFF" alpha="0.6"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="-41" y="-1052" data="M42 1053 42 1055 190 1055 190 1053 42 1053M41 1056 41 1052 191 1052 191 1056 41 1056">
+              <fill>
+                <LinearGradient x="147.5" y="1064.9" scaleX="12.9" rotation="270">
+                  <GradientEntry ratio="0" color="#5B5D5E"/>
+                  <GradientEntry ratio="1" color="#B7BABC"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

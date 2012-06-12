@@ -274,6 +274,7 @@
         <delete file="${basedir}/frameworks/tests/fxgCompile/fxgCompileTest.swf" failonerror="false"/>
         <delete file="${basedir}/frameworks/tests/graphics/GraphicTags_checkin.swf" failonerror="false"/>
         <delete file="${basedir}/frameworks/tests/basicTests/BasicTests.swf" failonerror="false"/>
+        <delete file="${basedir}/frameworks/tests/basicTests/basicLoader.swf" failonerror="false"/>
         <delete file="${basedir}/frameworks/tests/basicTests/spark/views/HelloWorld.swf" failonerror="false"/>
         <delete file="${basedir}/frameworks/tests/basicTests/spark/views/StyleManagerModuleTest.swf" failonerror="false"/>
         <delete file="${basedir}/mustella/MustellaResultsParser.class" failonerror="false"/>
@@ -497,12 +498,18 @@
             </fileset>
         </copy>
 
-        <!-- mustella -->
+        <!-- mustella (only enough to run checkintests) -->
         <copy todir="${basedir}/temp/mustella">
             <fileset dir="${basedir}/mustella">
+                <include name="as3/**"/>
+                <exclude name="as3/src/mustella/ContinueAfterRuntimeException/**"/>
+                <exclude name="as3/src/mustella/ExcludeList.txt"/>
+                <exclude name="as3/src/mustella/IncludeList.txt"/>
                 <exclude name="**/*.air"/>
                 <exclude name="**/*.swf"/>
-                <exclude name="tmp/**"/>
+                <include name="build.xml"/>
+                <include name="local.properties"/>
+                <include name="MustellaResultsParser.java"/>
             </fileset>
         </copy>
         
@@ -551,6 +558,7 @@
                 <exclude name="**/libs/**"/>
                 <exclude name="**/*.swc"/>
                 <exclude name="**/*.pbj"/>
+                <exclude name="**/*.swf"/>
                 <!--exclude name="test*/**"/-->
                 <exclude name="projects/automation*/**"/>
                 <exclude name="projects/air/**"/>
@@ -1205,6 +1213,10 @@
         </mxmlc>
 
         <!-- compile supporting swfs for basic tests -->
+        <mxmlc fork="true"
+               file="${basedir}/frameworks/tests/basicTests/basicLoader.as">
+            <jvmarg line="${mxmlc.jvm.args}"/>
+        </mxmlc>
         <mxmlc fork="true"
                file="${basedir}/frameworks/tests/basicTests/spark/views/StyleManagerModuleTest.mxml">
             <jvmarg line="${mxmlc.jvm.args}"/>

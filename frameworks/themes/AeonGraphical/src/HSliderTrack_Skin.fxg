@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="HSliderTrack_Skin" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path x="-569" y="-98" data="M647 99 647 98 648 98 648 99 647 99M571 100 571 101 570 101 570 100 569 100 569 99 570 99 570 100 571 100">
+              <fill>
+                <SolidColor color="#8C9295"/>
+              </fill>
+            </Path>
+            <Path x="-569" y="-98" data="M647 99 570 99 570 98 647 98 647 99">
+              <fill>
+                <SolidColor color="#575E62"/>
+              </fill>
+            </Path>
+            <Path x="-569" y="-98" data="M571.025 100 647 100 647.025 100 647.025 101 571.025 101 571.025 100">
+              <fill>
+                <SolidColor color="#AEB2B4"/>
+              </fill>
+            </Path>
+            <Path x="-569" y="-98" data="M570 99 647 99 647 100 571.025 100 571 100 570 100 570 99">
+              <fill>
+                <SolidColor color="#EBEBEB"/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

@@ -39,6 +39,9 @@ import com.adobe.internal.fxg.dom.types.ScalingGrid;
  */
 public class GraphicNode extends AbstractFXGNode implements MaskableNode
 {
+	public static final String APACHE_FLEX_CLASSNAME = "className";
+	public static final String APACHE_FLEX_BASECLASSNAME = "baseClassName";
+	
     private FXGVersion compilerVersion = null; // The version of FXG compiler.
     private String profile;
     private String documentName = null;
@@ -74,6 +77,12 @@ public class GraphicNode extends AbstractFXGNode implements MaskableNode
     
     /** The view height. */
     public double viewHeight = Double.NaN;
+
+    /** an optional class name */
+    public String className = null;
+    
+    /** an optional base class name */
+    public String baseClassName = null;
     
     /** The mask type. */
     public MaskType maskType = MaskType.CLIP;
@@ -357,6 +366,14 @@ public class GraphicNode extends AbstractFXGNode implements MaskableNode
         else if (FXG_LUMINOSITYCLIP_ATTRIBUTE.equals(name))
         {
             luminosityClip = DOMParserHelper.parseBoolean(this, value, name); 
+        }        
+        else if (APACHE_FLEX_CLASSNAME.equals(name))
+        {
+            className = value; 
+        }        
+        else if (APACHE_FLEX_BASECLASSNAME.equals(name))
+        {
+            baseClassName = value; 
         }        
         else
         {

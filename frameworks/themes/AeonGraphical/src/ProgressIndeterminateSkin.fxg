@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="ProgressIndeterminateSkin" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M91.9 1079.15 73.875 1079.15 73.875 1078.175 91.9 1078.175 91.9 1079.15">
+              <fill>
+                <LinearGradient x="73.9" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M89.85 1084.1 71.825 1084.1 71.825 1083.125 89.85 1083.125 89.85 1084.1">
+              <fill>
+                <LinearGradient x="71.85" y="1083.6" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M73.875 1079.15 91.9 1079.15 91.9 1080.15 91.85 1080.15 89.85 1082.125 89.85 1083.1 71.825 1083.1 71.825 1082.1 71.875 1082.1 73.85 1080.15 73.875 1080.15 73.875 1079.15M103.85 1079.15 121.85 1079.15 121.85 1080.15 119.85 1082.125 119.85 1083.1
+ 101.85 1083.1 101.85 1082.1 101.875 1082.1 103.85 1080.15 103.85 1079.15M133.825 1079.15 151.825 1079.15 151.825 1080.15 151.85 1080.15 149.85 1082.125 149.825 1082.125 149.825 1083.1 131.825 1083.1 131.825 1082.1 131.875 1082.1 133.85 1080.15
+ 133.825 1080.15 133.825 1079.15M163.85 1079.15 181.85 1079.15 181.85 1080.15 181.825 1080.15 179.85 1082.1 179.85 1083.1 161.85 1083.1 161.85 1082.1 161.875 1082.1 163.85 1080.15 163.85 1079.15M43.875 1079.15 61.875 1079.15 61.875 1080.15 61.85
+ 1080.15 59.85 1082.125 59.825 1082.125 59.825 1083.125 41.825 1083.125 41.825 1082.125 41.85 1082.125 43.85 1080.15 43.875 1080.15 43.875 1079.15M193.825 1079.15 211.825 1079.15 211.825 1080.15 209.825 1082.125 209.825 1083.1 191.825 1083.1
+ 191.825 1082.1 191.85 1082.1 193.825 1080.15 193.825 1079.15M241.85 1079.15 241.85 1080.15 241.825 1080.15 239.85 1082.1 239.85 1083.1 221.85 1083.1 221.85 1082.125 221.85 1082.1 223.825 1080.15 223.85 1080.15 223.85 1079.15 241.85 1079.15">
+              <fill>
+                <LinearGradient x="141.85" y="1082.2375" scaleX="2.175" rotation="270">
+                  <GradientEntry ratio="0" color="#0075BF"/>
+                  <GradientEntry ratio="0.99215686" color="#009DFF"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M101.8 1083.125 119.8 1083.125 119.8 1084.1 101.8 1084.1 101.8 1083.125">
+              <fill>
+                <LinearGradient x="101.8" y="1083.6" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M121.85 1079.15 103.85 1079.15 103.85 1078.175 121.85 1078.175 121.85 1079.15">
+              <fill>
+                <LinearGradient x="103.85" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M131.825 1083.125 149.825 1083.125 149.825 1084.1 131.825 1084.1 131.825 1083.125">
+              <fill>
+                <LinearGradient x="131.85" y="1083.6" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M133.825 1079.15 133.825 1078.175 151.825 1078.175 151.825 1079.15 133.825 1079.15">
+              <fill>
+                <LinearGradient x="133.85" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M161.85 1083.125 179.85 1083.125 179.85 1084.1 161.85 1084.1 161.85 1083.125">
+              <fill>
+                <LinearGradient x="161.85" y="1083.6" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M41.825 1083.125 59.825 1083.125 59.85 1083.125 59.85 1084.125 41.825 1084.125 41.825 1083.125">
+              <fill>
+                <LinearGradient x="41.85" y="1083.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M61.875 1079.15 43.875 1079.15 43.875 1078.175 61.875 1078.175 61.875 1079.15">
+              <fill>
+                <LinearGradient x="43.9" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M181.85 1079.15 163.85 1079.15 163.85 1078.175 181.85 1078.175 181.85 1079.15">
+              <fill>
+                <LinearGradient x="163.85" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M211.825 1079.15 193.825 1079.15 193.825 1078.175 211.825 1078.175 211.825 1079.15">
+              <fill>
+                <LinearGradient x="193.85" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M191.775 1083.125 209.775 1083.125 209.775 1084.1 191.775 1084.1 191.775 1083.125">
+              <fill>
+                <LinearGradient x="191.8" y="1083.6" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M221.85 1082.1 221.85 1082.125 221.825 1082.125 221.85 1082.1">
+              <fill>
+                <LinearGradient x="141.85" y="1082.2375" scaleX="2.175" rotation="270">
+                  <GradientEntry ratio="0" color="#5EBB4D"/>
+                  <GradientEntry ratio="1" color="#A2E688"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M221.85 1083.125 239.85 1083.125 239.85 1084.1 221.85 1084.1 221.85 1083.125">
+              <fill>
+                <LinearGradient x="221.85" y="1083.6" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+            <Path scaleY="1.0084076" x="-41.85" y="-1087.25" data="M241.85 1079.15 223.85 1079.15 223.85 1078.175 241.85 1078.175 241.85 1079.15">
+              <fill>
+                <LinearGradient x="223.85" y="1078.65" scaleX="18">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

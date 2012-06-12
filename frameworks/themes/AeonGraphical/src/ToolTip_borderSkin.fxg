@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="ToolTip_borderSkin" afx:baseClassName="flash.display.Sprite" >
+  <Library>
+    <Definition name="Tooltips_tooltip_background" flm:originalName="Tooltips/tooltip_background">
+      <Group>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path x="-263.05" y="-1161.05" data="M341.025 1161.05Q345.02617 1161.05 345.025 1165.05L345.025 1179.05Q345.02617 1183.05 341.025 1183.05L267.025 1183.05Q263.02383 1183.05 263.025 1179.05L263.025 1165.05Q263.02383 1161.05 267.025 1161.05L341.025 1161.05">
+              <fill>
+                <SolidColor color="#FEFFDD"/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+      </Group>
+    </Definition>
+  </Library>
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Tooltips_tooltip_background>
+            <filters>
+              <DropShadowFilter blurX="3" blurY="3" quality="3" knockout="true" strength="0.4" angle="90" distance="2" hideObject="true"/>
+            </filters>
+          </Tooltips_tooltip_background>
+          <Tooltips_tooltip_background/>
+        </Group>
+  <Private/>
+</Graphic>

@@ -154,7 +154,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 			
-	<target name="clean" depends="bundles-clean">
+	<target name="clean" depends="bundles-clean, assets-clean">
 		<delete failonerror="false">
 			<fileset dir="${basedir}">
 				<include name="bundles.properties"/>
@@ -182,7 +182,29 @@
 		</delete>
 	</target>
 	
-	<target name="compile" description="Compiles airframework.swc">
+	<target name="assets-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/projects/airframework/assets/">
+				<include name="**/*.swf"/>
+			</fileset>
+		</delete>
+	</target>
+	
+    <target name="precompile">
+		<copy file="${FLEX_HOME}/frameworks/projects/framework/assets/Assets.swf" tofile="${basedir}/assets/Assets.swf"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<mxmlc fork="true"
+               file="${FLEX_HOME}/frameworks/projects/airframework/assets/ComputerIconMain.as"
+			   output="${FLEX_HOME}/frameworks/projects/airframework/assets/ComputerIcon.swf"
+			   >
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>11.1</target-player>
+		</mxmlc>
+    </target>
+    
+	<target name="compile" depends="precompile" description="Compiles airframework.swc">
 		<echo message="Compiling frameworks/libs/air/airframework.swc"/>
 		<echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="ComboBoxArrow_downSkin" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path data="M84.075 21 3.95 21Q1.05 20.95 1.05 18L1.05 4Q1.05 1.1 3.95 1L84.075 1Q86.95 1.0632812 86.95 4L86.95 18Q86.95 20.936719 84.075 21">
+              <fill>
+                <LinearGradient x="-49.05" y="22" scaleX="-22" rotation="90">
+                  <GradientEntry ratio="0" color="#99D7FE"/>
+                  <GradientEntry ratio="1" color="#D9F0FE"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Path x="0.5" data="M65.5 4 66.5 4 66.5 18 65.5 18 65.5 4">
+            <fill>
+              <LinearGradient x="66.2" y="22.95" scaleX="23.4" rotation="270">
+                <GradientEntry ratio="0" color="#0075BF"/>
+                <GradientEntry ratio="0.99215686" color="#009DFF"/>
+              </LinearGradient>
+            </fill>
+          </Path>
+          <Group>
+            <Path x="-89" y="-470" data="M175.975 473.975 176 482 90 482 90 474Q90 471 93 471L172.975 471Q175.9748 470.99746 175.975 473.975">
+              <fill>
+                <LinearGradient x="90.5" y="482" scaleX="10.5" rotation="270">
+                  <GradientEntry ratio="0" color="#CCCCCC" alpha="0"/>
+                  <GradientEntry ratio="1" color="#FFFFFF" alpha="0.30196078"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path data="M84 0Q88 0 88 4L88 18Q88 22 84 22L4 22Q0 22 0 18L0 4Q0 0 4 0L84 0M87 4Q87 1.0632812 84.125 1L3.9 1Q1 1.1 1 4L1 18Q1 20.95 3.9 21L84.125 21Q87 20.936719 87 18L87 4">
+              <fill>
+                <LinearGradient x="77" y="22" scaleX="22" rotation="270">
+                  <GradientEntry ratio="0" color="#0075BF"/>
+                  <GradientEntry ratio="0.99215686" color="#009DFF"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="-59.5" data="M133 11 133 10 132 10 132 9 139 9 139 10 138 10 138 11 137 11 137 12 136 12 136 13 135 13 135 12 134 12 134 11 133 11">
+              <fill>
+                <SolidColor/>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>

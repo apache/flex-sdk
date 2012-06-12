@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
+	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+	xmlns:flm="http://ns.adobe.com/flame/2008"
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="CloseButtonOver" afx:baseClassName="flash.display.Sprite" >
+        <Group d:type="layer" d:userLabel="Layer 1">
+          <Group>
+            <Path x="-379" y="-957" data="M395.85 961 395.85 971Q395.85 973.95 393 974L382.9 974Q380 973.95 380 971L380 961Q380 958.06328 382.875 958L393 958Q395.85 958.1 395.85 961">
+              <fill>
+                <LinearGradient x="390" y="979" scaleX="-22" rotation="90">
+                  <GradientEntry ratio="0" color="#EEEEEE" alpha="0.65098039"/>
+                  <GradientEntry ratio="1" color="#FFFFFF" alpha="0.75294118"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Path x="-379" y="-957" data="M393 957Q397 957 397 961L397 971Q397 975 393 975L383 975Q379 975 379 971L379 961Q379 957 383 957L393 957M396 961Q396 958.1 393.15 958L382.875 958Q380 958.06328 380 961L380 971Q380 973.95 382.9 974L393.15 974Q396 973.95 396 971L396 961">
+              <fill>
+                <LinearGradient x="743" y="369" scaleX="22" rotation="270">
+                  <GradientEntry ratio="0" color="#0075BF"/>
+                  <GradientEntry ratio="0.99215686" color="#009DFF"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+          <Group>
+            <Group>
+              <Path data="M202.875 16.2 200.05 13.375 197.225 16.2 195.8 14.775 198.625 11.95 195.8 9.125 197.225 7.725 200.05 10.525 202.875 7.7 204.275 9.125 201.475 11.95 204.3 14.775 202.875 16.2">
+                <transform>
+                  <Transform>
+                    <matrix>
+                      <Matrix a="-0.0028839111" b="-0.93699646" c="0.9315033" d="0.0028839111" tx="-1.55" ty="196.5"/>
+                    </matrix>
+                  </Transform>
+                </transform>
+                <fill>
+                  <SolidColor color="#2B333C"/>
+                </fill>
+              </Path>
+            </Group>
+          </Group>
+          <Group>
+            <Path x="-331" y="-957" data="M348 961 348 969 332 969 331.975 960.975Q331.975 957.99746 334.975 958L345 958Q347.95 958 348 961">
+              <fill>
+                <LinearGradient x="392.5" y="969" scaleX="10.5" rotation="270">
+                  <GradientEntry ratio="0" color="#CCCCCC" alpha="0"/>
+                  <GradientEntry ratio="1" color="#FFFFFF" alpha="0.30196078"/>
+                </LinearGradient>
+              </fill>
+            </Path>
+          </Group>
+        </Group>
+  <Private/>
+</Graphic>
