@@ -239,6 +239,10 @@
 			   >
 			<jvmarg line="${compc.jvm.args}"/>
 			<target-player>11.1</target-player>
+			<library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+			</external-library-path>
 		</mxmlc>
     </target>
         
