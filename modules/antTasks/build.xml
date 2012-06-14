@@ -75,7 +75,7 @@
 
     <target name="clean">
         <delete dir="${module.classes}" />
-        <delete file="${module.jar}" />
+        <delete file="${module.jar}" failonerror="false" />
         <!-- Clean up VIM and Emacs backup files -->
         <delete>
             <fileset dir="${module.src}" includes="**/*~" defaultexcludes="false" />
