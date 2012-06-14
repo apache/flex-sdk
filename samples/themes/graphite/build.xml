@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="graphite" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+	
+	<property name="THEME_NAME" value="graphite" />
+
+	<property file="${FLEX_HOME}/build.properties"/>
+
+    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
+    <property name="local.playerglobal.version" value="11.1"/>
+
+	<target name="main" depends="clean,compile" description="Clean build of ${THEME_NAME}.swc"/>
+
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}">
+				<include name="${THEME_NAME}.swc"/>
+				<include name="${THEME_NAME}.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="compile" description="Compiles ${THEME_NAME}.swc">
+		<echo message="Compiling samples/themes/${THEME_NAME}/${THEME_NAME}.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. Classpath is set up to work in dev and released environments -->
+		<taskdef resource="flexTasks.tasks">
+			<classpath>
+				<pathelement path="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+				<pathelement path="${FLEX_HOME}/lib/flexTasks.jar"/>
+			</classpath>
+		</taskdef>
+		<!--
+			This project builds a theme SWC containing skin classes.
+			It has no MXML tags and therefore no manifest.
+			Link in all classes.
+			Compile against all of the SDK libs externally.
+			Link in accessibility support.
+			Include various CSS and asset files in the SWC.
+			Don't put any resources into the SWC. (The classes don't require any.)
+		-->		
+		<compc fork="true"
+			   output="${basedir}/${THEME_NAME}.swc">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
+            <target-player>10</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+			<include-classes>GraphiteClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${basedir}/src/defaults.css"/>
+			<include-file name="assets/flex_skins.swf" path="${basedir}/src/assets/flex_skins.swf"/>
+			<include-file name="preview.jpg" path="${basedir}/src/preview.jpg"/>
+			<include-file name="metadata.xml" path="${basedir}/src/metadata.xml"/>
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
+	</target>
+	
+</project>

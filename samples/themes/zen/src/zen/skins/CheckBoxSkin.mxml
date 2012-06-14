@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the Spark CheckBox component.  
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+			 alpha.disabledStates="0.5">
+	
+	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
+		[HostComponent("spark.components.CheckBox")]
+		]]>
+	</fx:Metadata> 
+	
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
+    </s:states>
+    
+    <s:Group verticalCenter="0" width="13" height="13">
+         <!-- skin -->
+	 	<mx:Image 
+	 		left="0"
+	 		verticalCenter="0"
+	 		source.up= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_upIcon')"
+	 		source.over="@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_overIcon')"
+	 		source.down= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_downIcon')"
+	 		source.disabled= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_disabledIcon')"
+			source.disabledAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_selectedDisabledIcon')"
+			source.downAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_selectedDownIcon')"
+			source.overAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_selectedOverIcon')"
+			source.upAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='CheckBox_selectedUpIcon')"
+			
+	 		/>
+    </s:Group>
+
+	<!-- Label -->
+	<s:Label id="labelDisplay"
+			 textAlign="start"
+			 verticalAlign="middle"
+			 maxDisplayedLines="1"
+			 left="18" right="0" top="3" bottom="3" verticalCenter="2" />
+
+</s:Skin>

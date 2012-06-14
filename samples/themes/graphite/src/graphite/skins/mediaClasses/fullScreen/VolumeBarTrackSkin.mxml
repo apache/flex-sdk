@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the volume bar track part of a Spark VideoPlayer 
+      component while in the fullScreen state.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
+
+	<!-- border -->
+	<s:Rect left="3" right="3" top="0" bottom="0" radiusX="2" radiusY="2" width="5">
+		<s:fill>
+			<s:LinearGradient>
+				<s:GradientEntry color="0x000000" alpha="0.55" />
+				<s:GradientEntry color="0xFFFFFF" alpha="0.55" ratio="0.90" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- fill -->
+	<s:Rect left="4" right="4" top="1" bottom="1" radiusX="2" radiusY="2">
+		<s:fill>
+			<s:SolidColor color="0xCACACA" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- shadow -->
+	<s:Rect top="2" bottom="2" left="4" width="1">
+		<s:fill>
+			<s:SolidColor color="0x9E9E9E" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- hit area -->
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor alpha="0"/>
+		</s:fill>
+	</s:Rect>
+</s:Skin>

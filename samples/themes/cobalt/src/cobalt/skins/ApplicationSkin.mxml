@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the Spark Application component. -->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+		alpha.disabled="0.5" >
+	
+	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* A strongly typed property that references the component to which this skin is applied.
+		*/
+		[HostComponent("spark.components.Application")]
+		]]>
+	</fx:Metadata> 
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="disabled" />
+		<s:State name="normalWithControlBar" />
+		<s:State name="disabledWithControlBar" />
+	</s:states>
+	
+	<!-- fill -->
+	<!--- 
+	A rectangle with a solid color fill that forms the background of the application.
+	The color of the fill is set to the Application's backgroundColor property.
+	-->
+	<s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xeaeaea"
+								 />
+				<s:GradientEntry color="0xcccccc"
+								 />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Group left="0" right="0" top="0" bottom="0">
+		<s:layout>
+			<s:VerticalLayout gap="0" horizontalAlign="justify" />
+		</s:layout>
+		
+		<!--- 
+		Application Control Bar
+		-->
+		<s:Group id="topGroup" minWidth="0" minHeight="0"
+				 includeIn="normalWithControlBar, disabledWithControlBar" >
+			
+			<!-- Layer 1: border -->
+			<s:Rect id="border" left="0" right="0" top="0" bottom="0" 
+					topLeftRadiusX="0" topRightRadiusX="0" bottomRightRadiusX="0" bottomLeftRadiusX="0">
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x426089"
+										 alpha="1.0" />
+						<s:GradientEntry color="0x304663"
+										 alpha="1.0" />
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<!-- Layer 2: innerBorder -->
+			<s:Rect id="innerBorder" left="1" right="1" top="1" bottom="1"
+					topLeftRadiusX="0" topRightRadiusX="0" bottomRightRadiusX="0" bottomLeftRadiusX="0">
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x557FB5"
+										 alpha="1.0" />
+						<s:GradientEntry color="0x42628A"
+										 alpha="1.0" />
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<!-- Layer 3: insetBorder -->
+			<s:Rect id="insetBorder" left="2" right="2" top="2" bottom="2"
+					topLeftRadiusX="0" topRightRadiusX="0" bottomRightRadiusX="0" bottomLeftRadiusX="0">
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x426089"
+										 alpha="1.0" />
+						<s:GradientEntry color="0x304663" 
+										 alpha="1.0" />
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<!-- Layer 4: fill -->
+			<s:Rect id="fill" left="3" right="3" top="3" bottom="3"
+					topLeftRadiusX="0" topRightRadiusX="0" bottomRightRadiusX="0" bottomLeftRadiusX="0">
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x446690" 
+										 alpha="1.0"
+										 ratio="0"/>
+						<s:GradientEntry color="0x496C9A"
+										 alpha="1.0" 
+										 ratio="0.2"/>
+						<s:GradientEntry color="0x3D5A80"
+										 alpha="1.0" 
+										 ratio="0.8"/>
+						<s:GradientEntry color="0x385275"
+										 alpha="1.0" 
+										 ratio="1.0"/>
+					</s:LinearGradient>
+				</s:fill>
+				<!-- inner Glow -->
+				<s:filters>
+					<s:GlowFilter color="0x000000"
+								  alpha="0.85"
+								  blurX="2" blurY="2"
+								  inner="true"
+								  />
+				</s:filters>
+			</s:Rect>
+			
+			<!--- @copy spark.components.Application#controlBarGroup -->
+			<s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="1" minWidth="0" minHeight="0">
+				<s:layout>
+					<s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="7" paddingBottom="7" gap="10" />
+				</s:layout>
+			</s:Group>
+		</s:Group>
+		
+		<!--- @copy spark.components.SkinnableContainer#contentGroup -->
+		<s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0" />
+		
+	</s:Group>
+	
+</s:Skin>

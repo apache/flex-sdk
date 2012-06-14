@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the Spark VideoPlayer component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    alpha.disabledStates="0.5" chromeColor.fullScreenStates="0xCCCCCC">
+    <!-- A base color of 0xCCCCCC in the fullScreenStates means we ignore the chromeColor property 
+         all together as 0xCCCCCC is essentially just a no-op color transform -->
+
+    <!-- host component -->
+    <fx:Metadata>
+        [HostComponent("spark.components.VideoPlayer")]
+    </fx:Metadata>
+    
+    
+    <!-- states -->
+	<s:states>
+		<s:State name="uninitialized" stateGroups="uninitializedStates, normalStates" />
+		<s:State name="loading" stateGroups="loadingStates, normalStates" />
+		<s:State name="ready" stateGroups="readyStates, normalStates" />
+		<s:State name="playing" stateGroups="playingStates, normalStates" />
+		<s:State name="paused" stateGroups="pausedStates, normalStates" />
+		<s:State name="buffering" stateGroups="bufferingStates, normalStates" />
+		<s:State name="playbackError" stateGroups="playbackErrorStates, normalStates" />
+		<s:State name="disabled" stateGroups="disabledStates, normalStates"/>
+		<s:State name="uninitializedAndFullScreen" stateGroups="uninitializedStates, fullScreenStates" />
+		<s:State name="loadingAndFullScreen" stateGroups="loadingStates, fullScreenStates" />
+		<s:State name="readyAndFullScreen" stateGroups="readyStates, fullScreenStates" />
+		<s:State name="playingAndFullScreen" stateGroups="playingStates, fullScreenStates" />
+		<s:State name="pausedAndFullScreen" stateGroups="pausedStates, fullScreenStates" />
+		<s:State name="bufferingAndFullScreen" stateGroups="bufferingStates, fullScreenStates" />
+		<s:State name="playbackErrorAndFullScreen" stateGroups="playbackErrorStates, fullScreenStates" />
+		<s:State name="disabledAndFullScreen" stateGroups="disabledStates, fullScreenStates"/>
+	</s:states>
+    
+    <!-- drop shadow -->
+    <s:RectangularDropShadow id="shadow" blurX="17" blurY="17" alpha="0.32" distance="4" 
+                angle="90" color="#131313" left="0" top="0" right="0" bottom="0"
+				excludeFrom="fullScreenStates"/>
+    
+    <!-- video and player controls are clipped if they exceed the size of the 
+         component, but the drop shadow above is not clipped and sizes to the component -->
+    <s:Group clipAndEnableScrolling="true" left="0" top="0" right="0" bottom="0">
+    
+        <!-- There's a minimum size for the video and controls.  If we go below that
+             we are clipped. -->
+        <s:Group minWidth="263" minHeight="184" left="0" right="0" top="0" bottom="0">
+            
+            <!-- background when the videoElement doesn't fill its whole spot -->
+            <s:Rect bottom="1" left="1" right="1" top="1"
+					bottom.fullScreenStates="0" left.fullScreenStates="0" 
+					right.fullScreenStates="0" top.fullScreenStates="0">
+                <s:fill>
+                    <s:SolidColor color="0x585858" />
+                </s:fill>
+            </s:Rect>
+            
+            <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
+            <s:VideoDisplay id="videoDisplay" bottom="24" left="1" right="1" top="1" 
+					bottom.fullScreenStates="0" left.fullScreenStates="0" 
+					right.fullScreenStates="0" top.fullScreenStates="0" />
+            
+            <!-- video player controls -->
+            <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
+                
+                <!-- actual controls with a maxWidth in non-fullScreen mode -->
+                <s:Group bottom="0" horizontalCenter="0" left="0" right="0" maxWidth.fullScreenStates="755" id="playerControls">
+                
+                    <!--- Defines the label and appearance of the Play/Pause button. -->
+                    <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
+                            skinClass="zen.skins.mediaClasses.normal.PlayPauseButtonSkin" 
+                            skinClass.fullScreenStates="zen.skins.mediaClasses.fullScreen.PlayPauseButtonSkin"
+                            focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
+                    
+                    <!-- scrubbar + the playHeadTime/totalTime labels -->
+                    <s:Group left="39" right="75" top="0" bottom="0">
+                          
+                        <!-- background for scrubbar + the playHeadTime/totalTime -->
+                        <s:Rect left="0" right="0" top="0" bottom="0">
+                            <s:fill>
+                                <s:LinearGradient rotation="90">
+                                    <s:GradientEntry color="0xD4D3B8" color.fullScreenStates="0xD4D3B8"/>
+                                    <s:GradientEntry color="0xB7B799" color.fullScreenStates="0xB7B799"/>
+                                </s:LinearGradient>
+                            </s:fill>
+                        </s:Rect>
+                        <!-- border for the scrubbar/time label controls -->
+                        <s:Rect left="-1" right="0" top="0" bottom="0">
+                            <s:stroke>
+                                <s:SolidColorStroke color="0x131313" color.fullScreenStates="0x222222" alpha.fullScreenStates="0.66"  />
+                            </s:stroke>
+                        </s:Rect>
+                        
+                        <!-- scrub bar + playHeadTime/totalTime in a HorizontalLayout -->
+                        <s:Group left="0" right="0" height="23" bottom="0">
+                            <s:layout>
+                                <s:HorizontalLayout verticalAlign="middle" gap="1" />
+                            </s:layout>
+                            
+                            <!-- spacer -->
+                            <s:Rect width="7" height="1" />
+                            
+                            <s:ScrubBar id="scrubBar" width="100%" liveDragging="true"
+                                skinClass="zen.skins.mediaClasses.normal.ScrubBarSkin"
+                                skinClass.fullScreenStates="zen.skins.mediaClasses.fullScreen.ScrubBarSkin" />
+                            
+                            <!-- spacer -->
+                            <s:Rect width="8" height="1" />
+                            
+							<s:Label id="currentTimeDisplay" color="0x4C2600" color.fullScreenStates="0x4C2600" />
+							
+							<s:Label id="timeDivider" text="/" color="0x4C2600" color.fullScreenStates="0x4C2600" />
+							
+							<s:Label id="durationDisplay" color="0x4C2600" color.fullScreenStates="0x4C2600" />
+                            
+                            <!-- spacer -->
+                            <s:Rect width="8" height="1" />
+                        </s:Group>
+                    
+                    </s:Group>
+                    
+                    <!--- Defines the appearance of the volume bar. -->
+                    <s:VolumeBar id="volumeBar" snapInterval=".01" stepSize=".01" liveDragging="true"
+                            right="37" bottom="0" 
+                            skinClass="zen.skins.mediaClasses.normal.VolumeBarSkin"
+                            skinClass.fullScreenStates="zen.skins.mediaClasses.fullScreen.VolumeBarSkin"
+                            focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
+                    
+                    <!--- Defines the label and appearance of the Fullscreen button. -->
+                    <s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
+                            skinClass="zen.skins.mediaClasses.normal.FullScreenButtonSkin"
+                            skinClass.fullScreenStates="zen.skins.mediaClasses.fullScreen.FullScreenFullScreenButtonSkin"
+                            focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
+                            
+                </s:Group>
+                
+            </s:Group>
+            
+            <!-- border -->
+            <s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="fullScreenStates">
+                <s:stroke>
+                    <s:SolidColorStroke color="0x131313" />
+                </s:stroke>
+            </s:Rect>
+    
+        </s:Group>
+    </s:Group>
+</s:Skin>

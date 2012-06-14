@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--- The Spark skin class for the Halo Border base class. 
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+						implements="mx.core.IRectangularBorder" mouseEnabled="false" mouseChildren="false">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.EdgeMetrics;
+			import mx.core.IUIComponent;
+			import mx.graphics.RectangularDropShadow;
+			
+			static private const metrics:EdgeMetrics = new EdgeMetrics(1, 1, 1, 1);
+			
+			[Bindable]
+			public var cornerRadius:Number = 0;
+			
+			private var dropShadow:RectangularDropShadow;
+			
+			public function get borderMetrics():EdgeMetrics
+			{
+				if (getStyle("borderVisible") == false ||
+					getStyle("borderStyle") == "none")
+					return EdgeMetrics.EMPTY;
+				
+				return metrics;
+			}
+			
+			public function get backgroundImageBounds():Rectangle
+			{
+				return null;
+			}
+			
+			public function set backgroundImageBounds(value:Rectangle):void
+			{
+				
+			}
+			
+			public function get hasBackgroundImage():Boolean
+			{
+				return false;
+			}
+			
+			public function layoutBackgroundImage():void
+			{
+				
+			}
+						
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				// Force a redraw to clear any existing shadow, and to force a redraw of the 
+				// border/background.
+				redrawRequested = true;
+				
+				if (getStyle("borderVisible") == false || getStyle("borderStyle") == "none")
+				{
+					border.visible = false;
+					background.left = background.top = background.right = background.bottom = 0;
+				}
+				else
+				{
+					border.visible = true;
+					background.left = background.top = background.right = background.bottom = 1;
+				}
+				
+				border.radiusX = cornerRadius;
+				background.radiusX = cornerRadius;
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				
+				if (parent && parent is IUIComponent && !IUIComponent(parent).enabled)
+					alpha = 0.5;
+				else
+					alpha = 1;
+				
+				// Draw drop shadow, if needed
+				if (getStyle("dropShadowVisible") == false ||
+					width == 0 || 
+					height == 0)
+				{
+					return;
+				}
+				
+				// Create a RectangularDropShadow object, set its properties,
+				// and draw the shadow
+				if (!dropShadow)
+					dropShadow = new RectangularDropShadow();
+				
+				dropShadow.distance = 5;
+				dropShadow.angle = 90;
+				dropShadow.color = 0;
+				dropShadow.alpha = 0.8;
+				dropShadow.blurX = 20;
+				dropShadow.blurY = 20;
+				
+				// Clear out any pending line style
+				graphics.lineStyle();
+				dropShadow.drawShadow(graphics, 0, 0, width, height);
+			}
+			
+			private function getDropShadowAngle(distance:Number,
+												direction:String):Number
+			{
+				if (direction == "left")
+					return distance >= 0 ? 135 : 225;
+					
+				else if (direction == "right")
+					return distance >= 0 ? 45 : 315;
+					
+				else // direction == "center"
+					return distance >= 0 ? 90 : 270;
+			}
+		]]>
+	</fx:Script>
+	
+	<!-- border --> 
+	<s:Rect left="0" right="0" top="0" bottom="0" radiusX="0" id="border" >
+		<s:stroke>            
+			<s:SolidColorStroke id="borderStroke" color="0x252525"/>
+		</s:stroke>
+	</s:Rect>
+	
+	<!-- fill -->
+	<s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="0">
+		<s:fill>
+			<s:SolidColor id="bgFill" color="0x333333" />
+		</s:fill>
+	</s:Rect>
+</s:Skin>

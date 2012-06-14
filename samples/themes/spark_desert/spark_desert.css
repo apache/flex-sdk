@@ -1,0 +1,50 @@
+/*
+ *
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+global
+{
+	chrome-color: #6F6750;
+	color: #4c2600;
+	content-background-color: #ffedb8;
+	symbol-color: #000000;
+	roll-over-color: #b2ad81;
+	selection-color: #938f6b;
+	focus-color: #999999;
+	accent-color:#B7AE93;
+}
+
+s|Application,s|Panel,mx|Panel,mx|TitleWindow,mx|TabNavigator,mx|SwatchPanel
+{
+	background-color: #6F6750;
+}
+
+s|RichEditableText
+{
+	focusedTextSelectionColor: #938f6b;
+	unfocusedTextSelectionColor: #938f6b;
+}
+
+mx|DataGrid
+{
+	alternating-item-colors: #ffedb8, #ffedb8;
+}
+

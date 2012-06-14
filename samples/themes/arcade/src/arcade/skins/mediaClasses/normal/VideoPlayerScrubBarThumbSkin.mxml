@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the scrub bar thumb part of a Spark VideoPlayer component.  
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+	
+	<fx:Metadata>
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+	
+	
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<!-- black line on top -->
+	<s:Rect width="1" x="7" y="0" height="7">
+		<s:fill>
+			<s:SolidColor color="0x000000"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- now the base shape of the component -->
+	<s:Group y="6">
+		
+		<!-- drop shadow for shape -->
+		<s:Line xFrom="4" xTo="11" y="10">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000" alpha="0.12" />
+			</s:stroke>
+		</s:Line>
+		
+		<!-- shape border -->
+		<s:Path winding="evenOdd" data="M 4 2 L 4 10 L 11 10 L 11 3 L 10 3 L 10 2 L 9 2 L 9 1 L 6 1 L 6 2 L 5 2 L 5 3 L 4 3 L 4 2 Z">
+			<s:fill>
+				<s:SolidColor color="0x000000"/>
+			</s:fill>
+		</s:Path>
+		
+		<!-- shape fill -->
+		<s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
+			<s:fill>
+				<s:SolidColor color="0x3C4352"/>
+			</s:fill>
+		</s:Path>
+
+		<!-- shape fill highlight -->
+		<s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
+			<s:fill>
+				<s:SolidColor color="0xFFFFFF" alpha="0.22"/>
+			</s:fill>
+		</s:Path>
+		
+	</s:Group>
+	
+	<!-- for sizing/hit-test only -->
+	<s:Rect width="13" height="19">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0" />
+		</s:fill>
+	</s:Rect>
+	
+</s:Skin>

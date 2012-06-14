@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the scrub bar thumb part of a Spark VideoPlayer 
+      component while in the fullScreen state. -->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata>
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- black line/pointer on top of symbol -->
+    <s:Line x="6" width="1" yFrom="0" yTo="5">
+        <s:stroke>
+            <s:SolidColorStroke color="0x000000"/>
+        </s:stroke>
+    </s:Line>
+    
+    <!-- TODO: this part is a little fuzzy...what can we do to make it better? -->
+    
+    <!-- now the base shape of the component -->
+    <s:Group y="5">
+    
+        <!-- drop shadow for shape -->
+        <s:Line xFrom="2" xTo="11" y="12">
+            <s:stroke>
+                <s:SolidColorStroke color="0x000000" alpha="0.5" />
+            </s:stroke>
+        </s:Line>
+        <s:Line yFrom="5" yTo="13" x="1">
+            <s:stroke>
+                <s:SolidColorStroke color="0x000000" alpha="0.12" />
+            </s:stroke>
+        </s:Line>
+        <s:Line yFrom="5" yTo="13" x="11">
+            <s:stroke>
+                <s:SolidColorStroke color="0x000000" alpha="0.12" />
+            </s:stroke>
+        </s:Line>
+        
+        <!-- shape border -->
+        <s:Path winding="evenOdd" data="M 2 5 L 2 12 L 11 12 L 11 5 L 6 0 L 2 5 Z">
+            <s:fill>
+                <s:SolidColor color="0x000000"/>
+            </s:fill>
+        </s:Path>
+    
+        <!-- shape fill -->
+        <s:Path winding="evenOdd" data="M 3 6 L 3 11 L 10 11 L 10 6 L 6 1 L 3 6 Z">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" />
+                    <s:GradientEntry color="0xE1E1E1" />
+                </s:LinearGradient>
+            </s:fill>
+            <s:fill.over>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0x676767" />
+                    <s:GradientEntry color="0x363636" />
+                </s:LinearGradient>
+            </s:fill.over>
+            <s:fill.down>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0x9A9A9A" />
+                    <s:GradientEntry color="0xAAAAAA" />
+                </s:LinearGradient>
+            </s:fill.down>
+        </s:Path>
+        
+        <!-- shape fill highlight -->
+        <s:Path winding="evenOdd" data="M 3 6 L 3 11 L 10 11 L 10 6 L 6 1 L 3 6 Z">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" alpha="0.22"/>
+            </s:fill>
+        </s:Path>  
+    </s:Group>
+    
+    <!-- for sizing/hit-test only -->
+    <s:Rect width="14" height="19">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0" />
+        </s:fill>
+    </s:Rect>
+    
+</s:Skin>

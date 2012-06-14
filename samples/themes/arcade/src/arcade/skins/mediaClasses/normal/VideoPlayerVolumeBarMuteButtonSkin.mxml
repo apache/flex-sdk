@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the mute button of a Spark VideoPlayer component.  
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" creationComplete="init()"
+			 alpha.disabled="0.5">
+	
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.mediaClasses.MuteButton")]
+	</fx:Metadata>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import spark.components.mediaClasses.VolumeBar;
+			
+			private function init():void
+			{
+				// this is essentially just binding code.  Anytime the volume changes, 
+				// let us know.
+				volume = hostComponent.volume;
+				hostComponent.addEventListener(FlexEvent.VALUE_COMMIT, valueCommitHandler);
+				hostComponent.addEventListener(FlexEvent.MUTED_CHANGE, valueCommitHandler);
+			}
+			
+			private function valueCommitHandler(event:Event):void
+			{
+				volume = hostComponent.volume;
+			}
+			
+			private var _volume:Number = 1;
+			
+			public function get volume():Number
+			{
+				return _volume;
+			}
+			
+			public function set volume(value:Number):void
+			{
+				if (value == _volume)
+					return;
+				
+				_volume = value;
+				
+				var bar1:Array = [bar1_1, bar1_2, bar1_3]; // 0-.25
+				var bar2:Array = [bar2_1, bar2_2, bar2_3]; // .25-.5
+				var bar3:Array = [bar3_1, bar3_2, bar3_3]; // .5-.75
+				var bar4:Array = [bar4_1, bar4_2, bar4_3]; // .75-.1
+				var bars:Array = [bar1, bar2, bar3, bar4];
+				
+				var curValue:Number = 0;
+				for (var i:int = 0; i < bars.length; i++)
+				{
+					if (value <= curValue)
+						setAlphaTo(bars[i], 0);
+					else if (value >= (curValue + 0.25))
+						setAlphaTo(bars[i], 1);
+					else
+						setAlphaTo(bars[i], (value-curValue)*4);
+					
+					curValue += 0.25;
+				}
+			}
+			
+			private function setAlphaTo(bar:Array, alpha:Number):void
+			{
+				for (var i:int = 0; i < bar.length; i++)
+				{
+					bar[i].alpha = alpha;
+				}
+			}
+		]]>
+	</fx:Script>
+	
+    
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+    </s:states>
+        
+    <!-- layer 1: fill -->
+	<!-- skin -->
+	<mx:Image left="0" top="0" right="0" bottom="0" maintainAspectRatio="false"
+		source.up= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_upSkin')"	
+		source.over= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_overSkin')"
+		source.down= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_downSkin')"
+    	source.disabled= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_disabledSkin')"
+    	source.upAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_upSkin')"
+    	source.overAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_overSkin')"
+    	source.downAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_downSkin')"
+    	source.disabledAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='VideoPlayerVolumeButton_upSkin')"
+		/>
+    
+	<!-- volume symbol -->
+	<s:Group horizontalCenter="0" verticalCenter="0" id="volumeSymbol">
+		
+		<!-- big trapezoid in center -->
+		<s:Path winding="evenOdd" data="M 9 13 L 9 0 L 4 4 L 4 9 L 9 13 Z">
+			<s:fill>
+				<s:SolidColor color="0x212121" alpha=".85" id="trapezoid1"/>
+			</s:fill>
+		</s:Path>
+		
+		<!-- small trapezoid on left -->
+		<s:Path winding="evenOdd" data="M 3 9 L 3 4 L 0 5 L 0 8 L 3 9 Z">
+			<s:fill>
+				<s:SolidColor color="0x212121" alpha=".75" id="trapezoid2"/>
+			</s:fill>
+		</s:Path>
+		
+		<!-- volume bars -->
+		
+		<!-- big volume bar representing volume values [.75, 1] -->
+		<s:Line yFrom="0" yTo="12" x="16">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90">
+					<s:GradientEntry color="0x272727" ratio=".1" id="bar4_1" />
+					<s:GradientEntry color="0x3D3D3D" ratio=".2" id="bar4_2" />
+					<s:GradientEntry color="0x484848" ratio=".3" id="bar4_3" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Line>
+		
+		<!-- middle volume bar representing volume values [.5, .75] -->
+		<s:Line yFrom="2" yTo="10" x="14" id="bar3">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90">
+					<s:GradientEntry color="0x272727" ratio=".1" id="bar3_1" />
+					<s:GradientEntry color="0x3D3D3D" ratio=".2" id="bar3_2" />
+					<s:GradientEntry color="0x484848" ratio=".3" id="bar3_3" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Line>
+		
+		<!-- middle volume bar representing volume values [.25, .5] -->
+		<s:Line yFrom="3" yTo="9" x="12" id="bar2">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90">
+					<s:GradientEntry color="0x272727" ratio=".1" id="bar2_1" />
+					<s:GradientEntry color="0x3D3D3D" ratio=".2" id="bar2_2" />
+					<s:GradientEntry color="0x484848" ratio=".3" id="bar2_3" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Line>
+		
+		<!-- small volume bar representing volume values [0, .25] -->
+		<s:Line yFrom="5" yTo="7" x="10">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90">
+					<s:GradientEntry color="0x272727" ratio=".1" id="bar1_1" />
+					<s:GradientEntry color="0x3D3D3D" ratio=".2" id="bar1_2" />
+					<s:GradientEntry color="0x484848" ratio=".3" id="bar1_3" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Line>
+	</s:Group>
+</s:Skin>

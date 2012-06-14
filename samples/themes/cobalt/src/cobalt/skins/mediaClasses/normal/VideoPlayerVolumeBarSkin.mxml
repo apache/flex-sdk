@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<!--- The default skin class for the volume bar of a Spark VideoPlayer component. -->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled=".5"> 
+
+    <!-- host component -->
+    <fx:Metadata>
+        [HostComponent("spark.components.mediaClasses.VolumeBar")]
+    </fx:Metadata>
+    
+	<s:states>
+	    <s:State name="normal" />
+        <s:State name="open" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+        left="0" right="0" top="0" bottom="0" popUpPosition="above">
+        <s:Group id="dropDown" width="33" height="84" horizontalCenter="0">
+        
+          
+			<!-- Layer 1: border -->
+			<s:Rect id="border" left="0" right="0" top="0" bottom="0" >
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x426089" 
+										 alpha="1.0" />
+						<s:GradientEntry color="0x304663"
+										 alpha="1.0" />
+					</s:LinearGradient>
+				</s:fill>
+				<s:filters>
+					<s:DropShadowFilter blurX="4" blurY="4" color="0x000000" alpha=".25" angle="60"/>
+				</s:filters>
+			</s:Rect>
+			<!-- Layer 2: innerBorder -->
+			<s:Rect id="innerBorder" left="1" right="1" top="1" bottom="1">
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x557FB5" 
+										 alpha="1.0" />
+						<s:GradientEntry color="0x42628A"
+										 alpha="1.0" />
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<!-- Layer 3: insetBorder -->
+			<s:Rect id="insetBorder" left="2" right="2" top="2" bottom="2" >
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x426089" 
+										 alpha="1.0" />
+						<s:GradientEntry color="0x304663"
+										 alpha="1.0" />
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<!-- Layer 4: fill -->
+			<s:Rect id="fill" left="3" right="3" top="3" bottom="3" >
+				<s:fill>
+					<s:LinearGradient rotation="90">
+						<s:GradientEntry color="0x446690"
+										 alpha="1.0"/>
+						<s:GradientEntry color="0x496C9A"
+										 alpha="1.0" 
+										 ratio=".1"/>
+						<s:GradientEntry color="0x3D5A80"
+										 alpha="1.0" 
+										 ratio=".9"/>
+						<s:GradientEntry color="0x385275" 
+										 alpha="1.0" 
+										 ratio=".1"/>
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			
+            
+            <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
+                      skinClass="cobalt.skins.mediaClasses.normal.VideoPlayerVolumeBarTrackSkin" />
+            
+            <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
+                      skinClass="cobalt.skins.mediaClasses.normal.VideoPlayerVolumeBarThumbSkin" />
+        </s:Group>
+    </s:PopUpAnchor>
+        
+    <s:MuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+              skinClass="cobalt.skins.mediaClasses.normal.VideoPlayerVolumeBarMuteButtonSkin" />
+    
+</s:Skin>

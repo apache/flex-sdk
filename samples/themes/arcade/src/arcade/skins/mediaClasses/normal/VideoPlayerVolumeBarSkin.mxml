@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<!--- The default skin class for the volume bar of a Spark VideoPlayer component.  
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled=".5"> 
+	
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.mediaClasses.VolumeBar")]
+	</fx:Metadata>
+
+	<s:states>
+	    <s:State name="normal" />
+        <s:State name="open" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+        left="0" right="0" top="0" bottom="0" popUpPosition="above">
+        <s:Group id="dropDown" width="33" height="84" horizontalCenter="0">
+        
+           
+            
+            <!-- background for the popup -->
+            <s:Rect left="0" right="0" top="0" bottom="0">
+                <s:fill>
+                    <s:LinearGradient rotation="90">
+                    <!-- theme custom colors -->
+                        <s:GradientEntry color="0x454a54"/>
+                        <s:GradientEntry color="0x3e4554"/>
+                    </s:LinearGradient>
+                </s:fill>
+				<s:filters>
+					<s:DropShadowFilter blurX="4" blurY="4" color="0x000000" alpha=".25" angle="60"/>
+				</s:filters>
+                <s:stroke>
+                    <s:SolidColorStroke color="0x000000" />
+                </s:stroke>
+            </s:Rect>
+            
+            <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
+                      skinClass="arcade.skins.mediaClasses.normal.VideoPlayerVolumeBarTrackSkin" />
+            
+            <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
+                      skinClass="arcade.skins.mediaClasses.normal.VideoPlayerVolumeBarThumbSkin" />
+        </s:Group>
+    </s:PopUpAnchor>
+        
+    <s:MuteButton id="muteButton" left="0" right="1" top="0" bottom="0" focusEnabled="false"
+              skinClass="arcade.skins.mediaClasses.normal.VideoPlayerVolumeBarMuteButtonSkin" />
+    
+</s:Skin>

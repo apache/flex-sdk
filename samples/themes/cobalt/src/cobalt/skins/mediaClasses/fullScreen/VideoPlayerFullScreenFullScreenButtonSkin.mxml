@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the fullScreen button of a Spark VideoPlayer 
+      component while in the fullScreen state. -->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"  
+      alpha.disabled="0.5">
+
+    <!-- host component -->
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata>
+    
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled"/>
+    </s:states>
+        
+	<!-- Layer 1: border -->
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0" >
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x426089" 
+								 color.over="0x5C85B8" 
+								 color.down="0x263852" 
+								 alpha="1.0" />
+				<s:GradientEntry color="0x304663" 
+								 color.over="0x43658F" 
+								 color.down="0x2E4260" 
+								 alpha="1.0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<!-- Layer 2: innerBorder -->
+	<s:Rect id="innerBorder" left="1" right="1" top="1" bottom="1">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x557FB5" 
+								 color.over="0x77B1D2" 
+								 color.down="0x344E6D" 
+								 alpha="1.0" />
+				<s:GradientEntry color="0x42628A" 
+								 color.over="0x5C89B9" 
+								 color.down="0x3E5A80"
+								 alpha="1.0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<!-- Layer 3: insetBorder -->
+	<s:Rect id="insetBorder" left="2" right="2" top="2" bottom="2" >
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x426089" 
+								 color.over="0x426089" 
+								 color.down="0x263852" 
+								 alpha="1.0" />
+				<s:GradientEntry color="0x304663" 
+								 color.over="0x304663" 
+								 color.down="0x2E4260" 
+								 alpha="1.0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<!-- Layer 4: fill -->
+	<s:Rect id="fill" left="3" right="3" top="3" bottom="3" >
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x446690" 
+								 color.over="0x446690" 
+								 color.down="0x2B405C"
+								 alpha="1.0"/>
+				<s:GradientEntry color="0x496C9A" 
+								 color.over="0x496C9A" 
+								 color.down="0x2F4563" 
+								 alpha="1.0" 
+								 ratio=".1"/>
+				<s:GradientEntry color="0x3D5A80" 
+								 color.over="0x3D5A80" 
+								 color.down="0x354D6F" 
+								 alpha="1.0" 
+								 ratio=".9"/>
+				<s:GradientEntry color="0x385275" 
+								 color.over="0x385275" 
+								 color.down="0x314867" 
+								 alpha="1.0" 
+								 ratio=".1"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+    
+    <!-- layer 4: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <s:Rect left="0" right="0" top="0" bottom="0" width="38" height="24">
+        <s:stroke>
+            <s:SolidColorStroke color="0x222222" alpha="0.66" />
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- full screen symbol -->
+    <s:Group horizontalCenter="0" verticalCenter="-1" id="fullScreenSymbol">
+        <!-- size of area so left, right, bottom, top work well -->
+        <s:Rect left="0" top="0" width="26" height="17">
+            <s:stroke>
+                <s:SolidColorStroke alpha="0" />
+            </s:stroke>
+        </s:Rect>
+    
+        <!-- background for big rectangle -->
+        <s:Rect left="5" top="3" right="5" bottom="3">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        <!-- dropshadow -->
+        <s:Rect bottom="2" left="5" right="5" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- inside rect1 -->
+        <s:Rect left="6" top="4" right="6" bottom="4">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- inside rect2 -->
+        <s:Rect left="7" top="5" right="7" bottom="5">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha=".6"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- top-left -->
+        <!-- dropshadow -->
+        <s:Rect left="0" top="3" width="3" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        <!-- <s:Rect left="2" top="1" width="1" height="2">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".75"/>
+            </s:fill>
+        </s:Rect> -->
+        <!-- symbol -->
+        <s:Rect left="0" top="2" width="3" height="1">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="2" top="0" width="1" height="2">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- top-right -->
+        <!-- dropshadow -->
+        <s:Rect right="0" top="3" width="3" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        <!-- <s:Rect right="2" top="1" width="1" height="2">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".75"/>
+            </s:fill>
+        </s:Rect> -->
+        <!-- symbol -->
+        <s:Rect right="0" top="2" width="3" height="1">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="2" top="0" width="1" height="2">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- bottom-left -->
+        <!-- dropshadow -->
+        <s:Rect left="0" bottom="2" width="2" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="2" bottom="0" width="1" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        <!-- symbol -->
+        <s:Rect left="0" bottom="3" width="3" height="1">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="2" bottom="1" width="1" height="2">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- bottom-right -->
+        <!-- dropshadow -->
+        <s:Rect right="0" bottom="2" width="2" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="2" bottom="0" width="1" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".5"/>
+            </s:fill>
+        </s:Rect>
+        <!-- symbol -->
+        <s:Rect right="0" bottom="3" width="3" height="1">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha=".75"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="2" bottom="1" width="1" height="2">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha=".75"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- bar down below -->
+        <s:Rect left="10" bottom="1" right="10" height="1">
+            <s:fill>
+                <s:SolidColor color="0xD1E5F2" alpha=".75"/>
+            </s:fill>
+        </s:Rect>
+        <!-- dropshadow -->
+        <s:Rect left="10" bottom="0" right="10" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha=".8"/>
+            </s:fill>
+        </s:Rect>
+    </s:Group>
+    
+</s:Skin>

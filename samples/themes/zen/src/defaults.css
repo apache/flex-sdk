@@ -1,0 +1,1510 @@
+/*
+ *
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+/* Zen is contributed by EffectiveUI www.effectiveui.com */
+
+/*
+//------------------------------
+//  Namespaces
+//------------------------------
+*/
+
+/*Spark Namespace*/
+@namespace s "library://ns.adobe.com/flex/spark";
+
+/*Halo Namespace*/
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+/*
+//------------------------------
+//  Global
+//------------------------------
+*/
+
+global
+{
+	font-family: Arial;
+ 	font-size: 11pt;
+ 	focus-color: #a35200;
+}
+
+mx|ScrollControlBase
+{
+	borderSkin: ClassReference("zen.skins.BorderSkin");
+}
+
+mx|Container
+{
+	borderSkin: ClassReference("zen.skins.BorderSkin");
+}
+
+mx|Accordion
+{
+	borderSkin: ClassReference("zen.skins.BorderSkin");
+}
+
+
+/*
+//------------------------------
+//  Halo AccordionHeader
+//------------------------------
+*/
+mx|AccordionHeader
+{
+
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_downSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_overSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_selectedDisabledSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_selectedDownSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_selectedOverSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_selectedUpSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="AccordionHeader_upSkin");
+	font-family: Arial;
+ 	font-size: 11pt;	
+ 	color: #4c2600;
+ 	text-roll-over-color: #4c2600;
+ 	text-selected-color: #4c2600;
+ 	content-background-color:#a35200;
+
+}
+
+/*
+//------------------------------
+//
+//  Halo Alert
+//
+//------------------------------
+*/
+mx|Alert
+{
+	closeButtonDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDisabledSkin");
+	closeButtonDownSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDownSkin");
+	closeButtonOverSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonOverSkin");
+	closeButtonUpSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonUpSkin");
+	controlBarBackgroundSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_controlBarBackgroundSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	text-align: center;
+	color: #4c2600;
+	title-background-skin: Embed(source="assets/flex_skins.swf", symbol="Title_backgroundSkin");
+	title-style-name: "panelTitleStyle";
+	background-color: #d0d1ab;
+	border-color: #aaaa8a;
+	corner-radius: 10;
+	background-alpha: 1.0;
+	border-alpha: 1.0;
+	button-style-name: "Button";
+	padding-top: 36;
+	padding-left: 10;
+	padding-right: 10;
+	padding-bottom: 4;
+	
+}
+
+/*
+//------------------------------
+//
+//  Halo Application
+//
+//------------------------------
+*/
+mx|Application
+{
+    background-color: #AAAA89;
+}
+
+/*
+//------------------------------
+//  Halo Button
+//------------------------------
+*/
+mx|Button
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="Button_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="Button_downSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="Button_overSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="Button_upSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="Button_downSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="Button_downSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="Button_downSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="Button_disabledSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEfc4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+	font-weight: bold;
+	focus-rounded-corners: "tl, tr, br, bl";
+	corner-radius: 4;	
+}
+
+
+/* 
+//------------------------------ 
+//  Halo ButtonBar 
+//------------------------------ 
+*/ 
+
+mx|ButtonBar 
+{ 
+	buttonStyleName: "buttonBarButton";
+	firstButtonStyleName: "buttonBarFirstButton";
+	lastButtonStyleName: "buttonBarLastButton";
+}
+
+.buttonBarButton
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonDisabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonDownSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonOverSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonSelectedDisabledSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonSelectedUpSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonSelectedUpSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonSelectedUpSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_buttonUpSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEFC4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+	corner-radius: 0;	
+	
+}
+
+.buttonBarFirstButton
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstDisabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstDownSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstOverSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstSelectedDisabledSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstSelectedUpSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstSelectedUpSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstSelectedUpSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_firstUpSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEFC4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+}
+
+.buttonBarLastButton
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastDisabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastDownSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastOverSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastSelectedDisabledSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastSelectedUpSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastSelectedUpSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastSelectedUpSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="ButtonBar_lastUpSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEFC4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+}
+
+/*
+//------------------------------
+//  Halo Canvas
+//------------------------------
+*/
+
+mx|Canvas
+{
+
+}
+
+/*-- secondaryCanvas is used if theme color is desired --*/
+mx|Canvas.secondaryCanvas
+{
+	background-color: #d0d1ab;
+	border-style: none;
+}
+
+/*
+//------------------------------
+//  Halo CheckBox
+//------------------------------
+*/
+mx|CheckBox
+{
+	disabledIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_disabledIcon");
+	downIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_downIcon");
+	overIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_overIcon");
+	selectedDisabledIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_selectedDisabledIcon");
+	selectedDownIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_selectedDownIcon");
+	selectedOverIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_selectedOverIcon");
+	selectedUpIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_selectedUpIcon");
+	upIcon: Embed(source="assets/flex_skins.swf", symbol="CheckBox_upIcon");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #4c2600;
+	text-roll-over-color: #a35200;
+	text-selected-color: #4c2600;
+	corner-radius: 0;
+}		
+
+/*
+//------------------------------
+//  Halo ColorPicker
+//------------------------------
+*/
+mx|ColorPicker
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="ColorPicker_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="ColorPicker_downSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="ColorPicker_overSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="ColorPicker_upSkin");
+	focus-color: #a35200;
+}		
+
+/*
+//------------------------------
+//  Halo ComboBox
+//------------------------------
+*/
+mx|ComboBox
+{
+
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_downSkin");
+	editableDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_editableDisabledSkin");
+	editableDownSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_editableDownSkin");
+	editableOverSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_editableOverSkin");
+	editableUpSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_editableUpSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_overSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="ComboBoxArrow_upSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEfc4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+	drop-down-style-name: "comboBoxList";
+	focus-color: #a35200;
+	text-input-style-name: "editableComboBoxTextInput";
+	focus-rounded-corners: "tl, tr, br, bl";
+	corner-radius: 4;	
+}
+
+.myComboBoxDropDowns 
+{
+   backgroundColor: #f3f4de;
+   	rollOverColor: #d0d1ab;
+   	textRollOverColor: #4c2600;
+   	borderStyle: inset;
+   	borderColor: #aaab8b;
+   	selectionColor: #a35200;
+   	color: #4c2600;
+   	textSelectedColor: #eeefc4;
+   	fontFamily: Arial;
+   	fontSize: 11;
+   	drop-shadow-enabled: true;
+}
+
+.editableComboBoxTextInput
+{
+	fontFamily: Arial;
+	font-weight: normal;
+   	fontSize: 11;
+   	color: #4c2600;
+   	content-background-color: #a35200;
+   	borderStyle: inset;
+   	borderColor: #82826b;
+   	focus-color: #a35200;
+	corner-radius: 0;
+	focus-rounded-corners: "none";
+}
+
+
+/*
+//------------------------------
+//  Halo CursorManager
+//------------------------------
+*/
+mx|CursorManager
+{
+	busyCursor: Embed(source="assets/flex_skins.swf", symbol="BusyCursor");
+	busyCursorBackground: Embed(source="assets/flex_skins.swf",symbol="BusyCursor");
+}
+
+/*
+//------------------------------
+//  Halo DataGrid
+//------------------------------
+*/
+mx|DataGrid
+{
+	columnDropIndicatorSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_columnDropIndicatorSkin");
+	columnResizeSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_columnResizeSkin");
+	headerBackgroundSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_headerBackgroundSkin");
+	headerSeparatorSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_headerSeparatorSkin");
+	sortArrowSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_sortArrowSkin");
+	stretchCursor: Embed(source="assets/flex_skins.swf", symbol="DataGrid_stretchCursor");
+	headerStyleName: "myDataGridHeaderStyle";
+	alternatingItemColors: #f3f4de, #fafaf1;
+   
+   	verticalGridLineColor: #aaab8b;
+   	rollOverColor: #d0d1ab;
+   	textRollOverColor: #4c2600;
+   	selectionColor: #D0C694;
+   	color: #4c2600;
+   	textSelectedColor: #4c2600;
+   	fontFamily: Arial;
+   	fontSize: 11;
+   	text-align: left;
+}
+
+.myDataGridHeaderStyle {
+	headerBackgroundSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_headerBackgroundSkin");
+	headerSeparatorSkin: Embed(source="assets/flex_skins.swf", symbol="DataGrid_headerSeparatorSkin");
+   	color: #4c2600;
+   	fontFamily: Arial;
+   	fontWeight: bold;
+   	fontSize: 11;
+   	fontStyle: normal;
+   	textDecoration: none;
+   	text-roll-over-color: #e19d39;
+   	text-selected-color: #4c2600;
+	border-visible: false;
+}
+/*
+//------------------------------
+//  Halo DateChooser
+//------------------------------
+*/
+mx|DateChooser
+{
+	nextMonthDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextMonthDisabledSkin");
+	nextMonthDownSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextMonthDownSkin");
+	nextMonthOverSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextMonthOverSkin");
+	nextMonthUpSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextMonthUpSkin");
+	nextYearDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextYearDisabledSkin");
+	nextYearDownSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextYearDownSkin");
+	nextYearOverSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextYearOverSkin");
+	nextYearUpSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_nextYearUpSkin");
+	prevMonthDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevMonthDisabledSkin");
+	prevMonthDownSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevMonthDownSkin");
+	prevMonthOverSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevMonthOverSkin");
+	prevMonthUpSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevMonthUpSkin");
+	prevYearDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevYearDisabledSkin");
+	prevYearDownSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevYearDownSkin");
+	prevYearOverSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevYearOverSkin");
+	prevYearUpSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_prevYearUpSkin");
+	rollOverIndicatorSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_rollOverIndicatorSkin");
+	selectionIndicatorSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_selectionIndicatorSkin");
+	todayIndicatorSkin: Embed(source="assets/flex_skins.swf", symbol="DateChooser_todayIndicatorSkin");
+	headerColors: #eeefc4, #aaab8b;
+   	fillColors: #eeefc4, #d0d1ab, #ffffff, #eeeeee;
+   	today-style-name: "todayStyle";
+   	rollOverColor: #d0d1ab;
+   	selectionColor: #eeefc4;
+   	color: #4c2600;
+   	content-background-color: #f3f4de;
+   	focus-Color: #a35200;
+   	fontFamily: Arial;
+   	fontSize: 11;
+   	headerStyleName: "mydateChooserHeaderStyle";
+   	border-color: #82826b;
+   	drop-shadow-enabled: true;
+}
+
+.mydateChooserHeaderStyle 
+{
+   	color: #4c2600;
+   	fontFamily: Arial;
+   	fontWeight: bold;
+   	fontSize: 11;
+   	fontStyle: normal;
+   	textDecoration: none;
+}
+
+.todayStyle
+{
+	color: #eeefc4	
+}
+
+/*
+//------------------------------
+//  Halo DateField
+//------------------------------
+*/
+mx|DateField
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf",symbol="DateField_disabledSkin"); 
+	downSkin: Embed(source="assets/flex_skins.swf",symbol="DateField_downSkin"); 
+	overSkin: Embed(source="assets/flex_skins.swf",symbol="DateField_overSkin"); 
+	upSkin: Embed(source="assets/flex_skins.swf",symbol="DateField_upSkin"); 
+	date-chooser-style-name: "DateChooser";
+}
+
+/*
+//------------------------------
+//  Halo DividedBox
+//------------------------------
+*/
+mx|DividedBox
+{
+	dividerSkin: Embed(source="assets/flex_skins.swf",symbol="DividedBox_dividerSkin");
+	horizontalCursor: Embed(source="assets/flex_skins.swf",symbol="DividedBox_horizontalCursor");
+	verticalCursor: Embed(source="assets/flex_skins.swf",symbol="DividedBox_verticalCursor");
+}
+
+/*
+//------------------------------
+//  Halo DragManager
+//------------------------------
+*/
+mx|DragManager
+{
+	copyCursor: Embed(source="assets/flex_skins.swf",symbol="DragManager_copyCursor");
+	defaultDragImageSkin: Embed(source="assets/flex_skins.swf", symbol="DragManager_defaultDragImageSkin");
+	linkCursor: Embed(source="assets/flex_skins.swf",symbol="DragManager_linkCursor");
+	moveCursor: Embed(source="assets/flex_skins.swf",symbol="DragManager_moveCursor");
+	rejectCursor: Embed(source="assets/flex_skins.swf",symbol="DragManager_rejectCursor");
+}
+
+/*
+//------------------------------
+//  Halo FormItem
+//------------------------------
+*/
+mx|FormItem
+{
+	indicatorSkin: Embed(source="assets/flex_skins.swf",symbol="FormItem_indicatorSkin");  
+}
+
+/*
+//------------------------------
+//  Halo Image
+//------------------------------
+*/
+mx|Image
+{
+
+	brokenImageSkin: Embed(source="assets/flex_skins.swf",symbol="Loader_brokenImageSkin");
+
+}
+
+/*
+//------------------------------
+//  Halo HorizontalList
+//------------------------------
+*/
+mx|HorizontalList
+{
+	content-background-color: #f3f4de;	
+	border-style: inset;
+	border-color: #abab00;
+	roll-over-color: #aaab8b;
+	down-skin: #d0d1ab;
+	selection-color: #D0C694;
+}
+
+/*
+//------------------------------
+//  Halo HRule
+//------------------------------
+*/
+mx|HRule {
+   stroke-color: #82826b;
+}
+
+
+/*
+//------------------------------
+//
+//  Halo HScrollBar
+//
+//------------------------------
+*/
+mx|HScrollBar
+{
+	downArrowDisabledSkin: 	Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_disabledSkin");
+	downArrowDownSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_downSkin");
+	downArrowOverSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_overSkin");
+	downArrowUpSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_upSkin");
+
+	upArrowDisabledSkin: 	Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_disabledSkin");
+	upArrowDownSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_downSkin");
+	upArrowOverSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_overSkin");
+	upArrowUpSkin: 			Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_upSkin");
+
+	thumbIcon: 				Embed(source="assets/flex_skins.swf", symbol="HScrollBar_thumbIcon");
+	
+	thumbDownSkin: 			Embed(source="assets/flex_skins.swf", symbol="HScrollThumb_downSkin");
+	thumbOverSkin: 			Embed(source="assets/flex_skins.swf", symbol="HScrollThumb_overSkin");
+	thumbUpSkin: 			Embed(source="assets/flex_skins.swf", symbol="HScrollThumb_upSkin"); 
+	
+	trackDisabledSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollTrack_disabledSkin");
+	trackSkin: 				Embed(source="assets/flex_skins.swf", symbol="ScrollTrack_Skin");
+}
+
+
+/*
+//------------------------------
+//
+//  Halo HSlider
+//
+//------------------------------
+*/
+mx|HSlider
+{
+	thumbDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_disabledSkin");
+	thumbDownSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_downSkin");
+	thumbOverSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_overSkin");
+	thumbUpSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_upSkin");
+	trackHighlightSkin: Embed(source="assets/flex_skins.swf", symbol="SliderHighlight_Skin");
+	trackSkin: Embed(source="assets/flex_skins.swf", symbol="SliderTrack_Skin");
+}
+
+/*
+//------------------------------
+//  Halo LinkButton
+//------------------------------
+*/
+mx|LinkButton
+{
+
+   roll-over-color: #eeefc4;
+   selectionColor: #aaab8b;
+   color: #4c2600;
+   textRollOverColor: #4c2600;
+   textSelectedColor: #eeefc4;
+   fontFamily: Arial;
+   fontSize: 11;
+   font-weight: bold;
+}	
+
+/*
+//------------------------------
+//
+//  LinkBar
+//
+//------------------------------
+*/
+mx|LinkBar
+{
+	rollOverColor: #eeefc4;
+   	selectionColor: #aaab8b;
+   	color: #4c2600;
+   	textRollOverColor: #4c2600;
+   	textSelectedColor: #eeefc4;
+   	fontFamily: Arial;
+   	fontSize: 11;
+   	font-weight: bold;
+}	
+
+/*
+//------------------------------
+//  Halo List
+//------------------------------
+*/
+
+mx|List
+{
+	contentBackgroundColor: #f3f4de;
+   	rollOverColor: #d0d1ab;
+   	textRollOverColor: #4c2600;
+   	borderStyle: inset;
+   	borderColor: #aaab8b;
+   	selectionColor: #D0C694;
+   	color: #4c2600;
+   	textSelectedColor: #4c2600;
+   	fontFamily: Arial;
+   	fontSize: 11;
+   	text-align: left;
+}
+
+
+/*
+//------------------------------
+//  Halo Loader
+//------------------------------
+*/
+mx|SWFLoader
+{
+	brokenImageSkin: Embed(source="assets/flex_skins.swf",symbol="Loader_brokenImageSkin");
+
+}
+
+/*
+//------------------------------
+//  Halo Menu
+//------------------------------
+*/
+mx|Menu
+{
+	branchIcon: Embed(source="assets/flex_skins.swf",symbol="Menu_branchIcon");
+	branchDisabledIcon: Embed(source="assets/flex_skins.swf",symbol="Menu_branchDisabledIcon");
+	checkIcon: Embed(source="assets/flex_skins.swf",symbol="Menu_checkIcon");
+	checkDisabledIcon: Embed(source="assets/flex_skins.swf",symbol="Menu_checkDisabledIcon");
+	radioIcon: Embed(source="assets/flex_skins.swf",symbol="Menu_radioIcon");
+	radioDisabledIcon: Embed(source="assets/flex_skins.swf",symbol="Menu_radioDisabledIcon");
+	separatorSkin: Embed(source="assets/flex_skins.swf",symbol="Menu_separatorSkin");
+}
+
+/*
+//------------------------------
+//  Halo MenuBar
+//------------------------------
+*/
+mx|MenuBar
+{
+	backgroundSkin: Embed(source="assets/flex_skins.swf", symbol="MenuBar_backgroundSkin");
+	itemDownSkin: Embed(source="assets/flex_skins.swf", symbol="MenuBar_itemDownSkin");
+	itemOverSkin: Embed(source="assets/flex_skins.swf", symbol="MenuBar_itemOverSkin");
+	itemUpSkin: Embed(source="assets/flex_skins.swf", symbol="MenuBar_itemUpSkin");
+	backgroundColor: #eeefc4;
+    rollOverColor: #d0d1ab;
+    selectionColor: #a35200;
+    color: #eeefc4;
+    textRollOverColor: #4c2600;
+    textSelectedColor: #eeefc4;
+    disabledColor: #aaab8b;
+    fontFamily: Arial;
+    fontSize: 11;
+
+}
+
+/*
+//------------------------------
+//  Halo NumericStepper
+//------------------------------
+*/
+mx|NumericStepper
+{
+
+	downArrowDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperDownArrow_disabledSkin");
+	downArrowDownSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperDownArrow_downSkin");
+	downArrowOverSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperDownArrow_overSkin");
+	downArrowUpSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperDownArrow_upSkin");
+	upArrowDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperUpArrow_disabledSkin");
+	upArrowDownSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperUpArrow_downSkin");
+	upArrowOverSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperUpArrow_overSkin");
+	upArrowUpSkin: Embed(source="assets/flex_skins.swf", symbol="NumericStepperUpArrow_upSkin");
+	/*theme-color:#a35200;*/
+	focus-rounded-corners: "tr br";
+	corner-radius: 4;
+}
+
+/*
+//------------------------------
+//  Halo Panel
+//------------------------------
+*/
+mx|Panel
+{
+    backgroundColor: #d0d1ab;
+	borderSkin:	Embed(source="assets/flex_skins.swf", symbol="Panel_borderSkin");
+	closeButtonDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDisabledSkin");
+	closeButtonDownSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDownSkin");
+	closeButtonOverSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonOverSkin");
+	closeButtonUpSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonUpSkin");
+	controlBarBackgroundSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_controlBarBackgroundSkin");
+	title-background-skin: Embed(source="assets/flex_skins.swf", symbol="Title_secondary_backgroundSkin");
+	title-style-name: "panelTitleStyle";
+	text-align: center;
+	color: #4c2600;
+	content-background-color: #d0d1ab;
+	controlBarStyleName: 				"controlBarStyle";
+	header-height: 30;
+}
+
+.panelTitleStyle
+{
+	text-align: center;
+	font-weight: bold;
+}
+
+.controlBarStyle
+{
+	borderSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_controlBarBackgroundSkin");
+	padding-bottom: 20;
+	padding-left: 20;
+	padding-right: 20;
+}
+
+/*
+//------------------------------
+//  Halo PopUpButton
+//------------------------------
+*/
+mx|PopUpButton
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_downSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_overSkin");
+	popUpDownSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_popUpDownSkin");
+	popUpOverSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_popUpOverSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_upSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEFC4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+}
+
+/*
+//------------------------------
+//
+//  PopUpMenuButton
+//
+//------------------------------
+*/
+mx|PopUpMenuButton
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_downSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_overSkin");
+	popUpDownSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_popUpDownSkin");
+	popUpOverSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_popUpOverSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="PopUpButton_upSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #EEEFC4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+
+}
+
+/*
+//------------------------------
+//  Halo ProgressBar
+//------------------------------
+*/
+mx|ProgressBar
+{
+	barSkin: Embed(source="assets/flex_skins.swf", symbol="ProgressBarSkin");
+	indeterminateSkin: Embed(source="assets/flex_skins.swf", symbol="ProgressIndeterminateSkin");
+	trackSkin: Embed(source="assets/flex_skins.swf", symbol="ProgressTrackSkin");
+}
+
+/*
+//------------------------------
+//  Halo RadioButton
+//------------------------------
+*/
+mx|RadioButton
+{
+	disabledIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButton_disabledIcon");
+	downIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButton_downIcon");
+	overIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButton_overIcon");
+	upIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButton_upIcon");
+	selectedDisabledIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButtonSelected_disabledIcon");
+	selectedDownIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButtonSelected_downIcon");
+	selectedOverIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButtonSelected_overIcon");
+	selectedUpIcon: Embed(source="assets/flex_skins.swf", symbol="RadioButtonSelected_upIcon");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #4c2600;
+	text-roll-over-color: #a35200;
+	text-selected-color: #4c2600;
+}
+
+/*
+//------------------------------
+//  Halo Rich Text Editor
+//------------------------------
+*/
+mx|RichTextEditor
+{
+	title-background-skin: Embed(source="assets/flex_skins.swf" , symbol="VideoPlayerButton_upSkin");
+	control-bar-style-name: "richTextEditorControlBar";
+}
+
+.richTextEditorControlBar {
+	border-skin: Embed(source="assets/flex_skins.swf" , symbol="VideoPlayerButton_upSkin");
+}
+
+/*
+//------------------------------
+//  Halo ScrollBar
+//------------------------------
+*/
+mx|ScrollBar
+{
+
+	downArrowDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_disabledSkin");
+	downArrowDownSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_downSkin");
+	downArrowOverSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_overSkin");
+	downArrowUpSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_upSkin");
+	thumbDownSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollThumb_downSkin");
+	thumbIcon: Embed(source="assets/flex_skins.swf", symbol="ScrollBar_thumbIcon");
+	thumbOverSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollThumb_overSkin");
+	thumbUpSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollThumb_upSkin");
+	trackSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollTrack_Skin");
+	upArrowDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_disabledSkin");
+	upArrowDownSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_downSkin");
+	upArrowOverSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_overSkin");
+	upArrowUpSkin: Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_upSkin");
+
+}
+
+/*
+//------------------------------
+//  Halo Slider
+//------------------------------
+*/
+mx|Slider
+{
+	thumbDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_disabledSkin");
+	thumbDownSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_downSkin");
+	thumbOverSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_overSkin");
+	thumbUpSkin: Embed(source="assets/flex_skins.swf", symbol="SliderThumb_upSkin");
+	trackHighlightSkin: Embed(source="assets/flex_skins.swf", symbol="SliderHighlight_Skin");
+	trackSkin: Embed(source="assets/flex_skins.swf", symbol="SliderTrack_Skin");
+}
+
+
+
+mx|VSlider
+{
+	thumbDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="VSliderThumb_disabledSkin");
+	thumbDownSkin: Embed(source="assets/flex_skins.swf", symbol="VSliderThumb_downSkin");
+	thumbOverSkin: Embed(source="assets/flex_skins.swf", symbol="VSliderThumb_overSkin");
+	thumbUpSkin: Embed(source="assets/flex_skins.swf", symbol="VSliderThumb_upSkin");
+	trackHighlightSkin: Embed(source="assets/flex_skins.swf", symbol="SliderHighlight_Skin");
+	trackSkin: Embed(source="assets/flex_skins.swf", symbol="SliderTrack_Skin");
+   	labelOffset: -6;
+   	thumbOffset: 0;
+   	dataTipOffset: 2;
+   	tickLength: 2;
+   	tickThickness: 1;
+   	showTrackHighlight: true;
+   	invertThumbDirection: false;
+   	dataTipOffset: 3;
+}
+
+/*
+//------------------------------
+//  Halo Tab
+//------------------------------
+*/
+mx|TabBar
+{
+	tabStyleName: "tabBarTab";
+	firstTabStyleName: "tabBarFirstTab";
+	lastTabStyleName: "tabBarTab";
+	selected-tab-text-style-name: "selectedTab";
+	font-family: Arial;
+	font-size: 11pt;
+	color: #82826b;
+	font-weight: bold;
+}
+
+.tabBarTab
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_disabledSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_downSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_overSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_upSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_disabledSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_upSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_upSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_upSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #82826b;
+	text-roll-over-color: #a35200;
+	font-weight: bold;	
+} 
+.tabBarFirstTab
+{
+	disabledSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_disabledSkin");
+	upSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_upSkin");
+	overSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_overSkin");
+	downSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_downSkin");
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_firstTab_selectedDisabledSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_firstTab_selectedUpSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_firstTab_selectedUpSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="Tab_firstTab_selectedUpSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #82826b;
+	text-roll-over-color: #a35200;
+	font-weight: bold;
+}
+
+.selectedTab
+{
+	selectedDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_disabledSkin");
+	selectedUpSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_upSkin");
+	selectedOverSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_upSkin");
+	selectedDownSkin: Embed(source="assets/flex_skins.swf", symbol="TabSelected_upSkin");
+	color: #4c2600;
+	font-weight: bold;
+}
+
+
+/*
+//------------------------------
+//
+// **Halo TabNavigator
+//
+//------------------------------
+*/
+mx|TabNavigator
+{
+	padding-top: 0;
+	border-color: #82826b;
+	tabStyleName: "tabBarTab";
+	firstTabStyleName: "tabBarFirstTab";
+	lastTabStyleName: "tabBarTab";
+	selected-tab-text-style-name: "selectedTab";
+	font-family: Arial;
+	font-size: 11pt;
+	color: #82826b;
+	font-weight: bold;
+}
+
+
+
+/*
+//------------------------------
+//  Halo TextArea
+//------------------------------
+*/
+
+mx|TextArea
+{
+	borderSkin: ClassReference("zen.skins.TextAreaBorderSkin");
+   fontFamily: Arial;
+   fontSize: 11;
+   color: #321900;
+   text-align: left;
+}
+ 
+/*
+//------------------------------
+//  Halo TextInput
+//------------------------------
+*/
+
+mx|TextInput
+{
+	borderSkin: ClassReference("zen.skins.TextInputBorderSkin");
+	fontFamily: Arial;
+   	fontSize: 11;
+   	color: #321900;
+   	focus-color: #a35200;
+   	text-align: left;
+}
+
+
+/*
+//------------------------------
+//  Halo TileList
+//------------------------------
+*/
+
+mx|TileList
+{
+	content-background-color: #f3f4de;	
+	border-style: inset;
+	borderColor: #aaab8b;
+	roll-over-color: #aaab8b;
+	down-skin: #d0d1ab;
+	selection-color: #D0C694;
+}
+
+
+/*
+//------------------------------
+//  Halo TitleWindow
+//------------------------------
+*/
+
+mx|TitleWindow
+{
+	closeButtonDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDisabledSkin");
+	closeButtonDownSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDownSkin");
+	closeButtonOverSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonOverSkin");
+	closeButtonUpSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonUpSkin");
+	backgroundSkin: Embed(source="assets/flex_skins.swf", symbol="Title_backgroundSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	text-align: center;
+	color: #4c2600;
+	title-background-skin: Embed(source="assets/flex_skins.swf", symbol="Title_backgroundSkin");
+	title-style-name: "panelTitleStyle";
+	background-color: #d0d1ab;
+	border-color: #aaaa8a;
+	padding-top: 0;
+	corner-radius: 6;
+	background-alpha: 1.0;
+	border-alpha: 1.0;
+}
+
+
+/*
+//------------------------------
+//
+// **Halo ToggleButtonBar
+//
+//------------------------------
+*/
+mx|ToggleButtonBar 
+{ 
+        buttonStyleName: "buttonBarButton";
+		firstButtonStyleName: "buttonBarFirstButton";
+		lastButtonStyleName: "buttonBarLastButton";
+		text-selected-color: #333333;
+		selected-tab-text-style-name: "myToggleButtonBarStyle";
+}
+
+.myToggleButtonBarStyle
+{
+	color: #333333;
+	text-selected-color: #333333;
+	font-weight: bold;
+}
+
+
+/*
+//------------------------------
+//  Halo ToolTip
+//------------------------------
+*/
+mx|ToolTip
+{
+
+	borderSkin: Embed(source="assets/flex_skins.swf", symbol="ToolTip_borderSkin");
+	color: #321900;
+
+}
+
+/*
+//------------------------------
+//  Halo Tree
+//------------------------------
+*/
+mx|Tree
+{
+	defaultLeafIcon: Embed(source="assets/flex_skins.swf",symbol="Tree_defaultLeafIcon");
+	disclosureClosedIcon: Embed(source="assets/flex_skins.swf",symbol="Tree_disclosureClosedIcon");
+	disclosureOpenIcon: Embed(source="assets/flex_skins.swf",symbol="Tree_disclosureOpenIcon");
+	folderClosedIcon: Embed(source="assets/flex_skins.swf",symbol="Tree_folderClosedIcon");
+	folderOpenIcon: Embed(source="assets/flex_skins.swf",symbol="Tree_folderOpenIcon");
+	content-background-color: #f3f4de;
+   	borderStyle: inset;
+   	borderColor: #82826b;
+}
+
+/*
+//------------------------------
+//  Halo VRule
+//------------------------------
+*/
+
+mx|VRule {
+   stroke-color: #82826b;
+}
+
+/*
+//------------------------------
+//
+// **Halo VScrollBar
+//
+//------------------------------
+*/
+mx|VScrollBar
+{
+	downArrowDisabledSkin: 	Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_disabledSkin");
+	downArrowDownSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_downSkin");
+	downArrowOverSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_overSkin");
+	downArrowUpSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowDown_upSkin");
+
+	upArrowDisabledSkin: 	Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_disabledSkin");
+	upArrowDownSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_downSkin");
+	upArrowOverSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_overSkin");
+	upArrowUpSkin: 			Embed(source="assets/flex_skins.swf", symbol="ScrollArrowUp_upSkin");
+
+	thumbIcon: 				Embed(source="assets/flex_skins.swf", symbol="ScrollBar_thumbIcon");
+	
+	thumbDownSkin: 			Embed(source="assets/flex_skins.swf", symbol="ScrollThumb_downSkin");
+	thumbOverSkin: 			Embed(source="assets/flex_skins.swf", symbol="ScrollThumb_overSkin");
+	thumbUpSkin: 			Embed(source="assets/flex_skins.swf", symbol="ScrollThumb_upSkin");
+	
+	trackDisabledSkin: 		Embed(source="assets/flex_skins.swf", symbol="ScrollTrack_disabledSkin");
+	trackSkin: 				Embed(source="assets/flex_skins.swf", symbol="ScrollTrack_Skin");
+} 
+
+
+/*
+//==========================================================================================================================
+//
+// 							************************ Spark Skins ************************
+//
+//==========================================================================================================================
+*/
+
+
+/*
+//------------------------------
+//  **Spark Application
+//------------------------------
+*/
+s|Application
+{
+	skinClass: ClassReference("zen.skins.ApplicationSkin");
+}
+
+
+/*
+//------------------------------
+//
+// **Spark Button
+//
+//------------------------------
+*/
+
+s|Button
+{
+	skinClass: ClassReference("zen.skins.ButtonSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	color: #eeefc4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;
+} 
+
+s|Button.emphasized
+{
+	skinClass: ClassReference("zen.skins.DefaultButtonSkin");
+}
+
+
+/* 
+//------------------------------ 
+//  **Spark ButtonBar 
+//------------------------------ 
+*/ 
+
+s|ButtonBar
+{ 
+		skinClass: ClassReference("zen.skins.ButtonBarSkin");
+     	font-family: Arial;
+		font-size: 11pt;
+		color: #cc0000;
+		text-roll-over-color: #EEEFC4;
+		text-selected-color: #EEEFC4;
+		font-weight: bold;
+}
+
+/*
+//------------------------------
+//
+// **Spark CheckBox
+//
+//------------------------------
+*/
+s|CheckBox
+{
+	skinClass: ClassReference("zen.skins.CheckBoxSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #4c2600;
+	text-roll-over-color: #a35200;
+	text-selected-color: #4c2600;
+}
+
+/*
+//------------------------------
+//
+// **Spark ComboBox
+//
+//------------------------------
+*/
+s|ComboBox
+{
+	skinClass: ClassReference("zen.skins.ComboBoxSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: normal;
+	color: #4c2600;
+	text-roll-over-color: #4c2600;
+	text-selected-color: #EEEFC4;
+}
+
+/*
+//------------------------------
+//  **Spark DropDown
+//------------------------------
+*/
+
+s|DropDownList
+{
+	skinClass: ClassReference("zen.skins.DropDownListSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #321900;
+	focus-color: #4c2600;
+	selection-color: #D0C694;
+}
+
+
+/*
+//------------------------------
+//
+// **Spark HScrollBar
+//
+//------------------------------
+*/
+
+s|HScrollBar
+{
+	skinClass: ClassReference('zen.skins.HScrollBarSkin');							
+}
+
+
+/*
+//------------------------------
+//
+// **Spark HSlider
+//
+//------------------------------
+*/
+s|HSlider
+{
+	skinClass: ClassReference('zen.skins.HSliderSkin');
+} 
+
+/*
+//------------------------------
+//
+// **Spark List
+//
+//------------------------------
+*/
+s|List
+{
+	skinClass:	ClassReference('zen.skins.ListSkin');	
+	content-background-color: #f3f4de;
+   	rollOverColor: #d0d1ab;
+	selection-color: #D0C694;
+   	borderStyle: inset;
+   	borderColor: #aaab8b;
+   	text-align: left;
+}
+
+
+
+
+/*
+//------------------------------
+//
+//  Spark NumericStepper
+//
+//------------------------------
+*/
+
+s|NumericStepper
+{
+	skinClass:	ClassReference('zen.skins.NumericStepperSkin');	
+	focus-color: #a35200;	
+   	selection-color: #D0D1AB;	
+   	content-background-color: 	#f3f4de;				
+}
+
+/*
+//------------------------------
+//  **Spark Panel
+//------------------------------
+*/
+s|Panel
+{
+	skinClass:	ClassReference('zen.skins.PanelSkin');
+	closeButtonDisabledSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDisabledSkin");
+	closeButtonDownSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonDownSkin");
+	closeButtonOverSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonOverSkin");
+	closeButtonUpSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_closeButtonUpSkin");
+	controlBarBackgroundSkin: Embed(source="assets/flex_skins.swf", symbol="Panel_controlBarBackgroundSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	text-align: center;
+	color: #4c2600;
+	title-style-name: "panelTitleStyle";
+	padding-top: 0;
+}
+
+.panelTitleStyle
+{
+	text-align: center;
+}
+
+
+/*
+//------------------------------
+//
+// **Spark RadioButton
+//
+//------------------------------
+*/
+s|RadioButton
+{
+	skinClass: ClassReference("zen.skins.RadioButtonSkin");
+	font-family: Arial;
+	font-size: 11pt;
+	color: #4c2600;
+	text-roll-over-color: #a35200;
+	text-selected-color: #4c2600;
+}
+
+/*
+//------------------------------
+//
+//  Spark Spinner
+//
+//------------------------------
+*/
+
+s|Spinner
+{
+	skinClass: ClassReference('zen.skins.SpinnerSkin');	
+	focus-color:#a35200;						
+}
+
+/*
+//------------------------------
+//
+//  Spark TabBar
+//
+//------------------------------
+*/
+
+s|TabBar
+{
+	skinClass: ClassReference('zen.skins.TabBarSkin');	
+	focus-color:#a35200;						
+}
+
+
+/*
+//------------------------------
+//
+//  Spark TextArea - CSS based does not require skin
+//
+//------------------------------
+*/
+s|TextArea
+{
+	fontFamily: Arial;
+   	fontSize: 11;
+   	color: #321900;
+   	text-align: left;	
+   	focus-color: #a35200;	
+   	selection-color: #D0D1AB;
+	skinClass: ClassReference('zen.skins.TextAreaSkin');
+}
+
+
+/*
+//------------------------------
+//
+//  Spark TextInput 
+//
+//------------------------------
+*/
+s|TextInput
+{
+	fontFamily: Arial;
+   	fontSize: 11;
+   	color: #321900;
+	text-align: left;	
+	focus-color: #a35200;	
+	selection-color: #D0D1AB;
+	skinClass: ClassReference('zen.skins.TextInputSkin');
+}
+
+/*
+//------------------------------
+//
+//  Spark TitleWindow
+//
+//------------------------------
+*/
+
+s|TitleWindow
+{
+	skinClass: ClassReference('zen.skins.TitleWindowSkin');							
+}
+
+
+/*
+//------------------------------
+//
+//  Spark ToggleButton
+//
+//------------------------------
+*/
+
+s|ToggleButton
+{
+	skinClass: ClassReference('zen.skins.ToggleButtonSkin');
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	color: #EEEFC4;
+	text-roll-over-color: #EEEFC4;
+	text-selected-color: #EEEFC4;							
+}
+
+/*
+//------------------------------
+//
+//  Spark VideoPlayer
+//
+//------------------------------
+*/
+
+s|VideoPlayer
+{
+	skinClass: ClassReference('zen.skins.VideoPlayerSkin');
+	symbol-color: #4c2600;
+}
+
+/*
+//------------------------------
+//  Spark VScrollBar
+//------------------------------
+*/
+
+s|VScrollBar
+{
+	skinClass: ClassReference('zen.skins.VScrollBarSkin');							
+}  
+
+/*
+//------------------------------
+//
+// **Spark VSlider
+//
+//------------------------------
+*/
+s|VSlider
+{
+	skinClass: ClassReference('zen.skins.VSliderSkin');
+} 
+
+

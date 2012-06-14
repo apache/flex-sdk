@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for a Spark ToggleButton component.  
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="21" minHeight="21" alpha.disabledStates="0.5">
+	
+	<!-- host component -->
+	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
+		[HostComponent("spark.components.ToggleButton")]
+		]]>
+	</fx:Metadata>
+    
+	
+	<!-- states -->
+	<s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+	</s:states>
+	
+	<!-- skin -->
+	<mx:Image left="0" top="0" right="0" bottom="0" maintainAspectRatio="false"
+		source.up= "@Embed(source='/assets/flex_skins.swf', symbol='Button_upSkin')"	
+		source.over= "@Embed(source='/assets/flex_skins.swf', symbol='Button_overSkin')"
+		source.down= "@Embed(source='/assets/flex_skins.swf', symbol='Button_downSkin')"
+    	source.disabled= "@Embed(source='/assets/flex_skins.swf', symbol='Button_disabledSkin')"
+		source.upAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='Button_downSkin')"
+		source.overAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='Button_downSkin')"
+		source.downAndSelected= "@Embed(source='/assets/flex_skins.swf', symbol='Button_downSkin')"
+		source.disabledAndSelected="@Embed(source='/assets/flex_skins.swf', symbol='Button_disabledSkin')"
+		/>
+	
+	<!-- layer 2: text -->
+	<s:Label id="labelDisplay"
+			 textAlign="center"
+			 verticalAlign="middle"
+			 maxDisplayedLines="1"
+			 horizontalCenter="0" verticalCenter="1"
+			 left="10" right="10" top="2" bottom="2">
+	</s:Label>
+</s:Skin>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--- The default skin class for the textInput of a Spark ComboBox component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledStates="0.5" blendMode="normal">
+
+    <fx:Metadata>
+    <![CDATA[ 
+    /** 
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
+        [HostComponent("spark.components.TextInput")]
+    ]]>
+    </fx:Metadata> 
+    
+    <fx:Script fb:purpose="styling">
+        private var paddingChanged:Boolean;
+     
+        /**
+         *  @private
+         */
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            
+            if (paddingChanged)
+            {
+                updatePadding();
+                paddingChanged = false;
+            }
+        }
+        
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+            }
+            else
+            {
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+            }
+
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+
+        /**
+         *  @private
+         */
+        private function updatePadding():void
+        {
+            if (!textDisplay)
+                return;
+            
+            // Push padding styles into the textDisplay
+            var padding:Number;
+            
+            padding = getStyle("paddingLeft");
+            if (textDisplay.getStyle("paddingLeft") != padding)
+                textDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (textDisplay.getStyle("paddingTop") != padding)
+                textDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (textDisplay.getStyle("paddingRight") != padding)
+                textDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (textDisplay.getStyle("paddingBottom") != padding)
+                textDisplay.setStyle("paddingBottom", padding);
+        }
+        
+        /**
+         *  @private
+         */
+        override public function styleChanged(styleProp:String):void
+        {
+            super.styleChanged(styleProp);
+            
+            if (!styleProp || styleProp.indexOf("padding") == 0)
+            {
+                paddingChanged = true;
+                invalidateProperties();
+            }
+        }
+    </fx:Script>
+    
+    <fx:Script>
+        <![CDATA[
+        /**
+         * @inheritDoc
+         */
+        override public function get focusSkinExclusions():Array { return [ textDisplay ] };            
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="normalWithPrompt"/>
+        <s:State name="disabledWithPrompt" stateGroups="disabledStates"/>
+    </s:states>
+
+	<!-- Text Fill & Border --> 
+	<s:Rect left="0" right="0" top="0" bottom="0" id="border">
+		<s:stroke>     
+			<s:SolidColorStroke color="0xC9CBCC"
+								weight="1" />
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF"/>
+		</s:fill>
+	</s:Rect>
+	<!-- Top edge shadow -->
+	<s:Rect left="1" right="1" top="0" height="1">
+		<s:fill>
+			<s:SolidColor color="#6D6F70"/>
+		</s:fill>
+	</s:Rect>
+    
+    <!-- text -->
+    <s:RichEditableText id="textDisplay"
+              lineBreak="explicit"
+              verticalAlign="middle"
+              widthInChars="10"
+              left="1" right="1" top="1" bottom="1" />
+
+</s:Skin>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the scrub bar track part of a Spark VideoPlayer 
+      component while in the fullScreen state. -->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- inset 7 pixels because that's thumbSize/2 -->
+    <s:Group left="7" right="7" top="0" bottom="0">
+    
+        <!-- fill -->
+        <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0x000000" alpha=".33"/>
+                    <s:GradientEntry color="0x000000" alpha="0"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- inset shadow -->
+        <s:Rect left="0" right="0" top="0" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.22" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="0" top="1" bottom="0" width="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.22" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="0" top="1" bottom="0" width="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.22" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- outside highlight -->
+        <s:Rect left="-1" right="-1" top="-1" bottom="-1">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90">
+                    <s:GradientEntry color="0x000000" alpha="0.11"/>
+                    <s:GradientEntry color="0x000000" alpha="0.187"/>
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+        
+    </s:Group>    
+</s:Skin>

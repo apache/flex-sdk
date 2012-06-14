@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the play/pause button of a Spark VideoPlayer 
+      component while in the fullScreen state.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+      alpha.disabledStates="0.5">
+
+    <!-- host component -->
+    <fx:Metadata>
+        [HostComponent("spark.components.ToggleButton")]
+    </fx:Metadata>
+    
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+    </s:states>
+        
+	<!-- layer 1: fill -->
+	<s:Rect left="0" right="0" top="0" bottom="0" width="38" height="24">
+		<s:stroke>
+			<s:SolidColorStroke color="0x7B7C7B"
+								weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x6A6B6A" 
+								 color.over="0x5c5c5c" 
+								 color.down="0x5c5c5c"
+								 alpha="1.0" />
+				<s:GradientEntry color="0x282828" 
+								 color.over="0x282828" 
+								 color.down="0x282828"
+								 alpha="1.0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- play symbol -->
+	<s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
+		
+		<!-- triangle -->
+		<s:Path data="M 0.5 1.085 C 1.28 0.305 2.54 0.305 3.33 1.085 L 7.97 5.725 C 8.75 6.505 8.75 7.765 7.97 8.555 L 3.33 13.195 C 2.54 13.975 1.28 13.975 0.5 13.195 L 0.5 1.085 Z">
+			<s:fill>
+				<s:SolidColor color="0xCCCCCC"
+							  color.over="0xBFBFBF"
+							  color.down="0xBFBFBF"
+							  color.disabled="0x666666"
+							  alpha="1"
+							  id="playSymbolFill"/>
+			</s:fill>
+		</s:Path>
+		
+	</s:Group>
+	
+	<!-- pause symbol -->
+	<s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
+		
+		<!-- big line on left -->
+		<s:Rect left="0" top="0" height="11" width="3">
+			<s:fill>
+				<s:SolidColor color="0xCCCCCC"
+							  color.over="0xBFBFBF"
+							  color.down="0xBFBFBF"
+							  color.disabled="0x666666"
+							  alpha="1" />
+			</s:fill>
+		</s:Rect>
+		
+		<!-- big line on right -->
+		<s:Rect left="4" top="0" height="11" width="3">
+			<s:fill>
+				<s:SolidColor color="0xCCCCCC"
+							  color.over="0xBFBFBF"
+							  color.down="0xBFBFBF"
+							  color.disabled="0x666666"
+							  alpha="1" />
+			</s:fill>
+		</s:Rect>
+		
+	</s:Group>
+    
+</s:Skin>

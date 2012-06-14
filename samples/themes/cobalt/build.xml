@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="cobalt" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+	
+	<property name="THEME_NAME" value="cobalt" />
+
+	<property file="${FLEX_HOME}/build.properties"/>
+
+    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
+    <property name="local.playerglobal.version" value="11.1"/>
+
+	<target name="main" depends="clean,compile" description="Clean build of ${THEME_NAME}.swc"/>
+
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}">
+				<include name="${THEME_NAME}.swc"/>
+				<include name="${THEME_NAME}.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="compile" description="Compiles ${THEME_NAME}.swc">
+		<echo message="Compiling samples/themes/${THEME_NAME}/${THEME_NAME}.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. Classpath is set up to work in dev and released environments -->
+		<taskdef resource="flexTasks.tasks">
+			<classpath>
+				<pathelement path="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+				<pathelement path="${FLEX_HOME}/lib/flexTasks.jar"/>
+			</classpath>
+		</taskdef>
+		<!--
+			This project builds a theme SWC containing skin classes.
+			It has no MXML tags and therefore no manifest.
+			Link in all classes.
+			Compile against all of the SDK libs externally.
+			Link in accessibility support.
+			Include various CSS and asset files in the SWC.
+			Don't put any resources into the SWC. (The classes don't require any.)
+		-->		
+		<compc fork="true"
+			   output="${basedir}/${THEME_NAME}.swc">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
+            <target-player>10</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+			<include-classes>CobaltClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${basedir}/src/defaults.css"/>
+			<include-file name="preview.jpg" path="${basedir}/src/preview.jpg"/>
+			<include-file name="metadata.xml" path="${basedir}/src/metadata.xml"/>
+			
+			
+			<include-file name="assets/AccordionHeader_disabledSkin.png" path="${basedir}/src/assets/AccordionHeader_disabledSkin.png"/>
+			<include-file name="assets/AccordionHeader_downSkin.png" path="${basedir}/src/assets/AccordionHeader_downSkin.png"/>
+			<include-file name="assets/AccordionHeader_overSkin.png" path="${basedir}/src/assets/AccordionHeader_overSkin.png"/>
+			<include-file name="assets/AccordionHeader_selectedDownSkin.png" path="${basedir}/src/assets/AccordionHeader_selectedDownSkin.png"/>
+			<include-file name="assets/AccordionHeader_selectedOverSkin.png" path="${basedir}/src/assets/AccordionHeader_selectedOverSkin.png"/>
+			<include-file name="assets/AccordionHeader_selectedUpSkin.png" path="${basedir}/src/assets/AccordionHeader_selectedUpSkin.png"/>
+			<include-file name="assets/AccordionHeader_upSkin.png" path="${basedir}/src/assets/AccordionHeader_upSkin.png"/>
+			<include-file name="assets/ButtonBar-button_disabledSkin.png" path="${basedir}/src/assets/ButtonBar-button_disabledSkin.png"/>
+			<include-file name="assets/ButtonBar-button_downSkin.png" path="${basedir}/src/assets/ButtonBar-button_downSkin.png"/>
+			<include-file name="assets/ButtonBar-button_overSkin.png" path="${basedir}/src/assets/ButtonBar-button_overSkin.png"/>
+			<include-file name="assets/ButtonBar-button_selectedDisabledSkin.png" path="${basedir}/src/assets/ButtonBar-button_selectedDisabledSkin.png"/>
+			<include-file name="assets/ButtonBar-button_selectedUpSkin.png" path="${basedir}/src/assets/ButtonBar-button_selectedUpSkin.png"/>
+			<include-file name="assets/ButtonBar-button_upSkin.png" path="${basedir}/src/assets/ButtonBar-button_upSkin.png"/>
+			<include-file name="assets/ButtonBar-firstButton_disabledSkin.png" path="${basedir}/src/assets/ButtonBar-firstButton_disabledSkin.png"/>
+			<include-file name="assets/ButtonBar-firstButton_downSkin.png" path="${basedir}/src/assets/ButtonBar-firstButton_downSkin.png"/>
+			<include-file name="assets/ButtonBar-firstButton_overSkin.png" path="${basedir}/src/assets/ButtonBar-firstButton_overSkin.png"/>
+			<include-file name="assets/ButtonBar-firstButton_selectedDisabledSkin.png" path="${basedir}/src/assets/ButtonBar-firstButton_selectedDisabledSkin.png"/>
+			<include-file name="assets/ButtonBar-firstButton_selectedUpSkin.png" path="${basedir}/src/assets/ButtonBar-firstButton_selectedUpSkin.png"/>
+			<include-file name="assets/ButtonBar-firstButton_upSkin.png" path="${basedir}/src/assets/ButtonBar-firstButton_upSkin.png"/>
+			<include-file name="assets/ButtonBar-lastButton_disabledSkin.png" path="${basedir}/src/assets/ButtonBar-lastButton_disabledSkin.png"/>
+			<include-file name="assets/ButtonBar-lastButton_downSkin.png" path="${basedir}/src/assets/ButtonBar-lastButton_downSkin.png"/>
+			<include-file name="assets/ButtonBar-lastButton_overSkin.png" path="${basedir}/src/assets/ButtonBar-lastButton_overSkin.png"/>
+			<include-file name="assets/ButtonBar-lastButton_selectedDisabledSkin.png" path="${basedir}/src/assets/ButtonBar-lastButton_selectedDisabledSkin.png"/>
+			<include-file name="assets/ButtonBar-lastButton_selectedUpSkin.png" path="${basedir}/src/assets/ButtonBar-lastButton_selectedUpSkin.png"/>
+			<include-file name="assets/ButtonBar-lastButton_upSkin.png" path="${basedir}/src/assets/ButtonBar-lastButton_upSkin.png"/>
+			<include-file name="assets/Button_disabledSkin.png" path="${basedir}/src/assets/Button_disabledSkin.png"/>
+			<include-file name="assets/Button_downSkin.png" path="${basedir}/src/assets/Button_downSkin.png"/>
+			<include-file name="assets/Button_overSkin.png" path="${basedir}/src/assets/Button_overSkin.png"/>
+			<include-file name="assets/Button_selectedDisabledSkin.png" path="${basedir}/src/assets/Button_selectedDisabledSkin.png"/>
+			<include-file name="assets/Button_selectedDownSkin.png" path="${basedir}/src/assets/Button_selectedDownSkin.png"/>
+			<include-file name="assets/Button_selectedOverSkin.png" path="${basedir}/src/assets/Button_selectedOverSkin.png"/>
+			<include-file name="assets/Button_selectedUpSkin.png" path="${basedir}/src/assets/Button_selectedUpSkin.png"/>
+			<include-file name="assets/Button_upSkin.png" path="${basedir}/src/assets/Button_upSkin.png"/>
+			<include-file name="assets/CheckBox_disabledIcon.png" path="${basedir}/src/assets/CheckBox_disabledIcon.png"/>
+			<include-file name="assets/CheckBox_downIcon.png" path="${basedir}/src/assets/CheckBox_downIcon.png"/>
+			<include-file name="assets/CheckBox_overIcon.png" path="${basedir}/src/assets/CheckBox_overIcon.png"/>
+			<include-file name="assets/CheckBox_selectedDisabledIcon.png" path="${basedir}/src/assets/CheckBox_selectedDisabledIcon.png"/>
+			<include-file name="assets/CheckBox_selectedDownIcon.png" path="${basedir}/src/assets/CheckBox_selectedDownIcon.png"/>
+			<include-file name="assets/CheckBox_selectedOverIcon.png" path="${basedir}/src/assets/CheckBox_selectedOverIcon.png"/>
+			<include-file name="assets/CheckBox_selectedUpIcon.png" path="${basedir}/src/assets/CheckBox_selectedUpIcon.png"/>
+			<include-file name="assets/CheckBox_upIcon.png" path="${basedir}/src/assets/CheckBox_upIcon.png"/>
+			<include-file name="assets/ColorPicker_disabledSkin.png" path="${basedir}/src/assets/ColorPicker_disabledSkin.png"/>
+			<include-file name="assets/ColorPicker_downSkin.png" path="${basedir}/src/assets/ColorPicker_downSkin.png"/>
+			<include-file name="assets/ColorPicker_overSkin.png" path="${basedir}/src/assets/ColorPicker_overSkin.png"/>
+			<include-file name="assets/ColorPicker_upSkin.png" path="${basedir}/src/assets/ColorPicker_upSkin.png"/>
+			<include-file name="assets/ComboBox_disabledSkin.png" path="${basedir}/src/assets/ComboBox_disabledSkin.png"/>
+			<include-file name="assets/ComboBox_downSkin.png" path="${basedir}/src/assets/ComboBox_downSkin.png"/>
+			<include-file name="assets/ComboBox_editableDisabledSkin.png" path="${basedir}/src/assets/ComboBox_editableDisabledSkin.png"/>
+			<include-file name="assets/ComboBox_editableDownSkin.png" path="${basedir}/src/assets/ComboBox_editableDownSkin.png"/>
+			<include-file name="assets/ComboBox_editableOverSkin.png" path="${basedir}/src/assets/ComboBox_editableOverSkin.png"/>
+			<include-file name="assets/ComboBox_editableUpSkin.png" path="${basedir}/src/assets/ComboBox_editableUpSkin.png"/>
+			<include-file name="assets/ComboBox_overSkin.png" path="${basedir}/src/assets/ComboBox_overSkin.png"/>
+			<include-file name="assets/ComboBox_upSkin.png" path="${basedir}/src/assets/ComboBox_upSkin.png"/>
+			<include-file name="assets/CursorManager_busyCursor.png" path="${basedir}/src/assets/CursorManager_busyCursor.png"/>
+			<include-file name="assets/DataGrid_borderSkin.png" path="${basedir}/src/assets/DataGrid_borderSkin.png"/>
+			<include-file name="assets/DataGrid_columnDropIndicatorSkin.png" path="${basedir}/src/assets/DataGrid_columnDropIndicatorSkin.png"/>
+			<include-file name="assets/DataGrid_columnResizeSkin.png" path="${basedir}/src/assets/DataGrid_columnResizeSkin.png"/>
+			<include-file name="assets/DataGrid_headerBackgroundSkin.png" path="${basedir}/src/assets/DataGrid_headerBackgroundSkin.png"/>
+			<include-file name="assets/DataGrid_headerSeparatorSkin.png" path="${basedir}/src/assets/DataGrid_headerSeparatorSkin.png"/>
+			<include-file name="assets/DataGrid_sortArrowSkin.png" path="${basedir}/src/assets/DataGrid_sortArrowSkin.png"/>
+			<include-file name="assets/DataGrid_stretchCursor.png" path="${basedir}/src/assets/DataGrid_stretchCursor.png"/>
+			<include-file name="assets/DateChooser_nextMonthDisabledSkin.png" path="${basedir}/src/assets/DateChooser_nextMonthDisabledSkin.png"/>
+			<include-file name="assets/DateChooser_nextMonthDownSkin.png" path="${basedir}/src/assets/DateChooser_nextMonthDownSkin.png"/>
+			<include-file name="assets/DateChooser_nextMonthOverSkin.png" path="${basedir}/src/assets/DateChooser_nextMonthOverSkin.png"/>
+			<include-file name="assets/DateChooser_nextMonthUpSkin.png" path="${basedir}/src/assets/DateChooser_nextMonthUpSkin.png"/>
+			<include-file name="assets/DateChooser_nextYearDisabledSkin.png" path="${basedir}/src/assets/DateChooser_nextYearDisabledSkin.png"/>
+			<include-file name="assets/DateChooser_nextYearDownSkin.png" path="${basedir}/src/assets/DateChooser_nextYearDownSkin.png"/>
+			<include-file name="assets/DateChooser_nextYearOverSkin.png" path="${basedir}/src/assets/DateChooser_nextYearOverSkin.png"/>
+			<include-file name="assets/DateChooser_nextYearUpSkin.png" path="${basedir}/src/assets/DateChooser_nextYearUpSkin.png"/>
+			<include-file name="assets/DateChooser_prevMonthDisabledSkin.png" path="${basedir}/src/assets/DateChooser_prevMonthDisabledSkin.png"/>
+			<include-file name="assets/DateChooser_prevMonthDownSkin.png" path="${basedir}/src/assets/DateChooser_prevMonthDownSkin.png"/>
+			<include-file name="assets/DateChooser_prevMonthOverSkin.png" path="${basedir}/src/assets/DateChooser_prevMonthOverSkin.png"/>
+			<include-file name="assets/DateChooser_prevMonthUpSkin.png" path="${basedir}/src/assets/DateChooser_prevMonthUpSkin.png"/>
+			<include-file name="assets/DateChooser_prevYearDisabledSkin.png" path="${basedir}/src/assets/DateChooser_prevYearDisabledSkin.png"/>
+			<include-file name="assets/DateChooser_prevYearDownSkin.png" path="${basedir}/src/assets/DateChooser_prevYearDownSkin.png"/>
+			<include-file name="assets/DateChooser_prevYearOverSkin.png" path="${basedir}/src/assets/DateChooser_prevYearOverSkin.png"/>
+			<include-file name="assets/DateChooser_prevYearUpSkin.png" path="${basedir}/src/assets/DateChooser_prevYearUpSkin.png"/>
+			<include-file name="assets/DateChooser_rollOverIndicatorSkin.png" path="${basedir}/src/assets/DateChooser_rollOverIndicatorSkin.png"/>
+			<include-file name="assets/DateChooser_selectionIndicatorSkin.png" path="${basedir}/src/assets/DateChooser_selectionIndicatorSkin.png"/>
+			<include-file name="assets/DateChooser_todayIndicatorSkin.png" path="${basedir}/src/assets/DateChooser_todayIndicatorSkin.png"/>
+			<include-file name="assets/DateField_disabledSkin.png" path="${basedir}/src/assets/DateField_disabledSkin.png"/>
+			<include-file name="assets/DateField_downSkin.png" path="${basedir}/src/assets/DateField_downSkin.png"/>
+			<include-file name="assets/DateField_overSkin.png" path="${basedir}/src/assets/DateField_overSkin.png"/>
+			<include-file name="assets/DateField_upSkin.png" path="${basedir}/src/assets/DateField_upSkin.png"/>
+			<include-file name="assets/DividedBox_dividerSkin.png" path="${basedir}/src/assets/DividedBox_dividerSkin.png"/>
+			<include-file name="assets/DividedBox_horizontalCursor.png" path="${basedir}/src/assets/DividedBox_horizontalCursor.png"/>
+			<include-file name="assets/DividedBox_verticalCursor.png" path="${basedir}/src/assets/DividedBox_verticalCursor.png"/>
+			<include-file name="assets/DragManager_copyCursor.png" path="${basedir}/src/assets/DragManager_copyCursor.png"/>
+			<include-file name="assets/DragManager_defaultDragImageSkin.png" path="${basedir}/src/assets/DragManager_defaultDragImageSkin.png"/>
+			<include-file name="assets/DragManager_linkCursor.png" path="${basedir}/src/assets/DragManager_linkCursor.png"/>
+			<include-file name="assets/DragManager_moveCursor.png" path="${basedir}/src/assets/DragManager_moveCursor.png"/>
+			<include-file name="assets/DragManager_rejectCursor.png" path="${basedir}/src/assets/DragManager_rejectCursor.png"/>
+			<include-file name="assets/FormItem_indicatorSkin.png" path="${basedir}/src/assets/FormItem_indicatorSkin.png"/>
+			<include-file name="assets/HScrollArrowLeft_disabledSkin.png" path="${basedir}/src/assets/HScrollArrowLeft_disabledSkin.png"/>
+			<include-file name="assets/HScrollArrowRight_disabledSkin.png" path="${basedir}/src/assets/HScrollArrowRight_disabledSkin.png"/>
+			<include-file name="assets/HScrollBar_downArrowDownSkin.png" path="${basedir}/src/assets/HScrollBar_downArrowDownSkin.png"/>
+			<include-file name="assets/HScrollBar_downArrowOverSkin.png" path="${basedir}/src/assets/HScrollBar_downArrowOverSkin.png"/>
+			<include-file name="assets/HScrollBar_downArrowUpSkin.png" path="${basedir}/src/assets/HScrollBar_downArrowUpSkin.png"/>
+			<include-file name="assets/HScrollBar_thumbDownSkin.png" path="${basedir}/src/assets/HScrollBar_thumbDownSkin.png"/>
+			<include-file name="assets/HScrollBar_thumbIcon.png" path="${basedir}/src/assets/HScrollBar_thumbIcon.png"/>
+			<include-file name="assets/HScrollBar_thumbOverSkin.png" path="${basedir}/src/assets/HScrollBar_thumbOverSkin.png"/>
+			<include-file name="assets/HScrollBar_thumbUpSkin.png" path="${basedir}/src/assets/HScrollBar_thumbUpSkin.png"/>
+			<include-file name="assets/HScrollBar_trackDisabledSkin.png" path="${basedir}/src/assets/HScrollBar_trackDisabledSkin.png"/>
+			<include-file name="assets/HScrollBar_trackSkin.png" path="${basedir}/src/assets/HScrollBar_trackSkin.png"/>
+			<include-file name="assets/HScrollBar_upArrowDownSkin.png" path="${basedir}/src/assets/HScrollBar_upArrowDownSkin.png"/>
+			<include-file name="assets/HScrollBar_upArrowOverSkin.png" path="${basedir}/src/assets/HScrollBar_upArrowOverSkin.png"/>
+			<include-file name="assets/HScrollBar_upArrowUpSkin.png" path="${basedir}/src/assets/HScrollBar_upArrowUpSkin.png"/>
+			<include-file name="assets/LinkButton_disabledSkin.png" path="${basedir}/src/assets/LinkButton_disabledSkin.png"/>
+			<include-file name="assets/LinkButton_downSkin.png" path="${basedir}/src/assets/LinkButton_downSkin.png"/>
+			<include-file name="assets/LinkButton_overSkin.png" path="${basedir}/src/assets/LinkButton_overSkin.png"/>
+			<include-file name="assets/LinkButton_upSkin.png" path="${basedir}/src/assets/LinkButton_upSkin.png"/>
+			<include-file name="assets/List_borderSkin.png" path="${basedir}/src/assets/List_borderSkin.png"/>
+			<include-file name="assets/MenuBar_backgroundSkin.png" path="${basedir}/src/assets/MenuBar_backgroundSkin.png"/>
+			<include-file name="assets/MenuBar_itemDownSkin.png" path="${basedir}/src/assets/MenuBar_itemDownSkin.png"/>
+			<include-file name="assets/MenuBar_itemOverSkin.png" path="${basedir}/src/assets/MenuBar_itemOverSkin.png"/>
+			<include-file name="assets/MenuBar_itemUpSkin.png" path="${basedir}/src/assets/MenuBar_itemUpSkin.png"/>
+			<include-file name="assets/Menu_branchDisabledIcon.png" path="${basedir}/src/assets/Menu_branchDisabledIcon.png"/>
+			<include-file name="assets/Menu_branchIcon.png" path="${basedir}/src/assets/Menu_branchIcon.png"/>
+			<include-file name="assets/Menu_checkDisabledIcon.png" path="${basedir}/src/assets/Menu_checkDisabledIcon.png"/>
+			<include-file name="assets/Menu_checkIcon.png" path="${basedir}/src/assets/Menu_checkIcon.png"/>
+			<include-file name="assets/Menu_radioDisabledIcon.png" path="${basedir}/src/assets/Menu_radioDisabledIcon.png"/>
+			<include-file name="assets/Menu_radioIcon.png" path="${basedir}/src/assets/Menu_radioIcon.png"/>
+			<include-file name="assets/Menu_separatorSkin.png" path="${basedir}/src/assets/Menu_separatorSkin.png"/>
+			<include-file name="assets/NumericStepper_downArrowDisabledSkin.png" path="${basedir}/src/assets/NumericStepper_downArrowDisabledSkin.png"/>
+			<include-file name="assets/NumericStepper_downArrowDownSkin.png" path="${basedir}/src/assets/NumericStepper_downArrowDownSkin.png"/>
+			<include-file name="assets/NumericStepper_downArrowOverSkin.png" path="${basedir}/src/assets/NumericStepper_downArrowOverSkin.png"/>
+			<include-file name="assets/NumericStepper_downArrowUpSkin.png" path="${basedir}/src/assets/NumericStepper_downArrowUpSkin.png"/>
+			<include-file name="assets/NumericStepper_upArrowDisabledSkin.png" path="${basedir}/src/assets/NumericStepper_upArrowDisabledSkin.png"/>
+			<include-file name="assets/NumericStepper_upArrowDownSkin.png" path="${basedir}/src/assets/NumericStepper_upArrowDownSkin.png"/>
+			<include-file name="assets/NumericStepper_upArrowOverSkin.png" path="${basedir}/src/assets/NumericStepper_upArrowOverSkin.png"/>
+			<include-file name="assets/NumericStepper_upArrowUpSkin.png" path="${basedir}/src/assets/NumericStepper_upArrowUpSkin.png"/>
+			<include-file name="assets/Panel_borderSkin.png" path="${basedir}/src/assets/Panel_borderSkin.png"/>
+			<include-file name="assets/Panel_closeButtonDisabledSkin.png" path="${basedir}/src/assets/Panel_closeButtonDisabledSkin.png"/>
+			<include-file name="assets/Panel_closeButtonDownSkin.png" path="${basedir}/src/assets/Panel_closeButtonDownSkin.png"/>
+			<include-file name="assets/Panel_closeButtonOverSkin.png" path="${basedir}/src/assets/Panel_closeButtonOverSkin.png"/>
+			<include-file name="assets/Panel_closeButtonUpSkin.png" path="${basedir}/src/assets/Panel_closeButtonUpSkin.png"/>
+			<include-file name="assets/Panel_controlBarBackgroundSkin.png" path="${basedir}/src/assets/Panel_controlBarBackgroundSkin.png"/>
+			<include-file name="assets/Panel_titleBackgroundSkin.png" path="${basedir}/src/assets/Panel_titleBackgroundSkin.png"/>
+			<include-file name="assets/PopUpButton_disabledSkin.png" path="${basedir}/src/assets/PopUpButton_disabledSkin.png"/>
+			<include-file name="assets/PopUpButton_downSkin.png" path="${basedir}/src/assets/PopUpButton_downSkin.png"/>
+			<include-file name="assets/PopUpButton_overSkin.png" path="${basedir}/src/assets/PopUpButton_overSkin.png"/>
+			<include-file name="assets/PopUpButton_popUpDownSkin.png" path="${basedir}/src/assets/PopUpButton_popUpDownSkin.png"/>
+			<include-file name="assets/PopUpButton_popUpOverSkin.png" path="${basedir}/src/assets/PopUpButton_popUpOverSkin.png"/>
+			<include-file name="assets/PopUpButton_upSkin.png" path="${basedir}/src/assets/PopUpButton_upSkin.png"/>
+			<include-file name="assets/ProgressBar_barSkin.png" path="${basedir}/src/assets/ProgressBar_barSkin.png"/>
+			<include-file name="assets/ProgressBar_indeterminateSkin.png" path="${basedir}/src/assets/ProgressBar_indeterminateSkin.png"/>
+			<include-file name="assets/ProgressBar_trackSkin.png" path="${basedir}/src/assets/ProgressBar_trackSkin.png"/>
+			<include-file name="assets/RadioButton_disabledIcon.png" path="${basedir}/src/assets/RadioButton_disabledIcon.png"/>
+			<include-file name="assets/RadioButton_downIcon.png" path="${basedir}/src/assets/RadioButton_downIcon.png"/>
+			<include-file name="assets/RadioButton_overIcon.png" path="${basedir}/src/assets/RadioButton_overIcon.png"/>
+			<include-file name="assets/RadioButton_selectedDisabledIcon.png" path="${basedir}/src/assets/RadioButton_selectedDisabledIcon.png"/>
+			<include-file name="assets/RadioButton_selectedDownIcon.png" path="${basedir}/src/assets/RadioButton_selectedDownIcon.png"/>
+			<include-file name="assets/RadioButton_selectedOverIcon.png" path="${basedir}/src/assets/RadioButton_selectedOverIcon.png"/>
+			<include-file name="assets/RadioButton_selectedUpIcon.png" path="${basedir}/src/assets/RadioButton_selectedUpIcon.png"/>
+			<include-file name="assets/RadioButton_upIcon.png" path="${basedir}/src/assets/RadioButton_upIcon.png"/>
+			<include-file name="assets/SWFLoader_brokenImageSkin.png" path="${basedir}/src/assets/SWFLoader_brokenImageSkin.png"/>
+			<include-file name="assets/Slider_thumbDisabledSkin.png" path="${basedir}/src/assets/Slider_thumbDisabledSkin.png"/>
+			<include-file name="assets/Slider_thumbDownSkin.png" path="${basedir}/src/assets/Slider_thumbDownSkin.png"/>
+			<include-file name="assets/Slider_thumbOverSkin.png" path="${basedir}/src/assets/Slider_thumbOverSkin.png"/>
+			<include-file name="assets/Slider_thumbUpSkin.png" path="${basedir}/src/assets/Slider_thumbUpSkin.png"/>
+			<include-file name="assets/Slider_trackHighlightSkin.png" path="${basedir}/src/assets/Slider_trackHighlightSkin.png"/>
+			<include-file name="assets/Slider_trackSkin.png" path="${basedir}/src/assets/Slider_trackSkin.png"/>
+			<include-file name="assets/TabBar-tab_disabledSkin.png" path="${basedir}/src/assets/TabBar-tab_disabledSkin.png"/>
+			<include-file name="assets/TabBar-tab_downSkin.png" path="${basedir}/src/assets/TabBar-tab_downSkin.png"/>
+			<include-file name="assets/TabBar-tab_overSkin.png" path="${basedir}/src/assets/TabBar-tab_overSkin.png"/>
+			<include-file name="assets/TabBar-tab_selectedDisabledSkin.png" path="${basedir}/src/assets/TabBar-tab_selectedDisabledSkin.png"/>
+			<include-file name="assets/TabBar-tab_selectedOverSkin.png" path="${basedir}/src/assets/TabBar-tab_selectedOverSkin.png"/>
+			<include-file name="assets/TabBar-tab_selectedUpSkin.png" path="${basedir}/src/assets/TabBar-tab_selectedUpSkin.png"/>
+			<include-file name="assets/TabBar-tab_upSkin.png" path="${basedir}/src/assets/TabBar-tab_upSkin.png"/>
+			<include-file name="assets/TextArea_borderSkin.png" path="${basedir}/src/assets/TextArea_borderSkin.png"/>
+			<include-file name="assets/TextArea_focusSkin.png" path="${basedir}/src/assets/TextArea_focusSkin.png"/>
+			<include-file name="assets/TextInput_borderSkin.png" path="${basedir}/src/assets/TextInput_borderSkin.png"/>
+			<include-file name="assets/TextInput_focusSkin.png" path="${basedir}/src/assets/TextInput_focusSkin.png"/>
+			<include-file name="assets/ToolTip_borderSkin.png" path="${basedir}/src/assets/ToolTip_borderSkin.png"/>
+			<include-file name="assets/Tree_borderSkin.png" path="${basedir}/src/assets/Tree_borderSkin.png"/>
+			<include-file name="assets/Tree_defaultLeafIcon.png" path="${basedir}/src/assets/Tree_defaultLeafIcon.png"/>
+			<include-file name="assets/Tree_disclosureClosedIcon.png" path="${basedir}/src/assets/Tree_disclosureClosedIcon.png"/>
+			<include-file name="assets/Tree_disclosureOpenIcon.png" path="${basedir}/src/assets/Tree_disclosureOpenIcon.png"/>
+			<include-file name="assets/Tree_folderClosedIcon.png" path="${basedir}/src/assets/Tree_folderClosedIcon.png"/>
+			<include-file name="assets/Tree_folderOpenIcon.png" path="${basedir}/src/assets/Tree_folderOpenIcon.png"/>
+			<include-file name="assets/VScrollBar_downArrowDisabledSkin.png" path="${basedir}/src/assets/VScrollBar_downArrowDisabledSkin.png"/>
+			<include-file name="assets/VScrollBar_downArrowDownSkin.png" path="${basedir}/src/assets/VScrollBar_downArrowDownSkin.png"/>
+			<include-file name="assets/VScrollBar_downArrowOverSkin.png" path="${basedir}/src/assets/VScrollBar_downArrowOverSkin.png"/>
+			<include-file name="assets/VScrollBar_downArrowUpSkin.png" path="${basedir}/src/assets/VScrollBar_downArrowUpSkin.png"/>
+			<include-file name="assets/VScrollBar_thumbDownSkin.png" path="${basedir}/src/assets/VScrollBar_thumbDownSkin.png"/>
+			<include-file name="assets/VScrollBar_thumbIcon.png" path="${basedir}/src/assets/VScrollBar_thumbIcon.png"/>
+			<include-file name="assets/VScrollBar_thumbOverSkin.png" path="${basedir}/src/assets/VScrollBar_thumbOverSkin.png"/>
+			<include-file name="assets/VScrollBar_thumbUpSkin.png" path="${basedir}/src/assets/VScrollBar_thumbUpSkin.png"/>
+			<include-file name="assets/VScrollBar_trackDisabledSkin.png" path="${basedir}/src/assets/VScrollBar_trackDisabledSkin.png"/>
+			<include-file name="assets/VScrollBar_trackSkin.png" path="${basedir}/src/assets/VScrollBar_trackSkin.png"/>
+			<include-file name="assets/VScrollBar_upArrowDisabledSkin.png" path="${basedir}/src/assets/VScrollBar_upArrowDisabledSkin.png"/>
+			<include-file name="assets/VScrollBar_upArrowDownSkin.png" path="${basedir}/src/assets/VScrollBar_upArrowDownSkin.png"/>
+			<include-file name="assets/VScrollBar_upArrowOverSkin.png" path="${basedir}/src/assets/VScrollBar_upArrowOverSkin.png"/>
+			<include-file name="assets/VScrollBar_upArrowUpSkin.png" path="${basedir}/src/assets/VScrollBar_upArrowUpSkin.png"/>
+			
+			
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
+	</target>
+	
+</project>
