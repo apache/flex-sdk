@@ -690,9 +690,10 @@
         
         <property name="zipFile" value="flex_sdk_4.6.0.23201B.zip"/>
         <mkdir dir="${download.dir}"/>        
-        <get src="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/${zipFile}" 
-            dest="${download.dir}/${zipFile}"/>
-
+        <available file="${download.dir}/${zipFile}" type="file"
+            property="adobe.flex.sdk.download.exists"/>
+        <antcall target="download-adobe-flex-sdk" />
+        
         <unzip src="${download.dir}/${zipFile}" dest="${download.dir}/${adobe.flex.sdk}">
             <patternset>
                 <include name="license-adobesdk.htm"/>
@@ -704,6 +705,11 @@
                 <include name="lib/rideau.jar" />
             </patternset>
         </unzip>
+    </target>
+    
+    <target name="download-adobe-flex-sdk" unless="adobe.flex.sdk.download.exists" >
+        <get src="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/${zipFile}" 
+            dest="${download.dir}/${zipFile}"/>
     </target>
     
     <target name="clean-adobe-flex-sdk">
