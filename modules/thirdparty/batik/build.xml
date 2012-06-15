@@ -473,6 +473,7 @@ To display the available targets type:
 
   <!--====== START additions for Apache Flex =========-->
 
+  <property name="FLEX_HOME" value="${basedir}/../../.."/>
   <property name="FLEX_LIB" value="${basedir}/../../../lib"/>
 
   <!-- 
@@ -484,9 +485,8 @@ To display the available targets type:
   
   <target name="batik-all-flex-jar" depends="compile, prepare-build" 
     description="Creates a combined JAR file of the Batik libraries in ${build}/lib">
-    <mkdir dir="${module.classes}/META-INF"/>
-    <copy file="LICENSE" todir="${dest}/META-INF"/>
-    <copy file="NOTICE" todir="${dest}/META-INF"/>
+    <copy file="${FLEX_HOME}/LICENSE" todir="${dest}/META-INF"/>
+    <copy file="${FLEX_HOME}/NOTICE" todir="${dest}/META-INF"/>
 
     <jar jarfile="${FLEX_LIB}/batik-all-flex.jar">
       <fileset dir="${dest}" excludes="**/CVS">

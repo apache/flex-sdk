@@ -306,7 +306,8 @@
 
   <!--====== START additions for Apache Flex =========-->
 
-  <property name="FLEX_LIB" value="${basedir}/../../../lib"/>
+  <property name="FLEX_HOME" value="${basedir}/../../../.."/>
+  <property name="FLEX_LIB" value="${basedir}/../../../../lib"/>
 
   <!--
     Clone jar-dep and add manifest and LICENSE/NOTICE files.
@@ -324,8 +325,8 @@
     <delete dir="${build.dest}/meta-inf" quiet="true"/>
     
     <mkdir dir="${build.dest}/META-INF"/>
-    <copy file="../LICENSE" todir="${build.dest}/META-INF"/>
-    <copy file="../NOTICE" todir="${build.dest}/META-INF"/>
+    <copy file="${FLEX_HOME}/LICENSE" todir="${build.dest}/META-INF"/>
+    <copy file="${FLEX_HOME}/NOTICE" todir="${build.dest}/META-INF"/>
 
     <jar jarfile="${FLEX_LIB}/velocity-dep-1.4-flex.jar">
       <fileset dir="${build.dest}">

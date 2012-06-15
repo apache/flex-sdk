@@ -58,6 +58,8 @@
 
 	<!--
         MPL 1.1 Licesense Notification
+        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+        Section "Category B: Reciprocal Licenses"
     -->
     <target name="echo-mpl1.1-license">       
         <echo message="Mozilla Public License Version 1.1:
@@ -84,8 +86,7 @@
     </target>
     
     <!-- 
-        Notify before downloading.
-        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+        Notify before downloading file with MPL1.1 license.
     -->
     <target name="ask-authoring" unless="build.noprompt"
         description="Notify the user before downloading the authoring swc.">
@@ -113,7 +114,9 @@
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
    
-    <!-- Prompt before downloading OSMF.  -->
+    <!-- 
+        Notify before downloading file with MPL1.1 license.
+    -->
     <target name="ask-osmf" unless="build.noprompt">
         <echo message="The Open Source Media Framework used by the video components"/>
         <echo message="is licensed under the Mozilla Public License Version 1.1."/>
@@ -168,8 +171,7 @@
     </target>
 
     <!-- 
-        Notify before downloading.
-        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+        Notify before downloading file with MPL1.1 license.
     -->
     <target name="ask-tlf" unless="build.noprompt">
         <echo message="The Adobe Text Layout Framework used by the Spark text components"/>
