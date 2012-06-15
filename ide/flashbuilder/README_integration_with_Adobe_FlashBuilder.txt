@@ -23,16 +23,18 @@ Integrating Apache Flex SDK with Adobe Flash Builder
 Adobe Flash Builder performs several checks on the Apache SDK to ensure compatibility of 
 the SDK with Flash Builder.  
 
-Verifying the validity of the Apache Flex SDK
----------------------------------------------
+Verifying the validity of the Apache Flex SDK for Adobe FlashBuildder v4.7+
+----------------------------------------------------------------------------
 
 Flash Builder verifies the validity of the Apache Flex SDK by checking for the following:
 
 * The following XML files and folders must be present in the root directory of the Flex SDK:
-    flex-sdk-description.xml
-	flex-config.xml
-	mxml-manifest.xml
+    flex-sdk-description.xml - <version> is Apache Flex 4.8.0 or higher
 	templates
+
+* The following XML files and folders must be present in the frameworks directory of the Flex SDK:
+    flex-config.xml
+	mxml-manifest.xml
 
 * The following files and folders must be present in the frameworks folder of the Flex SDK:
 	air-config.xml
@@ -48,14 +50,27 @@ Flash Builder verifies the validity of the Apache Flex SDK by checking for the f
 	flex-compiler-oem.jar
 	mxmlc.jar
 	adt.jar
-	
-Additional checks made by Adobe FlashBuildder v4.7+
----------------------------------------------------
 
 * The following XML file must be present in ide/flashbuilder folder of the Flex SDK:
-    flashbuilder-config.xml - <express-install-swf> tag required with path to 
-                              expressInstall.swf 
-
-* flex-sdk-description.xml file - <version> is Apache Flex 4.8.0 or higher
+    flashbuilder-config.xml - <express-install-swf> tag required 
     
+        <!-- Specifies the express install swf that will be used in the HTML file generated. -->
+        <!-- The implied path is {flex-home}/templates/swfobject. -->
+        <express-install-swf>expressInstall.swf</express-install-swf>
+                      
+        The other option that may be used is playerProductInstall.swf, which is an
+        Adobe proprietary file.
+	
+Verifying the validity of the Apache Flex SDK for Adobe FlashBuildder v4.6
+---------------------------------------------------------------------------
 
+* The following XML files and folders must be present in the root directory of the Flex SDK:
+    flex-sdk-description.xml - <version> cannot be less than 3.0.0 and it cannot be empty
+
+* The following XML files and folders must be present in the frameworks directory of the Flex SDK:
+    flex-config.xml
+	mxml-manifest.xml
+
+* The following JAR files must be present in the lib folder of the Flex SDK:
+	flex-compiler-oem.jar
+	mxmlc.jar
