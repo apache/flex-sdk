@@ -96,14 +96,13 @@
     -->
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
-        <!-- don't ask again about these since we just did if these weren't already set -->	    
-	    <property name="blazeds.donot.ask" value="set" />
-        <property name="font.donot.ask" value="set"/>
-
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>        
+        <!-- don't ask again about these since we just did if these weren't already set -->	    
+	    <property name="build.noprompt" value="set" />
     </target>
 
-    <target name="prebuild" depends="check-compile-env,create-description,thirdparty-downloads" description="stuff that needs to be done before any builds" />
+    <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
+        description="Stuff that needs to be done before any builds." />
 
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
         description="Check for the required environment variables for compilation."/>
@@ -212,10 +211,6 @@
         description="Set properties needed to turn on features for release sdk">
         <!-- generate localized compiler message jars -->
 	    <property name="localized.jars" value="true" />
-        <!-- don't ask to download blazeds from Adobe Flex SDK -->	    
-	    <property name="blazeds.donot.ask" value="set" />
-        <!-- don't ask to download font jars from Adobe Flex SDK -->	    
-        <property name="font.donot.ask" value="set"/>
     </target>
     
     <!--

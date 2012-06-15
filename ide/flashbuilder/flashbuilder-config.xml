@@ -19,5 +19,6 @@
 -->
 <flashbuilder-config>
     <!-- Specifies the express install swf that will be used in the HTML file generated. -->
+    <!-- The implied path is templates/swfobject. -->
    <express-install-swf>expressInstall.swf</express-install-swf>
 </flashbuilder-config>

@@ -25,6 +25,7 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
+	<property name="authoring.swc" value="frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc"/>
 	
     <!-- Download thirdparty code -->
     
@@ -33,12 +34,12 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="main" 
-        depends="osmf-download,swfobject-download,textLayout-download" 
+        depends="authoring-download,osmf-download,swfobject-download,textLayout-download" 
         description="Copies third-party software into place for build">
         <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>
     
-    <target name="clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
+    <target name="clean" depends="authoring-clean,swfobject-clean" description="Cleans thirdparty downloaded files.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <!--fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/-->
@@ -51,49 +52,90 @@
         </delete>
      </target>
 
-    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
-        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
-    </target>
-   
    <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
         <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
     </target>
 
-    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
-        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
+	<!--
+        MPL 1.1 Licesense Notification
+    -->
+    <target name="echo-mpl1.1-license">       
+        <echo message="Mozilla Public License Version 1.1:
+            ${line.separator}
+            ${line.separator}The contents of this file(s) are subject to the Mozilla Public License Version 1.1.
+            ${line.separator}You may not use this file(s) except in compliance with the License. 
+            ${line.separator}You may obtain a copy of the License here:
+            ${line.separator}    http://www.mozilla.org/MPL/. 
+            ${line.separator}By downloading, modifying, distributing, using and/or accessing this file(s), 
+            ${line.separator}you agree to the terms and conditions of the applicable license agreement."/>
+        
+        <input
+            message="${line.separator}I have read the MPL1.1 license information above?"
+            validargs="y"
+            defaultvalue="y"/>
+    </target>
+       
+	<!--
+        authoringsupport/libs/FlexContentHolderThumbnail.swc
+    -->
+        
+    <target name="authoring-check">        
+        <available file="${FLEX_HOME}/${authoring.swc}" property="authoring.swc.present"/>
     </target>
     
-    <!-- osmf.swc (Version 1.0) -->
-    <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
-    <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
-    <target name="osmf-download" depends="osmf-check,get-osmf" description="Copies OSMF from Sourceforge"/>    
-
+    <!-- 
+        Notify before downloading.
+        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+    -->
+    <target name="ask-authoring" unless="build.noprompt"
+        description="Notify the user before downloading the authoring swc.">
+ 
+        <echo message="The Flash authoring support uses FlexContentHolderThumbnail.swc"/>
+        <echo message="which is licensed under the Mozilla Public License Version 1.1."/>
+        <antcall target="echo-mpl1.1-license"/>
+    </target>
+    
+    <target name="authoring-download" depends="authoring-check" unless="authoring.swc.present">
+        <antcall target="ask-authoring"/>
+        <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/${authoring.swc}" 
+            dest="${FLEX_HOME}/${authoring.swc}"/>            
+    </target>
+    
+    <target name="authoring-clean">
+        <delete file="${FLEX_HOME}/${authoring.swc}"/>
+    </target>
+    
+	<!--
+        osmf.swc (Version 1.0)
+        The swc at the top-level has lots of trace statements in it.  Use the one in the source zip.
+    -->
+    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
+        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
+    </target>
+   
     <!-- Prompt before downloading OSMF.  -->
-    <target name="ask-osmf" unless="osmf.swc.present" description="Prompt the user before downloading OSMF">
-        <!--input
-            message="Do you want to download OSMF ....FIXME... ?"
-            validargs="y,n"
-            defaultvalue="n"
-            addproperty="input.osmf.download"/>
-        <condition property="do.osmf.install">
-            <or>
-                <equals arg1="y" arg2="${input.osmf.download}"/>
-                <equals arg1="Y" arg2="${input.osmf.download}"/>
-            </or>
-        </condition-->
+    <target name="ask-osmf" unless="build.noprompt">
+        <echo message="The Open Source Media Framework used by the video components"/>
+        <echo message="is licensed under the Mozilla Public License Version 1.1."/>
+        <antcall target="echo-mpl1.1-license"/>
         <property name="do.osmf.install" value="set" />
     </target>
     
-    <!--target name="get-osmf" depends="ask-osmf" if="do.osmf.install"-->
-    <target name="get-osmf" depends="ask-osmf" if="do.osmf.install">
+    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present">
+        <antcall target="ask-osmf"/>        
+        <available file="${download.dir}/OSMF_1.0.zip" type="file" property="osmf.zip.exists"/>
+        <antcall target="download-osmf-zip" />
         <mkdir dir="${download.dir}/OSMF_1.0"/>
-        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
-            dest="${download.dir}/OSMF_1.0.zip" 
-            verbose="false"/>
         <unzip dest="${download.dir}/OSMF_1.0" src="${download.dir}/OSMF_1.0.zip" />
         <unzip dest="${download.dir}/OSMF_1.0/osmf_source_v1-0" src="${download.dir}/OSMF_1.0/osmf_source_v1-0.zip" />
         <copy file="${download.dir}/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
         <delete dir="${download.dir}/OSMF_1.0" failonerror="false"/>
+    </target>
+
+    <target name="download-osmf-zip" unless="osmf.zip.exists">
+        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
+            dest="${download.dir}/OSMF_1.0.zip" 
+            verbose="false"/>
     </target>
     
     <!-- swfobject.js (Version 2.2) -->
@@ -121,13 +163,28 @@
     
     <!-- textLayout.swc (Version 2.0.232) -->
     <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
-    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
+    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
+        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
+    </target>
+
+    <!-- 
+        Notify before downloading.
+        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+    -->
+    <target name="ask-tlf" unless="build.noprompt">
+        <echo message="The Adobe Text Layout Framework used by the Spark text components"/>
+        <echo message="is licensed under the Mozilla Public License Version 1.1."/>
+        <antcall target="echo-mpl1.1-license"/>
+    </target>
+
+    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present">
+        <antcall target="ask-tlf"/>
+        <available file="${download.dir}/textLayout_build.zip" type="file" property="tlf.zip.exists"/>
+        <antcall target="download-tlf-zip" />
         <mkdir dir="${download.dir}/textLayout_build"/>
-        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${download.dir}/textLayout_build.zip" 
-            verbose="false"/>
         <unzip dest="${download.dir}/textLayout_build" src="${download.dir}/textLayout_build.zip" />
         <copy file="${download.dir}/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
+        <!-- Source code useful for debugging text components -->
         <!--copy todir="${basedir}/projects/textLayout">
             <fileset dir="${download.dir}/textLayout_build">
                 <include name="**/**"/>
@@ -139,6 +196,12 @@
         <delete dir="${download.dir}/textLayout_build" failonerror="false"/>
     </target>
 
+    <target name="download-tlf-zip" unless="tlf.zip.exists">
+        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
+            dest="${download.dir}/textLayout_build.zip" 
+            verbose="false"/>
+    </target>
+    
     <!-- FixMe: should this be removed? -->
     <target name="ide-clean" depends="airsdk-clean" 
         description="Delete AIR SDK and playerglobal files copied into FLEX_HOME.">

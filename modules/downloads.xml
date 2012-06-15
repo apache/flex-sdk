@@ -37,7 +37,8 @@
     <property name="lib.opt.dir" value="${lib.ext.dir}/optional"/>
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
-    <property name="adobe.flex.sdk" value="adobe_flex_sdk_4.6"/>
+    <property name="adobe.flex.dir" value="adobe_flex_sdk_4.6"/>
+    <property name="adobe.flex.zip.file" value="flex_sdk_4.6.0.23201B.zip"/>
 
     <property name="batik.zip.dir" value="batik-1.6"/>
     <property name="batik.dir" value="thirdparty/batik"/>
@@ -270,7 +271,7 @@
     </target>
 
 	<target name="batik-jars-clean">
-        <delete includeEmptyDirs="true">
+        <delete includeEmptyDirs="true" failonerror="fasle">
             <fileset dir="${basedir}/${batik.dir}/lib">
                 <include name="**/**"/>
             </fileset>            
@@ -465,7 +466,7 @@
     </target>
     
 	<target name="velocity-jars-clean">
-        <delete includeEmptyDirs="true">
+        <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${basedir}/${velocity.dir}/build/lib">
                 <include name="**/**"/>
             </fileset>            
@@ -555,6 +556,9 @@
     <target name="blazeds-jar-check" unless="blazeds.donot.ask"
         description="Checks if flex-messaging-common.jar is in optional lib directory.">
         <available file="${lib.opt.dir}/flex-messaging-common.jar" property="blazeds.donot.ask"/>
+        <condition property="blazeds.donot.ask">
+            <isset property="build.noprompt"/>
+        </condition>
     </target>
     
     <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
@@ -583,14 +587,14 @@
         
     <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">
 
-        <available file="${download.dir}/${adobe.flex.sdk}" type="dir"
+        <available file="${download.dir}/${adobe.flex.dir}" type="dir"
             property="adobe.flex.sdk.exists"/>
         
         <antcall target="get-adobe-flex-sdk"/>
 
-        <copy file="${download.dir}/${adobe.flex.sdk}/lib/flex-messaging-common.jar" 
+        <copy file="${download.dir}/${adobe.flex.dir}/lib/flex-messaging-common.jar" 
             todir="${lib.opt.dir}" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/flex-messaging-common-LICENSE.htm" verbose="true"/>
     </target>
 
@@ -608,6 +612,9 @@
                 <available file="${lib.opt.dir}/aglj40.jar"/>
                 <available file="${lib.opt.dir}/rideau.jar"/>
             </and>
+        </condition>
+        <condition property="font.donot.ask">
+            <isset property="build.noprompt"/>
         </condition>
     </target>
     
@@ -637,13 +644,13 @@
     
     <target name="get-font-jars" depends="ask-font" if="do.font.install">
         
-        <available file="${download.dir}/${adobe.flex.sdk}" type="dir"
+        <available file="${download.dir}/${adobe.flex.dir}" type="dir"
             property="adobe.flex.sdk.exists"/>
         
         <antcall target="get-adobe-flex-sdk"/>
         
         <copy todir="${lib.opt.dir}" verbose="true">
-            <fileset dir="${download.dir}/${adobe.flex.sdk}/lib">
+            <fileset dir="${download.dir}/${adobe.flex.dir}/lib">
                 <include name="adt.jar" />
                 <include name="afe.jar" />
                 <include name="aglj40.jar" />
@@ -652,20 +659,19 @@
             </fileset>
         </copy>
         
-        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/flex-fontkit-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/adt-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/afe-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/aglj40-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.sdk}/license-adobesdk.htm" 
+        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/rideau.jar-LICENSE.htm" verbose="true"/>
     </target>
         	
-    <target name="echo-adobe-flex-sdk-license">
-        
+    <target name="echo-adobe-flex-sdk-license">       
         <echo message="Adobe Flex SDK License Agreement:
             ${line.separator}
             ${line.separator}All files contained in this Adobe Flex SDK download are subject to and governed by the
@@ -683,18 +689,19 @@
         description="Downloads the Adobe Flex 4.6 SDK">
         
         <!--antcall target="download-zip">
-          <param name="download.dir" value="${download.dir}/${adobe.flex.sdk}"/>
+          <param name="download.dir" value="${download.dir}/${adobe.flex.dir}"/>
           <param name="srcUrl" value="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6"/>
           <param name="zipFile" value="flex_sdk_4.6.0.23201B.zip"/>
         </antcall-->
         
-        <property name="zipFile" value="flex_sdk_4.6.0.23201B.zip"/>
         <mkdir dir="${download.dir}"/>        
-        <available file="${download.dir}/${zipFile}" type="file"
+        <available file="${download.dir}/${adobe.flex.zip.file}" type="file"
             property="adobe.flex.sdk.download.exists"/>
+            
         <antcall target="download-adobe-flex-sdk" />
         
-        <unzip src="${download.dir}/${zipFile}" dest="${download.dir}/${adobe.flex.sdk}">
+        <unzip src="${download.dir}/${adobe.flex.zip.file}" 
+            dest="${download.dir}/${adobe.flex.dir}">
             <patternset>
                 <include name="license-adobesdk.htm"/>
                 <include name="lib/flex-messaging-common.jar"/>
@@ -708,12 +715,12 @@
     </target>
     
     <target name="download-adobe-flex-sdk" unless="adobe.flex.sdk.download.exists" >
-        <get src="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/${zipFile}" 
-            dest="${download.dir}/${zipFile}"/>
+        <get src="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/${adobe.flex.zip.file}" 
+            dest="${download.dir}/${adobe.flex.zip.file}"/>
     </target>
     
     <target name="clean-adobe-flex-sdk">
-        <delete dir="${download.dir}/${adobe.flex.sdk}"/>
+        <delete dir="${download.dir}/${adobe.flex.dir}"/>
     </target>
 
 	<!--
