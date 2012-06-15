@@ -49,7 +49,7 @@
             horizontalCenter="0" verticalCenter="0">
 
         <s:Group id="group2" horizontalCenter="0" y="10">
-        <s:BitmapImage source="@Embed('/assets/ks5792.jpg')" />
+        <s:BitmapImage source="@Embed('/assets/SampleImage.jpg')" />
         </s:Group>
         <s:Button label="Apply Luminosity mask" click="setMask()" 
             x="15" y="265" />

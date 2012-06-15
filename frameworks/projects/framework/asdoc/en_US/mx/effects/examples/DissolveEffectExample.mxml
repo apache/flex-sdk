@@ -32,12 +32,12 @@
         <s:HGroup left="20" right="20" top="20" bottom="20">
 
             <s:VGroup>
-                <mx:Text text="Nokia 9930"
+                <mx:Text text="Product1"
                     fontSize="14"
                     visible="{cb1.selected}"
                     hideEffect="{dissolveOut}" showEffect="{dissolveIn}"/>
 
-                <mx:Image source="@Embed(source='assets/Nokia_6630.png')"
+                <mx:Image source="@Embed(source='assets/Product1.png')"
                     visible="{cb1.selected}"
                     hideEffect="{dissolveOut}" showEffect="{dissolveIn}"/>
             </s:VGroup>

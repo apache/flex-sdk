@@ -39,7 +39,7 @@
 		        changed -->
 		    <s:VSlider id="vSlider" minimum="20" maximum="200" liveDragging="true"
 		        change="changePosition();" value="20" x="0" y="0"/>
-		    <mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"
+		    <mx:Image id="fxImage" source="@Embed('assets/c2.png')"
                 creationComplete="fxImage.x=vSlider.value" />
         </s:Group>
 

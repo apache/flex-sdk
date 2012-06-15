@@ -34,7 +34,7 @@
                 text="Use the Button controls to resize the image."/>
 
             <mx:Image id="img" width="30" height="60"
-                source="@Embed(source='assets/Nokia_6630.png')"/>
+                source="@Embed(source='assets/Product1.png')"/>
 
             <mx:Button label="Expand" click="expand.end(); expand.play();"/>
             <mx:Button label="Contract" click="contract.end(); contract.play();"/>

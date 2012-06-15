@@ -41,7 +41,7 @@
             <s:Label width="100%" color="blue"
                 text="Click and hold the mouse on the image to see glowImage effect. Release the mouse to see unglowImage effect."/>
 
-            <mx:Image source="@Embed(source='assets/Nokia_6630.png')"
+            <mx:Image source="@Embed(source='assets/Product1.png')"
                 mouseDownEffect="{glowImage}"
                 mouseUpEffect="{unglowImage}"/>
         </s:VGroup>

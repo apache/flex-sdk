@@ -66,22 +66,22 @@
     <s:VGroup>
         <s:VGroup>
             <s:Label text="Original Image"/>
-            <mx:Image id="originalImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="originalImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
 
         <s:VGroup>
             <s:Label text="Green Matrix Image"/>
-            <mx:Image id="greenImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="greenImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
 
         <s:VGroup>
             <s:Label text="Blue Matrix Image"/>
-            <mx:Image id="blueImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="blueImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
 
         <s:VGroup>
             <s:Label text="Red Matrix Image"/>
-            <mx:Image id="redImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="redImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
     </s:VGroup>        
 </s:Application>

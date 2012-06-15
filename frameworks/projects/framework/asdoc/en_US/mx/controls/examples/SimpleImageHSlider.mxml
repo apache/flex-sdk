@@ -41,7 +41,7 @@
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
             <s:HGroup height="100%" width="100%">
-                <mx:Image id="phoneImage" source="@Embed('assets/Nokia_6630.png')" 
+                <mx:Image id="phoneImage" source="@Embed('assets/Product1.png')" 
                         creationComplete="imageWidth = phoneImage.width; imageHeight = phoneImage.height;" />
             </s:HGroup>
 

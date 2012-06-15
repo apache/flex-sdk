@@ -41,11 +41,11 @@
         </s:itemRenderer>
         <s:dataProvider>
             <s:ArrayList>
-                <fx:Object productIcon="assets/fx.jpg" productName="Flex SDK" 
+                <fx:Object productIcon="assets/boxx.jpg" productName="Product X" 
                            productDesc="A highly productive, free, open source framework."/>
-                <fx:Object productIcon="assets/fb.jpg" productName="Flash Builder" 
+                <fx:Object productIcon="assets/boxy.jpg" productName="Product Y" 
                            productDesc="Designed to help developers rapidly develop RIAs."/>
-                <fx:Object productIcon="assets/fc.jpg" productName="Flash Catalyst" 
+                <fx:Object productIcon="assets/boxz.jpg" productName="Product Z" 
                            productDesc="An approachable new interaction design tool."/>
             </s:ArrayList>
         </s:dataProvider>

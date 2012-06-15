@@ -24,19 +24,19 @@
 
     <fx:Script>
         <![CDATA[
-             [Embed(source="assets/Nokia_6630.png")]
+             [Embed(source="assets/Product1.png")]
              public const phone1:Class;
 
-             [Embed(source="assets/Nokia_6680.png")]
+             [Embed(source="assets/Product2.png")]
              public const phone2:Class;
 
-             [Embed(source="assets/Nokia_7610.png")]
+             [Embed(source="assets/Product3.png")]
              public const phone3:Class;
 
-             [Embed(source="assets/Nokia_lg_v_keypad.png")]
+             [Embed(source="assets/Product4.png")]
              public const phone4:Class;
 
-             [Embed(source="assets/Nokia_sm_v_keypad.png")]
+             [Embed(source="assets/Product5.png")]
              public const phone5:Class;
         ]]>
     </fx:Script>
@@ -52,11 +52,11 @@
                     maxColumns="2" rowHeight="225" columnWidth="125">
                 <mx:dataProvider>
                     <fx:Array>
-                        <fx:Object label="Nokia 6630" icon="{phone1}"/>
-                        <fx:Object label="Nokia 6680" icon="{phone2}"/>
-                        <fx:Object label="Nokia 7610" icon="{phone3}"/>
-                        <fx:Object label="Nokia LGV" icon="{phone4}"/>
-                        <fx:Object label="Nokia LMV" icon="{phone5}"/>
+                        <fx:Object label="Product 1" icon="{phone1}"/>
+                        <fx:Object label="Product 2" icon="{phone2}"/>
+                        <fx:Object label="Product 3" icon="{phone3}"/>
+                        <fx:Object label="Product 4" icon="{phone4}"/>
+                        <fx:Object label="Product 5" icon="{phone5}"/>
                     </fx:Array>
                 </mx:dataProvider>
             </mx:TileList>

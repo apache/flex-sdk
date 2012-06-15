@@ -28,8 +28,8 @@
 
             import flash.text.Font;
 
-            [Embed("assets/MyriadWebPro.ttf", fontName="MyMyriad")]
-            public var myriad_font:Class;
+            [Embed("assets/OpenSans-Regular.ttf", fontName="MyOpenSans")]
+            public var opensans_font:Class;
 
             [Bindable]
             public var angle:int=0;
@@ -50,11 +50,11 @@
         <s:VGroup left="20" right="20" top="20" bottom="20">
 
             <s:VGroup id="myVB" width="50%" horizontalAlign="center">
-                <mx:Label text="Nokia 9930"
-                    fontFamily="MyMyriad" fontSize="14"/>
+                <mx:Label text="Product1"
+                    fontFamily="MyOpenSans" fontSize="14"/>
 
                 <mx:Image id="img"
-                    source="@Embed(source='assets/Nokia_6630.png')"/>
+                    source="@Embed(source='assets/Product1.png')"/>
             </s:VGroup>
 
             <s:Label width="50%" color="blue"

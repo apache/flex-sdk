@@ -31,9 +31,9 @@
                     text="The Halo Spacer control pushes the second image to the right edge of the parent container."/>
 
             <s:HGroup width="100%">
-                <mx:Image source="@Embed('assets/Nokia_6630.png')"/>
+                <mx:Image source="@Embed('assets/Product1.png')"/>
                 <mx:Spacer width="100%"/>
-                <mx:Image source="@Embed('assets/Nokia_6680.png')"/>
+                <mx:Image source="@Embed('assets/Product2.png')"/>
             </s:HGroup>
         </s:VGroup>
     </s:Panel>

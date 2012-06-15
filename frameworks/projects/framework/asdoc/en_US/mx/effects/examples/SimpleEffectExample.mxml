@@ -54,7 +54,7 @@
                 text="Use the Button controls to control the Resize effect."/>
 
             <mx:Image id="img" width="30" height="60"
-                source="@Embed(source='assets/Nokia_6630.png')"/>
+                source="@Embed(source='assets/Product1.png')"/>
 
 
             <s:Button id="button1" label="Start" click="expand.play(); button1.enabled=false;"/>

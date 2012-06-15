@@ -60,22 +60,22 @@
     <s:VGroup>
         <s:VGroup>
             <s:Label text="Original Image"/>
-            <mx:Image id="originalImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="originalImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
 
         <s:VGroup>
             <s:Label text="Outline Matrix Image"/>
-            <mx:Image id="outlineImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="outlineImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
 
         <s:VGroup>
             <s:Label text="Sharpness Matrix Image"/>
-            <mx:Image id="sharpnessImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="sharpnessImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
 
         <s:VGroup>
             <s:Label text="Brightness Matrix Image"/>
-            <mx:Image id="brightnessImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="brightnessImage" source="@Embed(source='assets/c2.png')"/>
         </s:VGroup>        
     </s:VGroup>        
 </s:Application>

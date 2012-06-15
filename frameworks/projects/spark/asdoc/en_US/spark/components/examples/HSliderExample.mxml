@@ -28,7 +28,7 @@
          <s:VGroup left="10" right="10" top="10" bottom="10">
             <s:HGroup>
                 <mx:Spacer width="100" />
-                <mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"/>
+                <mx:Image id="fxImage" source="@Embed('assets/c2.png')"/>
             </s:HGroup>
 
             <s:Label width="100%" text="Drag the slider to change the image transparency"/>

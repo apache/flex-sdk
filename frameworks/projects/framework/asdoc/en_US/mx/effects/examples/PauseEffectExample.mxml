@@ -41,7 +41,7 @@
 		        text="Click the phone image to start the Sequence effect. The effect pauses for 2 seconds between moves."/>
 
            <mx:Image
-                source="@Embed(source='assets/Nokia_6630.png')"
+                source="@Embed(source='assets/Product1.png')"
                 mouseDownEffect="{movePauseMove}"/>
         </s:VGroup>
     </s:Panel>
