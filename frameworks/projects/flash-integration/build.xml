@@ -28,6 +28,8 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
     <property name="locale" value="en_US"/>
+    
+    <property name="ADOBE_EXTENSION_MANAGER.set" value="false" />
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
@@ -105,6 +107,11 @@
 			</fileset>
             <fileset dir="${basedir}/libs" />
 		</delete>
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/flash-integration">
+				<include name="*/FlexComponentKit.mxp"/>
+			</fileset>
+		</delete>
 	</target>
 	
 	<target name="bundles-clean">
@@ -163,8 +170,34 @@
 				<include name="flash-integration.swc"/>
 			</fileset>
 		</copy>
+        
+        <antcall target="FlashMXP" />
 	</target>
 
+    <target name="FlashMXP" description="builds flash-integration.MXP">
+        <echo message="ADOBE_EXTENSION_MANAGER is ${env.ADOBE_EXTENSION_MANAGER}"/>
+
+        <available file="${env.ADOBE_EXTENSION_MANAGER}" 
+            type="file" 
+            property="ADOBE_EXTENSION_MANAGER.set"/>
+
+        <antcall target="ReportNoExtensionManager" />
+        <antcall target="PackageMXP" />
+    </target>
+    
+    <target name="ReportNoExtensionManager" unless="ADOBE_EXTENSION_MANAGER.set" >
+        <echo message="Adobe ExtensionManager not found. MXP file will not be created" />
+    </target>
+    
+    <target name="PackageMXP" if="ADOBE_EXTENSION_MANAGER.set" >
+        <echo message="Creating MXP file" />
+        <exec executable="${env.ADOBE_EXTENSION_MANAGER}" dir="${basedir}" failonerror="true">
+            <arg value="-suppress" />
+            <arg value="-package" />
+            <arg value="mxi=${basedir}/FlexComponentKit.mxi" />
+            <arg value="mxp=${FLEX_HOME}/frameworks/flash-integration/FlexComponentKit.mxp" />
+        </exec>
+    </target>
 
 	<target name="doc" depends="clean-temp-docs" description="updates flash-integration.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->

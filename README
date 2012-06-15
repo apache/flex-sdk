@@ -96,6 +96,8 @@ Install Prerequisites
     
     Adobe Flash Player (*5)                     PLAYERGLOBAL_HOME
 
+    Adobe Extension Manager CS5 (*6)            ADOBE_EXTENSION_MANAGER
+
     ==================================================================================
         
     *1) The bin directories for ANT_HOME and JAVA_HOME should be added to your PATH.
@@ -145,6 +147,20 @@ Install Prerequisites
         Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
 		the version subdirectory). The target-version option controls which 
 		PLAYERGLOBAL_HOME subdirectory is used.
+
+    *6) The Adobe Extension Manager is only required for those creating release or testing
+            changes to the flash-integration swc.  Not that if you change APIs on classes
+            that flash-integration depends on, you may need to update flash-integration.
+
+        The Adobe Extension Manager for Windows can be downloaded from:
+            http://download.macromedia.com/pub/dw_exchange/extension_manager/win/AdobeExtensionManager5All.zip
+        
+         The Adobe Extension Manager for Mac can be downloaded from:
+            http://download.macromedia.com/pub/dw_exchange/extension_manager/mac/AdobeExtensionManager5All.dmg
+
+        On Windows, set ADOBE_EXTENSION_MANAGER to the absolute path of "Adobe Extension Manager CS5.exe"
+        
+        On the Mac, set ADOBE_EXTENSION_MANAGER to the absolute path of "Adobe Extension Manager CS5.app"
 
 FlashPlayer Configuration
 -------------------------
