@@ -25,7 +25,6 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
-	<property name="authoring.swc" value="frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc"/>
 	
     <!-- Download thirdparty code -->
     
@@ -51,10 +50,6 @@
             </fileset>
         </delete>
      </target>
-
-   <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
-        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
-    </target>
 
 	<!--
         MPL 1.1 Licesense Notification
@@ -82,7 +77,7 @@
     -->
         
     <target name="authoring-check">        
-        <available file="${FLEX_HOME}/${authoring.swc}" property="authoring.swc.present"/>
+        <available file="${FLEX_HOME}/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc" property="authoring.swc.present"/>
     </target>
     
     <!-- 
@@ -98,12 +93,13 @@
     
     <target name="authoring-download" depends="authoring-check" unless="authoring.swc.present">
         <antcall target="ask-authoring"/>
-        <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/${authoring.swc}" 
-            dest="${FLEX_HOME}/${authoring.swc}"/>            
+        <mkdir dir="${FLEX_HOME}/frameworks/projects/authoringsupport/libs"/>
+        <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc" 
+            dest="${FLEX_HOME}/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc"/>            
     </target>
     
     <target name="authoring-clean">
-        <delete file="${FLEX_HOME}/${authoring.swc}"/>
+        <delete file="${FLEX_HOME}/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc"/>
     </target>
     
 	<!--
@@ -125,17 +121,26 @@
     </target>
     
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present">
-        <antcall target="ask-osmf"/>        
+        <antcall target="ask-osmf"/> 
+               
         <available file="${download.dir}/OSMF_1.0.zip" type="file" property="osmf.zip.exists"/>
         <antcall target="download-osmf-zip" />
-        <mkdir dir="${download.dir}/OSMF_1.0"/>
-        <unzip dest="${download.dir}/OSMF_1.0" src="${download.dir}/OSMF_1.0.zip" />
-        <unzip dest="${download.dir}/OSMF_1.0/osmf_source_v1-0" src="${download.dir}/OSMF_1.0/osmf_source_v1-0.zip" />
-        <copy file="${download.dir}/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
-        <delete dir="${download.dir}/OSMF_1.0" failonerror="false"/>
+        
+        <unzip src="${download.dir}/OSMF_1.0.zip" dest="${download.dir}">
+            <patternset>
+                <include name="osmf_source_v1-0.zip"/>
+            </patternset>
+        </unzip>
+        <unzip src="${download.dir}/osmf_source_v1-0.zip" dest="${basedir}/libs">
+            <patternset>
+                <include name="OSMF.swc"/>
+            </patternset>
+            <mapper type="glob" from="OSMF.swc" to="osmf.swc" />            
+        </unzip>
     </target>
 
     <target name="download-osmf-zip" unless="osmf.zip.exists">
+        <mkdir dir="${download.dir}"/>
         <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
             dest="${download.dir}/OSMF_1.0.zip" 
             verbose="false"/>
@@ -143,15 +148,24 @@
     
     <!-- swfobject.js (Version 2.2) -->
     <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
-    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" description="Copies SWFObject from code.google.com">
+    <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
+        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
+    </target>
+
+    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" 
+        description="Copies SWFObject from code.google.com">
+        
         <mkdir dir="${download.dir}/swfobject"/>
         <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip" 
             dest="${download.dir}/swfobject_2_2.zip" 
             verbose="false"/>
-        <unzip dest="${download.dir}/swfobject" src="${download.dir}/swfobject_2_2.zip" />
-        <copy file="${download.dir}/swfobject/swfobject/expressInstall.swf" todir="${FLEX_HOME}/templates/swfobject"/>
-        <copy file="${download.dir}/swfobject/swfobject/swfobject.js" todir="${FLEX_HOME}/templates/swfobject"/>
-        <delete dir="${download.dir}/swfobject" failonerror="false"/>
+        
+        <unzip src="${download.dir}/swfobject_2_2.zip" dest="${FLEX_HOME}/templates">
+            <patternset>
+                <include name="swfobject/expressInstall.swf"/>
+                <include name="swfobject/swfobject.js"/>
+            </patternset>
+        </unzip>
     </target>
 
     <target name="swfobject-clean" description="Deletes the swfobject directory">
@@ -181,24 +195,19 @@
 
     <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present">
         <antcall target="ask-tlf"/>
+        
         <available file="${download.dir}/textLayout_build.zip" type="file" property="tlf.zip.exists"/>
         <antcall target="download-tlf-zip" />
-        <mkdir dir="${download.dir}/textLayout_build"/>
-        <unzip dest="${download.dir}/textLayout_build" src="${download.dir}/textLayout_build.zip" />
-        <copy file="${download.dir}/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
-        <!-- Source code useful for debugging text components -->
-        <!--copy todir="${basedir}/projects/textLayout">
-            <fileset dir="${download.dir}/textLayout_build">
-                <include name="**/**"/>
-                <exclude name="textLayout_build.zip"/>
-                <exclude name="build.xml"/>
-                <exclude name="libs/**"/>
-            </fileset>
-        </copy-->
-        <delete dir="${download.dir}/textLayout_build" failonerror="false"/>
+        
+        <unzip src="${download.dir}/textLayout_build.zip" dest="${basedir}">
+            <patternset>
+                <include name="libs/textLayout.swc"/>
+            </patternset>
+        </unzip>
     </target>
 
     <target name="download-tlf-zip" unless="tlf.zip.exists">
+        <mkdir dir="${download.dir}"/>
         <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
             dest="${download.dir}/textLayout_build.zip" 
             verbose="false"/>
