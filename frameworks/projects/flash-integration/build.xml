@@ -29,8 +29,6 @@
 
     <property name="locale" value="en_US"/>
     
-    <property name="ADOBE_EXTENSION_MANAGER.set" value="false" />
-	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 			<sequential>
