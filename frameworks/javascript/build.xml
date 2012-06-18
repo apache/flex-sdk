@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="frameworks" default="main" basedir=".">
+
+    <property name="FLEX_HOME" value="../.."/>
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<target name="main" depends="clean,samples,srcview" description="Clean build of FABridge"/>
+
+	<target name="clean" description="cleans all generated and staged files">
+		<delete>
+			<fileset dir="FABridge/samples/srcview" includes="SourceTree.html,swfobject.js,fabridge.zip"/>
+			<fileset dir="FABridge/samples/srcview/source">
+				<include name="app.swf"/>
+				<include name="EmptySwf.swf"/>
+				<include name="FABridgeSample.html"/>
+				<include name="FABridgeSample.js"/>
+				<include name="SimpleSample.html"/>
+			</fileset>
+		</delete>
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="FABridge/samples">
+			    <include name="**/*.swf"/>
+			</fileset>
+			<fileset dir="FABridge/samples/fabridge"/>
+			<fileset dir="FABridge/samples/srcview/source/fabridge/javascript"/>
+			<fileset dir="FABridge/samples/srcview/source/fabridge/swfobject"/>
+		</delete>
+  	</target>
+
+	<target name="samples" description="build samples" depends="compile-swfs">
+		<mkdir dir="FABridge/samples/fabridge/javascript"/>
+        <mkdir dir="FABridge/samples/fabridge/swfobject"/>
+		<copy file="FABridge/src/bridge/FABridge.js" todir="FABridge/samples/fabridge/javascript" />
+		<copy file="../../templates/swfobject/swfobject.js" todir="FABridge/samples/fabridge/swfobject" />
+	</target>
+	
+    <macrodef name="compile-sample">
+    <attribute name="file"/>
+        <sequential>
+            <echo message="Compiling @{file}"/>
+            <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+            <mxmlc fork="true"
+                file="@{file}">
+                <jvmarg line="${mxmlc.jvm.args}"/>
+                <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+                <source-path path-element="${basedir}/FABridge/src"/>
+            </mxmlc>
+        </sequential>
+    </macrodef>
+
+	<target name="compile-swfs" description="Compile the sample swfs.">
+	    <compile-sample file="${basedir}/FABridge/samples/EmptySwf.as"/>
+	    <compile-sample file="${basedir}/FABridge/samples/app.mxml"/>
+	</target>
+	
+	<target name="srcview" description="build srcview app">
+        <copy file="../../templates/swfobject/swfobject.js" todir="FABridge/samples/srcview" />
+        
+        <!-- generate SourceTree.html using the standard html-wrapper template -->
+        <copy file="../../templates/swfobject/index.template.html" tofile="FABridge/samples/srcview/SourceTree.html" />
+		<replace file="FABridge/samples/srcview/SourceTree.html">
+			<replacefilter
+				token="$${expressInstallSwf}"
+				value="playerProductInstall.swf"/>
+			<replacefilter
+				token="$${useBrowserHistory}"
+				value=""/>
+			<replacefilter
+				token="$${version_major}"
+				value="10"/>
+			<replacefilter
+				token="$${version_minor}"
+				value="0"/>
+			<replacefilter
+				token="$${version_revision}"
+				value="0"/>
+			<replacefilter
+				token="$${title}"
+				value="SourceTree Application"/>
+			<replacefilter
+				token="$${bgcolor}"
+				value="#ffffff"/>
+			<replacefilter
+				token="$${width}"
+				value="100%"/>
+			<replacefilter
+				token="$${height}"
+				value="100%"/>
+			<replacefilter
+				token="$${swf}"
+				value="SourceTree"/>
+			<replacefilter
+				token="$${application}"
+				value="SourceTree"/>
+		</replace>
+		
+		<!-- stage the source area so the zipfile used by the srcview app can be build -->
+		<mkdir dir="FABridge/samples/srcview/source/fabridge/swfobject"/>
+        <mkdir dir="FABridge/samples/srcview/source/fabridge/javascript"/>
+		
+		<copy file="../../templates/swfobject/swfobject.js" todir="FABridge/samples/srcview/source/fabridge/swfobject" />
+ 		
+        <copy file="FABridge/src/bridge/FABridge.js" todir="FABridge/samples/srcview/source/fabridge/javascript" />
+        <copy todir="FABridge/samples/srcview/source">
+			<fileset dir="FABridge/samples">
+				<include name="FABridgeSample.html"/>
+				<include name="FABridgeSample.js"/>
+				<include name="SimpleSample.html"/>
+				<include name="app.swf"/>
+				<include name="EmptySwf.swf"/>
+			</fileset>
+		</copy>
+		<zip destfile="FABridge/samples/srcview/fabridge.zip" basedir="FABridge/samples/srcview/source"/>
+	</target>
+
+</project>
