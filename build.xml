@@ -511,6 +511,7 @@
         <!-- templates -->
         <copy todir="${basedir}/temp/templates">
             <fileset dir="${basedir}/templates" >
+                <include name="automation-runtimeloading-files/**"/>
                 <include name="swfobject/**"/>
                 <exclude name="**/*.swf"/>
                 <exclude name="**/swfobject.js"/>
@@ -555,11 +556,20 @@
                 <exclude name="**/*.pbj"/>
                 <exclude name="**/*.swf"/>
                 <!--exclude name="test*/**"/-->
-                <exclude name="projects/automation*/**"/>
+                <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>
                 <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
                 <exclude name="projects/**/bundles.properties"/>
+            </fileset>
+        </copy>
+
+        <!-- frameworks/javascript -->
+        <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
+            <fileset dir="${basedir}/frameworks/javascript">
+                <include name="**"/>
+                <exclude name="build.xml"/>
+                <exclude name="FABridge/readme.txt"/>
             </fileset>
         </copy>
 
@@ -691,6 +701,7 @@
                 <include name="air/airframework.swc"/>
                 <include name="air/airspark.swc"/>
                 <include name="mobile/mobilecomponents.swc"/>
+                <include name="authoringsupport.swc"/>
                 <include name="core.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
@@ -707,32 +718,26 @@
             </fileset>
         </copy>
 
+        <!-- frameworks/libs/automation -->
+        <copy todir="${basedir}/temp/frameworks/libs/automation">
+            <fileset dir="${basedir}/frameworks/libs/automation">
+                <include name="automation.swc"/>
+                <include name="automation_agent.swc"/>
+                <include name="automation_.airswc"/>
+                <include name="automation_airspark.swc"/>
+                <include name="automation_dmv.swc"/>
+                <include name="automation_flashflexkit.swc"/>
+                <include name="automation_spark.swc"/>
+                <include name="tool.swc"/>
+                <include name="tool_air.swc"/>
+            </fileset>
+        </copy>
+
         <!-- frameworks/rsls -->
         <copy todir="${basedir}/temp/frameworks/rsls">
             <fileset dir="${basedir}/frameworks/rsls"/>
         </copy>
         
-        <!-- not currently in Apache Flex (formerly qtp and qtp_air) -->
-        <!--
-        <copy todir="${basedir}/temp/frameworks/libs/automation">
-            <fileset dir="${basedir}/frameworks/libs">
-                <include name="automation_agent.swc"/>
-                <include name="tool.swc"/>
-                <include name="tool_air.swc"/>
-            </fileset>
-        </copy>
-        <copy todir="${basedir}/temp/frameworks/libs/automation">
-            <fileset dir="${basedir}/frameworks/libs/automation">
-                <include name="automation.swc"/>
-                <include name="automation_air.swc"/>
-                <include name="automation_dmv.swc"/>
-                <include name="automation_flashflexkit.swc"/>
-                <include name="automation_spark.swc"/>
-                <include name="automation_airspark.swc"/>
-            </fileset>
-        </copy>
-        -->
-           
         <!-- generated files in frameworks -->
         <copy todir="${basedir}/temp/frameworks">
             <fileset dir="${basedir}/frameworks">
