@@ -33,12 +33,12 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="main" 
-        depends="authoring-download,osmf-download,swfobject-download,textLayout-download" 
+        depends="osmf-download,swfobject-download,textLayout-download" 
         description="Copies third-party software into place for build">
         <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>
     
-    <target name="clean" depends="authoring-clean,swfobject-clean" description="Cleans thirdparty downloaded files.">
+    <target name="clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <!--fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/-->
@@ -71,37 +71,7 @@
             validargs="y"
             defaultvalue="y"/>
     </target>
-       
-	<!--
-        authoringsupport/libs/FlexContentHolderThumbnail.swc
-    -->
-        
-    <target name="authoring-check">        
-        <available file="${FLEX_HOME}/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc" property="authoring.swc.present"/>
-    </target>
-    
-    <!-- 
-        Notify before downloading file with MPL1.1 license.
-    -->
-    <target name="ask-authoring" unless="build.noprompt"
-        description="Notify the user before downloading the authoring swc.">
- 
-        <echo message="The Flash authoring support uses FlexContentHolderThumbnail.swc"/>
-        <echo message="which is licensed under the Mozilla Public License Version 1.1."/>
-        <antcall target="echo-mpl1.1-license"/>
-    </target>
-    
-    <target name="authoring-download" depends="authoring-check" unless="authoring.swc.present">
-        <antcall target="ask-authoring"/>
-        <mkdir dir="${FLEX_HOME}/frameworks/projects/authoringsupport/libs"/>
-        <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc" 
-            dest="${FLEX_HOME}/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc"/>            
-    </target>
-    
-    <target name="authoring-clean">
-        <delete file="${FLEX_HOME}/frameworks/projects/authoringsupport/libs/FlexContentHolderThumbnail.swc"/>
-    </target>
-    
+           
 	<!--
         osmf.swc (Version 1.0)
         The swc at the top-level has lots of trace statements in it.  Use the one in the source zip.
