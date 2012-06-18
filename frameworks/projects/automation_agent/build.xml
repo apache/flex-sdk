@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="automation_agent" default="main" basedir=".">
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+	<property file="${FLEX_HOME}/build.properties"/>
+	<property name="local.playerglobal.version" value="11.1"/>
+
+	<property name="compc.jvm.args" value="-Dassert -ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/> 
+	
+	<target name="main" depends="clean,compile,bundles_en_US" description="Clean build of automation_agent.swc and en_US"/>
+	<target name="main_with_ja_JP" depends="clean,compile,bundles" description="Clean build of automation_agent.swc and en_US and ja_JP"/>
+	
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+	    
+	<target name="clean" depends="bundles-clean">
+		<delete file="bundles.properties"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation_agent.swc"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation_agent.swc.incr"/>
+        <fileset dir="${FLEX_HOME}/frameworks/locale">
+            <include name="*/automation_agent_rb.swc"/>
+            <include name="*/automation_agent_rb.swc.incr"/>
+        </fileset>
+	</target>
+	
+   <target name="compile" description="Compiles automation_dmv.swc">
+        <echo message="Compiling frameworks/libs/automation_agent.swc"/>
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+        <!--
+            Link in the classes (and their dependencies) for the MXML tags
+            listed in this project's manifest.xml.
+            Also link the additional classes (and their dependencies)
+            listed in FrameworkClasses.as,
+            because these aren't referenced by the manifest classes.
+            Keep the standard metadata when compiling.
+            Link in accessibility support.
+            Include the appropriate CSS files and assets in the SWC.
+            Don't include any resources in the SWC.
+            Write a bundle list of referenced resource bundles
+            into the file bundles.properties in this directory.
+        -->
+        
+        <compc fork="true"
+               output="${FLEX_HOME}/frameworks/libs/automation_agent.swc"
+        	   resource-bundle-list="${basedir}/bundles.properties">
+            <jvmarg line="${compc.jvm.args}"/>
+            <target-player>${local.playerglobal.version}</target-player>
+            <include-classes>AutomationAgentClasses</include-classes>
+            <source-path path-element="${basedir}/src"/>
+            <source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
+            <library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+                <include name="framework.swc"/>
+                <include name="mx/mx.swc"/>
+                </external-library-path>
+            <locale/>
+            <accessible>true</accessible>
+        </compc>
+    </target>
+
+	<target name="automation_agent_bundles">		
+		<echo message="Compiling dmv_automation/locale/${locale}/automation_agent_rb.swc"/>
+		
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		
+	    <mkdir dir="${FLEX_HOME}/frameworks/locale/${locale}"/>
+
+		<compc fork="true"
+			output="${FLEX_HOME}/frameworks/locale/${locale}/automation_agent_rb.swc"
+			locale="${locale}">
+          
+            <target-player>11</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+ 			<include-resource-bundles bundle="automation_agent"/>
+			<include-resource-bundles bundle="containers"/>
+			<include-resource-bundles bundle="controls"/>
+			<include-resource-bundles bundle="core"/>
+			<include-resource-bundles bundle="effects"/>
+			<include-resource-bundles bundle="skins"/>
+			<include-resource-bundles bundle="styles"/>
+			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/${locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/mx/bundles/${locale}"/>
+			<source-path path-element="${basedir}/bundles/${locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			<include-libraries/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+			</external-library-path>
+		</compc>
+	</target>
+	
+    <target name="automation_agent_bundles-clean">        
+        <delete file="${FLEX_HOME}/frameworks/locale/${locale}/automation_agent_rb.swc"/>
+        <delete file="${FLEX_HOME}/frameworks/locale/${locale}/automation_agent_rb.swc.incr"/>
+    </target>
+    	
+	<target name="bundles" depends="bundles_en_US">
+	    <echo message="IN bundles"/>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="da_DK"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="de_DE"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="es_ES"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="fi_FI"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="fr_FR"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="it_IT"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="ja_JP"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="ko_KR"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="nb_NO"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="nl_NL"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="pt_BR"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="ru_RU"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="sv_SE"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="zh_CN"/>
+            </antcall>
+            <antcall target="automation_agent_bundles">
+                <param name="locale" value="zh_TW"/>
+            </antcall>
+	</target>
+		
+	<target name="bundles_en_US">
+        <antcall target="automation_agent_bundles">
+            <param name="locale" value="en_US"/>
+        </antcall>
+	</target>
+	
+	<target name="bundles-clean">
+	    <echo message="IN bundles clean"/>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="da_DK"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="de_DE"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="en_US"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="es_ES"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="fi_FI"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="fr_FR"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="it_IT"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="ja_JP"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="ko_KR"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="nb_NO"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="nl_NL"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="pt_BR"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="ru_RU"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="sv_SE"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="zh_CN"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="zh_TW"/>
+        </antcall>
+	</target>
+
+</project>

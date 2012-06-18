@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="tool" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="${basedir}/../../.."/>
+    <property file="${FLEX_HOME}/build.properties"/>
+    <property name="local.playerglobal.version" value="11.1"/>
+	
+    <target name="main" depends="clean,compile" description="Clean build of tool.swc"/>
+    
+	<property name="compc.jvm.args" value="-Dassert -ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+	
+    <!-- since no bundles the main and bundle targets are same. To keep uniformity the target is added -->
+	<target name="main_with_ja_JP" depends="clean,compile" description="Clean build of tool.swc and en_US and ja_JP"/>
+    <target name="other.locales" description="Build other locale SWCs"/>
+	
+	<target name="clean">
+		<delete file="${FLEX_HOME}/frameworks/libs/tool.swc"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/tool.swc.incr"/>
+	</target>
+
+    <target name="compile">
+        <echo message="Compiling tool.swc"/>
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+        <!--
+            Link in the classes (and their dependencies) for the MXML tags
+            listed in this project's manifest.xml.
+            Also link the additional classes (and their dependencies)
+            listed in FrameworkClasses.as,
+            because these aren't referenced by the manifest classes.
+            Keep the standard metadata when compiling.
+            Link in accessibility support.
+            Include the appropriate CSS files and assets in the SWC.
+            Don't include any resources in the SWC.
+            Write a bundle list of referenced resource bundles
+            into the file bundles.properties in this directory.
+        -->
+        
+        <compc fork="true"
+               output="${FLEX_HOME}/frameworks/libs/tool.swc">
+            <jvmarg line="${compc.jvm.args}"/>
+            <target-player>${local.playerglobal.version}</target-player>
+            <include-classes>ToolClasses</include-classes>
+            <source-path path-element="${basedir}/src"/>
+            <source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
+            <source-path path-element="${FLEX_HOME}/frameworks/projects/automation_spark/src"/>
+            <library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+                <include name="automation_agent.swc"/>
+                <include name="framework.swc"/>
+                <include name="mx/mx.swc"/>
+                <include name="advancedgrids.swc"/>
+                <include name="charts.swc"/>
+                <include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+                <include name="automation/automation_dmv.swc"/>
+                <include name="datavisualization.swc"/>
+                </external-library-path>
+            <locale/>
+            <accessible>true</accessible>
+        </compc>
+    </target>
+</project>

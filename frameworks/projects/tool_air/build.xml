@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="tool_air" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="${basedir}/../../.."/>
+    <property file="${FLEX_HOME}/build.properties"/>
+    <property name="local.playerglobal.version" value="11"/>
+
+	<target name="main" depends="clean,compile" description="Clean build of tool_air.swc"/>
+	
+	<property name="compc.jvm.args" value="-Dassert -ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+	
+	<!-- since no bundles the main and bundle targets are same. To keep uniformity the target is added -->
+	<target name="main_with_ja_JP" depends="clean,compile,bundles" description="Clean build of tool_air.swc and en_US and ja_JP"/>
+	
+    <target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+
+	<target name="clean" depends="bundles-clean">
+		<delete file="bundles.properties"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/tool_air.swc"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/tool_air.swc.incr"/>
+	</target>
+
+	<target name="compile">
+		<echo message="Compiling tool_air.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in FrameworkClasses.as,
+			because these aren't referenced by the manifest classes.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+	
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/libs/tool_air.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>${local.playerglobal.version}</target-player>
+			<include-classes>ToolAIRClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation_air/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation_spark/src"/>
+			
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="air/airglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="advancedgrids.swc"/>
+				<include name="charts.swc"/>
+				<include name="spark.swc"/>
+				<include name="textLayout.swc"/>
+				<include name="automation/automation_dmv.swc"/>
+				<include name="datavisualization.swc"/>
+			</external-library-path>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="automation_agent.swc"/>
+			</external-library-path>
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
+	</target>
+	
+	<target name="tool_air_bundles">
+		
+		<echo message="Compiling dmv_automation/locale/${locale}/tool_air_rb.swc"/>
+		
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<compc fork="true"
+			output="${FLEX_HOME}/frameworks/locale/${locale}/tool_air_rb.swc"
+			locale="${locale}">
+          
+            <target-player>11</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+ 			
+			<include-resource-bundles bundle="tool_air"/>
+			
+			<include-namespaces/>
+			<include-classes/>
+			
+			<source-path path-element="${basedir}/bundles/${locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			
+			<include-libraries/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+			</external-library-path>
+		</compc>
+	</target>
+	
+	<target name="tool_air_bundles-clean">
+        <delete file="${FLEX_HOME}/frameworks/locale/${locale}/tool_air_rb.swc"/>
+        <delete file="${FLEX_HOME}/frameworks/locale/${locale}/tool_air_rb.swc.incr"/>
+    </target>
+	
+	<target name="bundles">
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="da_DK"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="de_DE"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="en_US"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="es_ES"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="fi_FI"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="fr_FR"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="it_IT"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="ja_JP"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="ko_KR"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="nb_NO"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="nl_NL"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="pt_BR"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="ru_RU"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="sv_SE"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="zh_CN"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
+            <param name="locale" value="zh_TW"/>
+        </antcall>
+	</target>
+
+	<target name="bundles_en_US">
+		<ant dir="bundles/en_US"/>
+	</target>
+	
+    <target name="bundles-clean">
+        <echo message="IN bundles clean"/>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="da_DK"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="de_DE"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="en_US"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="es_ES"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="fi_FI"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="fr_FR"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="it_IT"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="ja_JP"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="ko_KR"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="nb_NO"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="nl_NL"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="pt_BR"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="ru_RU"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="sv_SE"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="zh_CN"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="zh_TW"/>
+        </antcall>
+    </target>
+
+</project>
