@@ -22,7 +22,7 @@ package mx.automation.codec
 	
 	import mx.automation.AutomationIDPart;
 	import mx.automation.Automation;
-	import mx.automation.qtp.IQTPPropertyDescriptor;
+	import mx.automation.tool.IToolPropertyDescriptor;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	import mx.automation.codec.AutomationObjectPropertyCodec;
@@ -71,7 +71,7 @@ package mx.automation.codec
 		override public function decode(automationManager:IAutomationManager,
 										obj:Object, 
 										value:Object,
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):void
 		{
 			

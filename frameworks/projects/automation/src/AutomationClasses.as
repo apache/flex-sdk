@@ -34,7 +34,6 @@ package
  */
 internal class AutomationClasses
 {
-	import mx.automation.AutomationLicesneHandler;AutomationLicesneHandler;  
 	import mx.automation.delegates.containers.AccordionAutomationImpl; AccordionAutomationImpl;
 	import mx.automation.delegates.containers.ApplicationAutomationImpl; ApplicationAutomationImpl;
 	import mx.automation.delegates.containers.BoxAutomationImpl; BoxAutomationImpl;

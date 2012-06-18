@@ -23,7 +23,7 @@ package mx.automation.codec
 	import mx.automation.AutomationClass;
 	import mx.automation.AutomationIDPart;
 	import mx.automation.Automation;
-	import mx.automation.qtp.IQTPPropertyDescriptor;
+	import mx.automation.tool.IToolPropertyDescriptor;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	
@@ -61,7 +61,7 @@ package mx.automation.codec
 		 */
 		override public function encode(automationManager:IAutomationManager,
 										obj:Object, 
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):Object
 		{
 			var val:Object = getMemberFromObject(automationManager, obj, pd);
@@ -106,7 +106,7 @@ package mx.automation.codec
 		override public function decode(automationManager:IAutomationManager,
 										obj:Object, 
 										value:Object,
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):void
 		{
 			if (value == null || value.length == 0)

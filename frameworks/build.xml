@@ -102,23 +102,25 @@
         <antcall target="halo"/>
         <antcall target="wireframe"/>
         <antcall target="aeongraphical"/>
-        <!-- automation removed until sources donated to Apache -->
-        <!--
-            automation: tool was formerly qtp and tool_air was formerly qtp_air
-        -->
-        <!--
-        <antcall target="automation_agent"/>
-        <antcall target="automation"/>
-        <antcall target="automation_dmv"/>
-        <antcall target="automation_spark"/>
-        <antcall target="automation_air"/>
-        <antcall target="automation_airspark"/>
-        <antcall target="automation_flashflexkit"/>
-        <antcall target="tool"/>
-        <antcall target="tool_air"/>
-        -->
+        
+        <antcall target="compile-automation"/>
     </target>
 
+    <!--
+        automation: tool was formerly qtp and tool_air was formerly qtp_air
+    -->
+    <target name="compile-automation" description="Builds all automation SWCs but not their resource bundles">
+        <antcall target="automation_agent"/>
+        <antcall target="automation_dmv"/>
+        <antcall target="tool"/>
+        <antcall target="automation"/>
+        <antcall target="tool_air"/>
+        <antcall target="automation_spark"/>
+        <antcall target="automation_flashflexkit"/>
+        <antcall target="automation_air"/>
+        <antcall target="automation_airspark"/>
+    </target>
+    
     <target name="other.locales" description ="Builds resource SWCs for all locales">
         <ant dir="${basedir}/projects/framework" target="other.locales"/>
         <ant dir="${basedir}/projects/mx" target="other.locales"/>
@@ -132,13 +134,10 @@
         <!--ant dir="${basedir}/projects/textLayout" target="other.locales"/-->
         <ant dir="${basedir}/projects/playerglobal" target="other.locales" />
         <ant dir="${basedir}/projects/flash-integration" target="other.locales"/>
-        <!-- removed until sources donated to Apache -->
-        <!--
         <ant dir="${basedir}/projects/automation" target="other.locales"/>
         <ant dir="${basedir}/projects/automation_agent" target="other.locales"/>
         <ant dir="${basedir}/projects/tool" target="other.locales"/>
         <ant dir="${basedir}/projects/tool_air" target="other.locales"/>
-        -->
     </target>
     
     <target name="doc" >
@@ -174,7 +173,7 @@
         <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
     </target>
     
-    <target name="clean" depends="airsdk-clean" description="Cleans all SWCs and their resource bundles">
+    <target name="clean" depends="automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/framework" target="clean"/>
         <ant dir="${basedir}/projects/mx" target="clean"/>
@@ -194,19 +193,7 @@
         <ant dir="${basedir}/projects/authoringsupport" target="clean"/>
         <ant dir="${basedir}/projects/charts" target="clean"/>
         <ant dir="${basedir}/projects/advancedgrids" target="clean"/>
-        <!-- not currently in Apache Flex -->
-        <!--
-        <ant dir="${basedir}/projects/automation_agent" target="clean"/>
-        <ant dir="${basedir}/projects/automation" target="clean"/>
-        <ant dir="${basedir}/projects/automation_air" target="clean"/>
-        <ant dir="${basedir}/projects/automation_dmv" target="clean"/>
-        <ant dir="${basedir}/projects/automation_flashflexkit" target="clean"/>
-        <ant dir="${basedir}/projects/automation_spark" target="clean"/>
-        <ant dir="${basedir}/projects/automation_airspark" target="clean"/>
-        <ant dir="${basedir}/projects/tool" target="clean"/>
-        <ant dir="${basedir}/projects/tool_air" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
-        -->
         <ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- Delete empty folders -->
         <delete dir="${basedir}/locale">
@@ -223,6 +210,19 @@
         <delete file="winFonts.ser"/>
     </target>
     
+    <target name="automation-clean" description="Builds all automation SWCs but not their resource bundles">
+        <ant dir="${basedir}/projects/automation_agent" target="clean"/>
+        <ant dir="${basedir}/projects/automation" target="clean"/>
+        <ant dir="${basedir}/projects/automation_air" target="clean"/>
+        <ant dir="${basedir}/projects/automation_dmv" target="clean"/>
+        <ant dir="${basedir}/projects/automation_flashflexkit" target="clean"/>
+        <ant dir="${basedir}/projects/automation_spark" target="clean"/>
+        <ant dir="${basedir}/projects/automation_airspark" target="clean"/>
+        <ant dir="${basedir}/projects/tool" target="clean"/>
+        <ant dir="${basedir}/projects/tool_air" target="clean"/>
+    </target>
+
+
     <target name="airsdk-clean" description="Delete files copied from the AIR SDK">
         <!-- Delete AIR files and directories from 'prepare' target -->
         <delete file="${FLEX_HOME}/AIR SDK license.pdf"/>
@@ -335,10 +335,7 @@
     </target>
 
     <target name="javascript" description="Clean build of javascript examples">
-        <!-- not currently in Apache Flex -->
-        <!--
         <ant dir="${basedir}/javascript"/>
-        -->
     </target>
     
     <target name="automation" description="Clean build of automation swc">

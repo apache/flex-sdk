@@ -17,11 +17,10 @@
   limitations under the License.
 
 -->
-
 <project name="automation_air" default="main" basedir=".">
 
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
-
+    
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
@@ -32,8 +31,6 @@
 		
 	<target name="compile" description="Compiles automation_air.swc">
 		<echo message="Compiling frameworks/libs/automation/automation_air.swc"/>
-		<echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
-
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -55,7 +52,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/automation/automation_air.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>11.1</target-player>
+			<target-player>${playerglobal.version}</target-player>
 			<include-classes>AutomationAirClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
@@ -68,10 +65,10 @@
                 <include name="mx/mx.swc"/>
 		        <include name="textLayout.swc"/>
 				<include name="air/airframework.swc"/>
-				<include name="automation/automation.swc"/>
-				<include name="automation_agent.swc"/>
-				<include name="qtp.swc"/>
-				<include name="qtp_air.swc"/>
+				<include name="automation/automation/automation.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/tool.swc"/>
+				<include name="automation/tool_air.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>

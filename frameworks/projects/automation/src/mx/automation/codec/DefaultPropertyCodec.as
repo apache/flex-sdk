@@ -20,7 +20,7 @@
 package mx.automation.codec 
 { 
 	
-	import mx.automation.qtp.IQTPPropertyDescriptor;
+	import mx.automation.tool.IToolPropertyDescriptor;
 	import mx.automation.Automation;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
@@ -75,7 +75,7 @@ package mx.automation.codec
 		 */ 
 		public function encode(automationManager:IAutomationManager,
 							   obj:Object, 
-							   pd:IQTPPropertyDescriptor,
+							   pd:IToolPropertyDescriptor,
 							   relativeParent:IAutomationObject):Object
 		{
 			var val:Object = getMemberFromObject(automationManager, obj, pd);
@@ -95,7 +95,7 @@ package mx.automation.codec
 		public function decode(automationManager:IAutomationManager,
 							   obj:Object, 
 							   value:Object,
-							   pd:IQTPPropertyDescriptor,
+							   pd:IToolPropertyDescriptor,
 							   relativeParent:IAutomationObject):void
 		{
 			obj[pd.name] = getValue(automationManager, obj, value, pd, true);
@@ -106,7 +106,7 @@ package mx.automation.codec
 		 */ 
 		public function getMemberFromObject(automationManager:IAutomationManager,
 											obj:Object, 
-											pd:IQTPPropertyDescriptor):Object
+											pd:IToolPropertyDescriptor):Object
 		{
 			var part:Object;
 			var component:Object;
@@ -148,13 +148,13 @@ package mx.automation.codec
 		private function getValue(automationManager:IAutomationManager,
 								  obj:Object, 
 								  val:Object,
-								  pd:IQTPPropertyDescriptor,
+								  pd:IToolPropertyDescriptor,
 								  useASType:Boolean = false):Object
 		{
 			if (val == null)
 				return null;
 			
-			var type:String = useASType && pd.asType ? pd.asType : pd.QTPtype;
+			var type:String = useASType && pd.asType ? pd.asType : pd.Tooltype;
 			
 			switch (type)
 			{

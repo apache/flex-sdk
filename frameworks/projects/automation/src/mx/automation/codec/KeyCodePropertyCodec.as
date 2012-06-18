@@ -21,7 +21,7 @@ package mx.automation.codec
 {
 	
 	import flash.ui.Keyboard;
-	import mx.automation.qtp.IQTPPropertyDescriptor;
+	import mx.automation.tool.IToolPropertyDescriptor;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject; 
 	
@@ -54,7 +54,7 @@ package mx.automation.codec
 		 */ 
 		override public function encode(automationManager:IAutomationManager,
 										obj:Object, 
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):Object
 		{
 			var val:Object = getMemberFromObject(automationManager, obj, pd);
@@ -71,7 +71,7 @@ package mx.automation.codec
 		override public function decode(automationManager:IAutomationManager,
 										obj:Object, 
 										value:Object,
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):void
 		{
 			if (value is String)

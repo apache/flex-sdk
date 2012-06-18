@@ -20,8 +20,10 @@
 <project name="tool" default="main" basedir=".">
 
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
-    <property file="${FLEX_HOME}/build.properties"/>
-    <property name="local.playerglobal.version" value="11.1"/>
+
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+	<property file="${FLEX_HOME}/build.properties"/>
 	
     <target name="main" depends="clean,compile" description="Clean build of tool.swc"/>
     
@@ -58,15 +60,17 @@
         <compc fork="true"
                output="${FLEX_HOME}/frameworks/libs/tool.swc">
             <jvmarg line="${compc.jvm.args}"/>
-            <target-player>${local.playerglobal.version}</target-player>
+            <target-player>${playerglobal.version}</target-player>
             <include-classes>ToolClasses</include-classes>
             <source-path path-element="${basedir}/src"/>
             <source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
             <source-path path-element="${FLEX_HOME}/frameworks/projects/automation_spark/src"/>
             <library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-                <include name="automation_agent.swc"/>
+                <include name="automation/automation_agent.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="advancedgrids.swc"/>

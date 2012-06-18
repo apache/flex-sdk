@@ -22,7 +22,7 @@ package mx.automation.codec
 	
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import mx.automation.qtp.IQTPPropertyDescriptor;
+	import mx.automation.tool.IToolPropertyDescriptor;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	
@@ -43,7 +43,7 @@ package mx.automation.codec
 		
 		override public function encode(automationManager:IAutomationManager,
 										obj:Object, 
-										propertyDescriptor:IQTPPropertyDescriptor,
+										propertyDescriptor:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):Object
 		{
 			var val:Object = getMemberFromObject(automationManager, obj, propertyDescriptor);
@@ -57,7 +57,7 @@ package mx.automation.codec
 		override public function decode(automationManager:IAutomationManager,
 										obj:Object, 
 										value:Object,
-										propertyDescriptor:IQTPPropertyDescriptor,
+										propertyDescriptor:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):void
 		{
 			obj[propertyDescriptor.name] = 

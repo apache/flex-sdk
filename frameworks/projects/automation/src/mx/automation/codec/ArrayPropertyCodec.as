@@ -21,8 +21,8 @@ package mx.automation.codec
 {
 	
 	import mx.automation.Automation;
-	import mx.automation.qtp.QTPPropertyDescriptor;
-	import mx.automation.qtp.IQTPPropertyDescriptor;
+	import mx.automation.tool.ToolPropertyDescriptor;
+	import mx.automation.tool.IToolPropertyDescriptor;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	
@@ -80,7 +80,7 @@ package mx.automation.codec
 		
 		override public function encode(automationManager:IAutomationManager,
 										obj:Object, 
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):Object
 		{
 			var result:Array = [];
@@ -103,8 +103,8 @@ package mx.automation.codec
 				
 				for (var i:int = 0; i <n ; ++i)
 				{
-					var arrayPropertyDescriptor:QTPPropertyDescriptor= 
-						new QTPPropertyDescriptor(String(i),
+					var arrayPropertyDescriptor:ToolPropertyDescriptor= 
+						new ToolPropertyDescriptor(String(i),
 							pd.forDescription,
 							pd.forVerification,
 							"string",
@@ -129,7 +129,7 @@ package mx.automation.codec
 		override public function decode(automationManager:IAutomationManager,
 										obj:Object, 
 										value:Object,
-										pd:IQTPPropertyDescriptor,
+										pd:IToolPropertyDescriptor,
 										relativeParent:IAutomationObject):void
 		{
 			if (value != null && value.length != 0)
@@ -152,8 +152,8 @@ package mx.automation.codec
 				for (var i:int = 0; i < n; ++i)
 				{
 					arrayString[i] = arrayString[i].replace(/&#x3B;/g, ";");
-					var arrayPropertyDescriptor:QTPPropertyDescriptor= 
-						new QTPPropertyDescriptor(String(i),
+					var arrayPropertyDescriptor:ToolPropertyDescriptor= 
+						new ToolPropertyDescriptor(String(i),
 							pd.forDescription,
 							pd.forVerification,
 							"string",

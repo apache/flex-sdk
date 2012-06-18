@@ -19,8 +19,10 @@
 -->
 <project name="automation_agent" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="11.1"/>
 
 	<property name="compc.jvm.args" value="-Dassert -ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/> 
 	
@@ -31,8 +33,8 @@
 	    
 	<target name="clean" depends="bundles-clean">
 		<delete file="bundles.properties"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/automation_agent.swc"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/automation_agent.swc.incr"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation/automation_agent.swc"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation/automation_agent.swc.incr"/>
         <fileset dir="${FLEX_HOME}/frameworks/locale">
             <include name="*/automation_agent_rb.swc"/>
             <include name="*/automation_agent_rb.swc.incr"/>
@@ -40,7 +42,7 @@
 	</target>
 	
    <target name="compile" description="Compiles automation_dmv.swc">
-        <echo message="Compiling frameworks/libs/automation_agent.swc"/>
+        <echo message="Compiling frameworks/libs/automation/automation_agent.swc"/>
         <!-- Load the <compc> task. We can't do this at the <project> level -->
         <!-- because targets that run before flexTasks.jar gets built would fail. -->
         <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -59,19 +61,21 @@
         -->
         
         <compc fork="true"
-               output="${FLEX_HOME}/frameworks/libs/automation_agent.swc"
+               output="${FLEX_HOME}/frameworks/libs/automation/automation_agent.swc"
         	   resource-bundle-list="${basedir}/bundles.properties">
             <jvmarg line="${compc.jvm.args}"/>
-            <target-player>${local.playerglobal.version}</target-player>
+            <target-player>${playerglobal.version}</target-player>
             <include-classes>AutomationAgentClasses</include-classes>
             <source-path path-element="${basedir}/src"/>
             <source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
             <library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
-                </external-library-path>
+            </external-library-path>
             <locale/>
             <accessible>true</accessible>
         </compc>
@@ -105,9 +109,9 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 			<include-libraries/>
 			<library-path/>
-            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-			</external-library-path>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
 		</compc>
 	</target>
 	
