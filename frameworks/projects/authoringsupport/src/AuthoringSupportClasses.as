@@ -32,8 +32,6 @@ package
  */
 internal class AuthoringSupportClasses
 {
-	import FlashComponentPlaceholder; FlashComponentPlaceholder;
-	import FlashContainerPlaceholder; FlashContainerPlaceholder;
 	import com.adobe.viewsource.ViewSource; ViewSource;
 	// Maintain alphabetical order
 }

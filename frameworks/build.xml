@@ -48,7 +48,7 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
  
-    <target name="main" depends="check-compile-env,clean,prepare,javascript,compile" 
+    <target name="main" depends="check-compile-env,clean,prepare,compile,javascript" 
         description="Clean build of all SWCs"/>
 
     <target name="check-compile-env" description="Check for the required environment variables">
@@ -97,8 +97,7 @@
         <antcall target="mobiletheme"/>     
         <antcall target="core"/>
         <antcall target="flash_integration"/>
-        <!-- authoringsupport removed until source found for FlexContentHolderThumbnail.swc found -->
-        <!--antcall target="authoringsupport"/-->
+        <antcall target="authoringsupport"/>
         <antcall target="halo"/>
         <antcall target="wireframe"/>
         <antcall target="aeongraphical"/>
@@ -185,7 +184,6 @@
         <ant dir="${basedir}/projects/spark" target="clean"/>
         <ant dir="${basedir}/projects/spark_dmv" target="clean"/>
         <ant dir="${basedir}/projects/sparkskins" target="clean"/>
-        <ant dir="${basedir}/projects/authoringsupport" target="clean"/>
         <ant dir="${basedir}/projects/halo" target="clean"/>
         <ant dir="${basedir}/projects/wireframe" target="clean"/>
         <ant dir="${basedir}/projects/flash-integration" target="clean"/>

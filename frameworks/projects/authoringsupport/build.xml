@@ -38,12 +38,12 @@
 		</delete>
 	</target>
 
-	<target name="compile" description="Compiles authoringsupport.swc">
+	<target name="compile-save" description="Compiles authoringsupport.swc">
 		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
 		<echo message="Disabled for Apache Flex since source for FlexContentHolderThumbnail.swc is not available"/>
 	</target>
 
-	<target name="compile-save" description="Compiles authoringsupport.swc">
+	<target name="compile" description="Compiles authoringsupport.swc">
 		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -65,17 +65,11 @@
 			<include-classes>AuthoringSupportClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
             <include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
-            <library-path dir="${basedir}/libs/">
-				<include name="FlexContentHolderThumbnail.swc"/>
-			</library-path>
             <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="${playerglobal.version}/playerglobal.swc"/>
             </external-library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-                <include name="flash-integration.swc"/>
-                <include name="textLayout.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
@@ -83,10 +77,6 @@
 	</target>
 
 	<target name="doc" depends="clean-temp-docs" description="updates authoringsupport.swc with asdoc xml">
-		<echo message="Disabled for Apache Flex since source for FlexContentHolderThumbnail.swc is not available"/>
-	</target>
-
-	<target name="doc-save" depends="clean-temp-docs" description="updates authoringsupport.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -117,9 +107,6 @@
                 <include name="flash-integration.swc"/>
 		    	<include name="textLayout.swc" />
 		    </external-library-path>
-            <library-path dir="${basedir}/libs/">
-				<include name="FlexContentHolderThumbnail.swc"/>
-			</library-path>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
