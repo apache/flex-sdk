@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="ColorPicker/ColorPicker_disabledSkin" version="2.0" afx:className="ColorPicker_disabledSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group scaleGridLeft="3" scaleGridRight="14" scaleGridTop="3" scaleGridBottom="16">
+    <Path data="M0 21 1 21 21 21 21 1 21 0 22 0 22 22 0 22 0 21M19 3 3 3 3 19 2 19 2 2 19 2 19 3">
+      <fill>
+        <SolidColor color="#9A9B9D" alpha="0.49803922"/>
+      </fill>
+    </Path>
+    <Path data="M1 21 1 1 21 1 21 21 1 21M14 19 14 16 19 16 20 16 20 2 19 2 2 2 2 19 2 20 14 20 14 19M15.45 17.55 17.475 19.55 19.475 17.55 15.45 17.55">
+      <fill>
+        <SolidColor color="#E5E6E7" alpha="0.49803922"/>
+      </fill>
+    </Path>
+    <Path data="M0 21 0 0 21 0 21 1 1 1 1 21 0 21M19 3 19 2 20 2 20 16 19 16 19 3M3 19 14 19 14 20 2 20 2 19 3 19">
+      <fill>
+        <SolidColor color="#FFFFFF" alpha="0.49803922"/>
+      </fill>
+    </Path>
+    <Path data="M14 19 3 19 3 3 19 3 19 16 14 16 14 19">
+      <fill>
+        <SolidColor color="#333333" alpha="0"/>
+      </fill>
+    </Path>
+    <Path data="M15.45 17.55 19.475 17.55 17.475 19.55 15.45 17.55">
+      <fill>
+        <SolidColor alpha="0.49803922"/>
+      </fill>
+    </Path>
+  </Group>
+</Graphic>

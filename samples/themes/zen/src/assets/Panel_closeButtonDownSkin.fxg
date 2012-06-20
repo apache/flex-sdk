@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Panel/Panel_closeButtonDownSkin" version="2.0" afx:className="Panel_closeButtonDownSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="border" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M6.35 17.95 6.35 0 14 0Q15.65 0 16.85 1.15 18 2.3 18 4L18 13.95Q18 15.6 16.85 16.8 15.65 17.95 14 17.95L6.35 17.95">
+        <fill>
+          <LinearGradient x="-14" y="0" scaleX="22" rotation="90">
+            <GradientEntry ratio="0" color="#4C2600"/>
+            <GradientEntry ratio="1" color="#A45200"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Path data="M6.35 0 6.35 17.95 4 17.95Q2.3 17.95 1.15 16.8 0 15.6 0 13.95L0 4Q0 2.3 1.15 1.15 2.3 0 4 0L6.35 0">
+        <fill>
+          <LinearGradient x="32" y="0" scaleX="22" rotation="90">
+            <GradientEntry ratio="0" color="#4C2600"/>
+            <GradientEntry ratio="1" color="#A45200"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="innerFill" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M6.35 17.05 4.95 17.05Q3.75 17.05 2.9 16.2 2 15.3 2 14.05L2 4Q2 2.75 2.9 1.9 3.8 1 4.95 1L6.35 1 6.35 17.05">
+        <fill>
+          <LinearGradient x="33" y="21" scaleX="-20" rotation="90">
+            <GradientEntry ratio="0" color="#B56D28"/>
+            <GradientEntry ratio="0.082352941" color="#A76525"/>
+            <GradientEntry ratio="1" color="#331A00"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Path data="M6.35 17.05 6.35 1 13 1Q14.2 1.05 15.05 1.85 15.95 2.75 15.95 4L15.95 14.05Q15.95 15.25 15.1 16.1 14.3 17 13.05 17.05L6.35 17.05">
+        <fill>
+          <LinearGradient x="-13" y="21" scaleX="-20" rotation="90">
+            <GradientEntry ratio="0" color="#B56D28"/>
+            <GradientEntry ratio="0.082352941" color="#A76525"/>
+            <GradientEntry ratio="1" color="#331A00"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="grain" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M16.25 1.875 16.25 2.475 6.85 2.15Q5 2.05 3.05 2 2.85 2 2.7 1.9 2.55 1.85 2.55 1.7 2.55 1.55 2.7 1.5 2.85 1.4 3.05 1.4 5 1.45 6.8 1.5L16.25 1.875M11.9 11.8Q12.35 11.6 13.75 10.2 15.354688 8.6439453 16.25 8.65L16.25 9.65Q15.649219 9.7486328 14.45&#xA; 10.9 12.75 12.6 12.2 12.75 11 13.05 2.25 13.7 2.05 13.7 1.9 13.6 1.7 13.45 1.7 13.25 1.7 13.05 1.85 12.9 1.95 12.7 2.2 12.7 10.7 12.05 11.9 11.8">
+        <fill>
+          <SolidColor color="#4C2600" alpha="0.25098041"/>
+        </fill>
+      </Path>
+      <Path data="M1.8 3.2Q1.65 3.05 1.65 2.85 1.65 2.65 1.8 2.5 1.95 2.35 2.15 2.35 7.05 2.45 10.15 2.75 12.75 2.95 14.1 3.25 15.210742 3.5009766 16.25 3.725L16.25 4.775Q15.117578 4.5210938 13.9 4.25 13.15 4.1 12.1 4L11.35 3.9Q10.8 3.8 10.25 3.75 9.75 3.7 9.2&#xA; 3.65L8.85 3.65Q8.55 3.6 8.3 3.6L5.6 3.45Q5.5 3.45 5.4 3.45 4 3.4 2.35 3.35 2.25 3.35 2.2 3.35L2.15 3.35Q2.05 3.35 2 3.35 1.9 3.3 1.8 3.2">
+        <fill>
+          <SolidColor color="#4C2600" alpha="0.3019608"/>
+        </fill>
+      </Path>
+      <Path data="M1.8 3.2Q1.9 3.3 2 3.35 2.05 3.35 2.15 3.35L2.2 3.35Q2.25 3.35 2.35 3.35 4 3.4 5.4 3.45 5.5 3.45 5.6 3.45L8.3 3.6Q8.55 3.6 8.85 3.65L9.2 3.65Q9.75 3.7 10.25 3.75 10.8 3.8 11.35 3.9L12.1 4Q13.15 4.1 13.9 4.25 15.117578 4.5210938 16.25 4.775L16.25&#xA; 5.35Q14.964453 5.0660156 13.9 4.8 12.15 4.4 8.35 4.1L5.55 3.95Q4 3.85 2.3 3.8 2.05 3.8 1.95 3.65 1.8 3.5 1.8 3.3 1.8 3.25 1.8 3.2M16.25 13.325 16.25 13.925Q15.519922 14 15.35 14 14.35 14 13.05 14.95L13.05 15Q12.25 15.5 11.6 15.75 10.9 16.05&#xA; 10.35 16.05L7.1 15.9Q5.25 15.85 4.75 16.05 3.6 16.45 2.35 15.85 2.15 15.75 2.1 15.6L2.1 15.55Q2.15 15.55 2.25 15.55 2.35 15.4 2.5 15.35 2.7 15.25 2.9 15.35 3.3 15.55 3.75 15.6 4.25 15.55 4.6 15.45L4.65 15.45Q4.75 15.4 4.85 15.4 4.85 15.35 4.9&#xA; 15.35L4.95 15.35Q5.4 15.3 6.4 15.3L7.1 15.3Q7.15 15.3 7.25 15.3L10.35 15.45Q10.4 15.45 10.45 15.45 10.55 15.45 10.7 15.45 10.95 15.4 11.3 15.25 11.85 15 12.6 14.55 13.55 13.9 14.4 13.6 14.9 13.4 15.35 13.4 15.4 13.4 15.45 13.4 15.679297 13.385742&#xA; 16.25 13.325">
+        <fill>
+          <SolidColor color="#FFFFFF" alpha="0.10196079"/>
+        </fill>
+      </Path>
+      <Path data="M2.1 15.55Q1.85 15.5 1.65 15.45 1.4 15.4 1.3 15.25 1.15 15.1 1.2 14.9 1.25 14.65 1.4 14.55 1.55 14.4 1.8 14.45 3.5 14.75 4.4 14.5 4.45 14.45 4.5 14.45L4.6 14.45Q5.2 14.25 7.15 14.3L10.4 14.45Q10.65 14.45 11 14.4L10.95 14.4Q11.6 14.15 12.5 13.55&#xA; 14.15 12.4 15.35 12.4 15.521289 12.4 16.25 12.325L16.25 13.325Q15.679297 13.385742 15.45 13.4 15.4 13.4 15.35 13.4 14.9 13.4 14.4 13.6 13.55 13.9 12.6 14.55 11.85 15 11.3 15.25 10.95 15.4 10.7 15.45 10.55 15.45 10.45 15.45 10.4 15.45 10.35&#xA; 15.45L7.25 15.3Q7.15 15.3 7.1 15.3L6.4 15.3Q5.4 15.3 4.95 15.35L4.9 15.35Q4.85 15.35 4.85 15.4 4.75 15.4 4.65 15.45L4.6 15.45Q4.25 15.55 3.75 15.6 3.3 15.55 2.9 15.35 2.7 15.25 2.5 15.35 2.35 15.4 2.25 15.55 2.15 15.55 2.1 15.55">
+        <fill>
+          <SolidColor color="#321900" alpha="0.3019608"/>
+        </fill>
+      </Path>
+      <Path data="M1.55 8.35Q2.3 8.35 3.15 8.35 4.9 8.3 5.5 8.35 6 8.45 6.3 7.8 6.65 7.1 6.95 7 7.7 6.7 8.4 6.5 8.25 6.55 7.7 6.2 6.95 5.8 6.6 5.6 6.15 5.35 5.05 5.45L4 5.6 1.55 5.6 1.55 4.8 5.3 4.8 6.8 4.55Q8.4 4.4 9.05 4.8 9.6 5.1 10.7 5.8 11.5 6.3 11.75 6.25&#xA; 10.7 6.55 9.6 7 9.15 7.2 8.65 8.35 8.25 9.35 7.45 9.25 6.05 9.05 1.55 9.25L1.55 8.35">
+        <fill>
+          <LinearGradient x="6.6" y="9.4" scaleX="5" rotation="270">
+            <GradientEntry ratio="0" color="#8B5117" alpha="0.6"/>
+            <GradientEntry ratio="1" color="#432101" alpha="0.70196078"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Path data="M1.55 5.6 4 5.6 5.05 5.45Q6.15 5.35 6.6 5.6 6.95 5.8 7.7 6.2 8.25 6.55 8.4 6.5 7.7 6.7 6.95 7 6.65 7.1 6.3 7.8 6 8.45 5.5 8.35 4.9 8.3 3.15 8.35 2.3 8.35 1.55 8.35L1.5 8.35 1.5 5.6 1.55 5.6">
+        <fill>
+          <LinearGradient x="-3.3" y="5.425" scaleX="2.95" rotation="90">
+            <GradientEntry ratio="0" color="#A45200" alpha="0.50196078"/>
+            <GradientEntry ratio="1" color="#6D3600" alpha="0.4"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="VHighlight" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M5 1Q3.8 1.05 2.95 1.85 2.05 2.75 2.05 4L2.05 14.05Q2.05 15.25 2.9 16.1 3.7 17 4.9 17.05L4 17.05Q2.55 17.05 1.85 16.15 1 15.25 1 14.2L1 4Q1 3.95 1 3.9L1.05 3.35Q1.25 2.5 1.85 1.85 2.35 1.4 2.95 1.15 3.45 1 4 1L5 1">
+        <fill>
+          <LinearGradient x="33.8" y="1" scaleX="20" rotation="90">
+            <GradientEntry ratio="0" color="#4D2600"/>
+            <GradientEntry ratio="1" color="#874301"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Path data="M16.15 1.9Q17 2.75 17 4L17 14.05Q17 15.35 16.15 16.2 15.3 17.05 14 17.05L13.1 17.05Q14.272461 17.028906 15.15 16.2 16 15.3 16 14.05L16 4Q16 2.75 15.1 1.9 14.223047 1.0230469 13.15 1L14 1Q15.25 1 16.15 1.9">
+        <fill>
+          <LinearGradient x="-15.4" y="21" scaleX="20" rotation="270">
+            <GradientEntry ratio="0" color="#D8A16A"/>
+            <GradientEntry ratio="1" color="#4C2600"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="iconHighlight" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M10.35 10 13 12.65 11.7 14 9.05 11.3 6.4 14 5.1 12.6 7.7 10 5 7.3 6.35 6 9 8.65 11.65 6 12.95 7.35 10.35 10">
+        <fill>
+          <SolidColor color="#B27539"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="icon" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M10.35 9.1 13 11.75 11.7 13.1 9.05 10.4 6.4 13.1 5.1 11.7 7.7 9.1 5 6.4 6.35 5.1 9 7.75 11.65 5.1 12.95 6.45 10.35 9.1">
+        <fill>
+          <LinearGradient x="9.05" y="5.1" scaleX="8.000625" rotation="90.71616">
+            <GradientEntry ratio="0" color="#28160B"/>
+            <GradientEntry ratio="1" color="#4B2706"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

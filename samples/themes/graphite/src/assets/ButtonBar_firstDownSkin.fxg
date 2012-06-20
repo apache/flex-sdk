@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="ButtonBarButtons/firstButtonBarButton/ButtonBar_firstDownSkin" version="2.0" afx:className="ButtonBar_firstDownSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M44.15 0 44.15 24 4.15 24Q0 24 0 19.4L0 4.6Q0 0 4.15 0L44.15 0">
+        <fill>
+          <LinearGradient x="44.5" y="24.1125" scaleX="24.225" rotation="270">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#BFBFBF" alpha="0.95294118"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="inset" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M43 2 43 22 5.9 22Q2 22 2 18.2L2 5.8Q2 2 5.9 2L43 2">
+        <fill>
+          <LinearGradient x="44.4875" y="19.4125" scaleX="-14.825021" rotation="90.08412">
+            <GradientEntry ratio="0" color="#787878"/>
+            <GradientEntry ratio="1" color="#A0A0A0"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

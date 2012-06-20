@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="PopUpButton/PopUpButton_disabledSkin" version="2.0" afx:className="PopUpButton_disabledSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:locked="true" aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M82 4.2 82 17.8Q82 22 78.25 22L3.8 22Q0 22 0 17.8L0 4.2Q0 0 3.8 0L78.25 0Q82 0 82 4.2">
+        <fill>
+          <SolidColor color="#666666"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="inset" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M71 1.85 71 20.15 5.3 20.15Q1.7 20.15 1.7 16.7L1.7 5.3Q1.7 1.85 5.3 1.85L71 1.85">
+        <fill>
+          <SolidColor color="#464646"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:locked="true" aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path scaleX="0.69651794" scaleY="0.8999939" x="19.5" y="0.2" data="M87 18.2Q87 22 83.1 22L66.9 22 66.9 2 83.1 2Q87 2 87 5.8L87 18.2">
+        <fill>
+          <SolidColor color="#464646"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:locked="true" aaa:type="layer" aaa:userLabel="arrow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M76.45 9.75 73.6 12.9Q73.2 13.2 72.85 12.9L69.9 9.75Q69.6 9.35 69.9 9L76.5 9Q76.8 9.35 76.45 9.75">
+        <fill>
+          <SolidColor color="#595959"/>
+        </fill>
+      </Path>
+      <Path data="M65.8 2.5 65.8 20">
+        <stroke>
+          <SolidColorStroke caps="square" color="#595959"/>
+        </stroke>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Slider/VSliderThumb_upSkin" version="2.0" afx:className="VSliderThumb_upSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="art" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M14 12 0 12 0 0 14 0 14 12">
+        <fill>
+          <SolidColor/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M13 11 1 11 1 1 13 1 13 11">
+        <fill>
+          <LinearGradient>
+            <GradientEntry ratio="0" color="#3E4554"/>
+            <GradientEntry ratio="0.41568627" color="#393E4C"/>
+            <GradientEntry ratio="0.54509804" color="#383D4A"/>
+            <GradientEntry ratio="0.58823529" color="#565B68"/>
+            <GradientEntry ratio="1" color="#454A54"/>
+            <matrix>
+              <Matrix a="12.425" c="0.025" d="2.35" tx="0.7875" ty="6"/>
+            </matrix>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

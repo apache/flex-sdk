@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="DateChooser/DateField/DateField_overSkin" version="2.0" afx:className="DateField_overSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M14 3.25 14 10.75Q14 12.05 13.5 12.85 12.7 14 10.75 14L3.25 14Q1.3 14 0.55 12.85 0 12.05 0 10.75L0 3.25Q0 2.75 0.1 2.35 0.5 0 3.25 0L10.75 0Q13.5 0 13.95 2.35 14 2.75 14 3.25">
+        <fill>
+          <LinearGradient x="7.0625" y="14" scaleX="14.000558" rotation="269.48844">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#BFBFBF" alpha="0.95294118"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M13 3.35Q13 3.55 13 3.75L13 10.2Q13 13 10.25 13L3.8 13Q1 13 1 10.2L1 3.75Q1 3.55 1.05 3.35 1.2 1 3.8 1L10.25 1Q12.8 1 13 3.35">
+        <fill>
+          <LinearGradient x="6.975" y="13" scaleX="12.000104" rotation="270.23873">
+            <GradientEntry ratio="0" color="#282828"/>
+            <GradientEntry ratio="1" color="#6A6B6A"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="dates" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Group>
+        <Path x="27.9" y="-19" data="M-16.35 23 -16.35 25 -18 25 -18 23 -16.35 23M-23.75 23 -23.75 25 -25.35 25 -25.35 23 -23.75 23M-21.3 23 -21.3 25 -22.9 25 -22.9 23 -21.3 23M-22.9 28 -22.9 26 -21.3 26 -21.3 28 -22.9 28M-21.3 29 -21.3 31 -22.9 31 -22.9 29 -21.3 29M-23.75 28 -25.35&#xA; 28 -25.35 26 -23.75 26 -23.75 28M-20.45 26 -18.85 26 -18.85 28 -20.45 28 -20.45 26M-23.75 31 -25.35 31 -25.35 29 -23.75 29 -23.75 31M-20.45 29 -18.85 29 -18.85 31 -20.45 31 -20.45 29M-16.35 28 -18 28 -18 26 -16.35 26 -16.35 28M-16.35 29 -16.35&#xA; 31 -18 31 -18 29 -16.35 29M-18.85 23 -18.85 25 -20.45 25 -20.45 23 -18.85 23">
+          <fill>
+            <SolidColor color="#CCCCCC"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="header" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M2.85 2 11 2">
+        <stroke>
+          <LinearGradientStroke caps="square">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#BFBFBF" alpha="0.95294118"/>
+            <matrix>
+              <Matrix a="-0.025" b="-1.8" c="1.625" d="0" tx="6.9125" ty="2.9"/>
+            </matrix>
+          </LinearGradientStroke>
+        </stroke>
+      </Path>
+      <Path data="M2.85 3 11 3">
+        <stroke>
+          <LinearGradientStroke caps="square">
+            <GradientEntry ratio="0" color="#282828"/>
+            <GradientEntry ratio="1" color="#6A6B6A"/>
+            <matrix>
+              <Matrix a="-0.025" b="-1.8" c="1.625" d="0" tx="6.9125" ty="3.9"/>
+            </matrix>
+          </LinearGradientStroke>
+        </stroke>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 8" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M5.1 9 5.1 7 6.7 7 6.7 9 5.1 9">
+        <stroke>
+          <SolidColorStroke weight="0.25" caps="square" color="#FF0000"/>
+        </stroke>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

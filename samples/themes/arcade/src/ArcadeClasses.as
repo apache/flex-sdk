@@ -87,7 +87,8 @@ internal class ArcadeClasses
 	import arcade.skins.VSliderSkin; VSliderSkin;
 	import arcade.skins.VSliderThumbSkin; VSliderThumbSkin;
 	import arcade.skins.VSliderTrackSkin; VSliderTrackSkin;
-	import arcade.skins.VideoPlayerSkin; VideoPlayerSkin;
+	//don't have graphics for VideoPlayerSkin
+	//import arcade.skins.VideoPlayerSkin; VideoPlayerSkin;
 
 }
 

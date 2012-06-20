@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Slider/SliderHighlight_Skin" version="2.0" afx:className="SliderHighlight_Skin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="glow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M46.45 0Q46.75 0 47 0.05L47 2.95Q46.75 3 46.45 3L0.35 3Q0.15 3 0 3L0 0.05Q0.15 0 0.35 0L46.45 0">
+        <fill>
+          <LinearGradient x="23.4" y="4.45" scaleX="5.9" rotation="270">
+            <GradientEntry ratio="0" color="#FFFFFF" alpha="0.13333333"/>
+            <GradientEntry ratio="0.5254902" color="#FFFFFF" alpha="0.83137255"/>
+            <GradientEntry ratio="1" color="#FFFFFF" alpha="0.082352941"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="progress" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M46.45 1Q46.75 1 47 1.05L47 2Q46.75 2 46.45 2L0.65 2Q0.25 2 0 2L0 1.05Q0.25 1 0.65 1L46.45 1">
+        <fill>
+          <SolidColor color="#7D7D7D"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

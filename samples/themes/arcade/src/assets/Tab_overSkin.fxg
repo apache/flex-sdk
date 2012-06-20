@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Tab/Tab_overSkin" version="2.0" afx:className="Tab_overSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 2" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M52 0 52 22 0 22 0 0 52 0">
+        <fill>
+          <SolidColor color="#0295D2"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M51 22 1 22 1 1 51 1 51 22">
+        <fill>
+          <LinearGradient x="21.8" y="23.675" scaleX="23.85" rotation="270">
+            <GradientEntry ratio="0" color="#1A1A1A"/>
+            <GradientEntry ratio="0.24705882" color="#414141"/>
+            <GradientEntry ratio="0.55686275" color="#484848"/>
+            <GradientEntry ratio="0.58431373" color="#5E5E5E"/>
+            <GradientEntry ratio="1" color="#4B4B4B"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="TextArea/TextArea_borderSkin" version="2.0" afx:className="TextArea_borderSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group scaleGridLeft="3.65" scaleGridRight="116.55" scaleGridTop="3.65" scaleGridBottom="105.95">
+    <Path data="M117.65 1Q121 1 121 4.4L121 107.65Q121 111 117.65 111L4.3 111Q1 111 1 107.65L1 4.4Q1 1 4.3 1L117.65 1">
+      <fill>
+        <SolidColor color="#464646"/>
+      </fill>
+    </Path>
+    <Path data="M117.65 1 4.3 1Q1 1 1 4.4L1 107.65Q1 111 4.3 111L117.65 111Q121 111 121 107.65L121 4.4Q121 1 117.65 1M118.6 0Q122 0 122 3.5L122 108.6Q122 112 118.6 112L3.35 112Q0 112 0 108.6L0 3.5Q0 0 3.35 0L118.6 0">
+      <fill>
+        <SolidColor color="#6A6A6A"/>
+      </fill>
+    </Path>
+  </Group>
+</Graphic>

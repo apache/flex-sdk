@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="RadioButton/RadioButton_icon" version="2.0" afx:className="RadioButton_icon" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="border" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M11.95 2.05Q14 4.1 14 7 14 9.9 11.95 11.95 9.9 14 7 14 4.1 14 2.05 11.95 0 9.9 0 7 0 4.1 2.05 2.05 4.1 0 7 0 9.9 0 11.95 2.05M13 7Q13 4.5 11.25 2.75 9.5 1 7 1 4.5 1 2.75 2.75 1 4.5 1 7 1 9.5 2.75 11.25 4.5 13 7 13 9.5 13 11.25 11.25 13 9.5 13&#xA; 7">
+        <fill>
+          <LinearGradient x="7" y="0" scaleX="14" rotation="90">
+            <GradientEntry ratio="0" color="#4D2600"/>
+            <GradientEntry ratio="1" color="#9E4F00"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="innerBorder" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M7 1Q9.5 1 11.25 2.75 13 4.5 13 7 13 9.5 11.25 11.25 9.5 13 7 13 4.5 13 2.75 11.25 1 9.5 1 7 1 4.5 2.75 2.75 4.5 1 7 1">
+        <fill>
+          <LinearGradient x="8" y="12.9875" scaleX="11.675" rotation="270">
+            <GradientEntry ratio="0" color="#AAAB8B"/>
+            <GradientEntry ratio="1" color="#82826B"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fill" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M7 2Q9.05 2 10.55 3.45 12 4.9 12 7 12 9.05 10.55 10.55 9.05 12 7 12 4.9 12 3.45 10.55 2 9.05 2 7 2 4.9 3.45 3.45 4.9 2 7 2">
+        <fill>
+          <LinearGradient x="6.1" y="11.9625" scaleX="9.725" rotation="270">
+            <GradientEntry ratio="0" color="#CCCCCC" alpha="0.4"/>
+            <GradientEntry ratio="1" color="#FFFFFF" alpha="0.6"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="icon" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="transitions" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="states" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+  </Group>
+</Graphic>

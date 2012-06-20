@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="PopUpButton/PopUpButton_upSkin" version="2.0" afx:className="PopUpButton_upSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="art" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M87 22 0 22 0 0 87 0 87 22">
+        <fill>
+          <SolidColor/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 3" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M86 21 1 21 1 1 86 1 86 21">
+        <fill>
+          <LinearGradient>
+            <GradientEntry ratio="0" color="#3E4554"/>
+            <GradientEntry ratio="0.41568627" color="#393E4C"/>
+            <GradientEntry ratio="0.54509804" color="#383D4A"/>
+            <GradientEntry ratio="0.58823529" color="#565B68"/>
+            <GradientEntry ratio="1" color="#454A54"/>
+            <matrix>
+              <Matrix a="0" b="-20.7" c="20" d="-0.025" tx="43.5" ty="21.35"/>
+            </matrix>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 2" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M67 1 67 21 66 21 66 1 67 1">
+        <fill>
+          <SolidColor/>
+        </fill>
+      </Path>
+      <Path data="M67 21 67 1 68 1 68 21 67 21">
+        <fill>
+          <SolidColor color="#FFFFFF" alpha="0.2"/>
+        </fill>
+      </Path>
+      <Path data="M76.95 14.5 71 8.5 83 8.5 76.95 14.5">
+        <fill>
+          <SolidColor color="#333333"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M76.95 13 72 9 82 9 76.95 13">
+        <fill>
+          <SolidColor color="#8E93C5"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

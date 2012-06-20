@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="DateChooser/DateChooser_rollOverIndicatorSkin" version="2.0" afx:className="DateChooser_rollOverIndicatorSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="border" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Group>
+        <Path data="M14.1 0 20 5.85 20 14.1 14.1 20 5.85 19.95 0 14.1 0 5.85 5.85 0 14.1 0">
+          <fill>
+            <SolidColor color="#8C8C73"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="art" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M19 13.7 13.7 19 6.25 18.95 1 13.7 1 6.25 6.25 1 13.7 1 19 6.25 19 13.7">
+        <fill>
+          <LinearGradient x="11" y="0" scaleX="18" rotation="90">
+            <GradientEntry ratio="0" color="#E1DFD0"/>
+            <GradientEntry ratio="1" color="#C7C4AF"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="DragManager/DragManager_copyCursor" version="2.0" afx:className="DragManager_copyCursor" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Library>
+    <Definition name="CursorManager_Cursor" flm:originalName="CursorManager/Cursor">
+      <Group>
+        <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+          <Path data="M6 16 8 16 8 14 9 14 9 17 6 17 6 16 5 16 5 14 4 14 4 12 3 12 3 13 2 13 2 14 1 14 1 15 0 15 0 0 1 0 1 1 2 1 2 2 3 2 3 3 4 3 4 4 5 4 5 5 6 5 6 6 7 6 7 7 8 7 8 8 9 8 9 9 10 9 10 10 11 10 11 11 7 11 7 12 8 12 8 14 7 14 7 12 6 12 6 10 9 10 9 9 8&#xA; 9 8 8 7 8 7 7 6 7 6 6 5 6 5 5 4 5 4 4 3 4 3 3 2 3 2 2 1 2 1 13 2 13 2 12 3 12 3 11 4 11 4 12 5 12 5 14 6 14 6 16">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+          <Path data="M8 14 8 16 6 16 6 14 5 14 5 12 4 12 4 11 3 11 3 12 2 12 2 13 1 13 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 6 10 6 12 7 12 7 14 8 14">
+            <fill>
+              <SolidColor/>
+            </fill>
+          </Path>
+        </Group>
+      </Group>
+    </Definition>
+  </Library>
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <CursorManager_Cursor/>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 2" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M16.8 8.5Q16.9 8.5 17.05 8.5 19.75 8.5 21.65 10.4 23.5 12.25 23.55 15 23.5 17.7 21.65 19.6 19.75 21.45 17.05 21.5 14.3 21.45 12.4 19.6 10.5 17.7 10.55 15 10.6 15.95 10.95 16.8 11.4 17.9 12.25 18.7 13.05 19.55 14.15 20 15.25 20.5 16.5 20.5 18.95&#xA; 20.45 20.7 18.7 22.3 17.15 22.5 15.05 22.5 14.8 22.5 14.5 22.45 12 20.7 10.25 19.05 8.6 16.8 8.5">
+        <fill>
+          <SolidColor alpha="0.2"/>
+        </fill>
+      </Path>
+      <Path data="M20.5 15.5 17.5 15.5 17.5 18.5 15.5 18.5 15.5 15.5 12.5 15.5 12.5 13.5 15.5 13.5 15.5 10.5 17.5 10.5 17.5 13.5 20.5 13.5 20.5 15.5">
+        <fill>
+          <SolidColor color="#FFFFFF"/>
+        </fill>
+      </Path>
+      <Path data="M20.5 15.5 20.5 13.5 17.5 13.5 17.5 10.5 15.5 10.5 15.5 13.5 12.5 13.5 12.5 15.5 15.5 15.5 15.5 18.5 17.5 18.5 17.5 15.5 20.5 15.5M10.55 15Q10.5 14.75 10.5 14.5 10.5 13.25 10.95 12.15 11.4 11.05 12.25 10.25 13.05 9.4 14.15 8.95 15.25 8.5 16.5&#xA; 8.5 16.65 8.5 16.8 8.5 19.05 8.6 20.7 10.25 22.45 12 22.5 14.5 22.5 14.8 22.5 15.05 22.3 17.15 20.7 18.7 18.95 20.45 16.5 20.5 15.25 20.5 14.15 20 13.05 19.55 12.25 18.7 11.4 17.9 10.95 16.8 10.6 15.95 10.55 15">
+        <fill>
+          <RadialGradient x="16.5" y="14.5" scaleX="12" scaleY="12">
+            <GradientEntry ratio="0" color="#848484"/>
+            <GradientEntry ratio="1" color="#A7A8A8"/>
+          </RadialGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

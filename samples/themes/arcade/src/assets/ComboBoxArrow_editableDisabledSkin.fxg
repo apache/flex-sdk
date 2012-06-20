@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="ComboBox/ComboBoxArrow_editableDisabledSkin" version="2.0" afx:className="ComboBoxArrow_editableDisabledSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group scaleGridRight="17" scaleGridBottom="22">
+    <Path data="M6 9 16 9 10.95 13 6 9">
+      <fill>
+        <SolidColor color="#8E93C5" alpha="0.50196081"/>
+      </fill>
+    </Path>
+    <Path data="M2 1 2 21 1 21 1 1 2 1">
+      <fill>
+        <SolidColor color="#FFFFFF" alpha="0.2"/>
+      </fill>
+    </Path>
+    <Path data="M21 22 0 22 0 0 21 0 21 22M2 21 20 21 20 1 2 1 1 1 1 21 2 21">
+      <fill>
+        <SolidColor alpha="0.25098041"/>
+      </fill>
+    </Path>
+    <Path data="M2 1 20 1 20 21 2 21 2 1M5 8.5 10.95 14.5 17 8.5 5 8.5">
+      <fill>
+        <LinearGradient>
+          <GradientEntry ratio="0" color="#3E4554" alpha="0.25098039"/>
+          <GradientEntry ratio="0.41568627" color="#393E4C" alpha="0.25098039"/>
+          <GradientEntry ratio="0.54509804" color="#383D4A" alpha="0.25098039"/>
+          <GradientEntry ratio="0.58823529" color="#565B68" alpha="0.51372549"/>
+          <GradientEntry ratio="1" color="#454A54" alpha="0.50196078"/>
+          <matrix>
+            <Matrix a="0" b="-20.7" c="20" d="-0.025" tx="-22.5" ty="21.35"/>
+          </matrix>
+        </LinearGradient>
+      </fill>
+    </Path>
+    <Path data="M5 8.5 17 8.5 10.95 14.5 5 8.5M6 9 10.95 13 16 9 6 9">
+      <fill>
+        <LinearGradient x="5" y="11.5" scaleX="12">
+          <GradientEntry ratio="0" color="#3E4554" alpha="0.25098039"/>
+          <GradientEntry ratio="0.41568627" color="#393E4C" alpha="0.25098039"/>
+          <GradientEntry ratio="0.54509804" color="#383D4A" alpha="0.25098039"/>
+          <GradientEntry ratio="0.58823529" color="#565B68" alpha="0.51372549"/>
+          <GradientEntry ratio="1" color="#454A54" alpha="0.50196078"/>
+        </LinearGradient>
+      </fill>
+    </Path>
+  </Group>
+</Graphic>

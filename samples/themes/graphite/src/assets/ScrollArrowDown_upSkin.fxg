@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="ScrollBar/ScrollArrowDown_upSkin" version="2.0" afx:className="ScrollArrowDown_upSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M0 14 0 0 15 0 15 14 0 14">
+        <fill>
+          <LinearGradient x="7.5375" y="14.5" scaleX="15.000187" rotation="269.70329">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#7B7C7B" alpha="0.95294118"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M13.5 12.5 1.5 12.5 1.5 1.5 13.5 1.5 13.5 12.5">
+        <fill>
+          <LinearGradient x="7.5375" y="12.8875" scaleX="11.775239" rotation="269.68935">
+            <GradientEntry ratio="0" color="#282828"/>
+            <GradientEntry ratio="1" color="#6A6B6A"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="arrow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path rotation="180" scaleX="-1" y="14" data="M7.05 4.25Q7.5 3.8 7.9 4.25L11.3 8.05Q11.7 8.5 11.3 9L3.7 9Q3.3 8.5 3.75 8L7.05 4.25">
+        <fill>
+          <SolidColor color="#CECECE"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

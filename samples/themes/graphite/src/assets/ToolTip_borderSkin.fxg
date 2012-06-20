@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="ToolTip/ToolTip_borderSkin" version="2.0" afx:className="ToolTip_borderSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 3" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M82 20Q82 22 80 22L6 22Q4.95 22 4.4 21.6 4 21.05 4 20.05L4 6Q4 4.95 4.4 4.45 4.95 4 6 4L80 4Q82 4 82 6L82 20M81.5 20 81.5 6Q81.5 4.5 80 4.5L6 4.5Q5.2 4.5 4.75 4.8 4.5 5.2 4.5 6L4.5 20.05Q4.5 20.8 4.75 21.25 5.2 21.5 6 21.5L80 21.5Q81.5 21.5&#xA; 81.5 20">
+        <fill>
+          <SolidColor color="#333333" alpha="0.83137256"/>
+        </fill>
+      </Path>
+      <Path data="M81.5 20Q81.5 21.5 80 21.5L6 21.5Q5.2 21.5 4.75 21.25 4.5 20.8 4.5 20.05L4.5 6Q4.5 5.2 4.75 4.8 5.2 4.5 6 4.5L80 4.5Q81.5 4.5 81.5 6L81.5 20">
+        <fill>
+          <SolidColor color="#333333"/>
+        </fill>
+      </Path>
+      <Path data="M83.5 20 83.5 6Q83.5 2.5 80 2.5L6 2.5Q4.2 2.5 3.35 3.35 2.5 4.25 2.5 6L2.5 20Q2.5 21.75 3.35 22.65 4.2 23.5 6 23.5L80 23.5Q83.5 23.5 83.5 20M84 6 84 20Q84 24 80 24L6 24Q4 24 3 23 2 22 2 20L2 6Q2 4 3 3 4 2 6 2L80 2Q84 2 84 6">
+        <fill>
+          <SolidColor color="#333333" alpha="0.16078432"/>
+        </fill>
+      </Path>
+      <Path data="M82.5 20Q82.5 22.5 80 22.5L6 22.5Q4.7 22.5 4.05 21.95 3.5 21.3 3.5 20.05L3.5 6Q3.5 4.7 4.05 4.05 4.7 3.5 6 3.5L80 3.5Q82.5 3.5 82.5 6L82.5 20M82 20 82 6Q82 4 80 4L6 4Q4.95 4 4.4 4.45 4 4.95 4 6L4 20.05Q4 21.05 4.4 21.6 4.95 22 6 22L80 22Q82&#xA; 22 82 20">
+        <fill>
+          <SolidColor color="#333333" alpha="0.66274512"/>
+        </fill>
+      </Path>
+      <Path data="M83 20Q83 23 80 23L6 23Q4.45 23 3.7 22.3 3 21.55 3 20.05L3 6Q3 4.5 3.7 3.7 4.45 3 6 3L80 3Q83 3 83 6L83 20M82.5 20 82.5 6Q82.5 3.5 80 3.5L6 3.5Q4.7 3.5 4.05 4.05 3.5 4.7 3.5 6L3.5 20.05Q3.5 21.3 4.05 21.95 4.7 22.5 6 22.5L80 22.5Q82.5 22.5 82.5&#xA; 20">
+        <fill>
+          <SolidColor color="#333333" alpha="0.49803922"/>
+        </fill>
+      </Path>
+      <Path data="M83.5 20Q83.5 23.5 80 23.5L6 23.5Q4.2 23.5 3.35 22.65 2.5 21.75 2.5 20L2.5 6Q2.5 4.25 3.35 3.35 4.2 2.5 6 2.5L80 2.5Q83.5 2.5 83.5 6L83.5 20M83 20 83 6Q83 3 80 3L6 3Q4.45 3 3.7 3.7 3 4.5 3 6L3 20.05Q3 21.55 3.7 22.3 4.45 23 6 23L80 23Q83 23&#xA; 83 20">
+        <fill>
+          <SolidColor color="#333333" alpha="0.32941177"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:locked="true" aaa:type="layer" aaa:userLabel="Layer 2" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M82 4 82 18Q82 22 78 22L4 22Q-0.05 22 0 18L0 4Q-0.05 0 4 0L78 0Q82 0 82 4">
+        <fill>
+          <SolidColor color="#464646"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Slider/VSlider_thumbSkin" version="2.0" afx:className="VSlider_thumbSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="border" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M9.85 14 4.1 13.95 0 9.85 0 4.1 4.1 0 9.85 0 14 4.1 14 9.85 9.85 14">
+        <fill>
+          <LinearGradient x="0" y="7" scaleX="14">
+            <GradientEntry ratio="0" color="#C06103"/>
+            <GradientEntry ratio="1" color="#643302"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fill" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M9.05 2 12 4.9 12 9.05 9.05 12 4.9 11.95 2 9.05 2 4.9 4.9 2 9.05 2">
+        <fill>
+          <LinearGradient x="2" y="5.9" scaleX="10">
+            <GradientEntry ratio="0" color="#562B00"/>
+            <GradientEntry ratio="1" color="#9C4E00"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="grain" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M8.1 2.05 9.15 2.05Q8.95 3.2 8.65 4.75 8.6 4.9 8.55 5.15 8.45 5.8 8.3 6.45 8.2 7.1 8.05 7.85 7.8 9.2 7.6 10.3 7.6 11.15 7.6 12L6.6 12Q6.6 11.15 6.6 10.3 6.8 8.95 7.1 7.5 7.2 6.95 7.3 6.45 7.45 5.8 7.55 5.15 7.6 4.9 7.6 4.75 7.9 3.2 8.1 2.05">
+        <fill>
+          <SolidColor color="#4C2600" alpha="0.25098041"/>
+        </fill>
+      </Path>
+      <Path data="M5.45 11.85 4.8 11.85 4.8 10.15Q4.8 9.5 4.8 9.25 4.8 8.5 5 6.3 5.1 5.7 5.15 5 5.2 4.85 5.2 4.6 5.35 3.35 5.55 1.9L6.2 1.9 5.65 6.65Q5.45 8.6 5.45 9.25 5.45 9.5 5.45 10.15L5.45 11.85">
+        <fill>
+          <SolidColor color="#FFFFFF" alpha="0.10196079"/>
+        </fill>
+      </Path>
+      <Path data="M5.45 11.85 5.45 10.15Q5.45 9.5 5.45 9.25 5.45 8.6 5.65 6.65L6.2 1.9 6.95 1.9Q6.75 3.45 6.6 4.6 6.55 4.85 6.55 5 6.45 5.7 6.4 6.3 6.15 8.6 6.15 9.25 6.15 9.5 6.15 10.15L6.15 11.85 5.45 11.85">
+        <fill>
+          <SolidColor color="#321900" alpha="0.3019608"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="transitions" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="states" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+  </Group>
+</Graphic>

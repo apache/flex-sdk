@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Panel/Panel_controlBarBackgroundSkin" version="2.0" afx:className="Panel_controlBarBackgroundSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="shadow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M-0.625 0.05 -0.625 17.025Q-0.61640625 18.081641 0.15 18.825 0.91816406 19.578516 2 19.575L269.975 19.575Q271.05664 19.578516 271.825 18.825 272.56621 18.081641 272.55 17.025L272.55 0 272.925 0 272.925 17.025Q272.93242 18.229102 272.075 19.075&#xA; 271.2041 19.945312 269.975 19.95L2 19.95Q0.75800781 19.945312 -0.125 19.075 -0.9828125 18.229102 -0.975 17.025L-0.975 0.05 -0.625 0.05">
+        <fill>
+          <SolidColor color="#333333" alpha="0.078431375"/>
+        </fill>
+      </Path>
+      <Path data="M-0.625 0.05 -0.25 0.05 -0.25 17.025Q-0.24980469 17.946484 0.4 18.6 1.0654297 19.224219 2 19.2L269.975 19.2Q270.90918 19.224219 271.575 18.6 272.21172 17.946484 272.2 17.025L272.2 0 272.55 0 272.55 17.025Q272.56621 18.081641 271.825 18.825 271.05664&#xA; 19.578516 269.975 19.575L2 19.575Q0.91816406 19.578516 0.15 18.825 -0.61640625 18.081641 -0.625 17.025L-0.625 0.05">
+        <fill>
+          <SolidColor color="#333333" alpha="0.16078432"/>
+        </fill>
+      </Path>
+      <Path data="M272.2 0 272.2 17.025Q272.21172 17.946484 271.575 18.6 270.90918 19.224219 269.975 19.2L2 19.2Q1.0654297 19.224219 0.4 18.6 -0.24980469 17.946484 -0.25 17.025L-0.25 0.05 0.05 0.05 0.05 17.85 0.325 17.85Q0.45292969 18.106055 0.675 18.325 1.225&#xA; 18.857813 2 18.85L269.975 18.85Q270.74941 18.857813 271.3 18.325 271.52188 18.106055 271.65 17.85L272.05 17.85 272.05 0 272.2 0">
+        <fill>
+          <SolidColor color="#333333" alpha="0.24313726"/>
+        </fill>
+      </Path>
+      <Path data="M270.725 17.85 271.2 17.85Q271.12441 17.954687 271.025 18.05 270.58965 18.491211 269.975 18.5L2 18.5Q1.3851563 18.491211 0.95 18.05 0.85039062 17.954687 0.775 17.85L1.25 17.85Q1.5705078 18.124414 2 18.125L269.975 18.125Q270.40391 18.124414 270.725&#xA; 17.85">
+        <fill>
+          <SolidColor color="#333333" alpha="0.40392157"/>
+        </fill>
+      </Path>
+      <Path data="M1.25 17.85 270.725 17.85Q270.40391 18.124414 269.975 18.125L2 18.125Q1.5705078 18.124414 1.25 17.85">
+        <fill>
+          <SolidColor color="#333333" alpha="0.48627451"/>
+        </fill>
+      </Path>
+      <Path data="M271.65 17.85Q271.52188 18.106055 271.3 18.325 270.74941 18.857813 269.975 18.85L2 18.85Q1.225 18.857813 0.675 18.325 0.45292969 18.106055 0.325 17.85L0.775 17.85Q0.85039062 17.954687 0.95 18.05 1.3851563 18.491211 2 18.5L269.975 18.5Q270.58965&#xA; 18.491211 271.025 18.05 271.12441 17.954687 271.2 17.85L271.65 17.85">
+        <fill>
+          <SolidColor color="#333333" alpha="0.32549021"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fill" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M272 0 272 18 0 18 0 0 272 0">
+        <fill>
+          <SolidColor color="#AAAA89"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

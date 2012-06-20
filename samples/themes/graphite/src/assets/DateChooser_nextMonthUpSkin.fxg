@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="DateChooser/monthChooser/DateChooser_nextMonthUpSkin" version="2.0" afx:className="DateChooser_nextMonthUpSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path scaleX="-1" x="-25" y="29.5" data="M-43 -14.5 -43 -26.5Q-43 -29.5 -40 -29.5L-28 -29.5Q-25 -29.5 -25 -26.5L-25 -14.5Q-25 -11.5 -28 -11.5L-40 -11.5Q-43 -11.5 -43 -14.5">
+        <fill>
+          <LinearGradient x="-34.05" y="-11.5" scaleX="18.000278" rotation="270.31831">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#7B7C7B" alpha="0.95294118"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path scaleX="-1" x="-25" y="29.5" data="M-42 -15.7 -42 -25.3Q-42 -28.5 -38.8 -28.5L-29.2 -28.5Q-26 -28.5 -26 -25.3L-26 -15.7Q-26 -12.5 -29.2 -12.5L-38.8 -12.5Q-42 -12.5 -42 -15.7">
+        <fill>
+          <LinearGradient x="-34" y="-12.5" scaleX="16" rotation="270">
+            <GradientEntry ratio="0" color="#282828"/>
+            <GradientEntry ratio="1" color="#6A6B6A"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="arrow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path scaleX="-1" x="-25" y="29.5" data="M-32 -16.2Q-32.6 -15.75 -33.2 -16.25L-37.75 -20Q-38.3 -20.5 -37.75 -20.95L-33.15 -24.75Q-32.6 -25.2 -32 -24.75L-32 -16.2">
+        <fill>
+          <SolidColor color="#CECECE"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

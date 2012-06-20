@@ -390,7 +390,8 @@
         <ant dir="${basedir}/samples/themes/arcade" target="main" />
         <ant dir="${basedir}/samples/themes/cobalt" target="main" />
         <ant dir="${basedir}/samples/themes/graphite" target="main" />
-        <ant dir="${basedir}/samples/themes/zen" target="main" />
+        <!-- zen theme is missing some assets -->
+        <!--<ant dir="${basedir}/samples/themes/zen" target="main" /> -->
     </target>
 
     <target name="javadocs" unless="no.doc-packages"
@@ -508,6 +509,14 @@
             </fileset>
         </copy>
         
+        <!-- samples -->
+        <copy todir="${basedir}/temp/samples">
+            <fileset dir="${basedir}/samples" >
+                <exclude name="**/*.swc"/>
+                <exclude name="**/*.swf"/>
+            </fileset>
+        </copy>
+        
         <!-- templates -->
         <copy todir="${basedir}/temp/templates">
             <fileset dir="${basedir}/templates" >
@@ -555,6 +564,7 @@
                 <exclude name="**/*.swc"/>
                 <exclude name="**/*.pbj"/>
                 <exclude name="**/*.swf"/>
+                <exclude name="**/*.mxp"/>
                 <!--exclude name="test*/**"/-->
                 <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>

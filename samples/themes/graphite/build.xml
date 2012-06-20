@@ -22,7 +22,10 @@
 <project name="graphite" default="main" basedir=".">
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
-	
+    
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+
 	<property name="THEME_NAME" value="graphite" />
 
 	<property file="${FLEX_HOME}/build.properties"/>
@@ -38,6 +41,9 @@
 				<include name="${THEME_NAME}.swc"/>
 				<include name="${THEME_NAME}.swc.incr"/>
 			</fileset>
+			<fileset dir="${basedir}/src/assets">
+				<include name="flex_skins.swf"/>
+			</fileset>
 		</delete>
 	</target>
 
@@ -51,6 +57,20 @@
 				<pathelement path="${FLEX_HOME}/lib/flexTasks.jar"/>
 			</classpath>
 		</taskdef>
+		<!-- Compile flex_skins.swf from fxg files -->		
+		<mxmlc fork="true"
+               file="${basedir}/src/assets/flex_skins.as"
+			   output="${basedir}/src/assets/flex_skins.swf">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
+            <target-player>10</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+			<source-path path-element="${basedir}/src/assets"/>
+			<library-path/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
+			<locale/>
+		</mxmlc>
 		<!--
 			This project builds a theme SWC containing skin classes.
 			It has no MXML tags and therefore no manifest.
@@ -69,12 +89,14 @@
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
 			</external-library-path>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
 			<include-file name="defaults.css" path="${basedir}/src/defaults.css"/>
 			<include-file name="assets/flex_skins.swf" path="${basedir}/src/assets/flex_skins.swf"/>
 			<include-file name="preview.jpg" path="${basedir}/src/preview.jpg"/>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="CheckBox/CheckBox_selectedOverIcon" version="2.0" afx:className="CheckBox_selectedOverIcon" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="art" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M13 1 13 13 1 13 1 1 13 1">
+        <fill>
+          <SolidColor color="#8E94C8"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 2" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M1.5 13 1.5 1.5 13 1.5 13 2.1 12.95 2.1 12.95 2.05 2.05 2.05 2.05 13 1.5 13">
+        <fill>
+          <SolidColor color="#333333" alpha="0.40000001"/>
+        </fill>
+      </Path>
+      <Path data="M1.5 13 2.05 13 13 13 13 2.1 13 1.5 13 1 1 1 1 13 1.5 13M14 14 0 14 0 0 14 0 14 14">
+        <fill>
+          <SolidColor/>
+        </fill>
+      </Path>
+      <Path data="M13 1.5 1.5 1.5 1.5 13 1 13 1 1 13 1 13 1.5">
+        <fill>
+          <SolidColor color="#333333" alpha="0.60000002"/>
+        </fill>
+      </Path>
+      <Path data="M11 11 3 11 3 3 11 3 11 11">
+        <fill>
+          <SolidColor color="#4E4E4E"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M13 2 2 2 2 13 1 13 1 1 13 1 13 2">
+        <fill>
+          <SolidColor color="#5C6080"/>
+        </fill>
+      </Path>
+      <Path data="M2 13 2 2 13 2 13 3 3 3 3 13 2 13">
+        <fill>
+          <SolidColor color="#6F729A"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

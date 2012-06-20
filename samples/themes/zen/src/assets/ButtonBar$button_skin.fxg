@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="ButtonBar/ButtonBar$button/ButtonBar$button_skin" version="2.0" afx:className="ButtonBar$button_skin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="border" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M44 0 44 22 0 22 0 0 44 0">
+        <fill>
+          <LinearGradient x="-271.7" y="0" scaleX="22" rotation="90">
+            <GradientEntry ratio="0" color="#4C2600"/>
+            <GradientEntry ratio="1" color="#A45200"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="innerFill" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M43 1 43 21 1 21 1 1 43 1">
+        <fill>
+          <LinearGradient x="-235.25" y="1" scaleX="20" rotation="90">
+            <GradientEntry ratio="0" color="#E1AE7B"/>
+            <GradientEntry ratio="0.082352941" color="#B26C26"/>
+            <GradientEntry ratio="1" color="#4C2600"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="grain" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M1 8.2 1 7.2Q22 7.15 43 7.15L43 8.15Q22 8.15 1 8.2">
+        <fill>
+          <SolidColor color="#4C2600" alpha="0.3019608"/>
+        </fill>
+      </Path>
+      <Path data="M43 17.55 43 18.2 1 18.2 1 17.55 43 17.55M1 8.2Q22 8.15 43 8.15L43 8.75Q22 8.75 1 8.75L1 8.2">
+        <fill>
+          <SolidColor color="#FFFFFF" alpha="0.10196079"/>
+        </fill>
+      </Path>
+      <Path data="M43 14 43 15Q22 15 1 15L1 14Q22 13.95 43 14M43 4.8 43 5.45Q22 5.45 1 5.45L1 4.8Q22 4.8 43 4.8">
+        <fill>
+          <SolidColor color="#4C2600" alpha="0.25098041"/>
+        </fill>
+      </Path>
+      <Path data="M43 17.55 1 17.55 1 16.55 43 16.55 43 17.55">
+        <fill>
+          <SolidColor color="#321900" alpha="0.3019608"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="VHighlight" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M43 21 42 21 42 1 43 1 43 21M2 21.05 1 21.05 1 1.05 2 1.05 2 21.05">
+        <fill>
+          <SolidColor color="#4D2600" alpha="0.40000001"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="transitions" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="states" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+  </Group>
+</Graphic>

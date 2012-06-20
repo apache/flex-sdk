@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="AccordionHeader/AccordionHeader_selectedOverSkin" version="2.0" afx:className="AccordionHeader_selectedOverSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M152 22 0 22 0 0 152 0 152 22">
+        <fill>
+          <LinearGradient x="75.9875" y="23.8875" scaleX="25.775012" rotation="270.06034">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#7B7C7B" alpha="0.95294118"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M150 20 2 20 2 2 150 2 150 20">
+        <fill>
+          <LinearGradient x="75.9875" y="21.5375" scaleX="21.075015" rotation="270.06745">
+            <GradientEntry ratio="0" color="#555555"/>
+            <GradientEntry ratio="1" color="#888888"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="inset" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M2 20 2 2 18 2 18 20 2 20">
+        <fill>
+          <LinearGradient>
+            <GradientEntry ratio="0" color="#444444"/>
+            <GradientEntry ratio="1" color="#919191"/>
+            <matrix>
+              <Matrix a="0" b="-19.775" c="2.15" d="0.1" tx="10" ty="20.8875"/>
+            </matrix>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="arrow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M8.8 14.75 5 10.15Q4.55 9.6 5 9L13.55 9Q14 9.6 13.5 10.2L9.75 14.75Q9.25 15.3 8.8 14.75">
+        <fill>
+          <SolidColor color="#CECECE"/>
+        </fill>
+      </Path>
+      <Path scaleY="0.89472961" x="0.05" y="0.25" data="M18.75 2.5 18.75 21.5">
+        <stroke>
+          <SolidColorStroke color="#6F6F6F"/>
+        </stroke>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

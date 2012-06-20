@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="NumericStepper/NumericStepperDownArrow_downSkin" version="2.0" afx:className="NumericStepperDownArrow_downSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path scaleY="1.0185242" data="M0 10.8 0 0 18 0 17.9 6.6Q17.9 10.8 13.95 10.8L0 10.8">
+        <fill>
+          <LinearGradient x="-25.75" y="0.175" scaleX="-10.45" rotation="270">
+            <GradientEntry ratio="0" color="#787878"/>
+            <GradientEntry ratio="1" color="#A0A0A0"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path y="1" data="M0 0 16.9 0 16.9 5Q16.9 8.8 13 8.8L0 8.8 0 0">
+        <fill>
+          <LinearGradient x="-24.4375" y="-0.5375" scaleX="-9.5750326" rotation="270.11061">
+            <GradientEntry ratio="0" color="#787878"/>
+            <GradientEntry ratio="1" color="#A0A0A0"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="arrow" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path scaleY="1.0344849" y="-0.2" data="M10.8 4.5 8.35 6.65Q8.05 6.85 7.75 6.65L5.15 4.4Q4.85 4.15 5.15 3.85L10.85 3.85Q11.15 4.15 10.8 4.5">
+        <fill>
+          <SolidColor color="#CECECE"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

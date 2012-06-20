@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="CheckBox/CheckBox_selectedDownIcon" version="2.0" afx:className="CheckBox_selectedDownIcon" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="bg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path x="-1060.3" y="-1" data="M1073.3 3.75 1073.3 9.3Q1073.3 13 1069.6 13L1064 13Q1061.05 13 1060.45 10.65 1060.3 10.05 1060.3 9.3L1060.3 3.75Q1060.3 3 1060.45 2.4 1061.05 0 1064 0L1069.6 0Q1073.3 0 1073.3 3.75">
+        <fill>
+          <LinearGradient x="1066.8625" y="13" scaleX="13.000601" rotation="269.4491">
+            <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+            <GradientEntry ratio="1" color="#BFBFBF" alpha="0.95294118"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="fg" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path x="-1060.3" y="0.5" data="M1071.8 8.15Q1071.8 10 1070 10L1063.65 10Q1061.8 10 1061.8 8.15L1061.8 1.8Q1061.8 0 1063.65 0L1070 0Q1071.8 0 1071.8 1.8L1071.8 8.15">
+        <fill>
+          <LinearGradient x="1066.8625" y="10" scaleX="10.000781" rotation="269.28384">
+            <GradientEntry ratio="0" color="#787878"/>
+            <GradientEntry ratio="1" color="#A0A0A0"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="check" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <BitmapImage x="2" source="@Embed('GraphiteTheme.assets/images/checkbox_check.png')" fillMode="clip"/>
+    </Group>
+  </Group>
+</Graphic>

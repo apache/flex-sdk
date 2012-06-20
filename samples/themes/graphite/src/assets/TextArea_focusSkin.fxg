@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="TextArea/TextArea_focusSkin" version="2.0" afx:className="TextArea_focusSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group scaleGridLeft="5" scaleGridRight="115.5" scaleGridTop="6" scaleGridBottom="103">
+    <Path data="M117.8 0Q121 0 121 2.9L121 107.05Q121 110 117.8 110L3.2 110Q0 110 0 107.05L0 2.9Q0 0 3.2 0L117.8 0M115.75 1.95 5.25 1.95Q2.15 1.95 2.15 4.7L2.15 105.15Q2.15 108.05 5.25 108.05L115.75 108.05Q118.85 108.05 118.85 105.15L118.85 4.7Q118.85 1.95&#xA; 115.75 1.95">
+      <fill>
+        <LinearGradient x="60.5" y="110" scaleX="110" rotation="270">
+          <GradientEntry ratio="0" color="#7B7C7B" alpha="0.90196078"/>
+          <GradientEntry ratio="1" color="#BFBFBF" alpha="0.95294118"/>
+        </LinearGradient>
+      </fill>
+    </Path>
+  </Group>
+</Graphic>

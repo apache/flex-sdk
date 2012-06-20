@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Panel/Panel_controlBarBackgroundSkin" version="2.0" afx:className="Panel_controlBarBackgroundSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group visible="false" aaa:type="layer" aaa:userLabel="Layer 8" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M0.35 0.05 0.35 17Q0.35 18.05 1.1 18.8 1.85 19.55 2.95 19.55L270.9 19.55Q271.95 19.55 272.75 18.8 273.45 18.05 273.45 17L273.45 0 273.85 0 273.85 17Q273.85 18.2 273 19.05 272.1 19.9 270.9 19.9L2.95 19.9Q1.7 19.9 0.85 19.05 -0.05 18.2 0 17L0&#xA; 0.05 0.35 0.05">
+        <fill>
+          <SolidColor color="#333333" alpha="0.078431375"/>
+        </fill>
+      </Path>
+      <Path data="M273.1 0 273.45 0 273.45 17Q273.45 18.05 272.75 18.8 271.95 19.55 270.9 19.55L2.95 19.55Q1.85 19.55 1.1 18.8 0.35 18.05 0.35 17L0.35 0.05 0.7 0.05 0.7 17Q0.7 17.9 1.35 18.55 2 19.15 2.95 19.15L270.9 19.15Q271.8 19.15 272.5 18.55 273.1 17.9 273.1&#xA; 17L273.1 0">
+        <fill>
+          <SolidColor color="#333333" alpha="0.16078432"/>
+        </fill>
+      </Path>
+      <Path data="M0.7 0.05 1 0.05 1 17.8 1.3 17.8Q1.4 18.05 1.65 18.3 2.2 18.8 2.95 18.8L270.9 18.8Q271.65 18.8 272.2 18.3 272.4 18.05 272.55 17.8L272.95 17.8 272.95 0 273.1 0 273.1 17Q273.1 17.9 272.5 18.55 271.8 19.15 270.9 19.15L2.95 19.15Q2 19.15 1.35 18.55&#xA; 0.7 17.9 0.7 17L0.7 0.05">
+        <fill>
+          <SolidColor color="#333333" alpha="0.24313726"/>
+        </fill>
+      </Path>
+      <Path data="M271.65 17.8 272.1 17.8Q272 17.9 271.95 18 271.5 18.45 270.9 18.45L2.95 18.45Q2.35 18.45 1.9 18 1.8 17.9 1.75 17.8L2.2 17.8Q2.5 18.05 2.95 18.1L270.9 18.1Q271.3 18.05 271.65 17.8">
+        <fill>
+          <SolidColor color="#333333" alpha="0.40392157"/>
+        </fill>
+      </Path>
+      <Path data="M1.3 17.8 1.75 17.8Q1.8 17.9 1.9 18 2.35 18.45 2.95 18.45L270.9 18.45Q271.5 18.45 271.95 18 272 17.9 272.1 17.8L272.55 17.8Q272.4 18.05 272.2 18.3 271.65 18.8 270.9 18.8L2.95 18.8Q2.2 18.8 1.65 18.3 1.4 18.05 1.3 17.8">
+        <fill>
+          <SolidColor color="#333333" alpha="0.32549021"/>
+        </fill>
+      </Path>
+      <Path data="M2.2 17.8 271.65 17.8Q271.3 18.05 270.9 18.1L2.95 18.1Q2.5 18.05 2.2 17.8">
+        <fill>
+          <SolidColor color="#333333" alpha="0.48627451"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group visible="false" aaa:type="layer" aaa:userLabel="Layer 5" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M275.9 0 275.9 17.95 0.95 17.95 0.95 0 275.9 0">
+        <fill>
+          <SolidColor color="#4E4F50"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group visible="false" aaa:type="layer" aaa:userLabel="Layer 10" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M271.95 17.7 272 17.7Q273.4 15.95 273.4 13.55L273.4 2.5 -0.5 2.5 -0.5 13.55Q-0.5 15.95 0.85 17.7 2.25 19.4 4.1 19.4L268.8 19.4Q270.65 19.4 271.95 17.7M272.35 18Q270.9 19.9 268.8 19.9L4.1 19.9Q2 19.9 0.45 18 -1 16.15 -1 13.55L-1 2 273.9 2 273.9&#xA; 13.55Q273.9 16.15 272.35 18">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.094117649"/>
+        </fill>
+      </Path>
+      <Path data="M271.95 17.7Q270.65 19.4 268.8 19.4L4.1 19.4Q2.25 19.4 0.85 17.7 -0.5 15.95 -0.5 13.55L-0.5 2.5 273.4 2.5 273.4 13.55Q273.4 15.95 272 17.7L271.95 17.7M271.55 17.4 271.6 17.35Q272.9 15.75 272.9 13.55L272.9 3 0 3 0 13.55Q0 15.8 1.25 17.4 2.45&#xA; 18.9 4.1 18.9L268.8 18.9Q270.4 18.9 271.55 17.4">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.19607843"/>
+        </fill>
+      </Path>
+      <Path data="M271.15 17.1 271.2 17.05Q272.4 15.6 272.4 13.55L272.4 3.5 0.5 3.5 0.5 13.55Q0.5 15.6 1.6 17.05L1.65 17.1Q2.7 18.35 4.1 18.4L268.8 18.4Q270.2 18.35 271.15 17.1M271.55 17.4Q270.4 18.9 268.8 18.9L4.1 18.9Q2.45 18.9 1.25 17.4 0 15.8 0 13.55L0 3&#xA; 272.9 3 272.9 13.55Q272.9 15.75 271.6 17.35L271.55 17.4">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.29411766"/>
+        </fill>
+      </Path>
+      <Path data="M268.8 17.9Q269.95 17.85 270.75 16.8 270.8 16.75 270.85 16.75 271.9 15.4 271.9 13.55L271.9 4 1 4 1 13.55Q1 15.45 2.05 16.8L2 16.75Q2.9 17.85 4.1 17.9L268.8 17.9M271.15 17.1Q270.2 18.35 268.8 18.4L4.1 18.4Q2.7 18.35 1.65 17.1L1.6 17.05Q0.5 15.6&#xA; 0.5 13.55L0.5 3.5 272.4 3.5 272.4 13.55Q272.4 15.6 271.2 17.05L271.15 17.1">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.39607844"/>
+        </fill>
+      </Path>
+      <Path data="M268.8 17.4Q269.7 17.35 270.4 16.5 270.4 16.45 270.45 16.4 271.4 15.2 271.4 13.55L271.4 4.5 1.5 4.5 1.5 13.55Q1.5 15.25 2.45 16.45L2.4 16.45Q3.1 17.35 4.1 17.4L268.8 17.4M268.8 17.9 4.1 17.9Q2.9 17.85 2 16.75L2.05 16.8Q1 15.45 1 13.55L1 4 271.9&#xA; 4 271.9 13.55Q271.9 15.4 270.85 16.75 270.8 16.75 270.75 16.8 269.95 17.85 268.8 17.9">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.49803922"/>
+        </fill>
+      </Path>
+      <Path data="M268.8 17.4 4.1 17.4Q3.1 17.35 2.4 16.45L2.45 16.45Q1.5 15.25 1.5 13.55L1.5 4.5 271.4 4.5 271.4 13.55Q271.4 15.2 270.45 16.4 270.4 16.45 270.4 16.5 269.7 17.35 268.8 17.4M268.8 16.9Q269.5 16.8 270 16.2 270 16.15 270.05 16.1 270.95 15.05 270.9&#xA; 13.55L270.9 5 2 5 2 13.55Q2 15.05 2.8 16.15L2.8 16.1Q3.35 16.8 4.1 16.9L268.8 16.9">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.59607846"/>
+        </fill>
+      </Path>
+      <Path data="M268.8 16.9 4.1 16.9Q3.35 16.8 2.8 16.1L2.8 16.15Q2 15.05 2 13.55L2 5 270.9 5 270.9 13.55Q270.95 15.05 270.05 16.1 270 16.15 270 16.2 269.5 16.8 268.8 16.9M268.8 16.4Q269.25 16.3 269.6 15.9 269.65 15.8 269.7 15.75 270.45 14.85 270.4 13.55L270.4&#xA; 5.5 2.5 5.5 2.5 13.55Q2.5 14.9 3.2 15.85 3.6 16.3 4.1 16.4L268.8 16.4">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.69803923"/>
+        </fill>
+      </Path>
+      <Path data="M269.3 15.45Q269.95 14.65 269.9 13.55L269.9 6 3 6 3 13.55Q3 14.7 3.6 15.55 3.85 15.8 4.1 15.9L268.8 15.9Q269 15.8 269.2 15.6 269.25 15.5 269.3 15.45M268.8 16.4 4.1 16.4Q3.6 16.3 3.2 15.85 2.5 14.9 2.5 13.55L2.5 5.5 270.4 5.5 270.4 13.55Q270.45&#xA; 14.85 269.7 15.75 269.65 15.8 269.6 15.9 269.25 16.3 268.8 16.4">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.79607844"/>
+        </fill>
+      </Path>
+      <Path data="M269.3 15.45Q269.25 15.5 269.2 15.6 269 15.8 268.8 15.9L4.1 15.9Q3.85 15.8 3.6 15.55 3 14.7 3 13.55L3 6 269.9 6 269.9 13.55Q269.95 14.65 269.3 15.45M268.9 15.1Q269.45 14.45 269.4 13.55L269.4 6.5 3.5 6.5 3.5 13.55Q3.5 14.5 4 15.25L3.95 15.15&#xA;Q4.05 15.3 4.1 15.4L268.8 15.4Q268.75 15.35 268.8 15.3 268.85 15.2 268.9 15.1">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.89803922"/>
+        </fill>
+      </Path>
+      <Path data="M268.9 15.1Q268.85 15.2 268.8 15.3 268.75 15.35 268.8 15.4L4.1 15.4Q4.05 15.3 3.95 15.15L4 15.25Q3.5 14.5 3.5 13.55L3.5 6.5 269.4 6.5 269.4 13.55Q269.45 14.45 268.9 15.1">
+        <fill>
+          <SolidColor color="#4E4F50"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group visible="false" aaa:type="layer" aaa:userLabel="Layer 9" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M274.9 0 274.9 11.55Q274.9 14.15 273.35 16 271.9 17.9 269.8 17.9L5.1 17.9Q3 17.9 1.45 16 0 14.15 0 11.55L0 0 274.9 0">
+        <fill>
+          <SolidColor color="#4E4F50"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group visible="false" aaa:type="layer" aaa:userLabel="Layer 12" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M275 2 275 12Q275 16.15 272.4 19.05 269.85 22 266.2 22L8.8 22Q5.15 22 2.55 19.05 0 16.15 0 12L0 2 275 2M274.5 12 274.5 2.5 0.5 2.5 0.5 12Q0.5 15.95 2.95 18.75 5.35 21.5 8.8 21.5L266.2 21.5Q269.65 21.5 272.05 18.75 274.5 15.95 274.5 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.094117649"/>
+        </fill>
+      </Path>
+      <Path data="M274 12 274 3 1 3 1 12Q1 15.75 3.3 18.4 5.6 21 8.8 21L266.2 21Q269.4 21 271.65 18.4 274 15.75 274 12M274.5 12Q274.5 15.95 272.05 18.75 269.65 21.5 266.2 21.5L8.8 21.5Q5.35 21.5 2.95 18.75 0.5 15.95 0.5 12L0.5 2.5 274.5 2.5 274.5 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.19607843"/>
+        </fill>
+      </Path>
+      <Path data="M273.5 12 273.5 3.5 1.5 3.5 1.5 12Q1.5 15.55 3.7 18.05 5.8 20.5 8.8 20.5L266.2 20.5Q269.2 20.5 271.3 18.1L271.3 18.05Q273.5 15.55 273.5 12M274 12Q274 15.75 271.65 18.4 269.4 21 266.2 21L8.8 21Q5.6 21 3.3 18.4 1 15.75 1 12L1 3 274 3 274 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.29411766"/>
+        </fill>
+      </Path>
+      <Path data="M273.5 12Q273.5 15.55 271.3 18.05L271.3 18.1Q269.2 20.5 266.2 20.5L8.8 20.5Q5.8 20.5 3.7 18.05 1.5 15.55 1.5 12L1.5 3.5 273.5 3.5 273.5 12M273 12 273 4 2 4 2 12Q2 15.35 4.05 17.75 6.05 19.95 8.8 20L266.2 20Q268.95 20 270.9 17.75 273 15.35 273&#xA; 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.39607844"/>
+        </fill>
+      </Path>
+      <Path data="M272.5 12 272.5 4.5 2.5 4.5 2.5 12Q2.5 15.2 4.45 17.4 6.25 19.45 8.8 19.5L266.2 19.5Q268.75 19.5 270.5 17.45L270.55 17.4Q272.55 15.15 272.5 12M273 12Q273 15.35 270.9 17.75 268.95 20 266.2 20L8.8 20Q6.05 19.95 4.05 17.75 2 15.35 2 12L2 4 273&#xA; 4 273 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.49803922"/>
+        </fill>
+      </Path>
+      <Path data="M272 12 272 5 3 5 3 12Q2.95 15 4.8 17.1 6.45 18.95 8.8 19L266.2 19Q268.5 18.95 270.15 17.1L270.2 17.05Q272.05 15 272 12M272.5 12Q272.55 15.15 270.55 17.4L270.5 17.45Q268.75 19.5 266.2 19.5L8.8 19.5Q6.25 19.45 4.45 17.4 2.5 15.2 2.5 12L2.5 4.5&#xA; 272.5 4.5 272.5 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.59607846"/>
+        </fill>
+      </Path>
+      <Path data="M271.5 12 271.5 5.5 3.5 5.5 3.5 12Q3.45 14.8 5.2 16.75 6.7 18.45 8.8 18.5L266.2 18.5Q268.3 18.45 269.75 16.75L269.8 16.75Q271.55 14.8 271.5 12M272 12Q272.05 15 270.2 17.05L270.15 17.1Q268.5 18.95 266.2 19L8.8 19Q6.45 18.95 4.8 17.1 2.95 15 3&#xA; 12L3 5 272 5 272 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.69803923"/>
+        </fill>
+      </Path>
+      <Path data="M271 12 271 6 4 6 4 12Q3.95 14.6 5.55 16.4 6.9 17.95 8.8 18L266.2 18Q268.05 17.95 269.4 16.45 269.4 16.4 269.45 16.4 271.05 14.6 271 12M271.5 12Q271.55 14.8 269.8 16.75L269.75 16.75Q268.3 18.45 266.2 18.5L8.8 18.5Q6.7 18.45 5.2 16.75 3.45 14.8&#xA; 3.5 12L3.5 5.5 271.5 5.5 271.5 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.79607844"/>
+        </fill>
+      </Path>
+      <Path data="M270.5 12 270.5 6.5 4.5 6.5 4.5 12Q4.45 14.4 5.95 16.1 7.15 17.45 8.8 17.5L266.2 17.5Q267.85 17.45 269 16.1 269.05 16.1 269.05 16.05 270.55 14.4 270.5 12M271 12Q271.05 14.6 269.45 16.4 269.4 16.4 269.4 16.45 268.05 17.95 266.2 18L8.8 18Q6.9&#xA; 17.95 5.55 16.4 3.95 14.6 4 12L4 6 271 6 271 12">
+        <fill>
+          <SolidColor color="#4E4F50" alpha="0.89803922"/>
+        </fill>
+      </Path>
+      <Path data="M270.5 12Q270.55 14.4 269.05 16.05 269.05 16.1 269 16.1 267.85 17.45 266.2 17.5L8.8 17.5Q7.15 17.45 5.95 16.1 4.45 14.4 4.5 12L4.5 6.5 270.5 6.5 270.5 12">
+        <fill>
+          <SolidColor color="#4E4F50"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group visible="false" aaa:type="layer" aaa:userLabel="Layer 11" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M272.4 17.05Q269.85 20 266.2 20L8.8 20Q5.15 20 2.55 17.05 0 14.15 0 10L0 0 275 0 275 10Q275 14.15 272.4 17.05">
+        <fill>
+          <SolidColor color="#4E4F50"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 14" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="Layer 15" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="Layer 13" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="border" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M280 32 0 32 0 0 280 0 280 32">
+        <fill>
+          <SolidColor color="#323232"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 17" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M279 31 1 31 1 1 279 1 279 31">
+        <fill>
+          <SolidColor color="#262626"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="backgrounds" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+  </Group>
+</Graphic>

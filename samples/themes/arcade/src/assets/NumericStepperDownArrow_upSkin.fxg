@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="NumericStepper/NumericStepperDownArrow_upSkin" version="2.0" afx:className="NumericStepperDownArrow_upSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="art" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M0 11 0 10 14.15 10Q17 9.95 17 7L17 0 18 0 18 7Q18 11 14 11L0 11">
+        <fill>
+          <SolidColor/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 2" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M17 7Q17 9.95 14.15 10L0 10 0 0 17 0 17 7">
+        <fill>
+          <SolidColor color="#353A47"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M14 2.5 8.95 6.5 4 2.5 14 2.5">
+        <fill>
+          <SolidColor color="#8E93C5"/>
+        </fill>
+      </Path>
+      <Path data="M14 2.5 4 2.5 8.95 6.5 14 2.5M15 2 8.95 8 3 2 15 2">
+        <fill>
+          <SolidColor color="#333333"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

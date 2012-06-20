@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<Graphic flm:originalName="Slider/Slider_trackSkin" version="2.0" afx:className="Slider_trackSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Group>
+        <Path data="M78 1 1 1 1 0 78 0 78 1 79 1 79 2 78.05 2 78 2 78 1">
+          <fill>
+            <SolidColor color="#4C2600"/>
+          </fill>
+        </Path>
+        <Path data="M2.05 2 78 2 78.05 2 78.05 3 2.05 3 2.05 2">
+          <fill>
+            <SolidColor color="#A35200"/>
+          </fill>
+        </Path>
+        <Path data="M1 1 1 2 2 2 2 3 1 3 1 2 0 2 0 1 1 1">
+          <fill>
+            <SolidColor color="#C16102"/>
+          </fill>
+        </Path>
+        <Path data="M78 2 2.05 2 2 2 1 2 1 1 78 1 78 2">
+          <fill>
+            <SolidColor color="#D0D1AB"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+    <Group aaa:type="layer" aaa:userLabel="transitions" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+    <Group aaa:type="layer" aaa:userLabel="states" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt"/>
+  </Group>
+</Graphic>
