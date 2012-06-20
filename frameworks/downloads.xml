@@ -46,7 +46,9 @@
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${download.dir}">
                 <include name="OSMF*/**"/>
+                <include name="osmf*/**"/>
                 <include name="textLayout*/**"/>
+                <include name="swfobject*/**"/>
             </fileset>
         </delete>
      </target>

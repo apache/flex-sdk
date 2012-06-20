@@ -208,7 +208,13 @@
     </target>
 
     <target name="setup-binary-release"
-        description="Set properties needed to turn on features for release sdk">
+        description="Set properties needed to turn on features for release sdk">       
+	    <!-- 
+	        For a release build, download everything fresh.  
+	        Build changes to these downloads, might not be caught by the refresh logic.  
+	    -->
+	    <delete dir="${basedir}/in" failonerror="false" includeEmptyDirs="true" />
+        
         <!-- generate localized compiler message jars -->
 	    <property name="localized.jars" value="true" />
     </target>
