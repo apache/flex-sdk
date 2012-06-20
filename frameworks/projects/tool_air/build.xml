@@ -38,8 +38,8 @@
 
 	<target name="clean" depends="bundles-clean">
 		<delete file="bundles.properties"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/tool_air.swc"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/tool_air.swc.incr"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation/tool_air.swc"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation/tool_air.swc.incr"/>
 	</target>
 
 	<target name="compile">
@@ -64,7 +64,7 @@
 		-->
 	
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/tool_air.swc"
+			   output="${FLEX_HOME}/frameworks/libs/automation/tool_air.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
 			<target-player>${playerglobal.version}</target-player>

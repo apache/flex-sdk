@@ -34,8 +34,8 @@
     <target name="other.locales" description="Build other locale SWCs"/>
 	
 	<target name="clean">
-		<delete file="${FLEX_HOME}/frameworks/libs/tool.swc"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/tool.swc.incr"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation/tool.swc"/>
+		<delete file="${FLEX_HOME}/frameworks/libs/automation/tool.swc.incr"/>
 	</target>
 
     <target name="compile">
@@ -58,7 +58,7 @@
         -->
         
         <compc fork="true"
-               output="${FLEX_HOME}/frameworks/libs/tool.swc">
+               output="${FLEX_HOME}/frameworks/libs/automation/tool.swc">
             <jvmarg line="${compc.jvm.args}"/>
             <target-player>${playerglobal.version}</target-player>
             <include-classes>ToolClasses</include-classes>

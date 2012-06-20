@@ -57,7 +57,7 @@
         Each of the main targets for the modules will call clean themselves before proceeding.
     -->
 
-    <target name="main" depends="prebuild,modules,frameworks,sample-themes,post-build" description="Full build">
+    <target name="main" depends="prebuild,modules,frameworks,post-build" description="Full build">
         <tstamp>
             <format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
         </tstamp>
@@ -83,7 +83,7 @@
         description="Build and package the asdocs for the framework clases and the javadocs."/>
                 
     <target name="additional-packages"
-        depends="ja-locale-samples,antTasks-package" 
+        depends="sample-themes,ja-locale-samples,antTasks-package" 
         description="Package locale-samples and antTasks."/>
 
     <target name="help">
@@ -236,6 +236,11 @@
         <delete file="${basedir}/flex-sdk-description.xml" failonerror="false"/>
         <delete file="${basedir}/rat*.log" failonerror="false"/>
         
+        <delete dir="${basedir}/samples/themes" failonerror="false">
+            <include name="**/*.swc"/>
+            <include name="**/*.swf"/>
+        </delete>
+
         <!-- These directory would exist if the AIR SDK was merged in. -->
         <delete dir="${basedir}/lib" failonerror="false" includeEmptyDirs="true">
             <include name="aot/**"/>
@@ -391,8 +396,7 @@
         <ant dir="${basedir}/frameworks" target="other.locales"/>
     </target>
     
-    <!-- Will only execute if -Dthemes=anyvalue is set -->
-    <target name="sample-themes" description="Build the sample themes" if="themes">
+    <target name="sample-themes" description="Build the sample themes">
         <ant dir="${basedir}/samples/themes/arcade" target="main" />
         <ant dir="${basedir}/samples/themes/cobalt" target="main" />
         <ant dir="${basedir}/samples/themes/graphite" target="main" />
@@ -501,19 +505,8 @@
         </copy>
 
         <!-- mustella (only enough to run checkintests) -->
-        <copy todir="${basedir}/temp/mustella">
-            <fileset dir="${basedir}/mustella">
-                <include name="as3/**"/>
-                <exclude name="as3/src/mustella/ContinueAfterRuntimeException/**"/>
-                <exclude name="as3/src/mustella/ExcludeList.txt"/>
-                <exclude name="as3/src/mustella/IncludeList.txt"/>
-                <exclude name="**/*.air"/>
-                <exclude name="**/*.swf"/>
-                <include name="build.xml"/>
-                <include name="local.properties"/>
-                <include name="MustellaResultsParser.java"/>
-            </fileset>
-        </copy>
+        <!-- modules -->
+        <antcall target="stage-mustella"/>
         
         <!-- samples -->
         <copy todir="${basedir}/temp/samples">
@@ -561,8 +554,9 @@
         </fixcrlf>
     </target>
 
+    <!-- frameworks -->
+    <!-- javascript and test directories follow -->
     <target name="stage-frameworks">
-        <!-- frameworks -->
         <copy todir="${basedir}/temp/frameworks" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks">
                 <include name="**"/>
@@ -571,12 +565,12 @@
                 <exclude name="**/*.pbj"/>
                 <exclude name="**/*.swf"/>
                 <exclude name="**/*.mxp"/>
-                <!--exclude name="test*/**"/-->
+                <exclude name="test*/**"/>
                 <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>
                 <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
-                <exclude name="projects/**/bundles.properties"/>
+                <exclude name="projects/*/bundles.properties"/>
             </fileset>
         </copy>
 
@@ -584,16 +578,28 @@
         <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/javascript">
                 <include name="**"/>
-                <exclude name="build.xml"/>
                 <exclude name="FABridge/readme.txt"/>
             </fileset>
+            <mapper type="glob" from="FABridge/*" to="fabridge/*" />            
         </copy>
+
+        <!-- frameworks/tests -->
+        <antcall target="stage-frameworks-tests"/>
 
         <!-- now that air-config.xml and flex-config.xml are in temp, fix them up for release. -->
         <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" />
         <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" />
     </target>
-
+    
+    <target name="stage-frameworks-tests" unless="no.tests">
+        <!-- frameworks -->
+        <copy todir="${basedir}/temp/frameworks" includeEmptyDirs="false">
+            <fileset dir="${basedir}/frameworks">
+                <include name="test*/**"/>
+            </fileset>
+        </copy>
+    </target>
+    
     <target name="stage-bin">
         <copy todir="${basedir}/temp/bin" includeEmptyDirs="false">
             <fileset dir="${basedir}/bin">
@@ -612,7 +618,7 @@
             <exclude name="**/*.bat"/>
         </fixcrlf>
     </target>
-    
+        
     <target name="stage-modules" unless="no.modules">
         <!-- modules -->
         <copy todir="${basedir}/temp/modules" includeEmptyDirs="false">
@@ -648,13 +654,32 @@
         </copy>  
     </target>
     
+    <!-- mustella (only enough to run checkintests) -->
+    <target name="stage-mustella" unless="no.tests">
+        <copy todir="${basedir}/temp/mustella">
+            <fileset dir="${basedir}/mustella">
+                <include name="as3/**"/>
+                <exclude name="as3/src/mustella/ContinueAfterRuntimeException/**"/>
+                <exclude name="as3/src/mustella/ExcludeList.txt"/>
+                <exclude name="as3/src/mustella/IncludeList.txt"/>
+                <exclude name="**/*.air"/>
+                <exclude name="**/*.swf"/>
+                <include name="build.xml"/>
+                <include name="local.properties"/>
+                <include name="MustellaResultsParser.java"/>
+            </fileset>
+        </copy>
+    </target>
+
     <target name="binary-package"
         description="Package binary files in zip and tar-gzip file.">
 
         <property name="no.modules" value="set" />
+        <property name="no.tests" value="set" />
+        
         <antcall target="stage-source"/>
         
-        <!-- delete file from source distro that are not in binary distro -->
+        <!-- delete files from source distro that are not in binary distro -->
 
         <delete dir="${basedir}/temp/">
             <include name="build.properties"/>
@@ -662,6 +687,11 @@
             <exclude name="asdoc/build.xml"/>
         </delete>
 
+        <!-- delete directories from source distro that are not in binary distro -->
+
+        <delete dir="${basedir}/temp/frameworks/tests" failonerror="false"/>
+        <delete dir="${basedir}/temp/mustella" failonerror="false"/>
+        
         <!-- there are framework sources for debugging built with build_framework.xml -->
         
         <delete dir="${basedir}/temp/frameworks" includeemptydirs="true">
@@ -670,9 +700,9 @@
             <include name="projects/*/asdoc/**"/>
             <include name="projects/*/bundles/*/docs/**"/>
             <include name="projects/flash-integration/**"/>
+            <include name="projects/playerglobal/**"/>
             <exclude name="projects/flash-integration/src/**"/>
             <exclude name="projects/flash-integration/manifest.xml"/>
-            <include name="projects/playerglobal/**"/>
         </delete>
         
         <!-- remove some of the themes and all the src for the themes -->
@@ -739,7 +769,7 @@
             <fileset dir="${basedir}/frameworks/libs/automation">
                 <include name="automation.swc"/>
                 <include name="automation_agent.swc"/>
-                <include name="automation_.airswc"/>
+                <include name="automation_air.swc"/>
                 <include name="automation_airspark.swc"/>
                 <include name="automation_dmv.swc"/>
                 <include name="automation_flashflexkit.swc"/>
@@ -781,6 +811,15 @@
             </fileset>
         </copy>
         
+        <!-- sample themes -->
+        <copy todir="${basedir}/temp/samples">
+            <fileset dir="${basedir}/samples" >
+                <include name="**/build.xml"/>
+                <include name="**/*.swc"/>
+                <include name="**/*.swf"/>
+            </fileset>
+        </copy>
+
         <!-- swfobject templates -->
         <copy todir="${basedir}/temp/templates">
             <fileset dir="${basedir}/templates" >
@@ -840,7 +879,7 @@
                 <include name="xalan-NOTICE*/**"/>
                 <include name="xercesImpl.jar"/>
                 <include name="xercesPatch.jar"/>
-                <include name="xerces-LICENSE*"/>
+                <include name="xerces-LICENSE*/**"/>
                 <include name="xerces-NOTICE*/**"/>
                 <include name="xml-apis.jar"/>
                 <include name="xml-batik-LICENSE*"/>
@@ -923,53 +962,12 @@
         </copy>
 
         <!-- frameworks/projects -->
-        <copy todir="${basedir}/temp/frameworks/projects/airframework/bundles">
-            <fileset dir="${basedir}/frameworks/projects/airframework/bundles">
-                <exclude name="**/docs/**"/>
-                <exclude name="en_US/*.xml"/>
-                <exclude name="en_US/packages.dita"/>
-            </fileset>  
-        </copy>
-        <copy todir="${basedir}/temp/frameworks/projects/airspark/bundles">
-            <fileset dir="${basedir}/frameworks/projects/airspark/bundles"/>
-        </copy>
-        <copy todir="${basedir}/temp/frameworks/projects/rpc/bundles">
-            <fileset dir="${basedir}/frameworks/projects/rpc/bundles">
-                <exclude name="**/docs/**"/>
-                <exclude name="en_US/*.xml"/>
-                <exclude name="en_US/packages.dita"/>
-            </fileset>  
-            
-        </copy>
-        <copy todir="${basedir}/temp/frameworks/projects/framework/bundles">
-            <fileset dir="${basedir}/frameworks/projects/framework/bundles">
-                <exclude name="**/docs/**"/>
-                <exclude name="en_US/*.xml"/>
-                <exclude name="en_US/packages.dita"/>
-            </fileset>  
-        </copy>
-
-        <copy todir="${basedir}/temp/frameworks/projects/mx/bundles">
-            <fileset dir="${basedir}/frameworks/projects/mx/bundles">
-                <exclude name="**/docs/**"/>
-                <exclude name="en_US/*.xml"/>
-                <exclude name="en_US/packages.dita"/>
-            </fileset>  
-        </copy>
-        
-        <copy todir="${basedir}/temp/frameworks/projects/charts/bundles">
-            <fileset dir="${basedir}/frameworks/projects/charts/bundles">
-                <exclude name="**/docs/**"/>
-                <exclude name="en_US/*.xml"/>
-                <exclude name="en_US/packages.dita"/>
-            </fileset>  
-        </copy>
-
-        <copy todir="${basedir}/temp/frameworks/projects/advancedgrids/bundles">
-            <fileset dir="${basedir}/frameworks/projects/advancedgrids/bundles">
-                <exclude name="**/docs/**"/>
-                <exclude name="en_US/*.xml"/>
-                <exclude name="en_US/packages.dita"/>
+        <copy todir="${basedir}/temp/frameworks/projects" includeEmptyDirs="false">
+            <fileset dir="${basedir}/frameworks/projects">
+                <include name="*/bundles/**"/>
+                <exclude name="*/bundles/**/docs/**"/>
+                <exclude name="*/bundles/*/*.xml"/>
+                <exclude name="*/bundles/*/packages.dita"/>
             </fileset>  
         </copy>
 
