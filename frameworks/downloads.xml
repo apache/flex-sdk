@@ -33,7 +33,7 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="main" 
-        depends="osmf-download,swfobject-download,swfobject-fabridge-download,textLayout-download" 
+        depends="swfobject-download,swfobject-fabridge-download,textLayout-download,osmf-download" 
         description="Copies third-party software into place for build">
         <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>

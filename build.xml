@@ -788,8 +788,9 @@
             <fileset dir="${basedir}/frameworks">
                 <include name="projects/*/bundles.properties"/>
                 <include name="projects/spark/manifest.xml"/>
-                <include name="projects/*/src/**/*.pbj"/>
-                <include name="themes/**/*.swc"/>
+                <include name="**/*.pbj"/>
+                <include name="**/*.swc"/>
+                <include name="**/*.swf"/>
             </fileset>
         </copy>
 
@@ -1514,15 +1515,7 @@
              uri="antlib:org.apache.rat.anttasks"/>
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
             reportFile="${basedir}/rat.log">
-            <fileset dir="${rat.dir}">
-                <exclude name="modules/asc/src/**" />
-            </fileset>
-        </rat:report>
-        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
-            reportFile="${basedir}/ratasc.log">
-            <fileset dir="${rat.dir}">
-                <include name="modules/asc/src/**" />
-            </fileset>
+            <fileset dir="${rat.dir}"/>
         </rat:report>
     </target>
     

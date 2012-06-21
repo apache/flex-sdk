@@ -675,69 +675,16 @@
         
     <!-- Download thirdparty code -->
     
-    <target name="thirdparty-downloads" 
-        depends="osmf-download, textLayout-download, swfobject-download" 
-        description="Copies third-party software into place for build" />
-    
-    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
-        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
-    </target>
-    
-    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
-        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
+    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
+        <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
     </target>
 
-    <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
-        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
+    <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
+        <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
     </target>
     
-    <!-- osmf.swc (Version 1.0) -->
-    <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
-    <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
-    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
-        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
-            dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0" src="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" />
-        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0" src="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
-        <delete dir="${FLEX_HOME}/in/downloads/OSMF_1.0" failonerror="false"/>
-    </target>
-
-    <!-- textLayout.swc (Version 2.0.232) -->
-    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
-    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${FLEX_HOME}/in/downloads/textLayout_build"/>
-        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${FLEX_HOME}/in/downloads/textLayout_build.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/textLayout_build" src="${FLEX_HOME}/in/downloads/textLayout_build.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
-        <copy todir="${basedir}/projects/textLayout">
-            <fileset dir="${FLEX_HOME}/in/downloads/textLayout_build">
-                <include name="**/**"/>
-                <exclude name="textLayout_build.zip"/>
-                <exclude name="build.xml"/>
-                <exclude name="libs/**"/>
-            </fileset>
-        </copy>
-        <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
-    </target>
-
-    <!-- swfobject.js (Version 2.2) -->
-    <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
-    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" description="Copies SWFObject from code.google.com">
-        <mkdir dir="${FLEX_HOME}/in/downloads/swfobject"/>
-        <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip" 
-            dest="${FLEX_HOME}/in/downloads/swfobject_2_2.zip" 
-            verbose="false"/>
-        <unzip dest="${FLEX_HOME}/in/downloads/swfobject" src="${FLEX_HOME}/in/downloads/swfobject_2_2.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/swfobject/swfobject/expressInstall.swf" todir="${FLEX_HOME}/templates/swfobject"/>
-        <copy file="${FLEX_HOME}/in/downloads/swfobject/swfobject/swfobject.js" todir="${FLEX_HOME}/templates/swfobject"/>
-        <delete dir="${FLEX_HOME}/in/downloads/swfobject" failonerror="false"/>
-    </target>
-
+    <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything."/>
+    
     <target name="clean" depends="bundles-clean" description="Cleans all SWCs.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs">
@@ -780,33 +727,4 @@
         <delete includeemptydirs="true">
             <fileset dir="${FLEX_HOME}/templates" excludes="**/*" />
         </delete>    
-
-    <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
-        <delete failonerror="false" verbose="true">
-            <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
-            <fileset dir="${basedir}/libs/air"/>
-            <fileset dir="${basedir}/libs/**/playerglobal.swc"/>
-        </delete>
-        <delete dir="${FLEX_HOME}/in/air" excludes="*.xml"/>
-        <delete dir="${FLEX_HOME}/in/downloads"/>
-        <delete file="${FLEX_HOME}/templates/swfobject" failonerror="false">
-            <fileset dir="${FLEX_HOME}/templates/swfobject">
-                <include name="**/**"/>
-                <exclude name="history/*"/>
-                <exclude name="index.template.html"/>
-            </fileset>
-        </delete>
-
-        <!-- textLayout source -->
-        <delete failonerror="false" verbose="false">
-             <fileset dir="${basedir}/projects/textLayout">
-                 <include name="**/**"/>
-                 <exclude name="build.xml"/>
-                 <exclude name="**/.settings/**"/>
-                 <exclude name="**/.actionScriptProperties"/>
-                 <exclude name="**/.flexLibProperties"/>
-                 <exclude name="**/.project"/>
-             </fileset>
-         </delete>
-     </target>
 </project>
