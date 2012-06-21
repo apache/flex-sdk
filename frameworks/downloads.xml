@@ -130,7 +130,6 @@
     <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" 
         description="Copies SWFObject from code.google.com">
         
-        <mkdir dir="${download.dir}/swfobject"/>
         <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip" 
             dest="${download.dir}/swfobject_2_2.zip" 
             verbose="false"/>

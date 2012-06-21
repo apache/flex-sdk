@@ -249,15 +249,16 @@
         </condition>
     </target>
     
-    <target name="batik-jars" depends="batik-download-zip,batik-jars-check" 
-        unless="batik.jars.exists"
+    <target name="batik-jars" depends="batik-jars-check" unless="batik.jars.exists"
         description="Copies the batik jars to the batik build directory.">
 
+        <antcall target="batik-download-zip"/>
         <copy todir="${basedir}/${batik.dir}/lib" failonerror="true">
             <fileset dir="${download.dir}/${batik.zip.dir}/lib">
                 <include name="**/**"/>
             </fileset>            
         </copy>
+        <delete dir="${download.dir}/${batik.zip.dir}"/>
     </target>
     
     <target name="batik-download-zip" depends="batik-zip-check" unless="batik.zip.exists"
@@ -313,6 +314,7 @@
             </fileset>            
             <globmapper from="*" to="commons-collections-*"/>
         </copy>
+        <delete dir="${download.dir}/${commons-collections.name}"/>
     </target>
 
     <!--
@@ -340,6 +342,7 @@
             </fileset>            
             <globmapper from="*" to="commons-discovery-*"/>
         </copy>
+        <delete dir="${download.dir}/${commons-discovery.name}"/>
     </target>
 	
     <!--
@@ -368,6 +371,7 @@
             </fileset>            
             <globmapper from="*" to="commons-logging-*"/>
         </copy>
+        <delete dir="${download.dir}/${commons-logging.name}"/>
     </target>
 
 	<!--
@@ -397,6 +401,7 @@
             </fileset>            
             <globmapper from="*" to="javacc-*"/>
         </copy>
+        <delete dir="${download.dir}/javacc-5.0"/>
     </target>
 
 	<!--
@@ -422,6 +427,8 @@
         <copy todir="${lib.ext.dir}/saxon9-NOTICES">
             <fileset dir="${download.dir}/${saxon9.jar.dir}/notices" includes="**"/>
         </copy>
+        
+        <delete dir="${download.dir}/${saxon9.jar.dir}"/>
     </target>
     	
     <!--
@@ -446,15 +453,15 @@
         </condition>
     </target>
     
-	<target name="velocity-jars" depends="velocity-download-zip,velocity-jars-check" 
-	    unless="velocity.jars.exists" 
+	<target name="velocity-jars" depends="velocity-jars-check" unless="velocity.jars.exists" 
         description="Copies the velocity build jars.">
-                
+        <antcall target="velocity-download-zip"/>
         <copy todir="${basedir}/${velocity.dir}/build/lib" failonerror="true">
             <fileset dir="${download.dir}/${velocity.zip.dir}/build/lib">
                 <include name="**/**"/>
             </fileset>            
         </copy>
+        <delete dir="${download.dir}/${velocity.zip.dir}"/>
     </target>
     
     <target name="velocity-download-zip" depends="velocity-zip-check" unless="velocity.zip.exists">
@@ -503,6 +510,7 @@
             </fileset>            
             <globmapper from="*" to="xalan-*"/>
         </copy>
+        <delete dir="${download.dir}/xalan-j_2_6_0"/>
     </target>
 
     <!--
@@ -543,6 +551,7 @@
             </fileset>            
             <globmapper from="*" to="xerces-LICENSE/*"/>
         </copy>
+        <delete dir="${download.dir}/${xerces.dir}"/>
     </target>
 	
 	<!--============================================================================= -->

@@ -685,7 +685,6 @@
         
         <!-- Delete files from source distro that are not in binary distro. -->        
         <delete dir="${basedir}/temp/">
-            <include name="build.properties"/>
             <include name="**/build.xml"/>
             <exclude name="asdoc/build.xml"/>
         </delete>
@@ -792,6 +791,7 @@
                 <include name="**/*.pbj"/>
                 <include name="**/*.swc"/>
                 <include name="**/*.swf"/>
+                <exclude name="tests/**"/>
             </fileset>
         </copy>
 
@@ -962,7 +962,7 @@
     <target name="stage-locales"
         description="Stage all the locale swc's built">
         
-        <copy todir="${basedir}/temp/frameworks/locale" verbose="true">
+        <copy todir="${basedir}/temp/frameworks/locale" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/locale">
                 <include name="**/*.swc"/>
             </fileset>

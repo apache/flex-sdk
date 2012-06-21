@@ -40,8 +40,9 @@ Building Apache Flex 4.8
     Apache Flex 4.8 is a parity release from Apache of Adobe Flex 4.6.
     
     Apache Flex is a large project. It requires some build tools which must be installed
-    prior to building Flex and it depends on some external libraries which
-    are downloaded as part of the build process.
+    prior to building Flex and it depends on some external software which
+    are downloaded as part of the build process.  See the Software Dependencies
+    section for more information on the external software dependencies.
     
     From Apache's perspective, the Adobe Flash Player and Adobe AIR have excluded
     licenses so they can not be bundled with the Apache Flex binaries.  They must be
@@ -166,6 +167,78 @@ FlashPlayer Configuration
     
     and a FlashPlayerTrust file must allow local SWFs to access local files.
 
+ Software Dependencies
+----------------------
+
+    Apache Flex uses some third-party code that will be downloaded as part of the Apache
+    Flex build.  In addition, there is some optional third-party code that you can choose
+    to download if you would like to take advantage of the features offered.  
+    
+    Per the Apache licensing guidelines, if a software dependency has a license which 
+    Apache considers a reciprocal license you will be prompted to acknowledge the license
+    before the software is downloaded to your system and if a software dependency has a 
+    license which Apache considers to be not compatible with the Apache v2 license you 
+    will be prompted to confirm the download before the software is downloaded to your 
+    system.  The following dependencies fall into one of these categories.
+    
+    osmf.swc            
+        frameworks/libs
+        
+        Open Source Media Framework v1.0 used for video components
+    
+        This file is extracted from:
+        http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download
+        
+        This software is released under the Mozilla Public License Version 1.1:
+        <http://www.mozilla.org/MPL/>
+        
+        You will need to acknowledge that you are aware of this reciprocal license.
+         
+    textLayout.swc
+        framework/libs
+        
+        Text Layout Format v2.0 used for text in Spark components
+    
+        This file is extracted from:
+        http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download
+
+        This software is released under the Mozilla Public License Version 1.1:
+        <http://www.mozilla.org/MPL/>
+        
+        You will need to acknowledge that you are aware of this reciprocal license.
+
+    flex-messaging-common.jar
+        libs/external/optional                
+        
+        Provides integration with Adobe BlazeDs.
+               
+        This files are extracted from: 
+        http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
+       
+        This software is released under an Adobe license:
+        <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
+        
+        This feature is optional.  You will need to confirm that you are aware of its
+        license and would download this software.
+                    
+    flex-fontkit.jar
+    afe.jar, adt.jar
+    aglj40.jar
+    rideau.jar
+        lib/external/optional
+        
+        This feature is optional. Adobe proprietary software which provides embedded font 
+        support.
+       
+        These jars are extracted from:
+        http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
+       
+        This software is released under an Adobe license:
+        <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
+
+        This feature is optional.  You will need to confirm that you are aware of its
+        license and would download this software.
+                    
 Building the Source in the Source Distribution
 ----------------------------------------------
 
@@ -178,9 +251,10 @@ Building the Source in the Source Distribution
         cd <flex.dir>
         ant main        (or just ant since the default target is main)
     
-    to download the thirdparty dependencies and build the source.  Since the 
-    thirdparty dependencies take a little while to download and they don't change very 
-    often, they are not cleaned with the regular clean target.
+    to download the thirdparty dependencies and build the source.  You may be prompted
+    to acknowledge and/or confirm some of the downloads.  Since the third-party 
+    dependencies take a little while to download and they don't change very often, they 
+    are not cleaned with the regular clean target.
     
     To clean the build, of everything other than the downloaded third-party dependencies 
     use
@@ -202,8 +276,8 @@ Building the Source in the Source Distribution
     
         ant -projecthelp
 
-Building the Source in a Binary Distribution
---------------------------------------------
+Building the Framework in a Binary Distribution
+-----------------------------------------------
 
     The source for most of the framework is included in the binary distribution.  
     It can be useful if you wish to debug and/or extend components.
@@ -213,9 +287,10 @@ Building the Source in a Binary Distribution
         cd <flex.dir>/frameworks
         ant main        (or just ant since the default target is main)
     
-    to download the thirdparty dependencies and build the Flex framework.  Since the 
-    thirdparty dependencies take a little while to download and they don't change very 
-    often, they are not cleaned with the regular clean target.
+    to download the thirdparty dependencies and build the Flex framework.  You may be 
+    prompted to acknowledge  some of the downloads.  Since the third-party dependencies 
+    take a little while to download and they don't change very often, they are not 
+    cleaned with the regular clean target.
     
     To clean the build, of everything other than the downloaded third-party dependencies 
     use
@@ -226,3 +301,9 @@ Building the Source in a Binary Distribution
     use
         
         ant super-clean (which is just thirdparty-clean followed by clean)
+
+
+Thanks for using Apache Flex.
+
+                                          The Apache Flex Project
+                                          <http://incubator.apache.org/flex/>
