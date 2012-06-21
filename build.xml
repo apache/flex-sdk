@@ -458,7 +458,7 @@
     <!-- 
         Packages the source distribution with TAR-GZIP.
     -->
-    <target name="source-package-tgz" unless="no.tgz">
+    <target name="source-package-tgz" unless="no.zip">
         <tar-gzip name="${source.kit}" />
     </target>
 
@@ -674,26 +674,25 @@
     <target name="binary-package"
         description="Package binary files in zip and tar-gzip file.">
 
+        <!-- don't include modules directory in stage-source -->
         <property name="no.modules" value="set" />
+        
+        <!-- don't include mustella or frameworks/tests in stage-source -->
         <property name="no.tests" value="set" />
         
         <antcall target="stage-source"/>
         
-        <!-- delete files from source distro that are not in binary distro -->
-
+        <!-- Delete files from source distro that are not in binary distro. -->        
         <delete dir="${basedir}/temp/">
             <include name="build.properties"/>
             <include name="**/build.xml"/>
             <exclude name="asdoc/build.xml"/>
         </delete>
 
-        <!-- delete directories from source distro that are not in binary distro -->
-
-        <delete dir="${basedir}/temp/frameworks/tests" failonerror="false"/>
-        <delete dir="${basedir}/temp/mustella" failonerror="false"/>
-        
-        <!-- there are framework sources for debugging built with build_framework.xml -->
-        
+        <!-- 
+            Some, but not all framework sources are included.
+            Need to include the sources required for build_framework.xml.
+        -->
         <delete dir="${basedir}/temp/frameworks" includeemptydirs="true">
             <include name="build_framework.xml"/>
             <include name="projects/*/.*/**"/>
@@ -753,14 +752,14 @@
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
                 <include name="flash-integration.swc"/>
-                <include name="osmf.swc"/>
                 <include name="rpc.swc"/>
                 <include name="sparkskins.swc"/>
-                <include name="textLayout.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
+                <exclude name="osmf.swc"/>
+                <exclude name="textLayout.swc"/>
             </fileset>
         </copy>
 
@@ -789,8 +788,8 @@
             <fileset dir="${basedir}/frameworks">
                 <include name="projects/*/bundles.properties"/>
                 <include name="projects/spark/manifest.xml"/>
+                <include name="projects/*/src/**/*.pbj"/>
                 <include name="themes/**/*.swc"/>
-                <include name="**/*.pbj"/>
             </fileset>
         </copy>
 
@@ -820,10 +819,11 @@
             </fileset>
         </copy>
 
-        <!-- swfobject templates -->
-        <copy todir="${basedir}/temp/templates">
-            <fileset dir="${basedir}/templates" >
-                <include name="swfobject/**"/>
+        <!-- swfobject templates except for downloaded files -->
+        <copy todir="${basedir}/temp/templates/swfobject">
+            <fileset dir="${basedir}/templates/swfobject">
+                <exclude name="**/expressInstall.swf"/>
+                <exclude name="**/swfobject.js"/>
             </fileset>
         </copy>
                 
@@ -854,10 +854,14 @@
                 <include name="swfutils.jar"/>
                 <include name="fxgutils.jar"/>
                 <include name="velocity-dep-1.4-flex.jar"/>
+                <exclude name="external/optional/**"/>
             </fileset>
         </copy>
 
-        <!-- external libraries - ie we don't have the sources to build them -->
+        <!-- 
+            external libraries
+            We don't have the sources to build them but they have compatible licenses.
+        -->
         <copy todir="${basedir}/temp/lib/external">
             <fileset dir="${basedir}/lib/external">
                 <include name="commons-collections.jar"/>
@@ -884,6 +888,7 @@
                 <include name="xml-apis.jar"/>
                 <include name="xml-batik-LICENSE*"/>
                 <include name="xml-batik-NOTICE*/**"/>
+                <exclude name="optional/**"/>
             </fileset>
         </copy>
     </target>
@@ -901,7 +906,7 @@
     <!-- 
         Packages the binary distribution with TAR-GZIP.         
     -->
-    <target name="binary-package-tgz" unless="no.tgz"
+    <target name="binary-package-tgz" unless="no.zip"
         description="Tar-Gzip up the files in the temp directory into the binary tgz file.">
         
         <tar-gzip name="${binary.kit}" />
@@ -965,6 +970,7 @@
         <copy todir="${basedir}/temp/frameworks/projects" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/projects">
                 <include name="*/bundles/**"/>
+                <exclude name="*/bundles/**/empty.properties"/>
                 <exclude name="*/bundles/**/docs/**"/>
                 <exclude name="*/bundles/*/*.xml"/>
                 <exclude name="*/bundles/*/packages.dita"/>
@@ -1499,7 +1505,6 @@
     
         <!-- Stage the src kit files in the temp directory. -->
         <property name="no.zip" value="set" />
-        <property name="no.tgz" value="set" />
         <antcall target="source-release"/>
         
         <!-- Run Rat on the staged files to check for license violations. -->

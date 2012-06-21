@@ -33,12 +33,6 @@ Getting the latest sources via Subversion
     svn co https://svn.apache.org/repos/asf/incubator/flex/trunk flex
 
     For further information visit http://incubator.apache.org/flex/source.html
-
-Building Apache Flex
-====================
-
-    Apache Flex is a large project and depends on several external libraries which
-    are downloaded as part of the build process.
     
 Building Apache Flex 4.8
 ========================
@@ -172,9 +166,13 @@ FlashPlayer Configuration
     
     and a FlashPlayerTrust file must allow local SWFs to access local files.
 
-Building the Source in a Source Distribution
---------------------------------------------
+Building the Source in the Source Distribution
+----------------------------------------------
 
+    The source for both the Flex compiler and the Flex framework is included in the
+    source distribution.  The compiler is in the modules directory and the framework
+    is in the frameworks directory.
+    
     When you have all the prerequisites in place and the environment variables set, use
 
         cd <flex.dir>
@@ -182,8 +180,7 @@ Building the Source in a Source Distribution
     
     to download the thirdparty dependencies and build the source.  Since the 
     thirdparty dependencies take a little while to download and they don't change very 
-    often, they are not cleaned with the regular clean target.  The thirdparty 
-    dependencies can be found in the "in" directory.
+    often, they are not cleaned with the regular clean target.
     
     To clean the build, of everything other than the downloaded third-party dependencies 
     use
@@ -195,11 +192,11 @@ Building the Source in a Source Distribution
         
         ant super-clean (which is just thirdparty-clean followed by clean)
         
-    To generate a source distro and a binary distro use
+    To generate a source distribution package and a binary distribution package use
         
         ant release
     
-    The output distros can be found in the "out" subdirectory.
+    The packages can be found in the "out" subdirectory.
             
     To get a brief listing of all the targets type
     
@@ -208,18 +205,17 @@ Building the Source in a Source Distribution
 Building the Source in a Binary Distribution
 --------------------------------------------
 
-The source for the framework is included in the binary distribution.  It can be useful
-if you wish to debug and/or extend components.
+    The source for most of the framework is included in the binary distribution.  
+    It can be useful if you wish to debug and/or extend components.
 
     When you have all the prerequisites in place and the environment variables set, use
 
-        cd frameworks
+        cd <flex.dir>/frameworks
         ant main        (or just ant since the default target is main)
     
     to download the thirdparty dependencies and build the Flex framework.  Since the 
     thirdparty dependencies take a little while to download and they don't change very 
-    often, they are not cleaned with the regular clean target.  The thirdparty 
-    dependencies can be found in the "in" directory.
+    often, they are not cleaned with the regular clean target.
     
     To clean the build, of everything other than the downloaded third-party dependencies 
     use

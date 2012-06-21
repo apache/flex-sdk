@@ -33,15 +33,18 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="main" 
-        depends="osmf-download,swfobject-download,textLayout-download" 
+        depends="osmf-download,swfobject-download,swfobject-fabridge-download,textLayout-download" 
         description="Copies third-party software into place for build">
         <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>
     
-    <target name="clean" depends="swfobject-clean" description="Cleans thirdparty downloaded files.">
+    <target name="clean" depends="swfobject-clean,swfobject-fabridge-clean" 
+        description="Cleans thirdparty downloaded files.">
         <delete failonerror="false">
-            <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
-            <!--fileset dir="${basedir}/libs/player" includes="**/playerglobal.swc"/-->
+            <fileset dir="${basedir}/libs">
+                <include name="osmf.swc"/>
+                <include name="textLayout.swc"/>
+            </fileset>
         </delete>
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${download.dir}">
@@ -140,7 +143,7 @@
         </unzip>
     </target>
 
-    <target name="swfobject-clean" description="Deletes the swfobject directory">
+    <target name="swfobject-clean" description="Deletes templates swfobject code.">
         <delete failonerror="false">
             <fileset dir="${FLEX_HOME}/templates/swfobject">
                 <include name="**/**"/>
@@ -150,6 +153,22 @@
         </delete>
     </target>
     
+    <!-- the copy of swfobject.js that is in javascript/fabridge -->
+    <target name="swfobject-fabridge-download" depends="swfobject-download" 
+        description="Copies swfobject.js from code.google.com to fabridge">
+        <mkdir dir="${basedir}/javascript/FABridge/samples/fabridge/swfobject"/>
+        <copy file="${FLEX_HOME}/templates/swfobject/swfobject.js" 
+            todir="${basedir}/javascript/FABridge/samples/fabridge/swfobject" />
+    </target>
+
+    <target name="swfobject-fabridge-clean" description="Deletes swobject.js from fabridge">
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${basedir}/javascript/FABridge/samples/fabridge/swfobject">
+                <include name="swfobject.js"/>
+            </fileset>
+        </delete>
+    </target>
+
     <!-- textLayout.swc (Version 2.0.232) -->
     <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
     <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
