@@ -71,7 +71,7 @@
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
-        depends="clean,create-description,source-package" 
+        depends="super-clean,create-description,source-package" 
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
@@ -207,11 +207,12 @@
         </echo>
     </target>
 
-    <target name="setup-binary-release"
+    <target name="setup-binary-release" depends="thirdparty-clean"
         description="Set properties needed to turn on features for release sdk">       
 	    <!-- 
 	        For a release build, download everything fresh.  
-	        Build changes to these downloads, might not be caught by the refresh logic.  
+	        Build changes to the downloads, might not be caught by the refresh logic.
+	        thirdparty-clean should leave this directory empty but just in case...  
 	    -->
 	    <delete dir="${basedir}/in" failonerror="false" includeEmptyDirs="true" />
         
@@ -577,7 +578,7 @@
         <!-- frameworks/javascript -->
         <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/javascript">
-                <include name="**"/>
+                <exclude name="**/swfobject.js"/>
                 <exclude name="FABridge/readme.txt"/>
             </fileset>
             <mapper type="glob" from="FABridge/*" to="fabridge/*" />            
