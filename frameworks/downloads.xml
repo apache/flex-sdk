@@ -64,11 +64,11 @@
     <target name="echo-mpl1.1-license">       
         <echo message="Mozilla Public License Version 1.1:
             ${line.separator}
-            ${line.separator}The contents of this file(s) are subject to the Mozilla Public License Version 1.1.
-            ${line.separator}You may not use this file(s) except in compliance with the License. 
+            ${line.separator}The contents of the file(s) are subject to the Mozilla Public License Version 1.1.
+            ${line.separator}You may not use the file(s) except in compliance with the License. 
             ${line.separator}You may obtain a copy of the License here:
             ${line.separator}    http://www.mozilla.org/MPL/. 
-            ${line.separator}By downloading, modifying, distributing, using and/or accessing this file(s), 
+            ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
             ${line.separator}you agree to the terms and conditions of the applicable license agreement."/>
         
         <input

@@ -578,12 +578,18 @@
         <!-- frameworks/javascript -->
         <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/javascript">
-                <exclude name="**/swfobject.js"/>
+                <include name="build.xml"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
+            <fileset dir="${basedir}/frameworks/javascript">
+                <exclude name="FABridge/**/swfobject.js"/>
                 <exclude name="FABridge/readme.txt"/>
             </fileset>
             <mapper type="glob" from="FABridge/*" to="fabridge/*" />            
         </copy>
-
+        
         <!-- frameworks/tests -->
         <antcall target="stage-frameworks-tests"/>
 
@@ -1503,6 +1509,8 @@
     <!--  which are missing the correct license headers -->
     <!-- You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar -->
     <!--  into your ant lib before running this target. -->
+
+    <!-- Run this tag by itself.  It will stage the source and then check it. -->
     <target name="rat-check" description="Report licenses in source kit">
     
         <!-- Stage the src kit files in the temp directory. -->
