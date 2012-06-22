@@ -85,9 +85,9 @@
 				<include name="automation/tool.swc"/>
 				<include name="automation/tool_air.swc"/>
 			</external-library-path>
-			 <external-library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs">
-			 <include name="flash-integration.swc"/>
-			 </external-library-path>
+			<external-library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs">
+			    <include name="flash-integration.swc"/>
+			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>

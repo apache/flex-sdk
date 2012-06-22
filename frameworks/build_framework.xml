@@ -38,32 +38,56 @@
     
     <property name="locale" value="en_US"/>
     <property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
+
+    <property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
+    <property name="authoringsupport.dir" value="${projects.dir}/authoringsupport"/>
     <property name="airframework.dir" value="${projects.dir}/airframework"/>
     <property name="airspark.dir" value="${projects.dir}/airspark"/>
-    <property name="mobilecomponents.dir" value="${projects.dir}/mobilecomponents"/>
     <property name="charts.dir" value="${projects.dir}/charts"/>
-    <property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
     <property name="core.dir" value="${projects.dir}/core"/>
     <property name="flash-integration.dir" value="${projects.dir}/flash-integration"/>
     <property name="framework.dir" value="${projects.dir}/framework"/>
+    <property name="mobilecomponents.dir" value="${projects.dir}/mobilecomponents"/>
     <property name="mx.dir" value="${projects.dir}/mx"/>
     <property name="rpc.dir" value="${projects.dir}/rpc"/>
     <property name="spark.dir" value="${projects.dir}/spark"/>
     <property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
     <property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
-    <property name="authoringsupport.dir" value="${projects.dir}/authoringsupport"/>
+
+    <!-- automation -->
+    <property name="automation.dir" value="${projects.dir}/automation"/>
+    <property name="automation_agent.dir" value="${projects.dir}/automation_agent"/>
+    <property name="automation_air.dir" value="${projects.dir}/automation_air"/>
+    <property name="automation_airspark.dir" value="${projects.dir}/automation_airspark"/>
+    <property name="automation_dmv.dir" value="${projects.dir}/automation_dmv"/>
+    <property name="automation_flashflexkit.dir" value="${projects.dir}/automation_flashflexkit"/>
+    <property name="automation_spark.dir" value="${projects.dir}/automation_spark"/>
+    <property name="tool.dir" value="${projects.dir}/tool"/>
+    <property name="tool_air.dir" value="${projects.dir}/tool_air"/>
+
+    <!-- themes -->
     <property name="halo.dir" value="${projects.dir}/Halo"/>
     <property name="mobiletheme.dir" value="${projects.dir}/mobiletheme"/>
     <property name="wireframe.dir" value="${projects.dir}/wireframe"/>
+
     <property name="compc.jvm.args" value="-Xmx384m" />
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<!-- This does not contain the automation jars but they could be added.  -->
-    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,bundles,themes,sparkskins,spark_dmv"/>
+    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv"/>
 
-    <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb"/>
+    <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs"/>
     
+    <target name="automation-swcs" 
+        depends="automation_agent,automation_dmv,tool,tool_air,automation,automation_air,automation_spark,automation_flashflexkit,automation_air,automation_airspark"
+        unless="no.automation"
+        description="Builds the automation swcs." />
+
+    <target name="automation-rbs" 
+        depends="automation_agent_rb,tool_air_rb,automation_rb"
+        unless="no.automation"
+        description="Builds the resource bundles for the automation swcs." />
+
     <target name="prepare"
         description="Copies manifests to project directories so the IDE can find them">
         
@@ -257,6 +281,224 @@
             <source-path path-element="${framework.dir}/src"/>
             <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="authoringsupport" description="Builds authoringsupport.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+            output="${basedir}/libs/authoringsupport.swc" include-classes="AuthoringSupportClasses"
+            locale="" accessible="true"
+            resource-bundle-list="${authoringsupport.dir}/bundles.properties">
+            <source-path path-element="${authoringsupport.dir}/src"/>
+            <library-path dir="${authoringsupport.dir}/libs">
+                <include name="FlexContentHolderThumbnail.swc"/>
+            </library-path>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+                <include name="mx/mx.swc"/>
+                <include name="flash-integration.swc"/>
+                <include name="textLayout.swc"/>
+            </external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="automation" description="Builds the automation.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationClasses" 
+            output="${basedir}/libs/automation/automation.swc"
+            resource-bundle-list="${automation.dir}/bundles.properties">
+            <source-path path-element="${automation.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="tool.swc"/>
+				<include name="tool_air.swc"/>
+			</external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+    
+    <target name="automation_rb" description="Builds locale/en_US/automation_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
+            output="${basedir}/locale/${locale}/automation_rb.swc">
+            <include-resource-bundles bundle="automation"/>
+            <source-path path-element="${automation.dir}/bundles/${locale}"/>
+            <source-path path-element="${automation.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+                <include name="mx/mx.swc"/>
+            </external-library-path>
+        </compc>
+    </target>
+
+    <target name="automation_agent" description="Builds the automation_agent.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationAgentClasses" 
+            output="${basedir}/libs/automation/automation_agent.swc"
+            resource-bundle-list="${automation_agent.dir}/bundles.properties">
+            <source-path path-element="${automation_agent.dir}/src"/>
+            <source-path path-element="${automation.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+                <include name="mx/mx.swc"/>
+			</external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="automation_agent_rb" description="Builds locale/en_US/automation_agent_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
+            output="${basedir}/locale/${locale}/automation_agent_rb.swc">
+ 			<include-resource-bundles bundle="automation_agent"/>
+			<include-resource-bundles bundle="containers"/>
+			<include-resource-bundles bundle="controls"/>
+			<include-resource-bundles bundle="core"/>
+			<include-resource-bundles bundle="effects"/>
+			<include-resource-bundles bundle="skins"/>
+			<include-resource-bundles bundle="styles"/>
+			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${framework.dir}/bundles/${locale}"/>
+			<source-path path-element="${mx.dir}/bundles/${locale}"/>
+			<source-path path-element="${automation_agent.dir}/bundles/${locale}"/>
+			<source-path path-element="${framework.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+        </compc>
+    </target>
+
+    <target name="automation_air" description="Builds the automation_air.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationAirClasses" output="${basedir}/libs/automation/automation_air.swc"
+            resource-bundle-list="${automation_air.dir}/bundles.properties">
+            <source-path path-element="${automation_air.dir}/src"/>
+			<source-path path-element="${automation.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
+                <include name="air/airglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+                <include name="mx/mx.swc"/>
+		        <include name="textLayout.swc"/>
+				<include name="air/airframework.swc"/>
+				<include name="automation/automation/automation.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/tool.swc"/>
+				<include name="automation/tool_air.swc"/>
+			</external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="automation_airspark" description="Builds the automation_airspark.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationAirSparkClasses" 
+            output="${basedir}/libs/automation/automation_airspark.swc"
+            resource-bundle-list="${automation_airspark.dir}/bundles.properties">
+            <source-path path-element="${automation_airspark.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
+                <include name="air/airglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+		        <include name="mx/mx.swc"/>
+				<include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+				<include name="air/airframework.swc"/>
+				<include name="air/airspark.swc"/>
+				<include name="automation/automation.swc"/>
+				<include name="automation/automation_spark.swc"/>
+				<include name="automation/automation_air.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/tool.swc"/>
+				<include name="automation/tool_air.swc"/>
+			</external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+    
+    <target name="automation_dmv" description="Builds the automation_dmv.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationDMVClasses" 
+            output="${basedir}/libs/automation/automation_dmv.swc"
+            resource-bundle-list="${automation_dmv.dir}/bundles.properties">
+            <source-path path-element="${automation_dmv.dir}/src"/>
+            <source-path path-element="${automation.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="textLayout.swc"/>
+				<include name="rpc.swc"/>
+				<include name="charts.swc"/>
+				<include name="advancedgrids.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/tool.swc"/>
+				<include name="automation/tool_air.swc"/>
+			</external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+    
+    <target name="automation_flashflexkit" description="Builds the automation_flashflexkit.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationFlashFlexKitClasses" 
+            output="${basedir}/libs/automation/automation_flashflexkit.swc"
+            resource-bundle-list="${automation_flashflexkit.dir}/bundles.properties">
+            <source-path path-element="${automation_flashflexkit.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="rpc.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/automation.swc"/>
+				<include name="automation/tool.swc"/>
+				<include name="automation/tool_air.swc"/>
+			</external-library-path>
+			<external-library-path dir="${projects.dir}/flash-integration/libs">
+			    <include name="flash-integration.swc"/>
+			</external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="automation_spark" description="Builds the automation_spark.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="AutomationSparkClasses" 
+            output="${basedir}/libs/automation/automation_spark.swc"
+            resource-bundle-list="${automation_spark.dir}/bundles.properties">
+			<namespace uri="library://ns.adobe.com/flex/spark" 
+			    manifest="${automation_spark.dir}/manifest_automation_spark.xml"/>
+            <source-path path-element="${automation_spark.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+				<include name="rpc.swc"/>
+				<include name="osmf.swc"/>
+				<include name="automation/automation.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/tool.swc"/>
+				<include name="automation/tool_air.swc"/>
+			</external-library-path>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
@@ -589,29 +831,73 @@
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
-        
-    <target name="authoringsupport" description="Builds authoringsupport.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
-            output="${basedir}/libs/authoringsupport.swc" include-classes="AuthoringSupportClasses"
-            locale="" accessible="true"
-            resource-bundle-list="${authoringsupport.dir}/bundles.properties">
-            <source-path path-element="${authoringsupport.dir}/src"/>
-            <library-path dir="${authoringsupport.dir}/libs">
-                <include name="FlexContentHolderThumbnail.swc"/>
-            </library-path>
+
+    <target name="tool" description="Builds the tool.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="ToolClasses" output="${basedir}/libs/automation/tool.swc"
+            resource-bundle-list="${tool.dir}/bundles.properties">
+            <source-path path-element="${tool.dir}/src"/>
+            <source-path path-element="${automation.dir}/src"/>
+            <source-path path-element="${automation_spark.dir}/src"/>
+            <library-path/>
             <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
             <external-library-path dir="${basedir}/libs">
+                <include name="automation/automation_agent.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
-                <include name="flash-integration.swc"/>
+                <include name="advancedgrids.swc"/>
+                <include name="charts.swc"/>
+                <include name="spark.swc"/>
                 <include name="textLayout.swc"/>
+                <include name="automation/automation_dmv.swc"/>
+                <include name="datavisualization.swc"/>
             </external-library-path>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
 
+    <target name="tool_air" description="Builds the tool_air.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+            include-classes="ToolAIRClasses" output="${basedir}/libs/automation/tool_air.swc"
+            resource-bundle-list="${tool_air.dir}/bundles.properties">
+            <source-path path-element="${tool_air.dir}/src"/>
+            <source-path path-element="${automation.dir}/src"/>
+            <source-path path-element="${automation_air.dir}/src"/>
+            <source-path path-element="${automation_spark.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
+                <include name="air/airglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${basedir}/libs">
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="advancedgrids.swc"/>
+				<include name="charts.swc"/>
+				<include name="spark.swc"/>
+				<include name="textLayout.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/automation_dmv.swc"/>
+				<include name="datavisualization.swc"/>
+            </external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="tool_air_rb" description="Builds locale/en_US/tool_air_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
+            output="${basedir}/locale/${locale}/tool_air_rb.swc">
+            <include-resource-bundles bundle="tool_air"/>
+            <source-path path-element="${tool_air.dir}/bundles/${locale}"/>
+            <source-path path-element="${framework.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${airsdk.dir}/frameworks/libs">
+                <include name="air/airglobal.swc"/>
+            </external-library-path>
+        </compc>
+    </target>
+
     <!-- Build themes code -->
-    <target name="themes" depends="halo, mobiletheme,wireframe" description="Builds themes"/>
+    <target name="themes" depends="halo,mobiletheme,wireframe" description="Builds themes"/>
     
     <target name="halo" description="Builds themes/Halo/halo.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true"
@@ -686,9 +972,10 @@
     <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything."/>
     
     <target name="clean" depends="bundles-clean" description="Cleans all SWCs.">
-        <delete failonerror="false">
+        <delete failonerror="false" includeEmptyDirs="true">
             <fileset dir="${basedir}/libs">
                 <include name="mobile/mobilecomponents.swc"/>
+                <include name="mx/mx.swc"/>
                 <include name="spark_dmv.swc"/>
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
@@ -700,12 +987,21 @@
                 <include name="authoringsupport.swc"/>
                 <include name="flash-integration.swc"/>
             </fileset>
+            <fileset dir="${basedir}/libs/automation">
+                <include name="automation_agent.swc"/>
+                <include name="automation.swc"/>
+                <include name="automation_air.swc"/>
+                <include name="automation_dmv.swc"/>
+                <include name="automation_flashflexkit.swc"/>
+                <include name="automation_spark.swc"/>
+                <include name="automation_airspark.swc"/>
+                <include name="tool.swc"/>
+                <include name="tool_air.swc"/>
+            </fileset>
             <fileset dir="${basedir}/themes/Halo" includes="halo.swc"/>
             <fileset dir="${basedir}/themes/Mobile" includes="mobile.swc"/>
             <fileset dir="${basedir}/themes/Wireframe" includes="wireframe.swc"/>
         </delete>
-        <delete dir="${basedir}/libs/mx"/>
-        <delete dir="${basedir}/libs/mobile"/>
     </target>
 
     <target name="bundles-clean" description="Cleans all the resource bundles">
@@ -713,6 +1009,8 @@
             <fileset dir="${basedir}/locale/${locale}">
                 <include name="airframework_rb.swc"/>
                 <include name="airspark_rb.swc"/>
+                <include name="automation_rb.swc"/>
+                <include name="automation_agent_rb.swc"/>
                 <include name="mobilecomponents_rb.swc"/>
                 <include name="charts_rb.swc"/>
                 <include name="advancedgrids_rb.swc"/>
@@ -720,6 +1018,7 @@
                 <include name="mx_rb.swc"/>
                 <include name="rpc_rb.swc"/>
                 <include name="spark_rb.swc"/>
+                <include name="tool_air_rb.swc"/>
             </fileset>
         </delete>
         <delete dir="${basedir}/projects" includes="*/bundles.properties"/>

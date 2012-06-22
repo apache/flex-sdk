@@ -79,7 +79,7 @@
                 <include name="textLayout.swc"/>
                 <include name="automation/automation_dmv.swc"/>
                 <include name="datavisualization.swc"/>
-                </external-library-path>
+            </external-library-path>
             <locale/>
             <accessible>true</accessible>
         </compc>

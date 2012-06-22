@@ -170,16 +170,94 @@ FlashPlayer Configuration
  Software Dependencies
 ----------------------
 
-    Apache Flex uses some third-party code that will be downloaded as part of the Apache
+    Apache Flex uses third-party code that will be downloaded as part of the Apache
     Flex build.  In addition, there is some optional third-party code that you can choose
-    to download if you would like to take advantage of the features offered.  
+    to download if you would like to take advantage of the features offered and you agree
+    to the license terms.  
     
+    The Apache Version 2.0 license is in the LICENSE file.  
+    
+    The following dependencies have licenses which are, or are compatible with, the Apache 
+    Version 2.0 license.  You will not be prompted to acknowledge the download.  Most
+    of the jars are installed in lib/external.
+    
+        batik - http://archive.apache.org/dist/xmlgraphics/batik/batik-1.6.zip
+        commons-collections - http://archive.apache.org/dist/commons/collections/binaries/commons-collections-3.0.tar.gz
+        commons-discovery - http://archive.apache.org/dist/commons/discovery/binaries/commons-discovery-0.2.tar.gz
+        commons-logging - http://archive.apache.org/dist/commons/logging/binaries/commons-logging-1.0.4.tar.gz
+        javacc - http://java.net/projects/javacc/downloads/download/javacc-5.0.tar.gz
+        saxon9 - http://sourceforge.net/projects/saxon/files/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip/download
+        velocity - http://archive.apache.org/dist/velocity/engine/1.4/velocity-1.4.tar.gz
+        xalan - http://archive.apache.org/dist/xml/xalan-j/binaries/xalan-j_2_6_0-bin.tar.gz
+        xerces - http://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.zip
+ 
+    The following dependencies have licenses which considers reciprocal licenses so you 
+    will be prompted to acknowledge the license before the software is downloaded to your 
+    system. These files are installed in frameworks/libs.
+        
+        osmf.swc            
+            frameworks/libs
+            
+            Open Source Media Framework v1.0 used for video components
+        
+            This file is extracted from:
+            http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download
+            
+            This software is released under the Mozilla Public License Version 1.1:
+            <http://www.mozilla.org/MPL/>
+        
+        textLayout.swc
+            framework/libs
+            
+            Text Layout Format v2.0 used for text in Spark components
+        
+            This file is extracted from:
+            http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download
+    
+            This software is released under the Mozilla Public License Version 1.1:
+            <http://www.mozilla.org/MPL/>
+            
+    The following dependencies have licenses which Apache considers to be not compatible 
+    with the Apache License Version 2.0. You will be prompted to read and agree to the 
+    license terms of the dependency before the software can be downloaded to your system.  
+    These are optional components which enable additional features.  They are installed in 
+    libs/external/optional.
+
+    flex-messaging-common.jar
+        Provides integration with Adobe BlazeDs.
+               
+        This files are extracted from: 
+        http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
+       
+        This software is released under an Adobe license:
+        <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
+        
+    flex-fontkit.jar
+    afe.jar, adt.jar
+    aglj40.jar
+    rideau.jar
+        Adobe proprietary software which provides embedded font support.
+       
+        These jars are extracted from:
+        http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
+       
+        This software is released under an Adobe license:
+        <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
+
+
+
+ 
+ 
+ 
+               
     Per the Apache licensing guidelines, if a software dependency has a license which 
     Apache considers a reciprocal license you will be prompted to acknowledge the license
-    before the software is downloaded to your system and if a software dependency has a 
-    license which Apache considers to be not compatible with the Apache v2 license you 
-    will be prompted to confirm the download before the software is downloaded to your 
-    system.  The following dependencies fall into one of these categories.
+    before the software is downloaded to your system. If a software dependency has a 
+    license which Apache considers to be not compatible with the Apache License 
+    Version 2.0 you will be prompted to confirm the download before the software is 
+    downloaded to your system.  The Apache Version 2.0 license is in the LICENSE file.
+    
+    The following dependencies fall into one of these categories.
     
     osmf.swc            
         frameworks/libs
@@ -238,7 +316,7 @@ FlashPlayer Configuration
 
         This feature is optional.  You will need to confirm that you are aware of its
         license and would download this software.
-                    
+        
 Building the Source in the Source Distribution
 ----------------------------------------------
 
