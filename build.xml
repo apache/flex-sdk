@@ -1524,7 +1524,31 @@
              uri="antlib:org.apache.rat.anttasks"/>
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
             reportFile="${basedir}/rat.log">
-            <fileset dir="${rat.dir}"/>
+            <fileset dir="${rat.dir}">
+                <!--          Start of binary files           -->
+                <!-- exclude Flash Professional file used for integration with Flash Professional -->
+                <exclude name="frameworks/projects/flash-integration/FLA/ContentHolder.fla"/>
+                <!-- exclude font embedded in asdoc example -->
+                <exclude name="frameworks/projects/framework/asdoc/en_US/mx/effects/examples/assets/OpenSans-Regular.ttf"/>
+                <!-- exclude media (png, gif, jpg, mp3, flv) -->
+                <exclude name="**/*.png"/>
+                <exclude name="**/*.gif"/>
+                <exclude name="**/*.jpg"/>
+                <exclude name="**/*.mp3"/>
+                <exclude name="**/*.flv"/>
+                <!--          End of binary files           -->
+                <!-- exclude batik manifests -->
+                <exclude name="modules/thirdparty/batik/sources/*.mf"/>
+                <!-- exclude w3c sources -->
+                <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.mod"/>
+                <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.dtd"/>
+                <exclude name="modules/thirdparty/batik/sources/org/w3c/flex/forks/css/sac/*.java"/>
+                <exclude name="modules/thirdparty/batik/sources/org/w3c/flex/forks/css/sac/helpers/ParserFactory.java"/>
+                <!-- exclude config files -->
+                <exclude name="modules/thirdparty/xerces-patch/src/java/META-INF/services/javax.xml.parsers.SAXParserFactory"/>
+                <exclude name="modules/thirdparty/xerces-patch/src/java/META-INF/services/org.apache.xerces.xni.parser.XMLParserConfiguration"/>
+                <exclude name="modules/thirdparty/xerces-patch/src/java/org/apache/xerces/jaxp/javax.xml.parsers.SAXParserFactory"/>
+            </fileset>
         </rat:report>
     </target>
     
