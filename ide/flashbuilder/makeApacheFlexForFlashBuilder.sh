@@ -41,6 +41,9 @@ ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIR
 # Adobe Flash Player Version 11.1
 ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
 
+# Adobe Flex SDK v4.6
+ADOBE_FLEX_SDK_URL=http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
+
 FLEX_HOME="$1"
 
 if [ "$FLEX_HOME" = "" ] ; then
@@ -58,6 +61,89 @@ mkdir -p "$tempDir"
 # the names of the tar/zip files
 APACHE_FLEX_BIN_DISTRO_FILE=`basename "${APACHE_FLEX_BIN_DISTRO_URL}"`
 ADOBE_AIR_SDK_MAC_FILE=`basename "${ADOBE_AIR_SDK_MAC_URL}"`
+ADOBE_FLEX_SDK_FILE=`basename "${ADOBE_FLEX_SDK_URL}"`
+
+function echo_adobe_flex_sdk_license()
+{
+        echo
+        echo "Adobe Flex SDK License Agreement:"
+        echo
+        echo "All files contained in this Adobe Flex SDK download are subject to and governed by the"
+        echo "Adobe Flex SDK License Agreement specified here:"
+        echo "    http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf," 
+        echo "By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK,"
+        echo "you agree to the terms and conditions of the applicable end user license agreement."
+        echo
+        echo "In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here:"
+        echo "    http://www.adobe.com/products/eula/third_party/."
+        echo "Adobe recommends that you review these third-party terms."
+        echo
+}
+
+function download_adobe_flex_sdk()
+{
+    if [ -z $adobeFlexSDKDownloaded ]
+    then
+        curl "$ADOBE_FLEX_SDK_URL" --output "$tempDir/$ADOBE_FLEX_SDK_FILE"
+        mkdir -p "$tempDir"/flexSDK  
+        tar xf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$tempDir/flexSDK"
+        
+        # q is fast-read so it extracts the first file matched.
+        tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$tempDir" license-adobesdk.htm
+        
+        adobeFlexSDKDownloaded=true
+    fi
+}
+
+# Ask about optional integration with Adobe BlazeDS (Data Services)
+echo
+echo ===========================================================================
+echo "Apache Flex can optionally integrate with Adobe BlazeDS."
+echo
+echo "This feature requires flex-messaging-common.jar from the Adobe Flex SDK."
+echo "The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar."
+echo "This license is not compatible with the Apache v2 license."
+echo ===========================================================================
+echo_adobe_flex_sdk_license
+read -p "Do you want to install the BlazeDS support from the Adobe Flex SDK? (y/[n]) " ADOBE_BLAZEDS_RESP
+
+# Ask about optional integration with the Adobe Embedded Font Support.
+echo
+echo ===========================================================================        
+echo "Apache Flex can optionally integrate with Adobe's embedded font support."
+echo
+echo "This feature requires a few font jars from the Adobe Flex SDK."
+echo "The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars."
+echo "This license is not compatible with the Apache v2 license."
+echo ===========================================================================
+echo_adobe_flex_sdk_license
+read -p "Do you want to install the embedded font support from the Adobe Flex SDK? (y/[n]) " ADOBE_FONT_RESP
+echo
+
+# Now do the optional integration, if requested.
+if [ "$ADOBE_BLAZEDS_RESP" = "y" ]; then
+    download_adobe_flex_sdk
+    
+    mkdir -p "$FLEX_HOME/lib/external/optional"    
+    tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$FLEX_HOME/lib/external/optional" --strip-components 1 lib/flex-messaging-common.jar
+    cp -v "$tempDir/license-adobesdk.htm" $FLEX_HOME/lib/external/optional/flex-messaging-common-LICENSE.htm
+fi
+
+if [ "$ADOBE_FONT_RESP" = "y" ]; then
+    download_adobe_flex_sdk
+
+    mkdir -p "$FLEX_HOME/lib/external/optional"
+    
+    tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$FLEX_HOME/lib/external/optional" --strip-components 1  lib/afe.jar
+    tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$FLEX_HOME/lib/external/optional" --strip-components 1 lib/aglj40.jar
+    tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$FLEX_HOME/lib/external/optional" --strip-components 1 lib/flex-fontkit.jar
+    tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$FLEX_HOME/lib/external/optional" --strip-components 1 lib/rideau.jar
+    
+    cp -v "$tempDir/license-adobesdk.htm" "$FLEX_HOME/lib/external/optional/afe-LICENSE.htm"
+    cp -v "$tempDir/license-adobesdk.htm" "$FLEX_HOME/lib/external/optional/aglj40-LICENSE.htm"
+    cp -v "$tempDir/license-adobesdk.htm" "$FLEX_HOME/lib/external/optional/flex-fontkit-LICENSE.htm"
+    cp -v "$tempDir/license-adobesdk.htm" "$FLEX_HOME/lib/external/optional/rideau.jar-LICENSE.htm"
+fi
 
 # download the Apache Flex SDK
 echo "Downloading the Apache Flex SDK from $APACHE_FLEX_BIN_DISTRO_URL"

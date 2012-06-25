@@ -616,7 +616,6 @@
         <condition  property="font.donot.ask">
             <and>
                 <available file="${lib.opt.dir}/flex-fontkit.jar"/>
-                <available file="${lib.opt.dir}/adt.jar"/>
                 <available file="${lib.opt.dir}/afe.jar"/>
                 <available file="${lib.opt.dir}/aglj40.jar"/>
                 <available file="${lib.opt.dir}/rideau.jar"/>
@@ -660,7 +659,6 @@
         
         <copy todir="${lib.opt.dir}" verbose="true">
             <fileset dir="${download.dir}/${adobe.flex.dir}/lib">
-                <include name="adt.jar" />
                 <include name="afe.jar" />
                 <include name="aglj40.jar" />
                 <include name="flex-fontkit.jar" />
@@ -670,8 +668,6 @@
         
         <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/flex-fontkit-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/adt-LICENSE.htm" verbose="true"/>
         <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
             tofile="${lib.opt.dir}/afe-LICENSE.htm" verbose="true"/>
         <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
@@ -714,7 +710,6 @@
             <patternset>
                 <include name="license-adobesdk.htm"/>
                 <include name="lib/flex-messaging-common.jar"/>
-                <include name="lib/adt.jar" />
                 <include name="lib/afe.jar" />
                 <include name="lib/aglj40.jar" />
                 <include name="lib/flex-fontkit.jar" />
