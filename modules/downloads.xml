@@ -277,7 +277,7 @@
                 <include name="**/**"/>
             </fileset>            
         </delete>
-        <delete includeEmptyDirs="true">
+        <delete includeEmptyDirs="true" failonerror="fasle">
             <fileset dir="${download.dir}">
                 <include name="${batik.zip.dir}*/**"/>
             </fileset>            
@@ -478,7 +478,7 @@
                 <include name="**/**"/>
             </fileset>            
         </delete>
-        <delete includeEmptyDirs="true">
+        <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${download.dir}">
                 <include name="${velocity.zip.dir}*/**"/>
             </fileset>            

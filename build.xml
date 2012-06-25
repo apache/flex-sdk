@@ -45,13 +45,6 @@
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
         
-    <!-- 
-        For conditions, properties are set or not set.  The value doesn't matter.
-    -->    
-    <property name="no.doc-packages" value="true"/>
-    <property name="no.additional-packages" value="true"/>
-    <property name="no.doc" value="true"/>
-    
     <!--
         Notes: If you're running the main target, then there is no need to call clean first.
         Each of the main targets for the modules will call clean themselves before proceeding.
@@ -66,6 +59,10 @@
 
     <target name="dev" depends="modules-dev" description="Runs src.depend build for development"/>
 
+    <!-- 
+        Can set build.doc-packages, build.additional-packages, build.fatswcs
+        to build additional targets as part of a release.
+    -->    
     <target name="release" 
         depends="check-compile-env,check-runtime-env,source-release,binary-release"
         description="Creates source and binary kits for Apache Flex."/>
@@ -75,7 +72,7 @@
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
-        depends="setup-binary-release,main,frameworks-rsls,checkintests,doc,other.locales,binary-package,doc-packages,additional-packages" 
+        depends="setup-binary-release,main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,doc-packages,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
     <target name="doc-packages" 
@@ -83,7 +80,7 @@
         description="Build and package the asdocs for the framework clases and the javadocs."/>
                 
     <target name="additional-packages"
-        depends="sample-themes,ja-locale-samples,antTasks-package" 
+        depends="ja-locale-samples,antTasks-package" 
         description="Package locale-samples and antTasks."/>
 
     <target name="help">
@@ -387,10 +384,6 @@
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number}"/>
 		<!-- spark_dmv RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number}"/>		
-		<!-- OSMF RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="osmf" build-number="${release.version}.${build.number}"/>		
-		<!-- textLayout RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>
 	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
@@ -405,7 +398,7 @@
         <!--<ant dir="${basedir}/samples/themes/zen" target="main" /> -->
     </target>
 
-    <target name="javadocs" unless="no.doc-packages"
+    <target name="javadocs" if="build.doc-packages"
         description="Build javadoc for compiler oem interface">
         <javadoc destdir="${basedir}/javadoc" useexternalfile="yes" maxmemory="128m">
             <classpath>
@@ -1044,7 +1037,7 @@
         </copy>
     </target>
 
-    <target name="ja-locale-samples" unless="no.additional-packages">
+    <target name="ja-locale-samples" if="build.additional-packages">
         <antcall target="clean-temp"/>
         <!--
         <copy todir="${basedir}/temp/samples_ja">
@@ -1058,7 +1051,7 @@
         -->
     </target>
  
-    <target name="antTasks-package" unless="no.additional-packages">
+    <target name="antTasks-package" if="build.additional-packages">
 
         <antcall target="antTasks"/>
         <antcall target="clean-temp"/>
@@ -1102,7 +1095,7 @@
         </copy>
     </target>
     
-    <target name="asdoc-package" unless="no.doc-packages" description="Package the asdocs">      
+    <target name="asdoc-package" if="build.doc-packages" description="Package the asdocs">      
         <antcall target="clean-temp"/>
         <antcall target="asdoc"/>
         
@@ -1156,7 +1149,7 @@
     </target>
 
     <!-- Builds fat swcs. -->
-    <target name="doc" unless="no.doc">
+    <target name="doc" if="build.fatswcs">
         <ant dir="${basedir}/frameworks" target="doc" />
     </target>
 
