@@ -206,21 +206,22 @@ public class CompilerConfiguration implements As3Configuration,
     {
         final String[] processed = new String[pathlist.length];
            
-        // Look at property file first and then environment variable.
+        // Look at property file first, if it exists, and see if the particular property
+        // is defined.  If not found, then look for the environment variable.
         // If there is neither leave the token in place since it is easier to
         // diagnose the problem with a token in the error message path then it is with
         // a "" in the path.
         Properties envProperties = loadEnvPropertyFile();
         
         String playerglobalHome = envProperties != null ?
-            envProperties.getProperty("env.PLAYERGLOBAL_HOME") :
+            envProperties.getProperty("env.PLAYERGLOBAL_HOME", System.getenv("PLAYERGLOBAL_HOME")) :
             System.getenv("PLAYERGLOBAL_HOME");
         
         if (playerglobalHome == null)
             playerglobalHome = PLAYERGLOBAL_HOME_TOKEN;
             
         String airHome = envProperties != null ?
-            envProperties.getProperty("env.AIR_HOME") :
+            envProperties.getProperty("env.AIR_HOME", System.getenv("AIR_HOME")) :
             System.getenv("AIR_HOME");
 
         if (airHome == null)
