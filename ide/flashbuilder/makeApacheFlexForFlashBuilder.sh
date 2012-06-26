@@ -126,7 +126,7 @@ if [ "$ADOBE_BLAZEDS_RESP" = "y" ]; then
     
     mkdir -p "$FLEX_HOME/lib/external/optional"    
     tar xvqf "$tempDir/$ADOBE_FLEX_SDK_FILE" -C "$FLEX_HOME/lib/external/optional" --strip-components 1 lib/flex-messaging-common.jar
-    cp -v "$tempDir/license-adobesdk.htm" $FLEX_HOME/lib/external/optional/flex-messaging-common-LICENSE.htm
+    cp -v "$tempDir/license-adobesdk.htm" "$FLEX_HOME/lib/external/optional/flex-messaging-common-LICENSE.htm"
 fi
 
 if [ "$ADOBE_FONT_RESP" = "y" ]; then
