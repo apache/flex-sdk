@@ -356,6 +356,7 @@
     -->
     <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
+		<rsl-url>textLayout_${build.number}.swf</rsl-url>
 	</runtime-shared-library-path>
     
       <!-- Spark SWC-->
@@ -395,6 +396,7 @@
     -->
     <runtime-shared-library-path>
 		<path-element>libs/osmf.swc</path-element>
+		<rsl-url>osmf_${build.number}.swf</rsl-url>
 	</runtime-shared-library-path>
       
       <!-- MX SWC -->
