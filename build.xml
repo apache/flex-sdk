@@ -753,6 +753,21 @@
         <!-- locales -->
         <antcall target="stage-locales"/>
 
+        <!-- generated files in frameworks excepts libs and rsls -->
+        <copy todir="${basedir}/temp/frameworks">
+            <fileset dir="${basedir}/frameworks">
+                <include name="projects/*/bundles.properties"/>
+                <include name="projects/spark/manifest.xml"/>
+                <include name="**/*.pbj"/>
+                <include name="**/*.swc"/>
+                <include name="**/*.swf"/>
+                <exclude name="libs/**"/>
+                <exclude name="rsls/**"/>
+                <exclude name="tests/**"/>
+            </fileset>
+        </copy>
+
+
         <!-- frameworks/libs -->
         <copy todir="${basedir}/temp/frameworks/libs">
             <fileset dir="${basedir}/frameworks/libs">
@@ -796,18 +811,6 @@
             <fileset dir="${basedir}/frameworks/rsls"/>
         </copy>
         
-        <!-- generated files in frameworks -->
-        <copy todir="${basedir}/temp/frameworks">
-            <fileset dir="${basedir}/frameworks">
-                <include name="projects/*/bundles.properties"/>
-                <include name="projects/spark/manifest.xml"/>
-                <include name="**/*.pbj"/>
-                <include name="**/*.swc"/>
-                <include name="**/*.swf"/>
-                <exclude name="tests/**"/>
-            </fileset>
-        </copy>
-
         <!-- the jar files -->
         <antcall target="stage-lib"/>
 

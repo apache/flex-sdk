@@ -89,7 +89,7 @@
         Notify before downloading file with MPL1.1 license.
     -->
     <target name="ask-osmf" unless="build.noprompt">
-        <echo message="The Open Source Media Framework used by the video components"/>
+        <echo message="The Open Source Media Framework (OSMF) used by the video components"/>
         <echo message="is licensed under the Mozilla Public License Version 1.1."/>
         <antcall target="echo-mpl1.1-license"/>
         <property name="do.osmf.install" value="set" />
@@ -179,7 +179,7 @@
         Notify before downloading file with MPL1.1 license.
     -->
     <target name="ask-tlf" unless="build.noprompt">
-        <echo message="The Adobe Text Layout Framework used by the Spark text components"/>
+        <echo message="The Adobe Text Layout Framework (TLF) used by the Spark text components"/>
         <echo message="is licensed under the Mozilla Public License Version 1.1."/>
         <antcall target="echo-mpl1.1-license"/>
     </target>

@@ -29,6 +29,3 @@ The Open Source Media Framework used by the video components is licensed under t
 The Adobe Text Layout Framework used by the Spark text components is licensed under the 
     Mozilla Public License Version 1.1.  The source code can be found here:
     http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip
-    
-The Flash authoring support uses FlexContentHolderThumbnail.swc which is licensed under
-    under the Mozilla Public License Version 1.1.
