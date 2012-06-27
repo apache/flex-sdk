@@ -64,7 +64,7 @@
         to build additional targets as part of a release.
     -->    
     <target name="release" 
-        depends="check-compile-env,check-runtime-env,source-release,binary-release"
+        depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release"
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
@@ -176,7 +176,21 @@
             unless="pbutil.exe.exists"/>
     </target>
 
+    <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
+        description="Check ADOBE_EXTENSION_MANAGER is a directory.">
+        
+        <echo message="ADOBE_EXTENSION_MANAGER is ${env.ADOBE_EXTENSION_MANAGER}"/>
+
+        <available file="${env.ADOBE_EXTENSION_MANAGER}" 
+            type="file" 
+            property="ADOBE_EXTENSION_MANAGER.set"/>
+
+        <fail message="ADOBE_EXTENSION_MANAGER must be set correctly for a release build" 
+            unless="ADOBE_EXTENSION_MANAGER.set"/>
+    </target>
+
     <target name="create-description" description="Generate flex-sdk-description.xml">
+        <echo message="build.number is ${build.number}"/>
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
 &lt;!--
 

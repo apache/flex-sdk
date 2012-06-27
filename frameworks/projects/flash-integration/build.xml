@@ -101,17 +101,14 @@
 			<fileset dir="${basedir}">
 			    <include name="bundles.properties"/>
 			    <include name="bundles/*/empty.properties"/>
+			    <include name="libs/flash-integration.swc"/>
 			    <exclude name="bundles/en_US/empty.properties"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="flash-integration.swc"/>
 				<include name="flash-integration.swc.incr"/>
 			</fileset>
-		</delete>
-		<delete failonerror="false">
-			<fileset dir="${FLEX_HOME}/frameworks/flash-integration">
-				<include name="*/FlexComponentKit.mxp"/>
-			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/flash-integration"/>
 		</delete>
 	</target>
 	
@@ -166,7 +163,7 @@
         
         <!-- need to copy the file produced over so that the MXI 
              can refer to the flash-integration.swc -->
-        <copy todir="${basedir}/libs">
+        <copy todir="${basedir}/libs" verbose="true">
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="flash-integration.swc"/>
 			</fileset>
@@ -191,7 +188,7 @@
     </target>
     
     <target name="PackageMXP" if="ADOBE_EXTENSION_MANAGER.set" >
-        <echo message="Creating MXP file" />
+        <echo message="Creating MXP file ${FLEX_HOME}/frameworks/flash-integration/FlexComponentKit.mxp" />
         <exec executable="${env.ADOBE_EXTENSION_MANAGER}" dir="${basedir}" failonerror="true">
             <arg value="-suppress" />
             <arg value="-package" />
