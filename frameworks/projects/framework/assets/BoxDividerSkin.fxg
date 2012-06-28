@@ -20,7 +20,7 @@
 <Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
 	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
 	xmlns:flm="http://ns.adobe.com/flame/2008"
-	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="BoxDividerSkin" afx:baseClassName="flash.display.Sprite" >
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="mx.skins.BoxDividerSkin" afx:baseClassName="flash.display.Sprite" >
         <Group d:type="layer" d:userLabel="Layer 1">
           <Group>
             <Path data="M16 4 0 4 0 3 16 3 16 4M16 6 0 6 0 5 16 5 16 6M16 2 0 2 0 1 16 1 16 2">
