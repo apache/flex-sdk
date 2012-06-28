@@ -63,6 +63,11 @@ APACHE_FLEX_BIN_DISTRO_FILE=`basename "${APACHE_FLEX_BIN_DISTRO_URL}"`
 ADOBE_AIR_SDK_MAC_FILE=`basename "${ADOBE_AIR_SDK_MAC_URL}"`
 ADOBE_FLEX_SDK_FILE=`basename "${ADOBE_FLEX_SDK_URL}"`
 
+echo
+echo "This script will construct an Adobe Flex SDK for an IDE in '$FLEX_HOME'"
+echo "You will need to answer questions throughout this process."
+echo
+
 function echo_adobe_flex_sdk_license()
 {
         echo
@@ -150,6 +155,9 @@ echo "Downloading the Apache Flex SDK from $APACHE_FLEX_BIN_DISTRO_URL"
 curl "$APACHE_FLEX_BIN_DISTRO_URL" --output "$tempDir/$APACHE_FLEX_BIN_DISTRO_FILE"
 tar xf "$tempDir/$APACHE_FLEX_BIN_DISTRO_FILE" -C "$FLEX_HOME"
 
+# download swfobject, osmf.swc and textLayout.swc
+ant -f "$FLEX_HOME"/frameworks/downloads.xml
+
 # download the AIR SDK for Mac
 echo "Downloading the Adobe AIR SDK for Mac from $ADOBE_AIR_SDK_MAC_URL"
 curl "$ADOBE_AIR_SDK_MAC_URL" --output "$tempDir/$ADOBE_AIR_SDK_MAC_FILE"
@@ -166,3 +174,6 @@ cp -p -v "$FLEX_HOME"/ide/flashbuilder/config/*-config.xml "$FLEX_HOME/framework
 
 # remove the zipped kits
 rm -rf "$tempDir"
+
+# remove the stagging directory for downloaded software
+rm -rf "$FLEX_HOME/in"

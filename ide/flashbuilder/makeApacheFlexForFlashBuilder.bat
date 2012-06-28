@@ -28,7 +28,8 @@ REM     modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environmen
 REM     variables are not required because the locations of these pieces are known.
 REM
 REM     Note: This script does not install the optional Adobe BlazeDS integration
-REM     or the Adobe embedded font support.
+REM     or the Adobe embedded font support nor osmf.swc, textLayout.swc and
+REM     the swfobject files.
 REM
 REM     Usage: makeApacheFlexForFlashBuilder [sdk directory]
 REM
