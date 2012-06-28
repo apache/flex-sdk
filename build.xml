@@ -64,7 +64,7 @@
         to build additional targets as part of a release.
     -->    
     <target name="release" 
-        depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release"
+        depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release,rat-check"
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
@@ -1518,20 +1518,22 @@
     <!-- Runs Apache Rat against the source code, to spot any files -->
     <!--  which are missing the correct license headers -->
     <!-- You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar -->
-    <!--  into your ant lib before running this target. -->
-
-    <!-- Run this tag by itself.  It will stage the source and then check it. -->
-    <target name="rat-check" description="Report licenses in source kit">
+    <!--  in ${env.ANT_HOME}/lib before running this target. -->
     
-        <!-- Stage the src kit files in the temp directory. -->
-        <property name="no.zip" value="set" />
-        <antcall target="source-release"/>
+    <!-- Run this tag by itself.  It will unzip the source kit and then check it. -->
+    <!-- To check a subset of files run with -Drat.dir=<dir>. -->
+    
+    <target name="rat-check" depends="rat-taskdef" if="have.rattasks"
+        description="Report on licenses in source kit.">
+    
+        <!-- Unzip the source kit -->
+        <antcall target="clean-temp" />
+        <unzip src="${basedir}/out/${source.kit}.zip" dest="${basedir}/temp"/>
         
-        <!-- Run Rat on the staged files to check for license violations. -->
         <property name="rat.dir" value="${basedir}/temp"/>
+
         <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.log"/>
-        <typedef resource="org/apache/rat/anttasks/antlib.xml"
-             uri="antlib:org.apache.rat.anttasks"/>
+             
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
             reportFile="${basedir}/rat.log">
             <fileset dir="${rat.dir}">
@@ -1561,20 +1563,35 @@
             </fileset>
         </rat:report>
     </target>
+
+    <!-- 
+        apache-rat-0.0.jar and apache-rat-tasks-0.0.jar (0.0 is currently 0.8)
+        should be in ${env.ANT_HOME}/lib/**.
+    -->
+    <path id="rattask.classpath">
+        <fileset dir="${env.ANT_HOME}/lib">
+           <include name="**/apache-rat*.jar"/>
+        </fileset>
+    </path>
     
-    <target name="rat-check-prompt" 
-        description="Prompt for dir and run RAT on that directory."> 
-         
-        <input
-            message="Enter the directory to run RAT on?"
-            defaultvalue="${basedir}/temp"
-            addproperty="rat.dir"/>
-        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.log"/>
-        <typedef resource="org/apache/rat/anttasks/antlib.xml"
-             uri="antlib:org.apache.rat.anttasks"/>
-        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
-            reportFile="${basedir}/rat.log">
-            <fileset dir="${rat.dir}"/>
-        </rat:report>
+    <target name="rat-taskdef" description="Rat taskdef">    
+        <available property="have.rattasks" 
+            resource="org/apache/rat/anttasks/antlib.xml" 
+            classpathref="rattask.classpath"/>
+
+        <antcall target="have-rattasks"/>
+        <antcall target="no-rattasks"/>
     </target>
+
+    <target name="have-rattasks" if="have.rattasks">
+        <typedef resource="org/apache/rat/anttasks/antlib.xml"
+                 uri="antlib:org.apache.rat.anttasks"
+                 classpathref="rattask.classpath"/>                 
+    </target>
+    
+    <target name="no-rattasks" unless="have.rattasks">
+        <echo message="Rat report not generated."/>
+        <echo message="rat jars (apache-rat-*.jar, apache-rat-tasks-*.jar)"/>
+        <echo message="not found in ${env.ANT_HOME}${file.separator}lib${file.separator}**"/>
+    </target>   
 </project>
