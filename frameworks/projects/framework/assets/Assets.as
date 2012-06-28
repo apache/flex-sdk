@@ -69,10 +69,10 @@ public class Assets extends Sprite
 	private var menuRadioDisabled:MenuRadioDisabled;
 	private var menuRadioEnabled:MenuRadioEnabled;
 	private var menuSeparator:MenuSeparator;
-	private var openDateDisabled:OpenDateDisabled;
-	private var openDateOver:OpenDateOver;
-	private var openDateUp:OpenDateUp;
-	private var openDateDown:OpenDateDown;
+	private var OpenDateDisabled:openDateDisabled;
+	private var OpenDateOver:openDateOver;
+	private var OpenDateUp:openDateUp;
+	private var OpenDateDown:openDateDown;
 	private var treeDisclosureClosed:TreeDisclosureClosed;
 	private var treeDisclosureOpen:TreeDisclosureOpen;
 	private var treeFolderClosed:TreeFolderClosed;

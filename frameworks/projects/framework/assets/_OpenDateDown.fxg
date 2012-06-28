@@ -20,7 +20,7 @@
 <Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
 	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
 	xmlns:flm="http://ns.adobe.com/flame/2008"
-	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="OpenDateDown" afx:baseClassName="flash.display.Sprite" >
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="openDateDown" afx:baseClassName="flash.display.Sprite" >
         <Group d:type="layer" d:userLabel="icon">
           <Group>
             <Path x="0.15" y="-1.05" data="M13.85 2.05 13.85 15.05 0.85 15.05 0.85 14.05 12.85 14.05 12.85 2.05 13.85 2.05">
