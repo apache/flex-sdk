@@ -356,8 +356,6 @@
         <available file="${download.dir}/${adobe.flex.zip.file}" type="file"
             property="adobe.flex.sdk.download.exists"/>
         
-        <echo message="${download.dir}/${adobe.flex.zip.file} property ${adobe.flex.sdk.download.exists}"/>
-        
         <antcall target="download-adobe-flex-sdk" />
         
         <unzip src="${download.dir}/${adobe.flex.zip.file}" 

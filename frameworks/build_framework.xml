@@ -29,9 +29,13 @@
     -->
 
     <property name="FLEX_HOME" value="${basedir}/.."/>
-    <property name="build.number" value="0"/>
 
-    <property environment="env"/>    
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/local.properties"/>
+    <property file="${FLEX_HOME}/build.properties"/>
+
+    <property name="build.number" value="0"/>
     <property name="playerglobal.version" value="11.1"/>
     <property name="playerglobal.dir" value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}"/>
     <property name="airsdk.dir" value="${env.AIR_HOME}"/>

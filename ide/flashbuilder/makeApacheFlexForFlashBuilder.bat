@@ -27,10 +27,6 @@ REM     into the directory structure.  The paths in the framework configuration 
 REM     modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environment 
 REM     variables are not required because the locations of these pieces are known.
 REM
-REM     Note: This script does not install the optional Adobe BlazeDS integration
-REM     or the Adobe embedded font support nor osmf.swc, textLayout.swc and
-REM     the swfobject files.
-REM
 REM     Usage: makeApacheFlexForFlashBuilder [sdk directory]
 REM
 
@@ -78,6 +74,11 @@ cscript //B //nologo winUtil.vbs "%APACHE_FLEX_BIN_DISTRO_URL%" "%tempDir%\%APAC
 if %errorlevel% neq 0 goto errorExit
 
 REM
+REM the third-party downloads, including the optional components
+REM
+ant -f "%FLEX_HOME%/frameworks/downloads.xml"
+
+REM
 REM     Download AIR Runtime Kit for Windows
 REM
 echo Downloading and unzipping Adobe AIR Runtime Kit for Windows from "%ADOBE_AIR_SDK_WIN_URL%" to "%FLEX_HOME%"
@@ -105,7 +106,7 @@ REM
 REM         Remove zipped kits.
 REM
 rmdir /s /q "%tempDir%"
-
+rmdir /s /q "%FLEX_HOME/in%"
 goto :eof
 
 :errorExit
