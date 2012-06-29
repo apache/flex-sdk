@@ -37,15 +37,12 @@
     <property name="lib.opt.dir" value="${lib.ext.dir}/optional"/>
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
-    <property name="adobe.flex.dir" value="adobe_flex_sdk_4.6"/>
-    <property name="adobe.flex.zip.file" value="flex_sdk_4.6.0.23201B.zip"/>
 
     <property name="batik.zip.dir" value="batik-1.6"/>
     <property name="batik.dir" value="thirdparty/batik"/>
     <property name="velocity.zip.dir" value="velocity-1.4"/>
     <property name="velocity.dir" value="thirdparty/velocity"/>
-
-
+    
 	<!-- 
 	   Notes:
 	       For Apache, the JARS must be removed from the repository.
@@ -85,20 +82,14 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="optional-jars, required-jars"/>
-
-	<target name="required-jars" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars" 
+	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars" 
 		description="Downloads all the required thirdparty JARs"/>
 
-    <!-- Ask all the questions up front. -->
-    <target name="optional-jars" depends="blazeds-jar, font-jars, clean-adobe-flex-sdk"
-        description="Downloads, after prompt for each, the optional thirdparty JARs"/>
-    
     <!--
 		Cleanup
 	-->
 	
-    <target name="clean" depends="batik-jars-clean,velocity-jars-clean,clean-adobe-flex-sdk"
+    <target name="clean" depends="batik-jars-clean,velocity-jars-clean"
         description="Removes thirdparty downloads.">
         
         <delete includeEmptyDirs="true" failonerror="false">
@@ -552,199 +543,5 @@
             <globmapper from="*" to="xerces-LICENSE/*"/>
         </copy>
         <delete dir="${download.dir}/${xerces.dir}"/>
-    </target>
-	
-	<!--============================================================================= -->
-	<!--      Optional Jars.  Licenses are not compatible with Apache v2 license.     -->
-	<!--============================================================================= -->
-	
-	<!--
-        flex-messaging-common.jar - BlazeDS interface for -service compiler option
-    -->
-    
-    <target name="blazeds-jar-check" unless="blazeds.donot.ask"
-        description="Checks if flex-messaging-common.jar is in optional lib directory.">
-        <available file="${lib.opt.dir}/flex-messaging-common.jar" property="blazeds.donot.ask"/>
-        <condition property="blazeds.donot.ask">
-            <isset property="build.noprompt"/>
-        </condition>
-    </target>
-    
-    <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
-        description="Downloads and copies flex-messaging-common.jar to the optional lib directory."/>
-
-    <!-- Prompt before downloading.  -->
-    <target name="ask-blazeds" unless="blazeds.donot.ask"
-        description="Prompt the user before downloading BlaseDS">
-        
-        <echo message="Apache Flex can optionally integrate with Adobe BlazeDS."/>
-        <echo message="This feature requires flex-messaging-common.jar from the Adobe Flex SDK."/>
-        <echo message="The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar."/>
-        <echo message="This license is not compatible with the Apache v2 license."/>
-        <antcall target="echo-adobe-flex-sdk-license"/>
-        <input
-            message="${line.separator}Do you want to install this jar from the Adobe Flex SDK?"
-            validargs="y,n"
-            defaultvalue="n"
-            addproperty="input.blazeds.download"/>
-        <condition property="do.blazeds.install">
-            <equals arg1="y" arg2="${input.blazeds.download}"/>
-        </condition>
-        <!-- Only ask once per ant run.  -->
-        <property name="blazeds.donot.ask" value="set"/>
-    </target>
-        
-    <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">
-
-        <available file="${download.dir}/${adobe.flex.dir}" type="dir"
-            property="adobe.flex.sdk.exists"/>
-        
-        <antcall target="get-adobe-flex-sdk"/>
-
-        <copy file="${download.dir}/${adobe.flex.dir}/lib/flex-messaging-common.jar" 
-            todir="${lib.opt.dir}" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/flex-messaging-common-LICENSE.htm" verbose="true"/>
-    </target>
-
-	<!--
-        Embedded Font Support
-    -->
-    
-    <target name="font-jars-check" unless="font.donot.ask"
-        description="Checks if font jars are in the optional lib directory.">        
-        <condition  property="font.donot.ask">
-            <and>
-                <available file="${lib.opt.dir}/flex-fontkit.jar"/>
-                <available file="${lib.opt.dir}/afe.jar"/>
-                <available file="${lib.opt.dir}/aglj40.jar"/>
-                <available file="${lib.opt.dir}/rideau.jar"/>
-            </and>
-        </condition>
-        <condition property="font.donot.ask">
-            <isset property="build.noprompt"/>
-        </condition>
-    </target>
-    
-    <target name="font-jars" depends="font-jars-check,get-font-jars" 
-        description="Downloads and copies font jars to the optional lib directory."/>
-
-    <!-- Prompt before downloading.  -->
-    <target name="ask-font" unless="font.donot.ask"
-        description="Prompt the user before downloading BlaseDS">
-        
-        <echo message="Apache Flex can optionally integrate with Adobe's embedded font support."/>
-        <echo message="This feature requires a few font jars from the Adobe Flex SDK."/>
-        <echo message="The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars."/>
-        <echo message="This license is not compatible with the Apache v2 license."/>
-        <antcall target="echo-adobe-flex-sdk-license"/>
-        <input
-            message="${line.separator}Do you want to install these jars from the Adobe Flex SDK?"
-            validargs="y,n"
-            defaultvalue="n"
-            addproperty="input.font.download"/>
-        <condition property="do.font.install">
-            <equals arg1="y" arg2="${input.font.download}"/>
-        </condition>
-        <!-- Only ask once per ant run.  -->
-        <property name="font.donot.ask" value="set"/>
-    </target>
-    
-    <target name="get-font-jars" depends="ask-font" if="do.font.install">
-        
-        <available file="${download.dir}/${adobe.flex.dir}" type="dir"
-            property="adobe.flex.sdk.exists"/>
-        
-        <antcall target="get-adobe-flex-sdk"/>
-        
-        <copy todir="${lib.opt.dir}" verbose="true">
-            <fileset dir="${download.dir}/${adobe.flex.dir}/lib">
-                <include name="afe.jar" />
-                <include name="aglj40.jar" />
-                <include name="flex-fontkit.jar" />
-                <include name="rideau.jar" />
-            </fileset>
-        </copy>
-        
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/flex-fontkit-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/afe-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/aglj40-LICENSE.htm" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/rideau.jar-LICENSE.htm" verbose="true"/>
-    </target>
-        	
-    <target name="echo-adobe-flex-sdk-license">       
-        <echo message="Adobe Flex SDK License Agreement:
-            ${line.separator}
-            ${line.separator}All files contained in this Adobe Flex SDK download are subject to and governed by the
-            ${line.separator}Adobe Flex SDK License Agreement specified here: 
-            ${line.separator}    http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf, 
-            ${line.separator}By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK, 
-            ${line.separator}you agree to the terms and conditions of the applicable end user license agreement.
-            ${line.separator}
-            ${line.separator}In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here: 
-            ${line.separator}    http://www.adobe.com/products/eula/third_party/. 
-            ${line.separator}Adobe recommends that you review these third-party terms." />
-    </target>
-
-    <target name="get-adobe-flex-sdk" unless="adobe.flex.sdk.exists"
-        description="Downloads the Adobe Flex 4.6 SDK">
-        
-        <!--antcall target="download-zip">
-          <param name="download.dir" value="${download.dir}/${adobe.flex.dir}"/>
-          <param name="srcUrl" value="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6"/>
-          <param name="zipFile" value="flex_sdk_4.6.0.23201B.zip"/>
-        </antcall-->
-        
-        <mkdir dir="${download.dir}"/>        
-        <available file="${download.dir}/${adobe.flex.zip.file}" type="file"
-            property="adobe.flex.sdk.download.exists"/>
-            
-        <antcall target="download-adobe-flex-sdk" />
-        
-        <unzip src="${download.dir}/${adobe.flex.zip.file}" 
-            dest="${download.dir}/${adobe.flex.dir}">
-            <patternset>
-                <include name="license-adobesdk.htm"/>
-                <include name="lib/flex-messaging-common.jar"/>
-                <include name="lib/afe.jar" />
-                <include name="lib/aglj40.jar" />
-                <include name="lib/flex-fontkit.jar" />
-                <include name="lib/rideau.jar" />
-            </patternset>
-        </unzip>
-    </target>
-    
-    <target name="download-adobe-flex-sdk" unless="adobe.flex.sdk.download.exists" >
-        <get src="http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/${adobe.flex.zip.file}" 
-            dest="${download.dir}/${adobe.flex.zip.file}"/>
-    </target>
-    
-    <target name="clean-adobe-flex-sdk">
-        <delete dir="${download.dir}/${adobe.flex.dir}"/>
-    </target>
-
-	<!--
-	   mpl_excludes
-	   
-        /lib/adt.jar
-        /lib/afe.jar - Adobe Font Engine
-        /lib/aglj40.jar - from Core Tech
-        /lib/flex-fontkit.jar
-        /lib/license.jar
-        /lib/rideau.jar - Adobe Core Java Utility Library (Rideau)
-        
-        xerces_{locale}.jar and batik_{locale}.jar 
-            localized messages for developers
-            sources in Perforce (Localalization)
-            languages match FlashBuilder although FB has now dropped some
-            
-        xerces-patch.jar
-            fixed line number issue and a unicode issue
-            used in conjunction with xerces.jar but could possibly combine into one jar
-	-->
-    
+    </target>    
 </project>
