@@ -80,8 +80,8 @@
     <target name="dev" depends="modules-dev" description="Runs src.depend build for development"/>
 
     <!-- 
-        Can set build.doc-packages, build.additional-packages, build.fatswcs
-        to build additional targets as part of a release.
+        Can set build.additional-packages to build additional-packages as part of a release.
+        This does not build the docs.  Use doc-packages or asdoc-packages.
     -->    
     <target name="release" 
         depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release,rat-check"
@@ -92,7 +92,7 @@
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
-        depends="setup-binary-release,main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,doc-packages,additional-packages" 
+        depends="setup-binary-release,main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
     <target name="doc-packages" 
@@ -266,7 +266,7 @@
         description="Full clean excluding thirdparty downloads">
         
         <delete file="${basedir}/flex-sdk-description.xml" failonerror="false"/>
-        <delete file="${basedir}/rat*.log" failonerror="false"/>
+        <delete file="${basedir}/rat*.report" failonerror="false"/>
         
         <delete dir="${basedir}/samples/themes" failonerror="false">
             <include name="**/*.swc"/>
@@ -432,7 +432,7 @@
         <!--<ant dir="${basedir}/samples/themes/zen" target="main" /> -->
     </target>
 
-    <target name="javadocs" if="build.doc-packages"
+    <target name="javadocs"
         description="Build javadoc for compiler oem interface">
         <javadoc destdir="${basedir}/javadoc" useexternalfile="yes" maxmemory="128m">
             <classpath>
@@ -1174,7 +1174,7 @@
         </copy>
     </target>
     
-    <target name="asdoc-package" if="build.doc-packages" description="Package the asdocs">      
+    <target name="asdoc-package" description="Package the asdocs">      
         <antcall target="clean-temp"/>
         <antcall target="asdoc"/>
         
@@ -1228,7 +1228,7 @@
     </target>
 
     <!-- Builds fat swcs. -->
-    <target name="doc" if="build.fatswcs">
+    <target name="doc">
         <ant dir="${basedir}/frameworks" target="doc" />
     </target>
 
@@ -1579,7 +1579,7 @@
    
 	<!--
 	    Run the Apache Rat audit tool against the source in the source kit.
-	    The report is written to rat.log.
+	    The report is written to rat.report.
 	    
 	    To check a subset of files run with -Drat.dir=<dir>.
 	    
@@ -1596,10 +1596,10 @@
         
         <property name="rat.dir" value="${basedir}/temp"/>
 
-        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.log"/>
+        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.report"/>
              
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
-            reportFile="${basedir}/rat.log">
+            reportFile="${basedir}/rat.report">
             <fileset dir="${rat.dir}">
                 <!--          Start of binary files           -->
                 <!-- exclude Flash Professional file used for integration with Flash Professional -->

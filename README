@@ -312,10 +312,18 @@ Building the Source in the Source Distribution
         
     To generate a source distribution package and a binary distribution package use
         
-        ant -Dbuild.number=<last svn rev> -Dbuild.noprompt= -Dbuild.fatswcs=  release
+        ant -Dbuild.number=<last svn rev> -Dbuild.noprompt=  release
+
+    or to build the ASDoc package
+        
+        ant asdoc-package
 
     The packages can be found in the "out" subdirectory.
             
+    To build the ASDoc package
+        
+        ant asdoc-package
+
     To get a brief listing of all the targets type
     
         ant -projecthelp
