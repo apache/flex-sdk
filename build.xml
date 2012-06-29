@@ -44,7 +44,27 @@
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
+      
+    <!-- 
+        Optional jars but should be in place for a real release build.
         
+        For <grep> put AntelopeTasks_*.jar in this path.
+        See version-update.
+
+        For <rat> apache-rat-0.8.jar and apache-rat-tasks-0.8.jar should be in classpath.
+        See rat-check.
+    -->
+    <path id="anttask.classpath">
+        <fileset dir="${env.ANT_HOME}/lib">
+           <include name="**/AntelopeTasks_*.jar"/>
+           <include name="**/apache-rat*.jar"/>
+        </fileset>
+        <fileset dir="${user.home}">
+           <include name=".ant/lib/**/AntelopeTasks_*.jar"/>
+           <include name=".ant/lib/**/apache-rat*.jar"/>
+        </fileset>
+    </path>
+    
     <!--
         Notes: If you're running the main target, then there is no need to call clean first.
         Each of the main targets for the modules will call clean themselves before proceeding.
@@ -603,6 +623,9 @@
         <!-- now that air-config.xml and flex-config.xml are in temp, fix them up for release. -->
         <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" />
         <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" />
+        
+        <!-- Update all Version.as files in the kit frameworks directory with build.number -->
+        <antcall target="version-update"/>
     </target>
     
     <target name="stage-frameworks-tests" unless="no.tests">
@@ -929,7 +952,7 @@
         
         <tar-gzip name="${binary.kit}" />
     </target>
-       
+
     <macrodef name="fix-config-file">
         <attribute name="file"/>
             <sequential>
@@ -975,6 +998,45 @@
         </sequential>
     </macrodef>	
     
+	<!--
+	    Update all frameworks Version.as files in the kit stagging area with the 
+	    latest version build number info.
+	    
+	    You need to place the AntelopeTasks_*.jar jar file in the anttask.classpath
+	    in order to do this.  If the jar isn't found, the update is skipped.
+	-->
+	<target name="version-update"
+	    description="Update all frameworks/Version.as files">
+
+        <available property="have.greptask"
+            classname="ise.antelope.tasks.Find" 
+            classpathref="anttask.classpath"/>
+        
+        <antcall target="have-greptask"/>
+        <antcall target="no-greptask"/>
+    </target>
+
+    <target name="have-greptask" if="have.greptask">
+		<taskdef name="grep" classname="ise.antelope.tasks.Find"
+                 classpathref="anttask.classpath"/>                 
+
+        <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number}"/>
+		
+        <!-- Update all Version.as files in the kit frameworks directory-->
+        <replaceregexp>
+            <regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
+            <substitution expression='"${release.version}.${build.number}";'/>
+            <fileset dir="${FLEX_HOME}/temp/frameworks/projects">
+                <include name="**/Version.as"/>
+            </fileset>
+        </replaceregexp>		
+    </target>
+
+    <target name="no-greptask" unless="have.greptask">
+        <echo message="Version files not updated."/>
+        <echo message="AntelopeTasks_*.jar not found in anttask.classpath"/>
+    </target>   
+
     <target name="stage-locales"
         description="Stage all the locale swc's built">
         
@@ -1514,15 +1576,17 @@
         	<arg value="frameworkSwcExceptionsList.txt"/>
         </java>
     </target>
-    
-    <!-- Runs Apache Rat against the source code, to spot any files -->
-    <!--  which are missing the correct license headers -->
-    <!-- You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar -->
-    <!--  in ${env.ANT_HOME}/lib before running this target. -->
-    
-    <!-- Run this tag by itself.  It will unzip the source kit and then check it. -->
-    <!-- To check a subset of files run with -Drat.dir=<dir>. -->
-    
+   
+	<!--
+	    Run the Apache Rat audit tool against the source in the source kit.
+	    The report is written to rat.log.
+	    
+	    To check a subset of files run with -Drat.dir=<dir>.
+	    
+	    You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar in the 
+	    anttask.classpath in order to do this.  If the jar isn't found, the report
+	    will not be generated.
+	--> 
     <target name="rat-check" depends="rat-taskdef" if="have.rattasks"
         description="Report on licenses in source kit.">
     
@@ -1564,20 +1628,10 @@
         </rat:report>
     </target>
 
-    <!-- 
-        apache-rat-0.0.jar and apache-rat-tasks-0.0.jar (0.0 is currently 0.8)
-        should be in ${env.ANT_HOME}/lib/**.
-    -->
-    <path id="rattask.classpath">
-        <fileset dir="${env.ANT_HOME}/lib">
-           <include name="**/apache-rat*.jar"/>
-        </fileset>
-    </path>
-    
-    <target name="rat-taskdef" description="Rat taskdef">    
+    <target name="rat-taskdef" description="Rat taskdef"> 
         <available property="have.rattasks" 
             resource="org/apache/rat/anttasks/antlib.xml" 
-            classpathref="rattask.classpath"/>
+            classpathref="anttask.classpath"/>
 
         <antcall target="have-rattasks"/>
         <antcall target="no-rattasks"/>
@@ -1586,12 +1640,12 @@
     <target name="have-rattasks" if="have.rattasks">
         <typedef resource="org/apache/rat/anttasks/antlib.xml"
                  uri="antlib:org.apache.rat.anttasks"
-                 classpathref="rattask.classpath"/>                 
+                 classpathref="anttask.classpath"/>                 
     </target>
     
     <target name="no-rattasks" unless="have.rattasks">
         <echo message="Rat report not generated."/>
         <echo message="rat jars (apache-rat-*.jar, apache-rat-tasks-*.jar)"/>
-        <echo message="not found in ${env.ANT_HOME}${file.separator}lib${file.separator}**"/>
+        <echo message="not found in anttask.classpath"/>
     </target>   
 </project>
