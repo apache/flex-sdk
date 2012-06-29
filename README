@@ -58,9 +58,9 @@ Install Prerequisites
     corresponding environment variables using absolute file paths.  Relative file paths
     will result in build errors.
 	
-	The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER and
-	PIXELBENDER_HOME can also be set in the property file called env.properties. 
-	See the env-template.properties file for instructions.
+	The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
+	PIXELBENDER_HOME and ADOBE_EXTENSION_MANAGER can also be set in the property file 
+	called env.properties. See the env-template.properties file for instructions.
     
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
     with the exception of the airframework and airspark components which require
@@ -244,6 +244,44 @@ Software Dependencies
         This software is released under an Adobe license:
         <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
         
+Using the Binary Distribution
+-----------------------------
+
+    You must download the thirdparty dependencies.
+
+    When you have all the prerequisites in place and the environment variables set, 
+    (see Install Prerequisites above), use
+
+        cd <flex.dir>/frameworks
+        ant thirdparty-downloads
+    
+Building the Framework in a Binary Distribution
+-----------------------------------------------
+
+    The source for most of the framework is included in the binary distribution.  
+    It can be useful if you wish to debug and/or extend components.
+
+    When you have all the prerequisites in place and the environment variables set, 
+    (see Install Prerequisites above), use
+
+        cd <flex.dir>/frameworks
+        ant main        (or just ant since the default target is main)
+    
+    to download the thirdparty dependencies and build the Flex framework.  You may be 
+    prompted to acknowledge some of the downloads.  Since the third-party dependencies 
+    take a little while to download and they don't change very often, they are not 
+    cleaned with the regular clean target.
+    
+    To clean the build, of everything other than the downloaded third-party dependencies 
+    use
+    
+        ant clean 
+    
+    To clean the build, of everything, including the downloaded third-party dependencies 
+    use
+        
+        ant super-clean (which is just thirdparty-clean followed by clean)
+
 Building the Source in the Source Distribution
 ----------------------------------------------
 
@@ -281,33 +319,6 @@ Building the Source in the Source Distribution
     To get a brief listing of all the targets type
     
         ant -projecthelp
-
-Building the Framework in a Binary Distribution
------------------------------------------------
-
-    The source for most of the framework is included in the binary distribution.  
-    It can be useful if you wish to debug and/or extend components.
-
-    When you have all the prerequisites in place and the environment variables set, 
-    (see Install Prerequisites above), use
-
-        cd <flex.dir>/frameworks
-        ant main        (or just ant since the default target is main)
-    
-    to download the thirdparty dependencies and build the Flex framework.  You may be 
-    prompted to acknowledge some of the downloads.  Since the third-party dependencies 
-    take a little while to download and they don't change very often, they are not 
-    cleaned with the regular clean target.
-    
-    To clean the build, of everything other than the downloaded third-party dependencies 
-    use
-    
-        ant clean 
-    
-    To clean the build, of everything, including the downloaded third-party dependencies 
-    use
-        
-        ant super-clean (which is just thirdparty-clean followed by clean)
 
 
 Thanks for using Apache Flex.
