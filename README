@@ -314,10 +314,6 @@ Building the Source in the Source Distribution
         
         ant -Dbuild.number=<last svn rev> -Dbuild.noprompt=  release
 
-    or to build the ASDoc package
-        
-        ant asdoc-package
-
     The packages can be found in the "out" subdirectory.
             
     To build the ASDoc package
