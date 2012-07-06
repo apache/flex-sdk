@@ -189,10 +189,11 @@
     
     <target name="PackageMXP" if="ADOBE_EXTENSION_MANAGER.set" >
         <echo message="Creating MXP file ${FLEX_HOME}/frameworks/flash-integration/FlexComponentKit.mxp" />
+        <mkdir dir="${FLEX_HOME}/frameworks/flash-integration" /> 
         <exec executable="${env.ADOBE_EXTENSION_MANAGER}" dir="${basedir}" failonerror="true">
             <arg value="-suppress" />
             <arg value="-package" />
-            <arg value="mxi=${basedir}/FlexComponentKit.mxi" />
+            <arg value="mxi=FlexComponentKit.mxi" />
             <arg value="mxp=${FLEX_HOME}/frameworks/flash-integration/FlexComponentKit.mxp" />
         </exec>
     </target>
