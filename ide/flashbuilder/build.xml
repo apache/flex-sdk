@@ -96,6 +96,9 @@
                     <replacefilter
                         token="{playerglobalHome}"
                         value="libs/player"/>
+                    <replacefilter
+                        token="$${build.number}"
+                        value="${release.version}.${build.number}"/>
                 </replace>
         </sequential>
     </macrodef>	

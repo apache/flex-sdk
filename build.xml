@@ -501,7 +501,6 @@
                 <include name="build.properties"/>
 				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
-                <include name="KEYS"/>
                 <include name="CHANGES"/>
                 <include name="DISCLAIMER"/>
                 <include name="LICENSE"/>
@@ -1180,6 +1179,13 @@
         
         <copy todir="${basedir}/temp/asdoc">
             <fileset dir="${basedir}/asdoc-output"/>
+        </copy>
+        <copy todir="${basedir}/temp/asdoc">
+            <fileset dir="${basedir}">
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+                <include name="DISCLAIMER" />
+            </fileset>
         </copy>
         <zip file="${basedir}/out/${kit.prefix}-asdocs.zip" basedir="${basedir}/temp"/>
         <antcall target="clean-temp"/>

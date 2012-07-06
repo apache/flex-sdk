@@ -237,16 +237,6 @@ on what was used in this product.
 
 ------------------------------------------------------------------------------------------
 
-For the asc compiler in modules/asc:
-
-/*
- * Written by Jeff Dyer
- * Copyright (c) 1998-2003 Mountain View Compiler Company
- * All rights reserved.
- */
-
-------------------------------------------------------------------------------------------
-
 For all directories except for the asc compiler in modules/asc, and modules/thirdparty 
 directories:
 
