@@ -1052,7 +1052,7 @@
             copylocale looks for bundles and then uses en_US so if there is
             not a en_US sub-directory don't include the bundles directory.
         -->
-        <delete dir="${basedir}/temp/frameworks/projects" includeemptydirs="true">
+        <delete dir="${basedir}/temp/frameworks/projects" includeEmptyDirs="false">
             <include name="airspark/bundles/**"/>
             <include name="automation_air/bundles/**"/>
             <include name="automation_dmv/bundles/**"/>
@@ -1062,6 +1062,7 @@
             <include name="*/bundles/**/docs/**"/>
             <include name="*/bundles/*/*.xml"/>
             <include name="*/bundles/*/packages.dita"/>
+            <exclude name="*/bundles/en_US"/>
         </delete>
         
 
