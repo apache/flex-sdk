@@ -1046,15 +1046,24 @@
         </copy>
 
         <!-- frameworks/projects -->
-        <copy todir="${basedir}/temp/frameworks/projects" includeEmptyDirs="false">
-            <fileset dir="${basedir}/frameworks/projects">
-                <include name="*/bundles/**"/>
-                <exclude name="*/bundles/**/empty.properties"/>
-                <exclude name="*/bundles/**/docs/**"/>
-                <exclude name="*/bundles/*/*.xml"/>
-                <exclude name="*/bundles/*/packages.dita"/>
-            </fileset>  
-        </copy>
+        <!--
+            Remove these files from the binary kit.
+            
+            copylocale looks for bundles and then uses en_US so if there is
+            not a en_US sub-directory don't include the bundles directory.
+        -->
+        <delete dir="${basedir}/temp/frameworks/projects" includeemptydirs="true">
+            <include name="airspark/bundles/**"/>
+            <include name="automation_air/bundles/**"/>
+            <include name="automation_dmv/bundles/**"/>
+            <include name="automation_flashflexkit/bundles/**"/>
+            <include name="automation_spark/bundles/**"/>
+            <include name="*/bundles/**/empty.properties"/>
+            <include name="*/bundles/**/docs/**"/>
+            <include name="*/bundles/*/*.xml"/>
+            <include name="*/bundles/*/packages.dita"/>
+        </delete>
+        
 
         <!-- lib -->
         <!-- these are built when the compiler is built with localized.jars set -->

@@ -19,23 +19,27 @@ REM ##  limitations under the License.
 REM ##
 REM ################################################################################
 
-REM     This script should be used to create an Apache Flex SDK that has the
-REM     directory structure that the Adobe Flash Builder IDE expects.
+REM    This script should be used to create an Apache Flex SDK that has the
+REM    directory structure that the Adobe Flash Builder IDE expects.  If this is a
+REM    source package, you must build the binaries first.  See the README at the root
+REM    for instructions.
 REM
-REM     The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are integrated
-REM     into the directory structure.  The paths in the framework configuration files are 
-REM     modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environment 
-REM     variables are not required because the locations of these pieces are known.
+REM    This script assumes that it is in the ide/flashbuilder directory of the Apache Flex SDK
+REM    The files from this SDK will be copied to the new directory structure.
 REM
-REM     Usage: makeApacheFlexForFlashBuilder [sdk directory]
+REM    The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are integrated
+REM    into the new directory structure.  The paths in the framework configuration files are 
+REM    modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environment variables are 
+REM    not required because the locations of these pieces are known.
+REM
+REM    Usage: makeApacheFlexForFlashBuilder [new directory to build integrated SDK]
 REM
 
 REM     Edit these constants if you would like to download from alternative locations.
 REM
 REM     Apache Flex binary distribution
 REM
-set APACHE_FLEX_BIN_DISTRO_FILE=apache-flex-sdk-4.8.0-incubating-bin.zip
-set APACHE_FLEX_BIN_DISTRO_URL=http://people.apache.org/~cframpton/ApacheFlexRC/current/%APACHE_FLEX_BIN_DISTRO_FILE%
+set APACHE_FLEX_BIN_DISTRO_DIR=..\..
 
 REM
 REM     Adobe AIR SDK Version 3.1
@@ -48,8 +52,17 @@ REM     Adobe Flash Player Version 11.1
 REM
 set ADOBE_FB_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
 
-if not [%1] == [] goto gotDir
-echo Usage: %0 [directory for Apache Flex SDK for Adobe Flash Builder]
+:getDir
+if not [%1] == [] goto checkJar
+echo Usage: %0 [new directory for Apache Flex SDK for Adobe Flash Builder]
+goto :eof
+
+REM
+REM     Quick check to see if there are binaries.
+REM
+:checkJar
+if exist "%APACHE_FLEX_BIN_DISTRO_DIR%\lib\mxmlc.jar" goto gotDir
+echo You must build the binaries for this SDK first.  See the README at the root.
 goto :eof
 
 REM
@@ -61,17 +74,17 @@ set FLEX_HOME=%~f1
 if not exist "%FLEX_HOME%" mkdir "%FLEX_HOME%"
 
 REM
+REM     Copy the Apache Flex SDK.
+REM
+echo Copying the Apache Flex SDK from %APACHE_FLEX_BIN_DISTRO_DIR% to "%FLEX_HOME%"
+xcopy /e /q "%APACHE_FLEX_BIN_DISTRO_DIR%" "%FLEX_HOME%"
+if %errorlevel% neq 0 goto errorExit
+
+REM
 REM     Put the downloads here.
 REM
 set tempDir=%FLEX_HOME%\temp
 if not exist "%tempDir%" mkdir "%tempDir%"
-
-REM
-REM     Download Apache Flex SDK.
-REM
-echo Downloading and unzipping Apache Flex SDK from "%APACHE_FLEX_BIN_DISTRO_URL%" to "%FLEX_HOME%"
-cscript //B //nologo winUtil.vbs "%APACHE_FLEX_BIN_DISTRO_URL%" "%tempDir%\%APACHE_FLEX_BIN_DISTRO_FILE%" "%FLEX_HOME%"
-if %errorlevel% neq 0 goto errorExit
 
 REM
 REM the third-party downloads, including the optional components

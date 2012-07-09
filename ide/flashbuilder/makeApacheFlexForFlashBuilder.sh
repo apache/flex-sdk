@@ -20,20 +20,22 @@
 ################################################################################
 
 # This script should be used to create an Apache Flex SDK that has the
-# directory structure that the Adobe Flash Builder IDE expects.
+# directory structure that the Adobe Flash Builder IDE expects.  If this is a
+# source package, you must build the binaries first.  See the README at the root
+# for instructions.
 #
 # The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are integrated
-# into the directory structure.  The paths in the framework configuration files are 
+# into the new directory structure.  The paths in the framework configuration files are 
 # modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environment variables are 
 # not required because the locations of these pieces are known.
 #
-# Usage: makeApacheFlexForFlashBuilder [sdk directory]
+# Usage: makeApacheFlexForFlashBuilder [new directory to build integrated SDK]
 #
 
 # Edit these constants if you would like to download from alternative locations.
 
 # Apache Flex binary distribution
-APACHE_FLEX_BIN_DISTRO_URL=http://people.apache.org/~cframpton/ApacheFlexRC/current/apache-flex-sdk-4.8.0-incubating-bin.zip
+APACHE_FLEX_BIN_DIR=`(cd ../.. && pwd)`
 
 # Adobe AIR SDK Version 3.1
 ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
@@ -47,19 +49,21 @@ ADOBE_FLEX_SDK_URL=http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_
 FLEX_HOME="$1"
 
 if [ "$FLEX_HOME" = "" ] ; then
-    echo "Usage: $0 [directory to build the Apache Flex SDK for Adobe Flash Builder]"
+    echo "Usage: $0 [new directory to build the Apache Flex SDK for Adobe Flash Builder]"
+    exit 1;
+fi
+
+# quick check to see if the binaries are there
+if [ ! -f "${APACHE_FLEX_BIN_DIR}/lib/mxmlc.jar" ]
+then
+    echo You must build the binaries for this SDK first.  See the README at the root.
     exit 1;
 fi
 
 # make sure the directory for the Apache Flex SDK exists
 mkdir -p "$FLEX_HOME"
 
-# put the downloads here
-tempDir="$FLEX_HOME"/temp
-mkdir -p "$tempDir"
-
 # the names of the tar/zip files
-APACHE_FLEX_BIN_DISTRO_FILE=`basename "${APACHE_FLEX_BIN_DISTRO_URL}"`
 ADOBE_AIR_SDK_MAC_FILE=`basename "${ADOBE_AIR_SDK_MAC_URL}"`
 ADOBE_FLEX_SDK_FILE=`basename "${ADOBE_FLEX_SDK_URL}"`
 
@@ -69,12 +73,17 @@ echo "You will need to answer questions throughout this process."
 echo
 
 # download the Apache Flex SDK
-echo "Downloading the Apache Flex SDK from $APACHE_FLEX_BIN_DISTRO_URL"
-curl "$APACHE_FLEX_BIN_DISTRO_URL" --output "$tempDir/$APACHE_FLEX_BIN_DISTRO_FILE"
-tar xf "$tempDir/$APACHE_FLEX_BIN_DISTRO_FILE" -C "$FLEX_HOME"
+echo "Copying the Apache Flex SDK from '$APACHE_FLEX_BIN_DIR' to '$FLEX_HOME'"
+rsync -a --exclude=*/.svn* \
+    --exclude="$APACHE_FLEX_BIN_DIR"/in --exclude="$APACHE_FLEX_BIN_DIR"/out \
+    --exclude="$APACHE_FLEX_BIN_DIR"/temp "$APACHE_FLEX_BIN_DIR"/* "$FLEX_HOME"
 
 # the third-party downloads, including the optional components
 ant -f "$FLEX_HOME"/frameworks/downloads.xml
+
+# put the downloads here
+tempDir="$FLEX_HOME"/temp
+mkdir -p "$tempDir"
 
 # download the AIR SDK for Mac
 echo "Downloading the Adobe AIR SDK for Mac from $ADOBE_AIR_SDK_MAC_URL"
