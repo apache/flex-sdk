@@ -76,7 +76,8 @@ Install Prerequisites
     
     Java SDK 1.5 (0_13 or greater)              JAVA_HOME
     or Java SDK 1.6 (*1)
-    
+     -- Java SDK 1.7 is not supported
+
     Ant 1.7.0 or greater (*1)                   ANT_HOME
     
     Cygwin, git bash 
