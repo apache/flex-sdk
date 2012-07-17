@@ -20,7 +20,7 @@ Because of this, and various licensing constraints, there must be a few differen
 
   - the default linkage is -static-link-runtime-shared-libraries=true
 
-  - there no longer Adobe signed RSLs (swz files) in frameworks/rsls
+  - there are no longer Adobe signed RSLs (swz files) in frameworks/rsls
   - the frameworks/rsls directory contains unsigned RSL for libraries we build
     
   - the frameworks/osmf src is not included which means there is not an osmf RSL.  
