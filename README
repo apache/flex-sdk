@@ -192,9 +192,9 @@ Software Dependencies
         xalan - http://archive.apache.org/dist/xml/xalan-j/binaries/xalan-j_2_6_0-bin.tar.gz
         xerces - http://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.zip
  
-    The following dependencies have licenses which considers reciprocal licenses so you 
-    will be prompted to acknowledge the license before the software is downloaded to your 
-    system. These files are installed in frameworks/libs.
+    The following dependencies have licenses which Apache considers to be reciprocal
+    licenses so you will be prompted to acknowledge the license before the software is
+    downloaded to your system. These files are installed in frameworks/libs.
         
         osmf.swc            
             frameworks/libs
