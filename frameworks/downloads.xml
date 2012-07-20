@@ -32,6 +32,21 @@
     <property name="adobe.flex.dir" value="adobe_flex_sdk_4.6"/>
     <property name="adobe.flex.zip.file" value="flex_sdk_4.6.0.23201B.zip"/>
 
+    <property name="adobe.flex.license" value="
+        ${line.separator}
+        ${line.separator}Adobe Flex SDK License Agreement:
+        ${line.separator}
+        ${line.separator}All files contained in this Adobe Flex SDK download are subject to and governed by the
+        ${line.separator}Adobe Flex SDK License Agreement specified here: 
+        ${line.separator}    http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf, 
+        ${line.separator}By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK, 
+        ${line.separator}you agree to the terms and conditions of the applicable end user license agreement.
+        ${line.separator}
+        ${line.separator}In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here: 
+        ${line.separator}    http://www.adobe.com/products/eula/third_party/. 
+        ${line.separator}Adobe recommends that you review these third-party terms.
+        ${line.separator}" />
+        
     <!-- 
        To clean these you must call thirdparty-clean or super-clean to clean everything.  
        clean does not remove these since they don't change often and the downloads take time.
@@ -72,17 +87,17 @@
         Section "Category B: Reciprocal Licenses"
     -->
     <target name="echo-mpl1.1-license">       
-        <echo message="Mozilla Public License Version 1.1:
-            ${line.separator}
-            ${line.separator}The contents of the file(s) are subject to the Mozilla Public License Version 1.1.
-            ${line.separator}You may not use the file(s) except in compliance with the License. 
-            ${line.separator}You may obtain a copy of the License here:
-            ${line.separator}    http://www.mozilla.org/MPL/. 
-            ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
-            ${line.separator}you agree to the terms and conditions of the applicable license agreement."/>
-        
         <input
-            message="${line.separator}I have read the MPL1.1 license information above?"
+            message="Mozilla Public License Version 1.1:
+                ${line.separator}
+                ${line.separator}The contents of the file(s) are subject to the Mozilla Public License Version 1.1.
+                ${line.separator}You may not use the file(s) except in compliance with the License. 
+                ${line.separator}You may obtain a copy of the License here:
+                ${line.separator}    http://www.mozilla.org/MPL/. 
+                ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
+                ${line.separator}you agree to the terms and conditions of the applicable license agreement.
+                ${line.separator}
+                ${line.separator}I have read the MPL1.1 license information above?"
             validargs="y"
             defaultvalue="y"/>
     </target>
@@ -236,14 +251,16 @@
     <!-- Prompt before downloading.  -->
     <target name="ask-blazeds" unless="blazeds.donot.ask"
         description="Prompt the user before downloading BlaseDS">
-        
-        <echo message="Apache Flex can optionally integrate with Adobe BlazeDS."/>
-        <echo message="This feature requires flex-messaging-common.jar from the Adobe Flex SDK."/>
-        <echo message="The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar."/>
-        <echo message="This license is not compatible with the Apache v2 license."/>
-        <antcall target="echo-adobe-flex-sdk-license"/>
+
+        <property name="blazeds.prompt.text" 
+            value="Apache Flex can optionally integrate with Adobe BlazeDS..
+            ${line.separator}This feature requires flex-messaging-common.jar from the Adobe Flex SDK.
+            ${line.separator}The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar.
+            ${line.separator}This license is not compatible with the Apache v2 license.
+            ${adobe.flex.license}
+            ${line.separator}Do you want to install this jar from the Adobe Flex SDK?"/>
         <input
-            message="${line.separator}Do you want to install this jar from the Adobe Flex SDK?"
+            message="${blazeds.prompt.text}"
             validargs="y,n"
             defaultvalue="n"
             addproperty="input.blazeds.download"/>
@@ -293,13 +310,15 @@
     <target name="ask-font" unless="font.donot.ask"
         description="Prompt the user before downloading BlaseDS">
         
-        <echo message="Apache Flex can optionally integrate with Adobe's embedded font support."/>
-        <echo message="This feature requires a few font jars from the Adobe Flex SDK."/>
-        <echo message="The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars."/>
-        <echo message="This license is not compatible with the Apache v2 license."/>
-        <antcall target="echo-adobe-flex-sdk-license"/>
+        <property name="font.prompt.text" 
+            value="Apache Flex can optionally integrate with Adobe's embedded font support.
+            ${line.separator}This feature requires a few font jars from the Adobe Flex SDK.
+            ${line.separator}The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars.
+            ${line.separator}This license is not compatible with the Apache v2 license.
+            ${adobe.flex.license}
+            ${line.separator}Do you want to install these jars from the Adobe Flex SDK?"/>
         <input
-            message="${line.separator}Do you want to install these jars from the Adobe Flex SDK?"
+            message="${font.prompt.text}"
             validargs="y,n"
             defaultvalue="n"
             addproperty="input.font.download"/>
@@ -336,20 +355,6 @@
             tofile="${lib.opt.dir}/rideau.jar-LICENSE.htm" verbose="true"/>
     </target>
         	
-    <target name="echo-adobe-flex-sdk-license">       
-        <echo message="Adobe Flex SDK License Agreement:
-            ${line.separator}
-            ${line.separator}All files contained in this Adobe Flex SDK download are subject to and governed by the
-            ${line.separator}Adobe Flex SDK License Agreement specified here: 
-            ${line.separator}    http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf, 
-            ${line.separator}By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK, 
-            ${line.separator}you agree to the terms and conditions of the applicable end user license agreement.
-            ${line.separator}
-            ${line.separator}In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here: 
-            ${line.separator}    http://www.adobe.com/products/eula/third_party/. 
-            ${line.separator}Adobe recommends that you review these third-party terms." />
-    </target>
-
     <target name="get-adobe-flex-sdk" unless="adobe.flex.sdk.exists"
         description="Downloads the Adobe Flex 4.6 SDK">
         
