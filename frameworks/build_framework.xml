@@ -165,7 +165,7 @@
         </compc>
     </target>
     
-    <target name="advancedgrids_rb" description="Builds locale/en_US/advancedgrids_rb.swc">
+    <target name="advancedgrids_rb" description="Builds default locale advancedgrids_rb.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true" 
             output="${basedir}/locale/${locale}/advancedgrids_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="datamanagement"/>
@@ -229,7 +229,7 @@
         </compc>
     </target>
 
-    <target name="airframework_rb" description="Builds locale/en_US/airframework_rb.swc">
+    <target name="airframework_rb" description="Builds default locale airframework_rb.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true" 
             output="${basedir}/locale/${locale}/airframework_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="SharedResources"/>
@@ -277,7 +277,7 @@
         </compc>
     </target>
             
-    <target name="airspark_rb" description="Builds locale/en_US/airspark_rb.swc">
+    <target name="airspark_rb" description="Builds default locale airspark_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
             output="${basedir}/locale/${locale}/airspark_rb.swc">
             <include-resource-bundles bundle="core"/>
@@ -328,7 +328,7 @@
         </compc>
     </target>
     
-    <target name="automation_rb" description="Builds locale/en_US/automation_rb.swc">
+    <target name="automation_rb" description="Builds default locale automation_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
             output="${basedir}/locale/${locale}/automation_rb.swc">
             <include-resource-bundles bundle="automation"/>
@@ -360,7 +360,7 @@
         </compc>
     </target>
 
-    <target name="automation_agent_rb" description="Builds locale/en_US/automation_agent_rb.swc">
+    <target name="automation_agent_rb" description="Builds default locale automation_agent_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
             output="${basedir}/locale/${locale}/automation_agent_rb.swc">
  			<include-resource-bundles bundle="automation_agent"/>
@@ -532,7 +532,7 @@
         </compc>
     </target>
     
-    <target name="charts_rb" description="Builds locale/en_US/charts_rb.swc">
+    <target name="charts_rb" description="Builds default locale charts_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
             output="${basedir}/locale/${locale}/charts_rb.swc">          
             <include-resource-bundles bundle="charts"/>
@@ -616,7 +616,7 @@
         </compc>
     </target>
 
-    <target name="framework_rb" description="Builds locale/en_US/framework_rb.swc">
+    <target name="framework_rb" description="Builds default locale framework_rb.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true" 
             output="${basedir}/locale/${locale}/framework_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="SharedResources"/>
@@ -662,7 +662,7 @@
         </compc>
     </target>
             
-    <target name="mobilecomponents_rb" description="Builds locale/en_US/mobilecomponents_rb.swc">
+    <target name="mobilecomponents_rb" description="Builds default locale mobilecomponents_rb.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true" 
             output="${basedir}/locale/${locale}/mobilecomponents_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="core"/>
@@ -700,7 +700,7 @@
         </compc>
     </target>
     
-    <target name="mx_rb" description="Builds locale/en_US/mx_rb.swc">
+    <target name="mx_rb" description="Builds default locale mx_rb.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true" locale="${locale}" 
             output="${basedir}/locale/${locale}/mx_rb.swc">
             <include-resource-bundles bundle="containers"/>
@@ -736,7 +736,7 @@
         <delete file="${basedir}/version.properties"/>
     </target>
     
-    <target name="rpc_rb" description="Builds locale/en_US/rpc_rb.swc">
+    <target name="rpc_rb" description="Builds default locale rpc_rb.swc">
         <compc static-link-runtime-shared-libraries="true"  fork="true"  locale="${locale}"
             output="${basedir}/locale/${locale}/rpc_rb.swc">
             <include-resource-bundles bundle="collections"/>
@@ -887,7 +887,7 @@
         </compc>
     </target>
 
-    <target name="tool_air_rb" description="Builds locale/en_US/tool_air_rb.swc">
+    <target name="tool_air_rb" description="Builds default locale tool_air_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
             output="${basedir}/locale/${locale}/tool_air_rb.swc">
             <include-resource-bundles bundle="tool_air"/>
