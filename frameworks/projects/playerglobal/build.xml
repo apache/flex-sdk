@@ -36,7 +36,7 @@
 				<compc fork="true" output="${FLEX_HOME}/frameworks/locale/@{locale}/playerglobal_rb.swc"
 					locale="@{locale}">
 					<jvmarg line="${compc.jvm.args}"/>
-					<target-player>11.1</target-player>
+					<target-player>${playerglobal.version}</target-player>
 					<include-resource-bundles bundle="empty"/>
 					<include-namespaces/>
 					<include-classes>Empty</include-classes>
@@ -107,7 +107,7 @@
         <compc fork="true" output="${FLEX_HOME}/frameworks/locale/${locale}/playerglobal_rb.swc"
             locale="${locale}">
             <jvmarg line="${compc.jvm.args}"/>
-            <target-player>11.1</target-player>
+            <target-player>${playerglobal.version}</target-player>
             <include-resource-bundles bundle="empty"/>
             <include-namespaces/>
             <include-classes>Empty</include-classes>

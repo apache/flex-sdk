@@ -40,7 +40,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/@{locale}/airframework_rb.swc"
 			   locale="@{locale}">
-			<target-player>11.1</target-player>
+			<target-player>${playerglobal.version}</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="SharedResources"/>
 			<include-resource-bundles bundle="aircontrols"/>
@@ -200,7 +200,7 @@
 			   output="${FLEX_HOME}/frameworks/projects/airframework/assets/ComputerIcon.swf"
 			   >
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>11.1</target-player>
+			<target-player>${playerglobal.version}</target-player>
 		</mxmlc>
     </target>
     
@@ -227,7 +227,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-		    <target-player>11.1</target-player>
+		    <target-player>${playerglobal.version}</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>

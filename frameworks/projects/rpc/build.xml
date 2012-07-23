@@ -39,7 +39,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/@{locale}/rpc_rb.swc"
 			   locale="@{locale}">
-            <target-player>11.1</target-player>
+            <target-player>${playerglobal.version}</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="core"/>
@@ -195,7 +195,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/rpc.swc"
                resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>11.1</target-player>
+            <target-player>${playerglobal.version}</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>

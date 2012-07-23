@@ -41,7 +41,7 @@
 				<compc fork="true"
 					output="${FLEX_HOME}/frameworks/locale/@{locale}/flash-integration_rb.swc"
 					locale="@{locale}">
-					<target-player>11.1</target-player>
+					<target-player>${playerglobal.version}</target-player>
 					<jvmarg line="${compc.jvm.args}"/>
 					<include-resource-bundles bundle="empty"/>
 					<include-namespaces/>

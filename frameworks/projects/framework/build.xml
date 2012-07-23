@@ -41,7 +41,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/framework_rb.swc"
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>11.1</target-player>
+				<target-player>${playerglobal.version}</target-player>
 				<include-resource-bundles bundle="SharedResources"/>
 				<include-resource-bundles bundle="collections"/>
 				<include-resource-bundles bundle="controls"/>
@@ -238,7 +238,7 @@
 			   output="${FLEX_HOME}/frameworks/projects/framework/assets/Assets.swf"
 			   >
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>11.1</target-player>
+			<target-player>${playerglobal.version}</target-player>
 			<library-path/>
             <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                 <include name="${playerglobal.version}/playerglobal.swc"/>

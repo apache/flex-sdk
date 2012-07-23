@@ -58,7 +58,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/themes/Halo/halo.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>11.1</target-player>
+            <target-player>${playerglobal.version}</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<library-path/>
             <external-library-path dir="${env.PLAYERGLOBAL_HOME}">

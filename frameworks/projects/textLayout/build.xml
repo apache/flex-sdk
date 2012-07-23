@@ -48,7 +48,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc"
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>11.1</target-player>
+				<target-player>${playerglobal.version}</target-player>
 				<include-resource-bundles bundle="textLayout"/>
 				<include-namespaces/>
 				<include-classes/>

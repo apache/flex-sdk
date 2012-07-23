@@ -38,8 +38,6 @@
 
     <property name="debug" value="true"/>
     <property name="strict" value="true"/>
-    <property name="javac.src" value="1.5"/>
-    <property name="target.player" value="11.1"/>
     
     <target name="main" description="Full build">
         <!-- load the <mxmlc> task; we can't do this at the <project> level -->

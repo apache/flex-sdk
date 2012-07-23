@@ -186,7 +186,7 @@
         <compc fork="true" include-classes="MobileComponentsClasses spark.transitions.FlipViewTransitionMode spark.transitions.ZoomViewTransitionMode"
                output="${FLEX_HOME}/frameworks/libs/mobile/mobilecomponents.swc"
                resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>11.1</target-player>
+            <target-player>${playerglobal.version}</target-player>
             <jvmarg line="${compc.jvm.args}"/>
             <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
             <include-namespaces uri="library://ns.adobe.com/flex/spark"/>

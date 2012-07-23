@@ -41,7 +41,7 @@
                 <compc fork="true"
                        output="${FLEX_HOME}/frameworks/locale/@{locale}/airspark_rb.swc"
                        locale="@{locale}">
-                    <target-player>11.1</target-player>
+                    <target-player>${playerglobal.version}</target-player>
                     <jvmarg line="${compc.jvm.args}"/>
                     <include-resource-bundles bundle="core"/>
                     <include-namespaces/>
@@ -195,7 +195,7 @@
         <compc fork="true"
                output="${FLEX_HOME}/frameworks/libs/air/airspark.swc"
                resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>11.1</target-player>
+            <target-player>${playerglobal.version}</target-player>
             <jvmarg line="${compc.jvm.args}"/>
             <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
             <include-namespaces uri="library://ns.adobe.com/flex/spark"/>

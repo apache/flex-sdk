@@ -41,7 +41,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/mx_rb.swc"
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>11.1</target-player>
+				<target-player>${playerglobal.version}</target-player>
 				<include-resource-bundles bundle="containers"/>
 				<include-namespaces/>
 				<include-classes/>
@@ -188,7 +188,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/mx/mx.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>11.1</target-player>
+			<target-player>${playerglobal.version}</target-player>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
