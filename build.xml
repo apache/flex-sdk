@@ -1061,7 +1061,7 @@
             <include name="*/bundles/**/docs/**"/>
             <include name="*/bundles/*/*.xml"/>
             <include name="*/bundles/*/packages.dita"/>
-            <exclude name="*/bundles/{$locale}"/>
+            <exclude name="*/bundles/${locale}"/>
         </delete>
         
 
