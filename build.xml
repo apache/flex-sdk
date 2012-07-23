@@ -39,7 +39,6 @@
     <property name="debug" value="true"/>
     <property name="strict" value="true"/>
     <property name="javac.src" value="1.5"/>
-    <property name="target.player" value="11.1"/>
     
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
@@ -231,7 +230,7 @@
 
 --&gt;
 &lt;flex-sdk-description&gt;
-&lt;name&gt;${release}&lt;/name&gt;
+&lt;name&gt;${release} FP${playerglobal.version} ${locale}&lt;/name&gt;
 &lt;version&gt;${release.version}&lt;/version&gt;
 &lt;build&gt;${build.number}&lt;/build&gt;
 &lt;/flex-sdk-description&gt;
@@ -351,13 +350,13 @@
 
     <target name="frameworks" description="Full build of all framework SWCs, including resource bundles and themes">
         <ant dir="${basedir}/frameworks">
-            <property name="locale" value="en_US"/>
+            <property name="locale" value="${locale}"/>
         </ant>
     </target>
 
     <target name="framework-compile" description="Recompile framework.swc">
         <ant dir="${basedir}/frameworks/projects/framework" target="compile">
-            <property name="locale" value="en_US"/>
+            <property name="locale" value="${locale}"/>
         </ant>
     </target>
 
@@ -964,7 +963,7 @@
                         value="${release.version}.${build.number}"/>
                 </replace>
         </sequential>
-    </macrodef>	
+    </macrodef>
 
     <!--
         tar with gzip compression, the temp directory and put it in the out directory.  
@@ -1049,8 +1048,8 @@
         <!--
             Remove these files from the binary kit.
             
-            copylocale looks for bundles and then uses en_US so if there is
-            not a en_US sub-directory don't include the bundles directory.
+            copylocale looks for bundles and then uses default locale so if there is
+            not a locale sub-directory don't include the bundles directory.
         -->
         <delete dir="${basedir}/temp/frameworks/projects" includeEmptyDirs="false">
             <include name="airspark/bundles/**"/>
@@ -1062,7 +1061,7 @@
             <include name="*/bundles/**/docs/**"/>
             <include name="*/bundles/*/*.xml"/>
             <include name="*/bundles/*/packages.dita"/>
-            <exclude name="*/bundles/en_US"/>
+            <exclude name="*/bundles/{$locale}"/>
         </delete>
         
 
