@@ -40,7 +40,6 @@
     <property name="playerglobal.dir" value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}"/>
     <property name="airsdk.dir" value="${env.AIR_HOME}"/>
     
-    <property name="locale" value="en_US"/>
     <property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 
     <property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
@@ -142,7 +141,7 @@
     </target>
 
     <target name="advancedgrids" description="Builds advancedgrids.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
             accessible="true" show-deprecation-warnings="false"
             include-classes="AdvancedDataGridClasses"
             output="${basedir}/libs/advancedgrids.swc" 
@@ -166,7 +165,7 @@
     </target>
     
     <target name="advancedgrids_rb" description="Builds default locale advancedgrids_rb.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" 
             output="${basedir}/locale/${locale}/advancedgrids_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="datamanagement"/>
             <include-resource-bundles bundle="olap"/>
@@ -179,7 +178,7 @@
     </target>   
 
     <target name="airframework" description="Builds libs/airframework.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true"  locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AIRFrameworkClasses" 
             output="${basedir}/libs/air/airframework.swc"
             resource-bundle-list="${airframework.dir}/bundles.properties">
@@ -230,7 +229,7 @@
     </target>
 
     <target name="airframework_rb" description="Builds default locale airframework_rb.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" 
             output="${basedir}/locale/${locale}/airframework_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="SharedResources"/>
             <include-resource-bundles bundle="aircontrols"/>
@@ -254,7 +253,7 @@
     </target>
     
     <target name="airspark" description="Builds libs/airspark.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AIRSparkClasses" output="${basedir}/libs/air/airspark.swc"              
             resource-bundle-list="${airspark.dir}/bundles.properties">
             <namespace uri="library://ns.adobe.com/flex/spark" manifest="${airspark.dir}/manifest.xml"/>
@@ -290,9 +289,9 @@
     </target>
 
     <target name="authoringsupport" description="Builds authoringsupport.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" 
             output="${basedir}/libs/authoringsupport.swc" include-classes="AuthoringSupportClasses"
-            locale="" accessible="true"
+            locale="${locale}" accessible="true"
             resource-bundle-list="${authoringsupport.dir}/bundles.properties">
             <source-path path-element="${authoringsupport.dir}/src"/>
             <library-path dir="${authoringsupport.dir}/libs">
@@ -310,7 +309,7 @@
     </target>
 
     <target name="automation" description="Builds the automation.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationClasses" 
             output="${basedir}/libs/automation/automation.swc"
             resource-bundle-list="${automation.dir}/bundles.properties">
@@ -344,7 +343,7 @@
     </target>
 
     <target name="automation_agent" description="Builds the automation_agent.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationAgentClasses" 
             output="${basedir}/libs/automation/automation_agent.swc"
             resource-bundle-list="${automation_agent.dir}/bundles.properties">
@@ -382,7 +381,7 @@
     </target>
 
     <target name="automation_air" description="Builds the automation_air.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationAirClasses" output="${basedir}/libs/automation/automation_air.swc"
             resource-bundle-list="${automation_air.dir}/bundles.properties">
             <source-path path-element="${automation_air.dir}/src"/>
@@ -406,7 +405,7 @@
     </target>
 
     <target name="automation_airspark" description="Builds the automation_airspark.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationAirSparkClasses" 
             output="${basedir}/libs/automation/automation_airspark.swc"
             resource-bundle-list="${automation_airspark.dir}/bundles.properties">
@@ -434,7 +433,7 @@
     </target>
     
     <target name="automation_dmv" description="Builds the automation_dmv.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationDMVClasses" 
             output="${basedir}/libs/automation/automation_dmv.swc"
             resource-bundle-list="${automation_dmv.dir}/bundles.properties">
@@ -458,7 +457,7 @@
     </target>
     
     <target name="automation_flashflexkit" description="Builds the automation_flashflexkit.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationFlashFlexKitClasses" 
             output="${basedir}/libs/automation/automation_flashflexkit.swc"
             resource-bundle-list="${automation_flashflexkit.dir}/bundles.properties">
@@ -482,7 +481,7 @@
     </target>
 
     <target name="automation_spark" description="Builds the automation_spark.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="AutomationSparkClasses" 
             output="${basedir}/libs/automation/automation_spark.swc"
             resource-bundle-list="${automation_spark.dir}/bundles.properties">
@@ -508,7 +507,7 @@
     </target>
 
     <target name="charts" description="Builds charts.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             show-deprecation-warnings="false"
             include-classes="ChartsClasses"
              output="${basedir}/libs/charts.swc" 
@@ -545,8 +544,8 @@
     </target>
     
     <target name="core" description="Builds core.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="CoreClasses" 
-            output="${basedir}/libs/core.swc" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" include-classes="CoreClasses" 
+            output="${basedir}/libs/core.swc" locale="${locale}" accessible="true"
             resource-bundle-list="${core.dir}/bundles.properties">
             <source-path path-element="${core.dir}/src"/>
             <source-path path-element="${framework.dir}/src"/>
@@ -567,8 +566,8 @@
     </target>
         
     <target name="flash-integration" description="Builds flash-integration.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/flash-integration.swc"
-        locale="" accessible="true">            
+        <compc static-link-runtime-shared-libraries="true" fork="true" output="${basedir}/libs/flash-integration.swc"
+        locale="${locale}" accessible="true">            
             <namespace uri="http://www.adobe.com/someNonSensicalURI" manifest="${flash-integration.dir}/manifest.xml"/>
             <!-- doesn't matter what we put in here as long as it links in the classes.
                 Flash Authoring ignores this and the namespace it's mapped too...
@@ -588,8 +587,8 @@
     </target>
     
     <target name="framework" description="Builds libs/framework.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="FrameworkClasses" 
-            output="${basedir}/libs/framework.swc" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" include-classes="FrameworkClasses" 
+            output="${basedir}/libs/framework.swc" locale="${locale}" accessible="true"
             resource-bundle-list="${framework.dir}/bundles.properties">
             <namespace uri="library://ns.adobe.com/flex/mx" manifest="${framework.dir}/manifest.xml"/>
             <namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
@@ -617,7 +616,7 @@
     </target>
 
     <target name="framework_rb" description="Builds default locale framework_rb.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" 
             output="${basedir}/locale/${locale}/framework_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="SharedResources"/>
             <include-resource-bundles bundle="collections"/>
@@ -641,7 +640,7 @@
     </target>   
     
     <target name="mobilecomponents" description="Builds libs/mobilecomponents.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="MobileComponentsClasses spark.transitions.FlipViewTransitionMode spark.transitions.ZoomViewTransitionMode" 
             output="${basedir}/libs/mobile/mobilecomponents.swc" 
             resource-bundle-list="${mobilecomponents.dir}/bundles.properties">            
@@ -663,7 +662,7 @@
     </target>
             
     <target name="mobilecomponents_rb" description="Builds default locale mobilecomponents_rb.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" 
             output="${basedir}/locale/${locale}/mobilecomponents_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="core"/>
             <source-path path-element="${framework.dir}/bundles/${locale}"/>
@@ -676,7 +675,7 @@
 
 
    <target name="mx" description="Builds the mx/mx.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true" 
             include-classes="MxClasses" output="${basedir}/libs/mx/mx.swc"
             resource-bundle-list="${mx.dir}/bundles.properties">
             <namespace uri="library://ns.adobe.com/flex/mx" manifest="${mx.dir}/manifest.xml"/>
@@ -701,7 +700,7 @@
     </target>
     
     <target name="mx_rb" description="Builds default locale mx_rb.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" locale="${locale}" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
             output="${basedir}/locale/${locale}/mx_rb.swc">
             <include-resource-bundles bundle="containers"/>
             <source-path path-element="${mx.dir}/bundles/${locale}"/>
@@ -717,7 +716,7 @@
     
     <target name="rpc" description="Builds libs/rpc.swc">
         <echo file="${basedir}/version.properties" append="false">build=${build.number}</echo>
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="RPCClasses" output="${basedir}/libs/rpc.swc"
             resource-bundle-list="${rpc.dir}/bundles.properties">
            <namespace uri="library://ns.adobe.com/flex/mx" manifest="${rpc.dir}/manifest.xml"/>
@@ -737,7 +736,7 @@
     </target>
     
     <target name="rpc_rb" description="Builds default locale rpc_rb.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true"  locale="${locale}"
+        <compc static-link-runtime-shared-libraries="true" fork="true"  locale="${locale}"
             output="${basedir}/locale/${locale}/rpc_rb.swc">
             <include-resource-bundles bundle="collections"/>
             <include-resource-bundles bundle="core"/>
@@ -756,7 +755,7 @@
     </target>
     
     <target name="spark" description="Builds the spark.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="SparkClasses" output="${basedir}/libs/spark.swc"
             resource-bundle-list="${spark.dir}/bundles.properties">
             <namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark.dir}/manifest.xml"/>
@@ -778,7 +777,7 @@
     </target>
 
     <target name="spark_dmv" description="Builds the spark_dmv.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true" 
             include-classes="SparkDmvClasses" 
             output="${basedir}/libs/spark_dmv.swc" 
             resource-bundle-list="${spark_dmv.dir}/bundles.properties">
@@ -819,7 +818,7 @@
     </target>
     
     <target name="sparkskins" description="Builds the sparkskin.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" locale="" accessible="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true" 
             include-classes="SparkSkinsClasses"
             output="${basedir}/libs/sparkskins.swc"
             resource-bundle-list="${core.dir}/bundles.properties">
@@ -837,7 +836,7 @@
     </target>
 
     <target name="tool" description="Builds the tool.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="ToolClasses" output="${basedir}/libs/automation/tool.swc"
             resource-bundle-list="${tool.dir}/bundles.properties">
             <source-path path-element="${tool.dir}/src"/>
@@ -861,7 +860,7 @@
     </target>
 
     <target name="tool_air" description="Builds the tool_air.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="ToolAIRClasses" output="${basedir}/libs/automation/tool_air.swc"
             resource-bundle-list="${tool_air.dir}/bundles.properties">
             <source-path path-element="${tool_air.dir}/src"/>
@@ -904,8 +903,8 @@
     <target name="themes" depends="halo,mobiletheme,wireframe" description="Builds themes"/>
     
     <target name="halo" description="Builds themes/Halo/halo.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true"
-            output="${basedir}/themes/Halo/halo.swc" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true"
+            output="${basedir}/themes/Halo/halo.swc" locale="${locale}" accessible="true"
             resource-bundle-list="${halo.dir}/bundles.properties">            
             <source-path/>
             <library-path/>
@@ -921,8 +920,8 @@
     </target>
 
     <target name="mobiletheme" description="Builds themes/Mobile/mobile.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="MobileThemeClasses" 
-            output="${basedir}/themes/Mobile/mobile.swc" locale="" accessible="true"
+        <compc static-link-runtime-shared-libraries="true" fork="true" include-classes="MobileThemeClasses" 
+            output="${basedir}/themes/Mobile/mobile.swc" locale="${locale}" accessible="true"
             resource-bundle-list="${mobiletheme.dir}/bundles.properties">            
             <source-path path-element="${mobiletheme.dir}/src"/>
             <library-path/>
@@ -940,7 +939,7 @@
     </target>
             
     <target name="wireframe" description="Builds the wireframe.swc">
-        <compc static-link-runtime-shared-libraries="true"  fork="true" 
+        <compc static-link-runtime-shared-libraries="true" fork="true" 
             output="${basedir}/themes/Wireframe/wireframe.swc"
             resource-bundle-list="${wireframe.dir}/bundles.properties">
             <include-classes>WireframeClasses</include-classes>
