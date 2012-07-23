@@ -34,7 +34,6 @@
              build.properties -->
 	<property name="dbg" value="false"/>
 	<property name="rel" value="true"/>
-	<property name="locale" value="en_US"/>
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>

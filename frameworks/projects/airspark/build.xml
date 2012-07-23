@@ -27,8 +27,6 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
 
-    <property name="locale" value="en_US"/>
-
         <macrodef name="bundle">
             <attribute name="locale"/>
             <sequential>

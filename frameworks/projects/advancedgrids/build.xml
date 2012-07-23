@@ -25,8 +25,6 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
 
-    <property name="locale" value="en_US"/>
-	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 			<sequential>
@@ -97,7 +95,7 @@
 		</sequential>
 	</macrodef>
 			
-	<target name="main" depends="clean,compile" description="Clean build of advancedgrids.swc and en_US">
+	<target name="main" depends="clean,compile" description="Clean build of advancedgrids.swc and default locale">
 		<bundle locale="${locale}"/>
 	</target>
 	

@@ -24,8 +24,6 @@
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
-
-	<property name="locale" value="en_US"/>
 	
 	<target name="main" depends="clean,compile" description="Clean build of automation_spark.swc and en_US">
 		<!--<bundle locale="${locale}"/>-->

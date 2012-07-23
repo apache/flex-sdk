@@ -25,8 +25,6 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<property name="locale" value="en_US"/>
-
 	<target name="main" depends="clean,compile" description="Clean build of automation_air.swc"/>
 		
 	<target name="compile" description="Compiles automation_air.swc">
