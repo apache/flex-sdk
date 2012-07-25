@@ -89,7 +89,7 @@ if not exist "%tempDir%" mkdir "%tempDir%"
 REM
 REM the third-party downloads, including the optional components
 REM
-ant -f "%FLEX_HOME%/frameworks/downloads.xml"
+call ant -f "%FLEX_HOME%/frameworks/downloads.xml"
 
 REM
 REM     Download AIR Runtime Kit for Windows

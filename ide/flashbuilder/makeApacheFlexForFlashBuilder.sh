@@ -35,7 +35,7 @@
 # Edit these constants if you would like to download from alternative locations.
 
 # Apache Flex binary distribution
-APACHE_FLEX_BIN_DIR=`(cd ../.. && pwd)`
+APACHE_FLEX_BIN_DIR="$( cd $( dirname -- "$0" ) > /dev/null ; pwd )"/../..
 
 # Adobe AIR SDK Version 3.1
 ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
