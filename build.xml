@@ -111,8 +111,8 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
-        <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-downloads"/>        
+        <ant dir="${basedir}/modules" target="thirdparty-downloads"/>
         <!-- don't ask again about these since we just did if these weren't already set -->	    
 	    <property name="build.noprompt" value="set" />
     </target>
@@ -158,6 +158,7 @@
             <and>
                 <length string="${env.AIR_HOME}" when="greater" length="0" />
                 <available file="${env.AIR_HOME}" type="dir"/>
+                <available file="${env.AIR_HOME}/bin/adt" type="file"/>
             </and>
         </condition>
         
