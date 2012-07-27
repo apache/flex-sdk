@@ -158,7 +158,7 @@
             <and>
                 <length string="${env.AIR_HOME}" when="greater" length="0" />
                 <available file="${env.AIR_HOME}" type="dir"/>
-                <available file="${env.AIR_HOME}/bin/adt" type="file"/>
+                <!--available file="${env.AIR_HOME}/bin/adt" type="file"/-->
             </and>
         </condition>
         
