@@ -39,6 +39,7 @@ import spark.core.IDisplayText; IDisplayText;
 import spark.core.IEditableText; IEditableText;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.collections.OnDemandDataProvider; OnDemandDataProvider;
+import spark.components.BusyIndicator; BusyIndicator;
 import spark.components.IconPlacement; IconPlacement;
 import spark.components.calendarClasses.DateSelectorDisplayMode; DateSelectorDisplayMode;
 import spark.components.gridClasses.CellPosition; CellPosition;
