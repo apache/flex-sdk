@@ -19,9 +19,9 @@ REM ##  limitations under the License.
 REM ##
 REM ################################################################################
 
-REM    This script should be used to create an Apache Flex SDK for Microsoft Windows that
-REM    has the directory structure that the an IDE that supports Flex, such as Adobe 
-REM    Flash Builder or JetBrains IntelliJ expects. 
+REM    This script should be used to create an Apache Flex SDK that has the directory
+REM    structure that the an IDE that supports Flex, such as Adobe Flash Builder or
+REM    JetBrains IntelliJ expects. 
 REM 
 REM    This script can be used with either an Apache Flex binary package or an Apache Flex 
 REM    source package.  In either case you must unzip the package.  If you use the source 
@@ -123,8 +123,8 @@ REM
 echo Copying the AIR SDK files to "%IDE_SDK_DIR%"
 
 for %%G in (
-    AIR SDK license.pdf
-    AIR SDK Readme.txt
+    "AIR SDK license.pdf"
+    "AIR SDK Readme.txt"
     bin\adl.exe
     bin\adt.bat
     lib\adt.jar
@@ -145,7 +145,9 @@ for %%G in (
     lib\nai
     lib\win
     runtimes\air\android
+    runtimes\air\mac
     runtimes\air\win
+    runtimes\air-captive\mac
     runtimes\air-captive\win
     samples\badge
     samples\icons
@@ -153,7 +155,7 @@ for %%G in (
     templates\extensions) do (
     
     if exist "%ADOBE_FLEX_SDK_DIR%"\%%G (
-        REM Make the directory so it won't prompt for file or directory.
+        REM    Make the directory so it won't prompt for file or directory.
         if not exist "%IDE_SDK_DIR%"\%%G mkdir "%IDE_SDK_DIR%"\%%G
         xcopy /q /y /e /i /c /r "%ADOBE_FLEX_SDK_DIR%"\%%G "%IDE_SDK_DIR%"\%%G
         if %errorlevel% NEQ 0 GOTO errorExit
@@ -167,7 +169,10 @@ echo Copying the third-party files to "%IDE_SDK_DIR%"
 
 for %%G in (
     frameworks\libs\player\11.1
-    frameworks\javascript\fabridge\samples\fabridge\swfobject) do (
+    frameworks\javascript\fabridge\samples\fabridge\swfobject
+    runtimes\player\11.1\lnx
+    runtimes\player\11.1\mac
+    runtimes\player\11.1\win) do (
     
     if not exist "%IDE_SDK_DIR%"\%%G mkdir "%IDE_SDK_DIR%"\%%G
     if %errorlevel% NEQ 0 GOTO errorExit
@@ -183,7 +188,10 @@ for %%G in (
     lib\aglj40.jar
     lib\flex-fontkit.jar
     lib\rideau.jar
-    templates\swfobject\swfobject.js) do (
+    templates\swfobject\swfobject.js
+    runtimes\player\11.1\lnx
+    runtimes\player\11.1\mac
+    runtimes\player\11.1\win) do (
     
     copy /y "%ADOBE_FLEX_SDK_DIR%"\%%G "%IDE_SDK_DIR%"\%%G
 )
