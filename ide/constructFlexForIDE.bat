@@ -55,39 +55,13 @@ REM     %ProgramFiles%\\Adobe\Adobe Flash Builder %ver%\sdks
 REM         where %ProgramFiles% expands correctly for 32-bit and 64-bit
 REM         and %ver% looks in 4.6, 4.5, and 4.7 
 
+set ADOBE_FLEX_SDK_DIR=
+
 :getApacheFlexDir
 set IDE_SDK_DIR=%~f1
-if not ["%IDE_SDK_DIR%"] == [] goto getAdobeFlexDir
+if not ["%IDE_SDK_DIR%"] == [] goto checkApacheFlexDir
 echo Usage: %0 "Apache Flex dir" [Adobe Flex SDK 4.6 dir]
 goto :eof
-
-:getAdobeFlexDir
-if not [%2] == [] (
-    set ADOBE_FLEX_SDK_DIR=%~f2
-    goto gotAdobeFlexSDK
-)
-
-REM
-REM     Look for FlashBuilder versions 4.5, 4.7 and 4.6.  End with 4.6 so
-REM     ADOBE_FLEX_SDK_DIR will be 4.6 if no SDK is found and an error is printed.
-REM
-for %%V in (4.6 4.5 4.7) do ( 
-        if exist "%ProgramFiles%\Adobe\Adobe Flash Builder %%V\sdks\4.6.0" (
-            set ADOBE_FLASHBUILDER_VERSION=%ProgramFiles%\Adobe\Adobe Flash Builder %%V\sdks\4.6.0
-            goto gotAdobeFlexSDK
-        )
-)
-
-REM
-REM     Couldn't find default Adobe Flex SDK so ask for it.
-REM
-echo "Enter directory of Adobe Flex SDK 4.6:"
-set /p ADOBE_FLEX_SDK_DIR=
-
-:gotAdobeFlexSDK
-echo The Apache Flex for IDE directory is "%IDE_SDK_DIR%"
-echo The Adobe Flex directory is "%ADOBE_FLEX_SDK_DIR%"
-echo.
 
 REM
 REM     If this is an Apache Flex dir then there should be a NOTICE file.
@@ -101,10 +75,38 @@ REM
 REM     Quick check to see if there are binaries in the Apache distribution.
 REM
 :checkApacheFlexBinaries
-if exist "%IDE_SDK_DIR%\lib\mxmlc.jar" goto checkAdobeFlexSDK
+if exist "%IDE_SDK_DIR%\lib\mxmlc.jar" goto getAdobeFlexDir
 echo "%IDE_SDK_DIR%" does not appear to be a Apache Flex distribution with binaries.
 echo If it is a source distribution you must build the binaries first.  See the README.
 goto :eof
+
+:getAdobeFlexDir
+if not [%2] == [] (
+    set ADOBE_FLEX_SDK_DIR=%~f2
+    goto gotAdobeFlexSDK
+)
+
+REM
+REM     Look for FlashBuilder versions 4.5, 4.7 and 4.6.  End with 4.6 so
+REM     ADOBE_FLEX_SDK_DIR will be 4.6 if no SDK is found and an error is printed.
+REM
+for %%V in (4.5 4.6 4.7) do ( 
+    if exist "%ProgramFiles%\Adobe\Adobe Flash Builder %%V\sdks\4.6.0" (
+        set ADOBE_FLEX_SDK_DIR=%ProgramFiles%\Adobe\Adobe Flash Builder %%V\sdks\4.6.0
+        goto gotAdobeFlexSDK
+    )
+)
+
+REM
+REM     Couldn't find default Adobe Flex SDK so ask for it.
+REM
+echo Enter directory of an Adobe Flex SDK 4.6:
+set /p ADOBE_FLEX_SDK_DIR=
+
+:gotAdobeFlexSDK
+echo The Apache Flex directory for the IDE is "%IDE_SDK_DIR%"
+echo The Adobe Flex directory is "%ADOBE_FLEX_SDK_DIR%"
+echo.
 
 REM
 REM     Quick check to see if it is a Flex SDK.
@@ -205,5 +207,5 @@ copy /y "%IDE_SDK_DIR%"\ide\flashbuilder\config\*-config.xml "%IDE_SDK_DIR%\fram
 goto :eof
 
 :errorExit
-echo Exiting: error %errorlevel%
+REM echo Exiting: error %errorlevel%
 exit /b %errorlevel%
