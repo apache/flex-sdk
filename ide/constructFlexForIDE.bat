@@ -21,37 +21,70 @@ REM ############################################################################
 
 REM    This script should be used to create an Apache Flex SDK for Microsoft Windows that
 REM    has the directory structure that the an IDE that supports Flex, such as Adobe 
-REM    Flash Builder or JetBrains IntelliJ expects.  If this is a source package, you must
-REM    build the binaries first.  See the README at the root for build instructions.
+REM    Flash Builder or JetBrains IntelliJ expects. 
+REM 
+REM    This script can be used with either an Apache Flex binary package or an Apache Flex 
+REM    source package.  In either case you must unzip the package.  If you use the source 
+REM    package you must build the binaries files before running this script.  See the 
+REM    "Building the Source in the Source Distribution" section in the README at the root 
+REM    for build instructions.
 REM
 REM    The Adobe AIR SDK for Windows and the Adobe Flash Player playerglobal.swc are 
 REM    copied into the Apache Flex directory.  The paths in the framework 
-REM    configuration files are modified to reflect this.  The AIR_HOME and  
-REM    PLAYERGLOBAL_HOME environment variables are not required because the locations of 
-REM    these pieces are known.
+REM    configuration files are modified to reflect this.  You do not need to set
+REM    up any of the environment variables mentioned in the README because the locations 
+REM    of all the software is known in this configuration.
 REM
 REM    TextLayoutFormat (TLF), OSMF, swobject, the Adobe embedded font support, 
-REM    Adobe BlazeDS integration all come from the Adobe Flex 4.6 SDK.
+REM    and Adobe BlazeDS integration all come from the Adobe Flex 4.6 SDK.  You should
+REM    be aware that these components have their own licenses that may or may not be
+REM    compatible with the Apache v2 license.  See the "Software Dependencies" section
+REM    in the README for more license information.
 REM
 REM    The Adobe Flex 4.6 SDK is available here:
 REM         http://www.adobe.com/devnet/flex/flex-sdk-download.html
 REM
-REM    Usage: constructFlexForIDE "Apache Flex dist dir" [Adobe Flex 4.6 dir]
+REM    Usage: constructFlexForIDE "Apache Flex dir" [Adobe Flex 4.6 dir]
 REM
 
 REM
-REM     Adobe Flex SDK 4.6
+REM     If the Adobe Flex SDK 4.6 directory is not specified this script will look for it
+REM     in the following places:
 REM
-set ADOBE_FLEX_SDK_DIR=C:/Program Files (x86)/Adobe/Adobe Flash Builder 4.6/sdks/4.6.0
+REM     %ProgramFiles%\\Adobe\Adobe Flash Builder %ver%\sdks
+REM         where %ProgramFiles% expands correctly for 32-bit and 64-bit
+REM         and %ver% looks in 4.6, 4.5, and 4.7 
 
+:getApacheFlexDir
 set IDE_SDK_DIR=%~f1
-if not ["%IDE_SDK_DIR%"] == [] goto param2
-echo Usage: %0 "Apache Flex dist dir" [Adobe Flex 4.6 dir]
+if not ["%IDE_SDK_DIR%"] == [] goto getAdobeFlexDir
+echo Usage: %0 "Apache Flex dir" [Adobe Flex SDK 4.6 dir]
 goto :eof
 
-:param2
-if not [%2] == [] set ADOBE_FLEX_SDK_DIR=%~f2
+:getAdobeFlexDir
+if not [%2] == [] (
+    set ADOBE_FLEX_SDK_DIR=%~f2
+    goto gotAdobeFlexSDK
+)
 
+REM
+REM     Look for FlashBuilder versions 4.5, 4.7 and 4.6.  End with 4.6 so
+REM     ADOBE_FLEX_SDK_DIR will be 4.6 if no SDK is found and an error is printed.
+REM
+for %%V in (4.6 4.5 4.7) do ( 
+        if exist "%ProgramFiles%\Adobe\Adobe Flash Builder %%V\sdks\4.6.0" (
+            set ADOBE_FLASHBUILDER_VERSION=%ProgramFiles%\Adobe\Adobe Flash Builder %%V\sdks\4.6.0
+            goto gotAdobeFlexSDK
+        )
+)
+
+REM
+REM     Couldn't find default Adobe Flex SDK so ask for it.
+REM
+echo "Enter directory of Adobe Flex SDK 4.6:"
+set /p ADOBE_FLEX_SDK_DIR=
+
+:gotAdobeFlexSDK
 echo The Apache Flex for IDE directory is "%IDE_SDK_DIR%"
 echo The Adobe Flex directory is "%ADOBE_FLEX_SDK_DIR%"
 echo.
@@ -59,15 +92,16 @@ echo.
 REM
 REM     If this is an Apache Flex dir then there should be a NOTICE file.
 REM
-if exist "%IDE_SDK_DIR%\NOTICE" goto check2
+:checkApacheFlexDir
+if exist "%IDE_SDK_DIR%\NOTICE" goto checkApacheFlexBinaries
 echo "%IDE_SDK_DIR%" does not appear to be a Apache Flex distribution.
 goto :eof
 
 REM
 REM     Quick check to see if there are binaries in the Apache distribution.
 REM
-:check2
-if exist "%IDE_SDK_DIR%\lib\mxmlc.jar" goto check3
+:checkApacheFlexBinaries
+if exist "%IDE_SDK_DIR%\lib\mxmlc.jar" goto checkAdobeFlexSDK
 echo "%IDE_SDK_DIR%" does not appear to be a Apache Flex distribution with binaries.
 echo If it is a source distribution you must build the binaries first.  See the README.
 goto :eof
@@ -75,17 +109,17 @@ goto :eof
 REM
 REM     Quick check to see if it is a Flex SDK.
 REM
-:check3
-if exist "%ADOBE_FLEX_SDK_DIR%\license-adobesdk.htm" goto check4
+:checkAdobeFlexSDK
+if exist "%ADOBE_FLEX_SDK_DIR%\license-adobesdk.htm" goto copyAdobeAIRSDK
 echo "%ADOBE_FLEX_SDK_DIR%" does not appear to be an Adobe Flex SDK
 goto :eof
 
-:check4
 
 REM
 REM     Copy all the AIR SDK files to the IDE SDK.
 REM     Copy files first, then directories with (/s).
 REM
+:copyAdobeAIRSDK
 echo Copying the AIR SDK files to "%IDE_SDK_DIR%"
 
 for %%G in (
