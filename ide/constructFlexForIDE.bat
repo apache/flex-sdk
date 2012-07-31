@@ -30,11 +30,11 @@ REM    package you must build the binaries files before running this script.  Se
 REM    "Building the Source in the Source Distribution" section in the README at the root 
 REM    for build instructions.
 REM
-REM    The Adobe AIR SDK for Windows and the Adobe Flash Player playerglobal.swc are 
+REM    The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are 
 REM    copied into the Apache Flex directory.  The paths in the framework 
 REM    configuration files are modified to reflect this.  You do not need to set
 REM    up any of the environment variables mentioned in the README because the locations 
-REM    of all the software is known in this configuration.
+REM    of all the software are known in this configuration.
 REM
 REM    TextLayoutFormat (TLF), OSMF, swobject, the Adobe embedded font support, 
 REM    and Adobe BlazeDS integration all come from the Adobe Flex 4.6 SDK.  You should
@@ -97,8 +97,7 @@ if not [%param2%] == [] (
 )
 
 REM
-REM     Look for FlashBuilder versions 4.5, 4.7 and 4.6.  End with 4.6 so
-REM     ADOBE_FLEX_SDK_DIR will be 4.6 if no SDK is found and an error is printed.
+REM     Look for FlashBuilder versions 4.5, 4.6 and 4.7.
 REM
 set ADOBE_FLEX_SDK_DIR=
 for %%V in (4.5 4.6 4.7) do ( 
