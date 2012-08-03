@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!--
+    Usage ant -f set-version.xml -Dmajor="4" -Dminor="9" [-Dnano="0"]
+    
+    Run this to update the Apache Flex version numbers in
+        - build.properties
+        - modules/compiler/src/java/flex2/tools/VersionInfo.java
+        - all the frameworks Version.as files
+
+    You may need to **manually** update
+        - modules/compiler/src/java/flex2/compiler/common/MxmlConfiguration.java
+        - frameworks/projects/framework/src/mx/core/FlexVersion.as.
+-->
+    
+<project name="set-version" default="main" basedir="..">
+
+    <property name="FLEX_HOME" location="${basedir}"/>
+    
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+
+    <!-- 
+        For <grep> put AntelopeTasks_*.jar in this path.
+        See set-version.
+    -->
+    <path id="anttask.classpath">
+        <fileset dir="${env.ANT_HOME}/lib">
+           <include name="**/AntelopeTasks_*.jar"/>
+        </fileset>
+        <fileset dir="${user.home}">
+           <include name=".ant/lib/**/AntelopeTasks_*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="main" depends="set-version" description=""/>
+    
+	<!--
+	==============================================================
+	target: set-version
+		-Update VersionInfo.java with the latest version
+		-Update all version.as with the latest version info
+		-Update build.properties with the latest version info
+		-Update flex and air configs with the latest version info
+	============================================================== 
+	-->
+	<target name="set-version"
+	    description="Update all frameworks/Version.as files">
+
+        <available property="have.greptask"
+            classname="ise.antelope.tasks.Find" 
+            classpathref="anttask.classpath"/>
+        
+        <property name="nano" value="0"/>
+        
+        <condition property="required.args.set">
+            <and>
+                <isset property="major"/>
+                <isset property="minor"/>
+            </and>
+        </condition>
+        
+        <fail message="You must define the new version number using major and minor, and optionally nano." 
+            unless="required.args.set"/>
+        
+        <antcall target="have-greptask"/>
+        <antcall target="no-greptask"/>
+    </target>
+
+    <target name="no-greptask" unless="have.greptask">
+        <fail message="Version files not updated.  AntelopeTasks_*.jar not found in anttask.classpath"/>
+    </target>   
+
+    <target name="have-greptask" if="have.greptask">
+		<taskdef name="grep" classname="ise.antelope.tasks.Find" classpathref="anttask.classpath"/>                 
+<echo>
+update ${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java
+with latest version info ${major} ${minor} ${nano}
+</echo>
+			
+			<loadfile property="currVerInfo" srcFile="${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java"/>
+
+			<grep in="${currVerInfo}"
+				regex="(public static String FLEX_MAJOR_VERSION =) (&quot;)([0-9])(&quot;+)"
+				group="3"
+	            property="MAJOR"/>
+			<grep in="${currVerInfo}"
+				regex="(public static String FLEX_MINOR_VERSION =) (&quot;)([0-9])(&quot;+)"
+				group="3"
+	            property="MINOR"/>
+			<grep in="${currVerInfo}"
+				regex="(public static String FLEX_NANO_VERSION  =) (&quot;)([0-9])(&quot;+)"
+				group="3"
+	            property="NANO"/>			
+			
+<echo>
+update all ${FLEX_HOME}/frameworks Version.as
+with latest version info ${major}.${minor}.${nano}.0
+</echo>
+			
+			<!-- Update all Version.as files in the frameworks directory-->
+			<replaceregexp>
+				<regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
+				<substitution expression='"${major}.${minor}.${nano}.0";'/>
+				<fileset dir="${FLEX_HOME}/frameworks">
+					<include name="**/Version.as"/>
+				</fileset>
+			</replaceregexp>
+
+<echo>
+update ${FLEX_HOME}/build.properties release.version to ${major}.${minor}.${nano}
+</echo>
+			
+			<!--update build.properties-->
+			<replaceregexp file="${FLEX_HOME}/build.properties">
+				<regexp pattern="release.version = [0-9].[0-9].[0-9]"/>
+				<substitution expression="release.version = ${major}.${minor}.${nano}"/>
+			</replaceregexp>
+			<replaceregexp file="${FLEX_HOME}/build.properties">
+				<regexp pattern="release = Apache Flex [0-9].[0-9]"/>
+				<substitution expression="release = Apache Flex ${major}.${minor}"/>
+			</replaceregexp>
+
+<echo>
+update ${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java with ${major}.${minor}.${nano}
+</echo>
+			
+			<!--update VersionInfo.java-->
+			<replaceregexp file="${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java">
+				<regexp pattern='FLEX_MAJOR_VERSION = "[0-9]";'/>
+				<substitution expression='FLEX_MAJOR_VERSION = "${major}";'/>
+			</replaceregexp>
+			<replaceregexp file="${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java">
+				<regexp pattern='FLEX_MINOR_VERSION = "[0-9]";'/>
+				<substitution expression='FLEX_MINOR_VERSION = "${minor}";'/>
+			</replaceregexp>
+			<replaceregexp file="${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java">
+				<regexp pattern='FLEX_NANO_VERSION  = "[0-9]";'/>
+				<substitution expression='FLEX_NANO_VERSION  = "${nano}";'/>
+			</replaceregexp>
+			
+<echo>
+*****************************************************************************************
+You may also need to manually update the compiler.mxml.compatibility-version constants in
+${FLEX_HOME}/modules/compiler/src/java/flex2/compiler/common/MxmlConfiguration.java
+and CURRENT_VERSiON in
+${FLEX_HOME}/frameworks/projects/framework/src/mx/core/FlexVersion.as.
+*****************************************************************************************
+</echo>
+	</target>
+  
+</project>
