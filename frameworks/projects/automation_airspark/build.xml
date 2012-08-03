@@ -81,6 +81,9 @@
 		<bundler locale="da_DK"/>
 		<bundler locale="de_DE"/>
 		<bundler locale="en_US"/>
+		<bundler locale="en_AU"/>
+		<bundler locale="en_GB"/>
+		<bundler locale="en_CA"/>
 		<bundler locale="es_ES"/>
 		<bundler locale="fi_FI"/>
 		<bundler locale="fr_FR"/>
@@ -94,6 +97,7 @@
 		<bundler locale="sv_SE"/>
 		<bundler locale="zh_CN"/>
 		<bundler locale="zh_TW"/>
+		<bundler locale="el_GR"/>
 	</target>-->
 		
 	<target name="compile" description="Compiles automation_airspark.swc">

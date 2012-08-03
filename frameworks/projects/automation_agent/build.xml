@@ -187,6 +187,15 @@
             <param name="locale" value="en_US"/>
         </antcall>
         <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="en_AU"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="en_GB"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="en_CA"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
             <param name="locale" value="es_ES"/>
         </antcall>
         <antcall target="automation_agent_bundles-clean">
@@ -224,6 +233,9 @@
         </antcall>
         <antcall target="automation_agent_bundles-clean">
             <param name="locale" value="zh_TW"/>
+        </antcall>
+        <antcall target="automation_agent_bundles-clean">
+            <param name="locale" value="el_GR"/>
         </antcall>
 	</target>
 

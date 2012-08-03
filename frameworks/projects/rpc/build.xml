@@ -110,6 +110,9 @@
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
 		<!-- these languages do not have localized docs-->
+		<bundler locale="en_AU"/><!-- Australian resources -->
+		<bundler locale="en_GB"/><!-- United Kingdom resources -->
+		<bundler locale="en_CA"/><!-- Canadian resources -->
 		<bundler locale="da_DK"/><!-- Danish resources -->
 		<bundler locale="de_DE"><!-- German resources -->
 			<run.fat.swc>
@@ -145,6 +148,7 @@
 			</run.fat.swc>
 		</bundler>
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+		<bundler locale="el_GR"/><!-- Greek Language  resources -->
 	</target>
 			
 	<target name="clean" depends="bundles-clean">

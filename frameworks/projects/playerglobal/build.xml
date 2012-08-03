@@ -79,7 +79,7 @@
 	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
-		<bundler locale="en_US"/><!-- Simplified Chinese resources -->
+		<bundler locale="en_US"/><!-- American resources -->
 		<bundler locale="de_DE"/><!-- German resources -->
 		<bundler locale="fr_FR"/><!-- French resources -->
 		<bundler locale="ja_JP"/><!-- Japanese resources -->
