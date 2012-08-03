@@ -520,7 +520,7 @@ package mx.automation.tool
 					
 					ExternalInterface.call("eval", 
 						"if (!window._mx_testing_plugin_" + playerID + 
-						".RegisterPluginWithTool(self, " + "'" + playerID + "')) {" +
+						".RegisterPluginWithQTP(self, " + "'" + playerID + "')) {" +
 						"document.getElementById('" + playerID + 
 						"').SetLastError('TEAPluginIE.TEAFlexAgentIE is not scriptable'); }");
 					
