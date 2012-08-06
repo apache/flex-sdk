@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Validators/DateValidator/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Validators_Date_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import mx.controls.DateField;
+	import 	mx.validators.DateValidator;
+	import 	mx.validators.ValidationResult;
+	import mx.managers.SystemManager;
+	
+
+	[Bindable] 
+	public var date1:Date= new Date(2007,0,12); 
+	[Bindable]
+	public var dt:DateField = new DateField();
+	public function dateObject() :void
+	{
+		dt.selectedDate=date1;
+		application.myCustomDt.addChild(dt);
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="DateValidator_allowedFormatChars_Space_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/> 
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12 31 2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+				
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_allowedFormatChars_Dot_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/> 
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12.31.2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+				
+			</body>  
+		</TestCase>	
+		<TestCase testID="DateValidator_allowedFormatChars_ForwardSlash_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/> 
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="YYYY/MM/DD"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="2006/12/31" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+				
+			</body>  
+		</TestCase>		
+		<TestCase testID="DateValidator_allowedFormatChars_BackwardSlash_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/> 
+				
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="DD/MM/YYYY"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" valueExpression="value='31\\12\\2006'" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+				
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_allowedFormatChars_Hyphen_Invalid_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12-31-2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_allowedFormatChars_Hyphen_hash_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="allowedFormatChars" value="#"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12#31#2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_inputFormat_mm_dd_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="mm/dd"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12/31" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_inputFormat_dd_mm_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="DD/MM"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="31/12" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
+			</body>  
+		</TestCase>
+
+		<TestCase testID="DateValidator_formatError_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="DD/MMM"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="31/DEC" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+				<DispatchMouseEvent target="myCustomDt.ti1" type="mouseOver" localX="10" localY="10" />
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_invalidCharError_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="31$12/2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+				<DispatchMouseEvent target="myCustomDt.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/invalidCharError_spark.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_wrongDayError_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="31/02/2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+				<DispatchMouseEvent target="myCustomDt.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomDt.ti1" />
+				
+				<CompareBitmap target="" url="../Properties/baselines/wrongDayError_spark.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_wrongMonthError_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="31/13/2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB, TAB]"/>
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+				<DispatchMouseEvent target="myCustomDt.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomDt.ti1" />
+				
+				<CompareBitmap target="" url="../Properties/baselines/wrongMonthError_spark.png" timeout="5000" />				
+			</body>  
+		</TestCase>	
+		<TestCase testID="DateValidator_wrongYearError_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12/31/20061" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+				<DispatchMouseEvent target="myCustomDt.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomDt.ti1" />
+				
+				<CompareBitmap target="" url="../Properties/baselines/wrongYearError_spark.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="DateValidator_dateFormat_spark" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="DD/MM/YY"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12/31/2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+				<DispatchMouseEvent target="myCustomDt.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomDt.ti1" />
+				
+				<CompareBitmap target="" url="../Properties/baselines/dateFormat_spark.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+
+		<TestCase testID="DateValidator_dateObject_Bug_SDK-13397_spark" keywords="[DateSymbol, DateValidator, Bug SDK-13397]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<RunCode code="dateObject()" />
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomDt.myDt" propertyName="source" value="{dt}"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text" />
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="DD/MM/YYYY"/>
+				<WaitForEffectsToEnd />
+
+			</setup>
+			<body>
+				<RunCode code="application.myCustomDt.myDt.validate()" />
+				<Pause timeout="5000"/>
+				<AssertEvent target="myCustomDt.myDt" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+			</body>  
+		</TestCase>		
+		
+	</testCases>
+</UnitTester>

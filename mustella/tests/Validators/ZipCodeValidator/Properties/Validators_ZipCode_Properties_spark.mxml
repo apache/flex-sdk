@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Validators/ZipCodeValidator/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Validators_ZipCode_Basic_spark.mxml">
+
+	<!-- this set of lines form a tZCplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import mx.validators.ZipCodeValidator;
+	import mx.validators.ValidationResult;
+	import mx.managers.SystemManager;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="ZipCodeValidator_default_spark" keywords="[allowedFormatChars, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/> 
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="34563" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_allowedFormatChars1_spark" keywords="[allowedFormatChars, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/> 
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="34563-4123" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_allowedFormatChars2_spark" keywords="[allowedFormatChars, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/> 
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="34563 4123" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_domain_spark" keywords="[domain, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/> 
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="34563 4123" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_allowedFormatChars3_spark" keywords="[allowedFormatChars, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/> 
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="allowedFormatChars" value="*"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="34563*4123" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_allowedFormatChars4_spark" keywords="[allowedFormatChars, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/> 
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="allowedFormatChars" value="¤"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="34563¤4123" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_invalidCharError_spark" keywords="[invalidCharError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="67656!" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="valid" />
+				<DispatchMouseEvent target="myCustomZC.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomZC.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/invalidCharError_spark.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_invalidDomainError_spark" keywords="[invalidDomainError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="domain" value="India"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="562117" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="valid" />
+				<DispatchMouseEvent target="myCustomZC.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomZC.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/invalidDomainError_spark.png" timeout="2000" />				
+			</body>  
+		</TestCase> 
+		<TestCase testID="ZipCodeValidator_wrongCAFormatError_spark" keywords="[wrongCAFormatError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="B14342" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="valid" />
+				<DispatchMouseEvent target="myCustomZC.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomZC.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/wrongCAFormatError_spark.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_wrongLengthError_spark" keywords="[wrongLengthError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="454342" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="valid" />
+				<DispatchMouseEvent target="myCustomZC.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomZC.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/wrongLengthError_spark.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="ZipCodeValidator_wrongUSFormatError_spark" keywords="[wrongUSFormatError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomZC" className="CustomZC"  waitEvent="updateComplete" waitTarget="myCustomZC"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="property" value="text"/>
+				<SetProperty target="myCustomZC.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomZC.ti1" propertyName="text" value="B4543" waitEvent="updateComplete" waitTarget="myCustomZC.ti1"/>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomZC.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomZC.myZC" eventName="valid" />
+				<DispatchMouseEvent target="myCustomZC.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomZC.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/wrongUSFormatError_spark.png" timeout="2000" />				
+			</body>  
+		</TestCase>		
+	</testCases>
+</UnitTester>

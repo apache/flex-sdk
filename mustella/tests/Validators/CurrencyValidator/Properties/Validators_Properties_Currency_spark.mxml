@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Validators/CurrencyValidator/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Validators_Currency_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import 	mx.validators.CurrencyValidator;
+	import 	mx.validators.ValidationResult;
+	import mx.managers.SystemManager;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="CurrencyValidator_currencySymbol_default_spark" keywords="[currencySymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="property" value="text" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="$32" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+				
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="invalid" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_currencySymbol_Yen_spark" keywords="[alignSymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="property" value="text" />
+				<SetProperty target="myCustomCu.myCu" propertyName="currencySymbol" value="¥" />
+				
+				<SetProperty target="myCustomCu.myCu" propertyName="alignSymbol" value="right" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="32¥" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="invalid" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_currencySymbol_ó_spark" keywords="[alignSymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="property" value="text" />
+				<SetProperty target="myCustomCu.myCu" propertyName="currencySymbol" value="ó" />
+				
+				<SetProperty target="myCustomCu.myCu" propertyName="alignSymbol" value="any" />
+				<SetProperty target="myCustomCu.myCu" propertyName="allowNegative" value="true" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="-32ó" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="invalid" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_currencySymbol_Pound_spark" keywords="[alignSymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/>
+				<SetProperty target="myCustomCu.myCu" propertyName="property" value="text" />
+				<SetProperty target="myCustomCu.myCu" propertyName="currencySymbol" value="£" />
+				<SetProperty target="myCustomCu.myCu" propertyName="alignSymbol" value="any"/>
+				<SetProperty target="myCustomCu.myCu" propertyName="allowNegative" value="true" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="-32,000.50£" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="invalid" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_currencySymbol_¤_spark" keywords="[alignSymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				
+				<SetProperty target="myCustomCu.myCu" propertyName="currencySymbol" value="¤"/>
+				<SetProperty target="myCustomCu.myCu" propertyName="alignSymbol" value="any" />
+				<SetProperty target="myCustomCu.myCu" propertyName="allowNegative" value="true" />
+				<SetProperty target="myCustomCu.myCu" propertyName="property" value="text" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="-¤32,000.50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="invalid" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_currencySymbol_¢_spark" keywords="[alignSymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="currencySymbol" value="¢"/>
+				<SetProperty target="myCustomCu.myCu" propertyName="alignSymbol" value="any" />
+				<SetProperty target="myCustomCu.myCu" propertyName="allowNegative" value="true" />
+				<SetProperty target="myCustomCu.myCu" propertyName="property" value="text" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="-¢50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="invalid" />
+			</body>
+		</TestCase> 
+		<TestCase testID="CurrencyValidator_currencySymbolError_spark" keywords="[currencySymbolError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="32,000.50$" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/currencySymbolError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_decimalPointCountError_spark" keywords="[decimalPointCountError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="$3,200.0.50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/decimalPointCountError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_exceedsMaxError_spark" keywords="[exceedsMaxError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="maxValue" value="7000" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="$32,000.50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/exceedsMaxError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_invalidCharError_spark" keywords="[invalidCharError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="maxValue" value="7000" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="@3,2000.50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/invalidCharError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_invalidFormatCharsError_spark" keywords="[invalidFormatCharsError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="32.000,50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/invalidFormatCharsError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_lowerThanMinError_spark" keywords="[lowerThanMinError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="minValue" value="33000" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="$32,000.50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/lowerThanMinError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="CurrencyValidator_precisionError_spark" keywords="[precisionError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="precision" value="3" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="$3,200.0050" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/precisionError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_separationError_spark" keywords="[separationError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="precision" value="3" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="$30,00,00" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/separationError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="CurrencyValidator_negativeError_spark" keywords="[negativeError, CurrencyValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomCu" className="CustomCu"  waitEvent="updateComplete" waitTarget="myCustomCu"/> 
+				<SetProperty target="myCustomCu.myCu" propertyName="allowNegative" value="false" />
+				<SetProperty target="myCustomCu.ti1" propertyName="text" value="-$3,2000.50" waitEvent="updateComplete" waitTarget="myCustomCu.ti1"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertEvent target="myCustomCu.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomCu.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="myCustomCu.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomCu.ti1"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Properties/baselines/negativeError_spark.png" timeout="5000" />
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

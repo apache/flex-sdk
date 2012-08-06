@@ -1,0 +1,14 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import 	mx.validators.PhoneNumberValidator;
+	import mx.managers.SystemManager;
+	
+	]]>
+	</mx:Script>
+	
+	<mx:TextInput id="ti1" />
+	<mx:PhoneNumberValidator id="myPhN" source="{ti1}" minDigits="10" />	
+	<mx:Button id="bt" />
+</mx:VBox>

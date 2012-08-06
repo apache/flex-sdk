@@ -1,0 +1,14 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import 	mx.validators.StringValidator;
+	import mx.managers.SystemManager;
+	
+	]]>
+	</mx:Script>
+	
+	<mx:TextInput id="ti1" />
+	<mx:StringValidator id="mySV" source="{ti1}"/>	
+	<mx:Button id="bt" />
+</mx:VBox>
