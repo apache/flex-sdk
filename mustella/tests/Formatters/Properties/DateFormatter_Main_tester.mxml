@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Formatters/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateFormatter_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+
+<testCases>
+
+     <TestCase testID="DateFormatter_test1" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('1')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="01/01/2000" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="01/01/2000" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Saturday, January. 1, 2000 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 1, 2000 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 1, 2000" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Sat Jan 1 2000" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test2" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('2')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="07/04/2008" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="07/04/2008" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Friday, July. 4, 2008 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Jul. 4, 2008 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Jul. 4, 2008" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Fri Jul 4 2008" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test3" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('3')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="03/06/1965" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="03/06/1965" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Saturday, March. 6, 1965 at 9:42 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Mar. 6, 1965 at 9:42 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Mar. 6, 1965" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="9:42 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Sat Mar 6 1965" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+     <TestCase testID="DateFormatter_test5" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('5')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="01/01/1900" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="01/01/1900" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Monday, January. 1, 1900 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 1, 1900 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 1, 1900" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Mon Jan 1 1900" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test6" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('6')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="12/31/1999" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="12/31/1999" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Friday, December. 31, 1999 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 1999 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 1999" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Fri Dec 31 1999" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test7" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('7')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="12/31/30000000" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="12/31/30000000" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Sunday, December. 31, 30000000 at 11:59 PM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 30000000 at 11:59 PM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 30000000" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="11:59 PM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Sun Dec 31 30000000" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test8" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('8')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="02/29/2012" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="02/29/2012" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Wednesday, February. 29, 2012 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Feb. 29, 2012 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Feb. 29, 2012" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Wed Feb 29 2012" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test9" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('9')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="01/01/1970" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="01/01/1970" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Thursday, January. 1, 1970 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 1, 1970 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 1, 1970" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Thu Jan 1 1970" target="dateStringOutput"/>
+        </body>
+      </TestCase>
+     <TestCase testID="DateFormatter_test10" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('10')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="12/31/1969" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="12/31/1969" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Wednesday, December. 31, 1969 at 7:00 PM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 1969 at 7:00 PM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 1969" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="7:00 PM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Wed Dec 31 1969" target="dateStringOutput"/>
+       </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test11" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('11')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="07/21/1969" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="07/21/1969" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Monday, July. 21, 1969 at 3:16 PM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Jul. 21, 1969 at 3:16 PM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Jul. 21, 1969" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="3:16 PM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Mon Jul 21 1969" target="dateStringOutput"/>
+            <AssertPropertyValue propertyName="text" value="69" target="datePartYY"/>
+            <AssertPropertyValue propertyName="text" value="1969" target="datePartYYYY"/>
+            <AssertPropertyValue propertyName="text" value="7" target="datePartM"/>
+            <AssertPropertyValue propertyName="text" value="07" target="datePartMM"/>
+            <AssertPropertyValue propertyName="text" value="Jul" target="datePartMMM"/>
+            <AssertPropertyValue propertyName="text" value="July" target="datePartMMMM"/>
+            <AssertPropertyValue propertyName="text" value="21" target="datePartD"/>
+            <AssertPropertyValue propertyName="text" value="21" target="datePartDD"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartE"/>
+            <AssertPropertyValue propertyName="text" value="Mon" target="datePartEEE"/>
+            <AssertPropertyValue propertyName="text" value="Monday" target="datePartEEEE"/>
+            <AssertPropertyValue propertyName="text" value="PM" target="datePartA"/>
+            <AssertPropertyValue propertyName="text" value="15" target="datePartJ"/>
+            <AssertPropertyValue propertyName="text" value="15" target="datePartH"/>
+            <AssertPropertyValue propertyName="text" value="3" target="datePartK"/>
+            <AssertPropertyValue propertyName="text" value="3" target="datePartL"/>
+            <AssertPropertyValue propertyName="text" value="16" target="datePartN"/>
+            <AssertPropertyValue propertyName="text" value="16" target="datePartNN"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartS"/>
+
+
+         </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test12" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('12')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="02/01/1901" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="02/01/1901" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Friday, February. 1, 1901 at 1:01 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Feb. 1, 1901 at 1:01 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Feb. 1, 1901" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="1:01 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Fri Feb 1 1901" target="dateStringOutput"/>
+            <AssertPropertyValue propertyName="text" value="01" target="datePartYY"/>
+            <AssertPropertyValue propertyName="text" value="1901" target="datePartYYYY"/>
+            <AssertPropertyValue propertyName="text" value="2" target="datePartM"/>
+            <AssertPropertyValue propertyName="text" value="02" target="datePartMM"/>
+            <AssertPropertyValue propertyName="text" value="Feb" target="datePartMMM"/>
+            <AssertPropertyValue propertyName="text" value="February" target="datePartMMMM"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartD"/>
+            <AssertPropertyValue propertyName="text" value="01" target="datePartDD"/>
+            <AssertPropertyValue propertyName="text" value="5" target="datePartE"/>
+            <AssertPropertyValue propertyName="text" value="Fri" target="datePartEEE"/>
+            <AssertPropertyValue propertyName="text" value="Friday" target="datePartEEEE"/>
+            <AssertPropertyValue propertyName="text" value="AM" target="datePartA"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartJ"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartH"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartK"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartL"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartN"/>
+            <AssertPropertyValue propertyName="text" value="01" target="datePartNN"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartS"/>
+
+         </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test13" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('13')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="12/31/1899" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="12/31/1899" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Sunday, December. 31, 1899 at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 1899 at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 31, 1899" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Sun Dec 31 1899" target="dateStringOutput"/>
+            <AssertPropertyValue propertyName="text" value="99" target="datePartYY"/>
+            <AssertPropertyValue propertyName="text" value="1899" target="datePartYYYY"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartM"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartMM"/>
+            <AssertPropertyValue propertyName="text" value="Dec" target="datePartMMM"/>
+            <AssertPropertyValue propertyName="text" value="December" target="datePartMMMM"/>
+            <AssertPropertyValue propertyName="text" value="31" target="datePartD"/>
+            <AssertPropertyValue propertyName="text" value="31" target="datePartDD"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartE"/>
+            <AssertPropertyValue propertyName="text" value="Sun" target="datePartEEE"/>
+            <AssertPropertyValue propertyName="text" value="Sunday" target="datePartEEEE"/>
+            <AssertPropertyValue propertyName="text" value="AM" target="datePartA"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartJ"/>
+            <AssertPropertyValue propertyName="text" value="24" target="datePartH"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartK"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartL"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartN"/>
+            <AssertPropertyValue propertyName="text" value="00" target="datePartNN"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartS"/>
+         </body>
+      </TestCase>
+
+
+     <TestCase testID="DateFormatter_test14" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('14')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="12/10/1912" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="12/10/1912" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Tuesday, December. 10, 1912 at 9:08 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 10, 1912 at 9:08 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Dec. 10, 1912" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="9:08 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Tue Dec 10 1912" target="dateStringOutput"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartYY"/>
+            <AssertPropertyValue propertyName="text" value="1912" target="datePartYYYY"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartM"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartMM"/>
+            <AssertPropertyValue propertyName="text" value="Dec" target="datePartMMM"/>
+            <AssertPropertyValue propertyName="text" value="December" target="datePartMMMM"/>
+            <AssertPropertyValue propertyName="text" value="10" target="datePartD"/>
+            <AssertPropertyValue propertyName="text" value="10" target="datePartDD"/>
+            <AssertPropertyValue propertyName="text" value="2" target="datePartE"/>
+            <AssertPropertyValue propertyName="text" value="Tue" target="datePartEEE"/>
+            <AssertPropertyValue propertyName="text" value="Tuesday" target="datePartEEEE"/>
+            <AssertPropertyValue propertyName="text" value="AM" target="datePartA"/>
+            <AssertPropertyValue propertyName="text" value="9" target="datePartJ"/>
+            <AssertPropertyValue propertyName="text" value="9" target="datePartH"/>
+            <AssertPropertyValue propertyName="text" value="9" target="datePartK"/>
+            <AssertPropertyValue propertyName="text" value="9" target="datePartL"/>
+            <AssertPropertyValue propertyName="text" value="8" target="datePartN"/>
+            <AssertPropertyValue propertyName="text" value="08" target="datePartNN"/>
+            <AssertPropertyValue propertyName="text" value="7" target="datePartS"/>
+        </body>
+      </TestCase>
+      <TestCase testID="DateFormatter_test15" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+         <body>
+            <RunCode code="application.testDateFormatter('15')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="text" value="" target="dateFormatOutputDefaultStr"/>
+            <AssertPropertyValue propertyName="text" value="01/00/NaN" target="dateFormatOutputDefaultObj"/>
+            <AssertPropertyValue propertyName="text" value="Sunday, January. 0, NaN at 12:00 AM" target="dateFormatOutputDefaultMaskFull"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 0, NaN at 12:00 AM" target="dateFormatOutputDefaultMaskLong"/>
+            <AssertPropertyValue propertyName="text" value="Jan. 0, NaN" target="dateFormatOutputDefaultMaskMedium"/>
+            <AssertPropertyValue propertyName="text" value="12:00 AM" target="dateFormatOutputDefaultMaskTime"/>
+            <AssertPropertyValue propertyName="text" value="Invalid Date" target="dateStringOutput"/>
+            <AssertPropertyValue propertyName="text" value="N" target="datePartYY"/>
+            <AssertPropertyValue propertyName="text" value="NaN" target="datePartYYYY"/>
+            <AssertPropertyValue propertyName="text" value="1" target="datePartM"/>
+            <AssertPropertyValue propertyName="text" value="01" target="datePartMM"/>
+            <AssertPropertyValue propertyName="text" value="Jan" target="datePartMMM"/>
+            <AssertPropertyValue propertyName="text" value="January" target="datePartMMMM"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartD"/>
+            <AssertPropertyValue propertyName="text" value="00" target="datePartDD"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartE"/>
+            <AssertPropertyValue propertyName="text" value="Sun" target="datePartEEE"/>
+            <AssertPropertyValue propertyName="text" value="Sunday" target="datePartEEEE"/>
+            <AssertPropertyValue propertyName="text" value="AM" target="datePartA"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartJ"/>
+            <AssertPropertyValue propertyName="text" value="24" target="datePartH"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartK"/>
+            <AssertPropertyValue propertyName="text" value="12" target="datePartL"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartN"/>
+            <AssertPropertyValue propertyName="text" value="00" target="datePartNN"/>
+            <AssertPropertyValue propertyName="text" value="0" target="datePartS"/>
+       </body>
+  </TestCase>
+  <TestCase testID="DateFormatter_test16" description="test DST with GMT" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+      <body>
+		  <RunCode code="application.testDateFormatter('16')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+		  <AssertPropertyValue propertyName="text" value="09/28/2008" target="dateFormatOutputDefaultStr"/>
+		  <AssertPropertyValue propertyName="text" value="09/28/2008" target="dateFormatOutputDefaultObj"/>
+		  <AssertPropertyValue propertyName="text" value="Sunday, September. 28, 2008 at 3:34 PM" target="dateFormatOutputDefaultMaskFull"/>
+		  <AssertPropertyValue propertyName="text" value="Sep. 28, 2008 at 3:34 PM" target="dateFormatOutputDefaultMaskLong"/>
+		  <AssertPropertyValue propertyName="text" value="Sep. 28, 2008" target="dateFormatOutputDefaultMaskMedium"/>
+		  <AssertPropertyValue propertyName="text" value="3:34 PM" target="dateFormatOutputDefaultMaskTime"/>
+		  <AssertPropertyValue propertyName="text" value="Sun Sep 28 2008" target="dateStringOutput"/>
+	  </body>
+  </TestCase>
+  <TestCase testID="DateFormatter_test17" description="Standard Time" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+      <body>
+		  <RunCode code="application.testDateFormatter('17')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+		  <AssertPropertyValue propertyName="text" value="11/28/2008" target="dateFormatOutputDefaultStr"/>
+		  <AssertPropertyValue propertyName="text" value="11/28/2008" target="dateFormatOutputDefaultObj"/>
+		  <AssertPropertyValue propertyName="text" value="Friday, November. 28, 2008 at 2:34 PM" target="dateFormatOutputDefaultMaskFull"/>
+		  <AssertPropertyValue propertyName="text" value="Nov. 28, 2008 at 2:34 PM" target="dateFormatOutputDefaultMaskLong"/>
+		  <AssertPropertyValue propertyName="text" value="Nov. 28, 2008" target="dateFormatOutputDefaultMaskMedium"/>
+		  <AssertPropertyValue propertyName="text" value="2:34 PM" target="dateFormatOutputDefaultMaskTime"/>
+		  <AssertPropertyValue propertyName="text" value="Fri Nov 28 2008" target="dateStringOutput"/>
+	  </body>
+  </TestCase>
+  <TestCase testID="DateFormatter_test18" description="Date() corrects day of week" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+      <body>
+		  <RunCode code="application.testDateFormatter('18')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+		  <AssertPropertyValue propertyName="text" value="09/28/2008" target="dateFormatOutputDefaultStr"/>
+		  <AssertPropertyValue propertyName="text" value="09/28/2008" target="dateFormatOutputDefaultObj"/>
+		  <AssertPropertyValue propertyName="text" value="Sunday, September. 28, 2008 at 3:34 PM" target="dateFormatOutputDefaultMaskFull"/>
+		  <AssertPropertyValue propertyName="text" value="Sep. 28, 2008 at 3:34 PM" target="dateFormatOutputDefaultMaskLong"/>
+		  <AssertPropertyValue propertyName="text" value="Sep. 28, 2008" target="dateFormatOutputDefaultMaskMedium"/>
+		  <AssertPropertyValue propertyName="text" value="3:34 PM" target="dateFormatOutputDefaultMaskTime"/>
+		  <AssertPropertyValue propertyName="text" value="Sun Sep 28 2008" target="dateStringOutput"/>
+	  </body>
+  </TestCase>
+  <TestCase testID="DateFormatter_test19" description="test DST with UTC instead of GMT" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+      <body>
+		  <RunCode code="application.testDateFormatter('19')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />
+		  <AssertPropertyValue propertyName="text" value="11/28/2008" target="dateFormatOutputDefaultStr"/>
+		  <AssertPropertyValue propertyName="text" value="11/28/2008" target="dateFormatOutputDefaultObj"/>
+		  <AssertPropertyValue propertyName="text" value="Friday, November. 28, 2008 at 2:34 PM" target="dateFormatOutputDefaultMaskFull"/>
+		  <AssertPropertyValue propertyName="text" value="Nov. 28, 2008 at 2:34 PM" target="dateFormatOutputDefaultMaskLong"/>
+		  <AssertPropertyValue propertyName="text" value="Nov. 28, 2008" target="dateFormatOutputDefaultMaskMedium"/>
+		  <AssertPropertyValue propertyName="text" value="2:34 PM" target="dateFormatOutputDefaultMaskTime"/>
+		  <AssertPropertyValue propertyName="text" value="Fri Nov 28 2008" target="dateStringOutput"/>
+  	  </body>
+  </TestCase>
+ 
+ <TestCase testID="DateFormatter_test20" description="" keywords="[DateFormatter, Date.parse, Date.toDateString]">
+	 <body>
+		<RunCode code="application.testDateFormatter('20')" waitTarget="dateFormatOutputDefaultStr" waitEvent="updateComplete" />                        
+
+		<AssertPropertyValue propertyName="text" value="09/17/2009" target="dateFormatOutputDefaultStr"/>
+		<AssertPropertyValue propertyName="text" value="09/17/2009" target="dateFormatOutputDefaultObj"/>
+		<AssertPropertyValue propertyName="text" value="Thursday, September. 17, 2009 at 3:39 PM" target="dateFormatOutputDefaultMaskFull"/>
+		<AssertPropertyValue propertyName="text" value="Sep. 17, 2009 at 3:39 PM" target="dateFormatOutputDefaultMaskLong"/>
+		<AssertPropertyValue propertyName="text" value="Sep. 17, 2009" target="dateFormatOutputDefaultMaskMedium"/>
+		<AssertPropertyValue propertyName="text" value="3:39 PM" target="dateFormatOutputDefaultMaskTime"/>
+		<AssertPropertyValue propertyName="text" value="Thu Sep 17 2009" target="dateStringOutput"/>
+		<AssertPropertyValue propertyName="text" value="Thursday, September 17, 2009 at 15:39:20:789 PM" target="dateFormatOutputDefaultMaskMillisec"/>            
+	</body>
+  </TestCase>  
+
+</testCases>
+
+
+</UnitTester>

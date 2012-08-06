@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Formatters/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Formatters_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.TextInput;
+    import mx.formatters.CurrencyFormatter;
+    import mx.managers.SystemManager;
+    
+    public function FormatCurrencySimple():void{
+        application.ti.text= application.cf.format(98765);
+    }
+    public function FormatCurrencySymbol():void{
+        application.cf.currencySymbol="Rs.";
+        application.ti.text= application.cf.format(98765);
+    }
+    public function FormatCurrencyPrecision():void{
+        application.cf.precision=5;
+        application.ti.text= application.cf.format(98765);
+    }
+    public function FormatCurrencyUseThousandsSeparator():void{
+        application.cf.useThousandsSeparator=false;
+        application.ti.text= application.cf.format(98765);
+    }
+    public function FormatCurrencyPrecisionZero():void{
+        application.cf.precision=0;
+        application.ti.text= application.cf.format(98765);
+    }
+    public function FormatCurrencyRoundingUp():void{
+        application.cf.precision=3;
+        application.cf.rounding="up";
+        application.ti.text= application.cf.format(98765.4321);
+    }
+    public function FormatCurrencyRoundingDown():void{
+        application.cf.rounding="down";
+        application.ti.text= application.cf.format(98765.4321);
+    }
+    public function FormatCurrencyRoundingNone():void{
+        application.cf.rounding="none";
+        application.ti.text= application.cf.format(98765.4321);
+    }
+    public function FormatCurrencyThousandsSeparatorFrom():void{
+        application.cf.useThousandsSeparator=true;
+        application.cf.thousandsSeparatorFrom="T";
+        application.ti.text= application.cf.format("98T765.4321");
+    }
+    public function FormatCurrencyDecimalSeparatorFrom():void{
+        application.cf.decimalSeparatorFrom="D";
+        application.ti.text= application.cf.format("98T765D4321");
+    }
+    public function FormatCurrencyThousandsSeparatorTo():void{
+        application.cf.thousandsSeparatorTo=".";
+        application.cf.decimalSeparatorTo="D";
+        application.ti.text= application.cf.format("98T765D4321");
+    }
+    public function FormatCurrencyDecimalSeparatorTo():void{
+        application.cf.decimalSeparatorTo=",";
+        application.ti.text= application.cf.format("98T765D4321");
+    }
+    public function FormatCurrencyUseNegativeSignTrue():void{
+        application.cf.useNegativeSign=true;
+        application.ti.text= application.cf.format("-98T765D4321");
+    }
+    public function FormatCurrencyUseNegativeSignFalse():void{
+        application.cf.useNegativeSign=false;
+        application.ti.text= application.cf.format("-98T765D4321");
+    }
+    public function FormatCurrencyAlignSymbolRight():void{
+        application.cf.precision=5;
+        application.cf.currencySymbol="Rsam.";
+        application.cf.alignSymbol="right";
+        application.ti.text= application.cf.format("-98T765D4321");
+    }
+    public function FormatCurrencyAlignSymbolLeft():void{
+        application.cf.alignSymbol="left";
+        application.ti.text= application.cf.format("-98T765D4321");
+    }
+    public function FormatCurrencyAlignSymbolRightPos():void{
+        application.cf.useNegativeSign=true;
+        application.cf.currencySymbol="Rs.";
+        application.cf.alignSymbol="right";
+        application.ti.text= application.cf.format("98T765D4321");
+    }
+    public function FormatCurrencyAlignSymbolLeftPos():void{
+        application.cf.alignSymbol="left";
+        application.ti.text= application.cf.format("98T765D4321");
+    }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="Formatters_Currency" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencySimple();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="$98,765.000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_currencySymbol" description="Test the properties of Currency Formatters." keywords="[currencySymbol, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencySymbol();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98,765.000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_precision" description="Test the properties of Currency Formatters." keywords="[precision, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyPrecision();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98,765.00000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_useThousandsSeparator" description="Test the properties of Currency Formatters." keywords="[useThousandsSeparator, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyUseThousandsSeparator();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98765.00000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_Precision_Zero" description="Test the properties of Currency Formatters." keywords="[precision, zero, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyPrecisionZero();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98765" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_Rounding_Up" description="Test the properties of Currency Formatters." keywords="[rounding, up, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyRoundingUp();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98765.433" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_Rounding_Down" description="Test the properties of Currency Formatters." keywords="[rounding, down, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyRoundingDown();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98765.432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_Rounding_None" description="Test the properties of Currency Formatters." keywords="[rounding, none, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyRoundingNone();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98765.432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_ThousandsSeparatorFrom" description="Test the properties of Currency Formatters." keywords="[thousandsSeparatorFrom, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyThousandsSeparatorFrom();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98,765.432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_DecimalSeparatorFrom" description="Test the properties of Currency Formatters." keywords="[DecimalSeparatorFrom, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyDecimalSeparatorFrom();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98,765.432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_ThousandsSeparatorTo" description="Test the properties of Currency Formatters." keywords="[ThousandsSeparatorTo, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyThousandsSeparatorTo();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98.765D432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_DecimalSeparatorTo" description="Test the properties of Currency Formatters." keywords="[DecimalSeparatorTo, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyDecimalSeparatorTo();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98.765,432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_UseNegativeSign_True" description="Test the properties of Currency Formatters." keywords="[useNegativeSign, true, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyUseNegativeSignTrue();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="-Rs.98.765,432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_UseNegativeSign_False" description="Test the properties of Currency Formatters." keywords="[useNegativeSign, false, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyUseNegativeSignFalse();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="(Rs.98.765,432)" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_AlignSymbol_Right" description="Test the properties of Currency Formatters." keywords="[alignSymbol, right, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyAlignSymbolRight();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="(98.765,43210Rsam.)" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_AlignSymbol_Left" description="Test the properties of Currency Formatters." keywords="[alignSymbol, left, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyAlignSymbolLeft();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="(Rsam.98.765,43210)" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_AlignSymbol_Right_Pos" description="Test the properties of Currency Formatters." keywords="[alignSymbol, right, positive, number, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyAlignSymbolRightPos();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="98.765,43210Rs." />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_AlignSymbol_Left_Pos" description="Test the properties of Currency Formatters." keywords="[alignSymbol, left, positive, number, inline, Currency, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyAlignSymbolLeftPos();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.98.765,43210" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

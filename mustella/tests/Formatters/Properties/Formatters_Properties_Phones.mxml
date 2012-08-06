@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Formatters/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Formatters_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.TextInput;
+    import mx.formatters.PhoneFormatter;
+    import mx.managers.SystemManager;
+    
+    public function FormatPhoneSimple():void{
+        application.ti.text= application.pf.format("9876543");
+    }
+    public function FormatPhoneNoAreaCode():void{
+        application.pf.areaCode=-1;
+        application.pf.areaCodeFormat="(###)";
+        application.pf.formatString="#### ####";
+        application.ti.text= application.pf.format("98765432");
+    }
+    public function FormatPhoneAreaCode():void{
+        application.pf.formatString="+## ##### #####";
+        application.ti.text= application.pf.format("919876543210");
+    }
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Formatters_Phone_Simple" description="Test the properties of Number Formatters." keywords="[Simple, Phone, inline, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatPhoneSimple();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="(345) 987-6543" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Phone_NoAreaCode" description="Test the properties of Number Formatters." keywords="[No, AreaCode, Phone, inline, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatPhoneNoAreaCode();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="9876 5432" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Phone_AreaCode" description="Test the properties of Number Formatters." keywords="[ AreaCode, Phone, inline, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatPhoneAreaCode();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="+91 98765 43210" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

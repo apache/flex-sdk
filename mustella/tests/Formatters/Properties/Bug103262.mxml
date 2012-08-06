@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Formatters/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Formatters_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.TextInput;
+    import mx.formatters.CurrencyFormatter;
+    import mx.managers.SystemManager;
+
+    public function FormatCurrencySimple():void{
+        application.cf.currencySymbol="$";
+        application.cf.precision=3;
+        application.cf.rounding="up";
+        application.cf.decimalSeparatorTo=".";
+        application.cf.thousandsSeparatorTo=",";
+        application.cf.useThousandsSeparator=true;
+        application.cf.useNegativeSign=true;
+        application.ti.text= application.cf.format(.5);
+    }
+    public function FormatCurrencySymbol():void{
+        application.cf.currencySymbol="Rs.";
+        application.ti.text= application.cf.format(.32);
+    }
+    public function FormatCurrencyPrecision():void{
+        application.cf.precision=5;
+        application.ti.text= application.cf.format(.987);
+    }
+    public function FormatCurrencyUseThousandsSeparator():void{
+        application.cf.useThousandsSeparator=false;
+        application.ti.text= application.cf.format(.98765);
+    }
+    public function FormatCurrencyPrecisionZero():void{
+        application.cf.precision=0;
+        application.ti.text= application.cf.format(.98765);
+    }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="Formatters_Currency_less_than_one" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter, fraction]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencySimple();" />
+                <WaitForEffectsToEnd waitEvent="updateComplete" waitTarget="ti"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="$0.500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_less_than_half" description="Test the properties of Currency Formatters." keywords="[currencySymbol, inline, Currency, Formatter, fraction, half]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencySymbol();" waitEvent="updateComplete" waitTarget="ti"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.0.320" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_precision_fraction" description="Test the properties of Currency Formatters." keywords="[precision, inline, Currency, Formatter, fraction]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyPrecision();" waitEvent="updateComplete" waitTarget="ti"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.0.98700" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_useThousandsSeparator_fraction" description="Test the properties of Currency Formatters." keywords="[useThousandsSeparator, inline, Currency, Formatter, fraction]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyUseThousandsSeparator();" waitEvent="updateComplete" waitTarget="ti"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.0.98765" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Currency_Precision_Zero_fraction" description="Test the properties of Currency Formatters." keywords="[precision, zero, inline, Currency, Formatter,fraction]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatCurrencyPrecisionZero();" waitEvent="updateComplete" waitTarget="ti"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" value="Rs.1" />
+                <RunCode code="FormatCurrencySimple();" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

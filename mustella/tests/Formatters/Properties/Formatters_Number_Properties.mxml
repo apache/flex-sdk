@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Formatters/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Formatters_Main.mxml">
+
+	<!-- this set of lines form a tNbplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import 	mx.formatters.NumberFormatter;
+	import mx.managers.SystemManager;
+	
+	public function precisionPositive():void
+	{
+		application.myCustomNf.ti2.text=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text);
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="NumberFormatter_precision_1"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="0.76" waitEvent="updateComplete" waitTarget="myCustomNf.ti1"/>
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)" waitEvent="updateComplete" waitTarget="myCustomNf.ti2"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value='0.76'" />
+			</body>  
+		</TestCase>
+		<TestCase testID="NumberFormatter_precision_2"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="-0.76" waitEvent="updateComplete" waitTarget="myCustomNf.ti1"/>
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)" waitEvent="updateComplete" waitTarget="myCustomNf.ti2"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value='-0.76'" />
+			</body>  
+		</TestCase>
+		<TestCase testID="NumberFormatter_precision_3"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="0" waitEvent="updateComplete" waitTarget="myCustomNf.ti1"/>
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)" waitEvent="updateComplete" waitTarget="myCustomNf.ti2"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value='0.00'" />
+			</body>  
+		</TestCase>
+		<TestCase testID="NumberFormatter_precision_4"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="77" waitEvent="updateComplete" waitTarget="myCustomNf.ti1"/>
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)" waitEvent="updateComplete" waitTarget="myCustomNf.ti2"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value='77.00'" />
+			</body>  
+		</TestCase>
+		<TestCase testID="NumberFormatter_precision_5"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="77." waitEvent="updateComplete" waitTarget="myCustomNf.ti1"/>
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)" waitEvent="updateComplete" waitTarget="myCustomNf.ti2"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value='77.00'" />
+			</body>  
+		</TestCase>
+		<TestCase testID="NumberFormatter_precision_6"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="77.1" waitEvent="updateComplete" waitTarget="myCustomNf.ti1"/>
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)" waitEvent="updateComplete" waitTarget="myCustomNf.ti2"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value='77.10'" />
+			</body>  
+		</TestCase>
+		<TestCase testID="NumberFormatter_precision_7"  keywords="[precision, NumberFormatter]">
+			<setup>
+				<ResetComponent target="myCustomNf" className="CustomNf"  waitEvent="updateComplete" waitTarget="myCustomNf"/> 
+				<SetProperty target="myCustomNf.myNf" propertyName="precision" value="2"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="myCustomNf.ti1" propertyName="text" value="" />
+			</setup>
+			<body>
+				
+				<SetProperty target="myCustomNf.ti2" propertyName="text" valueExpression="value=application.myCustomNf.myNf.format(application.myCustomNf.ti1.text)"/>
+				<AssertPropertyValue target="myCustomNf.ti2" propertyName="text" valueExpression="value=''" />
+			</body>  
+		</TestCase>		
+	</testCases>
+</UnitTester>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Formatters/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Formatters_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.TextInput;
+    import mx.formatters.NumberFormatter;
+    import mx.managers.SystemManager;
+    
+    public function FormatNumberSimple():void{
+        application.ti.text= application.nf.format(98765);
+    }
+    public function FormatNumberPrecision():void{
+        application.nf.precision=5;
+        application.ti.text= application.nf.format(98765);
+    }
+    public function FormatNumberUseThousandsSeparator():void{
+        application.nf.useThousandsSeparator=false;
+        application.nf.precision=0;
+        application.ti.text= application.nf.format(98765);
+    }
+    public function FormatNumberPrecisionZero():void{
+        application.nf.precision=0;
+        application.ti.text= application.nf.format(98765);
+    }
+    public function FormatNumberRoundingUp():void{
+        application.nf.precision=3;
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(98765.4321);
+    }
+    public function FormatNumberRoundingDown():void{
+        application.nf.rounding="down";
+        application.ti.text= application.nf.format(98765.4321);
+    }
+    public function FormatNumberRoundingNone():void{
+        application.nf.rounding="none";
+        application.ti.text= application.nf.format(98765.4321);
+    }
+    public function FormatNumberThousandsSeparatorFrom():void{
+        application.nf.useThousandsSeparator=true;
+        application.nf.thousandsSeparatorFrom="T";
+        application.ti.text= application.nf.format("98T765.4321");
+    }
+    public function FormatNumberDecimalSeparatorFrom():void{
+        application.nf.decimalSeparatorFrom="D";
+        application.ti.text= application.nf.format("98T765D4321");
+    }
+    public function FormatNumberThousandsSeparatorTo():void{
+        application.nf.thousandsSeparatorTo=".";
+        application.nf.decimalSeparatorTo="D";
+        application.ti.text= application.nf.format("98T765D4321");
+    }
+    public function FormatNumberDecimalSeparatorTo():void{
+        application.nf.decimalSeparatorTo=",";
+        application.ti.text= application.nf.format("98T765D4321");
+    }
+    public function FormatNumberUseNegativeSignTrue():void{
+        application.nf.useNegativeSign=true;
+        application.ti.text= application.nf.format("-98T765D4321");
+    }
+    public function FormatNumberUseNegativeSignFalse():void{
+        application.nf.useNegativeSign=false;
+        application.ti.text= application.nf.format("-98T765D4321");
+    }
+    public function FormatNumberPrecision_1():void{
+        application.nf.precision=2;
+        application.nf.decimalSeparatorTo=".";
+        application.nf.thousandsSeparatorTo=",";
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(0.76);
+    }
+    public function FormatNumberPrecision_2():void{
+        application.nf.precision=2;
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(.76);
+    }
+    public function FormatNumberPrecision_3():void{
+        application.nf.precision=2;
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(0);
+    }
+    public function FormatNumberPrecision_4():void{
+        application.nf.precision=2;
+        application.nf.rounding="up";
+        application.nf.useNegativeSign=true;
+        application.ti.text= application.nf.format(-0.76);
+    }
+    public function FormatNumberPrecision_5():void{
+        application.nf.precision=2;
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(77);
+    }
+    public function FormatNumberPrecision_6():void{
+        application.nf.precision=2;
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(77.);
+    }
+    public function FormatNumberPrecision_7():void{
+        application.nf.precision=2;
+        application.nf.rounding="up";
+        application.ti.text= application.nf.format(77.1);
+    }    
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="Formatters_Number" description="Test the properties of Number Formatters." keywords="[Simple, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberSimple();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98,765.000'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_precision" description="Test the properties of Number Formatters." keywords="[precision, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98,765.00000'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_useThousandsSeparator" description="Test the properties of Number Formatters." keywords="[useThousandsSeparator, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberUseThousandsSeparator();" waitEvent="updateComplete" waitTarget="ti"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98765'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_Precision_Zero" description="Test the properties of Number Formatters." keywords="[precision, zero, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecisionZero();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98765'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_Rounding_Up" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberRoundingUp();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98765.433'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_Rounding_Down" description="Test the properties of Number Formatters." keywords="[rounding, down, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberRoundingDown();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98765.432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_Rounding_None" description="Test the properties of Number Formatters." keywords="[rounding, none, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberRoundingNone();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98765.432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_ThousandsSeparatorFrom" description="Test the properties of Number Formatters." keywords="[thousandsSeparatorFrom, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberThousandsSeparatorFrom();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98,765.432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_DecimalSeparatorFrom" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorFrom, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberDecimalSeparatorFrom();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98,765.432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_ThousandsSeparatorTo" description="Test the properties of Number Formatters." keywords="[ThousandsSeparatorTo, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberThousandsSeparatorTo();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98.765D432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_DecimalSeparatorTo" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorTo, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberDecimalSeparatorTo();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='98.765,432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_UseNegativeSign_True" description="Test the properties of Number Formatters." keywords="[useNegativeSign, true, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberUseNegativeSignTrue();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='-98.765,432'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_UseNegativeSign_False" description="Test the properties of Number Formatters." keywords="[useNegativeSign, false, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberUseNegativeSignFalse();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='(98.765,432)'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_1" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_1();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='0.76'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_2" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_2();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='0.76'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_3" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_3();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='0.00'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_4" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_4();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='-0.76'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_5" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_5();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='77.00'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_6" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_6();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='77.00'" />
+            </body>
+        </TestCase>
+        <TestCase testID="Formatters_Number_formatPrecision_7" description="Test the properties of Number Formatters Precision" keywords="[Precision, Number, Formatter]">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+                <RunCode code="FormatNumberPrecision_7();" waitEvent="updateComplete" waitTarget="ti"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti" propertyName="text" valueExpression="value='77.10'" />
+            </body>
+        </TestCase>        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="700" horizontalAlign="center">
+
+<!--
+	http://livedocs.adobe.com/flex/3/langref/mx/formatters/DateFormatter.html
+	http://bugs.adobe.com/jira/browse/SDK-13650
+	Fixed in SVN revision 2306
+
+-->
+
+	<mx:Script>
+		<![CDATA[
+
+            [Bindable]
+            public var numbersAry: Array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ];
+
+	        public function testDateFormatter(choice:Number):void {
+	        	var aDate:Date;
+	        	var aDateString:String;
+
+			switch (choice)
+					{
+					  case 1:
+						aDate =  new Date(2000, 0, 1);
+						break;
+
+					  case 2:
+						aDate =  new Date(2008, 6, 4);
+						break;
+
+					  case 3:
+						aDate =  new Date(65, 2, 6, 9, 42, 16, 0);
+						break;
+
+					  case 4:
+					    //This code is to make this test time zone independant
+						var temp1:Date = new Date();
+						var temp2:Number = 1000 * (28800 - (temp1.getTimezoneOffset() *60));
+						var num:Number= -14159025000 - temp2;
+						aDate =  new Date(num);
+						break;
+
+					  case 5:
+						aDate =  new Date(1900, 0, 1);
+						break;
+
+					  case 6:
+						aDate =  new Date(1999, 11, 31);
+						break;
+
+					  case 7:
+						// wierd - change 935ms to 936ms, and the year rolls over +1
+						aDate =  new Date(30000000, 11, 31, 23, 59, 59, 935);
+						break;
+
+					  case 8:
+						aDate =  new Date(2012, 1, 29);
+						break;
+
+					  case 9:
+						aDate =  new Date(1970, 0, 1);
+						break;
+
+					  case 10:
+						aDate =  new Date(0);
+						break;
+
+					  case 11:
+						aDateString = "Mon Jul 21 1969 3:16 PM";
+						aDate =  new Date(aDateString);
+						break;
+
+					  case 12:
+						aDate =  new Date(1, 1, 1, 1, 1, 1, 1);
+						break;
+
+					  case 13:
+						aDate =  new Date(0, 0, 0, 0, 0, 0, 0);
+						break;
+
+					  case 14:
+						aDate =  new Date(12, 11, 10, 9, 8, 7, 432);
+						break;
+
+
+					  case 15:
+						aDateString = "2:57 PM";
+						aDate =  new Date(aDateString);
+						break;
+
+					  case 16: // Daylight Savings Time
+					    //much of the following code was added to make this time zone independant
+						aDateString = "Sun Sep 28 17:34:21 GMT-0500 2008";
+						aDate =  new Date(aDateString);
+						var temp2:Number = 1000 * (25200 - (aDate.getTimezoneOffset() * 60));
+						var num:Number= Date.parse(aDate) - temp2;
+						aDate =  new Date(num);
+						break;
+
+
+					  case 17: // Standard Time
+					    //much of the following code was added to make this time zone independant
+						aDateString = "Fri Nov 28 17:34:21 GMT-0500 2008";
+						aDate =  new Date(aDateString);
+						var temp2:Number = 1000 * (28800 - (aDate.getTimezoneOffset() * 60));
+						var num:Number= Date.parse(aDate) - temp2;
+						aDate =  new Date(num);
+						break;
+
+					  case 18:  // wrong day of week - Date() output corrects the day
+					    //much of the following code was added to make this time zone independant
+						aDateString = "Fri Sep 28 17:34:21 GMT-0500 2008";
+						aDate =  new Date(aDateString);
+						var temp2:Number = 1000 * (25200 - (aDate.getTimezoneOffset() * 60));
+						var num:Number= Date.parse(aDate) - temp2;
+						aDate =  new Date(num);
+						break;
+
+		  			  case 19: // Standard Time UTC
+					    //much of the following code was added to make this time zone independant
+					  	aDateString = "Fri Nov 28 17:34:21 UTC-0500 2008";
+						aDate =  new Date(aDateString);
+						var temp2:Number = 1000 * (28800 - (aDate.getTimezoneOffset() * 60));
+						var num:Number= Date.parse(aDate) - temp2;
+						aDate =  new Date(num);
+					  	break;
+
+					  case 20:
+						aDate =  new Date(2009,08,17,15,39,20,789);
+						break;
+
+					  default:
+						aDate =  new Date();
+				}
+
+
+				  	aDateString = aDate.toDateString();
+
+				  	/*
+				  	Utilize the various DateFormatters and masks, as well as Date.toString and dateObj.toDateString
+				  	-----------------------------------------------------------------------------------------------
+				  	*/
+
+				  	//default formatter - String input
+				  	dateFormatOutputDefaultStr.text = dtFormatter.format(aDateString);
+				  	//default formatter- Date Object input
+				  	dateFormatOutputDefaultObj.text = dtFormatter.format(aDate);
+
+				  	//full formatter- Date Object input
+				  	dateFormatOutputDefaultMaskFull.text = dtFormatterMaskFull.format(aDate);
+				  	//long formatter- Date Object input
+				  	dateFormatOutputDefaultMaskLong.text = dtFormatterMaskLong.format(aDate);
+				  	//medium formatter- Date Object input
+				  	dateFormatOutputDefaultMaskMedium.text = dtFormatterMaskMedium.format(aDate);
+				  	//time only formatter- Date Object input
+				  	dateFormatOutputDefaultMaskTime.text = dtFormatterMaskTime.format(aDate);
+
+					// millisec
+					dateFormatOutputDefaultMaskMillisec.text = dtFormatterMaskMillisec.format(aDate);
+
+				  	//deafult toDateString
+				  	dateStringOutput.text = aDateString;
+
+					// YY
+					datePartYY.text = dtFormatterDatePartYY.format(aDate);
+					// YYYY
+					datePartYYYY.text = dtFormatterDatePartYYYY.format(aDate);
+
+					// M
+					datePartM.text = dtFormatterDatePartM.format(aDate);
+					// MM
+					datePartMM.text = dtFormatterDatePartMM.format(aDate);
+					// MMM
+					datePartMMM.text = dtFormatterDatePartMMM.format(aDate);
+					// MMMM
+					datePartMMMM.text = dtFormatterDatePartMMMM.format(aDate);
+
+					// D
+					datePartD.text = dtFormatterDatePartD.format(aDate);
+					// DD
+					datePartDD.text = dtFormatterDatePartDD.format(aDate);
+
+					// E
+					datePartE.text = dtFormatterDatePartE.format(aDate);
+					// EEE
+					datePartEEE.text = dtFormatterDatePartEEE.format(aDate);
+					// EEEE
+					datePartEEEE.text = dtFormatterDatePartEEEE.format(aDate);
+
+					// A
+					datePartA.text = dtFormatterDatePartA.format(aDate);
+					// J
+					datePartJ.text = dtFormatterDatePartJ.format(aDate);
+					// H
+					datePartH.text = dtFormatterDatePartH.format(aDate);
+					// K
+					datePartK.text = dtFormatterDatePartK.format(aDate);
+					// L
+					datePartL.text = dtFormatterDatePartL.format(aDate);
+
+					// N
+					datePartN.text = dtFormatterDatePartN.format(aDate);
+					// NN
+					datePartNN.text = dtFormatterDatePartNN.format(aDate);
+					// S
+					datePartS.text = dtFormatterDatePartS.format(aDate);
+	        }
+		]]>
+	</mx:Script>
+
+	<!-- set up some standard format styles -->
+	<mx:DateFormatter id="dtFormatter"/>
+	<mx:DateFormatter id="dtFormatterMaskFull" formatString="EEEE, MMMM. D, YYYY at L:NN A"/>
+	<mx:DateFormatter id="dtFormatterMaskLong" formatString="MMM. D, YYYY at L:NN A"/>
+	<mx:DateFormatter id="dtFormatterMaskMedium" formatString="MMM. D, YYYY"/>
+	<mx:DateFormatter id="dtFormatterMaskTime" formatString="L:NN A"/>
+	<mx:DateFormatter id="dtFormatterMaskMillisec" formatString="EEEE, MMMM DD, YYYY at HH:NN:SS:QQQ A"/>
+
+	<!-- set up some anal date part formats-->
+	<mx:DateFormatter id="dtFormatterDatePartYY" formatString="YY"/>
+	<mx:DateFormatter id="dtFormatterDatePartYYYY" formatString="YYYY"/>
+	<mx:DateFormatter id="dtFormatterDatePartM" formatString="M"/>
+	<mx:DateFormatter id="dtFormatterDatePartMM" formatString="MM"/>
+	<mx:DateFormatter id="dtFormatterDatePartMMM" formatString="MMM"/>
+	<mx:DateFormatter id="dtFormatterDatePartMMMM" formatString="MMMM"/>
+	<mx:DateFormatter id="dtFormatterDatePartD" formatString="D"/>
+	<mx:DateFormatter id="dtFormatterDatePartDD" formatString="DD"/>
+	<mx:DateFormatter id="dtFormatterDatePartE" formatString="E"/>
+	<mx:DateFormatter id="dtFormatterDatePartEEE" formatString="EEE"/>
+	<mx:DateFormatter id="dtFormatterDatePartEEEE" formatString="EEEE"/>
+	<mx:DateFormatter id="dtFormatterDatePartA" formatString="A"/>
+	<mx:DateFormatter id="dtFormatterDatePartJ" formatString="J"/>
+	<mx:DateFormatter id="dtFormatterDatePartH" formatString="H"/>
+	<mx:DateFormatter id="dtFormatterDatePartK" formatString="K"/>
+	<mx:DateFormatter id="dtFormatterDatePartL" formatString="L"/>
+	<mx:DateFormatter id="dtFormatterDatePartN" formatString="N"/>
+	<mx:DateFormatter id="dtFormatterDatePartNN" formatString="NN"/>
+	<mx:DateFormatter id="dtFormatterDatePartS" formatString="S"/>
+
+	<mx:Label text="DateFormatter Tests" fontSize="16" fontWeight="bold"/>
+
+	<mx:HBox height="600" width="750">
+		<mx:Panel layout="vertical" title="Enter Choice" verticalGap="10" height="100%" width="200" horizontalAlign="center" verticalAlign="top">
+			<mx:Label text=" "/>
+			<mx:HBox>
+				<mx:Label text="Pick:"/>
+				<mx:ComboBox id="choiceCB" dataProvider="{numbersAry}" width="60"
+		            	change="testDateFormatter(Number(choiceCB.selectedItem))"/>
+			</mx:HBox>
+
+			<mx:Label text=" "/>
+			<mx:Label text=" OR "/>
+			<mx:Label text=" "/>
+
+			<mx:HBox>
+				<mx:TextInput id="choiceTI" width="50"/>
+				<mx:Button buttonDown="testDateFormatter(Number(choiceTI.text))" label="Pick"/>
+			</mx:HBox>
+		</mx:Panel>
+
+		<mx:Panel layout="horizontal" title="Results" verticalGap="10" height="100%" width="100%" horizontalAlign="center" verticalAlign="middle">
+			<mx:VBox horizontalAlign="center" verticalAlign="top" width="60%" paddingLeft="5">
+				<mx:Label text="Standard Date Masks"/>
+				<mx:TextInput id="dateFormatOutputDefaultStr" width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultObj"  width="215"/>
+
+				<mx:TextInput id="dateFormatOutputDefaultMaskFull"  width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskLong"  width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskMedium"  width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskTime"  width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskMillisec"  width="215"/>
+				
+
+				<mx:TextInput id="dateStringOutput" width="215"/>
+			</mx:VBox>
+
+			<mx:VBox horizontalAlign="center" width="40%" paddingTop="5" paddingBottom="5">
+				<mx:Label text="Small Date Parts"/>
+				<mx:TextInput id="datePartYY"/>
+				<mx:TextInput id="datePartYYYY"/>
+				<mx:TextInput id="datePartM"/>
+				<mx:TextInput id="datePartMM"/>
+				<mx:TextInput id="datePartMMM"/>
+				<mx:TextInput id="datePartMMMM"/>
+				<mx:TextInput id="datePartD"/>
+				<mx:TextInput id="datePartDD"/>
+				<mx:TextInput id="datePartE"/>
+				<mx:TextInput id="datePartEEE"/>
+				<mx:TextInput id="datePartEEEE"/>
+				<mx:TextInput id="datePartA"/>
+				<mx:TextInput id="datePartJ"/>
+				<mx:TextInput id="datePartH"/>
+				<mx:TextInput id="datePartK"/>
+				<mx:TextInput id="datePartL"/>
+				<mx:TextInput id="datePartN"/>
+				<mx:TextInput id="datePartNN"/>
+				<mx:TextInput id="datePartS"/>
+			</mx:VBox>
+		</mx:Panel>
+	</mx:HBox>
+
+</mx:Application>
