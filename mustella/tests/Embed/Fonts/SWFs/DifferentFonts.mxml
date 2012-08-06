@@ -1,0 +1,42 @@
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="vertical">
+	
+	<mx:Style>
+		@font-face {
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+			font-family: myFont; 
+			font-weight:bold;	
+			embedAsCFF: false;
+		}
+			
+		@font-face {
+			src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			font-family: myFont;
+			
+			embedAsCFF: false;
+		}
+		
+		.myFontDescriptor
+		{
+			font-family: myFont;
+			font-size:36;
+			fontLookup: embeddedCFF;
+			fontAntiAliasType: normal;
+		}
+		global{
+			kerning: "off";
+    		}
+	</mx:Style>
+	
+	<mx:Text id="textId" width="100%" height="100%" condenseWhite="true" styleName="myFontDescriptor">
+		<mx:htmlText >
+			<![CDATA[
+				This should be displayed using the second font.<br/> 
+				<b>This should be displayed using the first font</b> 			
+			]]>
+		</mx:htmlText>
+	</mx:Text>
+	
+	<mx:Button rotation="+1" label="Halo Button" styleName="myFontDescriptor" /> 
+</mx:Application>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" backgroundColor="#FFFFFF" height="600"   width="800">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		@font-face
+		{
+			fontFamily: "Open_Sans";
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			embedAsCFF: true;
+		}
+		@font-face
+		{
+			fontFamily: "PT_Serif";
+			fontWeight: bold;
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			embedAsCFF: true;
+		}
+	</fx:Style>
+	<fx:DesignLayer >
+		<s:VGroup id="ttcGroup">
+			<s:RichText color="#2B4381" fontFamily="Open_Sans" fontSize="36" maxWidth="2400" tabStops="S0 S50 S100 S150 S200" text="OpenSans-Regular" x="87" y="71"/>
+			<s:RichText color="#2B4381" fontFamily="PT_Serif" fontSize="36" maxWidth="2400" tabStops="S0 S50 S100 S150 S200" text="PT_Serif-Web-Bold" x="87" y="141" fontWeight="bold"/>
+		</s:VGroup>
+	</fx:DesignLayer>
+</s:Application>
