@@ -1,0 +1,273 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.core.Container;
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // No, we can't make these on creationComplete in a method.
+    // The number and the text correspond to the test state in which it's used.
+    [Bindable] private var testObject1:Object = {Number:113,String:"one hundred thirteen"};
+    [Bindable] private var testObject2:Object = {Number:114,String:"one hundred fourteen"};
+    [Bindable] private var testObject3:Object = {Number:115,String:"one hundred fifteen"};
+    [Bindable] private var testObject4:Object = {Number:116,String:"one hundred sixteen"};
+    [Bindable] private var testObject5:Object = {Number:117,String:"one hundred seventeen"};
+
+    // These are for testing data binding of a property.
+    [Bindable] public var dc21Year:int = 2013;
+    [Bindable] public var dc22YearA:int = 2015;
+    [Bindable] public var dc22YearB:int = 2017;
+    [Bindable] public var dc23Year:int = 2019;
+
+    // These are for testing the data binding of a style.
+    [Bindable] public var blueShade:uint = 0x0000ff;
+    [Bindable] public var blueShade2:uint = 0x0000ff;
+    [Bindable] public var blueShade3:uint = 0x0000ff;
+    [Bindable] public var redShade:uint = 0xff0000;
+    [Bindable] public var redShade2:uint = 0xff0000;
+    [Bindable] public var redShade3:uint = 0xff0000;
+        
+    // Create some test items of type "Object" for testing.
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+    
+    // Given a container, loops through its children checking IDs.
+    // It defaults to not searching recursively, but you can pass in a 3rd param as true to make it recurse.
+    // Returns true if a child with the given ID is present.
+    // Returns false if not.
+    public function childPresent(theContainer:Container, childID:String, recurse:Boolean = false):Boolean{
+        var i:int;
+        var theChild:Object;
+        var found:Boolean = false;
+        
+        for(i = 0; i < theContainer.numChildren && !found; ++i){
+            theChild = theContainer.getChildAt(i);
+            
+            if(theChild.id == childID){
+                found = true;
+            }else{
+                if(recurse)
+                    if(theChild is Container)
+                        found = childPresent(Container(theChild), childID, recurse);
+            }
+        }
+        
+        return found;
+    }
+
+    // Tells whether the given object is at the specified index in the given container.
+    // Returns true if it is, false if it is not.
+    public function confirmChildIndex(obj:Object, theContainer:Container, idx:int):Boolean{
+        var ret:Boolean = false;
+        var theChildren:Array = theContainer.getChildren();
+        var i:int;
+        
+        for(i = 0; i < theChildren.length; ++i){
+            if(obj === theChildren[i]){
+                if(i == idx){
+                    ret = true;
+                }
+                break;   
+            } 
+        }
+        
+        return ret;        
+    }
+
+
+    // These changeHandler functions are used for event handler testing.
+    private function changeHandler1(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler1"));
+    }
+
+    private function changeHandler2(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler2"));
+    }
+
+    private function changeHandler3(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler3"));
+    }
+
+    // Note that this one accepts an event!
+    public function changeHandler4(e:Event):void{
+        e.target.dispatchEvent(new Event("changeHandler4"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <!-- Base default state -->
+    <mx:State name="defaultState" />
+    
+    <!-- Test states -->
+    <mx:State name="state220" />
+    <mx:State name="state221" />
+    <mx:State name="state222" />
+    <mx:State name="state223" />
+    <mx:State name="state224" />
+    <mx:State name="state225" />
+    <mx:State name="state226" />
+    <mx:State name="state227" />
+    <mx:State name="state228" />
+    <mx:State name="state229" />
+    <mx:State name="state230" />
+    <mx:State name="state231" />
+    <mx:State name="state232" />
+    <mx:State name="state233" />
+    <mx:State name="state234" />
+    <mx:State name="state235" />
+    <mx:State name="state236" />
+    <mx:State name="state237" />
+    <mx:State name="state238" />
+    <mx:State name="state239" />
+    <mx:State name="state240" />
+    <mx:State name="state241" />
+    <mx:State name="state242" />
+    <mx:State name="state243" />
+    <mx:State name="state244" />
+    <mx:State name="state245" />
+    <mx:State name="state246" />
+    <mx:State name="state247" />
+    <mx:State name="state248" />
+    <mx:State name="state249" />
+    <mx:State name="state250" />
+    <mx:State name="state251" />
+    <mx:State name="state252" />
+    <mx:State name="state253" />
+    <mx:State name="state254" />
+    <mx:State name="state255" />
+    <mx:State name="state256" />
+</mx:states>
+
+<!-- state220 -->
+<mx:Box color="0x00ff00">
+    <comps:DefinedButton_NoStyles id="btn152" label="." color.state220="0xff0000" color.state221="@Clear()" />
+</mx:Box>
+
+<mx:Box color="0x00ff00">
+    <mx:Box color.state222="0xff0000" color.state223="@Clear()" >
+        <comps:DefinedButton_NoStyles id="btn153" label="." />
+    </mx:Box>
+</mx:Box>
+
+<mx:Box color="0x00ff00">
+    <comps:DefinedButton_NoStyles id="btn154" label="." color.state224="@Clear()" color.state225="0x0000ff" />
+</mx:Box>
+
+<mx:Box color="0x00ff00">
+    <comps:DefinedButton_NoStyles id="btn155" label="." color.state226="@Clear()" />
+</mx:Box>
+
+<comps:DefinedButton_NoStyles id="btn156">
+    <comps:filters.state227>
+        <s:GlowFilter />
+    </comps:filters.state227>
+    <comps:filters.state228>@Clear()</comps:filters.state228>
+</comps:DefinedButton_NoStyles>
+
+<mx:Box color="0x00ff00">
+    <comps:DefinedButton_NoStyles label="." id="btn157">
+        <comps:color.state229>0xff0000</comps:color.state229>
+        <comps:color.state230>@Clear()</comps:color.state230>
+    </comps:DefinedButton_NoStyles>
+</mx:Box>
+
+<mx:Box color="0x00ff00">
+    <comps:DefinedButton_NoStyles label="." id="btn158" color.state231="0xff0000" color.state232="@Clear()" color.state233="@Clear()" color.state234="0x0000ff" />
+</mx:Box>
+
+<mx:Button id="btn159" width.state235="100" width.state236="@Clear()" />
+
+<mx:Button id="btn160" width.state237="@Clear()" width.state238="@Clear()" width.state239="100" />
+
+<mx:DataGrid id="dg09">
+    <mx:columns>
+        <mx:DataGridColumn headerText="Name" dataField="name" />
+        <mx:DataGridColumn headerText="Breed" dataField="breed" />
+    </mx:columns>
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Peanut" breed="Vizsla" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+    <mx:dataProvider.state241>@Clear()</mx:dataProvider.state241>
+</mx:DataGrid>
+
+<mx:Button id="btn161" >
+    <mx:width.state242>
+        <fx:Number>100</fx:Number>
+    </mx:width.state242>
+    <mx:width.state243>
+        <fx:Number>200</fx:Number>
+    </mx:width.state243>
+    <mx:width.state244>@Clear()</mx:width.state244>
+</mx:Button>
+
+<mx:Button id="btn162" width.state245="@Clear()" />
+
+<mx:TextInput id="ti08" change.state246="changeHandler1(ti08)" change.state247="@Clear()" />
+
+<mx:TextInput id="ti09" change.state248="@Clear()" change.state249="changeHandler1(ti09)" />
+
+<mx:TextInput id="ti10">
+    <mx:change.state250>changeHandler1(ti10)</mx:change.state250>
+    <mx:change.state251>@Clear()</mx:change.state251>
+    <mx:change.state252>changeHandler2(ti10)</mx:change.state252>
+</mx:TextInput>    
+
+<mx:TextInput id="ti11" change.state253="@Clear()" change.state254="@Clear()" change.state255="changeHandler1(ti11)" />
+
+<mx:TextInput id="ti12" change.state256="@Clear()" />
+
+</mx:Application>

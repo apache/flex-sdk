@@ -1,0 +1,307 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+>
+
+<fx:Script>
+<![CDATA[
+
+    import mx.events.StateChangeEvent;
+    
+    public function goToState2():void{
+        if(currentState == "state2"){
+            dispatchEvent(new Event("inState2"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state2";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("inState2"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</mx:states>
+
+<!-- 
+================================================================================
+    Group:
+        Its default property is 'mxmlContent', which is type 'Array'.
+================================================================================
+-->
+
+<s:VGroup id="g1" >
+    <mx:Label includeIn="state1" text="string in state1" />
+</s:VGroup>
+
+<s:VGroup id="g2" >
+    <mx:Label includeIn="state2" text="string in state2" />
+</s:VGroup>
+
+<s:VGroup id="g3" >
+    <mx:Label includeIn="state1" text="string in state1" />
+    <mx:Label includeIn="state1" text="another string in state1" />
+</s:VGroup>
+    
+<s:VGroup id="g4" >
+    <mx:Label includeIn="state2" text="string in state2" />
+    <mx:Label includeIn="state2" text="another string in state2" />
+</s:VGroup>
+
+<s:VGroup id="g5" >
+    <mx:Label includeIn="state1" text="string in state1" />
+    <mx:Label includeIn="state2" text="string in state2" />
+</s:VGroup>
+
+<s:VGroup id="g6" >
+    <mx:Label includeIn="state2" text="string in state2" />
+    <mx:Label includeIn="state1" text="string in state1" />
+</s:VGroup>
+
+<s:VGroup id="g7" >
+    <fx:Array includeIn="state1">
+        <mx:Label text="array in state1" />
+    </fx:Array>
+</s:VGroup>
+
+<s:VGroup id="g8" >
+    <fx:Array includeIn="state2">
+        <mx:Label text="array in state2" />
+    </fx:Array>
+</s:VGroup>
+
+<s:DataGroup id="g9" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state1">
+            <fx:String>another array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g10" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state2">
+            <fx:String>another array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g11" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+   <s:layout>
+       <s:VerticalLayout/>
+   </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g12" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g13" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state1" text="string in state1" />
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g14" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state1" text="string in state1" />
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g15" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state2" text="string in state2" />
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g16" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state2" text="string in state2" />
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+    
+<s:DataGroup id="g17" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state2" text="string in state2" />
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g18" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state1" text="string in state1" />
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g19" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state2" text="string in state2" />
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+    
+<s:DataGroup id="g20" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state1" text="string in state1" />
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g21" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state1" text="string in state1" />
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g22" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state2" text="string in state2" />
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g23" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state1" text="string in state1" />
+    </mx:ArrayCollection>
+</s:DataGroup>
+
+<s:DataGroup id="g24" itemRenderer="spark.skins.spark.DefaultItemRenderer" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state2" text="string in state2" />
+    </mx:ArrayCollection>
+</s:DataGroup>
+</mx:Application>

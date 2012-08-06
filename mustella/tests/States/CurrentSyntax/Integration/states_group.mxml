@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesIntegrationApp_Group.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+        import mx.collections.ArrayCollection;
+        import mx.controls.Label;
+        
+        use namespace mx_internal;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+All of these tests are in state1, testing the default when the app. starts up.
+Do not do a state2 test before these! 
+================================================================================
+-->
+
+<TestCase testID="integration_group_1a" keywords="[States]" description="String in a ContentHolder, state1." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g1.getMXMLContent()[0]).text" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_2a" keywords="[States]" description="String in a ContentHolder, state2." >
+    <body>
+        <AssertMethodValue method="value=application.g2.getMXMLContent() is Array" value="true" />
+        <AssertMethodValue method="value=application.g2.getMXMLContent()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_3a" keywords="[States]" description="2 strings in a ContentHolder, state1." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g3.getMXMLContent()[0]).text" value="string in state1" />
+        <AssertMethodValue method="value=Label(application.g3.getMXMLContent()[1]).text" value="another string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_4a" keywords="[States]" description="2 strings in a ContentHolder, state2." >
+    <body>
+        <AssertMethodValue method="value=application.g4.getMXMLContent() is Array" value="true" />
+        <AssertMethodValue method="value=application.g4.getMXMLContent()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_5a" keywords="[States]" description="2 strings in a ContentHolder, different states, state1 first." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g5.getMXMLContent()[0]).text" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_6a" keywords="[States]" description="2 strings in a ContentHolder, different states, state2 first." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g6.getMXMLContent()[0]).text" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_7a" keywords="[States]" description="Array in a ContentHolder, state1." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g7.getMXMLContent()[0]).text" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_8a" keywords="[States]" description="Array in a ContentHolder, state2." >
+    <body>
+        <AssertMethodValue method="value=application.g8.getMXMLContent()" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_9a" keywords="[States]" description="2 arrays in a ContentHolder, state1." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g9.dataProvider).toString()" value="array in state1,another array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_10a" keywords="[States]" description="2 arrays in a ContentHolder, state2." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g10.dataProvider).toString()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_11a" keywords="[States]" description="2 arrays in a ContentHolder, different states, state1 first." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g11.dataProvider).toString()" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_12a" keywords="[States]" description="2 arrays in a ContentHolder, different states, state2 first." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g12.dataProvider).toString()" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_13a" keywords="[States]" description="An array and a string, array first, state1." >
+    <body>
+        <AssertMethodValue method="value=application.g13.dataProvider.getItemAt(0)" value="array in state1" />
+        <AssertMethodValue method="value=Label(application.g13.dataProvider.getItemAt(1)).text" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_14a" keywords="[States]" description="An array and a string, array second, state1." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g14.dataProvider.getItemAt(0)).text" value="string in state1" />
+        <AssertMethodValue method="value=application.g14.dataProvider.getItemAt(1)" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_15a" keywords="[States]" description="An array and a string, array first, state2." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g15.dataProvider).toString()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_16a" keywords="[States]" description="An array and a string, array second, state2." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g16.dataProvider).toString()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_17a" keywords="[States]" description="An array and a string, array first in state1, string second in state2." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g17.dataProvider).toString()" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_18a" keywords="[States]" description="An array and a string, array first in state2, string second in state1." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g18.dataProvider.getItemAt(0)).text" value="string in state1" />
+        <AssertMethodValue method="value=application.g18.dataProvider.length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_19a" keywords="[States]" description="An array and a string, string first in state2, array second in state1." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g19.dataProvider).toString()" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_20a" keywords="[States]" description="An array and a string, string first in state1, array second in state2." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g20.dataProvider.getItemAt(0)).text" value="string in state1" />
+        <AssertMethodValue method="value=application.g20.dataProvider.length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_21a" keywords="[States]" description="An array and a string, string first in state1, array always present." >
+    <body>
+        <AssertMethodValue method="value=Label(application.g21.dataProvider.getItemAt(0)).text" value="string in state1" />
+        <AssertMethodValue method="value=application.g21.dataProvider.getItemAt(1)" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_22a" keywords="[States]" description="An array and a string, string first in state2, array always present." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g22.dataProvider).toString()" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_23a" keywords="[States]" description="An array and a string, string second in state1, array always present." >
+    <body>
+        <AssertMethodValue method="value=application.g23.dataProvider.getItemAt(0)" value="array always present" />
+        <AssertMethodValue method="value=Label(application.g23.dataProvider.getItemAt(1)).text" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_24a" keywords="[States]" description="An array and a string, string second in state2, array always present." >
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g24.dataProvider).toString()" value="array always present" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+All of these tests are in state2. 
+================================================================================
+-->
+
+<TestCase testID="integration_group_1b" keywords="[States]" description="String in a ContentHolder, state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.g1.getMXMLContent() is Array" value="true" />
+        <AssertMethodValue method="value=application.g1.getMXMLContent()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_2b" keywords="[States]" description="String in a ContentHolder, state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g2.getMXMLContent()[0]).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g2.getMXMLContent().length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_3b" keywords="[States]" description="2 strings in a ContentHolder, state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.g3.getMXMLContent() is Array" value="true" />
+        <AssertMethodValue method="value=application.g3.getMXMLContent()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_4b" keywords="[States]" description="2 strings in a ContentHolder, state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g4.getMXMLContent()[0]).text" value="string in state2" />
+        <AssertMethodValue method="value=Label(application.g4.getMXMLContent()[1]).text" value="another string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_5b" keywords="[States]" description="2 strings in a ContentHolder, different states, state1 first." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g5.getMXMLContent()[0]).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g5.getMXMLContent().length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_6b" keywords="[States]" description="2 strings in a ContentHolder, different states, state2 first." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g6.getMXMLContent()[0]).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g6.getMXMLContent().length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_7b" keywords="[States]" description="Array in a ContentHolder, state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.g7.getMXMLContent() is Array" value="true" />
+        <AssertMethodValue method="value=application.g7.getMXMLContent()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_8b" keywords="[States]" description="Array in a ContentHolder, state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g8.getMXMLContent()[0]).text" value="array in state2" />
+        <AssertMethodValue method="value=application.g8.getMXMLContent().length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_9b" keywords="[States]" description="2 arrays in a ContentHolder, state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g9.dataProvider).toString()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_10b" keywords="[States]" description="2 arrays in a ContentHolder, state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g10.dataProvider).toString()" value="array in state2,another array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_11b" keywords="[States]" description="2 arrays in a ContentHolder, different states, state1 first." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g11.dataProvider).toString()" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_12b" keywords="[States]" description="2 arrays in a ContentHolder, different states, state2 first." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g12.dataProvider).toString()" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_13b" keywords="[States]" description="An array and a string, array first, state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g13.dataProvider).toString()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_14b" keywords="[States]" description="An array and a string, array second, state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g14.dataProvider).toString()" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_15b" keywords="[States]" description="An array and a string, array first, state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.g15.dataProvider.getItemAt(0)" value="array in state2" />
+        <AssertMethodValue method="value=Label(application.g15.dataProvider.getItemAt(1)).text" value="string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_16b" keywords="[States]" description="An array and a string, array second, state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g16.dataProvider.getItemAt(0)).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g16.dataProvider.getItemAt(1)" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_17b" keywords="[States]" description="An array and a string, array first in state1, string second in state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g17.dataProvider.getItemAt(0)).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g17.dataProvider.length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_18b" keywords="[States]" description="An array and a string, array first in state2, string second in state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g18.dataProvider).toString()" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_19b" keywords="[States]" description="An array and a string, string first in state2, array second in state1." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g19.dataProvider.getItemAt(0)).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g19.dataProvider.length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_20b" keywords="[States]" description="An array and a string, string first in state1, array second in state2." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g20.dataProvider).toString()" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_21b" keywords="[States]" description="An array and a string, string first in state1, array always present." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g21.dataProvider).toString()" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_22b" keywords="[States]" description="An array and a string, string first in state2, array always present." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=Label(application.g22.dataProvider.getItemAt(0)).text" value="string in state2" />
+        <AssertMethodValue method="value=application.g22.dataProvider.getItemAt(1)" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_23b" keywords="[States]" description="An array and a string, string second in state1, array always present." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ArrayCollection(application.g23.dataProvider).toString()" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_group_24b" keywords="[States]" description="An array and a string, string second in state2, array always present." >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.g24.dataProvider.getItemAt(0)" value="array always present" />
+        <AssertMethodValue method="value=Label(application.g24.dataProvider.getItemAt(1)).text" value="string in state2" />
+    </body>
+</TestCase>
+	</testCases>                	     
+</UnitTester>

@@ -1,0 +1,1373 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.core.Container;
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // No, we can't make these on creationComplete in a method.
+    // The number and the text correspond to the test state in which it's used.
+    [Bindable] private var testObject1:Object = {Number:113,String:"one hundred thirteen"};
+    [Bindable] private var testObject2:Object = {Number:114,String:"one hundred fourteen"};
+    [Bindable] private var testObject3:Object = {Number:115,String:"one hundred fifteen"};
+    [Bindable] private var testObject4:Object = {Number:116,String:"one hundred sixteen"};
+    [Bindable] private var testObject5:Object = {Number:117,String:"one hundred seventeen"};
+
+    // These are for testing data binding of a property.
+    [Bindable] public var dc21Year:int = 2013;
+    [Bindable] public var dc22YearA:int = 2015;
+    [Bindable] public var dc22YearB:int = 2017;
+    [Bindable] public var dc23Year:int = 2019;
+
+    // These are for testing the data binding of a style.
+    [Bindable] public var blueShade:uint = 0x0000ff;
+    [Bindable] public var blueShade2:uint = 0x0000ff;
+    [Bindable] public var blueShade3:uint = 0x0000ff;
+    [Bindable] public var redShade:uint = 0xff0000;
+    [Bindable] public var redShade2:uint = 0xff0000;
+    [Bindable] public var redShade3:uint = 0xff0000;
+        
+    // Create some test items of type "Object" for testing.
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+    
+    // Given a container, loops through its children checking IDs.
+    // It defaults to not searching recursively, but you can pass in a 3rd param as true to make it recurse.
+    // Returns true if a child with the given ID is present.
+    // Returns false if not.
+    public function childPresent(theContainer:Container, childID:String, recurse:Boolean = false):Boolean{
+        var i:int;
+        var theChild:Object;
+        var found:Boolean = false;
+        
+        for(i = 0; i < theContainer.numChildren && !found; ++i){
+            theChild = theContainer.getChildAt(i);
+            
+            if(theChild.id == childID){
+                found = true;
+            }else{
+                if(recurse)
+                    if(theChild is Container)
+                        found = childPresent(Container(theChild), childID, recurse);
+            }
+        }
+        
+        return found;
+    }
+
+    // Tells whether the given object is at the specified index in the given container.
+    // Returns true if it is, false if it is not.
+    public function confirmChildIndex(obj:Object, theContainer:Container, idx:int):Boolean{
+        var ret:Boolean = false;
+        var theChildren:Array = theContainer.getChildren();
+        var i:int;
+        
+        for(i = 0; i < theChildren.length; ++i){
+            if(obj === theChildren[i]){
+                if(i == idx){
+                    ret = true;
+                }
+                break;   
+            } 
+        }
+        
+        return ret;        
+    }
+
+
+    // These changeHandler functions are used for event handler testing.
+    private function changeHandler1(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler1"));
+    }
+
+    private function changeHandler2(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler2"));
+    }
+
+    private function changeHandler3(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler3"));
+    }
+
+    // Note that this one accepts an event!
+    public function changeHandler4(e:Event):void{
+        e.target.dispatchEvent(new Event("changeHandler4"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <!-- Base default state -->
+    <mx:State name="defaultState" />
+    
+    <!-- Test states -->
+    <mx:State name="state012" />
+    <mx:State name="state013" />
+    <mx:State name="state014" />
+    <mx:State name="state015" />
+    <mx:State name="state016" />
+    <mx:State name="state017" />
+    <mx:State name="state018" />
+    <mx:State name="state019" />
+    <mx:State name="state020" />
+    <mx:State name="state021" />
+    <mx:State name="state022" />
+    <mx:State name="state023" />
+    <mx:State name="state024" />
+    <mx:State name="state025" />    
+    <mx:State name="state026" />
+    <mx:State name="state027" />
+    <mx:State name="state028" />
+    <mx:State name="state029" />
+    <mx:State name="state030" />
+    <mx:State name="state031" />
+    <mx:State name="state032" />
+    <mx:State name="state033" />
+    <mx:State name="state034" />
+    <mx:State name="state035" />
+    <mx:State name="state036" />
+    <mx:State name="state037" />
+    <mx:State name="state038" />
+    <mx:State name="state039" />
+    <mx:State name="state040" />
+    <mx:State name="state041" />
+    <mx:State name="state042" />
+    <mx:State name="state043" />
+    <mx:State name="state044" />
+    <mx:State name="state045" />
+    <mx:State name="state046" />
+    <mx:State name="state047" />
+    <mx:State name="state048" />
+    <mx:State name="state049" />
+    <mx:State name="state050" />
+    <mx:State name="state051" />
+    <mx:State name="state052" />
+    <mx:State name="state053" />
+    <mx:State name="state054" />
+    <mx:State name="state055" />
+    <mx:State name="state056" />
+    <mx:State name="state057" />
+    <mx:State name="state058" />
+    <mx:State name="state059" />
+    <mx:State name="state060" />
+    <mx:State name="state061" />
+    <mx:State name="state062" />
+    <mx:State name="state063" />
+    <mx:State name="state064" />
+    <mx:State name="state065" />
+    <mx:State name="state066" />
+    <mx:State name="state067" />
+    <mx:State name="state068" />
+    <mx:State name="state069" />
+    <mx:State name="state070" />
+    <mx:State name="state071" />
+    <mx:State name="state072" />
+    <mx:State name="state073" />
+    <mx:State name="state074" />
+    <mx:State name="state075" />
+    <mx:State name="state076" />
+    <mx:State name="state077" />
+    <mx:State name="state078" />
+    <mx:State name="state079" />
+    <mx:State name="state080" />
+    <mx:State name="state081" />
+    <mx:State name="state082" />
+    <mx:State name="state083" />
+    <mx:State name="state084" />
+    <mx:State name="state085" />
+    <mx:State name="state086" />
+    <mx:State name="state087" />
+    <mx:State name="state088" />
+    <mx:State name="state089" />
+    <mx:State name="state090" />
+    <mx:State name="state091" />
+    <mx:State name="state092" />
+    <mx:State name="state093" />
+    <mx:State name="state094" />
+    <mx:State name="state095" />
+    <mx:State name="state096" />
+    <mx:State name="state097" />
+    <mx:State name="state098" />
+    <mx:State name="state099" />
+    <mx:State name="state100" />
+    <mx:State name="state101" />
+    <mx:State name="state102" />
+    <mx:State name="state103" />
+    <mx:State name="state104" />
+    <mx:State name="state105" />
+    <mx:State name="state106" />
+    <mx:State name="state107" />
+    <mx:State name="state108" />
+    <mx:State name="state109" />
+    <mx:State name="state110" />
+    <mx:State name="state111" />
+    <mx:State name="state112" />
+    <mx:State name="state113" />
+    <mx:State name="state114" />
+    <mx:State name="state115" />
+    <mx:State name="state116" />
+    <mx:State name="state117" />
+    <mx:State name="state118" />
+    <mx:State name="state119" />
+    <mx:State name="state120" />
+    <mx:State name="state121" />
+    <mx:State name="state122" />
+    <mx:State name="state123" />
+    <mx:State name="state124" />
+    <mx:State name="state125" />
+    <mx:State name="state126" />
+    <mx:State name="state127" />
+    <mx:State name="state128" />
+    <mx:State name="state129" />
+    <mx:State name="state130" />
+    <mx:State name="state160" />
+    <mx:State name="state161" />
+    <mx:State name="state162" />
+    <mx:State name="state163" />
+    <mx:State name="state164" />
+    <mx:State name="state165" />
+    <mx:State name="state166" />
+    <mx:State name="state167" />
+    <mx:State name="state168" />
+    <mx:State name="state169" />
+    <mx:State name="state170" />
+    <mx:State name="state171" />
+    <mx:State name="state172" />
+    <mx:State name="state173" />
+    <mx:State name="state174" />
+    <mx:State name="state175" />
+    <mx:State name="state257" />
+    <mx:State name="state258" />
+    <mx:State name="state259" />
+    <mx:State name="state260" />
+    <mx:State name="state261" />
+    <mx:State name="state262" />
+    <mx:State name="state263" />
+    <mx:State name="state264" />
+    <mx:State name="state265" />
+    <mx:State name="state266" />
+    <mx:State name="state267" />
+    <mx:State name="state268" />
+    <mx:State name="state269" />
+    <mx:State name="state270" />
+    <mx:State name="state271" />
+    <mx:State name="state272" />
+    <mx:State name="state273" />
+    <mx:State name="state274" />
+    <mx:State name="state275" />
+    <mx:State name="state276" />
+    <mx:State name="state277" />
+    <mx:State name="state278" />
+    <mx:State name="state279" />
+    <mx:State name="state279a" />
+    <mx:State name="state279b" />
+    <mx:State name="state280" />
+    <mx:State name="state281" />
+    <mx:State name="state282" />
+    <mx:State name="state283" />
+    <mx:State name="state284" />
+    <mx:State name="state285" />
+    <mx:State name="state286" />
+    <mx:State name="state287" />
+    <mx:State name="state288" />
+    <mx:State name="state289" />
+    <mx:State name="state290" />
+    <mx:State name="state291" />
+    <mx:State name="state292" />
+    <mx:State name="state293" />
+    <mx:State name="state294" />
+    <mx:State name="state295" />
+    <mx:State name="state296" />
+    <mx:State name="state297" />
+    <mx:State name="state298" />
+    <mx:State name="state299" />
+    <mx:State name="state300" />
+    <mx:State name="state300a" />
+    <mx:State name="state300b" />
+    <mx:State name="state300c" />
+    <mx:State name="state300d" />
+    <mx:State name="state300f" />
+    <mx:State name="state301" />
+    <mx:State name="state302" />
+    <mx:State name="state303" />
+    <mx:State name="state304" />
+    <mx:State name="state304a" />
+    <mx:State name="state305" />
+    <mx:State name="state306" />
+    <mx:State name="state307" />
+    <mx:State name="state308" />
+    <mx:State name="state309" />
+    <mx:State name="state310" />
+    <mx:State name="state311" />
+    <mx:State name="state312" />
+    <mx:State name="state313" />
+    <mx:State name="state314" />
+    <mx:State name="state315" />
+    <mx:State name="state316" />
+    <mx:State name="state317" />
+    <mx:State name="state318" />
+    <mx:State name="state319" />
+    <mx:State name="state320" />
+    <mx:State name="state321" />
+    <mx:State name="state322" />
+    <mx:State name="state323" />
+    <mx:State name="state324" />
+    <mx:State name="state325" />
+    <mx:State name="state326" />
+    <mx:State name="state327" />
+    <mx:State name="state328" />
+    <mx:State name="state329" />
+    <mx:State name="state330" />
+    <mx:State name="state331" />
+    <mx:State name="state332" />
+    <mx:State name="state333" />
+    <mx:State name="state334" />
+    <mx:State name="state335" />
+    <mx:State name="state336" />
+    <mx:State name="state337" />
+    <mx:State name="state338" />
+    <mx:State name="state339" />
+    <mx:State name="state340" />
+    <mx:State name="state341" />
+    <mx:State name="state342" />
+    <mx:State name="state343" />
+    <mx:State name="state344" />
+    <mx:State name="state345" />
+    <mx:State name="state346" />
+    <mx:State name="state347" />
+    <mx:State name="state348" />
+    <mx:State name="state349" />
+    <mx:State name="state350" />
+    <mx:State name="state351" />
+    <mx:State name="state352" />
+    <mx:State name="state353" />
+    <mx:State name="state354" />
+    <mx:State name="state355" />
+    <mx:State name="state356" />
+    <mx:State name="state357" />
+    <mx:State name="state358" />
+    <mx:State name="state359" />
+    <mx:State name="state360" />
+    <mx:State name="state360a" />
+    <mx:State name="state361" />
+    <mx:State name="state362" />
+    <mx:State name="state362a" />
+    <mx:State name="state363" />
+    <mx:State name="state364" />
+    <mx:State name="state365" />
+    <mx:State name="state366" />
+    <mx:State name="state367" />
+    <mx:State name="state368" />
+    <mx:State name="state368a" />
+    <mx:State name="state369" />
+    <mx:State name="state369a" />
+    <mx:State name="state370" />
+    <mx:State name="state371" />
+    <mx:State name="state372" />
+
+    <mx:State name="state373" />
+
+    <mx:State name="state374" />
+    <mx:State name="state375" />
+    <mx:State name="state376" />
+    <mx:State name="state377" />
+    <mx:State name="state378" />
+</mx:states>
+
+        <mx:VBox horizontalAlign="left" >
+            <!-- 
+                includeIn, class property, dot syntax.  These are at the top because we are using AssertPixelValue,
+                which requires that they be visible.
+            -->
+            <mx:HSlider id="hs001" sliderThumbClass.state076="comps.SliderThumb1" />
+        	<mx:HSlider id="hs002" sliderThumbClass.state077="comps.SliderThumb1" sliderThumbClass.state078="comps.SliderThumb2" />
+        	<mx:HSlider id="hs003" sliderThumbClass="comps.SliderThumb1" sliderThumbClass.state080="comps.SliderThumb2" sliderThumbClass.state081="comps.SliderThumb3" />
+
+            <!-- includeIn, class property, child node syntax. -->
+        	<mx:HSlider id="hs004"><!-- state082 = default -->
+        		<mx:sliderThumbClass.state083>
+        			<fx:Class>comps.SliderThumb1</fx:Class>
+        		</mx:sliderThumbClass.state083>
+        	</mx:HSlider>
+
+        	<mx:HSlider id="hs005">
+        		<mx:sliderThumbClass><!-- state084 -->
+        			<fx:Class>comps.SliderThumb1</fx:Class>
+        		</mx:sliderThumbClass>
+        		<mx:sliderThumbClass.state085>
+        			<fx:Class>comps.SliderThumb2</fx:Class>
+        		</mx:sliderThumbClass.state085>
+        	</mx:HSlider>
+
+        	<mx:HSlider id="hs006">
+        		<mx:sliderThumbClass.state086>
+        			<fx:Class>comps.SliderThumb1</fx:Class>
+        		</mx:sliderThumbClass.state086>
+        		<mx:sliderThumbClass.state087>
+        			<fx:Class>comps.SliderThumb2</fx:Class>
+        		</mx:sliderThumbClass.state087>
+        	</mx:HSlider>
+
+        </mx:VBox>
+
+    <!-- includeIn, string property dot syntax -->
+    <comps:DefinedButton id="btn008" label.state012="012" />
+    <comps:DefinedButton id="btn009" label="014" label.state015="015" />
+    <comps:DefinedButton id="btn010" label.state017="017" label.state018="018" />
+    <comps:DefinedButton id="btn011" label="019" label.state020="020" label.state021="021" />
+
+    <!-- includeIn, string property child node syntax -->
+    <comps:DefinedButton id="btn012"><!-- state022 = default -->
+    	<comps:label.state023>
+    		<fx:String>023</fx:String>
+    	</comps:label.state023>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn013">
+    	<comps:label><!-- state024 -->
+    		<fx:String>024</fx:String>
+    	</comps:label>
+    	<comps:label.state025>
+    	    <fx:String>025</fx:String>
+    	</comps:label.state025>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn013a">
+    	<comps:label.state026>
+    		<fx:String>026</fx:String>
+    	</comps:label.state026>
+    	<comps:label.state027>
+    	    <fx:String>027</fx:String>
+    	</comps:label.state027>
+    </comps:DefinedButton>
+
+    <!-- This syntax is not implemented yet. -->
+    <!--comps:DefinedButton id="btn012">
+      <comps:label>
+        <fx:String includeIn="state23">12a</fx:String>
+      </comps:label>
+    </comps:DefinedButton>
+    
+    <comps:DefinedButton id="btn013">
+      <comps:label>
+        <fx:String>13a</fx:String>
+        <fx:String includeIn="state25">13b</fx:String>
+      </comps:label>
+    </comps:DefinedButton-->
+    
+    <!-- includeIn, array property dot syntax -->
+    <mx:DateChooser id="dc01" dayNames.state027="['a','b','c','d','e','f','g']" />
+    <mx:DateChooser id="dc02" dayNames="['a','b','c','d','e','f','g']" dayNames.state029="['h','i','j']" />
+    <mx:DateChooser id="dc03" dayNames.state031="['a','b','c','d','e','f','g']" dayNames.state032="['h','i','j']" />
+    <mx:DateChooser id="dc04" dayNames="['a','b','c','d','e','f','g']" dayNames.state034="['h','i','j']" dayNames.state035="['k','l','m','n']" />
+
+    <!-- includeIn, array property child node syntax, testing the array itself -->
+    
+    <mx:DateChooser>
+    	<mx:dayNames>
+    		<fx:Array>
+    			<fx:String>a</fx:String>
+    			<fx:String>b</fx:String>
+    		</fx:Array>
+    	</mx:dayNames>
+    </mx:DateChooser>    
+    
+    <mx:DateChooser id="dc05"><!-- state036 = default -->
+    	<mx:dayNames.state037>
+    	    <fx:Array>
+        		<fx:String>a</fx:String>
+        		<fx:String>b</fx:String>
+        		<fx:String>c</fx:String>
+        		<fx:String>d</fx:String>
+        		<fx:String>e</fx:String>
+        		<fx:String>f</fx:String>
+        		<fx:String>g</fx:String>
+        	</fx:Array>
+    	</mx:dayNames.state037>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc06">
+    	<mx:dayNames><!-- state038 -->
+    	    <fx:Array>
+        		<fx:String>a</fx:String>
+        		<fx:String>b</fx:String>
+        		<fx:String>c</fx:String>
+        		<fx:String>d</fx:String>
+        		<fx:String>e</fx:String>
+        		<fx:String>f</fx:String>
+        		<fx:String>g</fx:String>
+        	</fx:Array>
+    	</mx:dayNames>
+    	<mx:dayNames.state039>
+    	    <fx:Array>
+        		<fx:String>h</fx:String>
+        		<fx:String>i</fx:String>
+        		<fx:String>j</fx:String>
+        		<fx:String>k</fx:String>
+        		<fx:String>l</fx:String>
+        		<fx:String>m</fx:String>
+        		<fx:String>n</fx:String>
+        	</fx:Array>
+    	</mx:dayNames.state039>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc07">
+    	<mx:dayNames.state040>
+    	    <fx:Array>
+        		<fx:String>a</fx:String>
+        		<fx:String>b</fx:String>
+        		<fx:String>c</fx:String>
+        		<fx:String>d</fx:String>
+        		<fx:String>e</fx:String>
+        		<fx:String>f</fx:String>
+        		<fx:String>g</fx:String>
+        	</fx:Array>
+    	</mx:dayNames.state040>
+    	<mx:dayNames.state041>
+    	    <fx:Array>
+        		<fx:String>h</fx:String>
+        		<fx:String>i</fx:String>
+        		<fx:String>j</fx:String>
+        		<fx:String>k</fx:String>
+        		<fx:String>l</fx:String>
+        		<fx:String>m</fx:String>
+        		<fx:String>n</fx:String>
+        	</fx:Array>
+    	</mx:dayNames.state041>
+    </mx:DateChooser>
+
+    <!-- includeIn, array property child node syntax, testing the elements in the array -->
+    <mx:DateChooser id="dc08">
+    	<mx:dayNames>
+    	    <fx:Array>
+        		<fx:String includeIn="state043">a</fx:String><!-- Default is state 42.  Inserts "a" when in state 43. -->
+        		<fx:String>b</fx:String>
+        		<fx:String>c</fx:String>
+        		<fx:String>d</fx:String>
+        		<fx:String>e</fx:String>
+        		<fx:String>f</fx:String>
+        		<fx:String>g</fx:String>
+        	</fx:Array>
+    	</mx:dayNames>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc09">
+    	<mx:dayNames>
+    	    <fx:Array><!-- 44=no "g", 45="g" appended, 46="g" appended. -->
+                <fx:String>a</fx:String>
+        		<fx:String>b</fx:String>
+        		<fx:String>c</fx:String>
+        		<fx:String>d</fx:String>
+        		<fx:String>e</fx:String>
+        		<fx:String>f</fx:String>
+        		<fx:String includeIn="state045,state046">g</fx:String>
+        	</fx:Array>
+    	</mx:dayNames>
+    </mx:DateChooser>
+    
+    <mx:DateChooser id="dc10">
+    	<mx:dayNames>
+    	    <fx:Array><!-- 47=starts with c, 48=starts with "a", 49=starts with "b" -->
+        		<fx:String includeIn="state048">a</fx:String>
+        		<fx:String includeIn="state049">b</fx:String>
+        		<fx:String>c</fx:String>
+        		<fx:String>d</fx:String>
+        		<fx:String>e</fx:String>
+        		<fx:String>f</fx:String>
+        		<fx:String>g</fx:String>
+        		<fx:String>h</fx:String>
+        	</fx:Array>
+    	</mx:dayNames>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc11">
+    	<mx:dayNames>
+    	    <fx:Array>
+        		<fx:String includeIn="state051">a</fx:String><!-- Default is state 50 (no items).  Inserts "a" when in state 51. -->
+        	</fx:Array>
+    	</mx:dayNames>
+    </mx:DateChooser>
+
+    <!-- Combine setting dayNames and elements in the array. -->
+    <mx:DateChooser id="dc12">
+    	<mx:dayNames.state053>
+    	    <fx:Array>
+        		<fx:String includeIn="state053">a</fx:String>
+        	</fx:Array>
+    	</mx:dayNames.state053>
+    </mx:DateChooser>
+
+    <!-- includeIn, boolean property, dot syntax -->
+    <comps:DefinedButton id="btn014" testBoolean.state055="true" />
+    <comps:DefinedButton id="btn015" testBoolean.state056="false" />
+    <comps:DefinedButton id="btn016" testBoolean="true" testBoolean.state058="false" />
+    <comps:DefinedButton id="btn017" testBoolean.state060="false" testBoolean.state061="true" />
+    
+    <!-- includeIn, boolean property, child node syntax -->
+    <comps:DefinedButton id="btn018"><!-- state062 = default -->
+    	<comps:testBoolean.state063>
+    		<fx:Boolean>true</fx:Boolean>
+    	</comps:testBoolean.state063>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn019">
+    	<comps:testBoolean><!-- state064 -->
+    		<fx:Boolean>true</fx:Boolean>
+    	</comps:testBoolean>
+    	<comps:testBoolean.state065>
+    	    <fx:Boolean>false</fx:Boolean>
+    	</comps:testBoolean.state065>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn020">
+    	<comps:testBoolean.state066>
+    		<fx:Boolean>true</fx:Boolean>
+    	</comps:testBoolean.state066>
+    	<comps:testBoolean.state067>
+    	    <fx:Boolean>false</fx:Boolean>
+    	</comps:testBoolean.state067>
+    </comps:DefinedButton>
+
+    <!-- Not supported yet. -->
+<!--
+    <comps:DefinedButton id="btn018" >
+        <comps:testBoolean>
+            <fx:Boolean includeIn="state062" >true</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn019" >
+        <comps:testBoolean>
+            <fx:Boolean includeIn="state063" >false</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn020" width="200" height="200" >
+        <comps:testBoolean>
+            <fx:Boolean includeIn="state065,state066">true</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn021" >
+        <comps:testBoolean>
+            <fx:Boolean includeIn="state067,state068">false</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn022" >
+        <comps:testBoolean>
+            <fx:Boolean>true</fx:Boolean>
+            <fx:Boolean includeIn="state070,state071" >false</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn023" >
+        <comps:testBoolean>
+            <fx:Boolean includeIn="state072,state073" >true</fx:Boolean>
+            <fx:Boolean includeIn="state074" >false</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn024" >
+        <comps:testBoolean>
+            <fx:Boolean includeIn="state072,state073" >false</fx:Boolean>
+            <fx:Boolean includeIn="state072" >false</fx:Boolean>
+        </comps:testBoolean>
+    </comps:DefinedButton>
+-->
+
+<!-- includeIn, int property, dot syntax. -->
+<!-- Note:  These tests will need to be changed in 2089.  ;) -->
+    <mx:DateChooser id="dc15" displayedYear.state089="2089" />
+    <mx:DateChooser id="dc16" displayedYear="2090" displayedYear.state091="2091" />
+    <mx:DateChooser id="dc17" displayedYear.state092="2092" displayedYear.state093="2093" />
+    
+<!-- includeIn, int property, child node syntax. -->
+    <mx:DateChooser id="dc18"><!-- state062 = default -->
+    	<mx:displayedYear.state063>
+    		<fx:int>2063</fx:int>
+    	</mx:displayedYear.state063>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc19">
+    	<mx:displayedYear><!-- state064 -->
+    		<fx:int>2064</fx:int>
+    	</mx:displayedYear>
+    	<mx:displayedYear.state065>
+    	    <fx:int>2065</fx:int>
+    	</mx:displayedYear.state065>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc20">
+    	<mx:displayedYear.state066>
+    		<fx:int>2066</fx:int>
+    	</mx:displayedYear.state066>
+    	<mx:displayedYear.state067>
+    	    <fx:int>2067</fx:int>
+    	</mx:displayedYear.state067>
+    </mx:DateChooser>
+
+<!-- This syntax is not supported yet. -->
+<!--
+    <mx:DateChooser id="dc15" >
+        <mx:displayedYear>
+            <fx:int includeIn="state094">2094</fx:int>
+        </mx:displayedYear>
+    </mx:DateChooser>
+
+    <mx:DateChooser id="dc16">
+        <mx:displayedYear>
+            <fx:int>2095</fx:int>
+            <fx:int includeIn="state096, state097">2096</fx:int>
+        </mx:displayedYear>
+    </mx:DateChooser>
+    
+    <mx:DateChooser id="dc17">
+        <mx:displayedYear>
+            <fx:int>2097</fx:int>
+        </mx:displayedYear>
+        <mx:displayedYear.state098>
+            <fx:int>2098</fx:int>
+        </mx:displayedYear.state098>
+        <mx:displayedYear.state099>
+            <fx:int includeIn="state099">2099</fx:int>
+        </mx:displayedYear.state099>
+    </mx:DateChooser>
+-->
+
+<!-- includeIn, Number property, dot syntax. -->
+    <comps:DefinedButton id="btn025" testNumber.state101="101" />
+    <comps:DefinedButton id="btn026" testNumber="102" testNumber.state103="103" />
+    <comps:DefinedButton id="btn027" testNumber.state104="104" testNumber.state105="105" />
+
+<!-- includeIn, Number property, child node syntax. -->    
+    <comps:DefinedButton id="btn028"><!-- state106 = default -->
+    	<comps:testNumber.state107>
+    		<fx:Number>107</fx:Number>
+    	</comps:testNumber.state107>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn029">
+    	<comps:testNumber><!-- state108 -->
+    		<fx:Number>108</fx:Number>
+    	</comps:testNumber>
+    	<comps:testNumber.state109>
+    	    <fx:Number>109</fx:Number>
+    	</comps:testNumber.state109>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn030">
+    	<comps:testNumber.state110>
+    		<fx:Number>110</fx:Number>
+    	</comps:testNumber.state110>
+    	<comps:testNumber.state111>
+    	    <fx:Number>111</fx:Number>
+    	</comps:testNumber.state111>
+    </comps:DefinedButton>
+
+<!-- This syntax is not supported yet. -->
+<!--
+    <comps:DefinedButton id="btn028" >
+        <mx:testNumber>
+            <fx:Number includeIn="state106">106</fx:Number>
+        </mx:testNumber>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn029">
+        <mx:testNumber>
+            <fx:Number>107</fx:Number>
+            <fx:Number includeIn="state108, state109">108</fx:Number>
+        </mx:testNumber>
+    </comps:DefinedButton>
+    
+    <comps:DefinedButton id="btn030">
+        <mx:testNumber>
+            <fx:Number>110</fx:Number>
+        </mx:testNumber>
+        <mx:testNumber.state111>
+            <fx:Number>111</fx:Number>
+        </mx:testNumber.state111>
+        <mx:testNumber.state112>
+            <fx:Number>112</fx:Number>
+        </mx:testNumber.state112>
+    </comps:DefinedButton>
+-->
+
+<!-- includeIn, Object property, dot syntax. -->
+    <comps:DefinedButton id="btn031" testObject.state113="{testObject1}" />
+    <comps:DefinedButton id="btn032" testObject="{testObject2}" testObject.state115="{testObject3}" />
+    <comps:DefinedButton id="btn033" testObject.state116="{testObject4}" testObject.state117="{testObject5}" />
+
+<!-- includeIn, Object property, child node syntax. -->    
+    <comps:DefinedButton id="btn034"><!-- state118 = default -->
+    	<comps:testObject.state119>
+    		<fx:Object><fx:Number>119</fx:Number><fx:String>one hundred nineteen</fx:String></fx:Object>
+    	</comps:testObject.state119>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn035">
+    	<comps:testObject><!-- state120 -->
+    		<fx:Object><fx:Number>120</fx:Number><fx:String>one hundred twenty</fx:String></fx:Object>
+    	</comps:testObject>
+    	<comps:testObject.state121>
+    	    <fx:Object><fx:Number>121</fx:Number><fx:String>one hundred twenty-one</fx:String></fx:Object>
+    	</comps:testObject.state121>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn036">
+    	<comps:testObject.state122>
+    		<fx:Object><fx:Number>122</fx:Number><fx:String>one hundred twenty-two</fx:String></fx:Object>
+    	</comps:testObject.state122>
+    	<comps:testObject.state123>
+    	    <fx:Object><fx:Number>123</fx:Number><fx:String>one hundred twenty-three</fx:String></fx:Object>
+    	</comps:testObject.state123>
+    </comps:DefinedButton>
+
+<!-- This syntax is not supported yet. -->
+<!--
+    <comps:DefinedButton id="btn034" >
+        <mx:testObject>
+    		<fx:Object includeIn="state118"><fx:Number>118</fx:Number><fx:String>one hundred eighteen</fx:String></fx:Object>
+        </mx:testObject>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn035">
+        <mx:testObject>
+            <fx:Object><fx:Number>119</fx:Number><fx:String>one hundred nineteen</fx:String></fx:Object>
+            <fx:Object includeIn="state120, state121"><fx:Number>120</fx:Number><fx:String>one hundred twenty</fx:String></fx:Object>
+        </mx:testObject>
+    </comps:DefinedButton>
+    
+    <comps:DefinedButton id="btn036">
+        <mx:testObject>
+            <fx:Object><fx:Number>122</fx:Number><fx:String>one hundred twenty-two</fx:String></fx:Object>
+        </mx:testObject>
+        <mx:testObject.state123>
+            <fx:Object><fx:Number>123</fx:Number><fx:String>one hundred twenty-three</fx:String></fx:Object>
+        </mx:testObject.state123>
+        <mx:testObject.state124>
+            <fx:Object><fx:Number>124</fx:Number><fx:String>one hundred twenty-four</fx:String></fx:Object>
+        </mx:testObject.state124>
+    </comps:DefinedButton>
+-->
+
+<!-- Data binding a property, dot syntax. -->
+
+<mx:DateChooser id="dc21" displayedYear="2000" displayedYear.state124="{dc21Year}" />
+
+<mx:DateChooser id="dc22" displayedYear="2001" displayedYear.state126="{dc22YearA}" displayedYear.state127="{dc22YearB}" />
+
+<mx:DateChooser id="dc23" displayedYear="2002" displayedYear.state129="2050" displayedYear.state130="{dc23Year}" />
+
+<!-- Number style, dot syntax. -->
+    <comps:DefinedButton id="btn163" testNumberStyle.state257="257" />
+    <comps:DefinedButton id="btn164" testNumberStyle="258" testNumberStyle.state259="259" />
+    <comps:DefinedButton id="btn165" testNumberStyle.state260="260" testNumberStyle.state261="261" />
+
+<!-- Number style, child node syntax. -->
+    <comps:DefinedButton id="btn166"><!-- state262 = default -->
+    	<comps:testNumberStyle.state263>
+    		<fx:Number>263</fx:Number>
+    	</comps:testNumberStyle.state263>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn167">
+    	<comps:testNumberStyle><!-- state264 -->
+    		<fx:Number>264</fx:Number>
+    	</comps:testNumberStyle>
+    	<comps:testNumberStyle.state265>
+    	    <fx:Number>265</fx:Number>
+    	</comps:testNumberStyle.state265>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn168">
+    	<comps:testNumberStyle.state266>
+    		<fx:Number>266</fx:Number>
+    	</comps:testNumberStyle.state266>
+    	<comps:testNumberStyle.state267>
+    	    <fx:Number>267</fx:Number>
+    	</comps:testNumberStyle.state267>
+    </comps:DefinedButton>
+
+<!-- String style, dot syntax. -->
+    <comps:DefinedButton id="btn169" testStringStyle.state268="the" />
+    <comps:DefinedButton id="btn170" testStringStyle="lazy" testStringStyle.state270="dog" />
+    <comps:DefinedButton id="btn171" testStringStyle.state271="the" testStringStyle.state272="quick" />
+
+<!-- String style, child node syntax. -->
+    <comps:DefinedButton id="btn172">
+    	<comps:testStringStyle.state274>
+    		<fx:String>the</fx:String>
+    	</comps:testStringStyle.state274>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn173">
+    	<comps:testStringStyle>
+    		<fx:String>quick</fx:String>
+    	</comps:testStringStyle>
+    	<comps:testStringStyle.state276>
+    	    <fx:String>brown</fx:String>
+    	</comps:testStringStyle.state276>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn174">
+    	<comps:testStringStyle.state277>
+    		<fx:String>fox</fx:String>
+    	</comps:testStringStyle.state277>
+    	<comps:testStringStyle.state278>
+    	    <fx:String>jumps</fx:String>
+    	</comps:testStringStyle.state278>
+    </comps:DefinedButton>
+
+<!-- Number array style, dot syntax. -->
+    <comps:DefinedButton id="btn175" testNumberArrayStyle.state279b="[1.2, 3.4, 5.6]" />
+    <comps:DefinedButton id="btn176" testNumberArrayStyle="[2.3, 4.5, 6.7]" testNumberArrayStyle.state281="[8.9, 0.1, 2.3]" />
+    <comps:DefinedButton id="btn177" testNumberArrayStyle.state282="[4.5, 6.7, 8.9]" testNumberArrayStyle.state283="[0.1, 2.3, 4.5]" />
+
+<!-- Number array style, child node syntax, testing the array itself. -->
+    <comps:DefinedButton id="btn178"><!-- state284 -->
+    	<comps:testNumberArrayStyle.state285>
+            <fx:Array>
+                <fx:Number>0.1</fx:Number>
+                <fx:Number>2.3</fx:Number>
+                <fx:Number>4.5</fx:Number>
+            </fx:Array>
+    	</comps:testNumberArrayStyle.state285>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn179">
+    	<comps:testNumberArrayStyle><!-- state286 -->
+            <fx:Array>
+                <fx:Number>1.2</fx:Number>
+                <fx:Number>3.4</fx:Number>
+                <fx:Number>5.6</fx:Number>
+            </fx:Array>
+    	</comps:testNumberArrayStyle>
+    	<comps:testNumberArrayStyle.state287>
+            <fx:Array>
+                <fx:Number>7.8</fx:Number>
+                <fx:Number>9.0</fx:Number>
+                <fx:Number>0.1</fx:Number>
+            </fx:Array>
+    	</comps:testNumberArrayStyle.state287>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn180">
+    	<comps:testNumberArrayStyle.state288>
+            <fx:Array>
+                <fx:Number>0.1</fx:Number>
+                <fx:Number>1.2</fx:Number>
+                <fx:Number>2.3</fx:Number>
+            </fx:Array>
+    	</comps:testNumberArrayStyle.state288>
+    	<comps:testNumberArrayStyle.state289>
+            <fx:Array>
+                <fx:Number>3.4</fx:Number>
+                <fx:Number>4.5</fx:Number>
+                <fx:Number>5.6</fx:Number>
+            </fx:Array>
+    	</comps:testNumberArrayStyle.state289>
+    </comps:DefinedButton>
+
+<!-- Number array style, child node syntax, testing the elements in the array. -->
+    <comps:DefinedButton id="btn181">
+    	<comps:testNumberArrayStyle>
+    	    <fx:Array>
+        		<fx:Number includeIn="state291">1</fx:Number><!-- Default is state 290.  Inserts "1" when in state 291. -->
+        		<fx:Number>2</fx:Number>
+        		<fx:Number>3</fx:Number>
+        	</fx:Array>
+    	</comps:testNumberArrayStyle>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn182">
+    	<comps:testNumberArrayStyle>
+    	    <fx:Array><!-- 292=no 48, 293=48" appended, 294=48" appended. -->
+                <fx:Number>12</fx:Number>
+        		<fx:Number>24</fx:Number>
+        		<fx:Number includeIn="state293,state294">48</fx:Number>
+        	</fx:Array>
+    	</comps:testNumberArrayStyle>
+    </comps:DefinedButton>
+    
+    <comps:DefinedButton id="btn183">
+    	<comps:testNumberArrayStyle>
+    	    <fx:Array><!-- 295=starts with 13, 296=starts with 17, 297=starts with 19 -->
+        		<fx:Number includeIn="state296">17</fx:Number>
+        		<fx:Number includeIn="state297">19</fx:Number>
+        		<fx:Number>13</fx:Number>
+        	</fx:Array>
+    	</comps:testNumberArrayStyle>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn184">
+    	<comps:testNumberArrayStyle>
+    	    <fx:Array>
+        		<fx:Number includeIn="state299">7.000</fx:Number><!-- Default is state 298 (no items).  Inserts 7 when in state 299. -->
+        	</fx:Array>
+    	</comps:testNumberArrayStyle>
+    </comps:DefinedButton>
+
+    <!-- Test setting states for the array and elements in the array. -->
+    <comps:DefinedButton id="btn184a">
+    	<comps:testNumberArrayStyle.state300b>
+    	    <fx:Array>
+        		<fx:Number includeIn="state300b">37</fx:Number>
+        	</fx:Array>
+    	</comps:testNumberArrayStyle.state300b>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn184b">
+    	<comps:testNumberArrayStyle.state300c>
+    	    <fx:Array>
+        		<fx:Number includeIn="state300c">2</fx:Number>
+        	</fx:Array>
+    	</comps:testNumberArrayStyle.state300c>
+    </comps:DefinedButton>
+
+<!-- String array style, dot syntax. -->
+    <comps:DefinedButton id="btn185" testStringArrayStyle.state300="['the','quick','brown']" />
+    <comps:DefinedButton id="btn186" testStringArrayStyle="['brown','fox','jumps','over']" testStringArrayStyle.state302="['the','lazy','dog']" />
+    <comps:DefinedButton id="btn187" testStringArrayStyle.state303="['quick','brown','fox']" testStringArrayStyle.state304="['jumps','over','the','lazy']" />
+
+<!-- String array style, child node syntax, testing the array itself. -->
+    <comps:DefinedButton id="btn188"><!-- state304a -->
+    	<comps:testStringArrayStyle.state305>
+            <fx:Array>
+                <fx:String>lazy</fx:String>
+                <fx:String>dog</fx:String>
+                <fx:String>the</fx:String>
+            </fx:Array>
+    	</comps:testStringArrayStyle.state305>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn189">
+    	<comps:testStringArrayStyle><!-- state306 -->
+            <fx:Array>
+                <fx:String>quick</fx:String>
+                <fx:String>brown</fx:String>
+                <fx:String>fox</fx:String>
+            </fx:Array>
+    	</comps:testStringArrayStyle>
+    	<comps:testStringArrayStyle.state307>
+            <fx:Array>
+                <fx:String>jumps</fx:String>
+                <fx:String>over</fx:String>
+                <fx:String>the</fx:String>
+                <fx:String>lazy</fx:String>
+            </fx:Array>
+    	</comps:testStringArrayStyle.state307>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn190">
+    	<comps:testStringArrayStyle.state308>
+            <fx:Array>
+                <fx:String>lazy</fx:String>
+                <fx:String>dog</fx:String>
+                <fx:String>the</fx:String>
+            </fx:Array>
+    	</comps:testStringArrayStyle.state308>
+    	<comps:testStringArrayStyle.state309>
+            <fx:Array>
+                <fx:String>quick</fx:String>
+                <fx:String>brown</fx:String>
+                <fx:String>fox</fx:String>
+            </fx:Array>
+    	</comps:testStringArrayStyle.state309>
+    </comps:DefinedButton>
+
+<!-- String array style, child node syntax, testing the elements in the array. -->
+    <comps:DefinedButton id="btn191">
+    	<comps:testStringArrayStyle>
+    	    <fx:Array>
+        		<fx:String includeIn="state311">jumps</fx:String><!-- Default is state 310.  Inserts "1" when in state 311. -->
+        		<fx:String>over</fx:String>
+        		<fx:String>the</fx:String>
+        	</fx:Array>
+    	</comps:testStringArrayStyle>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn192">
+    	<comps:testStringArrayStyle>
+    	    <fx:Array><!-- 312=no 'the', 313='the' appended, 314='the' appended. -->
+                <fx:String>lazy</fx:String>
+        		<fx:String>dog</fx:String>
+        		<fx:String includeIn="state313,state314">the</fx:String>
+        	</fx:Array>
+    	</comps:testStringArrayStyle>
+    </comps:DefinedButton>
+    
+    <comps:DefinedButton id="btn193">
+    	<comps:testStringArrayStyle>
+    	    <fx:Array><!-- 315=starts with fox, 316=starts with quick, 317=starts with brown -->
+        		<fx:String includeIn="state316">quick</fx:String>
+        		<fx:String includeIn="state317">brown</fx:String>
+        		<fx:String>fox</fx:String>
+        	</fx:Array>
+    	</comps:testStringArrayStyle>
+    </comps:DefinedButton>
+
+
+    <comps:DefinedButton id="btn194">
+    	<comps:testStringArrayStyle>
+    	    <fx:Array>
+        		<fx:String includeIn="state319">jumps</fx:String><!-- Default is state 318 (no items).  Inserts 'jumps' when in state 319. -->
+        	</fx:Array>
+    	</comps:testStringArrayStyle>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn219">
+    	<comps:testStringArrayStyle>
+    	    <fx:Array>
+        		<fx:String includeIn="state360a">quick</fx:String><!-- Default is state 360 (no items).  Inserts 'quick' when in state 360a. -->
+        	</fx:Array>
+    	</comps:testStringArrayStyle>
+    </comps:DefinedButton>
+
+    <!-- Test setting states for the array and elements in the array. -->
+    <comps:DefinedButton id="btn220">
+    	<comps:testStringArrayStyle.state361>
+    	    <fx:Array>
+        		<fx:String includeIn="state361">brown</fx:String>
+        	</fx:Array>
+    	</comps:testStringArrayStyle.state361>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn221">
+    	<comps:testStringArrayStyle.state362>
+    	    <fx:Array>
+        		<fx:String includeIn="state362">fox</fx:String>
+        	</fx:Array>
+    	</comps:testStringArrayStyle.state362>
+    </comps:DefinedButton>
+    
+    <!-- This should cause a compile error.  Commenting out. -->
+    <!--
+    <comps:DefinedButton id="btn222">
+    	<comps:testStringArrayStyle.state363>
+    	    <fx:Array>
+        		<fx:String includeIn="state363,state364">jumps</fx:String>
+        	</fx:Array>
+    	</comps:testStringArrayStyle.state363>
+    </comps:DefinedButton>
+    -->
+
+<!-- Boolean style, dot syntax. -->
+    <comps:DefinedButton id="btn195" testBooleanStyle.state320="true" />
+    <comps:DefinedButton id="btn196" testBooleanStyle="true" testBooleanStyle.state322="false" />
+    <comps:DefinedButton id="btn197" testBooleanStyle.state323="true" testBooleanStyle.state324="false" />
+
+<!-- Boolean style, child node syntax. -->
+    <comps:DefinedButton id="btn198">
+    	<comps:testBooleanStyle.state325>
+    		<fx:Boolean>true</fx:Boolean>
+    	</comps:testBooleanStyle.state325>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn199">
+    	<comps:testBooleanStyle><!-- state326 -->
+    		<fx:Boolean>true</fx:Boolean>
+    	</comps:testBooleanStyle>
+    	<comps:testBooleanStyle.state327>
+    	    <fx:Boolean>false</fx:Boolean>
+    	</comps:testBooleanStyle.state327>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn200">
+    	<comps:testBooleanStyle.state328>
+    		<fx:Boolean>true</fx:Boolean>
+    	</comps:testBooleanStyle.state328>
+    	<comps:testBooleanStyle.state329>
+    	    <fx:Boolean>false</fx:Boolean>
+    	</comps:testBooleanStyle.state329>
+    </comps:DefinedButton>
+
+<!-- Class style, dot syntax. -->
+    <comps:DefinedButton id="btn201" testClassStyle.state330="{comps.SliderThumb1}" />
+    <comps:DefinedButton id="btn202" testClassStyle="{comps.SliderThumb1}" testClassStyle.state332="{comps.SliderThumb2}" />
+    <comps:DefinedButton id="btn203" testClassStyle.state333="{comps.SliderThumb1}" testClassStyle.state334="{comps.SliderThumb2}" />
+
+<!-- Class style, child node syntax. -->
+    <comps:DefinedButton id="btn204">
+    	<comps:testClassStyle.state335>
+    		<fx:Class>comps.SliderThumb1</fx:Class>
+    	</comps:testClassStyle.state335>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn205">
+    	<comps:testClassStyle><!-- state336 -->
+    		<fx:Class>comps.SliderThumb1</fx:Class>
+    	</comps:testClassStyle>
+    	<comps:testClassStyle.state337>
+    	    <fx:Class>comps.SliderThumb2</fx:Class>
+    	</comps:testClassStyle.state337>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn206">
+    	<comps:testClassStyle.state338>
+    		<fx:Class>comps.SliderThumb1</fx:Class>
+    	</comps:testClassStyle.state338>
+    	<comps:testClassStyle.state339>
+    	    <fx:Class>comps.SliderThumb2</fx:Class>
+    	</comps:testClassStyle.state339>
+    </comps:DefinedButton>
+
+<!-- Int style, dot syntax. -->
+    <comps:DefinedButton id="btn207" testIntStyle.state340="2" />
+    <comps:DefinedButton id="btn208" testIntStyle="4" testIntStyle.state342="6" />
+    <comps:DefinedButton id="btn209" testIntStyle.state343="8" testIntStyle.state344="10" />
+
+<!-- Int style, child node syntax. -->
+    <comps:DefinedButton id="btn210">
+    	<comps:testIntStyle.state345>
+    		<fx:int>12</fx:int>
+    	</comps:testIntStyle.state345>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn211">
+    	<comps:testIntStyle><!-- state346 -->
+    		<fx:int>14</fx:int>
+    	</comps:testIntStyle>
+    	<comps:testIntStyle.state347>
+    	    <fx:int>16</fx:int>
+    	</comps:testIntStyle.state347>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn212">
+    	<comps:testIntStyle.state348>
+    		<fx:int>18</fx:int>
+    	</comps:testIntStyle.state348>
+    	<comps:testIntStyle.state349>
+    	    <fx:int>20</fx:int>
+    	</comps:testIntStyle.state349>
+    </comps:DefinedButton>
+
+<!-- Object style, dot syntax. -->
+    <comps:DefinedButton id="btn213" testObjectStyle.state350="{testObject1}" />
+    <comps:DefinedButton id="btn214" testObjectStyle="{testObject1}" testObjectStyle.state352="{testObject2}" />
+    <comps:DefinedButton id="btn215" testObjectStyle.state353="{testObject1}" testObjectStyle.state354="{testObject2}" />
+
+<!-- Object style, child node syntax. -->
+    <comps:DefinedButton id="btn216">
+    	<comps:testObjectStyle.state355>
+            <fx:Object><fx:Number>355</fx:Number><fx:String>three hundred fifty-five</fx:String></fx:Object>
+    	</comps:testObjectStyle.state355>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn217">
+    	<comps:testObjectStyle><!-- state356 -->
+            <fx:Object><fx:Number>356</fx:Number><fx:String>three hundred fifty-six</fx:String></fx:Object>
+    	</comps:testObjectStyle>
+    	<comps:testObjectStyle.state357>
+            <fx:Object><fx:Number>357</fx:Number><fx:String>three hundred fifty-seven</fx:String></fx:Object>
+    	</comps:testObjectStyle.state357>
+    </comps:DefinedButton>
+
+    <comps:DefinedButton id="btn218">
+    	<comps:testObjectStyle.state358>
+            <fx:Object><fx:Number>358</fx:Number><fx:String>three hundred fifty-eight</fx:String></fx:Object>
+    	</comps:testObjectStyle.state358>
+    	<comps:testObjectStyle.state359>
+            <fx:Object><fx:Number>359</fx:Number><fx:String>three hundred fifty-nine</fx:String></fx:Object>
+    	</comps:testObjectStyle.state359>
+    </comps:DefinedButton>
+
+<!-- Data binding a style, dot syntax. -->
+<comps:DefinedButton_NoStyles id="btn223" color="0x000001" color.state366="{blueShade}"  />
+
+<comps:DefinedButton_NoStyles id="btn224" color="0x000002" color.state368="{blueShade2}" color.state369="{redShade}"  />
+<comps:DefinedButton_NoStyles id="btn224a" color="0x000002" color.state368a="{blueShade3}" color.state369a="{redShade2}"  />
+<comps:DefinedButton_NoStyles id="btn225" color="0x000003" color.state371="0x0000ff" color.state372="{redShade3}"  />
+
+<!-- Event handlers, dot syntax -->
+<mx:TextInput id="ti01" change.state161="changeHandler1(ti01)" /><!-- state 160: normal change.  state 161: handler1 -->
+<mx:TextInput id="ti02" change="changeHandler1(ti02)" change.state163="changeHandler2(ti02)" /><!-- state 162: handler1.  state 163: handler2 -->
+<mx:TextInput id="ti03" change.state165="changeHandler1(ti03)" change.state166="changeHandler2(ti03)" /><!-- state 164: normal.  state165: handler1.  state 166: handler2 -->
+<mx:TextInput id="ti04" change="changeHandler1(ti04)" change.state168="changeHandler2(ti04)" change.state169="changeHandler3(ti04)" /><!-- state 167: handler1.  state168: handler2.  state 169: handler3 -->
+
+<!-- includeIn, event handlers, child node. -->
+<mx:TextInput id="ti05"><!-- state170 = default -->
+	<mx:change.state171>
+		<![CDATA[
+			changeHandler1(ti05);
+		]]>
+	</mx:change.state171>
+</mx:TextInput>
+
+<mx:TextInput id="ti06">
+    <mx:change><!-- state 172 -->
+		<![CDATA[
+			changeHandler1(ti06);
+		]]>
+    </mx:change>
+    <mx:change.state173>
+		<![CDATA[
+			changeHandler2(ti06);
+		]]>
+    </mx:change.state173>
+</mx:TextInput>
+
+<mx:TextInput id="ti07">
+    <mx:change.state174>
+		<![CDATA[
+			changeHandler1(ti07);
+		]]>
+    </mx:change.state174>
+    <mx:change.state175>
+		<![CDATA[
+			changeHandler2(ti07);
+		]]>
+    </mx:change.state175>
+</mx:TextInput>
+
+
+</mx:Application>

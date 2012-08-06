@@ -1,0 +1,255 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+>
+
+<fx:Script>
+<![CDATA[
+
+    import mx.events.StateChangeEvent;
+    
+    public function goToState2():void{
+        if(currentState == "state2"){
+            dispatchEvent(new Event("inState2"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state2";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("inState2"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</mx:states>
+
+<!-- 
+================================================================================
+    ComboBox:
+        Its default property is 'dataProvider', which is type 'Object'.
+================================================================================
+-->
+
+<mx:ComboBox id="cbx1">
+    <fx:String includeIn="state1">string in state1</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx2">
+    <fx:String includeIn="state2">string in state2</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx3">
+    <fx:String includeIn="state1">string in state1</fx:String>
+    <fx:String includeIn="state1">another string in state1</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx4">
+    <fx:String includeIn="state2">string in state2</fx:String>
+    <fx:String includeIn="state2">another string in state2</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx5">
+    <fx:String includeIn="state1">string in state1</fx:String>
+    <fx:String includeIn="state2">string in state2</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx6">
+    <fx:String includeIn="state2">string in state2</fx:String>
+    <fx:String includeIn="state1">string in state1</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx7">
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx8">
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx9">
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+    <fx:Array includeIn="state1">
+        <fx:String>another array in state1</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx10">
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+    <fx:Array includeIn="state2">
+        <fx:String>another array in state2</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx11">
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx12">
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx13">
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+    <fx:String includeIn="state1">string in state1</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx14">
+    <fx:String includeIn="state1">string in state1</fx:String>
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx15">
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+    <fx:String includeIn="state2">string in state2</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx16">
+    <fx:String includeIn="state2">string in state2</fx:String>
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx17">
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+    <fx:String includeIn="state2">string in state2</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx18">
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+    <fx:String includeIn="state1">string in state1</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx19">
+    <fx:String includeIn="state2">string in state2</fx:String>
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx20">
+    <fx:String includeIn="state1">string in state1</fx:String>
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx21">
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+    <fx:String>string always present</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx22">
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+    <fx:String>string always present</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx23">
+    <fx:String>string always present</fx:String>
+    <fx:Array includeIn="state1">
+        <fx:String>array in state1</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx24">
+    <fx:String>string always present</fx:String>
+    <fx:Array includeIn="state2">
+        <fx:String>array in state2</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx25">
+    <fx:String includeIn="state1">string in state1</fx:String>
+    <fx:Array>
+        <fx:String>array always present</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx26">
+    <fx:String includeIn="state2">string in state2</fx:String>
+    <fx:Array>
+        <fx:String>array always present</fx:String>
+    </fx:Array>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx27">
+    <fx:Array>
+        <fx:String>array always present</fx:String>
+    </fx:Array>
+    <fx:String includeIn="state1">string in state1</fx:String>
+</mx:ComboBox>
+
+<mx:ComboBox id="cbx28">
+    <fx:Array>
+        <fx:String>array always present</fx:String>
+    </fx:Array>
+    <fx:String includeIn="state2">string in state2</fx:String>
+</mx:ComboBox>
+</mx:Application>

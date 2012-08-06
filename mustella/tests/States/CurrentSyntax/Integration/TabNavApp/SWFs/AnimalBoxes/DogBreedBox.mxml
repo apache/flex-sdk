@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Box
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    label="Dog Breeds" width="100%" height="100%">
+
+<fx:Script>
+<![CDATA[
+        import mx.events.ItemClickEvent;
+
+        private function changeState(event:ItemClickEvent):void{
+            currentState = event.currentTarget.selectedValue;
+        }
+]]>
+</fx:Script>
+
+<mx:states>
+    <mx:State name="All" />
+    <mx:State name="Small" />
+    <mx:State name="Large" />
+</mx:states>
+
+<fx:Declarations>
+    <mx:RadioButtonGroup id="rbgSizes" itemClick="changeState(event)" />
+</fx:Declarations>    
+
+<mx:Text text="Select a size:" />
+
+<mx:RadioButton groupName="rbgSizes" label="All" value="All" selected="true" />
+<mx:RadioButton groupName="rbgSizes" label="Small" value="Small" />
+<mx:RadioButton groupName="rbgSizes" label="Large" value="Large" />
+
+<mx:List labelField="breed">
+    <mx:dataProvider>
+        <fx:Object includeIn="All,Small" breed="Chihuahua" />
+        <fx:Object includeIn="All,Small" breed="Pug" />
+        <fx:Object includeIn="All,Small" breed="Yorkshire Terrier" />
+        
+        <fx:Object includeIn="All,Large" breed="Afghan" />
+        <fx:Object includeIn="All,Large" breed="Bernese Mountain Dog" />
+        <fx:Object includeIn="All,Large" breed="Saint Bernard" />
+        <fx:Object includeIn="All,Large" breed="Scottish Deerhound" />
+    </mx:dataProvider>
+</mx:List>
+
+</mx:Box>

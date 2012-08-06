@@ -1,0 +1,68 @@
+<s:Application width="800" height="600" backgroundColor="0xffffff" 
+            xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:s="library://ns.adobe.com/flex/spark"
+            xmlns:mx="library://ns.adobe.com/flex/mx" >
+
+<fx:Script>
+<![CDATA[
+
+	import mx.events.StateChangeEvent;
+	import spark.components.*;
+
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "state1"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+    
+    // Given a container, loops through its elements checking IDs.
+    // It defaults to not searching recursively, but you can pass in a 3rd param as true to make it recurse.
+    // Returns true if an element with the given ID is present.
+    // Returns false if not.
+    public function elementInSkinnableContainer(theContainer:SkinnableContainer, elementID:String, recurse:Boolean = false):Boolean{
+        var i:int;
+        var theElement:Object;
+        var found:Boolean = false;
+        
+        for(i = 0; i < theContainer.numElements && !found; ++i){
+            theElement = theContainer.getElementAt(i);
+            
+            if(theElement.id == elementID){
+                found = true;
+            }else{
+                if(recurse)
+                    if(theElement is SkinnableContainer)
+                        found = elementInSkinnableContainer(SkinnableContainer(theElement), elementID, recurse);
+            }
+        }
+        
+        return found;
+    }
+
+]]>
+</fx:Script>
+
+<s:states>
+	<s:State name="state1" />
+	<s:State name="state2" />
+</s:states>
+
+<mx:ViewStack id="stack" borderStyle="solid" borderColor="black">
+	<s:NavigatorContent id="page1" label="page1">
+		<s:Button label="nostate" />
+		<s:Button y="25" id="btn1" label="btn1" excludeFrom="state2" />
+		<s:Button y="50" id="btn2" label="btn2" includeIn="state2" />
+	</s:NavigatorContent>
+</mx:ViewStack>
+
+</s:Application>

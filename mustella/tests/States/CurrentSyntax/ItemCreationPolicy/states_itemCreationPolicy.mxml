@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/ItemCreationPolicy/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesApp_itemCreationPolicy.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+Deferred
+In all cases, the the item should not exist until it is needed.
+================================================================================
+-->
+<TestCase testID="itemCreationPolicy_def_inc_1" keywords="[States,includeIns]" description="An item's includeIn array has an item which is not the default state; enter the includeIn array's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state373" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.btn226 != null" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemCreationPolicy_def_exc_1" keywords="[States,excludeFrom]" description="An item's excludeFrom array has an item which is the default state; leave the excludeFrom array's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state374" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.btn227 != null" value="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Immediate
+================================================================================
+-->
+<TestCase testID="itemCreationPolicy_imm_inc_1" keywords="[States,includeIn]" description="An item's includeIn array has an item which is the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state375" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.btn228 != null" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemCreationPolicy_imm_inc_2" keywords="[States,includeIn]" description="An item's includeIn array has an item which is not the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state376" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.btn229 != null" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemCreationPolicy_imm_exc_1" keywords="[States,excludeFrom]" description="An item's excludeFrom array has an item which is the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state377" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.btn230 != null" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemCreationPolicy_imm_exc_2" keywords="[States,excludeFrom]" description="An item's excludeFrom array has an item which is not the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state378" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.btn231 != null" value="true" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

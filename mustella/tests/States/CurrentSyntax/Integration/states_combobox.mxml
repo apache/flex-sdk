@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesIntegrationApp_ComboBox.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+        import mx.collections.ArrayCollection;
+        import mx.controls.Label;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+All of these tests are in state1, testing the default when the app. starts up.
+Do not do a state2 test before these! 
+================================================================================
+-->
+
+<TestCase testID="integration_combobox_1a" keywords="[States]" description="String, state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx1.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx1" propertyName="dataProvider" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_2a" keywords="[States]" description="String, state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx2.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx2" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_3a" keywords="[States]" description="2 strings, state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx3.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx3" propertyName="dataProvider" value="string in state1,another string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_4a" keywords="[States]" description="2 strings, state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx4.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx4" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_5a" keywords="[States]" description="2 strings, first in state1, second in state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx5.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx5" propertyName="dataProvider" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_6a" keywords="[States]" description="2 strings, first in state2, second in state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx6.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx6" propertyName="dataProvider" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_7a" keywords="[States]" description="Array in state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx7.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx7" propertyName="dataProvider" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_8a" keywords="[States]" description="Array in state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx8.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx8" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_9a" keywords="[States]" description="2 arrays, state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx9.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx9" propertyName="dataProvider" value="array in state1,another array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_10a" keywords="[States]" description="2 arrays, state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx10.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx10" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_11a" keywords="[States]" description="2 arrays, first in state1, second in state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx11.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx11" propertyName="dataProvider" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_12a" keywords="[States]" description="2 arrays, first in state2, second in state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx12.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx12" propertyName="dataProvider" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_13a" keywords="[States]" description="Array and a string in state1, array first" >
+    <body>
+        <AssertMethodValue method="value=application.cbx13.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx13" propertyName="dataProvider" value="array in state1,string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_14a" keywords="[States]" description="Array and a string in state1, string first" >
+    <body>
+        <AssertMethodValue method="value=application.cbx14.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx14" propertyName="dataProvider" value="string in state1,array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_15a" keywords="[States]" description="Array and a string in state2, array first" >
+    <body>
+        <AssertMethodValue method="value=application.cbx15.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx15" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_16a" keywords="[States]" description="Array and a string in state2, string first" >
+    <body>
+        <AssertMethodValue method="value=application.cbx16.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx16" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_17a" keywords="[States]" description="Array and a string, array first in state1, string second in state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx17.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx17" propertyName="dataProvider" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_18a" keywords="[States]" description="Array and a string, array first in state2, string second in state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx18.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx18" propertyName="dataProvider" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_19a" keywords="[States]" description="Array and a string, string first in state2, array second in state1" >
+    <body>
+        <AssertMethodValue method="value=application.cbx19.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx19" propertyName="dataProvider" value="array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_20a" keywords="[States]" description="Array and a string, string first in state1, array second in state2" >
+    <body>
+        <AssertMethodValue method="value=application.cbx20.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx20" propertyName="dataProvider" value="string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_21a" keywords="[States]" description="Array and a string, array first in state1, string always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx21.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx21" propertyName="dataProvider" value="array in state1,string always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_22a" keywords="[States]" description="Array and a string, array first in state2, string always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx22.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx22" propertyName="dataProvider" value="string always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_23a" keywords="[States]" description="Array and a string, array second in state1, string always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx23.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx23" propertyName="dataProvider" value="string always present,array in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_24a" keywords="[States]" description="Array and a string, array second in state2, string always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx24.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx24" propertyName="dataProvider" value="string always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_25a" keywords="[States]" description="Array and a string, string first in state1, array always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx25.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx25" propertyName="dataProvider" value="string in state1,array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_26a" keywords="[States]" description="Array and a string, string first in state2, array always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx26.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx26" propertyName="dataProvider" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_27a" keywords="[States]" description="Array and a string, string second in state1, array always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx27.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx27" propertyName="dataProvider" value="array always present,string in state1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_28a" keywords="[States]" description="Array and a string, string second in state2, array always present" >
+    <body>
+        <AssertMethodValue method="value=application.cbx28.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx28" propertyName="dataProvider" value="array always present" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+All of these tests are in state2. 
+================================================================================
+-->
+
+<TestCase testID="integration_combobox_1b" keywords="[States]" description="String, state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx1.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx1" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_2b" keywords="[States]" description="String, state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx2.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx2" propertyName="dataProvider" value="string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_3b" keywords="[States]" description="2 strings, state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx3.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx3" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_4b" keywords="[States]" description="2 strings, state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx4.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx4" propertyName="dataProvider" value="string in state2,another string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_5b" keywords="[States]" description="2 strings, first in state1, second in state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx5.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx5" propertyName="dataProvider" value="string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_6b" keywords="[States]" description="2 strings, first in state2, second in state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx6.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx6" propertyName="dataProvider" value="string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_7b" keywords="[States]" description="Array in state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx7.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx7" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_8b" keywords="[States]" description="Array in state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx8.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx8" propertyName="dataProvider" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_9b" keywords="[States]" description="2 arrays, state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx9.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx9" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_10b" keywords="[States]" description="2 arrays, state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx10.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx10" propertyName="dataProvider" value="array in state2,another array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_11b" keywords="[States]" description="2 arrays, first in state1, second in state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx11.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx11" propertyName="dataProvider" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_12b" keywords="[States]" description="2 arrays, first in state2, second in state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx12.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx12" propertyName="dataProvider" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_13b" keywords="[States]" description="Array and a string in state1, array first" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx13.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx13" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_14b" keywords="[States]" description="Array and a string in state1, string first" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx14.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx14" propertyName="dataProvider" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_15b" keywords="[States]" description="Array and a string in state2, array first" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx15.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx15" propertyName="dataProvider" value="array in state2,string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_16b" keywords="[States]" description="Array and a string in state2, string first" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx16.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx16" propertyName="dataProvider" value="string in state2,array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_17b" keywords="[States]" description="Array and a string, array first in state1, string second in state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx17.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx17" propertyName="dataProvider" value="string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_18b" keywords="[States]" description="Array and a string, array first in state2, string second in state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx18.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx18" propertyName="dataProvider" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_19b" keywords="[States]" description="Array and a string, string first in state2, array second in state1" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx19.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx19" propertyName="dataProvider" value="string in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_20b" keywords="[States]" description="Array and a string, string first in state1, array second in state2" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx20.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx20" propertyName="dataProvider" value="array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_21b" keywords="[States]" description="Array and a string, array first in state1, string always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx21.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx21" propertyName="dataProvider" value="string always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_22b" keywords="[States]" description="Array and a string, array first in state2, string always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx22.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx22" propertyName="dataProvider" value="array in state2,string always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_23b" keywords="[States]" description="Array and a string, array second in state1, string always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx23.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx23" propertyName="dataProvider" value="string always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_24b" keywords="[States]" description="Array and a string, array second in state2, string always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx24.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx24" propertyName="dataProvider" value="string always present,array in state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_25b" keywords="[States]" description="Array and a string, string first in state1, array always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx25.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx25" propertyName="dataProvider" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_26b" keywords="[States]" description="Array and a string, string first in state2, array always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx26.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx26" propertyName="dataProvider" value="string in state2,array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_27b" keywords="[States]" description="Array and a string, string second in state1, array always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx27.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx27" propertyName="dataProvider" value="array always present" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_combobox_28b" keywords="[States]" description="Array and a string, string second in state2, array always present" >
+    <setup>
+        <RunCode code="application.goToState2()" waitEvent="inState2" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.cbx28.dataProvider is ArrayCollection" value="true" />
+        <AssertPropertyValue target="cbx28" propertyName="dataProvider" value="array always present,string in state2" />
+    </body>
+</TestCase>
+
+	</testCases>                	     
+</UnitTester>

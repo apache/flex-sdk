@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" width="800" height="600" xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+<![CDATA[
+
+]]>
+</mx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+<!--
+    State naming convention: 
+        Method_Param_ControlBeingActedUpon_DetailsIfAny_Number
+-->
+
+<mx:states>
+    <mx:State name="ReinitState" />
+    
+    <!-- States for testing SetStyle -->
+    <mx:State name="SetStyle_01">
+        <mx:SetStyle target="{bxSetStyle}" name="backgroundColor" value="0x00ffff" />
+    </mx:State>
+
+    <mx:State name="SetStyle_02">
+        <mx:SetStyle target="{btnSetStyle}" name="fillColors" value="[0x008888,0x008888]" />
+        <mx:SetStyle target="{btnSetStyle}" name="fillAlphas" value="[1,1]" />
+    </mx:State>
+
+</mx:states>
+
+<mx:Box id="bxSetStyle" borderStyle="solid" borderThickness="1" width="10" height="10" />
+<mx:Button id="btnSetStyle" width="10" height="10" />
+
+</mx:Application>

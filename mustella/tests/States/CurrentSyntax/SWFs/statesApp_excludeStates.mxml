@@ -1,0 +1,252 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.core.Container;
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // No, we can't make these on creationComplete in a method.
+    // The number and the text correspond to the test state in which it's used.
+    [Bindable] private var testObject1:Object = {Number:113,String:"one hundred thirteen"};
+    [Bindable] private var testObject2:Object = {Number:114,String:"one hundred fourteen"};
+    [Bindable] private var testObject3:Object = {Number:115,String:"one hundred fifteen"};
+    [Bindable] private var testObject4:Object = {Number:116,String:"one hundred sixteen"};
+    [Bindable] private var testObject5:Object = {Number:117,String:"one hundred seventeen"};
+
+    // These are for testing data binding of a property.
+    [Bindable] public var dc21Year:int = 2013;
+    [Bindable] public var dc22YearA:int = 2015;
+    [Bindable] public var dc22YearB:int = 2017;
+    [Bindable] public var dc23Year:int = 2019;
+
+    // These are for testing the data binding of a style.
+    [Bindable] public var blueShade:uint = 0x0000ff;
+    [Bindable] public var blueShade2:uint = 0x0000ff;
+    [Bindable] public var blueShade3:uint = 0x0000ff;
+    [Bindable] public var redShade:uint = 0xff0000;
+    [Bindable] public var redShade2:uint = 0xff0000;
+    [Bindable] public var redShade3:uint = 0xff0000;
+        
+    // Create some test items of type "Object" for testing.
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+    
+    // Given a container, loops through its children checking IDs.
+    // It defaults to not searching recursively, but you can pass in a 3rd param as true to make it recurse.
+    // Returns true if a child with the given ID is present.
+    // Returns false if not.
+    public function childPresent(theContainer:Container, childID:String, recurse:Boolean = false):Boolean{
+        var i:int;
+        var theChild:Object;
+        var found:Boolean = false;
+        
+        for(i = 0; i < theContainer.numChildren && !found; ++i){
+            theChild = theContainer.getChildAt(i);
+            
+            if(theChild.id == childID){
+                found = true;
+            }else{
+                if(recurse)
+                    if(theChild is Container)
+                        found = childPresent(Container(theChild), childID, recurse);
+            }
+        }
+        
+        return found;
+    }
+
+    // Tells whether the given object is at the specified index in the given container.
+    // Returns true if it is, false if it is not.
+    public function confirmChildIndex(obj:Object, theContainer:Container, idx:int):Boolean{
+        var ret:Boolean = false;
+        var theChildren:Array = theContainer.getChildren();
+        var i:int;
+        
+        for(i = 0; i < theChildren.length; ++i){
+            if(obj === theChildren[i]){
+                if(i == idx){
+                    ret = true;
+                }
+                break;   
+            } 
+        }
+        
+        return ret;        
+    }
+
+
+    // These changeHandler functions are used for event handler testing.
+    private function changeHandler1(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler1"));
+    }
+
+    private function changeHandler2(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler2"));
+    }
+
+    private function changeHandler3(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler3"));
+    }
+
+    // Note that this one accepts an event!
+    public function changeHandler4(e:Event):void{
+        e.target.dispatchEvent(new Event("changeHandler4"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <!-- Base default state -->
+    <mx:State name="defaultState" />
+    
+    <!-- Test states -->
+    <mx:State name="state131" />
+    <mx:State name="state132" />
+    <mx:State name="state133" />
+    <mx:State name="state134" />
+    <mx:State name="state135" />
+    <mx:State name="state136" />
+    <mx:State name="state137" />
+    <mx:State name="state138" />
+    <mx:State name="state139" />
+    <mx:State name="state140" />
+    <mx:State name="state141" />
+    <mx:State name="state142" />
+    <mx:State name="state143" />
+    <mx:State name="state144" />
+    <mx:State name="state145" />
+    <mx:State name="state146" />
+    <mx:State name="state147" />
+    <mx:State name="state148" />
+    <mx:State name="state149" />
+    <mx:State name="state150" />
+    <mx:State name="state151" />
+    <mx:State name="state152" />
+    <mx:State name="state153" />
+    <mx:State name="state154" />
+    <mx:State name="state155" />
+    <mx:State name="state156" />
+    <mx:State name="state157" />
+    <mx:State name="state158" />
+    <mx:State name="state159" />
+</mx:states>
+
+<!-- includeIn, different forms of white space -->
+<comps:DefinedButton id="btn040" includeIn="state132,state133" />
+<comps:DefinedButton id="btn041" includeIn="state135, state136" />
+<comps:DefinedButton id="btn042" includeIn="state138,	state139" />
+<comps:DefinedButton id="btn043" includeIn="[state141,state142]" /> 
+
+<!--
+================================================================================
+excludeFrom
+================================================================================
+-->
+<!-- excludeFrom, basic tests -->
+<comps:DefinedButton id="btn044" excludeFrom="defaultState" />
+<comps:DefinedButton id="btn045" excludeFrom="defaultState" /><!-- state143 -->
+<comps:DefinedButton id="btn046" excludeFrom="defaultState" /><!-- state144 -->
+<comps:DefinedButton id="btn047" excludeFrom="defaultState, state146, state147, state148" />
+
+<!-- excludeFrom, in an array -->
+<mx:DateChooser id="dc24">
+    <mx:dayNames>
+        <fx:Array>
+            <fx:String excludeFrom="state151">a</fx:String><!-- Default is state 150.  Removes "a" when in state 151. -->
+            <fx:String>b</fx:String>
+            <fx:String>c</fx:String>
+            <fx:String>d</fx:String>
+            <fx:String>e</fx:String>
+            <fx:String>f</fx:String>
+            <fx:String>g</fx:String>
+        </fx:Array>
+    </mx:dayNames>
+</mx:DateChooser>
+
+<mx:DateChooser id="dc25">
+    <mx:dayNames>
+        <fx:Array><!-- 152 = "g" present, 153 = no "g", 154 = no "g". -->
+            <fx:String>a</fx:String>
+            <fx:String>b</fx:String>
+            <fx:String>c</fx:String>
+            <fx:String>d</fx:String>
+            <fx:String>e</fx:String>
+            <fx:String>f</fx:String>
+            <fx:String excludeFrom="state153,state154">g</fx:String>
+        </fx:Array>
+    </mx:dayNames>
+</mx:DateChooser>
+
+<mx:DateChooser id="dc26">
+    <mx:dayNames>
+        <fx:Array><!-- 155 = starts with a-b, 156 = starts with b-c, 157 = starts with a-c -->
+            <fx:String excludeFrom="state156">a</fx:String>
+            <fx:String excludeFrom="state157">b</fx:String>
+            <fx:String>c</fx:String>
+            <fx:String>d</fx:String>
+            <fx:String>e</fx:String>
+            <fx:String>f</fx:String>
+            <fx:String>g</fx:String>
+        </fx:Array>
+    </mx:dayNames>
+</mx:DateChooser>
+
+<mx:DateChooser id="dc27">
+    <mx:dayNames>
+        <fx:Array>
+            <fx:String excludeFrom="state159">a</fx:String><!-- Default is state 158 (one items).  Removes "a" when in state 159. -->
+        </fx:Array>
+    </mx:dayNames>
+</mx:DateChooser>
+
+</mx:Application>

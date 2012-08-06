@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/Reparent/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesApp_reparent.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+UIComponents
+================================================================================
+-->
+
+<TestCase testID="uicomponent_controlFromContainerToApp" keywords="[States,includeIn]" description="Reparent a control from a container to the Application.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state176" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx01, 'btn049')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application, 'btn049')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="uicomponent_controlFromAppToContainer" keywords="[States,includeIn]" description="Reparent a control from the Application to a container.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state177" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx02, 'btn050')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application, 'btn050')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="uicomponent_containerWithChildren" keywords="[States,includeIn]" description="Reparent a container with children to another container.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state178" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx03, 'btn051')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx03, 'ck01')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx04, 'bx03')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx04, 'btn051')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx04, 'ck051')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="uicomponent_boxToTabNavigator" keywords="[States,includeIn]" description="Reparent a Box to a TabNavigator.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state179" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application, 'bx05')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx05, 'btn052')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx05, 'ck02')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.tabNav01, 'bx05')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.tabNav01, 'btn052', true)" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.tabNav01, 'ck02', true)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="uicomponent_boxFromTabNavigator" keywords="[States,includeIn]" description="Reparent a Box from a TabNavigator to the App.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state180" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application, 'bx06')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx06, 'btn053')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx06, 'ck03')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.tabNav02, 'bx05', true)" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.tabNav02, 'btn052', true)" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.tabNav02, 'ck02', true)" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="reparentToInvisibleContainer_1" keywords="[States,includeIn]" description="Reparent a visible control into an invisible container.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state181" waitEvent="currentStateChange" />
+        <CompareBitmap target="bx07" url="../Reparent/Baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="reparentToInvisibleContainer_2" keywords="[States,includeIn]" description="Reparent a visible control into an invisible container.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state182" waitEvent="currentStateChange" />
+        <SetProperty target="bx10" propertyName="visible" value="true" waitEvent="show" />
+        <CompareBitmap target="bx09" url="../Reparent/Baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="reparentInvisibleControl_1" keywords="[States,includeIn]" description="Reparent an invisible control into a visible container.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state183" waitEvent="currentStateChange" />
+        <CompareBitmap target="bx11" url="../Reparent/Baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="reparentInvisibleControl_2" keywords="[States,includeIn]" description="Reparent an invisible control into a visible container.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state184" waitEvent="currentStateChange" />
+        <SetProperty target="btn059" propertyName="visible" value="true" waitEvent="show" />
+        <CompareBitmap target="bx13" url="../Reparent/Baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Array elements
+
+================================================================================
+-->
+
+<TestCase testID="arrayElements_moveDataGridColumn_1" keywords="[States,includeIn]" description="Reparent a DataGridColumn fron one DataGrid to another.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state185" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dg01.columns" propertyName="length" value="1" />
+        <AssertPropertyValue target="dg01.columns.0" propertyName="headerText" value="Name1" />
+        <AssertPropertyValue target="dg02.columns" propertyName="length" value="2" />
+        <AssertPropertyValue target="dg02.columns.0" propertyName="headerText" value="Name2" />
+        <AssertPropertyValue target="dg02.columns.1" propertyName="headerText" value="Breed" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_moveDataGridColumn_2" keywords="[States,includeIn]" description="Reparent a DataGridColumn fron one DataGrid to another, then move it back.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state186" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="state186a" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dg03.columns" propertyName="length" value="2" />
+        <AssertPropertyValue target="dg03.columns.0" propertyName="headerText" value="Name1" />
+        <AssertPropertyValue target="dg03.columns.1" propertyName="headerText" value="Breed" />
+        <AssertPropertyValue target="dg04.columns" propertyName="length" value="1" />
+        <AssertPropertyValue target="dg04.columns.0" propertyName="headerText" value="Name2" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_moveACElement_1" keywords="[States,includeIn]" description="Reparent an ArrayCollection element fron one ArrayCollection to another.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state187" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dg05.mx_internal:rendererArray.1.0" propertyName="text" value="Whippet" />
+        <AssertPropertyValue target="dg06.mx_internal:rendererArray.1.0" propertyName="text" value="Vizsla" />
+        <AssertPropertyValue target="dg06.mx_internal:rendererArray.2.0" propertyName="text" value="Whippet" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_moveACElement_2" keywords="[States,includeIn]" description="Reparent an ArrayCollection element fron one ArrayCollection to another, then move it back.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state188" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="state188a" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dg07.mx_internal:rendererArray.1.0" propertyName="text" value="Vizsla" />
+        <AssertPropertyValue target="dg07.mx_internal:rendererArray.2.0" propertyName="text" value="Whippet" />
+        <AssertPropertyValue target="dg08.mx_internal:rendererArray.1.0" propertyName="text" value="Whippet" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_fillColor" keywords="[States,includeIn]" description="Reparent a fillColor using excludeFrom and includeIn.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state187" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn060" styleName="fillColors" valueExpression="value=[0x00ff00]" />
+        <AssertStyleValue target="btn061" styleName="fillColors" valueExpression="value=[0xff0000,0x0000ff]" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_fillColor2" keywords="[States,includeIn]" description="Reparent a fillColor using only includeIn.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state187a" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn060a" styleName="fillColors" valueExpression="value=[0xff0000,0x00ff00]" />
+        <AssertStyleValue target="btn060b" styleName="fillColors" valueExpression="value=[0x0000ff]" />
+        <SetProperty propertyName="currentState" value="state187b" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn060a" styleName="fillColors" valueExpression="value=[0x00ff00]" />
+        <AssertStyleValue target="btn060b" styleName="fillColors" valueExpression="value=[0xff0000,0x0000ff]" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_filter" keywords="[States,includeIn]" description="Reparent a filter.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state189" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn062.filters" propertyName="length" value="1" />
+        <AssertMethodValue method="value = application.btn062.filters[0] is BlurFilter" value="true" />
+        <AssertPropertyValue target="btn063.filters" propertyName="length" value="2" />
+        <AssertMethodValue method="value = application.btn063.filters[0] is GlowFilter" value="true" />
+        <AssertMethodValue method="value = application.btn063.filters[1] is BlurFilter" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_filter_differentControls" keywords="[States,includeIn]" description="Reparent a filter from a Button to a CheckBox.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state189a" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn062a.filters" propertyName="length" value="1" />
+        <AssertMethodValue method="value = application.btn062a.filters[0] is GlowFilter" value="true" />
+        <AssertPropertyValue target="ck04.filters" propertyName="length" value="2" />
+        <AssertMethodValue method="value = application.ck04.filters[0] is GlowFilter" value="true" />
+        <AssertMethodValue method="value = application.ck04.filters[1] is BlurFilter" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="arrayElements_dateChooser" keywords="[States,includeIn]" description="Reparent a day in a DateChooser.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state190" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc28.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="i" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="j" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="k" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="l" />
+        <AssertPropertyValue target="dc29.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="m" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Positioning
+================================================================================
+-->
+<!-- same container -->
+<TestCase testID="sameContainer_firstItemToFirstPosition_above" keywords="[States,includeIn]" description="Within the same container, reparent first item to first position (same place), above.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state191" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn064, application.bx15, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn065, application.bx15, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn066, application.bx15, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_firstItemToFirstPosition_below" keywords="[States,includeIn]" description="Within the same container, reparent first item to first position (same place), below.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state192" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn067, application.bx16, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn068, application.bx16, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn069, application.bx16, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_firstItemToMiddlePosition" keywords="[States,includeIn]" description="Within the same container, reparent first item to middle position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state193" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn071, application.bx17, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn070, application.bx17, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn072, application.bx17, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_firstItemToLastPosition" keywords="[States,includeIn]" description="Within the same container, reparent first item to last position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state194" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn074, application.bx18, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn075, application.bx18, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn073, application.bx18, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_middleItemToFirstPosition" keywords="[States,includeIn]" description="Within the same container, reparent middle item to first position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state195" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn077, application.bx19, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn076, application.bx19, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn078, application.bx19, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_middleItemToMiddlePosition_above" keywords="[States,includeIn]" description="Within the same container, reparent middle item to middle position (same place), above.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state196" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn079, application.bx20, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn080, application.bx20, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn081, application.bx20, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_middleItemToMiddlePosition_below" keywords="[States,includeIn]" description="Within the same container, reparent middle item to middle position (same place), below.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state197" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn082, application.bx21, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn083, application.bx21, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn084, application.bx21, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_middleItemToLastPosition" keywords="[States,includeIn]" description="Within the same container, reparent middle item to last position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state198" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn085, application.bx22, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn087, application.bx22, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn086, application.bx22, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_lastItemToFirstPosition" keywords="[States,includeIn]" description="Within the same container, reparent last item to first position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state199" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn090, application.bx23, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn088, application.bx23, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn089, application.bx23, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_lastItemToMiddlePosition" keywords="[States,includeIn]" description="Within the same container, reparent last item to middle position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state200" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn091, application.bx24, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn093, application.bx24, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn092, application.bx24, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_lastItemToLastPosition_above" keywords="[States,includeIn]" description="Within the same container, reparent last item to last position (same place), above.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state201" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn094, application.bx25, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn095, application.bx25, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn096, application.bx25, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="sameContainer_lastItemToLastPosition_below" keywords="[States,includeIn]" description="Within the same container, reparent last item to last position (same place), below.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state202" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn097, application.bx26, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn098, application.bx26, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn099, application.bx26, 2)" value="true" />
+    </body>
+</TestCase>
+
+<!-- different container -->
+<TestCase testID="newContainer_firstItemToFirstPosition" keywords="[States,includeIn]" description="To a different container, reparent first item to first position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state203" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx27, 'btn100')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn101, application.bx27, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn102, application.bx27, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn100, application.bx28, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn103, application.bx28, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn104, application.bx28, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_firstItemToMiddlePosition" keywords="[States,includeIn]" description="To a different container, reparent first item to middle position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state204" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx29, 'btn105')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn106, application.bx29, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn107, application.bx29, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn108, application.bx30, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn105, application.bx30, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn109, application.bx30, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_firstItemToLastPosition" keywords="[States,includeIn]" description="To a different container, reparent first item to last position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state205" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx31, 'btn110')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn111, application.bx31, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn112, application.bx31, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn113, application.bx32, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn114, application.bx32, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn110, application.bx32, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_middleItemToFirstPosition" keywords="[States,includeIn]" description="To a different container, reparent middle item to first position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state206" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx33, 'btn116')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn115, application.bx33, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn117, application.bx33, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn116, application.bx34, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn118, application.bx34, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn119, application.bx34, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_middleItemToMiddlePosition" keywords="[States,includeIn]" description="To a different container, reparent middle item to middle position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state207" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx35, 'btn121')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn120, application.bx35, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn122, application.bx35, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn123, application.bx36, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn121, application.bx36, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn124, application.bx36, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_middleItemToLastPosition" keywords="[States,includeIn]" description="To a different container, reparent middle item to last position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state208" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx37, 'btn126')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn125, application.bx37, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn127, application.bx37, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn128, application.bx38, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn129, application.bx38, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn126, application.bx38, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_lastItemToFirstPosition" keywords="[States,includeIn]" description="To a different container, reparent last item to first position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state209" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx39, 'btn132')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn130, application.bx39, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn131, application.bx39, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn132, application.bx40, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn133, application.bx40, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn134, application.bx40, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_lastItemToMiddlePosition" keywords="[States,includeIn]" description="To a different container, reparent last item to middle position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state210" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx41, 'btn137')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn135, application.bx41, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn136, application.bx41, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn138, application.bx42, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn137, application.bx42, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn139, application.bx42, 2)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="newContainer_lastItemToLastPosition" keywords="[States,includeIn]" description="To a different container, reparent last item to last position.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state211" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx43, 'btn142')" value="false" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn140, application.bx43, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn141, application.bx43, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn143, application.bx44, 0)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn142, application.bx44, 1)" value="true" />
+        <AssertMethodValue method="value = application.confirmChildIndex(application.btn144, application.bx44, 2)" value="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Multiple Reparents
+================================================================================
+-->
+
+<TestCase testID="multipleReparents_oneControl_manyContainers_1" keywords="[States,includeIn]" description="Reparenting of one contorl to several containers.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state212" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx45, 'btn145')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx46, 'btn145')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx47, 'btn145')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="multipleReparents_oneControl_manyContainers_2" keywords="[States,includeIn]" description="Reparenting of one contorl to several containers (2).">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state213" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx45, 'btn145')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx46, 'btn145')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx47, 'btn145')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="multipleReparents_multipleControls_multipleParents" keywords="[States,includeIn]" description="Multiple reparents in multiple containers.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state214" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx48, 'btn146')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx48, 'btn147')" value="false" />
+        <AssertMethodValue method="value = application.childPresent(application.bx49, 'btn146')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx49, 'btn147')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="multipleReparents_subcontainers_1" keywords="[States,includeIn]" description="Multiple reparents in sub-containers (1).">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state215" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx50, 'btn148')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx51, 'btn149')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx52, 'btn150')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="multipleReparents_subcontainers_2" keywords="[States,includeIn]" description="Multiple reparents in sub-containers (2).">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state216" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx50, 'btn150')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx51, 'btn148')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx52, 'btn149')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="multipleReparents_subcontainers_3" keywords="[States,includeIn]" description="Multiple reparents in sub-containers (3).">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state217" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx50, 'btn149')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx51, 'btn150')" value="true" />
+        <AssertMethodValue method="value = application.childPresent(application.bx52, 'btn148')" value="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Reparent & excludeFrom (This is kind of a funny way to do it, but have a few test
+cases to be sure it works.)
+================================================================================
+-->
+
+<TestCase testID="reparent_excludeFrom_1" keywords="[States,includeIn]" description="Use excludeFrom in the reparent tag (1).">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state218" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx53, 'btn151')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="reparent_excludeFrom_2" keywords="[States,includeIn]" description="Use excludeFrom in the reparent tag (2).">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state219" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = application.childPresent(application.bx54, 'btn151')" value="true" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

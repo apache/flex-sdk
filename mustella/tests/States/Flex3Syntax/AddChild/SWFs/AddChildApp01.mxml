@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" width="800" height="600" xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+<![CDATA[
+
+    import mx.core.*;
+
+    public var oldChildren:Array;
+    
+    // This is an attempt to write a method which will compare the current getChildren()
+    // array to a previous set of children.
+    // The idea is that you set theChildren = getChildren() first, then change, states,
+    // then call this method to see if the changes are correct.  Sample usage:
+    //
+    //     confirmControlDifferences("addedToFront", "TextInput"): Make sure that a TextInput was added at the front.
+    //     confirmControlDifferences("addedToEnd", "TextInput"): Make sure that a TextInput was added at the end.
+    //     confirmControlDifferences("addedBefore", "TextInput", txt1): Make sure that a TextInput was added before txt1.
+    //     confirmControlDifferences("addedAfter", "TextInput", txt1): Make sure that a TextInput was added after txt1.
+    //     confirmControlDifferences("addedAfter", "TextInput", txt1, box1): Make sure that a TextInput was added after txt1, which is in box1.
+    //
+    // The general strategy is to confirm the new one is the right type, and then make sure the rest are the same.
+    //
+    // The motivation for this is to avoid screen shots.
+
+    public function confirmChildrenDiff(action:String, type:String, control:UIComponent = null, container:Container = null):Boolean{
+        var ret:Boolean = false;
+        var newChildren:Array;
+        var i:int;
+
+        if(container)
+        	newChildren = container.getChildren();
+        else
+        	newChildren = getChildren();
+        
+        if(action == "addedToFront"){
+            // Verify the first item, then loop through the rest.
+            if(newChildren[0].className == type){
+                for(i = 0; i < oldChildren.length; ++i){                    
+                    if(oldChildren[i] != newChildren[i + 1]){
+                        break;
+                    }
+                    
+                    if(i == oldChildren.length - 1){
+                        ret = true;
+                    }
+                }
+            }
+        }else if(action == "addedToEnd"){
+            // Verify the last item, then loop through the rest.
+            if(newChildren[newChildren.length - 1].className == type){
+                for(i = 0; i < oldChildren.length; ++i){                    
+                    if(oldChildren[i] != newChildren[i]){
+                        break;
+                    }
+                    
+                    if(i == oldChildren.length - 1){
+                        ret = true;
+                    }
+                }
+            }
+        }else if(action == "addedBefore"){
+			for(i = 0; i < oldChildren.length; ++i){
+				if(oldChildren[i] != newChildren[i]){ // there is a difference.
+					if(newChildren[i].className == type && newChildren[i + 1] === control && oldChildren[i] === control){ // the type is right, and the next control in the list is right.
+						++i;
+						ret = true;
+						break;
+					}else{
+						break; // the difference was the wrong type of in the wrong place relative to control.
+					}
+				}
+			}
+
+			// Now compare the items after the difference.
+			if(ret){
+				for(; i < oldChildren.length; ++i){
+					if(newChildren[i + 1] != oldChildren[i]){
+						ret = false;
+					}
+				}
+			}
+        }else if(action == "addedAfter"){
+        	// Advance until we find a difference.
+        	// Verify the type is right.
+        	// Verify the previous item
+        	for(i = 0; i < newChildren.length; ++i){
+        		if(i >= oldChildren.length || oldChildren[i] != newChildren[i]){ // the new item is at the end of newChildren or there's a difference.
+					if(newChildren[i].className == type && newChildren[i - 1] === control){ // the type is right, and the prev. control in the list is right.
+						++i;
+						ret = true;
+						break;
+					}else{
+						break; // the difference was the wrong type of in the wrong place relative to control.
+					}
+        		}
+        	}
+
+			// Now compare the items after the difference.
+			if(ret){
+				for(; i < oldChildren.length; ++i){
+					if(newChildren[i + 1] != oldChildren[i]){
+						ret = false;
+					}
+				}
+			}
+        }
+                
+        return ret;
+    }
+
+
+
+]]>
+</mx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+<!--
+    State naming convention: 
+        Method_Param_ControlBeingActedUpon_DetailsIfAny_Number
+-->
+
+<mx:states>
+    <mx:State name="ReinitState" />
+
+<!--
+================================================================================
+Integration
+================================================================================
+-->
+    <mx:State name="AddChild_None_TextInput_01" >
+        <mx:AddChild id="addChild9">
+            <mx:TextInput id="tiAddChild_None_TextInput_01" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_None_TextInput_02" >
+        <mx:AddChild id="addChild10">
+            <mx:TextInput id="tiAddChild_None_TextInput_02" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_None_TextInput_03" >
+        <mx:AddChild id="addChild11">
+            <mx:TextInput id="tiAddChild_None_TextInput_03" />
+        </mx:AddChild>
+    </mx:State>
+
+
+<!--
+================================================================================
+targetFactory & creationPolicy
+================================================================================
+-->
+
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_None_01" >
+        <mx:AddChild id="addChild1" targetFactory="mx.controls.TextInput" creationPolicy="none" />
+    </mx:State>
+
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_None_02" >
+        <mx:AddChild id="addChild2" targetFactory="mx.controls.TextInput" creationPolicy="none" />
+    </mx:State>
+
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_None_03" >
+        <mx:AddChild id="addChild3" targetFactory="mx.controls.TextInput" creationPolicy="none" />
+    </mx:State>
+
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_Auto_01" >
+        <mx:AddChild id="addChild4" targetFactory="mx.controls.TextInput" creationPolicy="auto" />
+    </mx:State>
+
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_Auto_02" >
+        <mx:AddChild id="addChild5" targetFactory="mx.controls.TextInput" creationPolicy="auto" />
+    </mx:State>
+         
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_All_01" >
+        <mx:AddChild id="addChild6" targetFactory="mx.controls.TextInput" creationPolicy="all" />
+    </mx:State>
+
+    <mx:State name="AddChild_TargetFactory-CreationPolicy_TextInput_All_02" >
+        <mx:AddChild id="addChild7" targetFactory="mx.controls.TextInput" creationPolicy="all" />
+    </mx:State>
+
+<!--
+================================================================================
+position & relativeTo (PRT)
+================================================================================
+-->
+
+    <mx:State name="AddChild_PRT_TextInput_Default_01" >
+        <mx:AddChild id="addChild8" >
+            <mx:TextInput id="tiAddChild_PRT_TextInput_Default_01" />
+        </mx:AddChild>
+    </mx:State>
+        
+    <mx:State name="AddChild_PRT_TextInput_Before_01" >
+        <mx:AddChild position="before" relativeTo="{btn1}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_Before_01" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_Before_02" >
+        <mx:AddChild position="before" relativeTo="{box1}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_Before_02" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_Before_03" >
+        <mx:AddChild position="before" relativeTo="{btn4}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_Before_03" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_Before_04" >
+        <mx:AddChild position="before" relativeTo="{btn6}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_Before_04" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_After_01" >
+        <mx:AddChild position="after" relativeTo="{btn1}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_After_01" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_After_02" >
+        <mx:AddChild position="after" relativeTo="{box1}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_After_02" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_After_03" >
+        <mx:AddChild position="after" relativeTo="{btn4}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_After_03" />
+        </mx:AddChild>
+    </mx:State>
+    
+    <mx:State name="AddChild_PRT_TextInput_After_04" >
+        <mx:AddChild position="after" relativeTo="{btn6}">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_After_04" />
+        </mx:AddChild>
+    </mx:State>
+
+
+    <mx:State name="AddChild_PRT_TextInput_FirstChild_01" >
+        <mx:AddChild position="firstChild">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_FirstChild_01" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_FirstChild_02" >
+        <mx:AddChild position="firstChild" relativeTo="{box1}" >
+            <mx:TextInput id="tiAddChild_PRT_TextInput_FirstChild_02" />
+        </mx:AddChild>
+    </mx:State>
+
+
+    <mx:State name="AddChild_PRT_TextInput_LastChild_01" >
+        <mx:AddChild position="lastChild">
+            <mx:TextInput id="tiAddChild_PRT_TextInput_LastChild_01" />
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_PRT_TextInput_LastChild_02" >
+        <mx:AddChild position="lastChild" relativeTo="{box1}" >
+            <mx:TextInput id="tiAddChild_PRT_TextInput_LastChild_02" />
+        </mx:AddChild>
+    </mx:State>
+
+
+<!--
+================================================================================
+target
+================================================================================
+-->
+
+    <mx:State name="AddChild_Target_TextInput_01" >
+        <mx:AddChild>
+            <mx:target>
+                <mx:TextInput id="tiAddChild_Target_TextInput_01" />
+            </mx:target>
+        </mx:AddChild>
+    </mx:State>
+
+    <mx:State name="AddChild_Target_TextInput_02" >
+        <mx:AddChild>
+            <mx:target>
+                <mx:TextInput id="tiAddChild_Target_TextInput_02" />
+            </mx:target>
+        </mx:AddChild>
+    </mx:State>
+
+</mx:states>
+
+<mx:Button id="btn1" label="Control 1" />
+<mx:Button id="btn2" label="Control 2" />
+<mx:Button id="btn3" label="Control 3" />
+
+<mx:Box id="box1" borderStyle="solid" borderThickness="1">
+    <mx:Button id="btn4" label="Control 4" />
+    <mx:Button id="btn5" label="Control 5" />
+    <mx:Button id="btn6" label="Control 6" />
+</mx:Box>
+
+</mx:Application>

@@ -1,0 +1,677 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.core.Container;
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // The number and the text correspond to the test state in which it's used.
+    [Bindable] private var testObject1:Object = {Number:113,String:"one hundred thirteen"};
+    [Bindable] private var testObject2:Object = {Number:114,String:"one hundred fourteen"};
+    [Bindable] private var testObject3:Object = {Number:115,String:"one hundred fifteen"};
+    [Bindable] private var testObject4:Object = {Number:116,String:"one hundred sixteen"};
+    [Bindable] private var testObject5:Object = {Number:117,String:"one hundred seventeen"};
+
+    // These are for testing data binding of a property.
+    [Bindable] public var dc21Year:int = 2013;
+    [Bindable] public var dc22YearA:int = 2015;
+    [Bindable] public var dc22YearB:int = 2017;
+    [Bindable] public var dc23Year:int = 2019;
+
+    // These are for testing the data binding of a style.
+    [Bindable] public var blueShade:uint = 0x0000ff;
+    [Bindable] public var blueShade2:uint = 0x0000ff;
+    [Bindable] public var blueShade3:uint = 0x0000ff;
+    [Bindable] public var redShade:uint = 0xff0000;
+    [Bindable] public var redShade2:uint = 0xff0000;
+    [Bindable] public var redShade3:uint = 0xff0000;
+        
+    // Create some test items of type "Object" for testing.
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+    
+    // Given a container, loops through its children checking IDs.
+    // It defaults to not searching recursively, but you can pass in a 3rd param as true to make it recurse.
+    // Returns true if a child with the given ID is present.
+    // Returns false if not.
+    public function childPresent(theContainer:Container, childID:String, recurse:Boolean = false):Boolean{
+        var i:int;
+        var theChild:Object;
+        var found:Boolean = false;
+        
+        for(i = 0; i < theContainer.numChildren && !found; ++i){
+            theChild = theContainer.getChildAt(i);
+            
+            if(theChild.id == childID){
+                found = true;
+            }else{
+                if(recurse)
+                    if(theChild is Container)
+                        found = childPresent(Container(theChild), childID, recurse);
+            }
+        }
+        
+        return found;
+    }
+
+    // Tells whether the given object is at the specified index in the given container.
+    // Returns true if it is, false if it is not.
+    public function confirmChildIndex(obj:Object, theContainer:Container, idx:int):Boolean{
+        var ret:Boolean = false;
+        var theChildren:Array = theContainer.getChildren();
+        var i:int;
+        
+        for(i = 0; i < theChildren.length; ++i){
+            if(obj === theChildren[i]){
+                if(i == idx){
+                    ret = true;
+                }
+                break;   
+            } 
+        }
+        
+        return ret;        
+    }
+
+
+    // These changeHandler functions are used for event handler testing.
+    private function changeHandler1(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler1"));
+    }
+
+    private function changeHandler2(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler2"));
+    }
+
+    private function changeHandler3(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler3"));
+    }
+
+    // Note that this one accepts an event!
+    public function changeHandler4(e:Event):void{
+        e.target.dispatchEvent(new Event("changeHandler4"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <!-- Base default state -->
+    <mx:State name="defaultState" />
+    
+    <!-- Test states -->
+
+    <mx:State name="state176" />
+    <mx:State name="state177" />
+    <mx:State name="state178" />
+    <mx:State name="state179" />
+    <mx:State name="state180" />
+    <mx:State name="state181" />
+    <mx:State name="state182" />
+    <mx:State name="state183" />
+    <mx:State name="state184" />
+    <mx:State name="state185" />
+    <mx:State name="state186" />
+    <mx:State name="state186a" />
+    <mx:State name="state187" />
+    <mx:State name="state187a" />
+    <mx:State name="state187b" />
+    <mx:State name="state188" />
+    <mx:State name="state188a" />
+    <mx:State name="state189" />
+    <mx:State name="state189a" />
+    <mx:State name="state190" />
+    <mx:State name="state191" />
+    <mx:State name="state192" />
+    <mx:State name="state193" />
+    <mx:State name="state194" />
+    <mx:State name="state195" />
+    <mx:State name="state196" />
+    <mx:State name="state197" />
+    <mx:State name="state198" />
+    <mx:State name="state199" />
+    <mx:State name="state200" />
+    <mx:State name="state201" />
+    <mx:State name="state202" />
+    <mx:State name="state203" />
+    <mx:State name="state204" />
+    <mx:State name="state205" />
+    <mx:State name="state206" />
+    <mx:State name="state207" />
+    <mx:State name="state208" />
+    <mx:State name="state209" />
+    <mx:State name="state210" />
+    <mx:State name="state211" />
+    <mx:State name="state212" />
+    <mx:State name="state213" />
+    <mx:State name="state214" />
+    <mx:State name="state215" />
+    <mx:State name="state216" />
+    <mx:State name="state217" />
+    <mx:State name="state218" />
+    <mx:State name="state219" />
+</mx:states>
+
+<!--
+================================================================================
+Reparenting
+================================================================================
+-->
+<mx:Box id="bx01" borderColor="0x000000" borderStyle="solid" >
+    <comps:DefinedButton id="btn049" excludeFrom="state176" />
+</mx:Box>
+<fx:Reparent target="btn049" includeIn="state176" />
+
+<mx:Box id="bx02" borderColor="0x000000" borderStyle="solid" >
+    <fx:Reparent target="btn050" includeIn="state177" />
+</mx:Box>
+<comps:DefinedButton id="btn050" excludeFrom="state177" />
+
+<mx:Box id="bx03" excludeFrom="state178">
+    <comps:DefinedButton id="btn051" />
+    <mx:CheckBox id="ck01" />
+</mx:Box>
+<mx:Box id="bx04">
+    <fx:Reparent target="bx03" includeIn="state178" />
+</mx:Box>
+
+<mx:Box id="bx05" excludeFrom="state179">
+    <comps:DefinedButton id="btn052" />
+    <mx:CheckBox id="ck02" />
+</mx:Box>
+<mx:TabNavigator id="tabNav01">
+    <fx:Reparent target="bx05" includeIn="state179" />
+</mx:TabNavigator>
+
+<mx:TabNavigator id="tabNav02">
+    <mx:Box id="bx06" excludeFrom="state180">
+        <comps:DefinedButton id="btn053" />
+        <mx:CheckBox id="ck03" />
+    </mx:Box>
+</mx:TabNavigator>
+
+<fx:Reparent target="bx06" includeIn="state180" />
+
+<mx:Box id="bx07" borderStyle="solid" borderColor="0x000000">
+    <comps:DefinedButton id="btn054" excludeFrom="state181" />
+    <mx:Box id="bx08" borderStyle="solid" borderColor="0x000000" visible="false" >
+        <fx:Reparent target="btn054" includeIn="state181" />
+    </mx:Box>
+</mx:Box>
+
+<mx:Box id="bx09" borderStyle="solid" borderColor="0x000000">
+    <comps:DefinedButton id="btn055" excludeFrom="state182" />
+    <mx:Box id="bx10" borderStyle="solid" borderColor="0x000000" visible="false" >
+        <fx:Reparent target="btn055" includeIn="state182" />
+    </mx:Box>
+</mx:Box>
+
+<mx:Box id="bx11" borderStyle="solid" borderColor="0x000000">
+    <comps:DefinedButton id="btn057" visible="false" excludeFrom="state183" />
+    <mx:Box id="bx12" borderStyle="solid" borderColor="0x000000">
+        <fx:Reparent target="btn057" includeIn="state183" />
+    </mx:Box>
+</mx:Box>
+
+<mx:Box id="bx13" borderStyle="solid" borderColor="0x000000">
+    <comps:DefinedButton id="btn059" visible="false" excludeFrom="state184" />
+    <mx:Box id="bx14" borderStyle="solid" borderColor="0x000000">
+        <fx:Reparent target="btn059" includeIn="state184" />
+    </mx:Box>
+</mx:Box>
+
+<mx:DataGrid id="dg01">
+    <mx:columns>
+        <mx:DataGridColumn headerText="Name1" dataField="name" />
+        <mx:DataGridColumn id="dgc01" headerText="Breed" dataField="breed" excludeFrom="state185" />
+    </mx:columns>
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Elektra" breed="Vizsla" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+<mx:DataGrid id="dg02">
+    <mx:columns>
+        <mx:DataGridColumn headerText="Name2" dataField="name" />
+        <fx:Reparent target="dgc01" includeIn="state185" />
+    </mx:columns>
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Elektra" breed="Vizsla" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+
+<mx:DataGrid id="dg03">
+    <mx:columns>
+        <mx:DataGridColumn headerText="Name1" dataField="name" />
+        <mx:DataGridColumn id="dgc02" headerText="Breed" dataField="breed" excludeFrom="state186" />
+    </mx:columns>
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Elektra" breed="Vizsla" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+<mx:DataGrid id="dg04">
+    <mx:columns>
+        <mx:DataGridColumn headerText="Name2" dataField="name" />
+        <fx:Reparent target="dgc02" includeIn="state186" />
+    </mx:columns>
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Elektra" breed="Vizsla" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+
+<mx:DataGrid id="dg05">
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Elektra" breed="Vizsla" id="obj01" excludeFrom="state187" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+<mx:DataGrid id="dg06">
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Reparent target="obj01" includeIn="state187" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+
+<mx:DataGrid id="dg07">
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object name="Elektra" breed="Vizsla" id="obj02" excludeFrom="state188" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+<mx:DataGrid id="dg08">
+    <mx:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Reparent target="obj02" includeIn="state188" />
+            <fx:Object name="Ted" breed="Whippet" />
+        </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+
+<comps:DefinedButton id="btn060">
+    <comps:fillColors>
+        <fx:Array>
+            <fx:Number id="num01" excludeFrom="state187">0xff0000</fx:Number>
+            <fx:Number>0x00ff00</fx:Number>
+        </fx:Array>
+    </comps:fillColors>
+</comps:DefinedButton>
+<comps:DefinedButton id="btn061">
+    <comps:fillColors>
+        <fx:Array>
+            <fx:Reparent target="num01" includeIn="state187" />
+            <fx:Number>0x0000ff</fx:Number>
+        </fx:Array>
+    </comps:fillColors>
+</comps:DefinedButton>
+
+<comps:DefinedButton id="btn060a" >
+    <comps:fillColors>
+        <fx:Array>
+            <fx:Number id="num01a" includeIn="state187a">0xff0000</fx:Number>
+            <fx:Number>0x00ff00</fx:Number>
+        </fx:Array>
+    </comps:fillColors>
+</comps:DefinedButton>
+<comps:DefinedButton id="btn060b" >
+    <comps:fillColors>
+        <fx:Array>
+            <fx:Reparent target="num01a" includeIn="state187b" />
+            <fx:Number>0x0000ff</fx:Number>
+        </fx:Array>
+    </comps:fillColors>
+</comps:DefinedButton> 
+
+<mx:Button id="btn062">
+    <mx:filters>
+        <fx:Array>
+            <filters:GlowFilter id="gf01" excludeFrom="state189" />
+            <filters:BlurFilter id="bf01" />
+        </fx:Array>
+    </mx:filters>
+</mx:Button>
+<mx:Button id="btn063">
+    <mx:filters>
+        <fx:Array>
+            <fx:Reparent target="gf01" includeIn="state189" />
+            <filters:BlurFilter id="bf02" />
+        </fx:Array>
+    </mx:filters>
+</mx:Button>
+
+<mx:Text text="look at this:" />
+<mx:Button id="btn062a">
+    <mx:filters>
+        <fx:Array>
+            <filters:GlowFilter id="gf02" />
+            <filters:BlurFilter id="bf03" excludeFrom="state189a" />
+        </fx:Array>
+    </mx:filters>
+</mx:Button>
+<mx:CheckBox id="ck04">
+    <mx:filters>
+        <fx:Array>
+            <filters:GlowFilter id="gf03" />
+            <fx:Reparent target="bf03" includeIn="state189a" />
+        </fx:Array>
+    </mx:filters>
+</mx:CheckBox>
+
+<mx:DateChooser id="dc28">
+    <mx:dayNames>
+        <fx:Array>
+            <fx:String id="s01" excludeFrom="state190">a</fx:String>
+            <fx:String>b</fx:String>
+            <fx:String>c</fx:String>
+            <fx:String>d</fx:String>
+            <fx:String>e</fx:String>
+            <fx:String>f</fx:String>
+            <fx:String>g</fx:String>
+        </fx:Array>
+    </mx:dayNames>
+</mx:DateChooser>
+<mx:DateChooser id="dc29">
+    <mx:dayNames>
+        <fx:Array>
+            <fx:Reparent target="s01" includeIn="state190" />
+            <fx:String>h</fx:String>
+            <fx:String>i</fx:String>
+            <fx:String>j</fx:String>
+            <fx:String>k</fx:String>
+            <fx:String>l</fx:String>
+            <fx:String>m</fx:String>
+        </fx:Array>
+    </mx:dayNames>
+</mx:DateChooser>
+
+<mx:Box id="bx15">
+    <fx:Reparent target="btn064" includeIn="state191" />
+    <comps:DefinedButton id="btn064" excludeFrom="state191" />
+    <comps:DefinedButton id="btn065" />
+    <comps:DefinedButton id="btn066" />
+</mx:Box>
+
+<mx:Box id="bx16">
+    <comps:DefinedButton id="btn067" excludeFrom="state192" />
+    <fx:Reparent target="btn067" includeIn="state192" />
+    <comps:DefinedButton id="btn068" />
+    <comps:DefinedButton id="btn069" />
+</mx:Box>
+
+<mx:Box id="bx17">
+    <comps:DefinedButton id="btn070" excludeFrom="state193" />
+    <comps:DefinedButton id="btn071" />
+    <fx:Reparent target="btn070" includeIn="state193" />
+    <comps:DefinedButton id="btn072" />
+</mx:Box>
+
+<mx:Box id="bx18">
+    <comps:DefinedButton id="btn073" excludeFrom="state194" />
+    <comps:DefinedButton id="btn074"  />
+    <comps:DefinedButton id="btn075" />
+    <fx:Reparent target="btn073" includeIn="state194" />
+</mx:Box>
+
+<mx:Box id="bx19">
+    <fx:Reparent target="btn077" includeIn="state195" />
+    <comps:DefinedButton id="btn076" />
+    <comps:DefinedButton id="btn077" excludeFrom="state195"  />
+    <comps:DefinedButton id="btn078" />
+</mx:Box>
+
+<mx:Box id="bx20">
+    <comps:DefinedButton id="btn079" />
+    <fx:Reparent target="btn080" includeIn="state196" />
+    <comps:DefinedButton id="btn080" excludeFrom="state196"  />
+    <comps:DefinedButton id="btn081" />
+</mx:Box>
+
+<mx:Box id="bx21">
+    <comps:DefinedButton id="btn082" />
+    <comps:DefinedButton id="btn083" excludeFrom="state197"  />
+    <fx:Reparent target="btn083" includeIn="state197" />
+    <comps:DefinedButton id="btn084" />
+</mx:Box>
+
+<mx:Box id="bx22">
+    <comps:DefinedButton id="btn085" />
+    <comps:DefinedButton id="btn086" excludeFrom="state198" />
+    <comps:DefinedButton id="btn087" />
+    <fx:Reparent target="btn086" includeIn="state198" />
+</mx:Box>
+
+<mx:Box id="bx23">
+    <fx:Reparent target="btn090" includeIn="state199" />
+    <comps:DefinedButton id="btn088" />
+    <comps:DefinedButton id="btn089" />
+    <comps:DefinedButton id="btn090" excludeFrom="state199" />
+</mx:Box>
+
+<mx:Box id="bx24">
+    <comps:DefinedButton id="btn091" />
+    <fx:Reparent target="btn093" includeIn="state200" />
+    <comps:DefinedButton id="btn092" />
+    <comps:DefinedButton id="btn093" excludeFrom="state200" />
+</mx:Box>
+
+<mx:Box id="bx25">
+    <comps:DefinedButton id="btn094" />
+    <comps:DefinedButton id="btn095" />
+    <fx:Reparent target="btn096" includeIn="state201" />
+    <comps:DefinedButton id="btn096" excludeFrom="state201" />
+</mx:Box>
+
+<mx:Box id="bx26">
+    <comps:DefinedButton id="btn097" />
+    <comps:DefinedButton id="btn098" />
+    <comps:DefinedButton id="btn099" excludeFrom="state202" />
+    <fx:Reparent target="btn099" includeIn="state202" />
+</mx:Box>
+
+<mx:Box id="bx27">
+    <comps:DefinedButton id="btn100" excludeFrom="state203" />
+    <comps:DefinedButton id="btn101" />
+    <comps:DefinedButton id="btn102" />
+</mx:Box>
+<mx:Box id="bx28">
+    <fx:Reparent target="btn100" includeIn="state203" />
+    <comps:DefinedButton id="btn103" />
+    <comps:DefinedButton id="btn104" />
+</mx:Box>
+
+<mx:Box id="bx29">
+    <comps:DefinedButton id="btn105" excludeFrom="state204" />
+    <comps:DefinedButton id="btn106" />
+    <comps:DefinedButton id="btn107" />
+</mx:Box>
+<mx:Box id="bx30">
+    <comps:DefinedButton id="btn108" />
+    <fx:Reparent target="btn105" includeIn="state204" />
+    <comps:DefinedButton id="btn109" />
+</mx:Box>
+
+<mx:Box id="bx31">
+    <comps:DefinedButton id="btn110" excludeFrom="state205" />
+    <comps:DefinedButton id="btn111" />
+    <comps:DefinedButton id="btn112" />
+</mx:Box>
+<mx:Box id="bx32">
+    <comps:DefinedButton id="btn113" />
+    <comps:DefinedButton id="btn114" />
+    <fx:Reparent target="btn110" includeIn="state205" />
+</mx:Box>
+
+<mx:Box id="bx33">
+    <comps:DefinedButton id="btn115" />
+    <comps:DefinedButton id="btn116" excludeFrom="state206" />
+    <comps:DefinedButton id="btn117" />
+</mx:Box>
+<mx:Box id="bx34">
+    <fx:Reparent target="btn116" includeIn="state206" />
+    <comps:DefinedButton id="btn118" />
+    <comps:DefinedButton id="btn119" />
+</mx:Box>
+
+<mx:Box id="bx35">
+    <comps:DefinedButton id="btn120" />
+    <comps:DefinedButton id="btn121" excludeFrom="state207" />
+    <comps:DefinedButton id="btn122" />
+</mx:Box>
+<mx:Box id="bx36">
+    <comps:DefinedButton id="btn123" />
+    <fx:Reparent target="btn121" includeIn="state207" />
+    <comps:DefinedButton id="btn124" />
+</mx:Box>
+
+<mx:Box id="bx37">
+    <comps:DefinedButton id="btn125" />
+    <comps:DefinedButton id="btn126" excludeFrom="state208" />
+    <comps:DefinedButton id="btn127" />
+</mx:Box>
+<mx:Box id="bx38">
+    <comps:DefinedButton id="btn128" />
+    <comps:DefinedButton id="btn129" />
+    <fx:Reparent target="btn126" includeIn="state208" />
+</mx:Box>
+
+<mx:Box id="bx39">
+    <comps:DefinedButton id="btn130" />
+    <comps:DefinedButton id="btn131" />
+    <comps:DefinedButton id="btn132" excludeFrom="state209" />
+</mx:Box>
+<mx:Box id="bx40">
+    <fx:Reparent target="btn132" includeIn="state209" />
+    <comps:DefinedButton id="btn133" />
+    <comps:DefinedButton id="btn134" />
+</mx:Box>
+
+<mx:Box id="bx41">
+    <comps:DefinedButton id="btn135" />
+    <comps:DefinedButton id="btn136" />
+    <comps:DefinedButton id="btn137" excludeFrom="state210" />
+</mx:Box>
+<mx:Box id="bx42">
+    <comps:DefinedButton id="btn138" />
+    <fx:Reparent target="btn137" includeIn="state210" />
+    <comps:DefinedButton id="btn139" />
+</mx:Box>
+
+<mx:Box id="bx43">
+    <comps:DefinedButton id="btn140" />
+    <comps:DefinedButton id="btn141" />
+    <comps:DefinedButton id="btn142" excludeFrom="state211" />
+</mx:Box>
+<mx:Box id="bx44">
+    <comps:DefinedButton id="btn143" />
+    <fx:Reparent target="btn142" includeIn="state211" />
+    <comps:DefinedButton id="btn144" />
+</mx:Box>
+
+<mx:Box id="bx45" borderStyle="solid" borderColor="0xff0000">
+    <comps:DefinedButton id="btn145" excludeFrom="state212,state213" />
+</mx:Box>
+<mx:Box id="bx46" borderStyle="solid" borderColor="0x00ff00">
+    <fx:Reparent target="btn145" includeIn="state212" />
+</mx:Box>
+<mx:Box id="bx47" borderStyle="solid" borderColor="0x0000ff">
+    <fx:Reparent target="btn145" includeIn="state213" />
+</mx:Box>
+
+<mx:Box id="bx48" borderStyle="solid" borderColor="0xff0000">
+    <comps:DefinedButton id="btn146" excludeFrom="state214" />
+    <comps:DefinedButton id="btn147" excludeFrom="state214" />
+</mx:Box>
+<mx:Box id="bx49" borderStyle="solid" borderColor="0x00ff00">
+    <fx:Reparent target="btn146" includeIn="state214" />
+    <fx:Reparent target="btn147" includeIn="state214" />
+</mx:Box>
+
+<mx:Box id="bx50" borderStyle="solid" borderColor="0x0000ff" width="100" height="100">
+    <comps:DefinedButton id="btn148" includeIn="state215" />
+    <fx:Reparent target="btn150" includeIn="state216" />
+    <fx:Reparent target="btn149" includeIn="state217" />
+    <mx:Box id="bx51" borderStyle="solid" borderColor="0xff0000" width="100%" height="100%">
+        <comps:DefinedButton id="btn149" includeIn="state215" />
+        <fx:Reparent target="btn148" includeIn="state216" />
+        <fx:Reparent target="btn150" includeIn="state217" />
+        <mx:Box id="bx52" borderStyle="solid" borderColor="0x00ff00" width="100%" height="100%">
+            <comps:DefinedButton id="btn150" includeIn="state215" />
+            <fx:Reparent target="btn149" includeIn="state216" />
+            <fx:Reparent target="btn148" includeIn="state217" />
+        </mx:Box>
+    </mx:Box>
+</mx:Box>
+
+<mx:Box id="bx53" borderStyle="solid" borderColor="0xff0000">
+    <comps:DefinedButton id="btn151" includeIn="state218" />
+</mx:Box>
+<mx:Box id="bx54" borderStyle="solid" borderColor="0x00ff00">
+    <fx:Reparent target="btn151" excludeFrom="state218" />
+</mx:Box>
+
+</mx:Application>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/ExcludeFrom/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesApp_excludeStates.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+<testCases>
+
+<!--
+================================================================================
+Basic tests with a basic control (Button)
+================================================================================
+-->
+<TestCase testID="default_1" keywords="[States,excludeFrom]" description="excludeFrom includes the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.childPresent(application, 'btn044', true)" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="default_2" keywords="[States,excludeFrom]" description="excludeFrom includes the default state, change to state not in excludeFrom.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state143" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn045')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="default_3" keywords="[States,excludeFrom]" description="excludeFrom includes the default state, change to state not in excludeFrom, change back to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state144" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn046')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="all" keywords="[States,excludeFrom]" description="excludeFrom includes many states.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state145" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn047')" value="true" />
+        <SetProperty propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn047', true)" value="false" />
+        <SetProperty propertyName="currentState" value="state146" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn047', true)" value="false" />
+        <SetProperty propertyName="currentState" value="state147" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn047', true)" value="false" />
+        <SetProperty propertyName="currentState" value="state148" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.childPresent(application, 'btn047', true)" value="false" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Array
+================================================================================
+-->
+<TestCase testID="props_array_child_1" keywords="[States,excludeFrom]" description="Array property, child node syntax, the first element in the array has one excludeFrom state.  Go to a different state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state150" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_2" keywords="[States,excludeFrom]" description="Array property, child node syntax, the first element in the array has one excludeFrom state.  Go to the excludeFrom state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state151" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc24.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_3" keywords="[States,excludeFrom]" description="Array property, child node syntax, the last element in the array has two excludeFrom states.  Go to a different state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state152" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_4" keywords="[States,excludeFrom]" description="Array property, child node syntax, the last element in the array has two excludeFrom states.  Go to the first excludeFrom state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state153" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_5" keywords="[States,excludeFrom]" description="Array property, child node syntax, the last element in the array has two excludeFrom states.  Go to the second excludeFrom state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state154" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc25.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_6" keywords="[States,excludeFrom]" description="Array property, child node syntax, the first two elements in the array each have an excludeFrom state.  Go to a different state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state155" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_7" keywords="[States,excludeFrom]" description="Array property, child node syntax, the first two elements in the array each have an excludeFrom state.  Go to the first excludeFrom state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state156" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_8" keywords="[States,excludeFrom]" description="Array property, child node syntax, the first two elements in the array each have an excludeFrom state.  Go to the seconde excludeFrom state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state157" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc26.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_9" keywords="[States,excludeFrom]" description="Array property, child node syntax, only one node, it has an excludeState.  Go to another state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state158" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_child_10" keywords="[States,excludeFrom]" description="Array property, child node syntax, only one node, it has an excludeState.  Go to that excludeState.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state159" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc27.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+White Space
+================================================================================
+-->
+<TestCase testID="excludeFrom_whitespace_combinations_1" keywords="[States,excludeFrom]" description="Test commas, no white space, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state132" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state131" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_2" keywords="[States,excludeFrom]" description="Test commas, no white space, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state133" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state131" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_3" keywords="[States,excludeFrom]" description="Test commas and space, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state135" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state134" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_4" keywords="[States,excludeFrom]" description="Test commas and space, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state136" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state134" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_5" keywords="[States,excludeFrom]" description="Test commas and tab, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state138" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state137" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_6" keywords="[States,excludeFrom]" description="Test commas and tab, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state139" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state137" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_7" keywords="[States,excludeFrom]" description="Test array brackets, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state141" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state140" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="excludeFrom_whitespace_combinations_8" keywords="[States,excludeFrom]" description="Test array brackets, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state142" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="statesApp_excludeStates0" />
+        <SetProperty propertyName="currentState" value="state140" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+
+</testCases> 
+</UnitTester>

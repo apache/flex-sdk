@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/Flex3Syntax/AddChild/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AddChildApp01.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+        
+        // Just handy script variables to use in various tests.
+        public var anInt:int = 0;
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+        <!-- The setup sets the app. to a ReinitState, then to the default state.  We need to start each
+             test in a default state, but don't know if the previous test run left us in that state or some other.
+             If it left us in the default state, then we can't reset to the default state and then wait for some 
+             event, because the app. will be in that state and no event will occur.
+             
+             We decide that a control has been added if it has a parent (instead of parent being null).
+
+             Needed: 
+                 - Some basic sanity tests.  e.g. Prove that a control, when parented, really appears.
+                 - Mutliple controls in a state.
+                 - No controls in a state.
+                 - AddChild and other actions, such as RemoveChild, in a state (put in Integration).
+        -->
+
+<!--
+================================================================================
+creationPolicy and targetFactory
+================================================================================
+-->
+
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_None_01a" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild does not create the control when creationPolicy is 'none'.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+               <AssertPropertyValue target="addChild1" propertyName="target" value="null" />
+             </body>
+        </TestCase>
+
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_None_02" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild creates the control when creationPolicy is 'none' and createInstance() is called.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+               <RunCode code="Application.application.addChild2.createInstance()" />
+               <AssertPropertyValue target="addChild2.target" propertyName="parent" value="null" />
+             </body>
+        </TestCase>
+
+        <!-- This can only be tested by calling createInstance() before changing the state due to bug SDK-14966. -->
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_None_03" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild creates the control and parents it when creationPolicy is 'none', createInstance() is called, and then the state is changed.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+               <RunCode code="Application.application.addChild3.createInstance()" />
+               <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_TargetFactory-CreationPolicy_TextInput_None_03" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+               <AssertPropertyValue target="addChild3.target" propertyName="parent" value="AddChildApp01_0" />
+             </body>
+        </TestCase>
+
+        <!-- Fails due to SDK-14992
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_Auto_01" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild does not create the control before AddChild is called if creationPolicy is 'auto'.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body></body>
+               <AssertPropertyValue target="addChild4" propertyName="target" value="null" />
+             </body>
+        </TestCase>
+         -->
+
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_Auto_02" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild creates the control if creationPolicy is 'auto'.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+               <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_TargetFactory-CreationPolicy_TextInput_Auto_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+               <AssertPropertyValue target="addChild5.target" propertyName="parent" value="AddChildApp01_0" />
+             </body>
+        </TestCase>
+
+        <!-- Note: If we can get the target's parent, then we know the target isn't null...kill 2 birds. -->
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_All_01" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild creates the control before AddChild is called if creationPolicy is 'all'.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+               <AssertPropertyValue target="addChild6.target" propertyName="parent" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AddChild_TargetFactory-CreationPolicy_TextInput_All_02" keywords="[States,AddChild]" description="Confirm that the TargetFactory indicated by AddChild has created the control and parented it after swtiching states when the creationPolicy is 'all'.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+               <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_TargetFactory-CreationPolicy_TextInput_All_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+               <AssertPropertyValue target="addChild7.target" propertyName="parent" value="AddChildApp01_0" />
+            </body>
+        </TestCase>
+
+<!--
+================================================================================
+position & relativeTo (PRT)
+================================================================================
+-->
+
+<TestCase testID="AddChild_PRT_TextInput_Default_01" keywords="[States,AddChild]" description="Defaults should be 'lastChild' and the parent of the State object.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_Default_01" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedToEnd', 'TextInput')" value="true" />
+    </body>
+</TestCase>
+
+<!-- TODO for these next 2 tests: Programmatically determine the first and last child instead of hard coding. -->
+<TestCase testID="AddChild_PRT_TextInput_Before_01" keywords="[States,AddChild]" description="Before the first item.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_Before_01" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedBefore', 'TextInput', Application.application.btn1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_Before_02" keywords="[States,AddChild]" description="Before the last item.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_Before_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedBefore', 'TextInput', Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_Before_03" keywords="[States,AddChild]" description="Before the first item in a container.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.box1.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_Before_03" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedBefore', 'TextInput', Application.application.btn4, Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_Before_04" keywords="[States,AddChild]" description="Before the last item in a container.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.box1.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_Before_04" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedBefore', 'TextInput', Application.application.btn6, Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_After_01" keywords="[States,AddChild]" description="After the first item.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_After_01" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedAfter', 'TextInput', Application.application.btn1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_After_02" keywords="[States,AddChild]" description="After the last item.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_After_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedAfter', 'TextInput', Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_After_03" keywords="[States,AddChild]" description="After the first item in a container.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.box1.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_After_03" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedAfter', 'TextInput', Application.application.btn4, Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_After_04" keywords="[States,AddChild]" description="After the last item in a container.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.box1.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_After_04" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedAfter', 'TextInput', Application.application.btn6, Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_FirstChild_01" keywords="[States,AddChild]" description="The first child in the main app.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_FirstChild_01" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedToFront', 'TextInput')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_FirstChild_02" keywords="[States,AddChild]" description="The first child in a container.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.box1.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_FirstChild_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedToFront', 'TextInput', null, Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_LastChild_01" keywords="[States,AddChild]" description="The last child in the main app.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_LastChild_01" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedToEnd', 'TextInput')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="AddChild_PRT_TextInput_LastChild_02" keywords="[States,AddChild]" description="The last child in a container.">
+    <setup>
+        <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <RunCode code="Application.application.oldChildren = Application.application.box1.getChildren()" />
+        <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_PRT_TextInput_LastChild_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value = Application.application.confirmChildrenDiff('addedToEnd', 'TextInput', null, Application.application.box1)" value="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+target
+================================================================================
+-->
+        <TestCase testID="AddChild_Target_TextInput_01" keywords="[States,AddChild]" description="Confirm that the target added by AddChild exists, but does not have a parent, before AddChild is called if the 'target' is set.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tiAddChild_Target_TextInput_01" propertyName="parent" valueExpression="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AddChild_Target_TextInput_02" keywords="[States,AddChild]" description="Confirm that the target added by AddChild is now parented after changing states.">
+            <setup>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="ReinitState" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <SetProperty target="{Application.application}" propertyName="currentState" value="" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+                <SetProperty target="{Application.application}" propertyName="currentState" value="AddChild_Target_TextInput_02" waitTarget="{Application.application}" waitEvent="currentStateChange" />
+                <AssertPropertyValue target="tiAddChild_Target_TextInput_02" propertyName="parent" value="AddChildApp01_0" />
+            </body>
+        </TestCase>
+
+
+<!--
+-->
+	</testCases>                	     
+</UnitTester>

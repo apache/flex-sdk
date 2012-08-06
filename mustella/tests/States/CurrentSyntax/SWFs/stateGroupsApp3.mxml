@@ -1,0 +1,46 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+
+    import mx.events.StateChangeEvent;
+
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "state1"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+]]>
+</fx:Script>
+
+<!--
+================================================================================
+This app has only one state, and it is in multiple groups.
+================================================================================
+-->
+<mx:states>
+    <mx:State name="state1" stateGroups="G1,G2,G3,G4,G5" />
+</mx:states>
+
+<comps:DefinedButton id="btn1" label.G1="a" />
+<comps:DefinedButton id="btn2" label.G2="b" />
+<comps:DefinedButton id="btn3" label.G3="c" />
+<comps:DefinedButton id="btn4" label.G4="d" />
+<comps:DefinedButton id="btn5" label.G5="e" />
+<comps:DefinedButton id="btn6" label.state1="f" />
+
+</mx:Application>

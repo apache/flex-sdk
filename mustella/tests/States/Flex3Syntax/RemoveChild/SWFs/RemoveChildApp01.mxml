@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  width="800" height="600" xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+<![CDATA[
+
+    import mx.core.*;
+
+    public var oldChildren:Array;
+
+    public function confirmChildRemoval(control:UIComponent, container:Container = null):Boolean{
+        var ret:Boolean = false;
+        var newChildren:Array;
+        var i:int;
+
+		// Be sure there is no parent.
+		if(!control.parent){
+	        
+	        if(container)
+	        	newChildren = container.getChildren();
+	        else
+	        	newChildren = getChildren();
+	
+			// Confirm before and up to the control.
+			for(i = 0; i < oldChildren.length; ++i){
+				if(oldChildren[i] != newChildren[i] || oldChildren[i] === control){
+					ret = true;
+					break;
+				}
+	        }
+	        
+	        // Confirm after the control.
+   			for(; i < oldChildren.length; ++i){
+   				if(oldChildren[i + 1] != newChildren[i]){
+   					ret = false;
+   					break;
+   				}
+   			}
+
+	 	}
+
+		return ret;
+    }
+]]>
+</mx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+<mx:states>
+    <mx:State name="ReinitState" />
+
+    <mx:State name="RemoveChild_01" >
+        <mx:RemoveChild target="{btn1}" />
+    </mx:State>
+
+    <mx:State name="RemoveChild_02" >
+        <mx:RemoveChild target="{btn4}" />
+    </mx:State>
+
+    <mx:State name="RemoveChild_03" >
+        <mx:RemoveChild target="{box1}" />
+    </mx:State>
+
+</mx:states>
+
+<mx:Button id="btn1" label="Control 1" />
+<mx:Button id="btn2" label="Control 2" />
+<mx:Button id="btn3" label="Control 3" />
+
+<mx:Box id="box1" borderStyle="solid" >
+    <mx:Button id="btn4" label="Control 4" />
+    <mx:Button id="btn5" label="Control 5" />
+    <mx:Button id="btn6" label="Control 6" />
+</mx:Box>
+
+</mx:Application>

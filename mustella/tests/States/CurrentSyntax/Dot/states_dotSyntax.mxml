@@ -1,0 +1,2973 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/Dot/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesApp_dotSyntax.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+       	import mx.controls.sliderClasses.SliderThumb;
+
+        use namespace mx_internal;
+        
+        public var theThumb:SliderThumb;
+	]]>
+	</mx:Script>
+
+	<testCases>
+<!--
+================================================================================ 
+Properties
+String property, inline
+================================================================================ 
+-->
+<TestCase testID="props_string_dot_1" keywords="[States,Dot]" description="String property, dot syntax, only the dot syntax has a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state012" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn008" propertyName="label" value="012" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_2" keywords="[States,Dot]" description="String property, dot syntax, only the dot syntax has a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state013" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn008" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_3" keywords="[States,Dot]" description="String property, dot syntax with default too, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state014" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn009" propertyName="label" value="014" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_4" keywords="[States,Dot]" description="String property, dot syntax with default too, go to the dotted property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state015" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn009" propertyName="label" value="015" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_5" keywords="[States,Dot]" description="String property, multiple dot syntax, go to the some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state016" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn010" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_6" keywords="[States,Dot]" description="String property, multiple dot syntax, go to the first dotted property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state017" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn010" propertyName="label" value="017" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_7" keywords="[States,Dot]" description="String property, multiple dot syntax, go to the second dotted property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state018" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn010" propertyName="label" value="018" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_8" keywords="[States,Dot]" description="String property, multiple dot syntax with default too, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state019" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn011" propertyName="label" value="019" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_9" keywords="[States,Dot]" description="String property, multiple dot syntax with default too, go to the first dotted property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state020" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn011" propertyName="label" value="020" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_dot_10" keywords="[States,Dot]" description="String property, multiple dot syntax with default too, go to the second dotted property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state021" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn011" propertyName="label" value="021" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+String property, child node
+================================================================================ 
+-->
+<TestCase testID="props_string_child_stateSpecific_1" keywords="[States,Dot]" description="String property, state-specific child node syntax, default." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state022" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn012" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_stateSpecific_2" keywords="[States,Dot]" description="String property, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state023" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn012" propertyName="label" value="023" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_child_stateSpecific_3" keywords="[States,Dot]" description="String property, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state024" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn013" propertyName="label" value="024" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_child_stateSpecific_4" keywords="[States,Dot]" description="String property, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state025" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn013" propertyName="label" value="025" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_child_stateSpecific_5" keywords="[States,Dot]" description="String property, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state026" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn013a" propertyName="label" value="026" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_string_child_stateSpecific_6" keywords="[States,Dot]" description="String property, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state027" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn013a" propertyName="label" value="027" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Array property, inline
+================================================================================ 
+-->
+<!-- For testing arrays, use DateChooser and verify the text fields for the days. -->
+<TestCase testID="props_array_dot_1" keywords="[States,Dot]" description="Array property, dot syntax, one dot syntax has a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state026" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="S" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="M" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="W" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="F" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="S" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_2" keywords="[States,Dot]" description="Array property, dot syntax, one dot syntax has a state, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state027" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_3" keywords="[States,Dot]" description="Array property, dot syntax, default defined, one dot syntax with a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state028" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_4" keywords="[States,Dot]" description="Array property, dot syntax, default defined, one dot syntax with a state, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state029" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="i" />
+        <AssertPropertyValue target="dc02.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="j" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_5" keywords="[States,Dot]" description="Array property, dot syntax, two dot syntaxes with states, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state030" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="S" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="M" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="W" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="F" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="S" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_6" keywords="[States,Dot]" description="Array property, dot syntax, two dot syntaxes with states, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state031" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_7" keywords="[States,Dot]" description="Array property, dot syntax, two dot syntaxes with states, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state032" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="i" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="j" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc03.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_8" keywords="[States,Dot]" description="Array property, dot syntax, default defined, two dot syntaxes with states, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state033" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_9" keywords="[States,Dot]" description="Array property, dot syntax, default defined, two dot syntaxes with states, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state034" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="i" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="j" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_dot_10" keywords="[States,Dot]" description="Array property, dot syntax, default defined, two dot syntaxes with states, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state035" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="k" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="l" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="m" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="n" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc04.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Array property, child nodes 
+================================================================================
+-->
+<TestCase testID="props_array_childNode_1" keywords="[States,Dot]" description="Array property, child node syntax, one state-specific property, go to default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state036" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="S" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="M" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="W" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="F" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="S" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_2" keywords="[States,Dot]" description="Array property, child node syntax, one state-specific property, go to property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state037" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc05.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_3" keywords="[States,Dot]" description="Array property, child node syntax, one state-specific property and a default, go to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state038" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_4" keywords="[States,Dot]" description="Array property, child node syntax, one state-specific property and a default, go to property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state039" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="i" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="j" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="k" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="l" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="m" />
+        <AssertPropertyValue target="dc06.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="n" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_5" keywords="[States,Dot]" description="Array property, child node syntax, two state-specific properties, go to first property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state040" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_6" keywords="[States,Dot]" description="Array property, child node syntax, two state-specific properties, go to second property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state041" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="i" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="j" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="k" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="l" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="m" />
+        <AssertPropertyValue target="dc07.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="n" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_7" keywords="[States,Dot]" description="Array property, child node syntax, one element at the beginning of the array is state-specific, go to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state042" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_8" keywords="[States,Dot]" description="Array property, child node syntax, one element at the beginning of the array is state-specific, go to that property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state043" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc08.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_9" keywords="[States,Dot]" description="Array property, child node syntax, one element at the end of the array is state-specific with 2 states, go to the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state044" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_9a" keywords="[States,Dot]" description="Array property, child node syntax, one element at the end of the array is state-specific with 2 states, go to its first state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state045" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_10" keywords="[States,Dot]" description="Array property, child node syntax, one element at the end of the array is state-specific with 2 states, go to its second state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state046" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc09.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_11" keywords="[States,Dot]" description="Array property, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to a default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state047" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="h" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_12" keywords="[States,Dot]" description="Array property, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state048" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="h" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_13" keywords="[States,Dot]" description="Array property, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state049" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="b" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="c" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="d" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="e" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="f" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="g" />
+        <AssertPropertyValue target="dc10.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="h" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_14" keywords="[States,Dot]" description="Array property, child node syntax, the one and only element in the array is state-specific, go to a default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state050" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_15" keywords="[States,Dot]" description="Array property, child node syntax, the one and only element in the array is state-specific, go to its state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state051" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc11.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_16" keywords="[States,Dot]" description="Array property, child node syntax, array and its element each have the same state specified, go to neither's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state052" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="S" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="M" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="W" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="T" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="F" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="S" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_array_childNode_17" keywords="[States,Dot]" description="Array property, child node syntax, array and its element each have the same state specified, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state053" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="a" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.1.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.2.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.3.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.4.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.5.0" propertyName="text" value="" />
+        <AssertPropertyValue target="dc12.mx_internal:dateGrid.mx_internal:dayBlocksArray.6.0" propertyName="text" value="" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Boolean properties, inline 
+================================================================================ 
+-->
+<TestCase testID="props_boolean_dot_1" keywords="[States,Dot]" description="Boolean property, dot syntax is true.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state055" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn014" propertyName="label" value="T" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_dot_2" keywords="[States,Dot]" description="Boolean property, dot syntax is false.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state056" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn015" propertyName="label" value="F" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_dot_3" keywords="[States,Dot]" description="Boolean property, default is true, dot syntax is false, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state057" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn016" propertyName="label" value="T" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_dot_4" keywords="[States,Dot]" description="Boolean property, default is true, dot syntax is false, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state058" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn016" propertyName="label" value="F" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_dot_5" keywords="[States,Dot]" description="Boolean property, one dot syntax is true, the other is false, trigger default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state059" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn017" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_dot_6" keywords="[States,Dot]" description="Boolean property, one dot syntax is true, the other is false, trigger first dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state060" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn017" propertyName="label" value="F" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_dot_7" keywords="[States,Dot]" description="Boolean property, one dot syntax is true, the other is false, trigger second dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state061" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn017" propertyName="label" value="T" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+Boolean properties, child node
+================================================================================
+-->
+<TestCase testID="props_boolean_child_stateSpecific_1" keywords="[States,Dot]" description="Boolean property, state-specific child node syntax, state declared on property, go to a different state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state062" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn018" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_child_stateSpecific_2" keywords="[States,Dot]" description="Boolean property, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state063" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn018" propertyName="label" value="T" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_child_stateSpecific_3" keywords="[States,Dot]" description="Boolean property, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state064" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn019" propertyName="label" value="T" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_child_stateSpecific_4" keywords="[States,Dot]" description="Boolean property, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state065" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn019" propertyName="label" value="F" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_child_stateSpecific_5" keywords="[States,Dot]" description="Boolean property, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state066" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn020" propertyName="label" value="T" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_boolean_child_stateSpecific_6" keywords="[States,Dot]" description="Boolean property, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state067" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn020" propertyName="label" value="F" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Class property, inline
+================================================================================
+-->
+<TestCase testID="props_class_dot_1" keywords="[States,Dot]" description="Class property, one dot syntax, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state076" waitTarget="hs001" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs001.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008800" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_dot_2" keywords="[States,Dot]" description="Class property, two dot syntaxes, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state077" waitTarget="hs002" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs002.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008800" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_dot_3" keywords="[States,Dot]" description="Class property, two dot syntaxes, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state078" waitTarget="hs002" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs002.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x880000" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_dot_4" keywords="[States,Dot]" description="Class property, two dot syntaxes, and a default, go to the default's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state079" waitEvent="currentStateChange" />
+        <AssertNoEvent target="hs003" eventName="updateComplete" eventClass="mx.event::FlexEvent" />
+        <RunCode code="theThumb = application.hs003.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008800" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_dot_5" keywords="[States,Dot]" description="Class property, two dot syntaxes, and a default, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state080" waitTarget="hs003" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs003.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x880000" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_dot_6" keywords="[States,Dot]" description="Class property, two dot syntaxes, and a default, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state081" waitTarget="hs003" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs003.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008888" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Class property, child node
+================================================================================
+-->
+<TestCase testID="props_class_child_stateSpecific_1" keywords="[States,Dot]" description="Class property, state-specific child node syntax, default." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state082" waitEvent="currentStateChange" />
+        <AssertNoEvent target="hs004" eventName="updateComplete" eventClass="mx.event::FlexEvent" />
+        <RunCode code="theThumb = application.hs004.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0xF0F0F0" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_stateSpecific_2" keywords="[States,Dot]" description="Class property, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state083" waitTarget="hs004" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs004.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008800" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_child_stateSpecific_3" keywords="[States,Dot]" description="Class property, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state084" waitEvent="currentStateChange" />
+        <AssertNoEvent target="hs005" eventName="updateComplete" eventClass="mx.event::FlexEvent" />
+        <RunCode code="theThumb = application.hs005.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008800" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_child_stateSpecific_4" keywords="[States,Dot]" description="Class property, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state085" waitTarget="hs005" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs005.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x880000" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_child_stateSpecific_5" keywords="[States,Dot]" description="Class property, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state086" waitTarget="hs006" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs006.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x008800" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_class_child_stateSpecific_6" keywords="[States,Dot]" description="Class property, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state087" waitTarget="hs006" waitEvent="updateComplete" />
+        <RunCode code="theThumb = application.hs006.getThumbAt(0)" />
+        <AssertPixelValue target="script:theThumb" x="7" y="7" value="0x880000" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Int property, inline
+================================================================================
+-->
+
+<TestCase testID="props_int_dot_1" keywords="[States,Dot]" description="Int property, dot syntax, one dot syntax, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state089" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc15.mx_internal:yearDisplay" propertyName="text" value="2089" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_dot_2" keywords="[States,Dot]" description="Int property, dot syntax, one dot syntax and default, go to the default's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state090" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc16.mx_internal:yearDisplay" propertyName="text" value="2090" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_dot_3" keywords="[States,Dot]" description="Int property, dot syntax, one dot syntax and default, go to the dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state091" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc16.mx_internal:yearDisplay" propertyName="text" value="2091" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_dot_4" keywords="[States,Dot]" description="Int property, dot syntax, two dot syntaxes, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state092" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc17.mx_internal:yearDisplay" propertyName="text" value="2092" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_dot_5" keywords="[States,Dot]" description="Int property, dot syntax, two dot syntaxes, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state093" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc17.mx_internal:yearDisplay" propertyName="text" value="2093" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Int property, child node
+================================================================================
+-->
+<TestCase testID="props_int_child_stateSpecific_1" keywords="[States,Dot]" description="Int property, state-specific child node syntax, state declared on property, go to default." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state062" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc18.mx_internal:yearDisplay" propertyName="text" valueExpression="value=new Date().fullYear" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_child_stateSpecific_2" keywords="[States,Dot]" description="Int property, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state063" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc18.mx_internal:yearDisplay" propertyName="text" value="2063" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_child_stateSpecific_3" keywords="[States,Dot]" description="Int property, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state064" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc19.mx_internal:yearDisplay" propertyName="text" value="2064" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_child_stateSpecific_4" keywords="[States,Dot]" description="Int property, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state065" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc19.mx_internal:yearDisplay" propertyName="text" value="2065" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_child_stateSpecific_5" keywords="[States,Dot]" description="Int property, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state066" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc20.mx_internal:yearDisplay" propertyName="text" value="2066" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_int_child_stateSpecific_6" keywords="[States,Dot]" description="Int property, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state067" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc20.mx_internal:yearDisplay" propertyName="text" value="2067" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Number property, inline
+================================================================================
+-->
+<TestCase testID="props_number_dot_1" keywords="[States,Dot]" description="Number property, dot syntax, one dot syntax, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state101" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn025" propertyName="label" value="101" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_dot_2" keywords="[States,Dot]" description="Number property, dot syntax, one dot syntax and default, go to default's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state102" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn026" propertyName="label" value="102" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_dot_3" keywords="[States,Dot]" description="Number property, dot syntax, one dot syntax and default, go to the dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state103" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn026" propertyName="label" value="103" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_dot_4" keywords="[States,Dot]" description="Number property, dot syntax, two dot syntaxes, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state104" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn027" propertyName="label" value="104" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_dot_5" keywords="[States,Dot]" description="Number property, dot syntax, two dot syntaxes, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state105" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn027" propertyName="label" value="105" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+Number property, child node
+================================================================================
+-->
+<TestCase testID="props_number_child_stateSpecific_1" keywords="[States,Dot]" description="Number property, state-specific child node syntax, state declared on property, go to default." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state106" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn028" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_child_stateSpecific_2" keywords="[States,Dot]" description="Number property, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state107" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn028" propertyName="label" value="107" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_child_stateSpecific_3" keywords="[States,Dot]" description="Number property, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state108" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn029" propertyName="label" value="108" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_child_stateSpecific_4" keywords="[States,Dot]" description="Number property, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state109" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn029" propertyName="label" value="109" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_child_stateSpecific_5" keywords="[States,Dot]" description="Number property, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state110" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn030" propertyName="label" value="110" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_number_child_stateSpecific_6" keywords="[States,Dot]" description="Number property, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state111" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn030" propertyName="label" value="111" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Object property, child node
+================================================================================
+-->
+<TestCase testID="props_object_dot_1" keywords="[States,Dot]" description="Object property, dot syntax, one dot syntax, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state113" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn031" propertyName="label" value="113-one hundred thirteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_dot_2" keywords="[States,Dot]" description="Object property, dot syntax, one dot syntax and default, go to default's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state114" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn032" propertyName="label" value="114-one hundred fourteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_dot_3" keywords="[States,Dot]" description="Object property, dot syntax, one dot syntax and default, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state115" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn032" propertyName="label" value="115-one hundred fifteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_dot_4" keywords="[States,Dot]" description="Object property, dot syntax, two dot syntaxes, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state116" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn033" propertyName="label" value="116-one hundred sixteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_dot_5" keywords="[States,Dot]" description="Object property, dot syntax, two dot syntaxes, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state117" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn033" propertyName="label" value="117-one hundred seventeen" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+Object property, child node
+================================================================================
+-->
+<TestCase testID="props_object_child_stateSpecific_1" keywords="[States,Dot]" description="Object property, state-specific child node syntax, state declared on property, go to default." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state118" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn034" propertyName="label" value="" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_child_stateSpecific_2" keywords="[States,Dot]" description="Object property, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state119" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn034" propertyName="label" value="119-one hundred nineteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_child_stateSpecific_3" keywords="[States,Dot]" description="Object property, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state120" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn035" propertyName="label" value="120-one hundred twenty" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_child_stateSpecific_4" keywords="[States,Dot]" description="Object property, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state121" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn035" propertyName="label" value="121-one hundred twenty-one" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_child_stateSpecific_5" keywords="[States,Dot]" description="Object property, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state122" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn036" propertyName="label" value="122-one hundred twenty-two" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_object_child_stateSpecific_6" keywords="[States,Dot]" description="Object property, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state123" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn036" propertyName="label" value="123-one hundred twenty-three" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+Data binding a property, dot syntax
+================================================================================
+-->
+
+<TestCase testID="props_databinding_dot_1" keywords="[States,Dot]" description="Data binding property, dot syntax, default and a state, invoke the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state123" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc21.mx_internal:yearDisplay" propertyName="text" value="2000" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_2" keywords="[States,Dot]" description="Data binding property, dot syntax, default and a state with data binding, invoke the test state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state124" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc21.mx_internal:yearDisplay" propertyName="text" value="2013" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_3" keywords="[States,Dot]" description="Data binding property, dot syntax, default and a state with data binding, invoke the test state and change the value the year is bound to.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state124" waitEvent="currentStateChange" />
+        <RunCode code="application.dc21Year = 2021" waitTarget="dc21" waitEvent="updateComplete" />
+        <AssertPropertyValue target="dc21.mx_internal:yearDisplay" propertyName="text" value="2021" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_4" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states with data binding, invoke the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state125" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc22.mx_internal:yearDisplay" propertyName="text" value="2001" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_5" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states with data binding, invoke the first test state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state126" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc22.mx_internal:yearDisplay" propertyName="text" value="2015" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_6" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states with data binding, invoke the first test state and change the value the year is bound to.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state126" waitEvent="currentStateChange" />
+        <RunCode code="application.dc22YearA = 2027" waitTarget="dc22" waitEvent="updateComplete" />
+        <AssertPropertyValue target="dc22.mx_internal:yearDisplay" propertyName="text" value="2027" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_7" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states with data binding, invoke the second test state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state127" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc22.mx_internal:yearDisplay" propertyName="text" value="2017" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_8" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states with data binding, invoke the first test state and change the value the year is bound to.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state127" waitEvent="currentStateChange" />
+        <RunCode code="application.dc22YearB = 2029" waitTarget="dc22" waitEvent="updateComplete" />
+        <AssertPropertyValue target="dc22.mx_internal:yearDisplay" propertyName="text" value="2029" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_10a" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state128" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc23.mx_internal:yearDisplay" propertyName="text" value="2002" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_10b" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the hard coded one.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state129" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc23.mx_internal:yearDisplay" propertyName="text" value="2050" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_11" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the data binding one.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state130" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="dc23.mx_internal:yearDisplay" propertyName="text" value="2019" />
+    </body>
+</TestCase>
+
+<TestCase testID="props_databinding_dot_12" keywords="[States,Dot]" description="Data binding property, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the data binding one and change the value the year is bound to." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state130" waitEvent="currentStateChange" />
+        <RunCode code="application.dc23Year = 2023" waitTarget="dc23" waitEvent="updateComplete" />
+        <AssertPropertyValue target="dc23.mx_internal:yearDisplay" propertyName="text" value="2023" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Styles
+We are just going to test these by using getStyle() on styles which have been
+created in the custom component instead of doing bitmap compares.
+================================================================================
+-->
+<!-- Number style, dot syntax -->
+<TestCase testID="styles_number_dot_1" keywords="[States,Dot]" description="Number style defined for a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state257" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn163" styleName="testNumberStyle" value="257" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_dot_2" keywords="[States,Dot]" description="Number style, default is set, dot syntax is different, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state258" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn164" styleName="testNumberStyle" value="258" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_dot_3" keywords="[States,Dot]" description="Number style, default is true, dot syntax is false, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state259" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn164" styleName="testNumberStyle" value="259" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_dot_4" keywords="[States,Dot]" description="Number style, two dot syntaxes set, trigger the first.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state260" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn165" styleName="testNumberStyle" value="260" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_dot_5" keywords="[States,Dot]" description="Number style, two dot syntaxes set, trigger the second.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state261" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn165" styleName="testNumberStyle" value="261" />
+    </body>
+</TestCase>
+
+<!-- Number style, child node syntax -->
+<TestCase testID="styles_number_child_stateSpecific_1" keywords="[States,Dot]" description="Number style, state-specific child node syntax, state declared on property, go to a different state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state262" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn166" styleName="testNumberStyle" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_child_stateSpecific_2" keywords="[States,Dot]" description="Number style, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state263" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn166" styleName="testNumberStyle" value="263" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_child_stateSpecific_3" keywords="[States,Dot]" description="Number style, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state264" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn167" styleName="testNumberStyle" value="264" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_child_stateSpecific_4" keywords="[States,Dot]" description="Number style, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state265" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn167" styleName="testNumberStyle" value="265" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_child_stateSpecific_5" keywords="[States,Dot]" description="Number style, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state266" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn168" styleName="testNumberStyle" value="266" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_number_child_stateSpecific_6" keywords="[States,Dot]" description="Number style, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state267" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn168" styleName="testNumberStyle" value="267" />
+    </body>
+</TestCase>
+
+<!-- String style, dot syntax -->
+<TestCase testID="styles_string_dot_1" keywords="[States,Dot]" description="String style defined for a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state268" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn169" styleName="testStringStyle" value="the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_dot_3" keywords="[States,Dot]" description="String style, default and a dot syntax are set, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state269" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn170" styleName="testStringStyle" value="lazy" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_dot_4" keywords="[States,Dot]" description="String style, default and a dot syntax are set, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state270" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn170" styleName="testStringStyle" value="dog" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_dot_5" keywords="[States,Dot]" description="String style, two dot syntaxes defined, trigger the first.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state271" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn171" styleName="testStringStyle" value="the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_dot_6" keywords="[States,Dot]" description="String style, two dot syntaxes defined, trigger the second.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state272" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn171" styleName="testStringStyle" value="quick" />
+    </body>
+</TestCase>
+
+<!-- String style, child node syntax -->
+<TestCase testID="styles_string_child_stateSpecific_1" keywords="[States,Dot]" description="String style, state-specific child node syntax, state declared on property, go to a different state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state273" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn172" styleName="testStringStyle" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_child_stateSpecific_2" keywords="[States,Dot]" description="String style, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state274" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn172" styleName="testStringStyle" value="the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_child_stateSpecific_3" keywords="[States,Dot]" description="String style, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state275" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn173" styleName="testStringStyle" value="quick" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_child_stateSpecific_4" keywords="[States,Dot]" description="String style, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state276" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn173" styleName="testStringStyle" value="brown" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_child_stateSpecific_5" keywords="[States,Dot]" description="String style, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state277" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn174" styleName="testStringStyle" value="fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_string_child_stateSpecific_6" keywords="[States,Dot]" description="String style, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state278" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn174" styleName="testStringStyle" value="jumps" />
+    </body>
+</TestCase>
+
+<!-- Number array, styles -->
+<TestCase testID="styles_numberArray_dot_1" keywords="[States,Dot]" description="Number array style, dot syntax, one dot syntax has a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state279a" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn175" styleName="testNumberArrayStyle" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_dot_2" keywords="[States,Dot]" description="Number array style, dot syntax, one dot syntax has a state, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state279b" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn175.getStyle('testNumberArrayStyle')" value="1.2,3.4,5.6" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_dot_3" keywords="[States,Dot]" description="Number array style, dot syntax, default defined, one dot syntax with a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state280" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn176.getStyle('testNumberArrayStyle')" value="2.3,4.5,6.7" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_dot_4" keywords="[States,Dot]" description="Number array style, dot syntax, default defined, one dot syntax with a state, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state281" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn176.getStyle('testNumberArrayStyle')" value="8.9,0.1,2.3" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_dot_5" keywords="[States,Dot]" description="Number array style, dot syntax, two dot syntaxes with states, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state282" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn177.getStyle('testNumberArrayStyle')" value="4.5,6.7,8.9" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_dot_6" keywords="[States,Dot]" description="Number array style, dot syntax, two dot syntaxes with states, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state283" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn177.getStyle('testNumberArrayStyle')" value="0.1,2.3,4.5" />
+    </body>
+</TestCase>
+
+<!-- properties, array, child node syntax -->
+<TestCase testID="styles_numberArray_childNode_1" keywords="[States,Dot]" description="Number array style, child node syntax, one state-specific property, go to default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state284" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn177.getStyle('testNumberArrayStyle')" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_2" keywords="[States,Dot]" description="Number array style, child node syntax, one state-specific property, go to property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state285" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn178.getStyle('testNumberArrayStyle')" value="0.1,2.3,4.5" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_3" keywords="[States,Dot]" description="Number array style, child node syntax, one state-specific property and a default, go to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state286" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn179.getStyle('testNumberArrayStyle')" value="1.2,3.4,5.6" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_4" keywords="[States,Dot]" description="Number array style, child node syntax, one state-specific property and a default, go to property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state287" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn179.getStyle('testNumberArrayStyle')" value="7.8,9,0.1" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_5" keywords="[States,Dot]" description="Number array style, child node syntax, two state-specific properties, go to first state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state288" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn180.getStyle('testNumberArrayStyle')" value="0.1,1.2,2.3" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_6" keywords="[States,Dot]" description="Number array style, child node syntax, two state-specific properties, go to second state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state289" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn180.getStyle('testNumberArrayStyle')" value="3.4,4.5,5.6" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_7" keywords="[States,Dot]" description="Number array style, child node syntax, one element at the beginning of the array is state-specific, go to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state290" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn181.getStyle('testNumberArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn181.getStyle('testNumberArrayStyle')" value="2,3" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_8" keywords="[States,Dot]" description="Number array style, child node syntax, one element at the beginning of the array is state-specific, go to that property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state291" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn181.getStyle('testNumberArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn181.getStyle('testNumberArrayStyle')" value="1,2,3" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_9" keywords="[States,Dot]" description="Number array style, child node syntax, one element at the end of the array is state-specific with 2 states, go to the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state292" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn182.getStyle('testNumberArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn182.getStyle('testNumberArrayStyle')" value="12,24" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_10" keywords="[States,Dot]" description="Number array style, child node syntax, one element at the end of the array is state-specific with 2 states, go to its first state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state293" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn182.getStyle('testNumberArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn182.getStyle('testNumberArrayStyle')" value="12,24,48" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_11" keywords="[States,Dot]" description="Number array style, child node syntax, one element at the end of the array is state-specific with 2 states, go to its second state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state294" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn182.getStyle('testNumberArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn182.getStyle('testNumberArrayStyle')" value="12,24,48" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_12" keywords="[States,Dot]" description="Number array style, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to a default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state295" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn183.getStyle('testNumberArrayStyle') as Array).length" value="1" />
+        <AssertMethodValue method="value=application.btn183.getStyle('testNumberArrayStyle')" value="13" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_13" keywords="[States,Dot]" description="Number array style, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state296" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn183.getStyle('testNumberArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn183.getStyle('testNumberArrayStyle')" value="17,13" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_14" keywords="[States,Dot]" description="Number array style, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state297" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn183.getStyle('testNumberArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn183.getStyle('testNumberArrayStyle')" value="19,13" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_15" keywords="[States,Dot]" description="Number array style, child node syntax, the one and only element in the array is state-specific, go to a default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state298" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn184.getStyle('testNumberArrayStyle') as Array).length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_16" keywords="[States,Dot]" description="Number array style, child node syntax, the one and only element in the array is state-specific, go to its state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state299" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn184.getStyle('testNumberArrayStyle') as Array).length" value="1" />
+        <AssertMethodValue method="value=application.btn184.getStyle('testNumberArrayStyle')" value="7" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_17" keywords="[States,Dot]" description="Number array style, child node syntax, array and its element each have the same state specified, go to neither's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state300a" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn184a.getStyle('testNumberArrayStyle')" valueExpression="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_numberArray_childNode_18" keywords="[States,Dot]" description="Number array style, child node syntax, array and its element each have the same state specified, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state300c" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn184b.getStyle('testNumberArrayStyle') as Array).length" value="1" />
+        <AssertMethodValue method="value=application.btn184b.getStyle('testNumberArrayStyle')" value="2" />
+    </body>
+</TestCase>
+
+<!-- String Array, Styles -->
+<TestCase testID="styles_stringArray_dot_1" keywords="[States,Dot]" description="String array style, dot syntax, one dot syntax has a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state300f" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn185.getStyle('testStringArrayStyle')" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_dot_2" keywords="[States,Dot]" description="String array style, dot syntax, one dot syntax has a state, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state300" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn185.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn185.getStyle('testStringArrayStyle')" value="the,quick,brown" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_dot_3" keywords="[States,Dot]" description="String array style, dot syntax, default defined, one dot syntax with a state, go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state301" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn186.getStyle('testStringArrayStyle') as Array).length" value="4" />
+        <AssertMethodValue method="value=application.btn186.getStyle('testStringArrayStyle')" value="brown,fox,jumps,over" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_dot_4" keywords="[States,Dot]" description="String array style, dot syntax, default defined, one dot syntax with a state, go to dot syntax's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state302" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn186.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn186.getStyle('testStringArrayStyle')" value="the,lazy,dog" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_dot_5" keywords="[States,Dot]" description="String array style, dot syntax, two dot syntaxes with states, go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state303" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn187.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn187.getStyle('testStringArrayStyle')" value="quick,brown,fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_dot_6" keywords="[States,Dot]" description="String array style, dot syntax, two dot syntaxes with states, go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state304" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn187.getStyle('testStringArrayStyle') as Array).length" value="4" />
+        <AssertMethodValue method="value=application.btn187.getStyle('testStringArrayStyle')" value="jumps,over,the,lazy" />
+    </body>
+</TestCase>
+
+<!-- String Array, Styles, child node syntax -->
+<TestCase testID="styles_stringArray_childNode_1" keywords="[States,Dot]" description="String array style, child node syntax, one state-specific property, go to default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state304a" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn188.getStyle('testStringArrayStyle')" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_2" keywords="[States,Dot]" description="String array style, child node syntax, one state-specific property, go to property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state305" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn188.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn188.getStyle('testStringArrayStyle')" value="lazy,dog,the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_3" keywords="[States,Dot]" description="String array style, child node syntax, one state-specific property and a default, go to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state306" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn189.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn189.getStyle('testStringArrayStyle')" value="quick,brown,fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_4" keywords="[States,Dot]" description="String array style, child node syntax, one state-specific property and a default, go to property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state307" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn189.getStyle('testStringArrayStyle') as Array).length" value="4" />
+        <AssertMethodValue method="value=application.btn189.getStyle('testStringArrayStyle')" value="jumps,over,the,lazy" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_5" keywords="[States,Dot]" description="String array style, child node syntax, two state-specific properties, go to first state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state308" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn190.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn190.getStyle('testStringArrayStyle')" value="lazy,dog,the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_6" keywords="[States,Dot]" description="String array style, child node syntax, two state-specific properties, go to second state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state309" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn190.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn190.getStyle('testStringArrayStyle')" value="quick,brown,fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_7" keywords="[States,Dot]" description="String array style, child node syntax, one element at the beginning of the array is state-specific, go to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state310" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn191.getStyle('testStringArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn191.getStyle('testStringArrayStyle')" value="over,the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_8" keywords="[States,Dot]" description="String array style, child node syntax, one element at the beginning of the array is state-specific, go to that property's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state311" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn191.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn191.getStyle('testStringArrayStyle')" value="jumps,over,the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_9" keywords="[States,Dot]" description="String array style, child node syntax, one element at the end of the array is state-specific with 2 states, go to the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state312" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn192.getStyle('testStringArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn192.getStyle('testStringArrayStyle')" value="lazy,dog" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_10" keywords="[States,Dot]" description="String array style, child node syntax, one element at the end of the array is state-specific with 2 states, go to its first state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state313" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn192.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn192.getStyle('testStringArrayStyle')" value="lazy,dog,the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_11" keywords="[States,Dot]" description="String array style, child node syntax, one element at the end of the array is state-specific with 2 states, go to its second state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state314" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn192.getStyle('testStringArrayStyle') as Array).length" value="3" />
+        <AssertMethodValue method="value=application.btn192.getStyle('testStringArrayStyle')" value="lazy,dog,the" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_12" keywords="[States,Dot]" description="String array style, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to a default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state315" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn193.getStyle('testStringArrayStyle') as Array).length" value="1" />
+        <AssertMethodValue method="value=application.btn193.getStyle('testStringArrayStyle')" value="fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_13" keywords="[States,Dot]" description="String array style, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state316" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn193.getStyle('testStringArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn193.getStyle('testStringArrayStyle')" value="quick,fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_14" keywords="[States,Dot]" description="String array style, child node syntax, two elements at the beginning of the array are state-specific with different states (so they will 'swap'). Go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state317" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn193.getStyle('testStringArrayStyle') as Array).length" value="2" />
+        <AssertMethodValue method="value=application.btn193.getStyle('testStringArrayStyle')" value="brown,fox" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_15" keywords="[States,Dot]" description="String array style, child node syntax, the one and only element in the array is state-specific, go to a default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state360" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn219.getStyle('testStringArrayStyle') as Array).length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_16" keywords="[States,Dot]" description="String array style, child node syntax, the one and only element in the array is state-specific, go to its state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state360a" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn219.getStyle('testStringArrayStyle') as Array).length" value="1" />
+        <AssertMethodValue method="value=application.btn219.getStyle('testStringArrayStyle')" value="quick" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_17" keywords="[States,Dot]" description="String array style, child node syntax, array and its element each have the same state specified, go to neither's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state362a" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn221.getStyle('testStringArrayStyle')" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_stringArray_childNode_18" keywords="[States,Dot]" description="String array style, child node syntax, array and its element each have the same state specified, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state362" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=(application.btn221.getStyle('testStringArrayStyle') as Array).length" value="1" />
+        <AssertMethodValue method="value=application.btn221.getStyle('testStringArrayStyle')" value="fox" />
+    </body>
+</TestCase>
+
+<!-- Boolean style, dot syntax -->
+<TestCase testID="styles_boolean_dot_1" keywords="[States,Dot]" description="Boolean style defined for a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state320" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn195.getStyle('testBooleanStyle')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_dot_3" keywords="[States,Dot]" description="Boolean style, default and a dot syntax are set, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state321" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn196.getStyle('testBooleanStyle')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_dot_4" keywords="[States,Dot]" description="Boolean style, default and a dot syntax are set, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state322" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn196.getStyle('testBooleanStyle')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_dot_5" keywords="[States,Dot]" description="Boolean style, two dot syntaxes defined, trigger the first.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state323" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn197.getStyle('testBooleanStyle')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_dot_6" keywords="[States,Dot]" description="Boolean style, two dot syntaxes defined, trigger the second.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state324" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn197.getStyle('testBooleanStyle')" value="false" />
+    </body>
+</TestCase>
+
+<!-- Boolean style, child node syntax -->
+<TestCase testID="styles_boolean_child_stateSpecific_1" keywords="[States,Dot]" description="Boolean style, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state325" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn198.getStyle('testBooleanStyle')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_child_stateSpecific_2" keywords="[States,Dot]" description="Boolean style, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state326" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn199.getStyle('testBooleanStyle')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_child_stateSpecific_3" keywords="[States,Dot]" description="Boolean style, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state327" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn199.getStyle('testBooleanStyle')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_child_stateSpecific_4" keywords="[States,Dot]" description="Boolean style, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state328" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn200.getStyle('testBooleanStyle')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_boolean_child_stateSpecific_5" keywords="[States,Dot]" description="Boolean style, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state329" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn200.getStyle('testBooleanStyle')" value="false" />
+    </body>
+</TestCase>
+
+<!-- Class style, dot syntax -->
+<TestCase testID="styles_class_dot_1" keywords="[States,Dot]" description="Class style defined for a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state330" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn201.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_dot_2" keywords="[States,Dot]" description="Class style, default and a dot syntax are set, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state331" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn202.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_dot_3" keywords="[States,Dot]" description="Class style, default and a dot syntax are set, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state332" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn202.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb2]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_dot_4" keywords="[States,Dot]" description="Class style, two dot syntaxes defined, trigger the first.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state333" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn203.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_dot_5" keywords="[States,Dot]" description="Class style, two dot syntaxes defined, trigger the second.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state334" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn203.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb2]'" />
+    </body>
+</TestCase>
+
+<!-- Class style, child node syntax -->
+<TestCase testID="styles_class_child_stateSpecific_1" keywords="[States,Dot]" description="Class style, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state335" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn204.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_child_stateSpecific_2" keywords="[States,Dot]" description="Class style, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state336" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn205.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_child_stateSpecific_3" keywords="[States,Dot]" description="Class style, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state337" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn205.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb2]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_child_stateSpecific_4" keywords="[States,Dot]" description="Class style, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state338" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn206.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_class_child_stateSpecific_5" keywords="[States,Dot]" description="Class style, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state339" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn206.getStyle('testClassStyle').toString()" valueExpression="value='[class SliderThumb2]'" />
+    </body>
+</TestCase>
+
+<!-- Int style, dot syntax -->
+<TestCase testID="styles_int_dot_1" keywords="[States,Dot]" description="Int style defined for a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state340" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn207.getStyle('testIntStyle')" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_dot_3" keywords="[States,Dot]" description="Int style, default and a dot syntax are set, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state341" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn208.getStyle('testIntStyle')" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_dot_4" keywords="[States,Dot]" description="Int style, default and a dot syntax are set, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state342" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn208.getStyle('testIntStyle')" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_dot_5" keywords="[States,Dot]" description="Int style, two dot syntaxes defined, trigger the first.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state343" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn209.getStyle('testIntStyle')" value="8" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_dot_6" keywords="[States,Dot]" description="Int style, two dot syntaxes defined, trigger the second.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state344" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn209.getStyle('testIntStyle')" value="10" />
+    </body>
+</TestCase>
+
+<!-- Int style, child node syntax -->
+<TestCase testID="styles_int_child_stateSpecific_1" keywords="[States,Dot]" description="Int style, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state345" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn210.getStyle('testIntStyle')" value="12" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_child_stateSpecific_2" keywords="[States,Dot]" description="Int style, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state346" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn211.getStyle('testIntStyle')" value="14" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_child_stateSpecific_3" keywords="[States,Dot]" description="Int style, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state347" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn211.getStyle('testIntStyle')" value="16" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_child_stateSpecific_4" keywords="[States,Dot]" description="Int style, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state348" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn212.getStyle('testIntStyle')" value="18" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_int_child_stateSpecific_5" keywords="[States,Dot]" description="Int style, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state349" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn212.getStyle('testIntStyle')" value="20" />
+    </body>
+</TestCase>
+
+<!-- Object style, dot syntax -->
+<TestCase testID="styles_object_dot_1" keywords="[States,Dot]" description="Object style defined for a state, go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state350" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn213.getStyle('testObjectStyle').String" value="one hundred thirteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_dot_2" keywords="[States,Dot]" description="Object style, default and a dot syntax are set, trigger the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state351" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn214.getStyle('testObjectStyle').String" value="one hundred thirteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_dot_3" keywords="[States,Dot]" description="Object style, default and a dot syntax are set, trigger the dot syntax.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state352" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn214.getStyle('testObjectStyle').String" value="one hundred fourteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_dot_4" keywords="[States,Dot]" description="Object style, two dot syntaxes defined, trigger the first.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state353" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn215.getStyle('testObjectStyle').String" value="one hundred thirteen" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_dot_5" keywords="[States,Dot]" description="Object style, two dot syntaxes defined, trigger the second.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state354" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn215.getStyle('testObjectStyle').String" value="one hundred fourteen" />
+    </body>
+</TestCase>
+
+<!-- Object style, child node syntax -->
+<TestCase testID="styles_object_child_stateSpecific_1" keywords="[States,Dot]" description="Object style, state-specific child node syntax, state declared on property, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state355" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn216.getStyle('testObjectStyle').String" value="three hundred fifty-five" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_child_stateSpecific_2" keywords="[States,Dot]" description="Object style, state-specific child node syntax, state declared on property and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state356" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn217.getStyle('testObjectStyle').String" value="three hundred fifty-six" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_child_stateSpecific_3" keywords="[States,Dot]" description="Object style, state-specific child node syntax, state declared on property and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state357" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn217.getStyle('testObjectStyle').String" value="three hundred fifty-seven" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_child_stateSpecific_4" keywords="[States,Dot]" description="Object style, state-specific child node syntax, 2 states declared on property, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state358" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn218.getStyle('testObjectStyle').String" value="three hundred fifty-eight" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_object_child_stateSpecific_5" keywords="[States,Dot]" description="Object style, state-specific child node syntax, 2 states declared on property, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state359" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn218.getStyle('testObjectStyle').String" value="three hundred fifty-nine" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Data binding a style, dot syntax  szczescie
+================================================================================
+-->
+
+<TestCase testID="styles_databinding_dot_1" keywords="[States,Dot]" description="Data binding style, dot syntax, default and a state with data binding, invoke the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state365" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn223" styleName="color" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_2" keywords="[States,Dot]" description="Data binding style, dot syntax, default and a state with data binding, invoke the test state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state366" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn223" styleName="color" value="255" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_3" keywords="[States,Dot]" description="Data binding style, dot syntax, default and a state with data binding, invoke the test state and change the value the color is bound to.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state366" waitEvent="currentStateChange" />
+        <RunCode code="application.blueShade = 0x0000aa" waitTarget="btn223" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn223" styleName="color" value="170" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_4" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states with data binding, invoke the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state367" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn224" styleName="color" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_5" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states with data binding, invoke the first test state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state368" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn224" styleName="color" value="255" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_6" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states with data binding, invoke the first test state and change the value the color is bound to.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state368a" waitEvent="currentStateChange" />
+        <RunCode code="application.blueShade3 = 0x0000aa" waitTarget="btn224a" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn224a" styleName="color" value="170" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_7" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states with data binding, invoke the second test state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state369" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn224" styleName="color" value="16711680" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_8" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states with data binding, invoke the second test state and change the value the color is bound to.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state369a" waitEvent="currentStateChange" />
+        <RunCode code="application.redShade2 = 0xaa0000" waitTarget="btn224a" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn224a" styleName="color" value="11141120" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_10a" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the default.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state370" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn225" styleName="color" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_10b" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the hard coded one.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state371" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn225" styleName="color" value="255" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_11" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the data binding one.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state372" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn225" styleName="color" value="16711680" />
+    </body>
+</TestCase>
+
+<TestCase testID="styles_databinding_dot_12" keywords="[States,Dot]" description="Data binding style, dot syntax, default and 2 states, one hard coded and one with data binding, invoke the data binding one and change the value the year is bound to." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state372" waitEvent="currentStateChange" />
+        <RunCode code="application.redShade3 = 0xaa0000" waitTarget="btn225" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn225" styleName="color" value="11141120" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Event handlers
+================================================================================
+-->
+<!-- 
+    TextInput, change event, inline (dot) syntax.
+    (Button's click was not ideal). Note that it is expected that the regular
+    'change' event will still continue to occur (that's how Flex 3 worked).
+-->
+<TestCase testID="eventHandler_textinput_1" keywords="[States,includeIn,events]" description="One event handler tied to a state.  Go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state160" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti01" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti01" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_2" keywords="[States,includeIn,events]" description="One event handler tied to a state.  Go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state161" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti01" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti01" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti01" eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_3" keywords="[States,includeIn,events]" description="A default event and one event handler tied to a state.  Go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state162" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti02" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti02" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti02" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_4" keywords="[States,includeIn,events]" description="A default event and one event handler tied to a state.  Go to that state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state163" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti02" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti02" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertEvent target="ti02" eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_5" keywords="[States,includeIn,events]" description="Two event handlers tied to different states.  Go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state164" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti03" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti03" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_6" keywords="[States,includeIn,events]" description="Two event handlers tied to different states.  Go to the first's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state165" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti03" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti03" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti03" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_7" keywords="[States,includeIn,events]" description="Two event handlers tied to different states.  Go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state166" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti03" localX="2" localY="2" />
+        <DispatchKeyEvent char="c" />
+        <AssertEvent target="ti03" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertEvent target="ti03" eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_8" keywords="[States,includeIn,events]" description="A default event and two event handlers tied to different states.  Go to some other state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state167" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti04" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti04" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti04" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler3" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_9" keywords="[States,includeIn,events]" description="A default event and two event handlers tied to different states.  Go to the first's tate.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state168" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti04" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti04" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertEvent target="ti04" eventName="changeHandler2" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler3" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_10" keywords="[States,includeIn,events]" description="A default event and two event handlers tied to different states.  Go to the second's state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state169" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti04" localX="2" localY="2" />
+        <DispatchKeyEvent char="c" />
+        <AssertEvent target="ti04" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+        <AssertEvent target="ti04" eventName="changeHandler3" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<!-- TextInput, change event, child node syntax. -->
+<TestCase testID="eventHandler_textinput_child_1" keywords="[States,Dot]" description="Event handler, state-specific child node syntax, state declared on event handler, go to default." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state170" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti05" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti05" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_child_2" keywords="[States,Dot]" description="Event handler, state-specific child node syntax, state declared on event handler, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state171" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti05" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti05" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti05" eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_child_3" keywords="[States,Dot]" description="Event handler, state-specific child node syntax, state declared on event handler and default defined, go to the default state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state172" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti06" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti06" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti06" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_child_4" keywords="[States,Dot]" description="Event handler, state-specific child node syntax, state declared on event handler and default defined, go to the test state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state173" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti06" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti06" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertEvent target="ti06" eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_child_5" keywords="[States,Dot]" description="Event handler, state-specific child node syntax, 2 states declared on event handler, go to the first's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state174" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti07" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti07" eventName="change" eventClass="flash.events::Event" />
+        <AssertEvent target="ti07" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="eventHandler_textinput_child_6" keywords="[States,Dot]" description="Event handler, state-specific child node syntax, 2 states declared on event handler, go to the second's state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state175" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti07" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti07" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertEvent target="ti07" eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+	</testCases>                	     
+</UnitTester>

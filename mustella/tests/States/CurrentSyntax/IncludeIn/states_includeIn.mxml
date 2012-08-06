@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/IncludeIn/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesApp_includeIn.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+       	import mx.controls.sliderClasses.SliderThumb;
+
+        use namespace mx_internal;
+        
+        public var theThumb:SliderThumb;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+    <!-- 
+        See comments in statesApp.mxml regarding the reason for doManualReset(). 
+
+        To get to the values in a DateChooser:
+            <AssertPropertyValue target="dc01.mx_internal:dateGrid.mx_internal:dayBlocksArray.0.0" propertyName="text" value="S" />
+            0.0 = Sunday
+            1.0 = Monday
+            2.0 = Tuesday
+            etc...
+    -->
+
+<!--
+================================================================================
+Calibration...make sure that something with a parent really is there, and
+something wihout a parent really isn't there.  Then we can use the presence/
+absence of a parent for the asserts.
+================================================================================
+-->
+<TestCase testID="statesApp_pngCalibration" keywords="[States]" description="Ensure that if a control has a parent, you can see it.  If it doesn't, you can't." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state001" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btnCalibrate1" propertyName="parent" value="statesApp_includeIn0.bxCalibrate" />
+        <AssertPropertyValue target="btnCalibrate2" propertyName="parent" value="null" />
+        <AssertPropertyValue target="bxCalibrate" propertyName="parent" value="statesApp_includeIn0" />
+        <CompareBitmap target="bxCalibrate" url="../includeIn/baselines/statesApp_pngCalibration.png" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+Basic tests with a basic control (Button)
+================================================================================
+-->
+
+<TestCase testID="default_1" keywords="[States,includeIn]" description="includeStates includes the default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="btn003" propertyName="parent" value="statesApp_includeIn0" />
+    </body>
+</TestCase>
+
+<TestCase testID="default_2" keywords="[States,includeIn]" description="includeStates includes the default state, change to state not in includeStates.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state004" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn004" propertyName="parent" valueExpression="value=null" />
+    </body>
+</TestCase>
+
+<TestCase testID="default_3" keywords="[States,includeIn]" description="includeStates includes the default state, change to state not in includeStates, change back to default state.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state005" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn005" propertyName="parent" value="statesApp_includeIn0" />
+    </body>
+</TestCase>
+
+<TestCase testID="many" keywords="[States,includeIn]" description="includeStates includes many states.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="btn006" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state006" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn006" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state007" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn006" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state008" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn006" propertyName="parent" value="statesApp_includeIn0" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+White Space
+================================================================================
+-->
+<TestCase testID="includeIn_whitespace_combinations_1" keywords="[States,includeIn]" description="Test commas, no white space, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state132" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state131" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_2" keywords="[States,includeIn]" description="Test commas, no white space, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state133" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state131" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn040" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_3" keywords="[States,includeIn]" description="Test commas and space, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state135" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state134" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_4" keywords="[States,includeIn]" description="Test commas and space, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state136" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state134" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn041" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_5" keywords="[States,includeIn]" description="Test commas and tab, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state138" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state137" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_6" keywords="[States,includeIn]" description="Test commas and tab, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state139" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state137" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn042" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_7" keywords="[States,includeIn]" description="Test array brackets, first state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state141" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state140" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeIn_whitespace_combinations_8" keywords="[States,includeIn]" description="Test array brackets, second state." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state142" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="statesApp_includeIn0" />
+        <SetProperty propertyName="currentState" value="state140" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn043" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+	</testCases>                	     
+</UnitTester>

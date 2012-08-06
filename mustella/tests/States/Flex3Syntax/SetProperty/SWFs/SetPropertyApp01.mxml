@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  width="800" height="600" xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+<![CDATA[
+
+]]>
+</mx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+<!--
+    State naming convention: 
+        Method_Param_ControlBeingActedUpon_DetailsIfAny_Number
+-->
+
+<mx:states>
+    <mx:State name="ReinitState" />
+
+    <!-- Name, target, and value are tested together -->
+    <mx:State name="SetProperty_01">
+        <mx:SetProperty target="{tiSetProperty}" name="text" value="Changed" />
+    </mx:State>
+
+    <mx:State name="SetProperty_02">
+        <mx:SetProperty target="{dgSetProperty}" name="dataProvider" value="{ac}" />
+    </mx:State>        
+</mx:states>
+
+<mx:ArrayCollection id="ac" >
+    <mx:Object species="dog" age="2" />
+    <mx:Object species="cat" age="8" />
+</mx:ArrayCollection>
+
+<mx:TextInput id="tiSetProperty" text="Default" />
+<mx:DataGrid id="dgSetProperty" width="100" height="50" />
+
+</mx:Application>

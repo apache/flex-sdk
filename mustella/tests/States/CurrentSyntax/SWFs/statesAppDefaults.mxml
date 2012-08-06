@@ -1,0 +1,63 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" >
+
+<fx:Script>
+<![CDATA[
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<!-- 
+    This file is for tests in an application's default state.
+    DO NOT WRITE ANY TESTS IN THIS FILE WHICH CHANGE STATE.
+-->
+
+<mx:states>
+    <!-- 
+        This is the one and only state this application should ever be in.
+        Other states are present, but should never be changed to.
+    -->
+    <mx:State name="defaultState" />
+    <mx:State name="state1" />
+</mx:states>
+
+<comps:DefinedButton id="btn01" includeIn="defaultState" itemCreationPolicy="deferred" />
+<comps:DefinedButton id="btn02" includeIn="state1" itemCreationPolicy="deferred" />
+<comps:DefinedButton id="btn03" excludeFrom="defaultState" itemCreationPolicy="deferred" />
+<comps:DefinedButton id="btn04" excludeFrom="state1" itemCreationPolicy="deferred" />
+
+<comps:DefinedButton id="btn05" includeIn="defaultState" itemCreationPolicy="immediate" />
+<comps:DefinedButton id="btn06" includeIn="state1" itemCreationPolicy="immediate" />
+<comps:DefinedButton id="btn07" excludeFrom="defaultState" itemCreationPolicy="immediate" />
+<comps:DefinedButton id="btn08" excludeFrom="state1" itemCreationPolicy="immediate" />
+
+</mx:Application>

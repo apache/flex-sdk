@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/Integration/TabNavApp/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabNavApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.controls.Button;
+        import mx.controls.TabBar;
+        import mx.core.Application;
+
+        use namespace mx_internal;
+
+        // A tab
+        public var mainTab:Button;
+        public var aTab:Button;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+DataGrid: Covered in regular tests.
+================================================================================
+-->
+
+
+<!--
+================================================================================
+ContentHolder
+================================================================================
+-->
+<!--
+<TestCase testID="" keywords="[States,includeIn]" description="">
+-->
+
+<!--
+================================================================================
+Graphics tag
+================================================================================
+
+================================================================================
+TabNavigator
+Every setup state goes to the CatState state, selects the second tab  w/o a wait,
+and then selects the first tab with a wait.
+================================================================================
+-->
+<!-- Selecting states on the main tab causes state changes which add/remove tabs. -->
+<TestCase testID="mainpage_1" keywords="[States,Integration]" description="Selecting the Dogs radio button switches to the dog UI." >
+    <setup>
+        <ResetComponent target="appAnimalCare" className="AnimalCareApp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="appAnimalCare.rbDogs" localX="7" localY="10" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(0).label" value="Main" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(1).label" value="Dog Care" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(2).label" value="Puppy Care" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(3).label" value="Dog Breeds" />
+    </body>
+</TestCase>
+
+<TestCase testID="mainpage_2" keywords="[States,Integration]" description="Selecting the Cattle radio button switches to the cattle UI." >
+    <setup>
+        <ResetComponent target="appAnimalCare" className="AnimalCareApp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="appAnimalCare.rbCattle" localX="7" localY="10" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(0).label" value="Main" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(1).label" value="Cattle Care" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(2).label" value="Calf Care" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(3).label" value="Cattle Breeds" />
+    </body>
+</TestCase>
+
+<TestCase testID="mainpage_3" keywords="[States,Integration]" description="Selecting the Pigs radio button switches to the pigs UI." >
+    <setup>
+        <ResetComponent target="appAnimalCare" className="AnimalCareApp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="appAnimalCare.rbPigs" localX="7" localY="10" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(0).label" value="Main" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(1).label" value="Pig Care" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(2).label" value="Piglet Care" />
+        <AssertMethodValue method="value=application.appAnimalCare.tnMain.getTabAt(3).label" value="Pig Breeds" />
+    </body>
+</TestCase>
+
+<!-- Selecting states on one of the other tabs (in a custom MXML control) to add/remove items from a data provider. -->
+<TestCase testID="pigpage_4" keywords="[States,Integration]" description="Selecting all pigs shows all pigs in the list." >
+    <setup>
+        <ResetComponent target="appAnimalCare" className="AnimalCareApp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="appAnimalCare.rbPigs" localX="7" localY="10" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <RunCode code="aTab = application.appAnimalCare.tnMain.getTabAt(3)" />
+        <DispatchMouseClickEvent target="script:aTab" localX="5" localY="5" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).rbAllPigs" propertyName="selected" value="true" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.0.0.data" propertyName="breed" value="American Landrace" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.1.0.data" propertyName="breed" value="American Yorkshire" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.2.0.data" propertyName="breed" value="Duroc" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.3.0.data" propertyName="breed" value="Angeln Saddleback" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.4.0.data" propertyName="breed" value="Bentheim Black Pied" />
+    </body>
+</TestCase>
+
+<TestCase testID="pigpage_5" keywords="[States,Integration]" description="Selecting American pigs shows American pigs in the list." >
+    <setup>
+        <ResetComponent target="appAnimalCare" className="AnimalCareApp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="appAnimalCare.rbPigs" localX="7" localY="10" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <RunCode code="aTab = application.appAnimalCare.tnMain.getTabAt(3)" />
+        <DispatchMouseClickEvent target="script:aTab" localX="5" localY="5" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="appAnimalCare.tnMain.getChildAt(3).rbAmericanPigs" localX="7" localY="10" waitEvent="updateComplete" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.0.0.data" propertyName="breed" value="American Landrace" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.1.0.data" propertyName="breed" value="American Yorkshire" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.2.0.data" propertyName="breed" value="Duroc" />
+    </body>
+</TestCase>
+
+<TestCase testID="pigpage_6" keywords="[States,Integration]" description="Selecting German pigs shows German pigs in the list." >
+    <setup>
+        <ResetComponent target="appAnimalCare" className="AnimalCareApp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="appAnimalCare.rbPigs" localX="7" localY="10" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <RunCode code="aTab = application.appAnimalCare.tnMain.getTabAt(3)" />
+        <DispatchMouseClickEvent target="script:aTab" localX="5" localY="5" waitTarget="appAnimalCare.tnMain" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="appAnimalCare.tnMain.getChildAt(3).rbGermanPigs" localX="7" localY="10" waitEvent="updateComplete" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.0.0.data" propertyName="breed" value="Angeln Saddleback" />
+        <AssertPropertyValue target="appAnimalCare.tnMain.getChildAt(3).listPigs.mx_internal:rendererArray.1.0.data" propertyName="breed" value="Bentheim Black Pied" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/StateGroups/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="stateGroupsApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+<!--
+================================================================================
+Format of the stateGroups param.
+================================================================================
+-->
+<TestCase testID="stateGroups_commas_1" keywords="[States,StateGroups]" description="StateGroups array with commas, no whitespace.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state1" waitTarget="btn1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn1" propertyName="label" value="a" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_2" keywords="[States,StateGroups]" description="StateGroups array with commas, no whitespace.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state1" waitTarget="btn2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn2" propertyName="label" value="f" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_3" keywords="[States,StateGroups]" description="StateGroups array with commas, no whitespace.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state1" waitTarget="btn3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn3" propertyName="label" value="k" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_4" keywords="[States,StateGroups]" description="StateGroups array with commas and spaces.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state2" waitTarget="btn1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn1" propertyName="label" value="b" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_5" keywords="[States,StateGroups]" description="StateGroups array with commas and spaces.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state2" waitTarget="btn2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn2" propertyName="label" value="g" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_6" keywords="[States,StateGroups]" description="StateGroups array with commas and spaces.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state2" waitTarget="btn3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn3" propertyName="label" value="l" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_7" keywords="[States,StateGroups]" description="StateGroups array with commas and tabs.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state3" waitTarget="btn1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn1" propertyName="label" value="c" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_8" keywords="[States,StateGroups]" description="StateGroups array with commas and tabs.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state3" waitTarget="btn2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn2" propertyName="label" value="h" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_9" keywords="[States,StateGroups]" description="StateGroups array with commas and tabs.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state3" waitTarget="btn3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn3" propertyName="label" value="m" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_10" keywords="[States,StateGroups]" description="StateGroups array with mix of commas and tabs.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state4" waitTarget="btn1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn1" propertyName="label" value="d" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_11" keywords="[States,StateGroups]" description="StateGroups array with mix of commas and tabs.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state4" waitTarget="btn2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn2" propertyName="label" value="i" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_12" keywords="[States,StateGroups]" description="StateGroups array with mix of commas and tabs.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state4" waitTarget="btn3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn3" propertyName="label" value="n" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_13" keywords="[States,StateGroups]" description="StateGroups array with array brackets.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state5" waitTarget="btn1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn1" propertyName="label" value="e" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_14" keywords="[States,StateGroups]" description="StateGroups array with array brackets.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state5" waitTarget="btn2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn2" propertyName="label" value="j" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_commas_15" keywords="[States,StateGroups]" description="StateGroups array with array brackets.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state5" waitTarget="btn3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn3" propertyName="label" value="o" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Properties and stateGroups
+================================================================================
+-->
+<!-- This is done by the whitespace tests. -->
+<!--TestCase testID="stateGroups_properties_" keywords="[States,StateGroups]" description="Assign a property a value for a StateGroup."-->
+
+<TestCase testID="stateGroups_properties_1" keywords="[States,StateGroups]" description="Assign a property a value for a StateGroup, then switch to another state in the same StateGroup.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state6" waitTarget="btn4" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn4" propertyName="label" value="p" />
+        <SetProperty propertyName="currentState" value="state7" waitTarget="btn4" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn4" propertyName="label" value="p" />
+    </body>
+</TestCase>
+
+<!-- These are done by the whitespace tests. -->
+<!--TestCase testID="stateGroups_properties_2" keywords="[States,StateGroups]" description="Assign a property a value for a StateGroup, then switch to another state in a different StateGroup."-->
+
+<TestCase testID="stateGroups_properties_4" keywords="[States,StateGroups]" description="Assign a property a value for a state, and a different value for a StateGroup that state is not in.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state8" waitTarget="btn5" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn5" propertyName="label" value="q" />
+        <SetProperty propertyName="currentState" value="state9" waitTarget="btn5" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn5" propertyName="label" value="r" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Styles and stateGroups
+================================================================================
+-->
+<TestCase testID="stateGroups_styles_1" keywords="[States,StateGroups]" description="Assign a style a value for a StateGroup.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state10" waitTarget="btn6" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn6" styleName="testStringStyle" value="s" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_styles_2" keywords="[States,StateGroups]" description="Assign a style a value for a StateGroup, then switch to another state in the same StateGroup.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state10" waitTarget="btn7" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn7" styleName="testStringStyle" value="t" />
+        <SetProperty propertyName="currentState" value="state11" waitTarget="btn7" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn7" styleName="testStringStyle" value="t" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_styles_3" keywords="[States,StateGroups]" description="Assign a style a value for a StateGroup, then switch to another state in a different StateGroup.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state11" waitTarget="btn8" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn8" styleName="testStringStyle" value="u" />
+        <SetProperty propertyName="currentState" value="state12" waitTarget="btn8" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn8" styleName="testStringStyle" value="v" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_styles_4" keywords="[States,StateGroups]" description="Assign a style a value for a state, and a different value for a StateGroup that state is not in.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state12" waitTarget="btn9" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn9" styleName="testStringStyle" value="w" />
+        <SetProperty propertyName="currentState" value="state13" waitTarget="btn9" waitEvent="updateComplete" />
+        <AssertStyleValue target="btn9" styleName="testStringStyle" value="x" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+includeIn and stateGroups
+================================================================================
+-->
+<TestCase testID="stateGroups_includeIn_1" keywords="[States,StateGroups]" description="Use a StateGroup in an includeIn." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state14" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn10" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state13" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn10" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_includeIn_2" keywords="[States,StateGroups]" description="Use multiple StateGroups in an includeIn." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state15" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn11" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state14" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn11" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state13" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn11" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_includeIn_3" keywords="[States,StateGroups]" description="Use a StateGroup and a state in an includeIn.  The state is in the StateGroup." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state16" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn12" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state15" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn12" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state14" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn12" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_includeIn_4" keywords="[States,StateGroups]" description="Use a StateGroup and a state in an includeIn.  The state is in a different StateGroup." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state16" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn13" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state15" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn13" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state14" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn13" propertyName="parent" value="stateGroupsApp1_0" />
+        <SetProperty propertyName="currentState" value="state13" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn13" propertyName="parent" value="null" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+excludeFrom and stateGroups
+================================================================================
+-->
+<TestCase testID="stateGroups_excludeFrom_1" keywords="[States,StateGroups]" description="Use a StateGroup in an excludeFrom." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state17" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn14" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state16" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn14" propertyName="parent" value="stateGroupsApp1_0" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_excludeFrom_2" keywords="[States,StateGroups]" description="Use multiple StateGroups in an excludeFrom." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state17" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn15" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state18" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn15" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state16" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn15" propertyName="parent" value="stateGroupsApp1_0" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_excludeFrom_3" keywords="[States,StateGroups]" description="Use a StateGroup and a state in an excludeFrom.  The state is in the StateGroup." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state18" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn16" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state19" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn16" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state16" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn16" propertyName="parent" value="stateGroupsApp1_0" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_excludeFrom_4" keywords="[States,StateGroups]" description="Use a StateGroup and a state in an excludeFrom.  The state is in a different StateGroup." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state17" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn17" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state18" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn17" propertyName="parent" value="null" />
+        <SetProperty propertyName="currentState" value="state16" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn17" propertyName="parent" value="stateGroupsApp1_0" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+Other stateGroups tests
+================================================================================
+-->
+<TestCase testID="stateGroups_childNodeSyntax" keywords="[States,StateGroups]" description="Use StateGroups in child node syntax." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state20" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn18" propertyName="label" value="y" />
+        <SetProperty propertyName="currentState" value="state21" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn18" propertyName="label" value="z" />
+        <SetProperty propertyName="currentState" value="state22" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn18" propertyName="label" value="a" />
+    </body>
+</TestCase>
+
+<TestCase testID="stateGroups_clear" keywords="[States,StateGroups]" description="Use @Clear() with a StateGroup." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state23" waitEvent="currentStateChange" />
+        <AssertStyleValue target="btn19" styleName="color" value="0x000000" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,94 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+>
+
+<fx:Script>
+<![CDATA[
+
+    import mx.events.StateChangeEvent;
+
+    public function goToState1():void{
+        if(currentState == "state1"){
+            dispatchEvent(new Event("inState1"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+    
+    public function goToState2():void{
+        if(currentState == "state2"){
+            dispatchEvent(new Event("inState2"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state2";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        if(currentState == "state1")
+            dispatchEvent(new Event("inState1"));
+        else if(currentState == "state2")
+            dispatchEvent(new Event("inState2"));            
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</mx:states>
+
+<mx:Box id="box01">
+    <s:Button includeIn="state1"/>
+</mx:Box>
+
+<mx:Box id="box02">
+    <s:Button includeIn="state2"/>
+</mx:Box>
+
+<mx:Box id="box03">
+    <s:Button excludeFrom="state1"/>
+</mx:Box>
+
+<mx:Box id="box04">
+    <s:Button excludeFrom="state2"/>
+</mx:Box>
+
+<mx:Box id="box05">
+    <s:Button includeIn="state2"/>
+    <s:Button excludeFrom="state2"/>
+</mx:Box>
+
+</mx:Application>

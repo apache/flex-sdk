@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="States/CurrentSyntax/Clear/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="statesApp_clear.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+       	import mx.controls.sliderClasses.SliderThumb;
+
+        use namespace mx_internal;
+        
+        public var theThumb:SliderThumb;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+    <!-- 
+        See comments in statesApp.mxml regarding the reason for doManualReset(). 
+    -->
+
+<!--
+================================================================================
+@Clear() with styles: Be sure to use DefinedButton_NoStyles because
+DefinedButton defines the "color" style, which interferes with the tests.
+================================================================================
+-->
+<TestCase testID="clear_styles_1" keywords="[States]" description="Control inherits style from parent after clear is called." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state220" waitTarget="btn152" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn152.getTextFieldColor()" value="0xff0000" />
+        <SetProperty propertyName="currentState" value="state221" waitTarget="btn152" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn152.getTextFieldColor()" value="0x00ff00" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_styles_2" keywords="[States]" description="Control inherits style from parent after clear is called on that parent." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state222" waitTarget="btn153" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn153.getTextFieldColor()" value="0xff0000" />
+        <SetProperty propertyName="currentState" value="state223" waitTarget="btn153" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn153.getTextFieldColor()" value="0x00ff00" />
+    </body>
+</TestCase>
+
+<!--TestCase testID="clear_styles_3" keywords="[States]" description="Clear is used for a style in the default state."-->
+<TestCase testID="clear_styles_4" keywords="[States]" description="Go to a clear state, then a state with a style set." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state224" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn154.getTextFieldColor()" value="0x00ff00" />
+        <SetProperty propertyName="currentState" value="state225" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn154.getTextFieldColor()" value="0x0000ff" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_styles_5" keywords="[States]" description="Go to a clear state, then set the style to something at run time." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state226" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn155.getTextFieldColor()" value="0x00ff00" />
+        <SetStyle target="btn155" styleName="color" value="0x0000ff" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn155.getTextFieldColor()" value="0x0000ff" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_styles_6" keywords="[States]" description="Use clear to remove a style array." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state227" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn156.filters" propertyName="length" value="1" />
+        <SetProperty propertyName="currentState" value="state228" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn156.filters" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_styles_7" keywords="[States]" description="Use clear to set styles using child node syntax." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state229" waitTarget="btn157" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn157.getTextFieldColor()" value="0xff0000" />
+        <SetProperty propertyName="currentState" value="state230" waitTarget="btn157" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn157.getTextFieldColor()" value="0x00ff00" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_styles_8" keywords="[States]" description="Use clear to set styles in multiple states." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state231" waitTarget="btn158" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn158.getTextFieldColor()" value="0xff0000" />
+        <SetProperty propertyName="currentState" value="state232" waitTarget="btn158" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.btn158.getTextFieldColor()" value="0x00ff00" />
+        <SetProperty propertyName="currentState" value="state233" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertMethodValue method="value=application.btn158.getTextFieldColor()" value="0x00ff00" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+@Clear() with properties
+================================================================================
+-->
+
+<TestCase testID="clear_properties_1" keywords="[States]" description="Use clear to clear a property." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state235" waitTarget="btn159" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn159" propertyName="width" value="100" />
+        <SetProperty propertyName="currentState" value="state236" waitTarget="btn159" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn159" propertyName="width" value="40" />
+    </body>
+</TestCase>
+
+<!--TestCase testID="clear_properties_2" keywords="[States]" description="Clear is used for a property in the default state." -->
+
+<TestCase testID="clear_properties_3" keywords="[States]" description="Use clear to set properties in multiple states." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state237" waitTarget="btn160" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn160" propertyName="width" value="40" />
+        <SetProperty propertyName="currentState" value="state238" waitTarget="{application}" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="btn160" propertyName="width" value="40" />
+        <SetProperty propertyName="currentState" value="state239" waitTarget="btn160" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn160" propertyName="width" value="100" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_properties_4" keywords="[States]" description="Use clear to remove a dataProvider array." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state241" waitTarget="dg09" waitEvent="updateComplete" />
+        <AssertPropertyValue target="dg09.dataProvider" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_properties_5" keywords="[States]" description="Use clear to set properties using child node syntax." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state242" waitTarget="btn161" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn161" propertyName="width" value="100" />
+        <SetProperty propertyName="currentState" value="state243" waitTarget="btn161" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn161" propertyName="width" value="200" />
+        <SetProperty propertyName="currentState" value="state244" waitTarget="btn161" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn161" propertyName="width" value="40" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_properties_6" keywords="[States]" description="(No, this is not just a standard setter/getter test!) Go to a clear state, then set the property to something at run time." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state245" waitTarget="btn162" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn162" propertyName="width" value="40" />
+        <SetProperty target="btn162" propertyName="width" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="btn162" propertyName="width" value="100" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+@Clear() with event handlers
+================================================================================
+-->
+<TestCase testID="clear_eventHandlers_1" keywords="[States]" description="Use clear to clear an event handler." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state246" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti08" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti08" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <SetProperty propertyName="currentState" value="state247" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti08" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti08" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<!--TestCase testID="clear_eventHandlers_2" keywords="[States]" description="Clear is used for an event handler in the default state." -->
+
+<TestCase testID="clear_eventHandlers_3a" keywords="[States]" description="Go to a clear state, then a state with an event handler set." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state248" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti09" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti09" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_3b" keywords="[States]" description="Go to a clear state, then a state with an event handler set." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state249" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti09" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti09" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="change" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_4a" keywords="[States]" description="Use clear in the child node syntax." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state250" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti10" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti10" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_4b" keywords="[States]" description="Use clear in the child node syntax." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state250" waitTarget="{application}" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="state251" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti10" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti10" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_4c" keywords="[States]" description="Use clear in the child node syntax." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state250" waitTarget="{application}" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="state251" waitTarget="{application}" waitEvent="currentStateChange" />
+        <SetProperty propertyName="currentState" value="state252" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti10" localX="2" localY="2" />
+        <DispatchKeyEvent char="c" />
+        <AssertEvent target="ti10" eventName="changeHandler2" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler2" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_5a" keywords="[States]" description="Use clear to set the event handler in multiple states." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state253" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti11" localX="2" localY="2" />
+        <DispatchKeyEvent char="a" />
+        <AssertEvent target="ti11" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_5b" keywords="[States]" description="Use clear to set the event handler in multiple states." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state254" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti11" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti11" eventName="change" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="changeHandler1" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_5c" keywords="[States]" description="Use clear to set the event handler in multiple states." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state255" waitTarget="{application}" waitEvent="currentStateChange" />
+        <DispatchMouseClickEvent target="ti11" localX="2" localY="2" />
+        <DispatchKeyEvent char="c" />
+        <AssertEvent target="ti11" eventName="changeHandler1" eventClass="flash.events::Event" />
+        <AssertNoEvent eventName="change" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="clear_eventHandlers_6" keywords="[States]" description="Go to a clear state, then set the event handler to something at run time." >
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty propertyName="currentState" value="state256" waitTarget="{application}" waitEvent="currentStateChange" />
+        <RunCode code="application.ti12.addEventListener('change', application.changeHandler4)" />
+        <DispatchMouseClickEvent target="ti12" localX="2" localY="2" />
+        <DispatchKeyEvent char="b" />
+        <AssertEvent target="ti12" eventName="changeHandler4" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+	</testCases>                	     
+</UnitTester>

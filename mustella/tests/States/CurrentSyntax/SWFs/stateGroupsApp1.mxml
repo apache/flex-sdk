@@ -1,0 +1,128 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+
+    import mx.events.StateChangeEvent;
+        
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<!-- This app. has various combinations of states in groups. -->
+<mx:states>
+    <mx:State name="defaultState" />
+    <mx:State name="state1" stateGroups="G1,G2,G3" /> <!-- stateGroups contains commas and no whitespace -->
+    <mx:State name="state2" stateGroups="G4, G5, G6" /> <!-- stateGroups contains commas and spaces -->
+    <mx:State name="state3" stateGroups="G7,	G8,	G9" /> <!-- stateGroups contains commas and tabs -->
+    <mx:State name="state4" stateGroups="G10,	G11, G12" /> <!-- stateGroups contains a mix of whitespace combinations (a tab, and then a space) -->
+    <mx:State name="state5" stateGroups="[G13,G14,G15]" /> <!-- stateGroups contains array brackets -->
+    
+    <mx:State name="state6" stateGroups="G16" /><!-- testing stateGroups and properties -->
+    <mx:State name="state7" stateGroups="G16" />
+    <mx:State name="state8" stateGroups="G17" />
+    <mx:State name="state9" />
+    
+    <mx:State name="state10" stateGroups="G18" /><!-- testing stateGroups and styles -->
+    <mx:State name="state11" stateGroups="G18" />
+    <mx:State name="state12" stateGroups="G19" />
+    <mx:State name="state13" />
+    
+    <mx:State name="state14"  stateGroups="G20" /><!-- testing stateGroups and includeIn -->
+    <mx:State name="state15"  stateGroups="G21" />
+    <mx:State name="state16"  stateGroups="G21" />
+    
+    <mx:State name="state17" stateGroups="G22" /><!-- testing stateGroups and excludeFrom -->
+    <mx:State name="state18" stateGroups="G23" />
+    <mx:State name="state19" stateGroups="G23" />
+
+    <mx:State name="state20" stateGroups="G24" /><!-- testing stateGroups and child node syntax -->
+    <mx:State name="state21" stateGroups="G25" />
+    <mx:State name="state22" />
+
+    <mx:State name="state23" stateGroups="G26" /><!-- testing stateGroups and @Clear() -->
+</mx:states>
+
+<!-- These are controls for the stateGroups format tests. -->
+<comps:DefinedButton id="btn1" label.G1="a" label.G4="b" label.G7="c" label.G10="d" label.G13="e" />
+<comps:DefinedButton id="btn2" label.G2="f" label.G5="g" label.G8="h" label.G11="i" label.G14="j" />
+<comps:DefinedButton id="btn3" label.G3="k" label.G6="l" label.G9="m" label.G12="n" label.G15="o" />
+
+<!-- These are controls for the stateGroups property tests; some of them are covered by the format tests above. -->
+<comps:DefinedButton id="btn4" label.G16="p" />
+<comps:DefinedButton id="btn5" label.G17="q" label.state9="r" />
+
+<!-- These are controls for the stateGroups style tests. -->
+<comps:DefinedButton id="btn6" testStringStyle.G18="s" />
+<comps:DefinedButton id="btn7" testStringStyle.G18="t" />
+<comps:DefinedButton id="btn8" testStringStyle.G18="u" testStringStyle.G19="v" />
+<comps:DefinedButton id="btn9" testStringStyle.G19="w" testStringStyle.state13="x" />
+
+<!-- These are controls for the stateGroups includeIn tests. -->
+<comps:DefinedButton id="btn10" includeIn="G20" />
+<comps:DefinedButton id="btn11" includeIn="G20,G21" />
+<comps:DefinedButton id="btn12" includeIn="state15,G21" />
+<comps:DefinedButton id="btn13" includeIn="state14,G21" />
+
+<!-- These are controls for the stateGroups excludeFrom tests. -->
+<comps:DefinedButton id="btn14" excludeFrom="G22" />
+
+<comps:DefinedButton id="btn15" excludeFrom="G22,G23" />
+<comps:DefinedButton id="btn16" excludeFrom="G23,state19" />
+<comps:DefinedButton id="btn17" excludeFrom="G22,state18" />
+
+<!-- These are controls for the stateGroups child node syntax tests. -->
+<comps:DefinedButton id="btn18" label.G24="y" label.G25="z" label.state22="a" />
+
+<!-- These are controls for the stateGroups @Clear() syntax tests. -->
+<comps:DefinedButton id="btn19" color="0x00ff00" color.G26="@Clear()" />
+
+</mx:Application>

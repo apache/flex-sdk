@@ -1,0 +1,161 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:comps="comps.*" 
+xmlns:filters="flash.filters.*"
+>
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.core.Container;
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // No, we can't make these on creationComplete in a method.
+    // The number and the text correspond to the test state in which it's used.
+    [Bindable] private var testObject1:Object = {Number:113,String:"one hundred thirteen"};
+    [Bindable] private var testObject2:Object = {Number:114,String:"one hundred fourteen"};
+    [Bindable] private var testObject3:Object = {Number:115,String:"one hundred fifteen"};
+    [Bindable] private var testObject4:Object = {Number:116,String:"one hundred sixteen"};
+    [Bindable] private var testObject5:Object = {Number:117,String:"one hundred seventeen"};
+
+    // These are for testing data binding of a property.
+    [Bindable] public var dc21Year:int = 2013;
+    [Bindable] public var dc22YearA:int = 2015;
+    [Bindable] public var dc22YearB:int = 2017;
+    [Bindable] public var dc23Year:int = 2019;
+
+    // These are for testing the data binding of a style.
+    [Bindable] public var blueShade:uint = 0x0000ff;
+    [Bindable] public var blueShade2:uint = 0x0000ff;
+    [Bindable] public var blueShade3:uint = 0x0000ff;
+    [Bindable] public var redShade:uint = 0xff0000;
+    [Bindable] public var redShade2:uint = 0xff0000;
+    [Bindable] public var redShade3:uint = 0xff0000;
+        
+    // Create some test items of type "Object" for testing.
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+    
+    // Given a container, loops through its children checking IDs.
+    // It defaults to not searching recursively, but you can pass in a 3rd param as true to make it recurse.
+    // Returns true if a child with the given ID is present.
+    // Returns false if not.
+    public function childPresent(theContainer:Container, childID:String, recurse:Boolean = false):Boolean{
+        var i:int;
+        var theChild:Object;
+        var found:Boolean = false;
+        
+        for(i = 0; i < theContainer.numChildren && !found; ++i){
+            theChild = theContainer.getChildAt(i);
+            
+            if(theChild.id == childID){
+                found = true;
+            }else{
+                if(recurse)
+                    if(theChild is Container)
+                        found = childPresent(Container(theChild), childID, recurse);
+            }
+        }
+        
+        return found;
+    }
+
+    // Tells whether the given object is at the specified index in the given container.
+    // Returns true if it is, false if it is not.
+    public function confirmChildIndex(obj:Object, theContainer:Container, idx:int):Boolean{
+        var ret:Boolean = false;
+        var theChildren:Array = theContainer.getChildren();
+        var i:int;
+        
+        for(i = 0; i < theChildren.length; ++i){
+            if(obj === theChildren[i]){
+                if(i == idx){
+                    ret = true;
+                }
+                break;   
+            } 
+        }
+        
+        return ret;        
+    }
+
+
+    // These changeHandler functions are used for event handler testing.
+    private function changeHandler1(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler1"));
+    }
+
+    private function changeHandler2(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler2"));
+    }
+
+    private function changeHandler3(dispatcher:UIComponent):void{
+        dispatcher.dispatchEvent(new Event("changeHandler3"));
+    }
+
+    // Note that this one accepts an event!
+    public function changeHandler4(e:Event):void{
+        e.target.dispatchEvent(new Event("changeHandler4"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<mx:states>
+    <!-- Base default state -->
+    <mx:State name="defaultState" />
+    
+    <!-- Test states -->
+    <mx:State name="state001" />
+    <mx:State name="state002" />
+    <mx:State name="state003" />
+</mx:states>
+
+<comps:MXML_Subclass id="subclass1" />
+<comps:MXML_MXML_Subclass id="subclass2" />
+
+</mx:Application>

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="400">
+
+	<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+	<mx:Style>
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVerdana;
+				embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVerdana;
+				embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVerdana;
+				embedAsCFF: false;
+		}
+
+		global{
+			fontFamily: EmbeddedVerdana;
+			fontAntiAliasType: normal;
+		}
+	</mx:Style>
+
+    <!-- Define the two view states, in addition to the base state.-->
+    <mx:states>
+        <mx:State name="{textOne.text}">
+            <mx:SetProperty target="{p1}" name="x" value="110"/>
+            <mx:SetProperty target="{p1}" name="y" value="0"/>
+            <mx:SetProperty target="{p1}" name="width" value="200"/>
+            <mx:SetProperty target="{p1}" name="height" value="210"/>
+            <mx:SetProperty target="{p2}" name="x" value="0"/>
+            <mx:SetProperty target="{p2}" name="y" value="0"/>
+            <mx:SetProperty target="{p2}" name="width" value="100"/>
+            <mx:SetProperty target="{p2}" name="height" value="100"/>
+            <mx:SetProperty target="{p3}" name="x" value="0"/>
+            <mx:SetProperty target="{p3}" name="y" value="110"/>
+            <mx:SetProperty target="{p3}" name="width" value="100"/>
+            <mx:SetProperty target="{p3}" name="height" value="100"/>
+        </mx:State>
+        <mx:State name="{textTwo.text}">
+            <mx:SetProperty target="{p2}" name="x" value="110"/>
+            <mx:SetProperty target="{p2}" name="y" value="0"/>
+            <mx:SetProperty target="{p2}" name="width" value="200"/>
+            <mx:SetProperty target="{p2}" name="height" value="210"/>
+            <mx:SetProperty target="{p3}" name="x" value="0"/>
+            <mx:SetProperty target="{p3}" name="y" value="110"/>
+            <mx:SetProperty target="{p3}" name="width" value="100"/>
+            <mx:SetProperty target="{p3}" name="height" value="100"/>
+        </mx:State>
+    </mx:states>
+
+    <!-- Define the Canvas container holding the three Panel containers.-->
+    <mx:Canvas id="pm" width="100%" height="100%">
+        <mx:Panel id="p1" title="One" 
+                x="0" y="0" width="100" height="100"
+                click="currentState='One'">
+            <mx:Label fontSize="24" text="One"/>
+        </mx:Panel>
+        
+        <mx:Panel id="p2" title="Two" 
+                x="0" y="110" width="100" height="100"
+                click="currentState='Two'">
+            <mx:Label fontSize="24" text="Two"/>
+        </mx:Panel>
+        
+        <mx:Panel id="p3" title="Three" 
+                x="110" y="0" width="200" height="210" 
+                click="currentState=''">
+            <mx:Label fontSize="24" text="Three"/>
+        </mx:Panel>
+        
+    </mx:Canvas>
+
+    <mx:Text id="textOne" text="One"/>
+    <mx:Text id="textTwo" text="Two"/>
+</mx:Application>
