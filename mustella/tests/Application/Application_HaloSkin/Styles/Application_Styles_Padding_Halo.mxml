@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Application/Application_HaloSkin/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ApplicationApp3_Halo.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    ]]>
+    </mx:Script>
+
+	<testCases>
+
+	
+	<!--
+	    You can't call ResetComponent on a SWFLoader, so reset the SWFLoader creatively.
+
+        When chaning a style, you can wait for updateComplete from sl1.content.application.
+
+        Regarding backgroundImage, backgroundColor, and backgroundGradientXX styles, here is
+        a conceptual understanding, as it seems to me:
+        
+        This is the                      This is the
+        background.                      backgroundImage.
+        It is affected                   It is affected
+        by the                           by the
+        backgroundColor                  backgroundGradientXX
+        style:                           styles:
+
+         /|                                /|
+        | |          ============>        | |   =======>   Out to the user.
+        | |                               | |
+        |/                                |/
+        
+        Setting backgroundImage to "" will make backgroundGradientXX styles not work, and
+        all you will get is the backgroundColor.
+	-->
+	
+<!--
+================================================================================
+paddingTop
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+================================================================================
+-->	
+	<TestCase testID="style_paddingTop_test1_halo" keywords="[[application, paddingTop]" description="Default (24).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingTop')" value="24" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	<TestCase testID="style_paddingTop_test2_halo" keywords="[[application, paddingTop]" description="Negative value">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingTop',-10)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingTop')" value="-10" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="style_paddingTop_test3_halo" keywords="[[application, paddingTop]" description="Zero">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingTop',0)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingTop')" value="0" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="style_paddingTop_test4_halo" keywords="[[application, paddingTop]" description="Normal non-default value">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingTop',50)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingTop')" value="50" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="style_paddingTop_test5_halo" keywords="[[application, paddingTop]" description="High value (bottom of app)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingTop',180)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingTop')" value="180" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	<TestCase testID="style_paddingTop_test6_halo" keywords="[[application, paddingTop]" description="Very high value (off bottom of app)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingTop',190)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingTop')" value="190" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+<!--
+================================================================================
+paddingBottom
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+================================================================================
+-->	
+	<TestCase testID="style_paddingBottom_test1_halo" keywords="[[application, paddingBottom]" description="Default (24).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('verticalAlign','bottom')" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingBottom')" value="24" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	<TestCase testID="style_paddingBottom_test2_halo" keywords="[[application, paddingBottom]" description="Negative value">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('verticalAlign','bottom')" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingBottom',-10)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingBottom')" value="-10" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="style_paddingBottom_test3_halo" keywords="[[application, paddingBottom]" description="Zero">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('verticalAlign','bottom')" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingBottom',0)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingBottom')" value="0" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="style_paddingBottom_test4_halo" keywords="[[application, paddingBottom]" description="Normal non-default value">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('verticalAlign','bottom')" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingBottom',50)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingBottom')" value="50" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="style_paddingBottom_test5_halo" keywords="[[application, paddingBottom]" description="High value (top of app)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('verticalAlign','bottom')" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingBottom',180)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingBottom')" value="180" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	<TestCase testID="style_paddingBottom_test6_halo" keywords="[[application, paddingBottom]" description="Very high value (off top of app)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplicationWithBox_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('verticalAlign','bottom')" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('paddingBottom',190)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('paddingBottom')" value="190" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	</testCases>
+</UnitTester>

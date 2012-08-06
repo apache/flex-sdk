@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Application/Application_HaloSkin/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ApplicationApp3_Halo.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    ]]>
+    </mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+backgroundGradientAlphas:
+Set the backgroundColor to green.
+Set the backgroundGradientColors to black and black.
+Now, changing backgroundGradientAlphas will reuslt in varying shades of green.
+================================================================================
+-->	
+	<TestCase testID="style_backgroundGradientAlphas_test1_halo" keywords="[[application, backgroundGradientAlphas]" description="Check the default.">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[1,1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	<TestCase testID="style_backgroundGradientAlphas_test2_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0,0 (boundaries).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+
+	<TestCase testID="style_backgroundGradientAlphas_test3_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0,1 (boundaries).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0,1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test4_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 1,0 (boundaries).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[1,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test5_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 1,1 (boundaries).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[1,1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test6_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 1.0,1.0 (boundaries).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1.0,1.0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[1,1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test7_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0,0.7 (normal increasing values)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0,0.7])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0,0.7]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test8_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0.3,0.7 (normal increasing values)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0.3,0.7])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0.3,0.7]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test9_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0.3,1 (normal increasing values)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0.3,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0.3,1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test10_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0.7,0 (normal decreasing values)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0.7,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0.7,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test11_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0.7,0.3 (normal decreasing values)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0.7,0.3])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0.7,0.3]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test12_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 1,0.3 (normal decreasing values)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,0.3])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[1,0.3]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test13_halo" keywords="[[application, backgroundGradientAlphas]" description="Check -1,0 (invalid).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[-1,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[-1,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test14_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0,-1 (invalid).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0,-1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0,-1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	<TestCase testID="style_backgroundGradientAlphas_test15_halo" keywords="[[application, backgroundGradientAlphas]" description="Check 0,2 (invalid).">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[0,2])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientAlphas')" value="[0,2]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+<!--
+================================================================================
+backgroundGradientColors:
+Set the backgroundGradientAlphas to 1 and 1.
+Don't worry about backgroundColor b/c setting the alpha to 1 will hide it.
+================================================================================
+-->	
+    <TestCase testID="style_backgroundGradientColors_test1_Flex_halo" keywords="[[application, backgroundGradientColors]" description="Check the default.">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="null" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test1_AIR_halo" keywords="[[application, backgroundGradientColors]" description="Check the default.">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="null" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test2_halo" keywords="[[application, backgroundGradientColors]" description="Check min and min (boundaries)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test3_halo" keywords="[[application, backgroundGradientColors]" description="Check min and max (boundaries)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0,0xffffff]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+    
+    <TestCase testID="style_backgroundGradientColors_test4_halo" keywords="[[application, backgroundGradientColors]" description="Check max and min (boundaries)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0xffffff,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+    
+    <TestCase testID="style_backgroundGradientColors_test5_halo" keywords="[[application, backgroundGradientColors]" description="Check max and max (boundaries)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0xffffff,0xffffff]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test6_halo" keywords="[[application, backgroundGradientColors]" description="Check min and midrange (normal, increasing)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,0x00ff00])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0,0x00ff00]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test7_halo" keywords="[[application, backgroundGradientColors]" description="Check midrange and midrange (normal, increasing)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0x0000ff,0xff0000])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0x0000ff,0xff0000]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test8_halo" keywords="[[application, backgroundGradientColors]" description="Check midrange and max (normal, increasing)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0x00ff00,0xffffff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0x00ff00,0xffffff]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test9_halo" keywords="[[application, backgroundGradientColors]" description="Check midrange and min (normal, decreasing)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0x00ff00,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0x00ff00,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test10_halo" keywords="[[application, backgroundGradientColors]" description="Check midrange and midrange (normal, decreasing)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xff0000,0x0000ff])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0xff0000,0x0000ff]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test11_halo" keywords="[[application, backgroundGradientColors]" description="Check max and midrange (normal, decreasing)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0xffffff,0x00ff00])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0xffffff,0x00ff00]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test12a_halo" keywords="[[application, backgroundGradientColors]" description="Check negative number (invalid)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,-1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0,-1]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test12b_halo" keywords="[[application, backgroundGradientColors]" description="Check negative number (invalid)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[-1,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[-1,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test13a_halo" keywords="[[application, backgroundGradientColors]" description="Check a number that is too large (invalid)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[0,16777216])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0,16777216]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test13b_halo" keywords="[[application, backgroundGradientColors]" description="Check a number that is too large (invalid)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[16777216,0])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[16777216,0]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test14_halo" keywords="[[application, backgroundGradientColors]" description="Check Number class">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',[new Number(0),new Number(0xffffff)])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[0,0xffffff]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test15a_halo" keywords="[[application, backgroundGradientColors]" description="Check String (invalid??)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',['0x0000ff', '0xff0000'])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" valueExpression="value='0x0000ff,0xff0000'" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="style_backgroundGradientColors_test15b_halo" keywords="[[application, backgroundGradientColors]" description="Check String (invalid)">
+        <setup>
+            <SetProperty target="sl1" propertyName="autoLoad" value="true" />
+            <SetProperty target="sl1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="sl1" />
+            <SetProperty target="sl1" propertyName="source" value="assets/BasicApplication_Halo.swf" waitEvent="complete" waitTarget="sl1" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl1.content" waitEvent="applicationComplete"/>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientAlphas',[1,1])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="Object(application.sl1.content).document.setStyle('backgroundGradientColors',['peanut', 'butter'])" waitTarget="sl1.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=Object(application.sl1.content).document.getStyle('backgroundGradientColors')" value="[peanut, butter]" />
+            <CompareBitmap url="../Styles/Baselines/$testID.png" target="bx1" />
+        </body>
+    </TestCase>
+
+	</testCases>
+</UnitTester>

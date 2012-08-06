@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Application/Application_HaloSkin/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FixedApplication2_Halo.mxml">
+       <mx:Script>
+		<![CDATA[
+
+
+			import mx.controls.Button;
+			import mx.containers.*;
+
+			public static function init(o:DisplayObject):void
+			{
+				}
+
+			public function addChildToApplication(buttonLabel:String):void
+			{
+				var bt:Button= new Button();
+				bt.label=buttonLabel;
+				application.addChild(bt);
+			}
+
+			public function addChildAtToApplication(buttonLabel:String, i:int):void
+			{
+				var bt:Button= new Button();
+				bt.label=buttonLabel;
+				application.addChildAt(bt,i);
+			}
+
+			public function addContainer():void
+			{
+
+				var myP:Panel  = new Panel();
+				myP.width=100;
+				myP.height=100;
+				application.addChild(myP);
+			}
+
+			public function removeAllChildrenOfApplication():void
+			{
+				application.removeAllChildren();
+			}
+
+			public function resetApplication(): void
+			{
+				application.removeAllChildren();
+				var btn:Button = new Button();
+				btn.id = "btn";
+				application.addChild(btn);
+			}
+
+
+		]]>
+       </mx:Script>
+
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+		<TestCase testID="application_method_addChild_halo" keywords="[[Application, removeChildAt]" description="To verify the method Application removeChildAt">
+			<setup>
+			    <RunCode code="resetApplication()" waitEvent="updateComplete" waitTarget=""  />
+				<RunCode code="addChildToApplication('blah')"  waitTarget="" waitEvent="updateComplete" />
+				<RunCode code="addContainer()"  waitTarget="" waitEvent="updateComplete" />
+				<RunCode code="addChildToApplication('blue')" waitTarget="" waitEvent="updateComplete" />
+				<RunCode code="addContainer()" waitTarget="" waitEvent="updateComplete" />
+				<RunCode code="addChildToApplication('tahiti')" waitTarget="" waitEvent="updateComplete" />
+				<RunCode code="addContainer()" waitTarget="" waitEvent="added" />
+				<RunCode code="addChildToApplication('jordan')" waitTarget="" waitEvent="added" />
+				<RunCode code="addContainer()" waitTarget="" waitEvent="added" />
+			</setup>
+			<body>
+				<AssertPropertyValue target ="" propertyName="numChildren" value="9" />
+			</body>
+		</TestCase>
+		<TestCase testID="application_method_addChildAt_1_halo" keywords="[[Application, addChild]" description="To verify the method Application addChildAt">
+			<setup>
+			    <RunCode code="resetApplication()" waitEvent="updateComplete" waitTarget=""  />
+				<RunCode code="addChildToApplication('BlahButton')" waitTarget="" waitEvent="added" />
+				<RunCode code="addChildAtToApplication('MyButton', 1)" waitTarget="" waitEvent="added" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="numChildren" value="3" />
+				<AssertPropertyValue target="getChildAt(1)" propertyName="label" value="MyButton" />
+			</body>
+		</TestCase>
+		<TestCase testID="application_method_addChildAt_01_halo" keywords="[[Application, addChildAt]" description="To verify the method Application addChildAt">
+			<setup>
+			    <RunCode code="resetApplication()" waitEvent="updateComplete" waitTarget=""  />
+				<RunCode code="addChildAtToApplication('MyButton', 0)" waitTarget="" waitEvent="added" />
+				<RunCode code="addChildAtToApplication('PinkBear', 1)" waitTarget="" waitEvent="added" />
+			</setup>
+			<body>
+                <AssertPropertyValue target="getChildAt(1)" propertyName="label" value="PinkBear" />
+				<AssertPropertyValue target="" propertyName="numChildren" value="3" />
+			</body>
+		</TestCase>
+		<TestCase testID="application_method_removeChildAt_halo" keywords="[[Application, removeChildAt]" description="To verify the method Application removeChildAt">
+			<setup>
+			    <RunCode code="resetApplication()" waitEvent="updateComplete" waitTarget=""  />
+				<RunCode code="addChildAtToApplication('MyButton', 0)" waitTarget="" waitEvent="added" />
+				<RunCode code="addChildAtToApplication('PinkBear', 1)" waitTarget="" waitEvent="added" />
+				<RunCode code="application.removeChildAt(2)" waitTarget="" waitEvent="removed" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="numChildren" value="2" />
+			</body>
+		</TestCase>
+		<TestCase testID="application_method_removeAll_halo" keywords="[[Application, removeAll]" description="To verify the method Application removeAll">
+			<setup>
+			    <RunCode code="resetApplication()" waitEvent="updateComplete" waitTarget=""  />
+				<RunCode code="addChildAtToApplication('MyButton', 0)" waitTarget="" waitEvent="added" />
+				<RunCode code="addChildAtToApplication('PinkBear', 1)" waitTarget="" waitEvent="updateComplete" />
+				<RunCode code="removeAllChildrenOfApplication()" waitTarget="" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="numChildren" value="0" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

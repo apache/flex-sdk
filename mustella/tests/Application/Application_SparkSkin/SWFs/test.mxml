@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300"
+   layout="absolute" xmlns:comps="comps.*" creationComplete="traceDimensions()">
+
+    <mx:Script>
+    <![CDATA[
+    
+        private function traceDimensions():void{
+
+/**
+            trace("textarea1.width: " + textarea1.width);
+            trace("textarea1.height: " + textarea1.height);
+            trace("combo1.width: " + combo1.width);
+            trace("combo1.height: " + combo1.height);
+            trace("numeric1.width: " + numeric1.width);
+            trace("numeric1.height: " + numeric1.height);
+            trace("datechooser1.width: " + datechooser1.width);
+            trace("datechooser1.height: " + datechooser1.height);
+**/
+            trace("button1.width: " + button1.width);
+            trace("button1.height: " + button1.height);
+
+        }
+    
+    ]]>
+    </mx:Script>    
+<!--
+    <mx:constraintColumns>
+        <mx:ConstraintColumn id="col1" />
+        <mx:ConstraintColumn id="col2" />
+        <mx:ConstraintColumn id="col3" />
+    </mx:constraintColumns>
+    <mx:constraintRows>
+        <mx:ConstraintRow id="row1" />
+        <mx:ConstraintRow id="row2" />
+        <mx:ConstraintRow id="row3" />
+    </mx:constraintRows>
+
+    <comps:TextAreaComp2 id="textarea1" />
+    <comps:ComboBoxComp id="combo1" />
+    <comps:NumericStepperComp2 id="numeric1" />
+    <comps:DateChooserComp2 id="datechooser1" />
+    <comps:ButtonComp2 id="button1"/>    
+
+
+    <mx:TextArea id="textarea1" />
+    <mx:ComboBox id="combo1" />
+    <mx:NumericStepper id="numeric1" />
+    <mx:DateChooser id="datechooser1" />
+    <mx:Button id="button1" label="Hello World!"/>    
+-->    
+
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="600" height="500">
+
+    <mx:constraintColumns>
+        <mx:ConstraintColumn id="col1" width="100" />
+        <mx:ConstraintColumn id="col2" width="200" />
+    </mx:constraintColumns>
+    
+    <mx:constraintRows>
+        <mx:ConstraintRow id="row1" height="200" />
+        <mx:ConstraintRow id="row2" height="150" />
+    </mx:constraintRows>
+        
+    <mx:Button top="row1:10" left="col1:10" />
+
+    <mx:Canvas id="canvas2" width="400" height="300" backgroundColor="0x000000">
+        <mx:constraintColumns>
+            <mx:ConstraintColumn id="col3" width="{col1.width}" />
+            <mx:ConstraintColumn id="col4" width="{col2.width}" />
+        </mx:constraintColumns>
+        
+        <mx:constraintRows>
+            <mx:ConstraintRow id="row3" height="{row1.height}" />
+            <mx:ConstraintRow id="row4" height="{row2.height}" />
+        </mx:constraintRows>
+        
+        <mx:Button top="row3:10" left="col3:10" />
+    </mx:Canvas>
+    
+   </mx:Application>
+   
+</mx:Application>

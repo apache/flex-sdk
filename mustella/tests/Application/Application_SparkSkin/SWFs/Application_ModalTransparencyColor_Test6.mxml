@@ -1,0 +1,32 @@
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" >
+
+<mx:Style>    
+	@font-face{
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: myVerdana;
+		embedAsCFF: false;
+	}
+	
+	
+	@font-face{
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: myVerdana;
+		embedAsCFF: false;
+	}
+	
+	@font-face{
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: myVerdana;
+		embedAsCFF: false;
+	}
+	
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+</mx:Application>

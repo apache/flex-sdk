@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Application/Application_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Application_ContentSizedConstraints_Halo.mxml">
+       <mx:Script>
+		<![CDATA[
+
+        import comps.TextAreaComp2;
+        import comps.NumericStepperComp2;
+        import comps.ComboBoxComp;
+        import comps.DateChooserComp2;
+        import comps.ButtonComp2;
+		import mx.containers.utilityClasses.ConstraintColumn;
+		import mx.containers.utilityClasses.ConstraintRow;
+		import mx.controls.Button;
+
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+        public var newColumns:Array = [];
+        public var newConstraintColumn:ConstraintColumn;
+        public var newConstraintRow:ConstraintRow;
+        public var newConstraintColumn2:ConstraintColumn;
+        public var newConstraintRow2:ConstraintRow;
+        public var newRows:Array = [];
+        public var newButton:Button;
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+
+	<!-- Tests for ConstraintColumns with width as content-sizeds -->
+	<TestCase testID="constraintColumnsRows_contentSized_mxml_allConstraints_halo" keywords="[[constraintColumns, constraintRows, MXML]"
+	    description="Verify the constraintColumns and constraintRows work correctly when their width/height is a content-sized set in mxml">
+		<body>
+			<AssertPropertyValue target="textarea1" propertyName="width" value="200" />
+			<AssertPropertyValue target="textarea1" propertyName="x" value="155" />
+			<AssertPropertyValue target="textarea1" propertyName="height" value="50" />
+			<AssertPropertyValue target="textarea1" propertyName="y" value="20" />
+			<AssertPropertyValue target="constraintRows.0" propertyName="height" value="90" />
+			<AssertPropertyValue target="constraintColumns.1" propertyName="width" value="240" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumn_contentSized_mxml_halo" keywords="[[constraintColumns, MXML]"
+	    description="Verify the constraintColumns work correctly when their width is a content-sized set in mxml">
+		<body>
+			<AssertPropertyValue target="constraintColumns.0" propertyName="width" value="135" />
+			<AssertPropertyValue target="combo1" propertyName="width" value="100" />
+			<AssertPropertyValue target="combo1" propertyName="x" value="25" />
+			<AssertPropertyValue target="combo1" propertyName="y" value="0" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRow_contentSized_mxml_halo" keywords="[[constraintRows, MXML]"
+	    description="Verify the constraintRows work correctly when their height is a content-sized set in mxml">
+		<body>
+			<AssertPropertyValue target="numeric1" propertyName="height" value="35" />
+			<AssertPropertyValue target="numeric1" propertyName="x" value="0" />
+			<AssertPropertyValue target="numeric1" propertyName="y" value="70" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRow_contentSized_mxml_noHeightOnComponent_halo" keywords="[[constraintRows, MXML]"
+	    description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
+		<body>
+			<AssertPropertyValue target="constraintRows.2" propertyName="height" valueExpression="value=application.datechooser1.height + 20" />
+			<AssertPropertyValue target="datechooser1" propertyName="height" value="180" />
+			<AssertPropertyValue target="datechooser1" propertyName="x" value="0" />
+			<AssertPropertyValue target="datechooser1" propertyName="y" valueExpression="value=application.constraintRows[0].height + application.constraintRows[1].height + 10" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumn_contentSized_mxml_noWidthOnComponent_halo" keywords="[[constraintRows, MXML]"
+	    description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
+		<body>
+			<AssertPropertyValue target="constraintColumns.2" propertyName="width" valueExpression="value=application.getChildAt(4).width + 20" />
+			<AssertPropertyValue target="getChildAt(4)" propertyName="width" value="95" />
+			<AssertPropertyValue target="getChildAt(4)" propertyName="y" value="0" />
+			<AssertPropertyValue target="getChildAt(4)" propertyName="x" valueExpression="value=application.constraintColumns[0].width + application.constraintColumns[1].width + 10" />
+		</body>
+	</TestCase>
+	<TestCase testID="constraintColumns_contentsized_mxml_resizeComponent_halo" keywords="[[content-sized sized, Canvas, constraintColumn]"
+	    description="ConstraintColumns with content-sized width and then resize a component changing the column size">
+		<setup>
+		    <ResetComponent target="textarea1" className="comps.TextAreaComp2" waitTarget="textarea1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="textarea1" propertyName="minWidth" value="200" waitEvent="updateComplete" waitTarget="textarea1"/>
+			<AssertPropertyValue target="textarea1" propertyName="width" value="200" />
+			<AssertPropertyValue target="constraintColumns.1" propertyName="width" value="240" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_contentsized_mxml_resizeComponent_halo" keywords="[[content-sized sized, Canvas, constraintRow]"
+	    description="ConstraintRows with content-sized height and then resize Component">
+		<setup>
+		    <ResetComponent target="textarea1" className="comps.TextAreaComp2" waitTarget="textarea1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="textarea1" propertyName="minHeight" value="220" waitEvent="updateComplete" waitTarget="textarea1"/>
+			<AssertPropertyValue target="textarea1" propertyName="height" value="220" />
+			<AssertPropertyValue target="constraintRows.0" propertyName="height" value="260" />
+		</body>
+	</TestCase>
+
+	</testCases>
+</UnitTester>

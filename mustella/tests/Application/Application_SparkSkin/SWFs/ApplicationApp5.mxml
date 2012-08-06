@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  width="800" height="600" 
+xmlns:mx="http://www.adobe.com/2006/mxml">
+
+<mx:Script>
+<![CDATA[
+
+        import mx.core.Application;
+
+        public var creationQueueArray:Array;
+
+        public function populateCreationQueue1():void{            
+            addToCreationQueue(bx3);
+            addToCreationQueue(bx1);
+            addToCreationQueue(bx2);
+        }
+
+        public function populateCreationQueue2():void{            
+                addToCreationQueue(bx4, 1);
+                addToCreationQueue(bx5, 3);
+                addToCreationQueue(bx6, 2);
+        }
+        
+        public function verifyCreation(first:String, second:String, third:String):Boolean{
+
+            var ret:Boolean = false;
+            
+            if(
+                creationQueueArray[0] == first &&
+                creationQueueArray[1] == second &&
+                creationQueueArray[2] == third){
+                ret = true;
+            }else{
+                trace("Error!  Actual: " + creationQueueArray);
+            }
+            
+            return ret;
+        }
+
+]]>
+</mx:Script>
+
+<mx:Box id="bx1" creationComplete="creationQueueArray.push('bx1')" creationPolicy="none" >
+    <mx:Spacer />
+</mx:Box>
+
+<mx:Box id="bx2" creationComplete="creationQueueArray.push('bx2')" creationPolicy="none" >
+    <mx:Spacer />
+</mx:Box>
+
+<mx:Box id="bx3" creationComplete="creationQueueArray.push('bx3')" creationPolicy="none" >
+    <mx:Spacer />
+</mx:Box>
+
+<mx:Box id="bx4" creationComplete="creationQueueArray.push('bx4')" creationPolicy="none" >
+    <mx:Spacer />
+</mx:Box>
+
+<mx:Box id="bx5" creationComplete="creationQueueArray.push('bx5')" creationPolicy="none" >
+    <mx:Spacer />
+</mx:Box>
+
+<mx:Box id="bx6" creationComplete="creationQueueArray.push('bx6')" creationPolicy="none" >
+    <mx:Spacer />
+</mx:Box>
+
+</mx:Application>

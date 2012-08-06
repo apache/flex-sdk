@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Application/Application_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ApplicationApp2.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.core.Application;
+        import flash.display.Stage;
+
+        public function measureScriptTimeLimit():int{
+            var theSeconds:int = -1;
+            var secondsPassed:int = -1;
+            var theDate:Date;
+            
+            try{
+
+                while(true){
+                    theDate = new Date();
+                    
+                    if(theDate.seconds != theSeconds){
+                        ++secondsPassed;
+                        theSeconds = theDate.seconds;
+                        
+                        if(secondsPassed % 20 == 0)
+                            trace(secondsPassed);
+                    }
+                        
+                    // Be sure we don't run forever, in case scriptTimeLimit is broken.
+                    if(secondsPassed > 70)
+                        break;
+                }
+            }catch(e:Error){
+                // We should normally get an exception.
+            }
+
+            return secondsPassed;
+        }
+    ]]>
+    </mx:Script>
+
+	<testCases>
+
+    <TestCase testID="property_usePreloader_default" keywords="[application]"	
+        description="Be sure the default for usePreloader is correct.">
+            <body>
+                <AssertMethodValue method="value=Application.application.usePreloader" value="true" />
+            </body>
+    </TestCase>
+
+
+    <TestCase testID="property_viewSourceURL_default" keywords="[application]"	
+        description="Be sure the default for viewSourceURL is correct.">
+            <body>
+                <AssertMethodValue method="value=Application.application.viewSourceURL" value="null" />
+            </body>
+    </TestCase>
+
+        	
+	</testCases>
+</UnitTester>

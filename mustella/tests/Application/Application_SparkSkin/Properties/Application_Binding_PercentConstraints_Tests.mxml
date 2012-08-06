@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Application/Application_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Application_Binding_PercentConstraints.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+<!-- Adding Pause because this test seems to timeout for no reason on flexqa01-->
+      <TestCase testID="ConstraintColumn_Binding_minWidth_mxml" description="Test that you can bind to the ConstraintColumn minWidth property" keywords="[Binding, minWidth, ConstraintColumn]">
+        <setup>
+            <Pause timeout="500" />
+        </setup>
+        <body>
+            <AssertPropertyValue value="120" propertyName="minWidth" target="col7" />
+            <AssertPropertyValue value="200" propertyName="minWidth" target="col8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintColumn_Binding_minWidth_runtime" description="Test that you can bind to the ConstraintColumn minWidth property and change
+         it at runtime." keywords="[Binding, minWidth, ConstraintColumn]">
+        <body>
+            <SetProperty propertyName="minWidth" value="200" target="col5"   />
+            <SetProperty propertyName="minWidth" value="160" target="col6" />
+            <AssertPropertyValue value="200" propertyName="minWidth" target="col7" />
+            <AssertPropertyValue value="160" propertyName="minWidth" target="col8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintColumn_Binding_maxWidth_mxml" description="Test that you can bind to the ConstraintColumn maxWidth property" keywords="[Binding, maxWidth, ConstraintColumn]">
+        <body>
+            <AssertPropertyValue value="400" propertyName="maxWidth" target="col7" />
+            <AssertPropertyValue value="300" propertyName="maxWidth" target="col8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintColumn_Binding_maxWidth_runtime" description="Test that you can bind to the ConstraintColumn maxWidth property and change
+         it at runtime." keywords="[Binding, maxWidth, ConstraintColumn]">
+        <body>
+            <SetProperty propertyName="maxWidth" value="400" target="col5" />
+            <SetProperty propertyName="maxWidth" value="360" target="col6" />
+            <AssertPropertyValue value="400" propertyName="maxWidth" target="col7" />
+            <AssertPropertyValue value="360" propertyName="maxWidth" target="col8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintRow_Binding_minHeight_mxml" description="Test that you can bind to the ConstraintRow minHeight property" keywords="[Binding, minHeight, ConstraintRow]">
+        <body>
+            <AssertPropertyValue value="220" propertyName="minHeight" target="row7" />
+            <AssertPropertyValue value="120" propertyName="minHeight" target="row8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintRow_Binding_minHeight_runtime" description="Test that you can bind to the ConstraintRow minHeight property and change
+         it at runtime." keywords="[Binding, minHeight, ConstraintRow]">
+        <body>
+            <SetProperty propertyName="minHeight" value="200" target="row5"   />
+            <SetProperty propertyName="minHeight" value="160" target="row6"   />
+            <AssertPropertyValue value="200" propertyName="minHeight" target="row7" />
+            <AssertPropertyValue value="160" propertyName="minHeight" target="row8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintRow_Binding_maxHeight_mxml" description="Test that you can bind to the ConstraintRow maxHeight property" keywords="[Binding, maxHeight, ConstraintRow]">
+        <body>
+            <AssertPropertyValue value="400" propertyName="maxHeight" target="row7" />
+            <AssertPropertyValue value="300" propertyName="maxHeight" target="row8" />
+        </body>
+      </TestCase>
+      <TestCase testID="ConstraintRow_Binding_maxHeight_runtime" description="Test that you can bind to the ConstraintRow maxHeight property and change
+         it at runtime." keywords="[Binding, maxHeight, ConstraintRow]">
+        <body>
+            <SetProperty propertyName="maxHeight" value="400" target="row5" />
+            <SetProperty propertyName="maxHeight" value="360" target="row6" />
+            <AssertPropertyValue value="400" propertyName="maxHeight" target="row7" />
+            <AssertPropertyValue value="360" propertyName="maxHeight" target="row8" />
+        </body>
+      </TestCase>
+</testCases>
+
+
+</UnitTester>
