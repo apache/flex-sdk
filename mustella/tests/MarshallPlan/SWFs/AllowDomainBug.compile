@@ -1,0 +1,1 @@
+ -includes=mx.managers.systemClasses.MarshallingSupport -static-link-runtime-shared-libraries=false -rslp=assets/MyUtils,assets/MyUtils/library.swf  -remove-unused-rsls=true

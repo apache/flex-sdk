@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="100">
+    
+    <!-- This app is untrusted and uses the MyUtils RSL indirectly thru a call to the main
+         application
+    -->
+    
+    <fx:Script>
+        <![CDATA[
+            
+            import flash.system.ApplicationDomain;
+            
+            import mx.core.FlexGlobals;
+            
+            public var flag:Boolean = false;
+            private function getParents1():void
+            {
+            	try
+            	{
+	            	var sm:Object = Object(systemManager).parent.parent.systemManager.topLevelSystemManager;
+	                var myUtilsClass:Class = null;
+	                var ad:ApplicationDomain = sm["info"]()["currentDomain"];
+	                
+	                if (ad.hasDefinition("MyUtils"))
+	                    myUtilsClass = ad.getDefinition("MyUtils") as Class;    
+	
+	                if (myUtilsClass)
+	                {
+	                    var myUtilsInstance:Object = myUtilsClass["createMyUtilsInstance"]();
+	                    var spriteInstance:Object = myUtilsInstance["createSprite"]();
+	                    var tf:TextField = new TextField();
+	                    //systemManager["addChild"](spriteInstance);
+	                    spriteInstance["addChild"](tf);
+	                    var tfParent:DisplayObject = tf.parent;     // MyUtils RSL needs access to UntrustedApp
+	                    flag = true;
+	                }
+            	}
+            	catch(e:Error)
+            	{
+            		flag = false;
+            	}
+            }
+            
+            
+        ]]>
+    </fx:Script>
+
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+
+    <s:Label text="UntrustedApp" />
+    <s:Button id="runBtn" label="run test" click="getParents1()" />
+</s:Application>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/RPC/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Bootstrap_RPC_Child.mxml">
+    <mx:Script>
+	<![CDATA[
+
+       import mx.managers.PopUpManager;
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+    <mx:Script>
+        <![CDATA[
+            import mx.utils.ObjectUtil;
+            import mx.rpc.events.FaultEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.rpc.soap.LoadEvent;
+            import mx.rpc.soap.Operation;
+            import mx.rpc.AsyncToken;
+            import mx.collections.ArrayCollection;
+            import mx.rpc.soap.WebService;
+
+            private var rowsLength:int = 0;
+            private var nwCL:WebService = new WebService();
+            private var res:String = "";
+            private var tbl:Object;
+
+            public function exec(op:Operation):void
+            {
+                op.resultFormat="object";
+                op.send();
+            }
+            public function initApplication():void
+            {
+                nwCL.wsdl = "http://flexqa01.labs.corp.adobe.com/FlexWS/CustomerList.asmx?WSDL";
+                nwCL.addEventListener(ResultEvent.RESULT,onResult);
+                nwCL.addEventListener(FaultEvent.FAULT,onFault);
+                nwCL.addEventListener(LoadEvent.LOAD,onLoad);
+                nwCL.useProxy = false;
+                nwCL.loadWSDL();
+            }
+            private function onLoad(event:LoadEvent):void
+            {
+                //dump(event);
+            }
+            private function onResult(event:ResultEvent):void
+            {
+                var ds:Object = {};
+                for (var i:int=0;i<event.result.length;i++)
+                {
+                    ds[i] = event.result[i];
+                    for each (var tbl:Object in ds[i].Tables)
+                    {
+                        displayTable(tbl);
+                        rowsLength = tbl["Rows"].length;
+                        dump("Number of rows: " + tbl["Rows"].length);
+                    }
+                }
+            }
+
+            private function displayTable(tbl:Object):void
+            {
+                application.swf22.content.document.dg.dataProvider = tbl.Rows;
+            }
+
+            private function onFault(event:FaultEvent):void
+            {
+                dump(event.fault);
+            }
+
+            private function dump(obj:Object):void
+            {
+                //txt.text += "----------------------------------------\n";
+                application.swf22.content.document.txt.text += ObjectUtil.toString(obj);
+            }
+
+        ]]>
+    </mx:Script>
+
+	<testCases>
+        <TestCase testID="getDataTableArray" description="test that value = 30 rows 3 x" keywords="[rpc]">
+            <setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="complete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="loadForCompatibility" value="false" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/MP_RPC_dataSetMain.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<RunCode code="initApplication()" />
+                <RunCode code="exec(nwCL.getDataTableArray)"   waitEvent="updateComplete" waitTarget="swf22.content.document.dg"  />
+        	     <AssertPropertyValue propertyName="text" target="swf22.content.document.txt" value='"Number of rows: 30""Number of rows: 30""Number of rows: 30"' />
+			</body>
+		</TestCase>
+        <TestCase testID="getDataTableArray_compatible" description="test that value = 30 rows 3 x" keywords="[rpc]">
+            <setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="complete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="loadForCompatibility" value="true" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/MP_RPC_dataSetMain.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<RunCode code="initApplication()" />
+                <RunCode code="exec(nwCL.getDataTableArray)"   waitEvent="updateComplete" waitTarget="swf22.content.document.dg"  />
+        	     <AssertPropertyValue propertyName="text" target="swf22.content.document.txt" value='"Number of rows: 30""Number of rows: 30""Number of rows: 30"' />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

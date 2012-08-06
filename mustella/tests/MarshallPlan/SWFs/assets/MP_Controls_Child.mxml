@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:comps="comps.*"
+   backgroundColor="0xFFFFFF" backgroundImage="">
+<mx:Script>
+	<![CDATA[
+
+		[Bindable]
+		private var myData:Array = [
+           { Artist:'ArtistA', Album:'AlbumA', Price:11.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumB', Price:10.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumC', Price:12.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumD', Price:11.99, Rating:'Good' },
+           { Artist:'ArtistA', Album:'AlbumE', Price:11.99, Rating:'Good' },
+           { Artist:'Other', Album:'Other', Price:5.99, Rating:'Bad' }
+		];
+
+        [Bindable]
+        [Embed(source="../../../../Assets/Images/smallpurplerect.jpg")]
+        public var jpgIcon:Class;
+
+
+	]]>
+</mx:Script>
+
+<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+
+<mx:XML id="treeData" format="e4x" >
+  <node>
+		<node label="Containers" data="Containers.as">
+		    <node label="DividedBoxClasses">
+			<node label="BoxDivider" data="BoxDivider.as" />
+		</node>
+		    <node label="GridClasses">
+			    <node label="GridRow" data="GridRow.as" />
+			    <node label="GridItem" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="Printing">
+			<node label="PrintJob" data="PrintJob.as" />
+			<node label="PrintJob1" data="PrintJob1.as" />
+			<node label="PrintTree" data="PrintTree.as" />
+		</node>
+		<node label="Data">
+		    <node label="Messages">
+			    <node label="DataMessage" data="DataMessage.as" />
+			    <node label="SequenceMessage" data="SequenceMessage.as" />
+			    <node label="PagedMessage" data="PagedMessage.as" />
+		    </node>
+		    <node label="Events">
+			    <node label="ConflictEvents">
+				<node label="ResolveEvent" data="ResolveEvent.as" />
+				<node label="BubbleEvent" data="BubbleEvent.as" />
+			</node>
+			    <node label="CommitFaultEvent" data="CommitFaultEvent.as" />
+		    </node>
+		</node>
+    </node>
+</mx:XML>
+
+<mx:Style>
+
+Menu {
+   openDuration: 0;
+}
+</mx:Style>
+
+<mx:HBox x="5" y="5">
+    <comps:DGComp id="dataGrid1" />
+	<comps:ListComp id="list1" />
+</mx:HBox>
+
+	<mx:ColorPicker id="colorPicker1" y="200" right="20" toolTip="This is a ColorPicker"/>
+	<mx:DateField id="dateField1" right="20" y="270" toolTip="DateField"/>
+	<mx:HSlider minimum="0" maximum="100" y="290" right="20" toolTip="Slider"/>
+	<mx:Button toggle="true" label="I toggle" y="330" right="20" toolTip="Toggleable Button"/>
+	<mx:Button id="iconButton" label="launch Alert" click="mx.controls.Alert.show('hello')" y="350" right="20"
+		  icon="{jpgIcon}" toolTip="Button to launch an alert."/>
+	<mx:NumericStepper  right="20" y="410" toolTip="NumericStepper"/>
+	<mx:TextArea  right="20" y="450" toolTip="TextArea"/>
+	<mx:TextInput  right="20" y="500" toolTip="TextInput"/>
+	<mx:Tree id="tree1" dataProvider="{treeData}" labelField="@label" showRoot="false" right="20" y="560"
+		  toolTip="This is a scrolling Tree, dude"/>
+	<mx:ComboBox dataProvider="{myData}" id="comboBox1" labelField="Price"  right="20" bottom="20" toolTip="ComboBox"/>
+
+</mx:Application>

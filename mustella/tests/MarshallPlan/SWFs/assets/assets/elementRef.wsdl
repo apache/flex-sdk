@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<definitions
+    targetNamespace="http://www.openuri.org/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/"
+    xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/"
+    xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+    xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/"
+    xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+    xmlns:s="http://www.w3.org/2001/XMLSchema"
+    xmlns:s0="http://www.openuri.org/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+    <types>
+        <s:schema
+            elementFormDefault="qualified"
+            targetNamespace="http://www.openuri.org/"
+            xmlns="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/"
+            xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/"
+            xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+            xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/"
+            xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+            xmlns:s="http://www.w3.org/2001/XMLSchema"
+            xmlns:s0="http://www.openuri.org/"
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:two="http://www.test.com/">
+            <s:import namespace="http://www.test.com/"/>
+            <s:element name="api1">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element ref="two:Api1Request"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="api1Response">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element ref="two:Api1Response"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="api2">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element ref="two:Api2Request"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="api2Response">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element ref="two:Api2Response"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+        </s:schema>
+        <xs:schema
+            attributeFormDefault="unqualified"
+            elementFormDefault="qualified"
+            targetNamespace="http://www.test.com/"
+            xmlns="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/"
+            xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/"
+            xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+            xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/"
+            xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+            xmlns:s="http://www.w3.org/2001/XMLSchema"
+            xmlns:s0="http://www.openuri.org/"
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="Api1Request">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Phone">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Home">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:length value="10"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="Work">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:length value="10"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Api1Response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Phone">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Home">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:length value="10"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="Work">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:length value="10"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Api2Request">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="Phone" />                        
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Api2Response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="Phone" />                        
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Phone">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Home">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:length value="10"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Work">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:length value="10"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </types>
+    <message name="api1SoapOut">
+        <part element="s0:api1Response" name="parameters"/>
+    </message>
+    <message name="api2SoapIn">
+        <part element="s0:api2" name="parameters"/>
+    </message>
+    <message name="api1SoapIn">
+        <part element="s0:api1" name="parameters"/>
+    </message>
+    <message name="api2SoapOut">
+        <part element="s0:api2Response" name="parameters"/>
+    </message>
+    <portType name="wscreateapiv2Soap">
+        <operation name="api1">
+            <input message="s0:api1SoapIn"/>
+            <output message="s0:api1SoapOut"/>
+        </operation>
+        <operation name="api2">
+            <input message="s0:api2SoapIn"/>
+            <output message="s0:api2SoapOut"/>
+        </operation>
+    </portType>
+    <binding name="wscreateapiv2Soap" type="s0:wscreateapiv2Soap">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="api1">
+            <soap:operation soapAction="http://www.openuri.org/api1" style="document"/>
+            <cw:transition phase="continue"/>
+            <input>
+                <soap:body use="literal"/>
+                <soap:header
+                    message="s0:ContinueHeader_literal"
+                    part="ContinueHeader"
+                    use="literal"> </soap:header>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="api2">
+            <soap:operation soapAction="http://www.openuri.org/api2" style="document"/>
+            <cw:transition phase="continue"/>
+            <input>
+                <soap:body use="literal"/>
+                <soap:header
+                    message="s0:ContinueHeader_literal"
+                    part="ContinueHeader"
+                    use="literal"> </soap:header>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="wscreateapiv2">
+        <port binding="s0:wscreateapiv2Soap" name="wscreateapiv2Soap">
+            <soap:address location="http://10.60.144.67:8080/xml/request.xml" /><!-- intentionally bad -->
+        </port>
+        <port binding="s0:wscreateapiv2HttpPost" name="wscreateapiv2HttpPost">     </port>
+        <port binding="s0:wscreateapiv2HttpGet" name="wscreateapiv2HttpGet">     </port>
+    </service>
+</definitions>

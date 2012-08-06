@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/ManagerTests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_DragManager_Main2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="DragManager_DragMainToSubApp_Compatiblity" description="Test dragging from the main app to the loaded sub app"
+		  keywords="[Marshall Plan, DragManager, loadForCompatibility]">
+			<setup>
+		       <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
+		   	   <SetProperty target="swf2" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf2" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf2" propertyName="source" value="assets/MP_DragManager_Events.swf" />
+			   <SetProperty target="swf2" propertyName="autoLoad" value="true"
+					waitTarget="swf2" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf2.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="200" />
+			  	<DispatchMouseEvent target="dg" type="mouseMove" localX="20" localY="61" />
+				<DispatchMouseEvent target="dg" type="mouseDown" localX="20" localY="61" buttonDown="true" />
+ 				<DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="12" localY="61"
+									waitTarget="dg" waitEvent="dragStart" />
+ 				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="150" stageY="250"
+									waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+ 				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="120" stageY="140"
+									waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="200" stageY="180"
+									waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="260" stageY="210"
+									waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="300" stageY="235"
+									waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="310" stageY="255"
+									waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="334" stageY="290"
+									waitTarget="swf2.content.document.secondList" waitEvent="dragEnter"/>
+ 				<DispatchMouseEvent target="stage" type="mouseUp" stageX="334" stageY="290"
+									waitTarget="swf2.content.document.secondList" waitEvent="dragDrop" />
+				<AssertEvent target="dg" eventName="dragComplete" eventClass="mx.events::DragEvent" />
+				<AssertPropertyValue target="dg.dataProvider" propertyName="length" value="4" />
+			</body>
+		</TestCase>
+		<TestCase testID="DragManager_DragWithinSubApp_compatibilityMode" description="Test dragging within a loaded sub app"
+		  keywords="[Marshall Plan, DragManager, loadForCompatibility]">
+			<setup>
+			   <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
+               <SetProperty target="swf2" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
+			   <SetProperty target="swf2" propertyName="source" value="assets/MP_DragManager_Events.swf" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="autoLoad" value="true" waitTarget="swf2" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf2.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="200" />
+			  	<DispatchMouseEvent target="swf2.content.document.firstList" type="mouseMove" localX="20" localY="61" />
+				<DispatchMouseEvent target="swf2.content.document.firstList" type="mouseDown" localX="20" localY="61" buttonDown="true" />
+		 		<DispatchMouseEvent target="swf2.content.document.firstList" type="mouseMove" buttonDown="true" localX="12" localY="61"
+		 		    waitTarget="swf2.content.document.firstList" waitEvent="dragStart" />
+		 		<DispatchMouseEvent target="swf2" type="mouseMove" buttonDown="true" localX="70" localY="85"
+					waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+		 		<DispatchMouseEvent target="swf2" type="mouseMove" buttonDown="true" localX="120" localY="90"
+					waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="swf2" type="mouseMove" buttonDown="true" localX="200" localY="91"
+					waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="swf2" type="mouseMove" buttonDown="true" localX="260" localY="92"
+					waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="swf2" type="mouseMove" buttonDown="true" localX="300" localY="93"
+					waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+		 		<DispatchMouseEvent target="swf2" type="mouseMove" buttonDown="true" localX="314" localY="93"
+					waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+		 		<AssertEvent target="swf2.content.document.secondList" eventName="dragEnter" eventClass="mx.events::DragEvent" />
+		        <DispatchMouseEvent target="swf2" type="mouseUp" localX="314" localY="93"
+		            waitTarget="swf2.content.document.secondList" waitEvent="dragDrop" />
+				<AssertEvent target="swf2.content.document.firstList" eventName="dragComplete" eventClass="mx.events::DragEvent" />
+				<AssertPropertyValue target="swf2.content.document.secondList.dataProvider" propertyName="length" value="1" />
+			</body>
+		</TestCase>
+        <TestCase testID="DragManager_DragSubAppToMain" description="Test dragging from the sub app to the main app"
+		  keywords="[Marshall Plan, DragManager, loadForCompatibility]">
+			<setup>
+			   <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
+               <SetProperty target="swf2" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
+			   <SetProperty target="swf2" propertyName="source" value="assets/MP_DragManager_Events.swf" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="autoLoad" value="true" waitTarget="swf2" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf2.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="200" />
+                <DispatchMouseEvent target="swf2.content.document.firstList" type="mouseMove" localX="20" localY="61" />
+				<DispatchMouseEvent target="swf2.content.document.firstList" type="mouseDown" localX="20" localY="61" buttonDown="true" />
+ 				<DispatchMouseEvent target="swf2.content.document.firstList" type="mouseMove" buttonDown="true" localX="12" localY="61"
+									waitTarget="swf2.content.document.firstList" waitEvent="dragStart" />
+ 				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="110" stageY="250"
+									waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+ 				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="120" stageY="235"
+									waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="125" stageY="214"
+									waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+				<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="135" stageY="175"
+									waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+				<AssertEvent target="dg" eventName="dragEnter" eventClass="mx.events::DragEvent" />
+				<DispatchMouseEvent target="stage" type="mouseUp" stageX="135" stageY="175"
+									waitTarget="dg" waitEvent="dragDrop" />
+				<AssertEvent target="swf2.content.document.firstList" eventName="dragComplete" eventClass="mx.events::DragEvent" />
+				<AssertPropertyValue target="dg.dataProvider" propertyName="length" value="6" />
+			</body>
+		</TestCase>
+	    <TestCase testID="DragManager_CustomDrag_Compatible" description="Test calling doDrag in a compatible application."
+		  keywords="[Marshall Plan, DragManager, doDrag]">
+			<setup>
+			   <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
+               <SetProperty target="swf2" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
+			   <SetProperty target="swf2" propertyName="loadForCompatibility" value="true" />
+			   <SetProperty target="swf2" propertyName="source" value="assets/DragMXMLComp.swf" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="autoLoad" value="true" waitTarget="swf2" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf2.content" waitEvent="applicationComplete"/>
+                <DispatchMouseEvent target="swf2.content.document.comp" type="mouseMove" localX="20" localY="11" />
+				<DispatchMouseEvent target="swf2.content.document.comp" type="mouseDown" localX="20" localY="11" buttonDown="true" />
+ 				<DispatchMouseEvent target="swf2.content.document.comp" type="mouseMove" buttonDown="true" localX="32" localY="21"
+					waitTarget="swf2.content.document.v1" waitEvent="dragEnter" />
+ 				<DispatchMouseEvent target="swf2.content.document.comp" type="mouseMove" buttonDown="true" localX="45" localY="35"
+									waitTarget="swf2.content.info().currentDomain.getDefinition(mx.managers::DragManager).mx_internal:dragProxy" waitEvent="move"/>
+ 				<DispatchMouseEvent target="swf2.content.document.comp" type="mouseUp" localX="45" localY="35"
+				    waitEvent="dragDrop" waitTarget="swf2.content.document.v1"/>
+ 				<AssertPropertyValue target="swf2.content.document.comp" propertyName="x" value="26" />
+				<AssertPropertyValue target="swf2.content.document.comp" propertyName="y" value="25" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

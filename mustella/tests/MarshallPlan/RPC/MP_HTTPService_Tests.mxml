@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/RPC/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Bootstrap_RPC_Child.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+    <!-- SOME OF THESE TESTS DEPEND ON DATA BEING SERVED FROM FLEXQA01 ON A JRUN SERVER -->
+	<testCases>
+		<TestCase testID="MP_HTTPService_localXML" description="Marshal Plan: Load an XML file using HTTPService"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/httpServiceTest.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			  	<DispatchMouseClickEvent target="swf22.content.document.btn_getWeather" localX="5" localY="5"
+			  	    waitEvent="result" waitTarget="swf22.content.document.weatherSVC" />
+		        <DispatchMouseClickEvent target="swf22.content.document.btn_dataProvider" localX="5" localY="5"
+			  	    waitTarget="swf22.content.document.datagrid1" waitEvent="updateComplete" />
+		    </body>
+		</TestCase>
+		<TestCase testID="MP_HTTPService_localXML_compatibility" description="Marshal Plan: Load an XML file using HTTPService"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/httpServiceTest.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			  	<DispatchMouseClickEvent target="swf22.content.document.btn_getWeather" localX="5" localY="5"
+			  	    waitEvent="result" waitTarget="swf22.content.document.weatherSVC" />
+		        <DispatchMouseClickEvent target="swf22.content.document.btn_dataProvider" localX="5" localY="5"
+			  	    waitTarget="swf22.content.document.datagrid1" waitEvent="updateComplete" />
+		    </body>
+		</TestCase>
+		<TestCase testID="MP_HTTPService_localXML_fault" description="Marshal Plan: Load a non-existent XML file using HTTPService"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/httpServiceTest.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			    <DispatchMouseClickEvent target="swf22.content.document.btn_getBadWeather" localX="5" localY="5"
+			  	    waitEvent="fault" waitTarget="swf22.content.document.badSVC" />
+		    </body>
+		</TestCase>
+		<TestCase testID="MP_HTTPService_localXML_fault_compatibility" description="Marshal Plan: Load a non-existent XML file using HTTPService"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/httpServiceTest.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			  	<DispatchMouseClickEvent target="swf22.content.document.btn_getBadWeather" localX="5" localY="5"
+			  	    waitEvent="fault" waitTarget="swf22.content.document.badSVC" timeout="60000"/>
+		    </body>
+		</TestCase>
+		<TestCase testID="MP_HTTPService_localXML_securityError" description="Marshal Plan: Load an XML file using HTTPService from an untrusted app"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/httpServiceTest.swf?117_23?117_23?117_23" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			    <DispatchMouseClickEvent target="swf22.content.document.btn_getWeather" localX="5" localY="5"
+			  	    waitEvent="fault" waitTarget="swf22.content.document.weatherSVC" timeout="60000" />
+		    </body>
+		</TestCase>
+		<TestCase testID="MP_HTTPService_RequestParameters" description="Marshal Plan: Post with an HTTPService"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="assets/httpServiceRequestParams.swf" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			  	<DispatchMouseClickEvent target="swf22.content.document.submit_btn" localX="5" localY="5"
+			  	    waitEvent="result" waitTarget="swf22.content.document.srv" />
+			  	<AssertPropertyValue propertyName="text" target="swf22.content.document.resultText" value="successful send." />
+		    </body>
+		</TestCase>
+		<TestCase testID="MP_HTTPService_RequestParameters_securityError" description="Marshal Plan: Post with an HTTPServic from an untrusted app"
+		    keywords="[Marshall Plan, HTTPService]">
+			<setup>
+		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		   	   <SetProperty target="swf22" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf22" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf22" waitEvent="updateComplete"/>
+			   <Pause timeout="200" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf22" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf22" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/httpServiceRequestParams.swf?158_23?158_23?158_23" />
+			   <SetProperty target="swf22" propertyName="autoLoad" value="true"
+					waitTarget="swf22" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf22.content" waitEvent="applicationComplete"/>
+			  	<Pause timeout="100" />
+			    <DispatchMouseClickEvent target="swf22.content.document.submit_btn" localX="5" localY="5"
+			  	    waitEvent="fault" waitTarget="swf22.content.document.srv" />
+			  	<AssertPropertyValue propertyName="text" target="swf22.content.document.resultText" value="failed send." timeout="60000"/>
+		    </body>
+		</TestCase>
+	</testCases>
+</UnitTester>

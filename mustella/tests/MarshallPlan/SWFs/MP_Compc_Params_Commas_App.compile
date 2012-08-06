@@ -1,0 +1,3 @@
+-locale=en_US,fr_FR,ja_JP
+-includes=mx.managers.systemClasses.MarshallingSupport
+-library-path=${mustella.dir},${mustella.dir}/classes,${sdk.dir}/frameworks/locale/en_US,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx,Assets/enUS_frFR_jaJP_bundles123_commas.swc,${sdk.dir}/frameworks/libs/air

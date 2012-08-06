@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/Controls/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_Controls_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+         <TestCase testID="MP_EditableList_trusted" description="Test that you can edit a List in a trusted child." keywords="[List, Marshall Plan, editable]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.list1.mx_internal:rendererArray.1.0"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.list1"/>
+                <DispatchKeyEvent char="Dark Knight" waitEvent="change" waitTarget="swf1.content.document.list1.itemEditorInstance" />
+                <Pause timeout="200" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.list1" />
+			    <AssertPropertyValue target="swf1.content.document.list1.dataProvider.1" value="Dark Knight" propertyName="Album" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_EditableList_compatible" description="Test that you can edit a List in a compatible child." keywords="[List, Marshall Plan, editable]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.list1.mx_internal:rendererArray.1.0"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.list1"/>
+                <DispatchKeyEvent char="Dark Knight" waitEvent="change" waitTarget="swf1.content.document.list1.itemEditorInstance" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.list1" />
+			    <AssertPropertyValue target="swf1.content.document.list1.dataProvider.1" value="Dark Knight" propertyName="Album" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_EditableList_remote" description="Test that you can edit a List in an untrusted child." keywords="[List, Marshall Plan, editable]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?80_1?80_1?80_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			  	<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.list1.mx_internal:rendererArray.1.0"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.list1"/>
+                <DispatchKeyEvent char="Dark Knight" waitEvent="change" waitTarget="swf1.content.document.list1.itemEditorInstance" />
+                <Pause timeout="200" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.list1" />
+			    <AssertPropertyValue target="swf1.content.document.list1.dataProvider.1" value="Dark Knight" propertyName="Album" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_EditableDataGrid_trusted" description="Test that you can edit a DataGrid in a trusted child." keywords="[DataGrid, Marshall Plan, editable]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty propertyName="editable" value="true" target="swf1.content.document.dataGrid1" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dataGrid1.mx_internal:rendererArray.1.1"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.dataGrid1"/>
+                <DispatchKeyEvent char="St. James" waitEvent="change" waitTarget="swf1.content.document.dataGrid1.itemEditorInstance" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.dataGrid1" />
+			    <AssertPropertyValue target="swf1.content.document.dataGrid1.dataProvider.0" value="St. James" propertyName="lastName" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_EditableDataGrid_untrusted" description="Test that you can edit a DataGrid in an untrusted child." keywords="[DataGrid, Marshall Plan, editable]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?123_1?123_1?123_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<SetProperty propertyName="editable" value="true" target="swf1.content.document.dataGrid1" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dataGrid1.mx_internal:rendererArray.1.1"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.dataGrid1"/>
+                <DispatchKeyEvent char="St. James" waitEvent="change" waitTarget="swf1.content.document.dataGrid1.itemEditorInstance" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.dataGrid1" />
+			    <AssertPropertyValue target="swf1.content.document.dataGrid1.dataProvider.0" value="St. James" propertyName="lastName" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ButtonWithEmbeddedIcon_trusted" description="Test that an embedded icon shows up in a trusted child." keywords="[Button, Marshall Plan, embed, icon]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <CompareBitmap url="../Controls/baselines/mp_buttonIcon.png" target="swf1.content.document.iconButton" timeout="2500" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ButtonWithEmbeddedIcon_untrusted" description="Test that an embedded icon shows up in an untrusted child." keywords="[Button, Marshall Plan, embed, icon]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?162_1?162_1?162_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<CompareBitmap url="../Controls/baselines/mp_buttonIcon.png" target="swf1.content.document.iconButton" timeout="2500" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_OpeningTreeNodes_trusted" description="Test that you can open Tree nodes in a trusted child." keywords="[Tree, Marshall Plan, open]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent target="swf1.content.document.tree1.mx_internal:rendererArray.1.0" localX="12" localY="4" />
+                <AssertEvent eventName="itemOpen" eventClass="mx.events::TreeEvent" target="swf1.content.document.tree1" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_OpeningTreeNodes_compatible" description="Test that you can open Tree nodes in a compatible child." keywords="[Tree, Marshall Plan, open]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+		   	    <DispatchMouseClickEvent target="swf1.content.document.tree1.mx_internal:rendererArray.1.0" localX="12" localY="4" />
+                <AssertEvent eventName="itemOpen" eventClass="mx.events::TreeEvent" target="swf1.content.document.tree1" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_OpeningTreeNodes_untrusted" description="Test that you can open Tree nodes in an untrusted child." keywords="[Tree, Marshall Plan, open]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?216_1?216_1?216_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent target="swf1.content.document.tree1.mx_internal:rendererArray.1.0" localX="12" localY="4" />
+                <AssertEvent eventName="itemOpen" eventClass="mx.events::TreeEvent" target="swf1.content.document.tree1" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_swatchPanel_trusted" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="332" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="278" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_swatchPanel_compatible" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="332" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="278" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_swatchPanel_untrusted" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?276_1?276_1?276_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="113" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="228" propertyName="y" />
+           </body>
+         </TestCase>
+
+         <TestCase testID="MP_ColorPicker_closeOnMouseDown_trusted" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.colorPicker1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_closeOnMouseDown_compatible" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"
+                    waitEvent="close" waitTarget="swf1.content.document.colorPicker1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.colorPicker1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_closeOnMouseDown_untrusted" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?341_1?341_1?341_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.colorPicker1"/>
+            </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_closeOnMouseDownOutside_trusted" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.colorPicker1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_closeOnMouseDownOutside_compatible" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""
+                    waitEvent="close" waitTarget="swf1.content.document.colorPicker1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.colorPicker1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ColorPicker_closeOnMouseDownOutside_untrusted" description="Test that the location of the ColorPicker's swatchPanel." keywords="[ColorPicker, Marshall Plan, swatchPanel]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?405_1?405_1?405_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
+                    waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.colorPicker1"/>
+            </body>
+         </TestCase>
+         <TestCase testID="MP_DateField_calendar_trusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                    waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="340" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="320" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_DateField_calendar_compatible" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                    waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="340" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="320" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_DateField_calendar_untrusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?468_1?468_1?468_1" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                    waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value=Math.round(application.swf1.content.document.dateField1.dropdown.x)" value="171" />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="292" propertyName="y" />
+           </body>
+         </TestCase>
+        <TestCase testID="MP_DateField_closeOnMouseDown_trusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+              <setup>
+                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                    waitEvent="updateComplete" />
+                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+ 			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <Pause timeout="100" />
+ 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+ 			</setup>
+ 			<body>
+ 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                 <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.dateField1"/>
+            </body>
+         </TestCase>
+         <TestCase testID="MP_DateField_closeOnMouseDown_compatible" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+              <setup>
+                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                    waitEvent="updateComplete" />
+                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+ 			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <Pause timeout="100" />
+ 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+ 		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+ 			</setup>
+ 			<body>
+ 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                 <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.dateField1"/>
+             </body>
+          </TestCase>
+          <TestCase testID="MP_DateField_closeOnMouseDown_untrusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+              <setup>
+                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                    waitEvent="updateComplete" />
+                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+ 			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <Pause timeout="100" />
+ 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+ 		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?531_1?531_1?531_1" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+ 			</setup>
+ 			<body>
+ 			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.dateField1"/>
+            </body>
+         </TestCase>
+        <TestCase testID="MP_DateField_closeOnMouseDownOutside_trusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+            <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                    waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+ 			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <Pause timeout="100" />
+ 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+ 			</setup>
+ 			<body>
+ 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                 <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.dateField1"/>
+             </body>
+          </TestCase>
+          <TestCase testID="MP_DateField_closeOnMouseDownOutside_compatible" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+            <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                    waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+ 			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <Pause timeout="100" />
+ 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+ 		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+ 			</setup>
+ 			<body>
+ 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                 <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.dateField1"/>
+             </body>
+          </TestCase>
+          <TestCase testID="MP_DateField_closeOnMouseDownOutside_untrusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">
+            <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                    waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+ 			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <Pause timeout="100" />
+ 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+ 		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+ 		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child.swf?594_1?594_1?594_1" waitTarget="swf1" waitEvent="updateComplete"/>
+ 			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+ 			</setup>
+ 			<body>
+ 			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
+                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.dateField1"/>
+            </body>
+         </TestCase>
+
+    </testCases>
+</UnitTester>

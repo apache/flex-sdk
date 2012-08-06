@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/ManagerTests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_PopUpManager_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.managers.PopUpManager;
+       import mx.controls.Alert;
+       import mx.containers.*;
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import mx.core.UIComponent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+       public function closeAll():void
+       {
+          var temp:Number = application.parent.popUpChildren.numChildren;
+
+          if(application.parent.popUpChildren.numChildren > 1)
+          {
+               PopUpManager.removePopUp(UIComponent(application.parent.popUpChildren.getChildAt(1)));
+          }
+          else if(application.parent.popUpChildren.numChildren == 1)
+          {
+               PopUpManager.removePopUp(UIComponent(application.parent.popUpChildren.getChildAt(0)));
+          }
+       }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="MP_PopUpManager_centerPopUp_modal" description="Test the centerPopUp method for a modal popup" keywords="[centerPopUp, PopUpManager, Marshall Plan]">
+            <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <ResetComponent target="swf1.content.document.modalCheckBox" className="mx.controls.CheckBox"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.modalCheckBox" />
+                <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <RunCode code="application.swf1.content.document.centerMyPopUp()" waitTarget="swf1.content.document.iPopUp" waitEvent="move" />
+                <AssertPropertyValue propertyName="x" target="swf1.content.document.iPopUp" value="250" />
+                <AssertPropertyValue propertyName="y" target="swf1.content.document.iPopUp" value="200" />
+            </body>
+        </TestCase>
+        <TestCase testID="MP_PopUpManager_centerPopUp_nonmodal" description="Test the centerPopUp method for a non-modal popup" keywords="[centerPopUp, PopUpManager, Marshall Plan]">
+            <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <ResetComponent target="swf1.content.document.modalCheckBox" className="mx.controls.CheckBox"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_centerMyPopUp" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="move" />
+                <AssertPropertyValue propertyName="x" target="swf1.content.document.iPopUp" value="250" />
+                <AssertPropertyValue propertyName="y" target="swf1.content.document.iPopUp" value="200" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpManager_createPopUP_modal" description="Test the createPopUP method for a modal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <ResetComponent target="swf1.content.document.modalCheckBox" className="mx.controls.CheckBox"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.modalCheckBox" />
+                <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPopUp"/>
+                <DispatchKeyEvent char="Hello" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+                <AssertPixelValue target="" x="2" y="2" value="0xFF0000" />
+                <AssertPixelValue target="" x="2" y="300" value="0x6E6E6E" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpManager_createPopUP_nonmodal" description="Test the createPopUP method for a nonmodal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+             </setup>
+             <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <ResetComponent target="swf1.content.document.modalCheckBox" className="mx.controls.CheckBox"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="383" localY="33" target="swf1" waitEvent="click" waitTarget="swf1.content.document.ta"/>
+                <DispatchKeyEvent char="Hello" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+                <AssertPixelValue target="" x="2" y="2" value="0xFF0000" />
+                <AssertPixelValue target="" x="2" y="300" value="0x000000" />
+             </body>
+          </TestCase>
+          <TestCase testID="MP_PopUpManager_addPopUp_modal" description="Test the addPopUp method for a modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="400" localY="433" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPanel"/>
+                 <DispatchKeyEvent char="Hello" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+              </body>
+        </TestCase>
+        <TestCase testID="MP_PopUpManager_addPopUp_nonmodal" description="Test the addPopUp method for a non-modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <Pause timeout="1000" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" />
+                 <Pause timeout="500"/>
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="383" localY="33" target="swf1" waitEvent="click" waitTarget="swf1.content.document.ta"/>
+                 <DispatchKeyEvent char="Hello" waitTarget="swf1.content.document.ta" waitEvent="change" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+              </body>
+          </TestCase>
+          <TestCase testID="MP_PopUpManager_createPopUP_modal_remote" description="Test the createPopUP method for a modal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?191_9?191_9?191_9" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <Pause timeout="200" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPopUp"/>
+                <DispatchKeyEvent char="Hello" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+                <AssertPixelValue target="swf1" y="10" x="50" value="0xFF0000" />
+                <AssertPixelValue target="" y="2" x="300" value="0x6E6E6E" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpManager_addPopUp_modal_remote" description="Test the addPopUp method for a modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?215_9?215_9?215_9" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <WaitForSandboxApp target="swf1" />
+                 <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="400" localY="33" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPanel"/>
+                 <DispatchKeyEvent char="Hello" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+              </body>
+        </TestCase>
+
+     <TestCase testID="MP_PopUpManager_createPopUP_nonmodal_remote" description="Test the createPopUP method for a modal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?239_9?239_9?239_9" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <Pause timeout="300"/>
+                <DispatchMouseClickEvent localX="480" localY="33" target="swf1" waitEvent="focusIn" waitTarget="swf1.content.document.ta"/>
+                <DispatchKeyEvent char="Hello" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+            </body>
+         </TestCase>
+        <TestCase testID="MP_PopUpManager_addPopUp_nonmodal_remote" description="Test the addPopUp method for a non-modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?259_9?259_9?259_9" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <WaitForSandboxApp target="swf1" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="383" localY="33" target="swf1" waitEvent="click" waitTarget="swf1.content.document.ta"/>
+                 <DispatchKeyEvent char="Hello" waitTarget="swf1.content.document.ta" waitEvent="change" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+              </body>
+          </TestCase>
+        <TestCase testID="MP_PopUpManager_centerPopUp_nonmodal_remote" description="Test the centerPopUp method for a non-modal popup" keywords="[centerPopUp, PopUpManager, Marshall Plan]">
+            <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?280_9?280_9?280_9" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5" waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                <Pause timeout="200" />
+                <DispatchMouseClickEvent target="swf1.content.document.iPanel.getChildAt(1)" localX="8" localY="10"  waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" />
+                <AssertPropertyValue propertyName="x" target="swf1.content.document.iPanel" value="290" />
+                <AssertPropertyValue propertyName="y" target="swf1.content.document.iPanel" value="225" />
+            </body>
+         </TestCase>
+          <TestCase testID="MP_PopUpManager_centerPopUp_modal_remote" description="Test the centerPopUp method for a modal popup" keywords="[centerPopUp, PopUpManager, Marshall Plan]">
+            <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?301_9?301_9?301_9" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <SetProperty propertyName="selected" target="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <Pause timeout="200" />
+                <DispatchMouseClickEvent target="swf1" localX="40" localY="210" waitTarget="swf1.content.document.iPopUp" waitEvent="move" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" />
+                <AssertPropertyValue propertyName="x" target="swf1.content.document.iPopUp" value="200" />
+                <AssertPropertyValue propertyName="y" target="swf1.content.document.iPopUp" value="175" />
+            </body>
+        </TestCase>
+        <TestCase testID="MP_PopUpManager_createPopUP_modal_comp" description="Test the createPopUP method for a modal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <ResetComponent target="swf1.content.document.modalCheckBox" className="mx.controls.CheckBox"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.modalCheckBox" />
+                <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow3" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPopUp"/>
+                <DispatchKeyEvent char="Hello" />
+                <Pause timeout="200" />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+                <AssertPixelValue target="" x="2" y="2" value="0xFF0000" />
+                <AssertPixelValue target="" x="2" y="300" value="0x6E6E6E" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpManager_createPopUP_nonmodal_comp" description="Test the createPopUP method for a nonmodal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+             </setup>
+             <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="300"/>
+                <ResetComponent target="swf1.content.document.modalCheckBox" className="mx.controls.CheckBox"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow3" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="383" localY="33" target="swf1" waitEvent="focusIn" waitTarget="swf1.content.document.ta"/>
+                <DispatchKeyEvent char="Hello" />
+                <Pause timeout="200" />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+                <AssertPixelValue target="" x="2" y="2" value="0xFF0000" />
+                <AssertPixelValue target="" x="2" y="300" value="0x000000" />
+             </body>
+          </TestCase>
+          <TestCase testID="MP_PopUpManager_addPopUp_modal_comp" description="Test the addPopUp method for a modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="400" localY="433" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPanel"/>
+                 <DispatchKeyEvent char="Hello" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+              </body>
+        </TestCase>
+        <TestCase testID="MP_PopUpManager_addPopUp_nonmodal_comp" description="Test the addPopUp method for a non-modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="383" localY="33" target="swf1" waitEvent="focusIn" waitTarget="swf1.content.document.ta"/>
+                 <DispatchKeyEvent char="Hello" waitTarget="swf1.content.document.ta" waitEvent="change" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+              </body>
+          </TestCase>
+          <TestCase testID="MP_PopUpManager_addPopUp_modal_remote_comp" description="Test the addPopUp method for a modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?417_9?417_9?417_9" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <WaitForSandboxApp target="swf1" />
+                 <SetProperty propertyName="selected" value="true" target="swf1.content.document.modalCheckBox" waitEvent="updateComplete"
+                    waitTarget="swf1.content.document.modalCheckBox" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <DispatchMouseClickEvent localX="400" localY="33" target="swf1" waitEvent="mouseDownOutside" waitTarget="swf1.content.document.iPanel"/>
+                 <DispatchKeyEvent char="Hello" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="" />
+              </body>
+        </TestCase>
+        <TestCase testID="MP_PopUpManager_createPopUP_nonmodal_remote_comp" description="Test the createPopUP method for a modal popup" keywords="[createPopUp, PopUpManager, Marshall Plan]">
+             <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?440_9?440_9?440_9" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <Pause timeout="300"/>
+                <DispatchMouseClickEvent localX="410" localY="33" target="swf1" waitEvent="click" waitTarget="swf1.content.document.ta"/>
+                <DispatchKeyEvent char="Hello" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+            </body>
+         </TestCase>
+        <TestCase testID="MP_PopUpManager_dragTrustedPopUp" description="Test that you can drag a trusted sub app anywhere" keywords="[Drag, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="assets/MP_PopUpManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="500" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" localX="10" localY="8" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseDown" localX="10" localY="8" buttonDown="true" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="50" stageY="100"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="40" stageY="100"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="35" stageY="102"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="30" stageY="105"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="25" stageY="110"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <CompareBitmap url="../ManagerTests/baselines/drag_trusted_popup.png" target="swf1.content.document.iPanel" timeout="2500" />
+              </body>
+          </TestCase>
+          <TestCase testID="MP_PopUpManager_dragUnTrustedPopUp_remote" description="Test that you can drag a trusted sub app anywhere" keywords="[Drag, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?492_9?492_9?492_9" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="20000" />
+              </setup>
+              <body>
+                 <WaitForSandboxApp target="swf1" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="500" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" localX="100" localY="8" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseDown" localX="100" localY="8" buttonDown="true" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="150" stageY="100"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="140" stageY="100"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="135" stageY="102"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="130" stageY="105"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="125" stageY="110"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <CompareBitmap url="../ManagerTests/baselines/drag_untrusted_popup.png" target="swf1.content.document.iPanel" timeout="2500" />
+              </body>
+          </TestCase>
+        <TestCase testID="MP_PopUpManager_addPopUp_nonmodal_remote_comp" description="Test the addPopUp method for a non-modal popup" keywords="[addPopUp, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?524_9?524_9?524_9" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <WaitForSandboxApp target="swf1" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                     <Pause timeout="500"/>
+                 <DispatchMouseClickEvent localX="383" localY="33" target="swf1" waitEvent="focusIn" waitTarget="swf1.content.document.ta"/>
+                 <DispatchKeyEvent char="Hello" waitTarget="swf1.content.document.ta" waitEvent="change" />
+                 <WaitForEffectsToEnd />
+                 <AssertPropertyValue target="swf1.content.document.ta" propertyName="text" value="Hello" />
+              </body>
+          </TestCase>
+        <TestCase testID="MP_PopUpManager_centerPopUp_nonmodal_remote_comp" description="Test the centerPopUp method for a non-modal popup" keywords="[centerPopUp, PopUpManager, Marshall Plan]">
+            <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?545_9?545_9?545_9" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5" waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                <Pause timeout="200" />
+                <DispatchMouseClickEvent target="swf1.content.document.iPanel.getChildAt(1)" localX="8" localY="10"  waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" />
+                <AssertPropertyValue propertyName="x" target="swf1.content.document.iPanel" value="290" />
+                <AssertPropertyValue propertyName="y" target="swf1.content.document.iPanel" value="225" />
+            </body>
+         </TestCase>
+          <TestCase testID="MP_PopUpManager_centerPopUp_modal_remote_comp" description="Test the centerPopUp method for a modal popup" keywords="[centerPopUp, PopUpManager, Marshall Plan]">
+            <setup>
+               <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?566_9?566_9?566_9" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <SetProperty propertyName="selected" target="swf1.content.document.modalCheckBox" />
+                <DispatchMouseClickEvent target="swf1.content.document.btn_openWindow4" localX="5" localY="5" waitTarget="swf1.content.document.iPopUp" waitEvent="updateComplete" />
+                <Pause timeout="200" />
+                <DispatchMouseClickEvent target="swf1" localX="40" localY="210" waitTarget="swf1.content.document.iPopUp" waitEvent="move" />
+                <DispatchMouseClickEvent localX="400" localY="33" target="swf1" />
+                <AssertPropertyValue propertyName="x" target="swf1.content.document.iPopUp" value="200" />
+                <AssertPropertyValue propertyName="y" target="swf1.content.document.iPopUp" value="175" />
+            </body>
+        </TestCase>
+        <TestCase testID="MP_PopUpManager_dragUnTrustedPopUp" description="Test that you can drag a trusted sub app anywhere" keywords="[Drag, PopUpManager, Marshall Plan]">
+              <setup>
+                 <ResetComponent target="ta1" className="mx.controls.TextInput" waitTarget="ta1" waitEvent="updateComplete" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+                 <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                 <Pause timeout="100" />
+                 <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+                 <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+                 <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?588_9?588_9?588_9" waitTarget="swf1" waitEvent="updateComplete"/>
+                 <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+              </setup>
+              <body>
+                 <WaitForSandboxApp target="swf1" />
+                 <DispatchMouseClickEvent target="swf1.content.document.btn_addWindow" localX="5" localY="5"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="updateComplete" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="500" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" localX="100" localY="8" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseDown" localX="100" localY="8" buttonDown="true" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="150" stageY="100"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="140" stageY="100"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="135" stageY="102"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="130" stageY="105"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <DispatchMouseEvent target="swf1.content.document.iPanel" type="mouseMove" buttonDown="true" stageX="125" stageY="110"
+                     waitTarget="swf1.content.document.iPanel" waitEvent="move" />
+                 <CompareBitmap url="../ManagerTests/baselines/drag_untrusted_popup.png" target="swf1.content.document.iPanel" timeout="2500" />
+              </body>
+          </TestCase>
+    </testCases>
+</UnitTester>

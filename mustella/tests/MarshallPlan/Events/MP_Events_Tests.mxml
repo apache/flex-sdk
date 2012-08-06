@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_simpleLoader.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+         <TestCase testID="MP_SandboxRootMouseEvent_click" description="Test that the mouseClick event is triggered." keywords="[SandboxRootMouseEvent, click, Marshall Plan]">
+             <setup>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?35_3?35_3?35_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="" waitEvent="mouseUp" waitTarget=""/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: clickSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: false, event.shiftKey: false" propertyName="text" />
+
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseDown" description="Test that the mouseDown event is triggered." keywords="[SandboxRootMouseEvent, mouseDown, Marshall Plan]">
+             <setup>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?51_3?51_3?51_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseDownSomewhere, event.altKey: false, event.buttonDown: true, event.ctrlKey: false, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseUp" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?67_3?67_3?67_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown"/>
+                <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseUpSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: false, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseMove" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?84_3?84_3?84_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseClickEvent localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+                <DispatchMouseEvent type="mouseMove" localX="15" localY="20" target="" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseMoveSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: false, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_click_shiftKey" description="Test that the mouseClick event is triggered." keywords="[SandboxRootMouseEvent, click, Marshall Plan]">
+             <setup>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?100_3?100_3?100_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseClickEvent localX="14" localY="8" target="" waitEvent="mouseUp" waitTarget="" shiftKey="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: clickSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: false, event.shiftKey: true" propertyName="text" />
+
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseDown_shiftKey" description="Test that the mouseDown event is triggered." keywords="[SandboxRootMouseEvent, mouseDown, Marshall Plan]">
+             <setup>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?116_3?116_3?116_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown" shiftKey="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseDownSomewhere, event.altKey: false, event.buttonDown: true, event.ctrlKey: false, event.shiftKey: true" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseUp_shiftKey" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?132_3?132_3?132_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown"/>
+                <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete" shiftKey="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseUpSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: false, event.shiftKey: true" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseMove_shiftKey" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?149_3?149_3?149_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseClickEvent localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+                <DispatchMouseEvent type="mouseMove" localX="15" localY="20" target="" shiftKey="true" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseMoveSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: false, event.shiftKey: true" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseUp_buttonDown" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?166_3?166_3?166_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown"/>
+                <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete" buttonDown="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseUpSomewhere, event.altKey: false, event.buttonDown: true, event.ctrlKey: false, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseMove_buttonDown" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?183_3?183_3?183_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseClickEvent localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+                <DispatchMouseEvent type="mouseMove" localX="15" localY="20" target="" buttonDown="true" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseMoveSomewhere, event.altKey: false, event.buttonDown: true, event.ctrlKey: false, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_click_ctrlKey" description="Test that the mouseClick event is triggered." keywords="[SandboxRootMouseEvent, click, Marshall Plan]">
+             <setup>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?199_3?199_3?199_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseClickEvent localX="14" localY="8" target="" waitEvent="mouseUp" waitTarget="" ctrlKey="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: clickSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: true, event.shiftKey: false" propertyName="text" />
+
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseDown_ctrlKey" description="Test that the mouseDown event is triggered." keywords="[SandboxRootMouseEvent, mouseDown, Marshall Plan]">
+             <setup>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?215_3?215_3?215_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown" ctrlKey="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseDownSomewhere, event.altKey: false, event.buttonDown: true, event.ctrlKey: true, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseUp_ctrlKey" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?231_3?231_3?231_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseEvent type="mouseDown" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseDown"/>
+                <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete" ctrlKey="true"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseUpSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: true, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_SandboxRootMouseEvent_mouseMove_ctrlKey" description="Test that the mouseUp event is triggered." keywords="[SandboxRootMouseEvent, mouseUp, Marshall Plan]">
+             <setup>
+               <DispatchMouseEvent type="mouseUp" localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?248_3?248_3?248_3" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			    <DispatchMouseClickEvent localX="10" localY="20" target="" waitTarget="" waitEvent="mouseUp"/>
+                <DispatchMouseEvent type="mouseMove" localX="15" localY="20" target="" ctrlKey="true" waitTarget="swf1.content.document.subcontrol1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="swf1.content.document.subcontrol1" value="event.type: mouseMoveSomewhere, event.altKey: false, event.buttonDown: false, event.ctrlKey: true, event.shiftKey: false" propertyName="text" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_AddChildBridgeEvent" description="Test that the addChildBridge event is triggered." keywords="[AddChildBridge, mouseUp, Marshall Plan]">
+            <setup>
+	        <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+	    	<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+	    	<Pause timeout="100" />
+	        <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+	    	<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?100_3?100_3?100_3" waitTarget="swf1" waitEvent="updateComplete"/>
+	    	<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+	    </setup>
+	    <body>
+		<AssertEvent target="systemManager" eventName="addChildBridge" eventClass="mx.events::FlexChangeEvent" />
+	    </body>
+         </TestCase>
+         <TestCase testID="MP_RemoveChildBridgeEvent" description="Test that the removeChildBridge event is triggered." keywords="[removeChildBridge, mouseUp, Marshall Plan]">
+            <setup>
+	        <Pause timeout="100" />
+	        <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+	    	<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Simple_Child.swf?100_3?100_3?100_3" waitTarget="swf1" waitEvent="updateComplete"/>
+	    	<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+	    </setup>
+	    <body>
+	        <WaitForSandboxApp target="swf1" />
+	        <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+	    	<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+		<AssertEvent target="systemManager" eventName="removeChildBridge" eventClass="mx.events::FlexChangeEvent" />
+	    </body>
+         </TestCase>
+    </testCases>
+</UnitTester>

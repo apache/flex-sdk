@@ -1,0 +1,34 @@
+#!/bin/sh
+################################################################################
+##
+##  Licensed to the Apache Software Foundation (ASF) under one or more
+##  contributor license agreements.  See the NOTICE file distributed with
+##  this work for additional information regarding copyright ownership.
+##  The ASF licenses this file to You under the Apache License, Version 2.0
+##  (the "License"); you may not use this file except in compliance with
+##  the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+##  Unless required by applicable law or agreed to in writing, software
+##  distributed under the License is distributed on an "AS IS" BASIS,
+##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+##  See the License for the specific language governing permissions and
+##  limitations under the License.
+##
+################################################################################
+cd ../SWFs/assets
+
+echo "Removing previously compiled files..."
+rm -f `find . -name "enUS_frFR_jaJP_bundles123_commas.swc"`
+
+$SDK_DIR/bin/mxmlc -includes=mx.managers.systemClasses.MarshallingSupport -source-path=$MUSTELLA_DIR/as3/src/mustella -includes=UnitTester  MP_ResourceManager_Child.mxml
+
+echo "Defining a library path to avoid changing your frameworks directory..."
+LIBRARY_PATH="$SDK_DIR/frameworks/libs,$SDK_DIR/frameworks/libs/mx"
+
+echo ""
+echo "Compiling new SWC with commas..."
+$SDK_DIR/bin/compc -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles=bundle1,bundle2,bundle3 -output=enUS_frFR_jaJP_bundles123_commas.swc
+ret=$?
+exit $ret

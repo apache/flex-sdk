@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/ManagerTests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_ResourceManager_Main.mxml" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script><![CDATA[
+        import mx.resources.*;
+    ]]></mx:Script>
+
+<!--
+    Confirm that locales were included in the SWC which was used to compmile this.
+    The SWC locales and bundles were specified on the command line as -locale=x,y,z.
+-->
+
+<testCases>
+
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_VerifyLocales" description="Confirm that resources from the main app are passed to the trusted child application." keywords="[Localization,Compiler,locale, Marshall Plan]" >
+		<setup>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getResourcesLength()" value="3" />
+			<AssertMethodValue method="value=application.swf1.content.document.getLocalesMethod('en_US') != -1" value="true" />
+			<AssertMethodValue method="value=application.swf1.content.document.getLocalesMethod('ja_JP') != -1" value="true" />
+			<AssertMethodValue method="value=application.swf1.content.document.getLocalesMethod('fr_FR') != -1" value="true" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_enUSResource" description="Confirm that resources from the main app are passed to the trusted child application." keywords="[Localization,Compiler,include-resource-bundles, Marshall Plan]" >
+		 <setup>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getStringMethod('bundle1', 'GREETING')" value="Bundle 1 in en_US says howdy!" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_jaJPResource" description="Confirm that resources from the main app are passed to the trusted child application." keywords="[Localization,Compiler,include-resource-bundles, Marshall Plan]" >
+		<setup>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<RunCode code="ResourceManager.getInstance().localeChain=['ja_JP']" />
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getStringMethod('bundle1', 'GREETING')" value="Bundle 1 in ja_JP says Japanese Hello!" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_Comma_frFRResource" description="Confirm that resources from the main app are passed to the trusted child application." keywords="[Localization,Compiler,include-resource-bundles, Marshall Plan]" >
+		<setup>
+			<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR']" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getStringMethod('bundle1', 'GREETING')" value="Bundle 1 in fr_FR says bonjour!" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_VerifyLocales_comp" description="Confirm that resources from the main app are not passed to the compatible child application." keywords="[Localization,Compiler,locale, Marshall Plan]" >
+		<setup>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getResourcesLength()" value="1" />
+			<AssertMethodValue method="value=application.swf1.content.document.getLocalesMethod('en_US') != -1" value="true" />
+			<AssertMethodValue method="value=application.swf1.content.document.getLocalesMethod('ja_JP') == -1" value="true" />
+			<AssertMethodValue method="value=application.swf1.content.document.getLocalesMethod('fr_FR') == -1" value="true" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_enUSResource_comp" description="Confirm that en_US resources from the main app are not passed to the compatible child application." keywords="[Localization,Compiler,include-resource-bundles, Marshall Plan]" >
+		 <setup>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getStringMethod('bundle1', 'GREETING')==null" value="true" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_jaJPResource_comp" description="Confirm that ja_JP resources from the main app are not passed to the compatible child application." keywords="[Localization,Compiler,include-resource-bundles, Marshall Plan]" >
+		<setup>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<RunCode code="ResourceManager.getInstance().localeChain=['ja_JP']" />
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getStringMethod('bundle1', 'GREETING')==null" value="true" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+	<TestCase frequency="all" testID="MP_Compc_Params_IncludeResourceBundles_Comma_frFRResource_comp" description="Confirm that fr_FR resources from the main app are not passed to the compatible child application." keywords="[Localization,Compiler,include-resource-bundles, Marshall Plan]" >
+		<setup>
+			<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR']" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			<Pause timeout="100" />
+			<SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			<SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			<SetProperty target="swf1" propertyName="source" value="assets/MP_ResourceManager_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			<SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+			<AssertMethodValue method="value=application.swf1.content.document.getStringMethod('bundle1', 'GREETING')==null" value="true" />
+			<Pause timeout="1" />
+		</body>
+	</TestCase>
+</testCases>
+
+</UnitTester>

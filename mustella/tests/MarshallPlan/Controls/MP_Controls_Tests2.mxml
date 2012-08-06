@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/Controls/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_Controls_Main2.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+         <TestCase testID="MP_ComboBox_dropdown_trusted" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.comboBox1.dropdown" value="30" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.comboBox1.dropdown" value="230" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_dropdown_compatible" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.comboBox1.dropdown" value="30" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.comboBox1.dropdown" value="230" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_dropdown_untrusted" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?81_2?81_2?81_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.comboBox1.dropdown" value="20" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.comboBox1.dropdown" value="51" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_closeOnMouseDown_trusted" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.comboBox1"/>
+             </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_closeOnMouseDown_compatible" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.comboBox1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_closeOnMouseDown_untrusted" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?145_2?145_2?145_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.comboBox1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_closeOnMouseDownOutside_trusted" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.comboBox1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_closeOnMouseDownOutside_compatible" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.comboBox1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ComboBox_closeOnMouseDownOutside_untrusted" description="Test that the location of the ComboBox's dropdown." keywords="[ComboBox, Marshall Plan, dropdown]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?209_2?209_2?209_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.comboBox1"
+                    waitEvent="open" waitTarget="swf1.content.document.comboBox1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.comboBox1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_dropdown_trusted" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.popUpMenuButton1.popUp" value="390" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.popUpMenuButton1.popUp" value="225" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_dropdown_compatible" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.popUpMenuButton1.popUp" value="390" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.popUpMenuButton1.popUp" value="225" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_dropdown_untrusted" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?271_2?271_2?271_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value=Math.round(application.swf1.content.document.popUpMenuButton1.popUp.x)" value="372" />
+                <AssertPropertyValue target="swf1.content.document.popUpMenuButton1.popUp" value="23" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_closeOnMouseDown_trusted" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.popUpMenuButton1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_closeOnMouseDown_compatible" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.popUpMenuButton1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_closeOnMouseDown_untrusted" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?333_2?333_2?333_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.popUpMenuButton1"/>
+           </body>
+         </TestCase>
+
+         <TestCase testID="MP_PopUpMenuButton_closeOnMouseDownOutside_trusted" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.popUpMenuButton1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_closeOnMouseDownOutside_compatible" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.popUpMenuButton1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_PopUpMenuButton_closeOnMouseDownOutside_untrusted" description="Test that the location of the PopUpMenuButtons's dropdown." keywords="[PopUpMenuButton, Marshall Plan, popUp]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?396_2?396_2?396_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="58" localY="8" target="swf1.content.document.popUpMenuButton1"
+                    waitEvent="open" waitTarget="swf1.content.document.popUpMenuButton1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="close" eventClass="mx.events::DropdownEvent" target="swf1.content.document.popUpMenuButton1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_MenuBar_submenus_trusted" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.menuBar1.menus.0" value="160" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.menuBar1.menus.0" value="226" propertyName="y" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_MenuBar_submenus_compatibility" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="swf1" localX="52" localY="50" waitTarget="swf1.content.document.menuBar1"
+                    waitEvent="menuHide"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="control1" waitEvent="focusIn" waitTarget="control1" localX="10" localY="5" />
+                <DispatchKeyEvent keys="[TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.menuBar1.menus.0" value="160" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.menuBar1.menus.0" value="226" propertyName="y" />
+           </body>
+         </TestCase>
+         <!--TestCase testID="MP_MenuBar_submenus_untrusted" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?466_2?466_2?466_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="swf1" localX="52" localY="58" waitTarget="swf1.content.document.menuBar1"
+                    waitEvent="menuHide"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="control1" waitEvent="focusIn" waitTarget="control1" localX="10" localY="5" />
+                <DispatchKeyEvent keys="[TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.document.menuBar1.menus.0" value="150" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.menuBar1.menus.0" value="111" propertyName="y" />
+           </body>
+         </TestCase-->
+         <TestCase testID="MP_MenuBar_closeOnMouseDown_trusted" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+			   <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+			    <DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+			    <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="menuHide" eventClass="mx.events::MenuEvent"  target="swf1.content.document.menuBar1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_MenuBar_closeOnMouseDown_compatibility" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="swf1" localX="52" localY="50" waitTarget="swf1.content.document.menuBar1"
+                    waitEvent="menuHide"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="control1" waitEvent="focusIn" waitTarget="control1" localX="10" localY="5" />
+                <DispatchKeyEvent keys="[TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="menuHide" eventClass="mx.events::MenuEvent"  target="swf1.content.document.menuBar1"/>
+           </body>
+         </TestCase>
+         <!--TestCase testID="MP_MenuBar_closeOnMouseDown_untrusted" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?542_2?542_2?542_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="swf1" localX="52" localY="58" waitTarget="swf1.content.document.menuBar1"
+                    waitEvent="menuHide"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="control1" waitEvent="focusIn" waitTarget="control1" localX="10" localY="5" />
+                <DispatchKeyEvent keys="[TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1"/>
+                <AssertEvent eventName="menuHide" eventClass="mx.events::MenuEvent"  target="swf1.content.document.menuBar1"/>
+           </body>
+         </TestCase-->
+         <TestCase testID="MP_MenuBar_closeOnMouseDownOutside_trusted" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="menuHide" eventClass="mx.events::MenuEvent"  target="swf1.content.document.menuBar1"/>
+           </body>
+         </TestCase>
+         <TestCase testID="MP_MenuBar_closeOnMouseDownOutside_compatibility" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="58" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="100" />
+                <DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="swf1" localX="52" localY="50" waitTarget="swf1.content.document.menuBar1"
+                    waitEvent="menuHide"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="control1" waitEvent="focusIn" waitTarget="control1" localX="10" localY="5" />
+                <DispatchKeyEvent keys="[TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="menuHide" eventClass="mx.events::MenuEvent"  target="swf1.content.document.menuBar1"/>
+           </body>
+         </TestCase>
+         <!--TestCase testID="MP_MenuBar_closeOnMouseDownOutside_untrusted" description="Test that the location of the MenuBar submenus." keywords="[MenuBar, Marshall Plan, Menu]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?618_2?618_2?618_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="18" localY="8" target="swf1.content.document.menuBar1.getChildAt(1)"
+                    waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="swf1" localX="52" localY="58" waitTarget="swf1.content.document.menuBar1"
+                    waitEvent="menuHide"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="control1" waitEvent="focusIn" waitTarget="control1" localX="10" localY="5" />
+                <DispatchKeyEvent keys="[TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="swf1.content.document.menuBar1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="14" localY="8" target=""/>
+                <AssertEvent eventName="menuHide" eventClass="mx.events::MenuEvent" target="swf1.content.document.menuBar1"/>
+           </body>
+         </TestCase-->
+         <TestCase testID="MP_EditableDataGrid_errorString_compatible" description="Test that an error tooltip shows up correctily in a compatible child." keywords="[DataGrid, Marshall Plan, errorString]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/MP_Controls_Child2.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.myGrid.mx_internal:rendererArray.1.2"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.myGrid"/>
+			    <DispatchKeyEvent char="20" waitEvent="change" waitTarget="swf1.content.document.myGrid.itemEditorInstance" />
+                <Pause timeout="100" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.myGrid" />
+                <RunCode code="application.swf1.content.document.myGrid.itemEditorInstance.setSelection(0,1)" />
+			    <DispatchMouseEvent type="mouseOver" target="swf1.content.document.myGrid.itemEditorInstance" localX="20" localY="8"
+			       waitEvent="toolTipShown" waitTarget="swf1.content.document.myGrid.itemEditorInstance" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="200" />
+			    <CompareBitmap url="../Controls/baselines/mp_errorString_trusted.png" target="swf1" timeout="2500" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+         </TestCase>
+         <TestCase testID="MP_EditableDataGrid_errorString_untrusted" description="Test that an error tooltip shows up correctily in an untrusted child." keywords="[DataGrid, Marshall Plan, errorString]">
+             <setup>
+               <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_Controls_Child2.swf?672_2?672_2?672_2" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.myGrid.mx_internal:rendererArray.1.2"
+                    waitEvent="itemEditBegin" waitTarget="swf1.content.document.myGrid"/>
+			    <DispatchKeyEvent char="20" waitEvent="change" waitTarget="swf1.content.document.myGrid.itemEditorInstance" />
+                <Pause timeout="100" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="swf1.content.document.myGrid" />
+                <RunCode code="application.swf1.content.document.myGrid.itemEditorInstance.setSelection(0,1)" />
+			    <DispatchMouseEvent type="mouseOver" target="swf1.content.document.myGrid.itemEditorInstance" localX="20" localY="8"
+			       waitEvent="toolTipShown" waitTarget="swf1.content.document.myGrid.itemEditorInstance" />
+                <WaitForEffectsToEnd />
+			    <CompareBitmap url="../Controls/baselines/mp_errorString_untrusted.png" target="swf1" timeout="2500" />
+			</body>
+         </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="0xFFFFFF" backgroundImage="">
+<mx:Script>
+<![CDATA[
+
+    import mx.managers.ToolTipManager;
+
+    public function changeShowDelay(value:int): void
+    {
+        ToolTipManager.showDelay = value;
+    }
+
+    public function changeHideDelay(value:int): void
+    {
+        ToolTipManager.hideDelay = value;
+    }
+
+]]>
+</mx:Script>
+
+<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+
+	<mx:VBox id="hbox1" width="140" height="100" backgroundColor="0xFFFFFF">
+	   <mx:Button id="simpleButton" label="submit" toolTip="simple toolTip" bottom="5" />
+	   <mx:TextInput id="text1" width="60" />
+	</mx:VBox>
+</mx:Application>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/ManagerTests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_Managers_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.managers.ToolTipManager;
+       import mx.controls.Alert;
+       import mx.containers.*;
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import mx.core.UIComponent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+       import CustomToolTip1;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+
+         <TestCase testID="MP_ToolTipManager_enabledFalse_trusted" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+             <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(false)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mx.managers::ToolTipManager" valueExpression="value=null" propertyName="currentToolTip" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_enabledTrue_trusted" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" waitEvent="toolTipShown"
+                    waitTarget="swf1.content.document.simpleButton" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mx.managers::ToolTipManager.currentToolTip" value="simple toolTip" propertyName="text" />
+                <Pause timeout="500" />
+                <CompareBitmap target="" url="../ManagerTests/baselines/ToolTip_main_trusted.png" timeout="2400" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_currentTarget_trusted" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" waitEvent="toolTipShown"
+                    waitTarget="swf1.content.document.simpleButton" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mx.managers::ToolTipManager.currentTarget" value="submit" propertyName="label" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_enabledFalse_compatible" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+             <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+               <SetProperty propertyName="hideDelay" target="mx.managers::ToolTipManager" value="3000" />
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(false)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+                <AssertEvent eventName="toolTipShow" target="swf1.content.document.simpleButton" eventClass="mx.events::ToolTipEvent" timeout="3500" />
+                <AssertPropertyValue target="swf1.content.info().currentDomain.getDefinition(mx.managers::ToolTipManager).currentToolTip" value="simple toolTip" propertyName="text" />
+          </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_enabledTrue_compatible" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <Pause timeout="100" />
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <Pause timeout="50" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			   <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+               <RunCode code="application.changeToolTipEnabled(true)" />
+               <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+               <AssertEvent eventName="toolTipShow" target="swf1.content.document.simpleButton" eventClass="mx.events::ToolTipEvent" timeout="3500" />
+               <AssertPropertyValue target="swf1.content.info().currentDomain.getDefinition(mx.managers::ToolTipManager).currentToolTip" value="simple toolTip" propertyName="text" />
+          </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_hideDelay_trusted" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <SetProperty propertyName="hideDelay" target="mx.managers::ToolTipManager" value="1000" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+                <AssertEvent eventName="toolTipHide" target="swf1.content.document.simpleButton" eventClass="mx.events::ToolTipEvent" timeout="3500" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_showDelay_trusted" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <SetProperty propertyName="showDelay" target="mx.managers::ToolTipManager" value="0" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+                <AssertEvent eventName="toolTipShow" target="swf1.content.document.simpleButton" eventClass="mx.events::ToolTipEvent" timeout="400" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_showDelay_comp" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty propertyName="hideDelay" target="mx.managers::ToolTipManager" value="20000" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <RunCode code="application.swf1.content.document.changeShowDelay(0)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+                <AssertEvent eventName="toolTipShow" target="swf1.content.document.simpleButton" eventClass="mx.events::ToolTipEvent" timeout="400" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_currentTarget_comp" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" waitEvent="toolTipShown"
+                    waitTarget="swf1.content.document.simpleButton" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="swf1.content.info().currentDomain.getDefinition(mx.managers::ToolTipManager).currentTarget" value="submit" propertyName="label"  />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_toolTipClass_trusted" description="ToolTipManager.toolTipClass on a main app should pass styles to trusted child." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <SetProperty target="mx.managers::ToolTipManager" propertyName="toolTipClass" valueExpression="value=CustomToolTip1" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" waitEvent="toolTipShown"
+                    waitTarget="swf1.content.document.simpleButton" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../ManagerTests/baselines/ToolTip_main_trusted_toolTipClass.png" timeout="2400" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_toolTipClass_comp" description="ToolTipManager toolTipClass on the main application should not affect the child app's toolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <SetProperty target="mx.managers::ToolTipManager" propertyName="toolTipClass" valueExpression="value=CustomToolTip1" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" waitEvent="toolTipShown"
+                    waitTarget="swf1.content.document.simpleButton" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../ManagerTests/baselines/ToolTip_main_comp_toolTipClass.png" timeout="2400" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_ToolTipManager_hideDelay_comp" description="Test the scenario when main app enables or disables ToolTips." keywords="[ToolTipManager, enabled, Marshall Plan]">
+            <setup>
+               <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2"
+                   waitEvent="updateComplete" />
+               <SetProperty propertyName="hideDelay" target="mx.managers::ToolTipManager" value="20000" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/simpleToolTip.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.changeToolTipEnabled(true)" />
+                <RunCode code="application.swf1.content.document.changeHideDelay(1000)" />
+                <DispatchMouseEvent type="mouseOver" localX="14" localY="13" target="swf1.content.document.simpleButton" />
+                <AssertEvent eventName="toolTipHide" target="swf1.content.document.simpleButton" eventClass="mx.events::ToolTipEvent" timeout="3500" />
+           </body>
+         </TestCase>
+    </testCases>
+</UnitTester>

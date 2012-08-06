@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/ManagerTests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_Managers_Main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+    <!-- There are 100 ms pauses because even after an updateComplete or a complete event, the source doesn't seem to be consis-
+    tently fully loaded -->
+	<testCases>
+        <TestCase testID="MarshallPlan_FocusManager_Tab" description="Test tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			   <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/simpleForms.swf" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="focusIn" />
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" />
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+        <TestCase testID="MarshallPlan_FocusManager_ShiftTab" description="Test shift+tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			   <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/simpleForms.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="mouseUp" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" shiftKey="true"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" shiftKey="true"/>
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" shiftKey="true"/>
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+        <TestCase testID="MarshallPlan_FocusManager_PopUps" description="Test focus after opening and closing popups"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			    <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+				<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+			    <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="assets/tabbs.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="swf1.content.document.btn1" localX="8" localY="10"
+				    waitTarget="swf1.content.document.myTitleWindow" waitEvent="updateComplete" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitTarget="swf1.content.document.myTitleWindow.buttonLogon"
+                    waitEvent="focusIn" />
+                <DispatchKeyEvent key="SPACE" waitTarget="swf1.content.document.myTitleWindow" waitEvent="removed" />
+                <DispatchKeyEvent key="TAB" waitTarget="swf1.content.document.text3" waitEvent="focusIn" />
+	            <AssertEvent target="swf1.content.document.text3" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+       <TestCase testID="MarshallPlan_FocusManager_TabIndex" description="Test tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			   <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+			   <Pause timeout="100" />
+			   <SetProperty propertyName="tabIndex" target="control1" value="2"/>
+			   <SetProperty propertyName="tabIndex" target="control2" value="1"/>
+			   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/simpleForms.swf" />
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true"
+			       waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="focusIn" />
+				<SetProperty propertyName="tabIndex" target="swf1.content.document.subcontrol1" value="4"/>
+				<SetProperty propertyName="tabIndex" target="swf1.content.document.subcontrol2" value="1"/>
+				<SetProperty propertyName="tabIndex" target="swf1.content.document.subcontrol3" value="3"/>
+				<SetProperty propertyName="tabIndex" target="swf1.content.document.subcontrol4" value="2"/>
+				<SetProperty propertyName="tabIndex" target="swf1.content.document.subcontrol5" value="5"/>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" />
+				<AssertEvent target="swf1.content.document.subcontrol4" eventName="focusIn" eventClass="flash.events::FocusEvent" numExpectedEvents="2"/>
+		    </body>
+		</TestCase>
+        <TestCase testID="MarshallPlan_FocusManager_Tab_fromLocalhost" description="Test tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			    <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			    <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2" waitEvent="updateComplete" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+				<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+			    <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?153_7?153_7?153_7" />
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="focusIn" />
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" />
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+        <TestCase testID="MarshallPlan_FocusManager_ShiftTab_fromLocalhost" description="Test shift+tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			    <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2" waitEvent="updateComplete" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+				<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+			    <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?181_7?181_7?181_7" waitTarget="swf1" waitEvent="updateComplete"/>
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="mouseUp" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" shiftKey="true"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" shiftKey="true"/>
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" shiftKey="true"/>
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+        <!--TestCase testID="MarshallPlan_FocusManager_PopUps_fromLocalhost" description="Test focus after opening and closing popups"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+				<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+			    <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/tabbs.swf?207_7?207_7?207_7" waitTarget="swf1" waitEvent="updateComplete"/>
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="swf1.content.document.btn1" localX="8" localY="10"
+				    waitTarget="swf1.content.document.myTitleWindow" waitEvent="updateComplete" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitTarget="swf1.content.document.myTitleWindow.buttonLogon"
+                    waitEvent="focusIn" />
+                <DispatchKeyEvent key="SPACE" waitTarget="swf1.content.document.myTitleWindow" waitEvent="removed" />
+                <DispatchKeyEvent key="TAB" waitTarget="swf1.content.document.text3" waitEvent="focusIn" />
+	            <AssertEvent target="swf1.content.document.text3" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase-->
+		<TestCase testID="MarshallPlan_FocusManager_Tab_compatibilityMode" description="Test tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			    <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			    <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2" waitEvent="updateComplete" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			    <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+				<SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="assets/simpleForms.swf" />
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="control1" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="focusIn" />
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" />
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+        <TestCase testID="MarshallPlan_FocusManager_ShiftTab_compatibilityMode" description="Test shift+tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+			    <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			    <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2" waitEvent="updateComplete" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+				<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+			    <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="assets/simpleForms.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
+					waitTarget="swf1.content" waitEvent="applicationComplete"/>
+				<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="mouseUp" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" shiftKey="true"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" shiftKey="true"/>
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" shiftKey="true"/>
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+
+        <TestCase testID="MarshallPlan_FocusManager_ShiftTab_fromLocalhost_compatibilityMode" description="Test shift+tabbing through the main app and sub app"
+		    keywords="[Marshall Plan, FocusManager, TAB]">
+			<setup>
+                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />
+			    <ResetComponent target="control2" className="mx.controls.Button" waitTarget="control2" waitEvent="updateComplete" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+				<SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="complete"/>
+                <Pause timeout="100" />
+			    <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?345_7?345_7?345_7" waitTarget="swf1" waitEvent="updateComplete"/>
+				<SetProperty target="swf1" propertyName="autoLoad" value="true"
+					waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <WaitForSandboxApp target="swf1" />
+			  	<DispatchMouseClickEvent target="control1" localX="10" localY="5" waitTarget="control1"
+				    waitEvent="mouseUp" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol5" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol4" shiftKey="true"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol3" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="swf1.content.document.subcontrol1" shiftKey="true"/>
+				<DispatchKeyEvent keys="TAB" waitEvent="focusIn" waitTarget="control2" shiftKey="true"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="control1" shiftKey="true"/>
+                <AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+		    </body>
+		</TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" height="600" width="600" >
+
+<mx:Script>
+	import mx.managers.PopUpManager;
+	import mx.core.IFlexDisplayObject;
+
+	public var myTitleWindow:GateKeeper;
+	public function openWindow(event:MouseEvent):void
+	{
+
+	    myTitleWindow = new GateKeeper();
+        PopUpManager.addPopUp(myTitleWindow,this , false);
+	}
+
+</mx:Script>
+  <mx:Text fontSize="15" width="500" text="popUpManager - Tabbing and Default Button" />
+
+  <mx:Text width="300" text="Directions: Click the button below to open a popup." />
+
+  <mx:Button id="btn1" label="createPopUp Window" click="openWindow(event)"/>
+
+	<mx:Text width="300" text="Verify: " />
+	<mx:Text width="300" text="1. Press tab in the PopUp and ensure
+     that you can tab." />
+    <mx:Text width="300" text="2. Hit the Enter button and verify that the PopUp closes." />
+  <mx:TextInput  id="text3" width="200" />
+</mx:Application>

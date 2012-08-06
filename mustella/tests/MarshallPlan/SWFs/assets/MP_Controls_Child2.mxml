@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:comps="comps.*"
+   height="200" backgroundColor="0xFF9966" backgroundImage="">
+<mx:Script>
+	<![CDATA[
+
+        import mx.events.*;
+        import mx.controls.TextInput;
+
+		[Bindable]
+		private var myData:Array = [
+           { Artist:'ArtistA', Album:'AlbumA', Price:11.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumB', Price:10.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumC', Price:12.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumD', Price:11.99, Rating:'Good' },
+           { Artist:'ArtistA', Album:'AlbumE', Price:11.99, Rating:'Good' },
+           { Artist:'Other', Album:'Other', Price:5.99, Rating:'Bad' }
+		];
+
+        [Bindable]
+        private var quantityInfo:Array = [
+           {Company: 'Blue Horizon', Contact: 'Bob Jones',
+               Product: 'Pinatas', Inventory: 200},
+           {Company: 'Allied', Contact: 'Jane Smith',
+               Product: 'Candy Hearts', Inventory: 190}
+        ];
+
+         public function validateData(event:DataGridEvent):void
+         {
+             // Check the reason for the event.
+             if (event.reason == DataGridEventReason.OTHER ||
+                 event.reason == DataGridEventReason.CANCELLED)
+             {
+                 // Do not update cell.
+                 return;
+             }
+
+             // Get the new data value from the editor.
+             var newData:Number= Number(TextInput(myGrid.itemEditorInstance).text);
+             if(newData < 100) {
+                event.preventDefault();
+                TextInput(myGrid.itemEditorInstance).errorString = "Enter a valid number over 100.";
+             }
+        }
+	]]>
+</mx:Script>
+
+<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+
+<mx:XML id="treeData" format="e4x" >
+  <node>
+		<node label="Containers" data="Containers.as">
+		    <node label="DividedBoxClasses">
+			<node label="BoxDivider" data="BoxDivider.as" />
+		</node>
+		    <node label="GridClasses">
+			    <node label="GridRow" data="GridRow.as" />
+			    <node label="GridItem" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="Printing">
+			<node label="PrintJob" data="PrintJob.as" />
+			<node label="PrintJob1" data="PrintJob1.as" />
+			<node label="PrintTree" data="PrintTree.as" />
+		</node>
+		<node label="Data">
+		    <node label="Messages">
+			    <node label="DataMessage" data="DataMessage.as" />
+			    <node label="SequenceMessage" data="SequenceMessage.as" />
+			    <node label="PagedMessage" data="PagedMessage.as" />
+		    </node>
+		    <node label="Events">
+			    <node label="ConflictEvents">
+				<node label="ResolveEvent" data="ResolveEvent.as" />
+				<node label="BubbleEvent" data="BubbleEvent.as" />
+			</node>
+			    <node label="CommitFaultEvent" data="CommitFaultEvent.as" />
+		    </node>
+		</node>
+    </node>
+</mx:XML>
+    <mx:ComboBox dataProvider="{myData}" id="comboBox1" labelField="Price"  x="20" bottom="20" toolTip="ComboBox"/>
+	<mx:MenuBar id="menuBar1" dataProvider="{treeData}" labelField="@label" showRoot="false" x="140" bottom="25" />
+    <mx:PopUpMenuButton id="popUpMenuButton1" dataProvider="{myData}" label="Select:" labelField="Price" x="380" bottom="25" toolTip="My PopUpMenuButton Tooltip" />
+	<mx:DataGrid id="myGrid" dataProvider="{quantityInfo}" editable="true" itemEditEnd="validateData(event)" rowCount="5">
+        <mx:columns>
+            <mx:DataGridColumn dataField="Company" editable="false"/>
+            <mx:DataGridColumn dataField="Product" editable="false"/>
+            <mx:DataGridColumn dataField="Inventory"/>
+        </mx:columns>
+    </mx:DataGrid>
+
+</mx:Application>
