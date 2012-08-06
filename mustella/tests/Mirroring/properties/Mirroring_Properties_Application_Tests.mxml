@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Mirroring/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Mirroring_Main_Application.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void { }
+        ]]>
+    </fx:Script>
+    <fx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        ]]>
+    </fx:Script>
+    <testCases>
+    <!--Note: These tests mostly use the localToGlobal() method to figure out the actual position on the stage of mirrored components. In mirrored components, reading x and y values is not as useful as translating those values to what's on the stage.-->   
+        
+        <TestCase testID="Mirroring_Application_layoutDirection_default" keywords="[Mirroring, layoutDirection]" description="Check the default value of the layoutDirection style on an Application.">
+            <body>
+                <AssertPropertyValue target="" propertyName="layoutDirection" value="ltr" />
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Application_layoutDirection_RTL" keywords="[Mirroring, layoutDirection]" description="Set the layoutDirection property to RTL on an Group.">
+            <body>
+                <ResetComponent target="bigGroup" className="comps.BigGroupComp" waitEvent="updateComplete" waitTarget="bigGroup" />
+                <SetStyle styleName="direction" target="bigGroup" value="rtl" />
+                <SetProperty propertyName="layoutDirection" value="rtl" target="bigGroup" waitEvent="updateComplete" waitTarget="bigGroup" />
+                <AssertPropertyValue target="bigGroup.vgroup1" propertyName="layoutDirection" value="rtl" />
+                <AssertStyleValue target="bigGroup.vgroup1" styleName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="bigGroup.vgroup1.slider1" />
+            </body>
+        </TestCase>             
+        <TestCase testID="Mirroring_Application_mix_layoutDirection_RTL" keywords="[Mirroring, layoutDirection]" description="Set the layoutDirection property to RTL where some components already have RTL set on a Group.">
+            <setup>
+                <ResetComponent target="bigGroup" className="comps.BigGroupComp" waitEvent="updateComplete" waitTarget="bigGroup" />
+            </setup>
+            <body>
+                <SetStyle styleName="direction" value="rtl" />
+                <SetProperty propertyName="layoutDirection" value="rtl" target="bigGroup" waitEvent="updateComplete" waitTarget="bigGroup" />
+                <AssertStyleValue target="bigGroup.vgroup2" styleName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="bigGroup.vgroup2.check1" />
+            </body>
+        </TestCase>     
+        <TestCase testID="Mirroring_Application_mix_layoutDirection_RTL_2" keywords="[Mirroring, layoutDirection]" description="Set the layoutDirection property to RTL where some components already have LTR set on an Application.">
+            <setup>
+                <ResetComponent target="bigGroup" className="comps.BigGroupComp" waitEvent="updateComplete" waitTarget="bigGroup" />
+            </setup>
+            <body>
+                <SetStyle styleName="direction" value="ltr" target="bigGroup.vgroup2"/>
+                <SetProperty propertyName="layoutDirection" value="ltr" target="bigGroup.vgroup2" />
+                <SetStyle styleName="direction" value="rtl" target="bigGroup"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="bigGroup" waitEvent="updateComplete" waitTarget="bigGroup" />
+                <AssertStyleValue target="bigGroup.vgroup2" styleName="layoutDirection" value="ltr" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="bigGroup.vgroup2.slider1" />
+            </body>
+        </TestCase> 
+        <TestCase testID="Mirroring_Application_Module_RTL" keywords="[Mirroring, layoutDirection,Module]" description="Load a module that has layoutDirection=RTL set.">
+            <setup>
+                <ResetComponent target="bigGroup" className="comps.BigGroupComp" waitEvent="updateComplete" waitTarget="bigGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.bigGroup.loadRTLModule()" waitEvent="updateComplete" waitTarget="bigGroup.module1" />
+                <AssertMethodValue method="value=application.bigGroup.module1.child.convertXY(application.bigGroup.module1.child.canvas1).x" value="200" />
+                <AssertMethodValue method="value=application.bigGroup.module1.child.convertXY(application.bigGroup.module1.child.button1).x" value="130" />
+            </body>
+        </TestCase> 
+        <TestCase testID="Mirroring_Application_Module_RTL_2" keywords="[Mirroring, layoutDirection,Module]" description="Load a module that has no layoutDirection set, but, layoutDirection=RTL on the Application.">
+            <setup>
+                <ResetComponent target="bigGroup" className="comps.BigGroupComp" waitEvent="updateComplete" waitTarget="bigGroup" />
+            </setup>
+            <body>
+                <RunCode code="application.bigGroup.module1.loadModule('assets/ModuleComp2.swf');" waitEvent="updateComplete" waitTarget="bigGroup.module1" />
+                <SetStyle styleName="direction" value="rtl" target="bigGroup"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="bigGroup" waitEvent="updateComplete" waitTarget="bigGroup" />
+                <Pause timeout="1000" />
+                <AssertMethodValue method="value=application.bigGroup.module1.child.convertXY(application.bigGroup.module1.child.canvas1).x" value="380" />
+                <AssertMethodValue method="value=application.bigGroup.module1.child.convertXY(application.bigGroup.module1.child.button1).x" value="310" />
+            </body>
+        </TestCase> 
+    </testCases>
+</UnitTester>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+           xmlns:s="library://ns.adobe.com/flex/spark" 
+           xmlns:mx="library://ns.adobe.com/flex/mx" layout="absolute" width="220" height="220"
+           >
+    <fx:Script>
+        <![CDATA[
+            
+            public function convertXY(target:*):Point
+            {
+                var tmp:Point = new Point(target.x, target.y);
+                var globalPT:Point = target.localToGlobal(tmp);
+                
+                return globalPT;
+            }
+            
+        ]]>
+    </fx:Script>
+    <s:Group  left="0" top="0" bottom="0" right="0" >
+        <s:Rect left="0" top="0" bottom="0" right="0" >
+            <s:fill>
+                <s:SolidColor color="#6600FF" />
+            </s:fill>
+        </s:Rect>
+        <mx:Canvas x="10" y="10" id="canvas1" width="100" height="100" backgroundColor="0x000F00" />
+        <s:Button id="button1" x="45" y="20" label="Spark Button" width="100"/>
+        
+    </s:Group>
+
+</mx:Module>

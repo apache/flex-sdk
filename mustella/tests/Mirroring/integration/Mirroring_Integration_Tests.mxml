@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Mirroring/integration/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Mirroring_Main2.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void { }
+		]]>
+	</fx:Script>
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		]]>
+	</fx:Script>
+	<testCases>
+		
+		
+		<TestCase testID="Mirroring_RTL_TabOrder" keywords="[Mirroring, Focus]" description="Tab around a container with layoutDirection=rtl">
+			<setup>
+				<ResetComponent target="hgroup1" className="comps.HGroupComp" waitEvent="updateComplete" />
+				<ResetComponent target="vgroup1" className="comps.VGroupComp" waitEvent="updateComplete" />
+				<SetProperty target="vgroup1" propertyName="y" value="200" waitEvent="updateComplete" 
+							 waitTarget="vgroup1" />
+			</setup>
+			<body>
+				<SetProperty target="hgroup1" propertyName="layoutDirection" value="rtl" waitEvent="updateComplete" 
+							 waitTarget="hgroup1" />
+				<RunCode code="application.hgroup1.control1.setFocus()" waitEvent="focusIn" waitTarget="hgroup1.control1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="hgroup1.control2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="hgroup1.control3" />
+				<DispatchKeyEvent key="TAB"  />
+				<AssertEvent target="hgroup1.control4" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="Mirroring_RTL_LTR_TabOrder" keywords="[Mirroring, Focus]" description="Tab around a container with layoutDirection=rtl to another with layoutDirection=ltr">
+			<setup>
+				<ResetComponent target="hgroup1" className="comps.HGroupComp" waitEvent="updateComplete" />
+				<ResetComponent target="vgroup1" className="comps.VGroupComp" waitEvent="updateComplete" />
+				<SetProperty target="vgroup1" propertyName="y" value="200" waitEvent="updateComplete" 
+							 waitTarget="vgroup1" />
+			</setup>
+			<body>
+				<SetProperty target="hgroup1" propertyName="layoutDirection" value="rtl" waitEvent="updateComplete" 
+							 waitTarget="hgroup1" />
+				<RunCode code="application.hgroup1.control4.setFocus()" waitEvent="focusIn" waitTarget="hgroup1.control4" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="vgroup1.check1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="vgroup1.slider1" />
+				<DispatchKeyEvent key="TAB"  />
+				<AssertEvent target="textinput" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>	
+		
+		
+	</testCases>
+</UnitTester>

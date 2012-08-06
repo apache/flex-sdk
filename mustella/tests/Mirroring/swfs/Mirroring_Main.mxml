@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:comps="comps.*" width="900" height="600"
+			   creationComplete="(CONFIG::skaha){import qa.Skaha;Skaha.enable(true)}" 
+			   >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import comps.CanvasComp;
+			import comps.CanvasCompLTR;
+			import comps.GroupComp;
+			
+			public function convertXY(target:*):Point
+			{
+				var tmp:Point = new Point(0, 0);
+				var globalPT:Point = target.localToGlobal(tmp);
+				
+				return globalPT;
+			}
+			
+			public function addCanvasComp(i:int): void
+			{
+				if(numElements==2)
+				{
+					removeElementAt(1);
+				}
+				if(i==0)
+			    {
+					var newCanvas:CanvasComp = new CanvasComp();
+					newCanvas.x = 270;
+					newCanvas.y = 210;
+					addElementAt(newCanvas, 1);
+				}
+				else if (i==1)
+				{
+					var newCanvas2:CanvasCompLTR = new CanvasCompLTR();
+					newCanvas2.x = 270;
+					newCanvas2.y = 210;
+					newCanvas2.setStyle("backgroundColor", 0xFF0000);
+					addElementAt(newCanvas2, 1);
+				}
+				else
+				{
+					var newCanvas3:GroupComp = new GroupComp();
+					newCanvas3.x = 270;
+					newCanvas3.y = 210;
+					newCanvas3.setStyle("borderColor", 0xFF0000);
+					addElementAt(newCanvas3, 1);	
+				}
+			}
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace  "*";
+		
+		mx|Canvas {
+			direction: rtl;
+			layoutDirection: rtl;
+		}
+		
+	</fx:Style>
+	<comps:VGroupComp id="vgroup1" />
+</s:Application>
