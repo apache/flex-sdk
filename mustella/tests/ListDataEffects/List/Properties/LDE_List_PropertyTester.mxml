@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="ListDataEffects/List/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain1.mxml">
+
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void{
+	}				
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.effects.DefaultListEffect;
+	import mx.collections.ArrayCollection;
+	import mx.collections.ModifiedCollectionView;
+	
+	public var count:Number = 0;
+	public var dp:ArrayCollection;
+	
+	private function addItem():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var str:String = "X"+count++.toString();
+		dp.addItem([str]);
+
+	}	
+	
+	private function addItemAt():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var str:String = "Y"+count++.toString();
+		dp.addItemAt([str],application.mybox.mylist.selectedIndex+1);
+
+	}	
+
+	private function remove():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var toRemove:Array = []
+		for (var i:int = 0; i < application.mybox.mylist.selectedItems.length; i++)
+			toRemove.push(application.mybox.mylist.selectedItems[i]);
+		for (i = 0; i < toRemove.length; i++)
+			dp.removeItemAt(dp.getItemIndex(toRemove[i]));
+	}  
+
+	private function replace():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var toReplace:Array = application.mybox.mylist.selectedIndices;
+		for (var i:int = 0; i < toReplace.length; i++){				
+			trace("---"+dp.getItemAt(toReplace[i]))
+			dp.setItemAt("Z"+count++.toString(),toReplace[i] );
+		}
+	}
+	
+	private function defaultListEffect1() : mx.effects.DefaultTileListEffect
+	{
+		var temp : mx.effects.DefaultTileListEffect = new mx.effects.DefaultTileListEffect();
+		temp.fadeOutDuration = 250;
+		temp.fadeInDuration = 350;
+		temp.moveDuration = 500;
+		return temp;
+	}
+	
+	]]>
+	</mx:Script>
+	<mx:Style source="assets/myStyles.css" />
+	<testCases>
+
+ 	<TestCase testID="LDE_list_addItem_at_the_end_withEffects" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+	     </setup>
+	     <body>
+		   <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  /> 
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <RunCode code="count=0; addItem()"/> 
+	  	   <RunCode code="addItem()"/>
+	  	   <WaitForEffectsToEnd/>
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <RunCode code="addItemAt()"/> 
+		   <RunCode code="addItemAt()"/>
+		   <WaitForEffectsToEnd/>
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(26)" value="Y3" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(27)" value="Y2" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(28)" value="X0" />
+                   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(29)" value="X1" />
+	     </body>
+	   </TestCase>
+	 
+	   
+	    <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_1" keywords="[LDE, list, default]">
+	     <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="1"/>	      		  
+	     </setup>
+	     <body>
+		   <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  /> 
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <RunCode code="count=0; addItem()"/> 
+		   <WaitForEffectsToEnd/>
+	  	   <RunCode code="addItem()"/> 
+		   <WaitForEffectsToEnd/>
+		  
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <RunCode code="addItemAt()"/> <WaitForEffectsToEnd/>
+		   <RunCode code="addItemAt()"/> 
+		 
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(26)" value="Y3" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(27)" value="Y2" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(28)" value="X0" />
+                   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(29)" value="X1" />
+
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_3" keywords="[LDE, list, default]">
+	     <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="3"/>	      		  
+	     </setup>
+	     <body>
+		   <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  /> 
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <RunCode code="count=0; addItem()"/> 
+		   <WaitForEffectsToEnd/>
+	  	   <RunCode code="addItem()"/> 
+		   <WaitForEffectsToEnd/>
+		  
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <RunCode code="addItemAt()"/> <WaitForEffectsToEnd/>
+		   <RunCode code="addItemAt()"/> 
+		 
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(26)" value="Y3" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(27)" value="Y2" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(28)" value="X0" />
+                   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(29)" value="X1" />
+
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_4" keywords="[LDE, list, default]">
+	     <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="4"/>	      		  
+	     </setup>
+	     <body>
+		   <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  /> 
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <RunCode code="count=0; addItem()"/> 
+		   <WaitForEffectsToEnd/>
+	  	   <RunCode code="addItem()"/> 
+		   <WaitForEffectsToEnd/>
+		  
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <RunCode code="addItemAt()"/> <WaitForEffectsToEnd/>
+		   <RunCode code="addItemAt()"/> 
+		 
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(26)" value="Y3" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(27)" value="Y2" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(28)" value="X0" />
+                   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(29)" value="X1" />
+
+	     </body>
+	   </TestCase>
+	  
+	    <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_6" keywords="[LDE, list, default]">
+	     <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="6"/>	      		  
+	     </setup>
+	     <body>
+		  	     
+		   <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  /> 
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <RunCode code="count=0; addItem()"/> 
+		   <WaitForEffectsToEnd/>
+	  	   <RunCode code="addItem()"/> 
+		   <WaitForEffectsToEnd/>
+		  
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <RunCode code="addItemAt()"/> <WaitForEffectsToEnd/>
+		   <RunCode code="addItemAt()"/> 
+		 
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(26)" value="Y3" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(27)" value="Y2" />
+		   <AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(28)" value="X0" />
+	     </body>
+	   </TestCase> 
+
+
+	 <TestCase testID="LDE_list_effect_dragDrop" keywords="[LDE, list, dragDrop, effects]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="allowDragSelection" value="true"/>
+		  <SetProperty target="mybox.mylist" propertyName="dragEnabled" value="true"/>
+		  <SetProperty target="mybox.mylist" propertyName="dragMoveEnabled" value="true"/>
+		  <SetProperty target="mybox.mylist" propertyName="dropEnabled" value="true"/>
+		  <SetStyle    target="mybox.mylist" styleName="itemsChangeEffect" valueExpression="value=defaultListEffect1();"/>
+	     </setup>
+	     <body>
+		<DispatchKeyEvent   keys="[TAB]"   waitEvent="focusIn" waitTarget="mybox.mylist" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseOver" buttonDown="false" localX="5" localY="5"  waitTarget="mybox.mylist" waitEvent="mouseOver"/>
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseDown" buttonDown="true"  localX="5" localY="5"  waitTarget="mybox.mylist" waitEvent="mouseDown"/>
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="5" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="30" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="50" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="70" />
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseUp" localX="5" localY="70" waitTarget="mybox.mylist" waitEvent="dragDrop" />		        
+	 	<WaitForEffectsToEnd/>
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="false"  localX="5" localY="5" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseOver" buttonDown="false" localX="5" localY="5"  waitTarget="mybox.mylist" waitEvent="mouseOver"/>
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseDown" buttonDown="true"  localX="5" localY="5"  waitTarget="mybox.mylist" waitEvent="mouseDown"/>
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="5" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="30" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="50" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="70" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="70" />
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseUp" localX="5" localY="70" waitTarget="mybox.mylist" waitEvent="dragDrop" />		        
+		<WaitForEffectsToEnd/>
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="false"  localX="5" localY="5" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseOver" buttonDown="false" localX="5" localY="5"  waitTarget="mybox.mylist" waitEvent="mouseOver"/>
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseDown" buttonDown="true"  localX="5" localY="5"  waitTarget="mybox.mylist" waitEvent="mouseDown"/>
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="5" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="30" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="50" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="70" />
+		<DispatchMouseEvent target="mybox.mylist"  type="mouseMove" buttonDown="true"  localX="5" localY="70" />
+	 	<DispatchMouseEvent target="mybox.mylist"  type="mouseUp" localX="5" localY="70" waitTarget="mybox.mylist" waitEvent="dragDrop" />		        
+		<WaitForEffectsToEnd/>
+		<AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(0)" value="A" />
+		<AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(1)" value="B" />
+		<AssertMethodValue method="value=application.mybox.mylist.dataProvider.getItemAt(2)" value="C" />
+	     </body>
+	 </TestCase>
+ 	<TestCase testID="LDE_list_modifiedCollectionView" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  
+	     </setup>
+	     <body>
+	     	<RunCode code="var temp:ModifiedCollectionView=new ModifiedCollectionView(application.mybox.mylist.dataProvider);" />
+	     </body>
+	   </TestCase>	 
+	</testCases>                	     
+</UnitTester>

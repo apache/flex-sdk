@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="ListDataEffects/TileList/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileListMainoffScreen.mxml">
+
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.effects.DefaultTileListEffect;
+	import mx.collections.ArrayCollection;
+
+	public var count:Number = 0;
+	public var dp:ArrayCollection;
+
+	private function addItem():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var str:String = "X"+count++.toString();
+		dp.addItem([str]);
+
+	}
+
+	private function addItemAt():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var str:String = "Y"+count++.toString();
+		dp.addItemAt([str],application.mybox.mylist.selectedIndex+1);
+
+	}
+
+	private function remove():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var toRemove:Array = []
+		for (var i:int = 0; i < application.mybox.mylist.selectedItems.length; i++)
+			toRemove.push(application.mybox.mylist.selectedItems[i]);
+		for (i = 0; i < toRemove.length; i++)
+			dp.removeItemAt(dp.getItemIndex(toRemove[i]));
+	}
+
+	private function replace():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var toReplace:Array = application.mybox.mylist.selectedIndices;
+		for (var i:int = 0; i < toReplace.length; i++){
+			trace("---"+dp.getItemAt(toReplace[i]))
+			dp.setItemAt("Z"+count++.toString(),toReplace[i] );
+		}
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Style source="assets/myStyles.css" />
+	<testCases>
+	 <TestCase testID="LDE_tilelist_scroll_mouse_defaults" keywords="[LDE, list, default]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+	     </setup>
+	     <body>
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_beginning.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="250" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_end.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="80" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_middle.png"  />
+	     </body>
+	   </TestCase>
+
+
+	     <TestCase testID="LDE_tilelist_scroll_keyboard_defaults_1" keywords="[LDE, list, keyboard]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		     </setup>
+		     <body>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+			   <DispatchKeyEvent key="RIGHT"   repeatCount="10"  waitEvent="change" waitTarget="mybox.mylist"/>
+			   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_right.png"  />
+			  <DispatchKeyEvent key="LEFT"   repeatCount="5"  waitEvent="change" waitTarget="mybox.mylist"/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_left.png"  />
+		     </body>
+	   </TestCase>
+
+	    <TestCase testID="LDE_tilelist_scroll_keyboard_defaults_2" keywords="[LDE, list, keyboard]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		     </setup>
+		     <body>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_END.png"  />
+			  <DispatchKeyEvent key="HOME"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_HOME.png"  />
+		     </body>
+	   </TestCase>
+
+	    <TestCase testID="LDE_tilelist_scroll_keyboard_defaults_3" keywords="[LDE, list, keyboard]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		     </setup>
+		     <body>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+			  <DispatchKeyEvent key="PAGE_DOWN"  repeatCount="2"   />
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGDN_end.png"  numColorVariances="10" ignoreMaxColorVariance="true" />
+			  <DispatchKeyEvent key="PAGE_UP"  />
+			  <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+			  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP.png"  numColorVariances="10" ignoreMaxColorVariance="true" />
+			  <DispatchKeyEvent key="PAGE_UP" />
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP_beginning.png"  numColorVariances="10" ignoreMaxColorVariance="true" />
+		     </body>
+	   </TestCase>
+
+	   <TestCase testID="LDE_tilelist_addItem_at_the_end_default" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+	     </setup>
+	     <body>
+		   <RunCode code="count=0"/>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+		   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+		   <Pause timeout="200"/>
+		   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		  <Pause timeout="200"/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+		 <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+	     </body>
+	   </TestCase>
+
+
+
+
+
+
+	   <TestCase testID="LDE_list_offScreenExtraRows_1_scroll_mouse" keywords="[LDE, list, default]">
+	         <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="1"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_beginning.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="250" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_end.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="80" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_middle.png"  />
+	     </body>
+	   </TestCase>
+
+	   <TestCase testID="LDE_list_offScreenExtraRows_2_scroll_mouse" keywords="[LDE, list, default]">
+	         <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="2"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_beginning.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="250" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_end.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="80" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_middle.png"  />
+	     </body>
+	   </TestCase>
+
+	   <TestCase testID="LDE_list_offScreenExtraRows_3_scroll_mouse" keywords="[LDE, list, default]">
+	         <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="3"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_beginning.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="250" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_end.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="80" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_middle.png"  />
+	     </body>
+	   </TestCase>
+
+	    <TestCase testID="LDE_list_offScreenExtraRows_4_scroll_mouse" keywords="[LDE, list, default]">
+	         <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="4"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_beginning.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="250" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_end.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="80" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_middle.png"  />
+	     </body>
+	   </TestCase>
+
+	    <TestCase testID="LDE_list_offScreenExtraRows_6_scroll_mouse" keywords="[LDE, list, default]">
+	         <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="6"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_beginning.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="250" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_end.png"  />
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="80" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_mouse_scroll_middle.png"  />
+	     </body>
+	   </TestCase>
+
+
+
+
+
+	   <TestCase testID="LDE_list_scroll_keyboard_offScreenExtraRows_1" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete"
+		   waitTarget="mybox.mylist"  />
+   		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="1"/>
+	     </setup>
+	     <body>
+	      <WaitForEffectsToEnd/>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="RIGHT"   repeatCount="10"  waitEvent="change" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_right.png"  />
+		  <DispatchKeyEvent key="LEFT"   repeatCount="5"  waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_left.png"  />
+	     </body>
+	   </TestCase>
+	   <TestCase testID="LDE_list_scroll_keyboard_offScreenExtraRows_2" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete"
+		   waitTarget="mybox.mylist"  />
+   		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="2"/>
+   		</setup>
+	     <body>
+	      <WaitForEffectsToEnd/>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="RIGHT"   repeatCount="10"  waitEvent="change" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_right.png"  />
+		  <DispatchKeyEvent key="LEFT"   repeatCount="5"  waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_left.png"  />
+	     </body>
+	   </TestCase>
+	   <TestCase testID="LDE_list_scroll_keyboard_offScreenExtraRows_3" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete"
+		   waitTarget="mybox.mylist"  />
+   		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="3"/>
+	     </setup>
+	     <body>
+	      <WaitForEffectsToEnd/>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="RIGHT"   repeatCount="10"  waitEvent="change" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_right.png"  />
+		  <DispatchKeyEvent key="LEFT"   repeatCount="5"  waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_left.png"  />
+	     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_list_scroll_keyboard_offScreenExtraRows_4" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete"
+		   waitTarget="mybox.mylist"  />
+   		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="4"/>
+	     </setup>
+	     <body>
+	      <WaitForEffectsToEnd/>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="RIGHT"   repeatCount="10"  waitEvent="change" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_right.png"  />
+		  <DispatchKeyEvent key="LEFT"   repeatCount="5"  waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_left.png"  />
+	     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_list_scroll_keyboard_offScreenExtraRows_6" keywords="[LDE, list, keyboard]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete"
+		   waitTarget="mybox.mylist"  />
+   		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="6"/>
+		     </setup>
+		     <body>
+		      <WaitForEffectsToEnd/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+			   <DispatchKeyEvent key="RIGHT"   repeatCount="10"  waitEvent="change" waitTarget="mybox.mylist"/>
+			   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_right.png"  />
+			  <DispatchKeyEvent key="LEFT"   repeatCount="5"  waitEvent="change" waitTarget="mybox.mylist"/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_left.png"  />
+	     </body>
+	   </TestCase>
+
+
+
+
+	 <TestCase testID="LDE_list_scroll_HOME_END_keyboard_offScreenExtraRows_1" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="1"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_END.png"  />
+		  <DispatchKeyEvent key="HOME"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_HOME.png"  />
+	     </body>
+	   </TestCase>
+	   <TestCase testID="LDE_list_scroll_HOME_END_keyboard_offScreenExtraRows_2" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="2"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_END.png"  />
+		  <DispatchKeyEvent key="HOME"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_HOME.png"  />
+	     </body>
+	   </TestCase>
+	   <TestCase testID="LDE_list_scroll_HOME_END_keyboard_offScreenExtraRows_3" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="3"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_END.png"  />
+		  <DispatchKeyEvent key="HOME"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_HOME.png"  />
+	     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_list_scroll_HOME_END_keyboard_offScreenExtraRows_4" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="4"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_END.png"  />
+		  <DispatchKeyEvent key="HOME"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_HOME.png"  />
+	     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_list_scroll_HOME_END_keyboard_offScreenExtraRows_6" keywords="[LDE, list, keyboard]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="6"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png"  />
+		   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_END.png"  />
+		  <DispatchKeyEvent key="HOME"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_HOME.png"  />
+	     </body>
+	   </TestCase>
+
+
+
+
+
+	   <TestCase testID="LDE_list_scroll_PGUP_PGDN_keyboard_offScreenExtraRows_1" keywords="[LDE, list, keyboard]">
+		<setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="1"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+		   <DispatchKeyEvent key="PAGE_DOWN"  repeatCount="2"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGDN_end.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		 <DispatchKeyEvent key="PAGE_UP"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		  <DispatchKeyEvent key="PAGE_UP"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+	     </body>
+	   </TestCase>
+
+	   <TestCase testID="LDE_list_scroll_PGUP_PGDN_keyboard_offScreenExtraRows_2" keywords="[LDE, list, keyboard]">
+		<setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="2"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		   <DispatchKeyEvent key="PAGE_DOWN"  repeatCount="2"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGDN_end.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		 <DispatchKeyEvent key="PAGE_UP"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		  <DispatchKeyEvent key="PAGE_UP"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+	     </body>
+	   </TestCase>
+
+	   <TestCase testID="LDE_list_scroll_PGUP_PGDN_keyboard_offScreenExtraRows_3" keywords="[LDE, list, keyboard]">
+		<setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="3"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		   <DispatchKeyEvent key="PAGE_DOWN"  repeatCount="2"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGDN_end.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		 <DispatchKeyEvent key="PAGE_UP"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		  <DispatchKeyEvent key="PAGE_UP"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+	     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_list_scroll_PGUP_PGDN_keyboard_offScreenExtraRows_4" keywords="[LDE, list, keyboard]">
+		<setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="4"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		   <DispatchKeyEvent key="PAGE_DOWN"  repeatCount="2"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGDN_end.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		 <DispatchKeyEvent key="PAGE_UP"  waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		  <DispatchKeyEvent key="PAGE_UP"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+	     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_list_scroll_PGUP_PGDN_keyboard_offScreenExtraRows_6" keywords="[LDE, list, keyboard]">
+		<setup>
+		  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="6"/>
+		   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+	     </setup>
+	     <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_scroll_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		   <DispatchKeyEvent key="PAGE_DOWN"  repeatCount="2"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGDN_end.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		 <DispatchKeyEvent key="PAGE_UP"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+		   <WaitForEffectsToEnd/> <!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+		  <DispatchKeyEvent key="PAGE_UP"   waitEvent="change" waitTarget="mybox.mylist"/>
+		  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_default_vertical_keyboard_PGUP_beginning.png" numColorVariances="10" ignoreMaxColorVariance="true"  />
+	     </body>
+	      </TestCase>
+
+
+
+
+
+
+	       	<TestCase testID="LDE_list_addItem_at_the_end_withEffects" keywords="[LDE, list, keyboard]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+      	      		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultTileListEffect" />
+			   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+		     </setup>
+		     <body>
+			   <RunCode code="count=0"/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+			   <WaitForEffectsToEnd/>
+			   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+			   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+			  <WaitForEffectsToEnd/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+	    	 </body>
+	      	   </TestCase>
+
+	      	  <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_1" keywords="[LDE, list, default]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+      	      		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultTileListEffect" />
+			   <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="1"/>
+			   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+		     </setup>
+		     <body>
+			   <RunCode code="count=0"/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+			   <WaitForEffectsToEnd/>
+			   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+			   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+			  <WaitForEffectsToEnd/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+	    	 </body>
+	      	   </TestCase>
+
+	      	   <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_2" keywords="[LDE, list, default]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+      	      		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultTileListEffect" />
+			   <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="2"/>
+			   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+		     </setup>
+		     <body>
+			   <RunCode code="count=0"/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+			   <WaitForEffectsToEnd/>
+			   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+			   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+			  <WaitForEffectsToEnd/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+	    	 </body>
+	      	   </TestCase>
+
+	      	   <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_3" keywords="[LDE, list, default]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+      	      		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultTileListEffect" />
+			   <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="3"/>
+			   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+		     </setup>
+		     <body>
+			   <RunCode code="count=0"/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+			   <WaitForEffectsToEnd/>
+			   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+			   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+			  <WaitForEffectsToEnd/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+	    	 </body>
+	      	   </TestCase>
+
+	      	    <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_4" keywords="[LDE, list, default]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+      	      		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultTileListEffect" />
+			   <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="4"/>
+			   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+		     </setup>
+		     <body>
+			   <RunCode code="count=0"/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+			   <WaitForEffectsToEnd/>
+			   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+			   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+			  <WaitForEffectsToEnd/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+	    	 </body>
+	      	   </TestCase>
+
+	      	    <TestCase testID="LDE_list_addItem_at_the_end_withEffects_offScreenExtraRows_6" keywords="[LDE, list, default]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp1" waitEvent="updateComplete" waitTarget="mybox"  />
+      	      		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultTileListEffect" />
+			   <SetProperty target="mybox.mylist" propertyName="offscreenExtraRowsOrColumns" value="6"/>
+			   <SetProperty target="mybox.mylist" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="mybox.mylist"  />
+		     </setup>
+		     <body>
+			   <RunCode code="count=0"/>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"  />
+			   <DispatchKeyEvent key="END"   waitEvent="scroll" waitTarget="mybox.mylist"/>
+			   <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/> <RunCode code="addItem()"/>
+			   <WaitForEffectsToEnd/>
+			   <WaitForEffectsToEnd/> <!--Wait for items to be added -->
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="265" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist" />
+			   <RunCode code="addItemAt()"/> <RunCode code="addItemAt()"/>
+			  <WaitForEffectsToEnd/>
+			  <WaitForEffectsToEnd/><!-- though it reaches the item, it does not draw the focus properly-->
+			 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/LDE_tilelist_vertical_itemsAdded_END.png"  />
+		    </body>
+	   </TestCase>
+
+	   </testCases>
+</UnitTester>

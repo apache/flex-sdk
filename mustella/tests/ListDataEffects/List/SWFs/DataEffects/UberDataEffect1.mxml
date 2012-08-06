@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Parallel xmlns:mx="http://www.adobe.com/2006/mxml" effectEnd="trace('uberDataEffect ended')" >
+	<mx:children>
+		<mx:Sequence id="dataEffectAddRemove" effectEnd="trace('dataEffectAddRemove ended')" >
+			<mx:Fade alphaTo="0.0" duration="1000" >
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'removed':true}}"/>
+				</mx:customFilter>
+			</mx:Fade>
+			<mx:Move duration="1000" />
+			<mx:RemoveItemAction  >
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'removed':true}}"/>
+				</mx:customFilter>
+			</mx:RemoveItemAction>
+			<mx:AddItemAction  >
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'added':true}}"/>
+				</mx:customFilter>
+			</mx:AddItemAction>
+			<mx:Fade alphaFrom="0.0" alphaTo="1.0" duration="1000">
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'added':true}}"/>
+				</mx:customFilter>
+			</mx:Fade>
+		</mx:Sequence>
+		<mx:Sequence id="dataEffectReplace" effectEnd="trace('dataEffectReplace ended')" >
+			<mx:Fade alphaTo="0.0" duration="1000">
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'replaced':true}}"/>
+				</mx:customFilter>
+			</mx:Fade>
+			<mx:RemoveItemAction>
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'replaced':true}}"/>
+				</mx:customFilter>
+			</mx:RemoveItemAction>
+			<mx:AddItemAction>
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'replacement':true}}"/>
+				</mx:customFilter>
+			</mx:AddItemAction>
+			<mx:Fade alphaFrom="0.0" alphaTo="1.0" duration="1000" >
+				<mx:customFilter>
+					<mx:EffectTargetFilter requiredSemantics="{{'replacement':true}}"/>
+				</mx:customFilter>
+			</mx:Fade>
+		</mx:Sequence>
+	</mx:children>
+</mx:Parallel>

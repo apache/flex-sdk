@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"  layout="vertical" >
+  <TileListComp1 id="mybox" />       
+</mx:Application>

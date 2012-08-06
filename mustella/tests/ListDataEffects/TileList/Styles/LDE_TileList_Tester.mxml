@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="ListDataEffects/TileList/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileListMain.mxml">
+
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void{
+	}				
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.effects.DefaultListEffect;
+	import mx.collections.ArrayCollection;
+	
+	public var count:Number = 0;
+	public var dp:ArrayCollection;
+	
+	private function addItemAt():void{
+			dp = application.mybox.mylist.dataProvider as ArrayCollection;
+			var str:String = "Y"+count++.toString();
+			dp.addItemAt([str],application.mybox.mylist.selectedIndex);
+	
+	}	
+
+	private function remove():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var toRemove:Array = []
+		for (var i:int = 0; i < application.mybox.mylist.selectedItems.length; i++)
+			toRemove.push(application.mybox.mylist.selectedItems[i]);
+		for (i = 0; i < toRemove.length; i++)
+			dp.removeItemAt(dp.getItemIndex(toRemove[i]));
+	}  
+
+	private function replace():void{
+		dp = application.mybox.mylist.dataProvider as ArrayCollection;
+		var toReplace:Array = application.mybox.mylist.selectedIndices;
+		for (var i:int = 0; i < toReplace.length; i++){				
+			trace("---"+dp.getItemAt(toReplace[i]))
+			dp.setItemAt("Z"+count++.toString(),toReplace[i] );
+		}
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Style source="assets/myStyles.css" />
+	<testCases>
+	 <TestCase testID="LDE_tileList_addItemAt_without_LDE_default" keywords="[LDE, tileList, default]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+		 <RunCode code="addItemAt()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_addItemAt_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_remove_without_LDE_default" keywords="[LDE, tileList, default, remove]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		     </setup>
+		     <body>
+			 <RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+	   
+	     <TestCase testID="LDE_tileList_remove_multiple_without_LDE_default" keywords="[LDE, tileList, default, remove, multiple]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		     </setup>
+		     <body>
+			 <RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_multiple_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+	   
+	     
+	    <TestCase testID="LDE_tileList_replace_without_LDE_default" keywords="[LDE, tileList, default, replace]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		     </setup>
+		     <body>
+		     	 <RunCode code="count=0" />
+			 <RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+
+	     <TestCase testID="LDE_tileList_replace_multiple_without_LDE_default" keywords="[LDE, tileList, default, replace, multiple]">
+		      <setup>
+		     	 <RunCode code="count=0" />		      
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		     </setup>
+		     <body>
+			 <RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_multiple_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_remove_multiple_at_the_end_without_LDE_default" keywords="[LDE, tileList, default, remove, multiple]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <RunCode code="application.mybox.mylist.selectedIndices = [1,3,5,7,9,11]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		     </setup>
+		     <body>
+			 <RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_at_the_end_multiple_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+	   
+	<!-- End of Tests to create Bitmaps without LDE-->
+	
+	    <TestCase testID="LDE_tileList_addItemAt_with_LDE_default" keywords="[LDE, tileList, default, add]">
+		<setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+		 <RunCode code="count=0"/>
+		<RunCode code="addItemAt()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_addItemAt_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_addItemAt_with_LDE_Effect1" keywords="[LDE, tileList, default, add]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect1" />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+		 <RunCode code="count=0"/>
+		<RunCode code="addItemAt()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_addItemAt_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_addItemAt_with_LDE_Effect2" keywords="[LDE, tileList, default, add]">
+	   	      <setup>
+	   		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+	   		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect2" />
+	   		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	   	     </setup>
+	   	     <body>
+	   		 <RunCode code="count=0"/>
+	   		<RunCode code="addItemAt()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	   		 <WaitForEffectsToEnd/>
+	   		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_addItemAt_default_without_LDE.png"  />
+	   	     </body>
+	   </TestCase>
+
+	 
+	    <TestCase testID="LDE_tileList_remove_with_LDE_default" keywords="[LDE, tileList, default, remove]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+			  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		     </setup>
+		     <body>
+			<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <WaitForEffectsToEnd/>
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_remove_with_LDE_Effect1" keywords="[LDE, tileList, default, remove]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect1" />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_remove_with_LDE_Effect2" keywords="[LDE, tileList, default, remove]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect2" />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+
+
+
+ 	<TestCase testID="LDE_tileList_remove_multiple_with_LDE_default" keywords="[LDE, tileList, default, remove, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_remove_multiple_with_LDE_Effect1" keywords="[LDE, tileList, default, remove, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect1" />
+		 <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	   <TestCase testID="LDE_tileList_remove_multiple_with_LDE_Effect2" keywords="[LDE, tileList, default, remove, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect2" />
+		 <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   	   
+	   	 
+	    <TestCase testID="LDE_tileList_replace_with_LDE_default" keywords="[LDE, tileList, default, replace]">
+		      <setup>
+			  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+			  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		     </setup>
+		     <body>
+     		     	 <RunCode code="count=0" />
+			<RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+			 <WaitForEffectsToEnd/>
+			 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_default_without_LDE.png"  />
+		     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_replace_with_LDE_Effect1" keywords="[LDE, tileList, default, replace]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect1" />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+	     	 <RunCode code="count=0" />		
+		<RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	      <TestCase testID="LDE_tileList_replace_with_LDE_Effect2" keywords="[LDE, tileList, default, replace]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect2" />
+		  <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+	     	 <RunCode code="count=0" />		
+		<RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+
+	<TestCase testID="LDE_tileList_replace_multiple_with_LDE_default" keywords="[LDE, tileList, default, replace, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+	     	 <RunCode code="count=0" />	     
+		<RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	    <TestCase testID="LDE_tileList_replace_multiple_with_LDE_Effect1" keywords="[LDE, tileList, default, replace, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect1" />
+		 <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+	     	 <RunCode code="count=0" />	     
+		<RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	   
+	   <TestCase testID="LDE_tileList_replace_multiple_with_LDE_Effect2" keywords="[LDE, tileList, default, replace, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect2" />
+		 <RunCode code="application.mybox.mylist.selectedIndices = [0,3]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+	     	 <RunCode code="count=0" />	     
+		<RunCode code="replace()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_replace_multiple_default_without_LDE.png"  />
+	     </body>
+   	</TestCase>
+   	
+   
+   	   <TestCase testID="LDE_tileList_remove_multiple_at_the_end_with_LDE_default" keywords="[LDE, tileList, default, remove, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="DefaultListEffect" />
+		  <RunCode code="application.mybox.mylist.selectedIndices =  [1,3,5,7,9,11]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_at_the_end_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+
+	    <TestCase testID="LDE_tileList_remove_multiple_at_the_end_with_LDE_Effect1" keywords="[LDE, tileList, default, remove, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect1" />
+		 <RunCode code="application.mybox.mylist.selectedIndices =  [1,3,5,7,9,11]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_at_the_end_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+	
+	  <TestCase testID="LDE_tileList_remove_multiple_at_the_end_with_LDE_Effect2" keywords="[LDE, tileList, default, remove, multiple]">
+	      <setup>
+		  <ResetComponent target="mybox" className="TileListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+		  <SetStyle target="mybox.mylist" styleName="itemsChangeEffect" value="application.mybox.uberDataEffect2" />
+		 <RunCode code="application.mybox.mylist.selectedIndices =  [1,3,5,7,9,11]" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		<RunCode code="remove()" waitEvent="updateComplete"  waitTarget="mybox.mylist" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Styles/Baselines/LDE_tileList_remove_at_the_end_multiple_default_without_LDE.png"  />
+	     </body>
+	   </TestCase>
+</testCases>                	     
+</UnitTester>
+
+		  
+
+	                  
+	                   

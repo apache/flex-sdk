@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" xmlns:com="DataEffects.*"
+	creationComplete="startIt()" width="100%" height="100%" >
+ 	<mx:Script>
+	<![CDATA[
+	import mx.collections.ArrayCollection;
+	
+	private var myDP0:ArrayCollection = new ArrayCollection(["A","B",'C','D','E','F','G','H','I','J','K','L','M','N','O']);		
+	
+	private var myDP1:ArrayCollection = new ArrayCollection([{slno:"1",name:"Joseph",age:"23"},{slno:"2",name:"Jeena",age:"21"},{slno:"3",name:"Jerry",age:"4"}
+	   	 ,{slno:"4",name:"Tom",age:"1"},{slno:"5",name:"Rick",age:"12"},{slno:"6",name:"John",age:"52"}]);
+	   	 
+	private var myDP2:ArrayCollection = new ArrayCollection(["AAaa Item","BBbb Item",'CCcc Item',
+	'DDdd Item','EEee Item','FFff Item','GGgg Item','HHhh Item',
+	'IIii Item','JJjj Item','KKkk Item','LLll Item','MMmm Item',
+	'NNnn Item','OOoo Item','Little Miss Sunshine','Mumbo Jumbo','Pinnochio','Quasimodo','Rusty is Busted']);		
+
+	    public function startIt():void   {
+	   	 mylist.dataProvider=myDP2;
+	    }
+	]]>
+	</mx:Script>
+
+	<com:UberDataEffect1 id="uberDataEffect1"/>
+	<com:UberDataEffect2 id="uberDataEffect2"/>
+	<com:UberDataEffect3 id="uberDataEffect3"/>
+
+        <mx:TileList id="mylist" x="50" y="50"  width="200" height="250" labelField="name"  columnCount="4" rowCount="4" variableRowHeight="true" wordWrap="true" direction="vertical" horizontalScrollPolicy="auto"   allowMultipleSelection="true"/>
+</mx:Canvas>
