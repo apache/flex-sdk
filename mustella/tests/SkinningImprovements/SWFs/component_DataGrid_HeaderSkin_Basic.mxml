@@ -1,0 +1,35 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+<mx:Script>
+<![CDATA[
+        [Bindable]
+        public var myDP:Array =
+         [
+           { Artist:'ArtistA', Album:'AlbumA', Price:11.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumB', Price:10.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'AlbumC', Price:12.99, Rating:'Excellent' },
+           { Artist:'ArtistA', Album:'Brighten the Corners', Price:11.99, Rating:'Good' },
+           { Artist:'ArtistA', Album:'AlbumD', Price:11.99, Rating:'Good' },
+           { Artist:'ArtistB', Album:'ArtistB', Price:5.99, Rating:'Bad' },
+           { Artist:'ArtistB1', Album:'ArtistB1', Price:5.99, Rating:'Good' },
+           { Artist:'ArtistB2', Album:'ArtistB2', Price:5.99, Rating:'Excellent' },
+           { Artist:'ArtistB3', Album:'ArtistB3', Price:5.99, Rating:'Good' },
+           { Artist:'ArtistB4', Album:'ArtistB4', Price:5.99, Rating:'Bad' }
+         ];
+        [Bindable]
+        [Embed(source="../../../Assets/Images/GridImages/dg_header_skin.gif")]
+        private var dg_header_skin:Class;
+
+]]>
+</mx:Script>
+<mx:PrintDataGrid id="myPrintDataGrid" dataProvider="{myDP}" height="100%" sizeToPage="true"  headerBackgroundSkin="{dg_header_skin}" >
+     <mx:columns>
+          <mx:Array>
+              <mx:DataGridColumn dataField="Artist" />
+              <mx:DataGridColumn dataField="Album" />
+              <mx:DataGridColumn dataField="Price" />
+              <mx:DataGridColumn dataField="Rating" itemRenderer="comps.colorCellRenderer" />
+          </mx:Array>
+     </mx:columns>
+</mx:PrintDataGrid>
+
+</mx:VBox>

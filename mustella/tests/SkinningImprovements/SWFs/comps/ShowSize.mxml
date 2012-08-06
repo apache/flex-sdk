@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" creationComplete="showSizes()">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Label;
+			import mx.core.UIComponent;
+			
+			public var lWidth:Label;
+			public var lHeight:Label;
+			
+			public function showSizes():void
+			{
+				var child:UIComponent = UIComponent(getChildAt(0));
+				if (child)
+				{
+					lWidth = new Label();
+					lWidth.text = String("w: " + child.width);
+					addChild(lWidth);
+					
+					lHeight = new Label();
+					lHeight.text = String("h: " + child.height);
+					addChild(lHeight);
+/* 					
+					var lHG:Label = new Label();
+					lHG.text = String("hGap: " + child.getStyle("horizontalGap"));
+					addChild(lHG);
+					
+					var lPL:Label = new Label();
+					lPL.text = String("padL: " + child.getStyle("paddingLeft"));
+					addChild(lPL);	
+					
+					var lPR:Label = new Label();
+					lPR.text = String("padR: " + child.getStyle("paddingRight"));
+					addChild(lPR);	 */					
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	
+</mx:HBox>

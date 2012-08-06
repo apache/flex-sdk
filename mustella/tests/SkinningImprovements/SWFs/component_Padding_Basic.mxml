@@ -1,0 +1,602 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:comps="comps.*" horizontalAlign="left" width="100%" height="100%">
+	<mx:Style>
+		CheckBox
+		{
+			skin: ClassReference("mx.skins.halo.ButtonSkin");
+		} 
+		
+		RadioButton
+		{
+			skin: ClassReference("mx.skins.halo.ButtonSkin");
+		} 
+	</mx:Style>
+                     
+	<mx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.controls.Button;
+			   
+			[Bindable]
+			public var labelP:String = "left";
+			
+			[Bindable]
+			[Embed(source="../../../Assets/Images/smallredrect.jpg")]
+			private var bicon:Class;
+		]]>  
+	</mx:Script> 
+	
+	  
+	<mx:TabNavigator id="pTN" width="100%" height="100%">
+   	     
+	<!--BUTTON --> 
+	<mx:Accordion width="100%" height="70%" label="Button">
+		<mx:Form label="Left/Right Calculated Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:Button label="Default String" paddingRight="0" paddingLeft="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>	
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>
+		 
+		<mx:Form label="Left/Right Explicit Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String" width="200"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>	
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>
+		
+		<mx:Form label="Top/Bottom Calculated Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:Button label="Default String" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:Button label="Default String" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form> 
+		
+		<mx:Form label="Top/Bottom Explicit Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String" height="80"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>		
+	</mx:Accordion>
+	
+	<!--CHECKBOX -->  
+	<mx:Accordion width="100%" height="70%" label="CheckBox">
+		<mx:Form label="Left/Right Calculated Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="center" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Left/Right Explicit Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Top/Bottom Calculated Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form> 
+		
+		<mx:Form label="Top/Bottom Explicit Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" height="100"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" height="100" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" height="100" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:CheckBox labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>		
+	</mx:Accordion>
+	
+	<!-- RADIO BUTTON -->  
+	<mx:Accordion width="100%" height="70%" label="RadioButton">
+		<mx:Form label="Left/Right Calculated Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="center" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Left/Right Explicit Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Top/Bottom Calculated Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form> 
+		
+		<mx:Form label="Top/Bottom Explicit Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" height="100"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" height="100" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" height="100" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:RadioButton labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>		
+	</mx:Accordion>	  
+	
+	<!-- LINKBUTTON -->  
+	<mx:Accordion width="100%" height="70%" label="LinkButton">
+		<mx:Form label="Left/Right Calculated Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="center" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Left/Right Explicit Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="left"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="center"/></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="right"/></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Top/Bottom Calculated Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form> 
+		
+		<mx:Form label="Top/Bottom Explicit Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingTop="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingBottom="40"/></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20"/></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>		
+	</mx:Accordion>	  
+	
+	
+	<!--BUTTON With Icon--> 
+	<mx:Accordion id="pAB" width="100%" height="70%" label="Button W/Icon">
+		<mx:Form label="Left/Right Calculated Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" paddingRight="0" paddingLeft="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:Button label="Default String" paddingRight="0" paddingLeft="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" paddingRight="0" paddingLeft="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>	
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:Button id="waitBtn1" label="Default String" paddingLeft="0" paddingRight="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>
+
+		<mx:Form label="Left/Right Explicit Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String" width="200" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>	
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:Button label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>
+
+		<mx:Form label="Top/Bottom Calculated Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:Button label="Default String" paddingTop="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:Button label="Default String" paddingBottom="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:Button label="Default String" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form> 
+
+		<mx:Form label="Top/Bottom Explicit Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:Button label="Default String" height="80" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingTop="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingBottom="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:Button label="Default String" height="80" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  labelPlacement="{labelP}" /></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>		
+	</mx:Accordion>
+	
+	
+	<!-- LINKBUTTON with Icon-->  
+	<mx:Accordion id="pALB" width="100%" height="70%" label="LinkButton w/icon">
+		<mx:Form label="Left/Right Calculated Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}"  /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingRight="0" paddingLeft="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:LinkButton  id="waitBtn2" labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Left/Right Explicit Width">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Center">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Left 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingRight="0" paddingLeft="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Left">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="left" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Right 40, Align Center"> 
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="center" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>		
+			<mx:FormItem label="Padding Right 40, Align Right">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" width="200" paddingLeft="0" paddingRight="40" textAlign="right" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>				
+		</mx:Form>
+		
+		<mx:Form label="Top/Bottom Calculated Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingTop="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingBottom="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form> 
+		
+		<mx:Form label="Top/Bottom Explicit Height">
+			<mx:FormItem label="Zero Padding" >
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Default">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Top 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingTop="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="Padding Bottom 40">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingBottom="40" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>
+			<mx:FormItem label="All Padding">
+				<comps:ShowSize><mx:LinkButton labelPlacement="{labelP}" label="Default String" height="100" paddingLeft="20" paddingRight="20" paddingBottom="20" paddingTop="20" icon="{bicon}" horizontalGap="{hgap.value}" verticalGap="{vgap.value}" /></comps:ShowSize>
+			</mx:FormItem>		
+		</mx:Form>		
+	</mx:Accordion>	 
+	</mx:TabNavigator> 
+	<mx:FormItem label="Button LabelPlacement" width="100%">
+		<mx:ComboBox id="labelPlacementCombo" change="labelP = String(ComboBox(event.target).selectedItem)" dataProvider="{['right','left','top','bottom']}"/>	
+	</mx:FormItem>
+	<mx:FormItem label="horizontal Gap" width="100%">
+		<mx:HSlider id="hgap" minimum="-50" maximum="200" value="10" width="100%" snapInterval="1"/>	
+	</mx:FormItem>
+	<mx:FormItem label="vertical Gap" width="100%">
+		<mx:HSlider id="vgap" minimum="-50" maximum="200" value="10" width="100%" snapInterval="1"/>	
+	</mx:FormItem>
+
+	<mx:Label text="After Button Padding Fixes"/>
+</mx:VBox>

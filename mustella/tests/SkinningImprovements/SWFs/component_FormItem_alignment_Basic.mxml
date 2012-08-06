@@ -1,0 +1,33 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+
+<mx:Script>
+<![CDATA[
+
+]]>
+</mx:Script>
+
+<mx:Form borderStyle="solid" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" width="100%">
+   <mx:FormHeading label="This is FormHeading" paddingLeft="100"/>
+   <mx:FormItem label="This is FormItem" width="100%" textAlign="right" horizontalAlign="right">
+	<mx:Button label="I am a Button" />
+	<mx:TextInput text="I am a TextInput"/>
+   </mx:FormItem>
+   <mx:FormItem label="This is FormItem Long" width="100%" textAlign="center" horizontalAlign="center">
+		<mx:Button label="I am a Button" />
+		<mx:TextInput text="I am a TextInput"/>
+   </mx:FormItem>
+
+   <mx:FormItem label="This is FormItem Looooong" width="100%" textAlign="left" horizontalAlign="left">
+		<mx:Button label="I am a Button" />
+		<mx:TextInput text="I am a TextInput"/>
+   </mx:FormItem>
+   <mx:FormItem label="This is FormItem Loooooooong" width="100%">
+		<mx:Button label="I am a Button" />
+		<mx:TextInput text="I am a TextInput"/>
+   </mx:FormItem>
+   <mx:FormItem label="This is FormItem Long" width="100%">
+		<mx:Button label="I am a Button" />
+		<mx:TextInput text="I am a TextInput"/>
+   </mx:FormItem>
+</mx:Form>
+</mx:VBox>

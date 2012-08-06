@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="SkinningImprovements/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SkinImprovements_ComboBox_Padding_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.managers.SystemManager;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	
+	public function setPaddingTopBottom():void{
+		application.componentComboBoxPaddingBasic.pTop.value=5;
+		application.componentComboBoxPaddingBasic.pBot.value=5;
+	}
+	public function setPaddingTopBottom1():void{
+		application.componentComboBoxPaddingBasic.pTop.value=40;
+		application.componentComboBoxPaddingBasic.pBot.value=40;
+	}
+	public function setPaddingTopBottom2():void{
+		application.componentComboBoxPaddingBasic.pTop.value=30;
+		application.componentComboBoxPaddingBasic.pBot.value=5;
+	}
+	public function setPaddingTopBottom3():void{
+		application.componentComboBoxPaddingBasic.pTop.value=5;
+		application.componentComboBoxPaddingBasic.pBot.value=5;
+		application.componentComboBoxPaddingBasic.pLef.value=10;
+		application.componentComboBoxPaddingBasic.pRig.value=10;
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+		<TestCase testID="Test_ComboBox_Padding_one" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, ComboBox, padding]">
+			<setup>
+				<ResetComponent target="componentComboBoxPaddingBasic" className="component_ComboBox_Padding_Basic" waitTarget="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="100"/>
+			    	<CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding1.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="Test_ComboBox_Padding_two" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, ComboBox, padding, change]">
+			<setup>
+				<ResetComponent target="componentComboBoxPaddingBasic" className="component_ComboBox_Padding_Basic" waitTarget="updateComplete" />
+			    <RunCode code="setPaddingTopBottom()" timeout="1000" waitTarget="componentComboBoxPaddingBasic.cb2" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<Pause timeout="200"/>
+			    	<CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding2.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="Test_ComboBox_Padding_three" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, ComboBox, padding, change]">
+			<setup>
+				<ResetComponent target="componentComboBoxPaddingBasic" className="component_ComboBox_Padding_Basic" waitTarget="updateComplete" />
+				
+				<RunCode code="setPaddingTopBottom1()" timeout="1000" waitTarget="componentComboBoxPaddingBasic.cb2" waitEvent="updateComplete"/>
+
+			</setup>
+			<body>
+				<Pause timeout="200"/>
+			    	<CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding3.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="Test_ComboBox_Padding_four" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, ComboBox, padding, change]">
+			<setup>
+				<ResetComponent target="componentComboBoxPaddingBasic" className="component_ComboBox_Padding_Basic" waitTarget="updateComplete" />
+				
+				<RunCode code="setPaddingTopBottom2()" timeout="1000" waitTarget="componentComboBoxPaddingBasic.cb2" waitEvent="updateComplete"/>
+
+			</setup>
+			<body>
+				<Pause timeout="200"/>
+			    	<CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding4.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="Test_ComboBox_Padding_five" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, ComboBox, padding, change]">
+			<setup>
+				<ResetComponent target="componentComboBoxPaddingBasic" className="component_ComboBox_Padding_Basic" waitTarget="updateComplete" />
+			    <RunCode code="setPaddingTopBottom3()" timeout="1000" waitTarget="componentComboBoxPaddingBasic.cb3" waitEvent="updateComplete"/>
+
+			</setup>
+			<body>
+				<Pause timeout="200"/>
+			    	<CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding5.png" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
