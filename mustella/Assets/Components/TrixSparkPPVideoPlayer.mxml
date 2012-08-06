@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:VideoPlayer
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	width="400" height="300"
+    skinClass="asset.PPVideoPlayerSkin">
+
+</s:VideoPlayer>

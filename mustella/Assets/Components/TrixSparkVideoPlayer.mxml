@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:VideoPlayer
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	width="400" height="300">
+
+    <!--
+    http://helpexamples.com/flash/video/cuepoints.flv
+    http://hdgallery.adobe.com/media/SpaceAlone_480.flv
+    http://helpexamples.com/flash/video/water.flv
+
+    rtmp://10.59.8.148/vod/mp4:sample2_1000kbps.f4v
+    -->
+</s:VideoPlayer>

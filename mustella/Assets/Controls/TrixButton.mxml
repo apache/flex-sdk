@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Button 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="150" 
+	height="30"
+    label="Trix Button">
+</mx:Button>
