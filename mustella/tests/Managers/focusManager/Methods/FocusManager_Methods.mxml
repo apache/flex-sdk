@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/focusManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FocusManager_Basic.mxml">
+
+    <mx:Script>
+    <![CDATA[
+    
+        import mx.managers.FocusManager;
+        
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.core.UIComponent;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="focusManager_methods_getFocus_button" description="Call getFocus() after a few Tabs and focus is on a Button" keywords="[FocusManager, getFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('button1') != -1" />  
+            </body>
+       </TestCase>
+        <TestCase testID="focusManager_methods_getFocus_clickIntextInput" description="Call getFocus() after a mouse click in a TextInput" keywords="[FocusManager, getFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.ti2" localX="15" localY="5" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti2') != -1" />  
+            </body>
+       </TestCase>
+        <TestCase testID="focusManager_methods_setFocus_aftertab" description="Call setFocus() after a few Tabs" keywords="[FocusManager, setFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <RunCode code="application.focusManager.setFocus(application.layout1.ti2)" waitEvent="focusIn" waitTarget="layout1.ti2" />
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti2') != -1" />  
+            </body>
+       </TestCase>        
+       <TestCase testID="focusManager_methods_setFocus_button" description="Call setFocus() on a button" keywords="[FocusManager, setFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.focusManager.setFocus(application.layout1.button2)" waitEvent="focusIn" waitTarget="layout1.button2" />
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('button2') != -1" />  
+            </body>
+       </TestCase>        
+       <TestCase testID="focusManager_methods_getNextFocusManagerComponent" description="Call getNextFocusManagerComponent() on FocusManager" 
+           keywords="[FocusManager, getNextFocusManagerComponent]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.focusManager.setFocus(application.layout1.button2)" waitEvent="focusIn" waitTarget="layout1.button2" />
+                <AssertMethodValue value="ti1" method="value=(application.focusManager.getNextFocusManagerComponent() as UIComponent).id" />  
+            </body>
+       </TestCase>
+    </testCases>
+
+</UnitTester>

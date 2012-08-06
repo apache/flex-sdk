@@ -1,0 +1,129 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face{
+            src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+
+        @font-face{
+            src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+        @font-face{
+            src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: myArial;
+            embedAsCFF: true;
+
+        }
+
+        s|ButtonBase {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontSize: 12;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|TextBox {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontSize: 10;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|ButtonBase:up {
+            chromeColor: #B00000;
+        }
+
+        s|ButtonBase:down {
+            chromeColor: #66CCFF;
+        }
+        s|ButtonBase:disabled {
+            chromeColor: #FFCC66;
+        }
+        s|ToggleButton:upAndSelected {
+            chromeColor: #660099;
+        }
+
+        s|Panel s|NumericStepper:normal {
+            symbolColor: #FF0000;
+        }
+
+        s|Panel s|NumericStepper:disabled {
+            symbolColor: #FF2266;
+        }
+
+        s|TextInput:normal {
+            contentBackgroundColor: #99CCFF;
+        }
+
+        s|TextInput:disabled {
+            contentBackgroundColor: #996699;
+        }
+
+        .blueStyle:up {
+            chromeColor: #0066CC;
+            focusColor: #660066;
+        }
+
+        .blueStyle:down {
+            chromeColor: #33CC99;
+        }
+
+        s|TextInput.redStyle:normal {
+            contentBackgroundColor: #FF0000;
+        }
+        s|TextInput.redStyle:disabled {
+            contentBackgroundColor: #FFCC66;
+        }
+
+        #firstBar:normal {
+            chromeColor: #339933;
+        }
+
+        #firstBar:disabled {
+            chromeColor: #993333;
+        }
+
+        s|HScrollBar#secondBar:normal {
+            symbolColor: #00FF00;
+        }
+        
+        mx|Box:normal {
+            fontSize: 12;
+        }
+
+        mx|Box:zoomed {
+            fontSize: 20;
+        }
+        
+        s|VGroup:normal {
+            symbolColor: #FF0000;
+        }
+
+        s|VGroup:zoomed{
+            symbolColor: #2299FF;
+        }

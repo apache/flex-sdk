@@ -1,0 +1,157 @@
+<UnitTester testDir="Managers/CursorManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="../SWFs/CursorManager_Main.mxml">
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import mx.managers.CursorManagerPriority;
+
+        public static function init(o:DisplayObject):void{}
+    ]]>
+    </mx:Script>
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <!--Test Cases-->
+    <!-- Author's Note: Some tests below use a fade effect to delay -->
+    <testCases>
+        
+        <!-- SetCursor -->
+        <TestCase testID="Managers_CursorManager_Methods_SetCursor_EmbeddedImage" keywords="[Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
+                <DispatchMouseEvent type="mouseDown" target="testPanel" waitTarget="testPanel" waitEvent="mouseDown" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Managers_CursorManager_Methods_SetCursor_XOffset" keywords="[Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image with an xOffset.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 10, 0);" />
+                <DispatchMouseEvent type="mouseDown" target="testPanel" waitTarget="testPanel" waitEvent="mouseDown" />
+                <AssertPixelValue target="testPanel" x="40" y="67" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Managers_CursorManager_Methods_SetCursor_YOffset" keywords="[Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image with an yOffset.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 10);" />
+                <DispatchMouseEvent type="mouseDown" target="testPanel" waitTarget="testPanel" waitEvent="mouseDown" />
+                <AssertPixelValue target="testPanel" x="30" y="77" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Managers_CursorManager_Methods_SetCursor_EmbeddedSwf" keywords="[Managers, CursorManager, SetCursor]" description="Set the cursor to a custom swf.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setCursor(application.cursorSwfPencil, CursorManagerPriority.HIGH, 0, 0);" />
+                <DispatchMouseEvent type="mouseDown" target="testPanel" waitTarget="testPanel" waitEvent="mouseDown" />
+                <Pause timeout="1000"/>
+                <AssertPixelValue target="testPanel" x="28" y="66" value="0xF2FaFA" />
+            </body>
+        </TestCase>
+        
+        <!-- HideCursor -->
+        <TestCase testID="Managers_CursorManager_Methods_HideCursor" keywords="[Managers, CursorManager, HideCursor]" description="Hide a custom cursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="0xFFFFFF" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.hideCursor();" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="16777215" />
+            </body>
+        </TestCase>
+        
+        <!-- ShowCursor -->
+        <TestCase testID="Managers_CursorManager_Methods_ShowCursor" keywords="[Managers, CursorManager, ShowCursor]" description="Show a custom cursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+                <RunCode code="application.cursorManager.hideCursor();" />
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="16777215" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.showCursor();" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        
+        <!-- RemoveAllCursors -->
+        <TestCase testID="Managers_CursorManager_Methods_RemoveAllCursors" keywords="[Managers, CursorManager, RemoveAllCursors]" description="Remove all custom cursors.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="0xFFFFFF" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.removeAllCursors();" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="16777215" />
+            </body>
+        </TestCase>
+
+        <!-- RemoveCursor -->
+        <TestCase testID="Managers_CursorManager_Methods_RemoveCursor" keywords="[Managers, CursorManager, RemoveCursor]" description="Remove a custom cursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="0xFFFFFF" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.removeCursor(application.cursorManager.currentCursorID);" />
+                <AssertPixelValue target="testPanel" x="30" y="67" value="16777215" />
+            </body>
+        </TestCase>
+
+        <!-- SetBusyCursor -->
+        <TestCase testID="Managers_CursorManager_Methods_SetBusyCursor" keywords="[Managers, CursorManager, SetBusyCursor]" description="Activate the busy cursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="50" localY="50" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setBusyCursor();" />
+                <AssertPixelValue target="testPanel" x="50" y="50" value="4144959" />
+            </body>
+        </TestCase>
+
+        <!-- RemoveBusyCursor -->
+        <TestCase testID="Managers_CursorManager_Methods_RemoveBusyCursor" keywords="[Managers, CursorManager, RemoveBusyCursor]" description="Remove the busy cursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="50" localY="50" />
+                <RunCode code="application.cursorManager.setBusyCursor();" />
+                <AssertPixelValue target="testPanel" x="50" y="50" value="4144959" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.removeBusyCursor();" />
+                <AssertPixelValue target="testPanel" x="50" y="50" value="16777215" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_Tree_spark.mxml">
+
+    <mx:Script>
+    <![CDATA[
+       import data.ListDataAS;
+       import comps.DragList;
+       import comps.DragDataGrid;
+        import comps.CustomComp;
+       import mx.collections.XMLListCollection;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <!--- drag from Tree to TileList -->
+        <TestCase testID="DragManager_TileList2Tree" description="Test that a drag from Tree to TileList works." keywords="[DragManager, TileList, Tree]">
+            <body>
+                <DispatchMouseEvent target="destTree.mx_internal:rendererArray.1.0" type="mouseOver" localX="15" localY="15"  />
+                <DispatchMouseEvent target="destTree.mx_internal:rendererArray.1.0" type="mouseDown" localX="15" localY="15" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="214" localY="360" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="214" localY="345" buttonDown="true"     waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="214" localY="325" buttonDown="true"     waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="214" localY="315" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="214" localY="275" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseUp" localX="214" localY="275" waitTarget="srcTileList" waitEvent="dragDrop" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="length" target="srcTileList.dataProvider" value="2" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

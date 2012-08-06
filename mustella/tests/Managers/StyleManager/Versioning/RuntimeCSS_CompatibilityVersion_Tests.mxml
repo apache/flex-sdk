@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testDir="Managers/StyleManager/Versioning/" testSWF="RuntimeCSS_CompatibilityVersion3.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+         <TestCase testID="RuntimeCSS_CompatibilityVersion3_load" description="Test that you can load a css compiled swf when you use -compatibility-version=3." keywords="[Runtime CSS, Compatibility]">
+            <setup>
+                <Pause timeout="1000" />
+                <RunCode code="application.init()" waitEvent="complete" waitTarget="myevent" timeout="5000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="label1" url="../Versioning/baselines/$testID_1.png" timeout="2500" />
+                <CompareBitmap target="list1" url="../Versioning/baselines/$testID_2.png" timeout="2500" />
+            </body>
+         </TestCase>
+         <TestCase testID="RuntimeCSS_CompatibilityVersion3_unload" description="Test that you can unload a css compiled swf when you use -compatibility-version=3." keywords="[Runtime CSS, Compatibility]">
+            <body>
+                <RunCode code="application.doUnload()" waitEvent="updateComplete" waitTarget="" />
+                <CompareBitmap target="label1" url="../Versioning/baselines/$testID_1.png" timeout="2500" />
+                <CompareBitmap target="list1" url="../Versioning/baselines/$testID_2.png" timeout="2500" />
+            </body>
+         </TestCase>
+   
+    </testCases>
+</UnitTester>

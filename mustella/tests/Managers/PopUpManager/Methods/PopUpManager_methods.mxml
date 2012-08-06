@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/PopUpManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpManager_Basic.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import mx.managers.PopUpManager;
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		public function cleanUpPopUps(): void
+		{
+		    if(application.parent.numChildren > 1)
+		    {
+		        var popups:int = application.parent.popUpChildren.numChildren;
+				if(popups > 0)
+				{
+					for (var i:int=0; i<popups; i++)
+					{
+						application.parent.removeChild(application.parent.popUpChildren.getChildAt(i));
+					}
+				}
+		    }
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--method: centerPopUp -->
+        <TestCase testID="PopUpManager_centerPopUp_modal" description="Test the centerPopUp method for a modal popup" keywords="[centerPopUp, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <RunCode code="application.openWindow4(true)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.centerMyPopUp()" waitTarget="iPopUp" waitEvent="move" />
+			    <AssertPropertyValue propertyName="x" target="iPopUp" value="200" />
+			    <AssertPropertyValue propertyName="y" target="iPopUp" value="225" />
+			    <RunCode code="application.closeWindow(application.iPopUp)" />
+			</body>
+		</TestCase>
+        <TestCase testID="PopUpManager_centerPopUp_nonmodal" description="Test the centerPopUp method for a non-modal popup" keywords="[centerPopUp, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <RunCode code="application.openWindow4(false)" />
+			    <WaitForEffectsToEnd />
+			    
+			</setup>
+			<body>
+			    <RunCode code="application.centerMyPopUp()" waitTarget="iPopUp" waitEvent="move" />
+			    <AssertPropertyValue propertyName="x" target="iPopUp" value="200" />
+			    <AssertPropertyValue propertyName="y" target="iPopUp" value="225" />
+			    <!--RunCode code="application.closeWindow(application.iPopUp)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" /-->
+			    <RunCode code="PopUpManager.removePopUp(application.iPopUp)" />
+			    <WaitForEffectsToEnd />
+			    
+			</body>
+		</TestCase>
+    <!--method: createPopUP Note, the first test requires a Pause because it is testing that when a modal dialog is up,
+        you cannot edit the parent application. So, when an edit is attempted, no actual events are triggered. -->
+        <TestCase testID="PopUpManager_createPopUP_modal" description="Test the createPopUP method for a modal popup" keywords="[createPopUp, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <ResetComponent target="ta" className="mx.controls.TextInput" waitTarget="ta" waitEvent="updateComplete"/>
+			    <RunCode code="application.openWindow(true)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPopUp"/>
+			    <DispatchKeyEvent char="Hello" />
+			    <!--Pause timeout="200" /-->
+			    <WaitForEffectsToEnd />
+			    <AssertPropertyValue target="ta" propertyName="text" value="" />
+			    <RunCode code="application.closeWindow(application.iPopUp)"  waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="effectEnd"/>
+			</body>
+		</TestCase>
+        <TestCase testID="PopUpManager_createPopUP_nonmodal" description="Test the createPopUP method for a non-modal popup" keywords="[createPopUp, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <ResetComponent target="ta" className="mx.controls.TextInput" waitTarget="ta" waitEvent="updateComplete"/>
+			    <RunCode code="application.openWindow(false)" />
+			    <WaitForEffectsToEnd />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPopUp"/>
+			    <DispatchKeyEvent char="Hello" waitTarget="ta" waitEvent="change" />
+			    <AssertPropertyValue target="ta" propertyName="text" value="Hello" />
+			    <RunCode code="PopUpManager.removePopUp(application.iPopUp)" waitTarget="iPopUp" waitEvent="remove" />
+			 </body>
+		</TestCase>
+      <TestCase testID="PopUpManager_createPopUP_parent_modal" description="Test the createPopUP method for a modal popup when setting the parent argument" keywords="[createPopUp, parent, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <ResetComponent target="ta" className="mx.controls.TextInput" waitTarget="ta" waitEvent="updateComplete"/>
+			    <RunCode code="application.openWindow6(true)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPopUp"/>
+			    <DispatchKeyEvent char="Hello" />
+			    <!--Pause timeout="200" /-->
+			    <WaitForEffectsToEnd />
+			    <AssertPropertyValue target="ta" propertyName="text" value="" />
+			    <RunCode code="application.closeWindow(application.iPopUp)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="effectEnd" />
+			</body>
+		</TestCase>
+        <TestCase testID="PopUpManager_createPopUP_parent_nonmodal" description="Test the createPopUP method for a non-modal popup when setting the parent argument" keywords="[createPopUp, parent, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <ResetComponent target="ta" className="mx.controls.TextInput" waitTarget="ta" waitEvent="updateComplete"/>
+			    <RunCode code="application.openWindow6(false)" />
+			    <WaitForEffectsToEnd />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPopUp"/>
+			    <DispatchKeyEvent char="Hello" waitTarget="ta" waitEvent="change" />
+			    <AssertPropertyValue target="ta" propertyName="text" value="Hello" />
+			    <RunCode code="PopUpManager.removePopUp(application.iPopUp)" waitTarget="iPopUp" waitEvent="remove" />
+			</body>
+		</TestCase>
+    <!--method: addPopUp Note, the first test requires a Pause because it is testing that when a modal dialog is up,
+        you cannot edit the parent application. So, when an edit is attempted, no actual events are triggered. -->
+        <TestCase testID="PopUpManager_addPopUp_modal" description="Test the addPopUp method for a modal popup" keywords="[addPopUp, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <ResetComponent target="ta" className="mx.controls.TextInput" waitTarget="ta" waitEvent="updateComplete"/>
+			    <RunCode code="application.addWindow(true)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPanel"/>
+			    <DispatchKeyEvent char="Hello" />
+			    <!--Pause timeout="200" /-->
+			    <WaitForEffectsToEnd />
+			    <AssertPropertyValue target="ta" propertyName="text" value="" />
+			    <RunCode code="application.closeWindow(application.iPanel)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="effectEnd" />
+			</body>
+		</TestCase>
+        <TestCase testID="PopUpManager_addPopUp_nonmodal" description="Test the addPopUp method for a non-modal popup" keywords="[addPopUp, PopUpManager]">
+			<setup>
+			    <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <ResetComponent target="ta" className="mx.controls.TextInput" waitTarget="ta" waitEvent="updateComplete"/>
+			    <RunCode code="application.addWindow(false)" />
+			    <WaitForEffectsToEnd />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPanel"/>
+			    <DispatchKeyEvent char="Hello" waitTarget="ta" waitEvent="change" />
+			    <AssertPropertyValue target="ta" propertyName="text" value="Hello" />
+			    <RunCode code="application.closeWindow(application.iPanel)" waitTarget="iPanel" waitEvent="remove" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

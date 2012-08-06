@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
+   <mx:Script> 
+        <![CDATA[
+            import mx.controls.ToolTip;
+            import mx.managers.ToolTipManager;
+            import mx.managers.SystemManager;
+ 	    import mx.core.IToolTip;
+ 	    
+ 	    import mx.controls.Alert;
+ 	    
+            public var tip:ToolTip;
+            public var s:String;
+            
+                        
+            public function getCurrentTip():void
+            {
+	   		s = ToolTipManager.currentToolTip.text;
+            } 
+            private function showTipA(event:Object):void {
+                s="My Tip A";
+                tip = ToolTipManager.createToolTip(s, 
+                    event.currentTarget.x + event.currentTarget.width + 10, 
+                    event.currentTarget.y
+                ) as ToolTip;
+            }
+
+            private function showTipB(event:Object):void {
+                s="My Tip B";
+                var pt:Point = new Point(
+                    event.currentTarget.x, 
+                    event.currentTarget.y);
+                
+                // Call this method to convert the object's
+                // coordinates inside its container to the stage's 
+                // global coordinates.
+                pt = event.currentTarget.contentToGlobal(pt);
+                
+                tip = ToolTipManager.createToolTip(s, 
+                    pt.x + event.currentTarget.width + 10, 
+                    pt.y
+                ) as ToolTip;
+            }
+
+            private function destroyTip(event:Object):void {
+                 ToolTipManager.destroyToolTip(tip);               
+            }            
+        ]]>
+    </mx:Script>
+    <mx:TextInput id="ti" text="TEST"
+       toolTip="This is a simple ToolTip"
+       toolTipShown="getCurrentTip();" 
+    />
+
+    <!-- A ToolTip at the top level. -->
+    <!-- The event handler for this ToolTip does not use any special 
+    logic to account for whether the ToolTip is inside a container. 
+    But this ToolTip is not inside a container so it positions itself 
+    normally. -->
+    <mx:TextInput id="inputA"
+        text="outside of container"
+        focusIn="showTipA(event)" 
+        focusOut="destroyTip(event)"
+    />
+
+    <mx:VBox >
+        <!-- A ToolTip inside a container. -->
+        <!-- The event handler for this ToolTip accounts for the control 
+        being inside a container and positions the ToolTip using the 
+        contentToGlobal() method. -->
+        <mx:TextInput id="inputB" 
+            text="in container"
+            focusIn="showTipB(event)" 
+            focusOut="destroyTip(event)"
+        />  
+    </mx:VBox>
+	<mx:Array id="test"> 
+	<mx:String>This is my string 1</mx:String> 
+	<mx:String>This is my string 1122</mx:String> 
+	<mx:String>This is my string 111222333</mx:String> 
+	</mx:Array> 
+
+	<mx:ComboBox id="cb" width="100" dataProvider="{test}" itemRenderer="mx.controls.Label" 
+	toolTip="{test}" toolTipShown="getCurrentTip();" />
+	<mx:VBox width="150" id="mybox">
+	<mx:List id="mylist" width="100" height="100" dataProvider="{test}" itemRenderer="mx.controls.Label" />
+	</mx:VBox>   
+
+
+</mx:VBox>

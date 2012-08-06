@@ -1,0 +1,94 @@
+<UnitTester testDir="Managers/CursorManager/Props/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="../SWFs/CursorManager_Main.mxml">
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import mx.managers.CursorManagerPriority;
+
+        public static function init(o:DisplayObject):void{}
+    ]]>
+    </mx:Script>
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <!--Test Cases-->
+    <testCases>
+        <!--CursorManager_Properties_currentCursorXOffset_Negative-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorXOffset_Negative" keywords="[Managers, CursorManager, Properties, currentCursorXOffset]" description="Test the setting of the CursorManager.currentCursorXOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorXOffset" value="-32768" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorXOffset" value="-32768" />
+            </body>
+        </TestCase>
+        <!--CursorManager_Properties_currentCursorXOffset_Zero-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorXOffset_Zero" keywords="[Managers, CursorManager, Properties, currentCursorXOffset]" description="Test the setting of the CursorManager.currentCursorXOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorXOffset" value="0" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorXOffset" value="0" />
+            </body>
+        </TestCase>
+        <!--CursorManager_Properties_currentCursorXOffset_Normal-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorXOffset_Normal" keywords="[Managers, CursorManager, Properties, currentCursorXOffset]" description="Test the setting of the CursorManager.currentCursorXOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorXOffset" value="77" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorXOffset" value="77" />
+            </body>
+        </TestCase>
+        <!--CursorManager_Properties_currentCursorXOffset_Big-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorXOffset_Big" keywords="[Managers, CursorManager, Properties, currentCursorXOffset]" description="Test the setting of the CursorManager.currentCursorXOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorXOffset" value="32767" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorXOffset" value="32767" />
+            </body>
+        </TestCase>
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorXOffset_Custom" keywords="[Managers, CursorManager, SetCursor]" description="Verify the currentCursorXOffset reflects the setting via setCursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+                <DispatchMouseEvent type="mouseMove" target="testPanel" localX="25" localY="25" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 10, 0);" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorXOffset" value="10" />
+            </body>
+        </TestCase>
+
+        <!--CursorManager_Properties_currentCursorYOffset_Negative-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorYOffset_Negative" keywords="[Managers, CursorManager, Properties, currentCursorYOffset]" description="Test the setting of the CursorManager.currentCursorYOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorYOffset" value="-32768" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorYOffset" value="-32768" />
+            </body>
+        </TestCase>
+        <!--CursorManager_Properties_currentCursorYOffset_Zero-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorYOffset_Zero" keywords="[Managers, CursorManager, Properties, currentCursorYOffset]" description="Test the setting of the CursorManager.currentCursorYOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorYOffset" value="0" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorYOffset" value="0" />
+            </body>
+        </TestCase>
+        <!--CursorManager_Properties_currentCursorYOffset_Normal-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorYOffset_Normal" keywords="[Managers, CursorManager, Properties, currentCursorYOffset]" description="Test the setting of the CursorManager.currentCursorYOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorYOffset" value="77" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorYOffset" value="77" />
+            </body>
+        </TestCase>
+        <!--CursorManager_Properties_currentCursorYOffset_Big-->
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorYOffset_Big" keywords="[Managers, CursorManager, Properties, currentCursorYOffset]" description="Test the setting of the CursorManager.currentCursorYOffset property.">
+            <body>
+                <SetProperty target="cursorManager" propertyName="currentCursorYOffset" value="32767" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorYOffset" value="32767" />
+            </body>
+        </TestCase>
+        <TestCase testID="Managers_CursorManager_Properties_currentCursorYOffset_Custom" keywords="[Managers, CursorManager, Properties, CurrentCursorYOffset]" description="Verify the currentCursorYOffset reflects the setting via setCursor.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.ResetCursorManager();" />
+            </setup>
+            <body>
+                <RunCode code="application.cursorManager.setCursor(application.cursorPencil, CursorManagerPriority.HIGH, 0, 10);" />
+                <AssertPropertyValue target="cursorManager" propertyName="currentCursorYOffset" value="10" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

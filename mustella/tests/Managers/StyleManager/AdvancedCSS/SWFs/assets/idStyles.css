@@ -1,0 +1,160 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+        
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedVerdana2;
+            embedAsCFF: true;
+        }
+
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: EmbeddedVerdana2;
+            embedAsCFF: true;
+        }
+
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: EmbeddedVerdana2;
+            embedAsCFF: true;
+        }
+
+        global {
+            fontFamily: EmbeddedVerdana;
+            fontAntiAliasType: normal;
+        }
+
+        s|TextInput {
+          fontFamily: EmbeddedVerdana2;
+          fontAntiAliasType: normal;
+        }
+
+        s|TextArea {
+          fontFamily: EmbeddedVerdana2;
+          fontAntiAliasType: normal;
+        }
+
+        s|Button {
+          fontFamily: EmbeddedVerdana2;
+          fontAntiAliasType: normal;
+        }
+
+        #boxComp {
+            paddingLeft: 15;
+        }
+
+        #redBackground {
+            backgroundColor: #FF0000;
+        }
+
+        .blueBackground {
+           backgroundColor: #0000FF;
+        }
+
+        #padding10 {
+            paddingTop: 10;
+        }
+
+        #bottomPadding {
+            paddingBottom: 25;
+        }
+
+        #topPadding {
+            paddingTop: 25;
+        }
+
+        mx|Box#redBackground2 {
+            backgroundColor: #006699;
+        }
+
+        mx|Box#redBackground3 {
+            backgroundColor: #FF00FF;
+        }
+
+        mx|Box#redBackground4 {
+            backgroundColor: #330033;
+        }
+
+        mx|Box#redBackground5 {
+            backgroundColor: #3300FF;
+        }
+
+        mx|Box#redBackground6 {
+            backgroundColor: #CC0099;
+        }
+
+        mx|Box {
+            backgroundColor: #CCFF99;
+        }
+
+        s|Group s|TextInput#headerText {
+            fontWeight: "bold";
+        }
+
+        s|Group s|TextInput#headerText2 {
+            fontWeight: "bold";
+        }
+
+        mx|Panel #greenBox {
+            borderStyle: "solid";
+            borderColor: #330099;
+        }
+
+        mx|Panel #greenBox2 {
+            borderStyle: "solid";
+            borderColor: #330099;
+        }
+
+        mx|Panel #greenBox3 {
+            borderStyle: "solid";
+            borderColor: #330099;
+        }
+
+        mx|Panel #greenBox4 {
+            borderStyle: "solid";
+            borderColor: #330099;
+        }
+
+        s|Button,mx|DateChooser#redTheme { color: #ff0000}
+
+        s|Button,mx|DateChooser#redTheme2 { color: #ff0000}

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/PopUpManager/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpManager_Basic_spark.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import mx.managers.PopUpManager;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		public function cleanUpPopUps(): void
+		{
+		    /*if(application.parent.numChildren > 1)
+		    {
+		        var popups:int = application.parent.popUpChildren.numChildren;
+				if(popups > 0)
+				{
+					for (var i:int=0; i<popups; i++)
+					{
+						application.parent.removeChild(application.parent.popUpChildren.getChildAt(i));
+					}
+				}
+		    }*/
+		    if(application.iPopUp.visible)
+		    {
+		        PopUpManager.removePopUp(application.iPopUp);
+		    }
+
+		    if(application.canvasPopUp.visible)
+		    {
+		        PopUpManager.removePopUp(application.canvasPopUp);
+		    }
+		}
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--alpha property -->
+        <TestCase testID="PopUp_properties_alpha_02" description="Test setting the alpha property to 0.2 for a popup" keywords="[alpha, PopUpManager]">
+			<setup>
+			    <RunCode code="application.openWindow(false)" waitTarget="systemManager" waitEvent="added" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="alpha" value="0.2" target="iPopUp" waitTarget="iPopUp" waitEvent="alphaChanged" />
+			    <AssertPixelValue value="0xF9F9F9" x="90" y="8" target="iPopUp" />
+			    <RunCode code="application.closeWindow(application.iPopUp)" />
+			</body>
+		</TestCase>
+        <TestCase testID="PopUp_properties_alpha_1" description="Test setting the alpha property to 1 for a popup" keywords="[alpha, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="x" value="100" target="iPopUp" waitEvent="updateComplete" waitTarget="iPopUp" />
+                <SetProperty propertyName="alpha" value="1" target="iPopUp"  />
+                <AssertPixelValue value="0xE1E1E1" x="36" y="3" target="iPopUp" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUp_properties_alpha_0" description="Test setting the alpha property to 0 for a popup" keywords="[alpha, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <RunCode code="application.openWindow(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="y" value="200" target="iPopUp" waitEvent="updateComplete" waitTarget="iPopUp" />
+                <SetProperty propertyName="alpha" value="0" target="iPopUp" waitTarget="iPopUp" waitEvent="alphaChanged" />
+                <AssertPixelValue value="0xFFFFFF" x="37" y="3" target="iPopUp" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <!-- note: There is a Pause in this test because I couldn't find an event to synchronize on after the PopUp is up, but it finishes rendering. W/o the
+        current Pause, the test fails -->
+        <TestCase testID="PopUp_properties_alpha_MXML" description="Test setting the alpha property to 0.5 in mxml for a popup" keywords="[alpha, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+			    <WaitForEffectsToEnd />
+			    <RunCode code="application.openWindow2(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="x" value="200" target="iPopUp" waitEvent="updateComplete" waitTarget="iPopUp" />
+                <AssertPixelValue value="0xF0F0F0" x="84" y="4" target="iPopUp" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUp_properties_height_300" description="Test setting the height property to 300 for a popup" keywords="[height, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow3(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="height" value="300" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="iPopUp" timeout="2500" numColorVariances="3" ignoreMaxColorVariance="true"/>
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUp_properties_height_MXML" description="Test setting the height property to 250 for a popup in mxml" keywords="[height, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow4(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="canvasPopUp" timeout="2500" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+<!-- property: width -->
+        <TestCase testID="PopUp_properties_width_300" description="Test setting the width property to 300 for a popup" keywords="[width, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow3(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="width" value="300" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="iPopUp" timeout="2500" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUp_properties_width_MXML" description="Test setting the width property to 400 for a popup in mxml" keywords="[width, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow4(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="canvasPopUp" timeout="2500" />
+                <RunCode code="application.closeWindow(application.canvasPopUp)" />
+            </body>
+        </TestCase>
+
+<!-- property: scaleY -->
+        <TestCase testID="PopUp_properties_scaleY_05" description="Test setting the scaleY property to 0.5 for a popup" keywords="[scaleY, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow3(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="height" value="600" target="iPopUp" />
+                <SetProperty propertyName="scaleY" value="0.5" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <SetProperty propertyName="x" value="100" target="iPopUp" waitTarget="iPopUp" waitEvent="move" />
+                <SetProperty propertyName="y" value="10" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <AssertPixelValue value="0xFFFFFF" y="322" x="115" target="" />
+                <AssertPixelValue value="0xCDCDCD" y="309" x="215" target="" />
+                <AssertPixelValue value="0xFF0000" y="11" x="115" target="" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUp_properties_scaleY_MXML" description="Test setting the scaleY property to 1.5 for a popup in mxml" keywords="[scaleY, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow5(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="iPopUp" propertyName="height" value="250" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+<!-- property: scaleX -->
+        <TestCase testID="PopUp_properties_scaleX_05" description="Test setting the scaleX property to .5 for a popup" keywords="[scaleX, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow3(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <SetProperty propertyName="width" value="600" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <SetProperty propertyName="scaleX" value="0.5" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <SetProperty propertyName="y" value="100" target="iPopUp" waitTarget="iPopUp" waitEvent="move" />
+                <SetProperty propertyName="x" value="10" target="iPopUp" waitTarget="iPopUp" waitEvent="updateComplete" />
+                <AssertPixelValue value="0xFFFFFF" x="322" y="115" target="" />
+                <AssertPixelValue value="0xFF0000" x="309" y="115" target="" />
+                <AssertPixelValue value="0xFF0000" x="11" y="115" target="" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUp_properties_scaleX_MXML" description="Test setting the scaleX property to 1.5 for a popup in mxml" keywords="[scaleX, PopUpManager]">
+            <setup>
+                <RunCode code="cleanUpPopUps()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.openWindow5(false)" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="iPopUp" propertyName="height" value="250" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

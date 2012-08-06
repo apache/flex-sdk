@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_Tree_spark.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.collections.XMLListCollection;
+    import data.TreeData;
+    import data.TreeData2;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    public var XLCAS:XMLListCollection;
+    public var genericObject:TreeData2;
+
+    public function getDataXML():void {
+        var newData:TreeData = new TreeData();
+        XLCAS = new XMLListCollection(newData.myData);
+        application.firstTree.dataProvider = XLCAS;
+        application.firstTree.labelField = "@label";
+        application.firstTree.showRoot = false;
+    }
+
+    public function getDataAS():void {
+        var newData:TreeData2 = new TreeData2();
+        application.firstTree.dataProvider = newData.myData;
+        application.firstTree.labelField = "fileName";
+        application.firstTree.showRoot = false;
+    }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+
+    <testCases>
+    <!-- Drag Tree to Tree-->
+        <TestCase testID="DragManager_TreeToTree_singleMove" description="Test that you can move Tree items from one to the other." keywords="[DragManager, Tree]">
+            <setup>
+               <ResetComponent target="firstTree" className="mx.controls.Tree" waitTarget="firstTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dragEnabled" value="true" target="firstTree" />
+               <SetProperty propertyName="width" value="250" target="firstTree" />
+               <RunCode code="getDataXML()" waitTarget="firstTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dragMoveEnabled" value="true" target="firstTree" />
+               <ResetComponent target="secondTree" className="mx.controls.Tree" waitTarget="secondTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dropEnabled" value="true" target="secondTree" />
+               <SetProperty propertyName="width" value="250" target="secondTree" />
+               <SetProperty propertyName="labelField" value="@label" target="secondTree" />
+             </setup>
+             <body>
+                <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemOpen" waitTarget="firstTree" />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseOver" localX="10" localY="8" buttonDown="true" />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseDown" localX="10" localY="8" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="35" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="140" localY="35" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="35" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="250" localY="35" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="320" localY="40" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseUp" localX="350" localY="40" waitTarget="secondTree" waitEvent="dragDrop" />
+                <AssertPropertyValue propertyName="label" target="secondTree.mx_internal:rendererArray.0.0.listData" value="Inbox" />
+                <AssertPropertyValue propertyName="label" target="firstTree.mx_internal:rendererArray.1.0.listData" value="Drafts" />
+             </body>
+        </TestCase>
+        <TestCase testID="DragManager_TreeToTree_multipleMove" description="Test that you can move multiple items of a Tree by drag and drop." keywords="[DragManager, Tree, multi-selection]">
+            <setup>
+               <ResetComponent target="firstTree" className="mx.controls.Tree" waitTarget="firstTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dragEnabled" value="true" target="firstTree" />
+               <SetProperty propertyName="width" value="250" target="firstTree" />
+               <SetProperty propertyName="allowMultipleSelection" value="tree" target="firstTree" />
+               <RunCode code="getDataXML()" waitTarget="firstTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dragMoveEnabled" value="true" target="firstTree" />
+               <ResetComponent target="secondTree" className="mx.controls.Tree" waitTarget="secondTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dropEnabled" value="true" target="secondTree" />
+               <SetProperty propertyName="width" value="250" target="secondTree" />
+               <SetProperty propertyName="labelField" value="@label" target="secondTree" />
+             </setup>
+             <body>
+                <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="itemOpen" waitTarget="firstTree" />
+                <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.2.0.getChildAt(0)" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstTree" ctrlKey="true" />
+                <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.3.0.getChildAt(0)" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstTree" ctrlKey="true" />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.2.0.getChildAt(0)" type="mouseOver" localX="5" localY="5"  />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.2.0.getChildAt(0)" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true"   />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true"  />
+                <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="75" waitEvent="dragDrop" waitTarget="secondTree" />
+                <AssertPropertyValue propertyName="length" target="secondTree.dataProvider" value="2" />
+                <AssertPropertyValue propertyName="label" target="firstTree.mx_internal:rendererArray.2.0.listData" value="Juice" />
+             </body>
+        </TestCase>
+
+        <TestCase testID="DragManager_TreeToTree_dragEnabledFalse" description="Test that you cannot drag when dragEnabled=false." keywords="[DragManager, Tree]">
+            <setup>
+               <ResetComponent target="firstTree" className="mx.controls.Tree" waitTarget="firstTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="width" value="250" target="firstTree" />
+               <RunCode code="getDataXML()" waitTarget="firstTree" waitEvent="updateComplete" />
+               <ResetComponent target="secondTree" className="mx.controls.Tree" waitTarget="secondTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dropEnabled" value="true" target="secondTree" />
+               <SetProperty propertyName="dataProvider" valueExpression="value=[];" target="secondTree" />
+               <SetProperty propertyName="width" value="250" target="secondTree" />
+               <SetProperty propertyName="labelField" value="@label" target="secondTree" />
+             </setup>
+             <body>
+                <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.0.0" localX="5" localY="5"  />
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseOver" localX="10" localY="8" buttonDown="true" />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseDown" localX="10" localY="8" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="85" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="85" />
+                <WaitForEffectsToEnd/>
+                <AssertPropertyValue propertyName="length" target="secondTree.dataProvider" value="0" />
+                <AssertPropertyValue propertyName="label" target="firstTree.mx_internal:rendererArray.1.0.listData" value="Inbox" />
+             </body>
+        </TestCase>
+        <TestCase testID="DragManager_TreeToTree_dragEnabledTrue" description="Test that you can drag when dragEnabled=true." keywords="[DragManager, Tree, Drop]">
+            <setup>
+               <ResetComponent target="firstTree" className="mx.controls.Tree" waitTarget="firstTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="width" value="250" target="firstTree" />
+               <RunCode code="getDataXML()" waitTarget="firstTree" waitEvent="updateComplete" />
+               <ResetComponent target="secondTree" className="mx.controls.Tree" waitTarget="secondTree" waitEvent="updateComplete" />
+               <SetProperty propertyName="dragEnabled" value="true" target="firstTree" />
+               <SetProperty propertyName="dropEnabled" value="true" target="secondTree" />
+               <SetProperty propertyName="dataProvider" valueExpression="value=[];" target="secondTree" />
+               <SetProperty propertyName="width" value="250" target="secondTree" />
+               <SetProperty propertyName="labelField" value="@label" target="secondTree" />
+             </setup>
+             <body>
+                <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.0.0" localX="5" localY="5"  />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100" />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseOver" localX="10" localY="8" buttonDown="true" />
+                <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseDown" localX="10" localY="8" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="55" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="55" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="55" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="55" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="65" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="65" />
+                <WaitForEffectsToEnd/>
+                <AssertPropertyValue propertyName="length" target="secondTree.dataProvider" value="1" />
+                <AssertPropertyValue propertyName="label" target="secondTree.mx_internal:rendererArray.0.0.listData" value="Inbox" />
+              </body>
+        </TestCase>
+        <TestCase testID="DragManager_TreeToTree_dataProviderIsObject" description="Ensure that Drag and Drop works for Trees with Object dataProviders"
+            keywords="[Tree, Drag and Drop, dataProvider]" >
+               <setup>
+                   <ResetComponent target="firstTree" className="mx.controls.Tree" waitTarget="firstTree" waitEvent="updateComplete" />
+               </setup>
+               <body>
+                   <RunCode code="getDataAS();" waitTarget="firstTree" waitEvent="updateComplete" />
+                   <SetProperty target="firstTree" propertyName="dragEnabled" value="true" />
+                   <SetProperty target="firstTree" propertyName="dragMoveEnabled" value="true" />
+                   <SetProperty target="firstTree" propertyName="dropEnabled" value="true" />
+                   <DispatchMouseClickEvent target="firstTree.mx_internal:rendererArray.0.0" localX="5" localY="5" />
+                   <WaitForEffectsToEnd/>
+                   <Pause timeout="100" />
+                   <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseOver" localX="10" localY="8" buttonDown="true" />
+                   <WaitForEffectsToEnd/>
+                   <DispatchMouseEvent target="firstTree.mx_internal:rendererArray.1.0.getChildAt(0)" type="mouseDown" localX="10" localY="8" buttonDown="true" />
+                   <WaitForEffectsToEnd/>
+                   <DispatchMouseEvent target="stage" type="mouseMove" localX="90" localY="75" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                   <WaitForEffectsToEnd/>
+                   <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="85" buttonDown="true"   waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                   <WaitForEffectsToEnd/>
+                   <DispatchMouseEvent target="stage" type="mouseMove" localX="105" localY="95" buttonDown="true"   waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                   <WaitForEffectsToEnd/>
+                   <DispatchMouseEvent target="stage" type="mouseMove" localX="105" localY="100" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                   <WaitForEffectsToEnd/>
+                   <DispatchMouseEvent target="stage" type="mouseMove" localX="105" localY="105" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+                   <DispatchMouseEvent target="stage" type="mouseUp" localX="105" localY="105" waitEvent="dragDrop" waitTarget="firstTree" />
+                   <AssertPropertyValue propertyName="label" target="firstTree.mx_internal:rendererArray.3.0.listData" value="StringUtil.as" />
+               </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

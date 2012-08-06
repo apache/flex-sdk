@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/focusManager/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FocusManager_Basic.mxml">
+
+    <mx:Script>
+    <![CDATA[
+    
+        import mx.managers.FocusManager;
+        
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="defaultButton_default_null" description="Ensure nothing happens when you press enter and no defaultButton is set" keywords="[FocusManager, defaultButton]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.ti1" localX="5" localY="5" waitTarget="layout1.ti1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="ENTER" waitEvent="keyUp" waitTarget=""/>
+                <AssertPropertyValue target="layout1.ti1" value="" propertyName="text" />  
+            </body>
+       </TestCase>
+       <TestCase testID="defaultButton_setInAS_onContainer" description="Ensure that the click handler of the defaultButton triggers when defaultButton is set on the container" keywords="[FocusManager, defaultButton]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="defaultButton" valueExpression="value=application.layout1.button2" target="layout1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.ti1" localX="5" localY="5" waitTarget="layout1.ti1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="ENTER" waitEvent="keyUp" waitTarget=""/>
+               	<Pause timeout="1000"/>
+               	<AssertPropertyValue target="layout1.ti1" value="button pressed" propertyName="text" />  
+            </body>
+       </TestCase>
+       <TestCase testID="defaultButtonEnabled_setInAS_false" description="Ensure nothing happens when you press enter and defaultButtonEnabled is false" keywords="[FocusManager, defaultButtonEnabled]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="defaultButton" valueExpression="value=application.layout1.button2" target="layout1" />
+                <SetProperty propertyName="defaultButtonEnabled" value="false" target="focusManager" />
+           </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.ti1" localX="5" localY="5" waitTarget="layout1.ti1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="ENTER" waitEvent="keyUp" waitTarget=""/>
+                <AssertPropertyValue target="layout1.ti1" value="" propertyName="text" />  
+            </body>
+       </TestCase>
+       <TestCase testID="nextTabIndex_default" description="The default nexttabIndex is 1 when no tabIndexes are set." keywords="[FocusManager, nextTabIndex]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+           </setup>
+            <body>
+                <AssertPropertyValue target="focusManager" value="1" propertyName="nextTabIndex" />  
+            </body>
+       </TestCase>
+       <TestCase testID="nextTabIndex_allTabIndexesSet" description="the nextTabIndex is always 1 more than the last tabIndex found" keywords="[FocusManager, nextTabIndex]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti1" value="3" /> 
+                <SetProperty propertyName="tabIndex" target="layout1.ti2" value="2" /> 
+                <SetProperty propertyName="tabIndex" target="layout1.button1" value="1" /> 
+                <SetProperty propertyName="tabIndex" target="layout1.button2" value="4" />             
+           </setup>
+            <body>
+                <AssertPropertyValue target="focusManager" value="5" propertyName="nextTabIndex" />  
+            </body>
+       </TestCase>
+       <TestCase testID="nextTabIndex_someTabIndexesSet" description="the nextTabIndex is always 1 more than the last tabIndex found" keywords="[FocusManager, nextTabIndex]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti1" value="1" /> 
+                <SetProperty propertyName="tabIndex" target="layout1.ti2" value="2" />           
+           </setup>
+            <body>
+                <AssertPropertyValue target="focusManager" value="3" propertyName="nextTabIndex" />  
+            </body>
+       </TestCase>
+    </testCases>
+
+</UnitTester>

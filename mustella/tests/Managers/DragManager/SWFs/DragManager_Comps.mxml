@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="700"
+    xmlns:comps="comps.*" >
+<mx:Script>
+    <![CDATA[
+
+       import mx.events.DragEvent;
+       import mx.managers.DragManager;
+
+       [Embed(source="../../../../Assets/Images/redrect.jpg")]
+	    	public var cartoon:Class;
+
+	    public function doDragOver(event:DragEvent) : void
+	    {
+	        if (event.ctrlKey)
+	            mx.managers.DragManager.showFeedback(mx.managers.DragManager.COPY);
+	        else if (event.shiftKey)
+	            mx.managers.DragManager.showFeedback(mx.managers.DragManager.LINK);
+	        else
+	            mx.managers.DragManager.showFeedback(mx.managers.DragManager.MOVE);
+
+	        event.preventDefault();
+        }
+]]>
+</mx:Script>
+
+<mx:HBox>
+
+    <!--comps:DragList id="firstList" /-->
+    <mx:List id="firstList" dragEnabled="true" />
+    <!--comps:DragList id="secondList" /-->
+    <mx:List id="secondList" />
+
+</mx:HBox>
+
+
+<mx:HBox>
+
+    <mx:DataGrid id="firstDataGrid" />
+
+    <mx:DataGrid id="secondDataGrid" />
+
+</mx:HBox>
+
+<mx:HBox>
+
+    <mx:TileList id="firstTileList" />
+
+    <mx:TileList id="secondTileList" />
+
+</mx:HBox>
+ </mx:Application>

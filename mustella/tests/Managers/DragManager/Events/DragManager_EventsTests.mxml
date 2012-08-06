@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/DragManager/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_Events.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+<!-- dragStart event -->
+	    <TestCase testID="DragManager_dragStart_single" description="Test that dragStart is triggered for a single item move." keywords="[DragManager, dragStart]">
+			<body>
+			     <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			     <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			     <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="30" buttonDown="true"
+						waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			     <AssertEvent eventName="dragStart" eventClass="mx.events::DragEvent" target="firstList" />
+			     <DispatchMouseEvent target="stage" type="mouseUp" localX="200" localY="30" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="DragManager_dragStart_multiple" description="Test that dragStart is triggered for multiple selected items move." keywords="[DragManager, dragStart]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			<body>
+				 <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+				 <DispatchMouseEvent target="firstList.mx_internal:rendererArray.2.0" type="mouseOver" localX="5" localY="5" />
+				 <DispatchMouseEvent target="firstList.mx_internal:rendererArray.2.0" type="mouseDown" localX="5" localY="5" buttonDown="true" ctrlKey="true" />
+				 <DispatchMouseEvent target="firstList" type="mouseMove" localX="5" localY="90" buttonDown="true"
+				 		waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+				 <AssertEvent eventName="dragStart" eventClass="mx.events::DragEvent" target="firstList" />
+				 <DispatchMouseEvent target="firstList" type="mouseMove" localX="10" localY="110" buttonDown="true"
+				 		waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+				 <DispatchMouseEvent target="firstList" type="mouseUp" localX="10" localY="110" />
+			</body>
+		</TestCase>
+    <!-- dragEnter event -->
+        <TestCase testID="DragManager_dragEnter_single" description="Test that dragEnter is triggered for a single item move." keywords="[DragManager, dragEnter]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <AssertEvent eventName="dragEnter" eventClass="mx.events::DragEvent" target="secondList" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="575" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="575" />
+
+			</body>
+		</TestCase>
+        <TestCase testID="DragManager_dragEnter_multiple" description="Test that dragEnter is triggered for multiple selected items move." keywords="[DragManager, dragEnter]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.2.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <AssertEvent eventName="dragEnter" eventClass="mx.events::DragEvent" target="secondList" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="575" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+		        <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="575" />
+			</body>
+		</TestCase>
+	<!--dragDrop event-->
+        <TestCase testID="DragManager_dragDrop_single" description="Test that dragDrop is triggered for a single item move." keywords="[DragManager, dragDrop]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="75" />
+	            <AssertEvent eventName="dragDrop" eventClass="mx.events::DragEvent" target="secondList" />
+			</body>
+		</TestCase>
+        <TestCase testID="DragManager_dragDrop_multiple" description="Test that dragDrop is triggered for multiple selections move." keywords="[DragManager, dragDrop]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+                <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.2.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="75" />
+				<AssertEvent eventName="dragDrop" eventClass="mx.events::DragEvent" target="secondList" />
+			 </body>
+		</TestCase>
+	<!--dragExit event-->
+        <TestCase testID="DragManager_dragExit_single" description="Test that dragExit is triggered for a single item move." keywords="[DragManager, dragExit]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="575" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <AssertEvent eventName="dragExit" eventClass="mx.events::DragEvent" target="secondList" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="575" />
+			</body>
+		</TestCase>
+        <TestCase testID="DragManager_dragExit_multiple" description="Test that dragExit is triggered for multiple selections move." keywords="[DragManager, dragExit]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+                <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.2.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="575" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <AssertEvent eventName="dragExit" eventClass="mx.events::DragEvent" target="secondList" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="575" />
+			 </body>
+		</TestCase>
+	<!--dragComplete event-->
+        <TestCase testID="DragManager_dragComplete_single_nodrop" description="Test that dragComplete is triggered for a single item move when an operation is cancelled."
+            keywords="[DragManager, dragComplete]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="575" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="575" />
+	            <AssertEvent eventName="dragComplete" eventClass="mx.events::DragEvent" target="firstList" />
+			    <AssertEventPropertyValue propertyName="action" value="none" />
+			</body>
+		</TestCase>
+        <TestCase testID="DragManager_dragComplete_multiple_nodrop" description="Test that dragComplete is triggered for multiple selections move when an operation is cancelled."
+            keywords="[DragManager, dragComplete]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+                <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.2.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="575" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="575" />
+	            <AssertEvent eventName="dragComplete" eventClass="mx.events::DragEvent" target="firstList" />
+			    <AssertEventPropertyValue propertyName="action" value="none" />
+			 </body>
+		</TestCase>
+        <TestCase testID="DragManager_dragComplete_single_dropped" description="Test that dragDrop is triggered for a single item move." keywords="[DragManager, dragComplete]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="75" />
+	            <AssertEvent eventName="dragComplete" eventClass="mx.events::DragEvent" target="firstList" />
+			    <AssertEventPropertyValue propertyName="action" value="copy" />
+			</body>
+		</TestCase>
+        <TestCase testID="DragManager_dragComplete_multiple_dropped" description="Test that dragDrop is triggered for multiple selections move." keywords="[DragManager, dragComplete]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+                <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.2.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="75" />
+				<AssertEvent eventName="dragComplete" eventClass="mx.events::DragEvent" target="firstList" />
+			    <AssertEventPropertyValue propertyName="action" value="copy" />
+			 </body>
+		</TestCase>
+	<!--dragOver event-->
+        <TestCase testID="DragManager_dragOver_single" description="Test that dragOver is triggered for a single item move." keywords="[DragManager, dragOver]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="410" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="450" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <AssertEvent eventName="dragOver" eventClass="mx.events::DragEvent" target="secondList" />
+			    <DispatchMouseEvent target="stage" type="mouseUp" localX="410" localY="75" />
+			    <AssertEventPropertyValue propertyName="action" value="copy" />
+	            </body>
+		</TestCase>
+        <TestCase testID="DragManager_dragOver_multiple" description="Test that dragOver is triggered for multiple selections move." keywords="[DragManager, dragOver]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="allowMultipleSelection" value="true" target="firstList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.dp" target="firstList" waitTarget="firstList"
+			       waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=[]" target="secondList" waitTarget="secondList"
+			       waitEvent="updateComplete" />
+			 </setup>
+			 <body>
+                <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.1.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseClickEvent target="firstList.mx_internal:rendererArray.2.0" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstList" ctrlKey="true" />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="410" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="450" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+	            <AssertEvent eventName="dragOver" eventClass="mx.events::DragEvent" target="secondList" />
+			    <DispatchMouseEvent target="stage" type="mouseUp" localX="410" localY="75" />
+			    <AssertEventPropertyValue propertyName="action" value="copy" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

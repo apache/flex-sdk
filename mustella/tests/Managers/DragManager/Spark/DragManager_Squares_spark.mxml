@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Drag_Custom_Squares_spark.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       import mx.events.DragEvent;
+       import mx.controls.List;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+        public var accepted:Array;
+		public function addListenersToList(myList:List, acceptedValues:Array): void
+		{
+		    myList.addEventListener('dragEnter', callDragEnter);
+		    myList.addEventListener('dragOver', application.doDragOver);
+		    myList.addEventListener('dragDrop', callDragDrop);
+		    accepted = acceptedValues;
+		}
+
+		public function callDragEnter(event:DragEvent): void
+		{
+            if(accepted.length == 1)
+            {
+		        application.doDragEnter(event, accepted[0]);
+		    }
+		    else
+		    {
+		        application.doDragEnter(event, 'any');
+		    }
+		}
+
+		public function callDragDrop(event:DragEvent): void
+		{
+		    application.doDragDrop(event, event.target, accepted);
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+     <TestCase testID="DragManager_dragCanvasRed" description="Test that a custom drag object that is a Canvas" keywords="[DragManager, Custom, List]">
+			 <body>
+			    <DispatchMouseEvent target="canvas1" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="canvas1" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="110" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="135" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="170" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="200" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="220" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="215" localY="220" waitTarget="firstList" waitEvent="dragDrop" />
+	            <AssertPropertyValue propertyName="length" value="1" target="firstList.dataProvider" />
+	        </body>
+		</TestCase>
+     <TestCase testID="DragManager_dragCanvasRedReject" description="Test that a custom drag object that is a Canvas" keywords="[DragManager, Custom, List]">
+			 <setup>
+			     <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			     <SetProperty target="firstList" propertyName="dataProvider" valueExpression="value=[]" />
+			     <RunCode code="addListenersToList(application.firstList, ['red'])" />
+			     <SetProperty target="firstList" propertyName="dropEnabled" value="true" />
+				 <SetProperty target="firstList" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="firstList"/>
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="canvas6" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="canvas6" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="110" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="135" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="170" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="200" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="220" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseUp" localX="215" localY="220"  />
+	            <WaitForEffectsToEnd />
+	            <AssertPropertyValue propertyName="length" value="0" target="firstList.dataProvider" />
+	        </body>
+		</TestCase>
+     <TestCase testID="DragManager_dragCanvasBlue" description="Test that a custom drag object that is a Canvas" keywords="[DragManager, Custom, List]">
+			<body>
+			    <DispatchMouseEvent target="canvas6" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="canvas6" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="110" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="135" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="170" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="200" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="230" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="260" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="320" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="350" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="390" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseUp" localX="215" localY="390"  waitEvent="dragDrop" waitTarget="secondList" />
+	            <AssertPropertyValue propertyName="length" value="0" target="firstList.dataProvider" />
+	        </body>
+		</TestCase>
+     <TestCase testID="DragManager_dragCanvasBlue_afterScrolling" description="Test dropTargets after Scrolling" keywords="[DragManager, dropTarget, Scrolling, List]">
+			 <setup>
+			     <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			     <SetProperty target="secondList" propertyName="dataProvider" valueExpression="value=[]" />
+			     <RunCode code="addListenersToList(application.secondList, ['blue'])" />
+			     <SetProperty target="secondList" propertyName="dropEnabled" value="true" />
+				 <SetProperty target="secondList" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="secondList"/>
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent type="rollOver"  target="skin.scroller.verticalScrollBar.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="skin.scroller.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="buttonDown" />
+                <DispatchMouseEvent type="mouseUp"   target="skin.scroller.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="canvas7" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="canvas7" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="110" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="135" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="170" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="200" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="230" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="260" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="320" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="350" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="366" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseUp" localX="215" localY="366"  waitEvent="dragDrop" waitTarget="secondList" />
+	            <AssertPropertyValue propertyName="length" value="1" target="secondList.dataProvider" />
+	        </body>
+		</TestCase>
+     <TestCase testID="DragManager_dragCanvasGreen_afterScrolling" description="Test dropTargets after Scrolling" keywords="[DragManager, dropTarget, Scrolling, List]">
+			 <setup>
+			    <DispatchMouseEvent type="rollOver"  target="skin.scroller.verticalScrollBar.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="skin.scroller.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="buttonDown" />
+                <DispatchMouseEvent type="mouseUp"   target="skin.scroller.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+             </setup>
+			 <body>
+			    <DispatchMouseEvent type="rollOver"  target="skin.scroller.verticalScrollBar.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="skin.scroller.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="buttonDown" />
+                <DispatchMouseEvent type="mouseUp"   target="skin.scroller.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="canvas11" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="canvas11" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="110" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="135" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="170" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="200" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="230" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="260" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="330" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="370" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="420" buttonDown="true" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"  />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="470" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="510" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseMove" localX="215" localY="550" buttonDown="true" />
+	    	    <DispatchMouseEvent target="stage" type="mouseUp" localX="215" localY="550"  waitEvent="dragDrop" waitTarget="thirdList" />
+	            <AssertPropertyValue propertyName="length" value="1" target="thirdList.dataProvider" />
+	        </body>
+		</TestCase>
+	</testCases>
+</UnitTester>

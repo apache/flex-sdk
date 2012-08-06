@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage=""  xmlns:mx="http://www.adobe.com/2006/mxml" width="600" height="600" paddingLeft="6" paddingRight="6" creationComplete="appInit()" borderStyle="solid">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.managers.DragManager;
+        import mx.core.DragSource;
+        import mx.containers.VBox;
+        import mx.collections.*;
+        import mx.events.DragEvent;
+
+        public function dragIt(event:*, text:String, format:*) :void {
+            var ds:DragSource = new DragSource();
+
+            ds.addData(text, format);
+            var di:VBox = new VBox();
+            mx.managers.DragManager.doDrag(event.currentTarget, ds, event, di , 30, 30 );
+            event.preventDefault();
+        }
+
+        public function doDragEnter(event:*, format:*) :void  {
+            if (event.dragSource.hasFormat(format) || format == "any")
+            {
+                mx.managers.DragManager.acceptDragDrop(event.target);
+
+            }
+             event.preventDefault();
+        }
+
+        public function doDragOver(event:DragEvent) :void  {
+
+            if (event.ctrlKey)
+                mx.managers.DragManager.showFeedback(mx.managers.DragManager.COPY);
+            else if (event.shiftKey)
+                mx.managers.DragManager.showFeedback(mx.managers.DragManager.LINK);
+            else
+                mx.managers.DragManager.showFeedback(mx.managers.DragManager.MOVE);
+
+             event.preventDefault();
+        }
+
+        public function doDragDrop (event:DragEvent, target:*, formats:*) :void  {
+            var prefix:String = "";
+
+            if (event.action == mx.managers.DragManager.COPY)
+                prefix = "Copy of ";
+            else if (event.action == mx.managers.DragManager.LINK)
+                prefix = "LinkButton to ";
+
+
+            for (var i:int = 0; i < formats.length; i++)
+            {
+                var data:* = event.dragSource.dataForFormat(formats[i]);
+                trace(data);
+                if (data != undefined)
+                    IList(target.dataProvider).addItem(prefix + data);
+            }
+             event.preventDefault();
+        }
+
+        public function appInit() :void  {
+            firstList.dataProvider = [];
+            secondList.dataProvider = [];
+            thirdList.dataProvider=[];
+        }
+
+        ]]>
+    </mx:Script>
+
+<mx:Text width="100%" text="Drag squares into lists. Verify first list only accepts red squares, second list only accepts blue squares, and third list accepts red, blue, and green squares " />
+
+
+    <mx:Tile width="200" id="tileComp">
+        <mx:Canvas id="canvas1" horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#FF0000" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Red 1', 'red')">
+            <mx:Label text="1" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas2"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#FF0000" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Red 2', 'red')">
+            <mx:Label text="2" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas3"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#FF0000" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Red 3', 'red')">
+            <mx:Label text="3" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas4"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#FF0000" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Red 4', 'red')">
+            <mx:Label text="4" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas5"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#FF0000" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Red 5', 'red')">
+            <mx:Label text="5" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas6"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#0000FF" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Blue 1', 'blue')">
+            <mx:Label text="1" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas7"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#0000FF" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Blue 2', 'blue')">
+            <mx:Label text="2" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas8"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#0000FF" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Blue 3', 'blue')">
+            <mx:Label text="3" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas9"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#0000FF" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Blue 4', 'blue')">
+            <mx:Label text="4" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas10"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#0000FF" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Blue 5', 'blue')">
+            <mx:Label text="5" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas11"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#00FF00" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Green 1', 'green')">
+            <mx:Label text="1" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas12" horizontalScrollPolicy="off" verticalScrollPolicy="off"  backgroundColor="#00FF00" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Green 2', 'green')">
+            <mx:Label text="2" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas13" horizontalScrollPolicy="off" verticalScrollPolicy="off"  backgroundColor="#00FF00" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Green 3', 'green')">
+            <mx:Label text="3" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas14"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#00FF00" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Green 4', 'green')">
+            <mx:Label text="4" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+        <mx:Canvas id="canvas15"  horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="#00FF00" borderStyle="solid" width="30" height="30" mouseDown="dragIt(event, 'Green 5', 'green')">
+            <mx:Label text="5" x="8" y="6" width="22" height="24"/>
+        </mx:Canvas>
+    </mx:Tile>
+    <mx:VBox>
+        <mx:Label text="Drag red items into this list" />
+        <mx:List dragEnter="doDragEnter(event, 'red')"
+                 dragOver="doDragOver(event);"
+                 dragDrop="doDragDrop(event, firstList, ['red'])"
+                 id="firstList"
+                 dropEnabled="true"
+                 width="250"
+        />
+        <mx:Label text="Drag blue items into this list" />
+        <mx:List dragEnter="doDragEnter(event, 'blue')"
+                 dragOver="doDragOver(event);"
+                 dragDrop="doDragDrop(event, secondList, ['blue'])"
+                 id="secondList"
+                 dropEnabled="true"
+                 width="250"
+        />
+        <mx:Label text="Drag any items into this list" />
+        <mx:List dragEnter="doDragEnter(event, 'any')"
+                 dragOver="doDragOver(event);"
+                 dragDrop="doDragDrop(event, thirdList, ['red','blue','green'])"
+                 id="thirdList"
+                 dropEnabled="true"
+                 width="250"
+        />
+    </mx:VBox>
+</mx:Application>

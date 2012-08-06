@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/ToolTipManager/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ToolTipManager_Basic.mxml">
+
+    <mx:Script>
+    <![CDATA[
+    
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+ 	import mx.controls.ToolTip;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+        
+   
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="ToolTipManager_property_customToolTip"  keywords="[ToolTipManager,property,ToolTip]">
+            <setup>
+	        <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+	        <RunCode code ="ToolTipManager.showDelay=1" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent type="mouseOver" target="layout1.inputA" localX="20" localY="5" />
+            	<DispatchMouseEvent type="mouseDown" target="layout1.inputA" localX="20" localY="5" />
+            	<DispatchMouseEvent type="mouseUp"   target="layout1.inputA" localX="20" localY="5" />
+                <AssertPropertyValue target="layout1.tip" propertyName="text"  value="My Tip A" />
+                <AssertPropertyValue target="layout1.tip" propertyName="x"  value="170" />
+                <AssertPropertyValue target="layout1.tip" propertyName="y"  value="30" />
+               
+            </body>
+       </TestCase>
+       
+       <TestCase testID="ToolTipManager_property_customToolTipLocation"  keywords="[ToolTipManager,property,ToolTip]">
+            <setup>
+	        <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+	        <RunCode code ="ToolTipManager.showDelay=1" />
+              </setup>
+            <body>
+               <DispatchMouseClickEvent target="layout1.inputB" localX="20" localY="5" waitTarget="layout1.inputB" waitEvent="focusIn" />
+               <AssertPropertyValue target="layout1.tip" propertyName="text"  value="My Tip B" />
+               <AssertPropertyValue target="layout1.tip" propertyName="x"  value="340" />
+               <AssertPropertyValue target="layout1.tip" propertyName="y"  value="84" />
+               
+            </body>
+       </TestCase>
+       <TestCase testID="ToolTipManager_property_currentToolTip"  keywords="[ToolTipManager,property,currentToolTip]">
+            <setup>
+	        <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+              </setup>
+            <body>
+               <DispatchMouseEvent type="mouseOver" target="layout1.ti" localX="20" localY="5" waitTarget="layout1.ti" waitEvent="toolTipShown" />
+               <AssertPropertyValue target="layout1" propertyName="s"  value="This is a simple ToolTip" />
+            </body>   
+       </TestCase>
+
+       <TestCase testID="ToolTipManager_property_currentToolTip_CB"  keywords="[ToolTipManager,property,currentToolTip]">
+              <setup>
+       	        <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+       	        <RunCode code ="ToolTipManager.showDelay=1" />
+              </setup>
+              <body>
+                <DispatchMouseEvent type="mouseOver" target="layout1.cb" localX="10" localY="5" waitEvent="toolTipStart"/>
+                <DispatchMouseEvent type="mouseDown" target="layout1.cb" localX="10" localY="5" />
+            	<DispatchMouseEvent type="mouseUp"   target="layout1.cb" localX="10" localY="5" />
+                <AssertPropertyValue target="layout1" propertyName="s"  value="This is my string 1,This is my string 1122,This is my string 111222333" />
+              </body>
+       </TestCase>
+       
+	<TestCase testID="ToolTipManager_property_customToolTip_list"  keywords="[ToolTipManager,property,ToolTip]">
+              <setup>
+       	        <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+       	        <RunCode code ="ToolTipManager.showDelay=1" />
+              </setup>
+              <body>
+                <DispatchMouseEvent type="mouseOver" target="layout1.mylist" localX="10" localY="40" waitTarget="layout1.mylist" waitEvent="itemRollOver" />
+                <Pause timeout="100" />
+                
+                <CompareBitmap target="layout1.mybox" url="../Properties/Baselines/customToolTip_list.png"  />   
+       
+              </body>
+       </TestCase>     
+       <TestCase testID="ToolTipManager_property_ToolTip_list_disabled"  keywords="[ToolTipManager,property,ToolTip]">
+              <setup>
+       	        <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+       	        <RunCode code ="ToolTipManager.enabled=false" />
+       	        <Pause timeout="500" />
+              </setup>
+              <body>
+                <DispatchMouseEvent type="mouseOver" target="layout1.mylist" localX="10" localY="20" waitTarget="layout1.mylist" waitEvent="itemRollOver" />
+                <Pause timeout="100" />
+                <CompareBitmap target="layout1.mylist" url="../Properties/Baselines/customToolTip_disabled.png"  />   
+       		<RunCode code ="ToolTipManager.enabled=true" />
+              </body>
+       </TestCase>     
+       
+    </testCases>
+
+</UnitTester>

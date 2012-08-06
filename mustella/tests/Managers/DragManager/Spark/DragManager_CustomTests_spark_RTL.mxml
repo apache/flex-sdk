@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_Custom_spark_RTL.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.styles.StyleManager;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+<!-- custom drag of an Image -->
+        <TestCase testID="DragManager_Mirroring_image" description="Test that you can drag an image by creating a DragSource." keywords="[DragManager, Mirroring, DragSource]">
+            <body>
+                 <DispatchMouseEvent target="myImage" type="mouseOver" localX="15" localY="15"  />
+                 <DispatchMouseEvent target="myImage" type="mouseDown" localX="15" localY="15" buttonDown="true" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="20" localY="30" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="50" localY="60" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="100" localY="75" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseUp" localX="100" localY="75" buttonDown="true"
+                        waitTarget="myImage" waitEvent="dragComplete" />
+                <AssertPropertyValue target="myImage" propertyName="x" value="85" />
+                <AssertPropertyValue target="myImage" propertyName="y" value="60" />
+            </body>
+        </TestCase>
+        <TestCase testID="DragManager_Mirroring_mxmlComp" description="Test that you can drag an mxml component by creating a DragSource." keywords="[DragManager, Mirroring, DragSource]">
+            <body>
+                 <WaitForEffectsToEnd />
+                 <DispatchMouseEvent target="comp" type="mouseOver" localX="15" localY="15"  />
+                 <DispatchMouseEvent target="comp" type="mouseDown" localX="15" localY="15" buttonDown="true" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="20" localY="280" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="50" localY="310" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="100" localY="325" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseUp" localX="100" localY="325" buttonDown="true"
+                    waitTarget="comp" waitEvent="dragComplete" />
+                <AssertPropertyValue target="comp" propertyName="x" value="85" />
+                <AssertPropertyValue target="comp" propertyName="y" value="310" />
+            </body>
+        </TestCase>
+        <TestCase testID="DragManager_Mirroring_dragOffset" description="Test that your dragProxy is correct when setting a dragOffset." keywords="[DragManager, Mirroring, dragOffset, DragSource]">
+            <body>
+                 <WaitForEffectsToEnd />
+                 <DispatchMouseEvent target="myImage2" type="mouseOver" localX="15" localY="15"  />
+                 <DispatchMouseEvent target="myImage2" type="mouseDown" localX="15" localY="15" buttonDown="true" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="240" localY="180" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="200" localY="160" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                 <DispatchMouseEvent target="v1" type="mouseMove" localX="150" localY="130" buttonDown="true"
+                        waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                <AssertPropertyValue target="mx.managers::DragManager.mx_internal:dragProxy" propertyName="x" value="535" />
+                <AssertPropertyValue target="mx.managers::DragManager.mx_internal:dragProxy" propertyName="y" value="15" />
+                <DispatchMouseEvent target="v1" type="mouseUp" localX="150" localY="130" buttonDown="true"
+                        waitTarget="myImage2" waitEvent="dragComplete" />
+            </body>
+        </TestCase>
+        <TestCase testID="DragManager_Mirroring_defaultDragImageSkin" description="Test that your custom defaultDragImageSkin is correct." keywords="[DragManager, Mirroring, defaultDragImageSkin, DragSource]">
+            <setup>
+                <WaitForEffectsToEnd />
+                <ResetComponent target="myImage2" className="mx.controls.Image" waitTarget="myImage2" waitEvent="updateComplete" />
+                <ResetComponent target="myImage" className="mx.controls.Image" waitTarget="myImage" waitEvent="updateComplete" />
+                <RunCode code="application.myImage.addEventListener('mouseDown', application.callDrag)" />
+                <SetProperty target="myImage" propertyName="source" valueExpression="value='../../../../Assets/Images/unknown.jpg'" waitEvent="complete" waitTarget="myImage" />
+            </setup>
+            <body>
+                <DispatchMouseEvent target="myImage" type="mouseOver" localX="15" localY="15"  />
+                <DispatchMouseEvent target="myImage" type="mouseDown" localX="15" localY="15" buttonDown="true" />
+                <DispatchMouseEvent target="v1" type="mouseMove" localX="20" localY="30" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                <DispatchMouseEvent target="v1" type="mouseMove" localX="50" localY="60" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                <DispatchMouseEvent target="v1" type="mouseMove" localX="100" localY="75" buttonDown="true"
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="v1" url="../Spark/baselines/$testID.png" timeout="2500" numColorVariances="3" ignoreMaxColorVariance="true"/>
+                <DispatchMouseEvent target="v1" type="mouseUp" localX="100" localY="75" buttonDown="true"
+                    waitTarget="myImage" waitEvent="dragComplete" />
+        </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

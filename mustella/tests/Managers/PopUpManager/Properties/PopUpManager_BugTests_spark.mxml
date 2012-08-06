@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/PopUpManager/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpManager_Bugs_spark.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.managers.PopUpManager;
+       import mx.controls.Alert;
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+        public function cleanUpPopUps(): void
+        {
+            var numPopUps:int = application.parent.numModalWindows;
+            var popUpChildren:int = application.parent.numChildren;
+            if(numPopUps != 0)
+            {
+               //remove the PopUps
+               var childIndex:int = 2;
+               for(var i:int = 0; i < numPopUps; i++)
+               {
+                   application.closeWindow(application.systemManager.topLevelSystemManager.getChildAt(childIndex));
+                   childIndex = childIndex +2;
+               }
+            }
+            else if (popUpChildren > 1)
+            {
+
+               for(var j:int=1; j < popUpChildren; j++)
+               {
+                   application.closeWindow(application.systemManager.topLevelSystemManager.getChildAt(1));
+               }
+            }
+            else
+            {
+              var newEvent:FlexEvent = new FlexEvent(FlexEvent.UPDATE_COMPLETE, false, false);
+              application.systemManager.topLevelSystemManager.getChildAt(0).dispatchEvent(newEvent);
+            }
+        }
+        
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <!--As far as I know, there is no reliable event to wait for when a non-modal popUp pops up. So, I am using
+        Pauses.-->
+        <TestCase testID="PopUpManager_bug164989" description="Bug #164989: reusing an instance of the same popUp fails" keywords="[Bugs, PopUpManager]">
+            <body>
+                <RunCode code="application.testPopupBug()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="PopUpManager.removePopUp(application.t1)" />
+                <WaitForEffectsToEnd />
+                <RunCode code="PopUpManager.addPopUp(application.t1, application.pnl1, true);" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.closeWindow(application.t1)" />
+                <AssertEvent target="systemManager.topLevelSystemManager.getChildAt(0)" eventName="effectEnd" eventClass="mx.events::EffectEvent" timeout="700"/>
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpManager_bug177669" description="Bug #177669: ncludeInLayout does not work correctly in PopUps." keywords="[Bugs, PopUpManager]">
+            <setup>
+                <WaitForEffectsToEnd />
+                <RunCode code="cleanUpPopUps()" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.openWindow2(true)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="effectEnd" />
+                <Pause timeout="200" />
+                <AssertPropertyValue target="systemManager.topLevelSystemManager.getChildAt(2).box1" propertyName="height" value="0" />
+                <AssertPropertyValue target="systemManager.topLevelSystemManager.getChildAt(2).box1" propertyName="width" value="0" />
+                <DispatchMouseClickEvent target="systemManager.topLevelSystemManager.getChildAt(2).includeButton" localX="5" localY="5" waitEvent="updateComplete"
+                    waitTarget="systemManager.topLevelSystemManager.getChildAt(2).box1" />
+                <AssertPropertyValue target="systemManager.topLevelSystemManager.getChildAt(2).box1" propertyName="height" value="23" />
+                <AssertPropertyValue target="systemManager.topLevelSystemManager.getChildAt(2).box1" propertyName="width" value="120" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpManager_bug99429" description="Bug #99429: modalTransparency doesn't work on modal popups." keywords="[modalTransparency, Bugs, PopUpManager]">
+            <setup>
+                <WaitForEffectsToEnd />
+                <RunCode code="cleanUpPopUps()" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.openWindow3(true)" waitTarget="systemManager" waitEvent="added" />
+                <RunCode code="application.centerMyPopUp()" waitTarget="iPopUp" waitEvent="move" />
+                <DispatchMouseClickEvent localX="330" localY="33" target="" waitEvent="mouseDownOutside" waitTarget="iPopUp"/>
+                <DispatchKeyEvent char="Hello" />
+                <Pause timeout="200" />
+                <AssertPropertyValue target="ta" propertyName="text" value="" />
+                <AssertPixelValue target="" x="501" y="70" value="0xFFFFFF" />
+                <RunCode code="application.closeWindow(application.iPopUp)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpManager_bug104191" description="Bug #104191: Popped up title windows are not always gaining focus." keywords="[Focus, Bugs, PopUpManager]">
+            <setup>
+                <WaitForEffectsToEnd />
+                <RunCode code="cleanUpPopUps()" waitTarget="" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.openWindow4()" waitTarget="systemManager" waitEvent="added" />
+                <Pause timeout="500" />
+                <DispatchMouseClickEvent localX="3" localY="3" target="tw1.getChildAt(0)" />
+                <Pause timeout="800" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="tw2.getChildAt(0)"/>
+                <AssertMethodValue target="tw2" method="value=application.tw2.getFocus()" valueExpression="value=application.tw2.getChildAt(0)" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpManager_bugSDK9428_spark" description="Ensure that when clicked, popUps always jump to the front" keywords="[Bugs, PopUpManager, Panel]">
+            <setup>
+               <WaitForEffectsToEnd />
+               <RunCode code="cleanUpPopUps()" />
+               <RunCode code="application.popupPanel();" waitTarget="systemManager" waitEvent="added" />
+            </setup>
+            <body>
+               <DispatchMouseClickEvent target="systemManager.topLevelSystemManager.getChildAt(1)" localX="170" localY="13" 
+                  waitEvent="mouseDownOutside" waitTarget="systemManager.topLevelSystemManager.getChildAt(3)"/>
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="systemManager.topLevelSystemManager.getChildAt(2)" localX="170" localY="13" 
+                    waitEvent="mouseDownOutside" waitTarget="systemManager.topLevelSystemManager.getChildAt(3)"/>
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="systemManager.topLevelSystemManager.getChildAt(1)" localX="170" localY="13" 
+                    waitEvent="mouseDownOutside" waitTarget="systemManager.topLevelSystemManager.getChildAt(3)"/>
+               <WaitForEffectsToEnd />
+               <CompareBitmap numColorVariances="25" ignoreMaxColorVariance="true" target="" url="../Properties/baselines/$testID.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpManager_addPopUp_sparkPanel" description="Check that a Spark Panel is in focus when its first popped up" 
+            keywords="[Bugs, PopUpManager, Panel]">
+            <setup>
+               <WaitForEffectsToEnd />
+               <RunCode code="cleanUpPopUps()" />
+               <DispatchMouseClickEvent target="button1" localX="10" localY="10" waitTarget="systemManager" waitEvent="added" />
+               <WaitForEffectsToEnd />
+            </setup>
+            <body>
+               <DispatchKeyEvent keys="[TAB]" />
+               <AssertEvent target="sparkPanel.getElementAt(0)" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpManager_addPopUp_sparkPanel_ModalFocus" description="Check that a Spark Panel is in focus when its first popped up" 
+            keywords="[Bugs, PopUpManager, Panel]">
+            <setup>
+               <WaitForEffectsToEnd />
+               <RunCode code="cleanUpPopUps()" waitEvent="updateComplete" waitTarget=""/>
+               <DispatchMouseClickEvent target="button1" localX="10" localY="10" waitTarget="systemManager" waitEvent="added" />
+               <WaitForEffectsToEnd />
+            </setup>
+            <body>
+               <DispatchKeyEvent keys="[TAB]" waitTarget="sparkPanel.getElementAt(0)" waitEvent="focusIn"/>
+               <DispatchKeyEvent keys="[TAB]" waitTarget="sparkPanel.getElementAt(1)" waitEvent="focusIn"/>
+               <DispatchKeyEvent keys="[TAB]" waitTarget="sparkPanel.getElementAt(2)" waitEvent="focusIn"/>
+               <DispatchKeyEvent keys="[TAB]" />
+               <AssertEvent target="sparkPanel.getElementAt(0)" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

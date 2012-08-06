@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/AdvancedCSS/pseudoSelectors/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+    testSWF="PseudoSelectors_halo_RuntimeCSS.mxml">
+       <mx:Script>
+        <![CDATA[
+
+        import comps.CustomPanel;
+
+        public static function init(o:DisplayObject):void
+        {
+        }
+
+
+        ]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+    <testCases>
+         <!-- That Pause in this test seems to be needed for AIR -->
+        <TestCase testID="PseudoSelector_halo_basicHaloComponent_start" keywords="[CSS, pseudo Selector, Button]"
+            description="Test that a basic pseudo selector works on an Button when no state has changed: Button:SubmitState.">
+            <setup>
+                <Pause timeout="1200" />
+                <ResetComponent target="button1" className="comps.ButtonComp" waitTarget="button1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="button1" propertyName="label" value="submit" />
+                <AssertStyleValue target="button1" styleName="cornerRadius" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_basicHaloComponent_stateChanged" keywords="[CSS, pseudo Selector, Button]"
+            description="Test that a basic pseudo selector works on an Button when a state has changed: Button:ClearState.">
+            <setup>
+                <ResetComponent target="button1" className="comps.ButtonComp" waitTarget="button1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="button1" propertyName="currentState" value="ClearState" waitTarget="button1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="button1" propertyName="label" value="clear" />
+                <AssertStyleValue target="button1" styleName="cornerRadius" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_basicHaloContainer_start" keywords="[CSS, pseudo Selector, Box]"
+            description="Test that a basic pseudo selector works on an Box when no state has changed: Box:normal.">
+            <setup>
+                <ResetComponent target="box1" className="comps.TextBasic" waitTarget="box1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="box1.getChildAt(0)" styleName="fontSize" value="12" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_basicHaloContainer_stateChanged" keywords="[CSS, pseudo Selector, Box]"
+            description="Test that a basic pseudo selector works on an Box when a state has changed: Box:normal.">
+            <setup>
+                <ResetComponent target="box1" className="comps.TextBasic" waitTarget="box1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="box1" propertyName="currentState" value="zoomed" waitTarget="box1" waitEvent="updateComplete" />
+                <AssertStyleValue target="box1.getChildAt(0)" styleName="fontSize" value="20" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_basicHaloContainerSubclass_start" keywords="[CSS, pseudo Selector, Box]"
+            description="Test that a basic pseudo selector works on an VBox when no state has changed: Box:normal.">
+            <setup>
+                <ResetComponent target="vbox1" className="comps.VBoxStatesComp" waitTarget="vbox1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="vbox1.getChildAt(0)" styleName="fontSize" value="12" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_basicHaloContainerSubclass_stateChanged" keywords="[CSS, pseudo Selector, Box]"
+            description="Test that a basic pseudo selector works on an VBox when a state has changed: Box:normal.">
+            <setup>
+                <ResetComponent target="vbox1" className="comps.VBoxStatesComp" waitTarget="vbox1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="vbox1" propertyName="currentState" value="zoomed" waitTarget="vbox1" waitEvent="updateComplete" />
+                <AssertStyleValue target="vbox1.getChildAt(0)" styleName="fontSize" value="20" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_nestedHaloComponent_start" keywords="[CSS, pseudo Selector, Button]"
+            description="Test that a basic pseudo selector works on an Button in a container when no state has changed: Button:SubmitState.">
+            <setup>
+                <ResetComponent target="button2" className="comps.ButtonComp" waitTarget="button2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="button2" propertyName="label" value="submit" />
+                <AssertStyleValue target="button2" styleName="cornerRadius" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_nestedHaloComponent_stateChanged" keywords="[CSS, pseudo Selector, Button]"
+            description="Test that a basic pseudo selector works on an Button in a container when a state has changed: Button:ClearState.">
+            <setup>
+                <ResetComponent target="button2" className="comps.ButtonComp" waitTarget="button2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="button2" propertyName="currentState" value="ClearState" waitTarget="button2" waitEvent="updateComplete" />
+                <AssertPropertyValue target="button2" propertyName="label" value="clear" />
+                <AssertStyleValue target="button2" styleName="cornerRadius" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_descendantAndPseudo_start" keywords="[CSS, pseudo Selector, DateChooser, descendant selector]"
+            description="Test that a descendant and pseudo selector works on an DateChooser when no state has changed: Panel DateChooser:SubmitState.">
+            <setup>
+                <ResetComponent target="datechooser1" className="comps.DateChooserComp" waitTarget="datechooser1" waitEvent="updateComplete" />
+                <ResetComponent target="datechooser2" className="comps.DateChooserComp" waitTarget="datechooser2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="datechooser1" propertyName="enabled" value="true" />
+                <AssertStyleValue target="datechooser1" styleName="color" value="0xFF00FF" />
+                <AssertStyleValue target="datechooser2" styleName="color" value="0x000000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="PseudoSelector_halo_idAndPseudo_start" keywords="[CSS, pseudo Selector, DateChooser, id selector]"
+            description="Test that a id and pseudo selector works on an DateChooser when no state has changed: #chooser:SubmitState.">
+            <setup>
+                <ResetComponent target="peepComboBox" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox" waitEvent="updateComplete" />
+                <ResetComponent target="peepComboBox2" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="peepComboBox" styleName="rollOverColor" value="0xFF0033" />
+                <AssertStyleValue target="peepComboBox2" styleName="rollOverColor" value="0xCEDBEF" />
+                <DispatchMouseClickEvent target="peepComboBox" localX="110" localY="6" waitTarget="peepComboBox" waitEvent="open" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="peepComboBox.dropdown" type="mouseOver" localX="25" localY="8" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="peepComboBox.dropdown" x="100" y="8" value="0xFF0033" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_idAndPseudo_stateChanged" keywords="[CSS, pseudo Selector, DateChooser, id selector]"
+            description="Test that a id and pseudo selector works on an DateChooser when a state has changed: #chooser:SubmitState.">
+            <setup>
+                <ResetComponent target="peepComboBox" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox" waitEvent="updateComplete" />
+                <ResetComponent target="peepComboBox2" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="peepComboBox" propertyName="currentState" value="errorState" waitTarget="peepComboBox" waitEvent="updateComplete" />
+                <SetProperty target="peepComboBox2" propertyName="currentState" value="errorState"  />
+                <AssertStyleValue target="peepComboBox" styleName="rollOverColor" value="0xCC3399" />
+                <AssertStyleValue target="peepComboBox2" styleName="rollOverColor" value="0xCEDBEF" />
+                <DispatchMouseClickEvent target="peepComboBox" localX="110" localY="6" waitTarget="peepComboBox" waitEvent="open" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="peepComboBox.dropdown" type="mouseOver" localX="25" localY="8" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="500" />
+                <AssertPixelValue target="peepComboBox.dropdown" x="100" y="8" value="0xCC3399" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_descendantIdAndPseudo_start" keywords="[CSS, pseudo Selector, DateChooser, descendant selector, id selector]"
+            description="Test that a id, descendant, and pseudo selector works on an DateChooser when no state has changed: HBox #chooser:SubmitState.">
+            <setup>
+                <ResetComponent target="peepComboBox3" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox3" waitEvent="updateComplete" />
+                <ResetComponent target="peepComboBox4" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="peepComboBox3" styleName="rollOverColor" value="0xFF0033" />
+                <AssertStyleValue target="peepComboBox4" styleName="rollOverColor" value="0xCEDBEF" />
+                <DispatchMouseClickEvent target="peepComboBox3" localX="110" localY="6" waitTarget="peepComboBox3" waitEvent="open" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="peepComboBox3.dropdown" type="mouseOver" localX="25" localY="8" />
+                <AssertPixelValue target="peepComboBox3.dropdown" x="25" y="8" value="0xFF0033" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_descendantIdAndPseudo_stateChanged" keywords="[CSS, pseudo Selector, descendant selector, DateChooser, id selector]"
+            description="Test that a descendant, id and pseudo selector works on an DateChooser when a state has changed: HBox #chooser:SubmitState.">
+            <setup>
+                <ResetComponent target="peepComboBox3" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox3" waitEvent="updateComplete" />
+                <ResetComponent target="peepComboBox4" className="comps.ComboBoxStatesComp" waitTarget="peepComboBox4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="peepComboBox3" propertyName="currentState" value="errorState" waitTarget="peepComboBox3" waitEvent="updateComplete" />
+                <SetProperty target="peepComboBox4" propertyName="currentState" value="errorState"  />
+                <AssertStyleValue target="peepComboBox3" styleName="rollOverColor" value="0xCC3399" />
+                <AssertStyleValue target="peepComboBox4" styleName="rollOverColor" value="0xCEDBEF" />
+                <DispatchMouseClickEvent target="peepComboBox3" localX="110" localY="6" waitTarget="peepComboBox3" waitEvent="open" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="peepComboBox3.dropdown" type="mouseOver" localX="25" localY="8" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="peepComboBox3.dropdown" x="100" y="8" value="0xCC3399" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_styleAndPseudo_start" keywords="[CSS, pseudo Selector, DateChooser, style selector]"
+            description="Test that a style and pseudo selector works on an Canvas when no state has changed: .chooser:SubmitState.">
+            <setup>
+                <ResetComponent target="canvas1" className="comps.CanvasStatesComp" waitTarget="canvas1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="canvas1" styleName="backgroundColor" value="0x990099" />
+                <AssertStyleValue target="canvas1.getChildAt(0)" styleName="backgroundColor" value="0x000000" />
+                <AssertStyleValue target="canvas1.getChildAt(1)" styleName="backgroundColor" value="0x990099" />
+            </body>
+        </TestCase>
+        <TestCase testID="PseudoSelector_halo_styleAndPseudo_stateChanged" keywords="[CSS, pseudo Selector, DateChooser, style selector]"
+            description="Test that a style and pseudo selector works on an Canvas when a state has changed: .chooser:SubmitState.">
+            <setup>
+                <ResetComponent target="canvas1" className="comps.CanvasStatesComp" waitTarget="canvas1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="canvas1" propertyName="currentState" value="state2" waitTarget="canvas1" waitEvent="updateComplete" />
+                <AssertStyleValue target="canvas1" styleName="backgroundColor" value="0x660066" />
+                <AssertStyleValue target="canvas1.getChildAt(0)" styleName="backgroundColor" value="0x000000" />
+                <AssertStyleValue target="canvas1.getChildAt(1)" styleName="backgroundColor" value="0x660066" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

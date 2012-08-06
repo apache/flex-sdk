@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" backgroundColor="0xFFFFFF" width="700" height="650">
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <fx:Script>
+    <![CDATA[
+
+        import mx.collections.ArrayCollection;
+    ]]>
+    </fx:Script>
+
+    <fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: myArial;
+            embedAsCFF: true;
+
+        }
+
+        s|ButtonBase {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|NumericStepper {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|List {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|TextInput {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|TextArea, s|Panel {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+    </fx:Style>
+
+    <fx:Style source="assets/globalStyles.css" />
+    <!-- commented out for SDK-21982
+    <s:TextArea id="textarea1" contentBackgroundColor="0xFFFF99" text="Dispatched when a display _bject is about t_ be rem_ved fr_m the display list.play _bject is ab_ut t_ be rem_ved fr_m the display listplay _bject is ab_ut t_ be rem_ved fr_m the display list" height="90"/>
+    -->
+    <s:HGroup id="hgroup1">
+        <mx:Box id="textinput_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:TextInput id="textinput1" text="FxTextInput" focusedTextSelectionColor="0x99FF66" height="21"/>
+        </mx:Box>
+        <mx:Box id="button_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:Button id="button1" label="FxButton" chromeColor="0x0066CC"/>
+        </mx:Box>
+        <mx:Box id="radiobutton_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:RadioButton id="radiobutton1" label="FxRadi_Butt_n" selected="true" symbolColor="0x6633CC"/>
+        </mx:Box>
+        <mx:Box id="togglebutton_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:ToggleButton label="ToggleButton" id="togglebutton1" width="110" height="45" focusColor="0x990000"/>
+        </mx:Box>
+    </s:HGroup>
+    <s:HGroup id="hgroup2">
+        <mx:Box id="list_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:List id="list1" selectedIndex="1" rollOverColor="0xCC6666" dataProvider="{new ArrayCollection(['J_an', 'Jac_b', 'R_b', 'J_ann', 'Lauren', 'Ella'])}" />
+        </mx:Box>
+    </s:HGroup>
+    <s:HGroup>
+        <mx:Box id="buttonbar_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:ButtonBar id="buttonbar1" dataProvider="{new ArrayCollection(['Christmas', 'Hannukah', 'Kwanza', 'Snowman'])}" color="0xFF0066"/>
+        </mx:Box>
+    </s:HGroup>
+    <s:Panel id="panel1" title="Red Panel" color="0x009900">
+        <s:NumericStepper id="ns1" x="10" y="5"/>
+        <s:Button label="I'm green" id="greenButton" x="10" y="35" />
+    </s:Panel>
+
+</s:Application>

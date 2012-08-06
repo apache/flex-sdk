@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/AdvancedCSS/descendantSelectors/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DescendantSelectors_main_styleTag.mxml">
+       <mx:Script>
+		<![CDATA[
+
+		import comps.PanelComp;
+		import comps.CanvasComp;
+		import comps.TitleWindowComp;
+		import mx.controls.Button;
+		import mx.controls.TextInput;
+
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+
+	<TestCase testID="descendantSelector_basic_style" keywords="[CSS, descendant selector]"
+	    description="Does a basic descendant selector work defined within the Style tag?">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <CompareBitmap numColorVariances="8" maxColorVariance="10" url="../descendantSelectors/baselines/$testID.png" target="panel1.button1" />
+		    <CompareBitmap numColorVariances="8" maxColorVariance="10" url="../descendantSelectors/baselines/$testID_2.png" target="panel2.button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_basic_noMatch_style" keywords="[CSS, descendant selector]"
+	    description="Be sure that the style doesn't apply to other types that aren't descendants.">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <AssertStyleValue target="panel1.label1" styleName="color" value="0x000000" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="main_button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_basic_noMatch_style_mac" keywords="[CSS, descendant selector]"
+	    description="Be sure that the style doesn't apply to other types that aren't descendants.">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <AssertStyleValue target="panel1.label1" styleName="color" value="0x000000" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="main_button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_subclass_style" keywords="[CSS, descendant selector]"
+	    description="Be sure that the style applies to other subclasses of the subject">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="panel1.checkbox1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_basic_style_popUp" keywords="[CSS, descendant selector]"
+	    description="(PopUp) Does a basic descendant selector work defined within the Style tag?">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <DispatchMouseClickEvent target="openButton" waitEvent="updateComplete" waitTarget="iPopUp" />
+		    <AssertStyleValue target="iPopUp.label1" styleName="color" value="0x000000" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="iPopUp.button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_basic_noMatch_style_popUp" keywords="[CSS, descendant selector]"
+	    description="(PopUp) Be sure that the style doesn't apply to other types that aren't descendants.">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <DispatchMouseClickEvent target="openButton" waitEvent="updateComplete" waitTarget="" />
+		    <AssertStyleValue target="iPopUp.label1" styleName="color" value="0x000000" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_subclass_style_popUp" keywords="[CSS, descendant selector]"
+	    description="(PopUp) Be sure that the style applies to other subclasses of the subject">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <DispatchMouseClickEvent target="openButton" waitEvent="updateComplete" waitTarget="" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="iPopUp.checkbox1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_basic_style_module" keywords="[CSS, descendant selector, Modules]"
+	    description="(Module) Does a basic descendant selector work defined within the Style tag?">
+	    <setup>
+	        <ResetComponent target="panel_module" className="comps.PanelComp" waitTarget="panel_module" waitEvent="updateComplete" />
+	        </setup>
+		<body>
+		    <AssertStyleValue target="panel_module.label1" styleName="color" value="0x000000" />
+		    <CompareBitmap numColorVariances="8" maxColorVariance="10" url="../descendantSelectors/baselines/$testID.png" target="panel_module.button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_basic_noMatch_style_module" keywords="[CSS, descendant selector, Module]"
+	    description="(Module) Be sure that the style doesn't apply to other types that aren't descendants.">
+	    <setup>
+	        <ResetComponent target="panel_module" className="comps.PanelComp" waitTarget="panel_module" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <AssertStyleValue target="panel_module.label1" styleName="color" value="0x000000" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_subclass_style_module" keywords="[CSS, descendant selector, Module]"
+	    description="(Module) Be sure that the style applies to other subclasses of the subject">
+	    <setup>
+	        <ResetComponent target="panel_module" className="comps.PanelComp" waitTarget="panel_module" waitEvent="updateComplete" />
+	        </setup>
+		<body>
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="panel_module.checkbox1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_nestedContainer_style" keywords="[CSS, descendant selector]"
+	    description="Does a basic descendant selector work for nested containers when defined within the Style tag?">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <RunCode code="application.panel1.addChild(new comps.CanvasComp())" waitTarget="panel1" waitEvent="updateComplete" />
+		    <AssertStyleValue target="panel1.getChildAt(4).text1" styleName="color" value="0x000000" />
+		    <CompareBitmap numColorVariances="8" maxColorVariance="10" url="../descendantSelectors/baselines/$testID.png" target="panel1.getChildAt(4).button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_nestedContainer_noMatch_style" keywords="[CSS, descendant selector, Module]"
+	    description="Be sure that the style doesn't apply to other types that aren't descendants when in a nested container.">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <RunCode code="application.panel1.addChild(new comps.CanvasComp())" waitTarget="panel1" waitEvent="updateComplete" />
+		    <AssertStyleValue target="panel1.getChildAt(4).text1" styleName="color" value="0x000000" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_nestedContainer_subclass_style" keywords="[CSS, descendant selector, Module]"
+	    description="Be sure that the style applies to other subclasses of the subject">
+	    <setup>
+	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
+	     </setup>
+		<body>
+		    <RunCode code="application.panel1.addChild(new comps.CanvasComp())" waitTarget="panel1" waitEvent="updateComplete" />
+		    <CompareBitmap numColorVariances="8" maxColorVariance="10" url="../descendantSelectors/baselines/$testID.png" target="panel1.getChildAt(4).checkbox1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_subclassParent_style" keywords="[CSS, descendant selector]"
+	    description="Does a basic descendant selector work for subclass of the parent when defined within the Style tag?">
+	    <setup>
+	        <ResetComponent target="tw1" className="comps.TitleWindowComp" waitTarget="tw1" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <AssertStyleValue target="tw1.label1" styleName="color" value="0x000000" />
+		    <CompareBitmap numColorVariances="8" maxColorVariance="10" url="../descendantSelectors/baselines/$testID.png" target="tw1.button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_subclassParent_subclass_style" keywords="[CSS, descendant selector]"
+	    description="Be sure that the style applies to other subclasses of the subject when both parent and child are subclasses.">
+	    <setup>
+	        <ResetComponent target="tw1" className="comps.TitleWindowComp" waitTarget="tw1" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="tw1.checkbox1" numColorVariances="10" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_overrideStyles_style" keywords="[CSS, descendant selector]"
+	    description="Be sure that a type selector style is overwritten by a more specific descendant style.">
+	    <body>
+		    <AssertStyleValue target="textInput1" styleName="color" value="0xff0000" />
+		    <AssertStyleValue target="text1" styleName="color" value="0x0000dd" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="textInput1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_overrideStyles_addChild_style" keywords="[CSS, descendant selector]"
+	    description="Be sure that a type selector style is overwritten by a more specific descendant style.">
+	    <setup>
+	        <ResetComponent target="appcontrolBar1" className="mx.containers.ApplicationControlBar" waitTarget="appcontrolBar1" waitEvent="updateComplete" />
+	        <RunCode code="application.appcontrolBar1.addChild(new TextInput())" />
+	        <SetProperty target="appcontrolBar1.getChildAt(0)" propertyName="text" value="new TextInput" waitEvent="updateComplete"
+	            waitTarget="appcontrolBar1.getChildAt(0)" />
+	        <RunCode code="application.appcontrolBar1.addChild(new Button())" />
+	        <SetProperty target="appcontrolBar1.getChildAt(1)" propertyName="label" value="new Button" waitEvent="updateComplete"
+	            waitTarget="appcontrolBar1.getChildAt(1)" />
+	    </setup>
+	    <body>
+		    <AssertStyleValue target="appcontrolBar1.getChildAt(0)" styleName="color" value="0xff0000" />
+		    <AssertStyleValue target="appcontrolBar1.getChildAt(1)" styleName="color" value="0x0000dd" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="appcontrolBar1.getChildAt(0)" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_combining_style" keywords="[CSS, descendant selector, class selector]"
+	    description="Be sure that a descendant selector and class selector can combine styles.">
+	    <setup>
+		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />
+	        <SetProperty propertyName="styleName" target="tileComp" value="italicStyles" waitTarget="tileComp" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		    <AssertStyleValue target="tileComp.label1" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.button1" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.button2" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.label1" styleName="textDecoration" value="underline" />
+		    <AssertStyleValue target="tileComp.button1" styleName="textDecoration" value="none" />
+		    <AssertStyleValue target="tileComp.button2" styleName="textDecoration" value="none" />
+		    <CompareBitmap numColorVariances="12" maxColorVariance="20" url="../descendantSelectors/baselines/$testID.png" target="tileComp.label1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_combining_nested_style" keywords="[CSS, descendant selector, class selector]"
+	    description="Be sure that a descendant selector and class selector can combine styles.">
+	    <setup>
+		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />
+	        <SetProperty propertyName="styleName" target="tileComp" value="italicStyles" waitTarget="tileComp" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		    <AssertStyleValue target="tileComp.label2" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.button3" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.label2" styleName="textDecoration" value="underline" />
+		    <AssertStyleValue target="tileComp.button3" styleName="textDecoration" value="none" />
+		    <CompareBitmap numColorVariances="12" maxColorVariance="20" url="../descendantSelectors/baselines/$testID.png" target="tileComp.label2" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_combining_style_mac" keywords="[CSS, descendant selector, class selector]"
+	    description="Be sure that a descendant selector and class selector can combine styles.">
+	    <setup>
+		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />
+	        <SetProperty propertyName="styleName" target="tileComp" value="italicStyles" waitTarget="tileComp" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		    <AssertStyleValue target="tileComp.label1" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.button1" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.button2" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.label1" styleName="textDecoration" value="underline" />
+		    <AssertStyleValue target="tileComp.button1" styleName="textDecoration" value="none" />
+		    <AssertStyleValue target="tileComp.button2" styleName="textDecoration" value="none" />
+		    <CompareBitmap numColorVariances="12" maxColorVariance="20" url="../descendantSelectors/baselines/$testID.png" target="tileComp.label1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantSelector_combining_nested_style_mac" keywords="[CSS, descendant selector, class selector]"
+	    description="Be sure that a descendant selector and class selector can combine styles.">
+	    <setup>
+		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />
+	        <SetProperty propertyName="styleName" target="tileComp" value="italicStyles" waitTarget="tileComp" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		    <AssertStyleValue target="tileComp.label2" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.button3" styleName="fontSize" value="14" />
+		    <AssertStyleValue target="tileComp.label2" styleName="textDecoration" value="underline" />
+		    <AssertStyleValue target="tileComp.button3" styleName="textDecoration" value="none" />
+		    <CompareBitmap numColorVariances="12" maxColorVariance="20" url="../descendantSelectors/baselines/$testID.png" target="tileComp.label2" />
+		</body>
+	</TestCase>
+
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application  height="650" width="500" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" initialize="initApp()">
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+<fx:Script>
+    <![CDATA[
+
+    import mx.events.DragEvent;
+    import mx.managers.DragManager;
+    import mx.core.DragSource;
+    import mx.core.mx_internal;
+    import mx.managers.DragManager;
+    import mx.collections.*;
+
+    public function initApp():void {
+        srcTileList.dataProvider = ["Jane"];
+        destTree.dataProvider = treeDP;
+    }
+
+    public function doDragOver(event:DragEvent) : void
+    {
+        event.preventDefault();
+
+        mx.managers.DragManager.showFeedback(event.ctrlKey ? mx.managers.DragManager.COPY : mx.managers.DragManager.MOVE);
+        TileList(event.target).showDropFeedback(event);
+    }
+
+    public function doDragEnter(event:DragEvent): void
+    {
+        event.preventDefault();
+
+        mx.managers.DragManager.acceptDragDrop(TileList(event.target));
+        mx.managers.DragManager.showFeedback(event.ctrlKey ? mx.managers.DragManager.COPY : mx.managers.DragManager.MOVE);
+        TileList(event.target).showDropFeedback(event);
+    }
+
+    public function doDragDrop(event:DragEvent): void
+    {
+        event.preventDefault();
+        var myTileList:TileList = TileList(event.target);
+        myTileList.hideDropFeedback(event);
+
+        if (event.dragSource.hasFormat("treeItems"))
+        {
+            if (!myTileList.dataProvider)
+               // Create an empty collection to drop items into.
+               myTileList.dataProvider = [];
+
+            var items:Array = event.dragSource.dataForFormat("treeItems") as Array;
+            for (var i:int = items.length - 1; i >= 0; i--)
+            {
+               myTileList.dataProvider.addItemAt(String(items[i].@label), TileList(event.target).calculateDropIndex(event));
+            }
+        }
+    }
+
+    public function doDragComplete(event:DragEvent): void
+    {
+        event.preventDefault();
+        if (event.action == mx.managers.DragManager.MOVE && Tree(event.target).dragMoveEnabled)
+        {
+            var target:Tree = Tree(event.target)
+            if (event.relatedObject != this)
+            {
+                //if we dropped on another component
+                //then we need to remove from ourself first
+                var items:Array = event.dragSource.dataForFormat("treeItems") as Array;
+                var parent:*;
+                var index:int;
+
+                //do the remove
+                for (var i:int=0; i<items.length; i++)
+                {
+                    parent = target.getParentItem(items[i]);
+                    index = getChildIndexInParent(parent, items[i], target);
+                    target.mx_internal::removeChildItem(parent, items[i], index);
+                 }
+             }
+        }
+    }
+
+    private function getChildIndexInParent(parent:Object, child:Object, target:Tree):int
+    {
+        var index:int = 0;
+        if (!parent)
+        {
+            var cursor:IViewCursor = ICollectionView(target.dataProvider).createCursor();
+            while (!cursor.afterLast)
+            {
+                if (child === cursor.current)
+                    break;
+                index++;
+                cursor.moveNext();
+            }
+        }
+        else
+        {
+            if (parent != null && target.dataDescriptor.isBranch(parent) &&
+                target.dataDescriptor.hasChildren(parent))
+            {
+                var children:ICollectionView = target.dataDescriptor.getChildren(parent);
+                if (children.contains(child))
+                {
+                    for (; index < children.length; index++)
+                    {
+                       if (child === children[index])
+                       break;
+                    }
+                }
+             }
+        }
+        return index;
+    }
+
+]]>
+</fx:Script>
+<fx:Declarations>
+<fx:XML id="treeDP" format="e4x">
+   <rootnode>
+        <node label="Mail">
+            <node label="Inbox"/>
+            <node label="Personal Folder">
+                <node label="Demo" isBranch="true" />
+                <node label="Personal" isBranch="true" />
+                <node label="Saved Mail" isBranch="true" />
+                <node label="bar" isBranch="true" />
+            </node>
+            <node label="Sent" isBranch="true" />
+            <node label="Trash"/>
+        </node>
+        <node label="Calendar"/>
+   </rootnode>
+</fx:XML>
+</fx:Declarations>
+<mx:HBox>
+   <mx:Tree id="firstTree" width="250" dragEnabled="true"
+        showRoot="false" dragMoveEnabled="true" dropEnabled="true"  />
+
+<mx:Tree id="secondTree" dataProvider="[]" dropEnabled="true" dragEnabled="true"
+        dragMoveEnabled="true"  />
+</mx:HBox>
+
+<mx:Label width="100%" text="Drag Tree items to the TileList" />
+
+<mx:TileList id="srcTileList"
+    dropEnabled="true"
+    dragOver="doDragOver(event)"
+    dragEnter="doDragEnter(event)"
+    dragDrop="doDragDrop(event)"
+    columnWidth="100" />
+
+<mx:Tree id="destTree"
+    dragEnabled="true"
+    labelField="@label"
+    showRoot="false"
+    dragComplete="doDragComplete(event)"
+    width="250" />
+</s:Application>

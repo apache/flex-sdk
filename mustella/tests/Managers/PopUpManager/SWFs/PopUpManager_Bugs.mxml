@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="700"
+    xmlns:comps="comps.*" >
+<mx:Script>
+    <![CDATA[
+
+       import mx.managers.PopUpManager;
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexMouseEvent;
+       import comps.*;
+       import mx.controls.Button;
+       import mx.containers.TitleWindow;
+
+    public var iPopUp:IFlexDisplayObject;
+    public var t1:GateKeeper;
+    public var tw1:TitleWindow;
+    public var tw2:TitleWindow;
+
+    public function openWindow(modalSetting:Boolean):void
+    {
+        iPopUp = PopUpManager.createPopUp(this, comps.myTitleWindow, modalSetting, "popup");
+    }
+
+    public function openWindow2(modalSetting:Boolean):void
+    {
+        iPopUp = PopUpManager.createPopUp(this, comps.TwComp, modalSetting, "popup");
+    }
+
+    public function openWindow3(modalSetting:Boolean):void
+    {
+        iPopUp = PopUpManager.createPopUp(this, comps.TransparencyPopUp, modalSetting, "popup");
+    }
+
+    public function closeWindow(popUp:IFlexDisplayObject):void
+    {
+        PopUpManager.removePopUp(popUp);
+    }
+
+    public function centerMyPopUp():void
+    {
+        PopUpManager.centerPopUp(iPopUp);
+    }
+
+    public function testPopupBug():void
+    {
+         t1 = GateKeeper(PopUpManager.createPopUp(this,GateKeeper, true));
+         var app:DisplayObject = this;
+         t1.width = 200;
+         t1.height = 200;
+         t1.title = "My window";
+
+         /*setTimeout(function():uint
+         {
+            PopUpManager.removePopUp(t1);
+            PopUpManager.addPopUp(t1, app, true);
+            return 0;
+         } , 300);
+         */
+    }
+
+
+
+    public function openWindow4():void
+    {
+        tw1= new TitleWindow();
+        tw1.title = "Window #1";
+        tw1.width = 220;
+        tw1.height = 150;
+
+        var btn1:Button = new Button();
+        var ti1:TextInput = new TextInput();
+        btn1.label = "open another window";
+        btn1.addEventListener("click", openWindow5);
+        tw1.addChild(btn1);
+        tw1.addChild(ti1);
+        PopUpManager.addPopUp(tw1, this, false);
+    }
+
+    public function openWindow5(event:Event):void
+    {
+        tw2 = new TitleWindow();
+        PopUpManager.addPopUp(tw2, this,  false);
+
+        tw2.title = "Window #2";
+        tw2.width = 220;
+        tw2.height = 150;
+        tw2.x = 150;
+        tw2.y = 100;
+        var btn2:Button = new Button();
+        var ti2:TextInput = new TextInput();
+        btn2.label = "open another window";
+        tw2.addChild(btn2);
+        tw2.addChild(ti2);
+    }
+    
+    public function popupPanel():void
+    {
+         for(var i:int=0; i<3; i++)
+         {
+             var tmp:Panel = Panel(PopUpManager.createPopUp(this,Panel,false));
+             tmp.width = 200;
+             tmp.height = 200;
+             tmp.title = "Panel "+i;
+             tmp.x=i*50;
+             tmp.y=i*50;
+         }           
+    }
+
+  ]]>
+</mx:Script>
+
+<mx:Style source="Assets/myStyles.css" />
+
+<mx:TextInput id="ta" />
+<mx:Panel id="pnl1" />
+ </mx:Application>

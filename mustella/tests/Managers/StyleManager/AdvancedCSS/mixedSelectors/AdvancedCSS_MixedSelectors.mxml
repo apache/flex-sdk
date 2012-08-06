@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/AdvancedCSS/mixedSelectors/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedCSS_Integration.mxml">
+       <mx:Script>
+		<![CDATA[
+
+		import comps.CustomPanel;
+		import mx.styles.*;
+
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+        public var thisStyle:CSSStyleDeclaration;
+
+        public function setMyStylesInAS(): void
+        {
+            var condition:CSSCondition = new CSSCondition(CSSConditionKind.CLASS, "redB");
+		    var selector:CSSSelector = new CSSSelector("spark.components.Button", [condition]);
+		    thisStyle = new CSSStyleDeclaration(selector);
+		    thisStyle.setStyle("chromeColor", 0xFF0033);
+
+        }
+
+        public function setMyStylesInAS2(): void
+        {
+		    var selector:CSSSelector = new CSSSelector("mx.controls.Button", null, null);
+		    thisStyle = StyleManager.getStyleDeclaration("mx.controls.Button");
+		    thisStyle.setStyle("color", 0xFF0033);
+
+        }
+
+	    private function clearMyStylesInAS(): void
+	    {
+	       thisStyle.clearStyle("chromeColor");
+	    }
+
+	    private function newFlex3Declaration(): void
+	    {
+	        var newStyleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration(".customButton");
+	        newStyleDeclaration.setStyle("cornerRadius", 0);
+	        newStyleDeclaration.setStyle("color", 0xFF9900);
+		    StyleManager.setStyleDeclaration("mx.controls.Button", newStyleDeclaration, true);
+		}
+
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+	    <TestCase testID="Merging_ID_Class_Type_Styles" keywords="[CSS, type selector, class selector, id selector]"
+	        description="Test that id styles trump class styles which trump type styles">
+	        <setup>
+	            <ResetComponent target="myPanel1" className="comps.CustomPanel" waitTarget="myPanel1" waitEvent="updateComplete" />
+	            <SetProperty target="myPanel1" propertyName="styleName" value="thisClass" waitTarget="myPanel1" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="myPanel1.getChildAt(0)" styleName="color" value="0x0000FF" />
+	            <AssertStyleValue target="myPanel1.getChildAt(2)" styleName="fontWeight" value="bold" />
+	            <AssertStyleValue target="myPanel1" styleName="cornerRadius" value="10" />
+	            <AssertStyleValue target="myPanel1.getChildAt(1)" styleName="fontStyle" value="italic" />
+	            <DispatchMouseClickEvent target="myPanel1.getChildAt(2).mx_internal:rendererArray.0.0" localX="10" localY="5" waitTarget="myPanel1.getChildAt(2)"
+	               waitEvent="change" />
+	            <WaitForEffectsToEnd />
+	            <AssertPixelValue target="myPanel1.getChildAt(2).mx_internal:rendererArray.0.0" x="10" y="5" value="0xFFFF00" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="Merging_ID_Class_Type_Styles_neg" keywords="[CSS, type selector, class selector, id selector]"
+	        description="Test that other id and class styles don't affect the setting of type styles that don't match the id.">
+	        <setup>
+	            <ResetComponent target="myPanel2" className="comps.CustomPanel" waitTarget="myPanel2" waitEvent="updateComplete" />
+	            <SetProperty target="myPanel2" propertyName="styleName" value="thisClass" waitTarget="myPanel2" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="myPanel2.getChildAt(0)" styleName="color" value="0xFF0000" />
+	            <AssertStyleValue target="myPanel2.getChildAt(2)" styleName="fontWeight" value="bold" />
+	            <AssertStyleValue target="myPanel2" styleName="cornerRadius" value="0" />
+	            <AssertStyleValue target="myPanel2.getChildAt(1)" styleName="fontStyle" value="italic" />
+	            <DispatchMouseClickEvent target="myPanel2.getChildAt(2).mx_internal:rendererArray.0.0" localX="10" localY="5" waitTarget="myPanel2.getChildAt(2)"
+	               waitEvent="change" />
+	            <WaitForEffectsToEnd />
+	            <AssertPixelValue target="myPanel2.getChildAt(2).mx_internal:rendererArray.0.0" x="10" y="5" value="0xFFFF00" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="Merging_ID_Class_Type_Styles_neg2" keywords="[CSS, type selector, class selector, id selector]"
+	        description="Test that other id and class styles don't affect the setting of type styles that don't match the id or stylename.">
+	        <setup>
+	            <ResetComponent target="myPanel2" className="comps.CustomPanel" waitTarget="myPanel2" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="myPanel2.getChildAt(0)" styleName="color" value="0x00FF00" />
+	            <AssertStyleValue target="myPanel2.getChildAt(2)" styleName="fontWeight" value="normal" />
+	            <AssertStyleValue target="myPanel2" styleName="cornerRadius" value="0" />
+	            <AssertStyleValue target="myPanel2.getChildAt(1)" styleName="fontStyle" value="italic" />
+	            <DispatchMouseClickEvent target="myPanel2.getChildAt(2).mx_internal:rendererArray.0.0" localX="10" localY="5" waitTarget="myPanel2.getChildAt(2)"
+	               waitEvent="change" />
+	            <WaitForEffectsToEnd />
+	            <AssertPixelValue target="myPanel2.getChildAt(2).mx_internal:rendererArray.0.0" x="10" y="5" value="0xFFFF00" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="Merging_ID_Class_Type_GumboStyles" keywords="[CSS, type selector, class selector, id selector]"
+	        description="Gumbo:Test that id styles trump class styles which trump type styles">
+	        <setup>
+	            <ResetComponent target="container1" className="comps.CustomFxContainer" waitTarget="container1" waitEvent="updateComplete" />
+	            <SetProperty target="container1" propertyName="styleName" value="thisClass" waitTarget="container1" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+                <AssertMethodValue   method="value=application.container1.getElementAt(0).getStyle('color')" value="0x0000FF" />
+                <AssertMethodValue   method="value=application.container1.getElementAt(1).getStyle('fontStyle')" value="italic" />
+	  	    </body>
+	    </TestCase>
+
+	    <TestCase testID="Merging_ID_Class_Type_GumboStyles_neg" keywords="[CSS, type selector, class selector, id selector]"
+	        description="Gumbo:Test that id styles trump class styles which trump type styles">
+	        <setup>
+	            <ResetComponent target="container2" className="comps.CustomFxContainer" waitTarget="container2" waitEvent="updateComplete" />
+	            <SetProperty target="container2" propertyName="styleName" value="thisClass" waitTarget="container2" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertMethodValue   method="value=application.container2.getElementAt(0).getStyle('color')" value="0xFF0000" />
+                <AssertMethodValue   method="value=application.container2.getElementAt(1).getStyle('fontStyle')" value="italic" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="Merging_ID_Class_Type_GumboStyles_neg2" keywords="[CSS, type selector, class selector, id selector]"
+	        description="Gumbo:Test that id styles trump class styles which trump type styles">
+	        <setup>
+	            <ResetComponent target="container2" className="comps.CustomFxContainer" waitTarget="container2" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.container2.getElementAt(0).getStyle('color')" value="0x00FF00" />
+                <AssertMethodValue method="value=application.container2.getElementAt(1).getStyle('fontStyle')" value="italic" />
+	  	    </body>
+	    </TestCase>
+
+        <TestCase testID="Hierarchy_ID_Class_Type_Styles" keywords="[CSS, type selector, class selector, id selector]"
+			description="Test that the style VBox#firstBox.styleName trumps all styles that match for classnames and ids.">
+			<body>
+			    <AssertStyleValue target="firstBox.getChildAt(0)" styleName="color" value="0xFF0000" />
+			    <CompareBitmap url="../mixedSelectors/baselines/Hierarchy_ID_Class_Type_Styles.png" target="firstBox.getChildAt(0)" />
+			</body>
+	    </TestCase>
+        <TestCase testID="Hierarchy_ComponentVsContainer_Styles" keywords="[CSS, type selector, class selector, id selector]"
+			description="Test that the style VBox#firstBox.styleName doesn't trump a component's type style for a child of a VBox.">
+			<body>
+			    <AssertStyleValue target="firstBox.getChildAt(1)" styleName="color" value="0x3355AA" />
+			    <CompareBitmap url="../mixedSelectors/baselines/Hierarchy_ComponentVsContainer_Styles.png" target="firstBox.getChildAt(1)" />
+			</body>
+	    </TestCase>
+	    <TestCase testID="CSSStyleDeclaration_setStyle_method" keywords="[CSS, type selector, class selector, setStyle]"
+	        description="Gumbo:Test that setStyle works for a type+class selector.">
+	        <setup>
+	            <ResetComponent target="myButton" className="spark.components.Button" waitTarget="myButton" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty propertyName="styleName" value="redB" target="myButton" />
+	            <RunCode code="setMyStylesInAS()" waitEvent="updateComplete" waitTarget="myButton"/>
+	            <AssertStyleValue target="myButton" styleName="chromeColor" value="0xFF0033" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="CSSStyleDeclaration_clearStyle_method" keywords="[CSS, type selector, class selector, setStyle]"
+	        description="Gumbo:Test that setStyle works for a type+class selector.">
+	        <setup>
+	            <ResetComponent target="myButton" className="spark.components.Button" waitTarget="myButton" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty propertyName="styleName" value="redB" target="myButton" />
+	            <RunCode code="clearMyStylesInAS()" waitEvent="updateComplete" waitTarget="myButton"/>
+	            <AssertStyleValue target="myButton" styleName="chromeColor" value="0xCCCCCC" />
+	  	    </body>
+	    </TestCase>
+
+	    <TestCase testID="CSSStyleDeclaration_legacyConstructor_method" keywords="[CSS, CSSStyleDeclaration]"
+	        description="Test that CSSStyleDeclaration with one argument (for old Flex 3) style still works.">
+	        <setup>
+	            <ResetComponent target="oldButton" className="mx.controls.Button" waitTarget="oldButton" waitEvent="updateComplete" />
+	            <SetProperty propertyName="label" value="button 1" target="oldButton" />
+	       </setup>
+	        <body>
+	            <SetProperty propertyName="styleName" value="customButton" target="oldButton" />
+	            <RunCode code="newFlex3Declaration()" waitEvent="updateComplete" waitTarget="oldButton"/>
+	            <AssertStyleValue target="oldButton" styleName="color" value="0xFF9900" />
+	            <AssertStyleValue target="oldButton" styleName="cornerRadius" value="0" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="CSSStyleDeclaration_CSSSelectorKind_Type_method" keywords="[CSS, CSSStyleDeclaration]"
+	        description="Test that CSSSelectorKind can by a Type selector on a halo button.">
+	        <setup>
+	            <ResetComponent target="oldButton" className="mx.controls.Button" waitTarget="oldButton" waitEvent="updateComplete" />
+	            <SetProperty propertyName="label" value="button 1" target="oldButton" />
+	       </setup>
+	        <body>
+	            <RunCode code="setMyStylesInAS2()" waitEvent="updateComplete" waitTarget="oldButton"/>
+	            <AssertStyleValue target="oldButton" styleName="color" value="0xFF0033" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_OverlappingEqualSelectors_class" keywords="[CSS, Class Selectors]"
+	        description="Test that equivalent selectors don't clobber one another. For example, two FxNumericStepper.pinkie declarations.">
+	        <setup>
+	            <ResetComponent target="pinkNS" className="spark.components.NumericStepper" waitTarget="pinkNS" waitEvent="updateComplete" />
+	            <SetProperty propertyName="styleName" value="pinkie" target="pinkNS" waitTarget="pinkNS" waitEvent="updateComplete"/>
+	       </setup>
+	        <body>
+	            <AssertStyleValue target="pinkNS" styleName="chromeColor" value="0xFF00FF" />
+	            <AssertStyleValue target="pinkNS" styleName="symbolColor" value="0x0000FF" />
+	            <CompareBitmap target="pinkNS" url="../mixedSelectors/baselines/$testID.png" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_OverlappingEqualSelectors_id" keywords="[CSS, id Selectors]"
+	        description="Test that equivalent selectors don't clobber one another. For example, two FxNumericStepper#pinkie declarations.">
+	        <setup>
+			    <RunCode code="application.idNS.skin.textDisplay.selectRange(0,1);" waitTarget="idNS.skin.textDisplay" waitEvent="selectionChange" />
+			</setup>
+			<body>
+	            <AssertStyleValue target="idNS" styleName="chromeColor" value="0xFF3366" />
+	            <AssertStyleValue target="idNS" styleName="symbolColor" value="0x0000FF" />
+	            <AssertStyleValue target="idNS" styleName="selectionColor" value="0x6633FF" />
+	            <CompareBitmap target="idNS" url="../mixedSelectors/baselines/$testID.png" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_UniversalSelector_class_spark" keywords="[CSS, class Selectors]"
+	        description="Test that a universal selector and class selector work: *.redText.">
+	        <setup>
+			    <ResetComponent target="myButton" className="spark.components.Button" waitTarget="myButton" waitEvent="updateComplete" />
+	            <SetProperty propertyName="label" value="submit" target="myButton" />
+	            <SetProperty propertyName="styleName" value="redText" target="myButton" waitTarget="myButton" waitEvent="updateComplete" />
+	        </setup>
+			<body>
+	            <AssertStyleValue target="myButton" styleName="color" value="0xFF0000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_UniversalSelector_class_halo" keywords="[CSS, class Selectors]"
+	        description="Test that a universal selector and class selector work: *.redText.">
+	        <setup>
+			    <ResetComponent target="oldButton" className="mx.controls.Button" waitTarget="oldButton" waitEvent="updateComplete" />
+	            <SetProperty propertyName="label" value="submit" target="oldButton" />
+	            <SetProperty propertyName="styleName" value="redText" target="oldButton" waitTarget="oldButton" waitEvent="updateComplete" />
+	        </setup>
+			<body>
+	            <AssertStyleValue target="oldButton" styleName="color" value="0xFF0000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_UniversalSelector_pseudo" keywords="[CSS, pseudo Selectors]"
+	        description="Test that a universal selector and pseudo selector work: *:up.">
+	        <setup>
+			    <ResetComponent target="myButton" className="spark.components.Button" waitTarget="myButton" waitEvent="updateComplete" />
+	            <SetProperty propertyName="label" value="submit" target="myButton" />
+	        </setup>
+			<body>
+			    <DispatchMouseClickEvent target="myButton" localX="10" localY="8" waitEvent="updateComplete" waitTarget="myButton.skin" />
+				<DispatchMouseEvent target="myButton" type="mouseDown" localX="15" localY="8" waitEvent="mouseDown" waitTarget="myButton" />
+	            <AssertStyleValue target="myButton" styleName="chromeColor" value="0x00CC66" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_UniversalSelector_descendant" keywords="[CSS, descendant Selectors]"
+	        description="Test that a universal selector and descendant selector work: FxPanel *.">
+	        <setup>
+			    <ResetComponent target="buttonInPanel" className="spark.components.Button" waitTarget="buttonInPanel" waitEvent="updateComplete" />
+	            <SetProperty propertyName="label" value="FxButton in FxPanel" target="buttonInPanel" />
+	        </setup>
+			<body>
+			    <AssertStyleValue target="buttonInPanel" styleName="chromeColor" value="0x3366CC" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_UniversalSelector_descendant_halo" keywords="[CSS, descendant Selectors]"
+	        description="Test that a universal selector and descendant selector work: FxPanel *.">
+	        <setup>
+			    <ResetComponent target="haloText" className="mx.controls.Text" waitTarget="haloText" waitEvent="updateComplete" />
+	            <SetProperty propertyName="text" value="Halo Text" target="haloText" />
+	            <SetProperty propertyName="x" value="200" target="haloText" />
+	        </setup>
+			<body>
+			    <AssertStyleValue target="haloText" styleName="color" value="0x009999" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_UniversalSelector_id" keywords="[CSS, id Selectors]"
+	        description="Test that a universal selector and id selector work: *#track">
+	        <setup>
+			    <ResetComponent target="hscrollBar" className="spark.components.HScrollBar" waitTarget="hscrollBar" waitEvent="updateComplete" />
+	            <SetProperty propertyName="maximum" value="20" target="hscrollBar" />
+	            <SetProperty propertyName="minimum" value="0" target="hscrollBar" waitTarget="hscrollBar" waitEvent="updateComplete" />
+	        </setup>
+			<body>
+			    <AssertStyleValue target="hscrollBar.skin.track" styleName="chromeColor" value="0xFFCC66" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="AdvancedCSS_id_class_pseudoSelectors" keywords="[CSS, id Selectors, class selectors, pseudo selector]"
+	        description="Test that a universal selector and id selector work: FxButton.yellowStyle#button1:down">
+	        <body>
+			    <AssertStyleValue target="myButton2" styleName="chromeColor" value="0xCCCCCC" />
+			    <AssertStyleValue target="button1" styleName="chromeColor" value="0xCCCCCC" />
+	  	        <DispatchMouseClickEvent target="button1" localX="10" localY="8" waitEvent="updateComplete" waitTarget="button1.skin" />
+				<DispatchMouseEvent target="button1" type="mouseDown" localX="15" localY="8" waitEvent="mouseDown" waitTarget="button1" />
+			    <AssertStyleValue target="button1" styleName="chromeColor" value="0xFFFF33" />
+	        </body>
+	    </TestCase>
+
+	</testCases>
+</UnitTester>

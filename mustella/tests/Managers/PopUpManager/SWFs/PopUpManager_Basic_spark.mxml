@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" width="800" height="700"
+    xmlns:comps="comps.*" initialize="init()">
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+     <fx:Style>
+	 		@namespace s "library://ns.adobe.com/flex/spark";
+	 		@namespace mx "library://ns.adobe.com/flex/mx";
+	 		@font-face{
+	 			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+	 			fontFamily: myArial;
+	 			embedAsCFF: true;
+	 		}
+	 
+	 
+	 		@font-face{
+	 			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+	 			fontWeight: bold;
+	 			fontFamily: myArial;
+	 			embedAsCFF: true;
+	 		}
+	 
+	 		@font-face{
+	 			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+	 			fontStyle: italic;
+	 			fontFamily: myArial;
+	 			embedAsCFF: true;
+	 
+	 		}
+	 		
+	 		@font-face {
+				src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+				fontFamily: MyArialHalo;
+				embedAsCFF: false;
+			}
+
+			@font-face {
+				src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+	 			fontStyle: italic;
+				fontFamily: MyArialHalo;
+				embedAsCFF: false;
+			}
+
+			@font-face {
+				src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+	 			fontWeight: bold;
+				fontFamily: MyArialHalo;		
+				embedAsCFF: false;
+			}		
+	 
+	 		mx|TextInput, mx|Button, mx|Panel, mx|Label {
+	 			fontAntiAliasType: "normal";
+				fontFamily: MyArialHalo;
+				fontSize: 12;
+			}
+			
+	 		global{
+	 			fontAntiAliasType: "normal";
+	 			fontFamily: myArial;
+	 			fontSize: 12;
+	 			fontLookup: "embeddedCFF";
+	 		}
+	</fx:Style>
+	<fx:Script>
+    <![CDATA[
+
+       import mx.managers.PopUpManager;
+	   import comps.myTitleWindow;
+	   import mx.controls.Button;
+	   import mx.containers.Panel;
+	   import mx.core.IFlexDisplayObject;
+	   import mx.events.FlexMouseEvent;
+
+    public var iPopUp:IFlexDisplayObject;
+    public var popUpTitleWindow:IFlexDisplayObject;
+    public var canvasPopUp:IFlexDisplayObject;
+
+	public var iPanel:Panel;
+
+	private function init(): void
+	{
+	    canvasPopUp = PopUpManager.createPopUp(this, comps.MyCanvasMXMLSpark, true, "popup");
+	    PopUpManager.removePopUp(canvasPopUp);
+	    iPanel = new Panel ();
+	}
+
+	public function openWindow(modalSetting:Boolean):void
+	{
+		iPopUp = PopUpManager.createPopUp(this, comps.myTitleWindow, modalSetting, "popup");
+	}
+
+	public function openWindow2(modalSetting:Boolean):void
+	{
+		iPopUp = PopUpManager.createPopUp(this, comps.myTitleWindowMXML, modalSetting, "popup");
+	}
+
+	public function closeWindow(popUp:IFlexDisplayObject):void
+	{
+		PopUpManager.removePopUp(popUp);
+	}
+
+	public function openWindow3(modalSetting:Boolean):void
+	{
+		iPopUp = PopUpManager.createPopUp(this, comps.MyCanvas2Spark, modalSetting, "popup");
+	}
+
+	public function openWindow4(modalSetting:Boolean):void
+	{
+		PopUpManager.addPopUp(canvasPopUp, this, modalSetting);
+	}
+
+	public function openWindow5(modalSetting:Boolean):void
+	{
+		iPopUp = PopUpManager.createPopUp(this, comps.MyCanvasMXML2Spark, modalSetting, "popup");
+	}
+
+	public function openWindow6(modalSetting:Boolean):void
+	{
+		iPopUp = PopUpManager.createPopUp(myPanel, comps.myTitleWindow, modalSetting, "popup");
+	}
+
+	public function centerMyPopUp():void
+	{
+		PopUpManager.centerPopUp(canvasPopUp);
+	}
+
+	public function addWindow(modalSetting:Boolean):void
+	{
+		iPanel.title = "My Test PopUp: Modal Setting:" + String(modalSetting);
+		iPanel.width=220;
+		iPanel.height=150;
+		var btn2:Button = new Button();
+		btn2.label="close";
+		iPanel.addChild(btn2);
+	    PopUpManager.addPopUp(iPanel, this , modalSetting);
+	}
+
+  ]]>
+</fx:Script>
+
+<mx:TextInput id="ta" />
+<mx:Panel id="myPanel" />
+
+ </s:Application>

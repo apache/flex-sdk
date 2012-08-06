@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+    applicationComplete="initApp()" backgroundImage="" backgroundColor="#FFFFFF"
+    width="650">
+
+    <mx:Script>
+    <![CDATA[
+
+        import mx.styles.StyleManager;
+        import mx.events.StyleEvent;
+        import mx.utils.URLUtil;
+
+        private var myevent:IEventDispatcher;
+
+        public var portNumber :Number=80;
+        
+        private function initApp():void
+        {
+            if(parameters != null)
+            {
+                for (var i:String in parameters) {
+                    if(i == "port") {
+                        portNumber = Number(parameters[i]); 
+                    }
+                }
+            }
+                
+            if(URLUtil.getServerName(Application.application.loaderInfo.url)=="localhost")
+            {
+                myevent = StyleManager.loadStyleDeclarations("http://localhost:"+ portNumber +"/Managers/StyleManager/SWFs/assets/embeddedStyles.swf");
+            }
+            else
+            {
+                myevent = StyleManager.loadStyleDeclarations("assets/embeddedStyles.swf");
+            }
+            myevent.addEventListener(StyleEvent.COMPLETE, getImages);
+            myevent.addEventListener(StyleEvent.ERROR, loadCSS2);
+        }
+
+        private function loadCSS2(event:StyleEvent): void
+        {
+            var newevent:IEventDispatcher;
+            newevent = StyleManager.loadStyleDeclarations("embeddedStyles.swf");
+            newevent.addEventListener(StyleEvent.COMPLETE, getImages);
+        }
+
+        private function getImages(event:StyleEvent): void
+        {
+            map1.source = acb.getStyle("dottedMap");
+            map2.source = acb2.getStyle('dottedMap');
+        }
+
+
+    ]]>
+    </mx:Script>
+<mx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+
+<mx:Label text="Using a class selector:" />
+<mx:ApplicationControlBar id="acb" width="250" styleName="homeMap">
+    <mx:Image id="map1" />
+    <mx:Button label="Submit" />
+</mx:ApplicationControlBar>
+
+<mx:Label text="Using a type selector:" />
+<mx:ApplicationControlBar id="acb2" width="250" >
+    <mx:Image id="map2" />
+    <mx:Button label="Submit" />
+</mx:ApplicationControlBar>
+
+<mx:HBox>
+    <mx:VBox>
+        <mx:Label text="Using a class selector:" />
+        <mx:Panel id="acb3" width="250" height="150" styleName="customPanel">
+            <mx:Button label="Submit" />
+        </mx:Panel>
+    </mx:VBox>
+    <mx:VBox>
+        <mx:Label text="Using a type selector:" />
+        <mx:Panel id="acb4" width="250" height="150" >
+            <mx:Button label="Submit" />
+        </mx:Panel>
+    </mx:VBox>
+</mx:HBox>
+
+</mx:Application>

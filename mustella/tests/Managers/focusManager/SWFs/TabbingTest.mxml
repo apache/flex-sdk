@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalAlign="left" >
+
+	 <mx:Script>
+	 	<![CDATA[
+	 		public function modify():void {
+	 			if (!toggleable.visible) {
+	 				toggleable.visible = true;
+	 				toggleable.tabIndex = 3025;
+	 				toggleable.text = "My tabIndex is 3025";
+	 			}
+	 			else {
+	 				toggleable.visible = false;
+	 			}
+
+	 		}
+
+	 	]]>
+	 </mx:Script>
+
+	<mx:Canvas
+	    id="rootCanvas">
+
+        <mx:TextInput
+            id="entryTextInput"
+            width="100%"
+            text="press Enter now to enter forms mode for easier navigation."
+            tabIndex="1"/>
+
+         <mx:Button id="toggle" y="50" click="modify();" label="I am a button" tabIndex="10"/>
+		 <mx:TextInput id="toggleable" y="75" visible="false" text="I am invisible to screenreaders"/>
+
+            <mx:Grid y="100" id="tabGrid" borderStyle="solid" borderColor="0x000000">
+                <mx:GridRow>
+                    <mx:GridItem>
+                        <mx:LinkButton
+                		    id="link2010"
+                		    label="Link 2010"
+                            tabIndex="2010"/>
+                    </mx:GridItem>
+                    <mx:GridItem>
+                        <mx:LinkButton
+                		    id="link3010"
+                		    label="Link 3010"
+                            tabIndex="3010"/>
+                    </mx:GridItem>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link4010"
+                		    label="Link 4010"
+                            tabIndex="4010"/>
+                    </mx:GridItem>
+                </mx:GridRow>
+                <mx:GridRow>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link2020"
+                		    label="Link 2020"
+                            tabIndex="2020"/>
+  			  </mx:GridItem>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link3020"
+                		    label="Link 3020"
+                            tabIndex="3020"/>
+                    </mx:GridItem>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link4020"
+                		    label="Link 4020"
+                            tabIndex="4020"/>
+                    </mx:GridItem>
+                </mx:GridRow>
+                <mx:GridRow>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link2030"
+                		    label="Link 2030"
+                            tabIndex="2030"/>
+                    </mx:GridItem>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link3030"
+                		    label="Link 3030"
+                            tabIndex="3030"/>
+                    </mx:GridItem>
+                    <mx:GridItem>
+                		<mx:LinkButton
+                		    id="link4030"
+                		    label="Link 4030"
+                            tabIndex="4030"/>
+                    </mx:GridItem>
+                </mx:GridRow>
+            </mx:Grid>
+
+		<mx:Canvas y="200" width="500">
+       		<mx:LinkButton y="100" id="link5010" label="Link 5010" tabIndex="5010"/>
+       		<mx:LinkButton y="80" id="link5020" label="Link 5020" tabIndex="5020"/>
+       		<mx:LinkButton y="60" id="link5030" label="Link 5030" tabIndex="5030"/>
+       		<mx:LinkButton y="40" id="link5040" label="Link 5040" tabIndex="5040"/>
+       		<mx:LinkButton y="20" id="link5050" label="Link 5050" tabIndex="5050"/>
+       		<mx:LinkButton y="0" id="link5060" label="Link 5060" tabIndex="5060"/>
+		</mx:Canvas>
+       		<mx:LinkButton y="69" x="365" label="link with no tabindex"/>
+
+
+    	   </mx:Canvas>
+
+</mx:Application>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/focusManager/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FocusManager_Basic.mxml">
+
+    <mx:Script>
+    <![CDATA[
+    
+        import mx.managers.FocusManager;
+        
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.controls.DateChooser;
+    import mx.controls.DataGrid;
+    
+    public var newDC:DateChooser;
+    public var dp:Array = [
+       {label: "Joan", feature: "Menus"},
+       {label: "Joann", feature: "AIR"},
+       {label: "Rob", feature: "DataGrid"}
+       ];
+    
+    public function addDataGrid():void
+    {
+        var newDG:DataGrid = new DataGrid();
+        newDG.dataProvider = dp;
+        newDG.editable=true;
+        application.layout1.addChildAt(newDG, 1);
+    }
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="focusManager_multipleTabLoops" description="Ensure that multiple tab loops in an Application works" keywords="[FocusManager, TAB, getFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button2"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button2"/>
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti2') != -1" />  
+            </body>
+       </TestCase>
+        <TestCase testID="focusManager_multipleTabLoops_and_mouseClicks" description="Ensure that tab order is still correct after tabbing and mouse clicks" keywords="[FocusManager, TAB, getFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button2"/>
+                <DispatchMouseClickEvent target="layout1.ti2" localX="15" localY="5" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('button1') != -1" />  
+            </body>
+       </TestCase>
+        <TestCase testID="focusManager_tabLoop_afterNewchild" description="Ensure tab order remains correct after a new child is added" keywords="[FocusManager, setFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <RunCode code="newDC = new DateChooser()" />
+                <RunCode code="newDC.id = 'newDC'" />
+                <RunCode code="application.layout1.addChild(newDC)" waitEvent="updateComplete" waitTarget="layout1" />
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.getChildAt(4)"/>
+                <DispatchKeyEvent keys="[RIGHT, RIGHT, ENTER]" waitEvent="change" waitTarget="layout1.getChildAt(4)"/>
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti2') != -1" />  
+            </body>
+       </TestCase>        
+       <TestCase testID="focusManager_tabLoop_afterRemovechild" description="Ensure tab order remains correct after a remove child is added" keywords="[FocusManager, setFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <RunCode code="application.layout1.removeChildAt(0)" waitEvent="updateComplete" waitTarget="layout1" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('button1') != -1" />  
+            </body>
+       </TestCase>
+        <TestCase testID="focusManager_multipleTabLoops_withTabIndex" description="Ensure that multiple tab loops in an Application works" keywords="[FocusManager, TAB, getFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti1" value="3" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti2" value="2" />
+                <SetProperty propertyName="tabIndex" target="layout1.button1" value="4" />
+                <SetProperty propertyName="tabIndex" target="layout1.button2" value="1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti2') != -1" />  
+            </body>
+       </TestCase>
+       <TestCase testID="focusManager_tabAndMouse_withTabIndex" description="Ensure that multiple tab loops in an Application works" keywords="[FocusManager, TAB, getFocus]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti1" value="3" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti2" value="2" />
+                <SetProperty propertyName="tabIndex" target="layout1.button1" value="4" />
+                <SetProperty propertyName="tabIndex" target="layout1.button2" value="1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchMouseClickEvent target="layout1.ti2" localX="15" localY="5" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button2"/>
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.ti1"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti1') != -1" />  
+            </body>
+       </TestCase>    
+       <TestCase testID="focusManager_shiftKey_basic" description="Ensure that using shift key when tabbing works correctly" keywords="[FocusManager, TAB, SHIFT]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.ti1" localX="10" localY="8" waitEvent="focusIn" waitTarget="layout1.ti1" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button2"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" shiftKey="true" waitEvent="focusIn" waitTarget="layout1.ti1"/>
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('button1') != -1" />  
+            </body>
+       </TestCase>
+       <TestCase testID="focusManager_shiftKey_tabIndex" description="Ensure that shift+tab works when tabIndexes are specified" keywords="[FocusManager, TAB, tabIndex, SHIFT]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti1" value="3" />
+                <SetProperty propertyName="tabIndex" target="layout1.ti2" value="2" />
+                <SetProperty propertyName="tabIndex" target="layout1.button1" value="4" />
+                <SetProperty propertyName="tabIndex" target="layout1.button2" value="1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.button2" localX="10" localY="8" waitEvent="focusIn" waitTarget="layout1.button2" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchKeyEvent keys="[TAB, TAB]" shiftKey="true" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti2') != -1" />  
+            </body>
+       </TestCase> 
+       <TestCase testID="focusManager_shiftKey_withDataGrid" description="Ensure that bug SDK-12588 is working correctly" keywords="[FocusManager, TAB, DataGrid, SHIFT]">
+            <setup>
+                <ResetComponent target="layout1" className="MyLayout" waitTarget="layout1" waitEvent="updateComplete" />
+                <RunCode code="addDataGrid()" waitEvent="updateComplete" waitTarget="layout1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="layout1.ti1" localX="10" localY="8" waitEvent="focusIn" waitTarget="layout1.ti1" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="layout1.button2"/>
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="focusIn" waitTarget="layout1.button1"/>
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="focusIn" waitTarget="layout1.ti2"/>
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="itemFocusIn" waitTarget="layout1.getChildAt(1)" />
+                <DispatchKeyEvent key="TAB" shiftKey="true" waitEvent="focusIn" waitTarget="layout1.ti1" />
+                <AssertMethodValue value="true" method="value=String(application.focusManager.getFocus()).indexOf('ti1') != -1" />  
+            </body>
+       </TestCase>
+    </testCases>
+
+</UnitTester>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/AdvancedCSS/classSelectors/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ClassSelectors_main_runtimeCSS.mxml">
+       <mx:Script>
+		<![CDATA[
+
+		import comps.BoxComp;
+	    import mx.containers.HBox;
+
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+    <!--- Pause seemed necessary for Runtime CSS tests to start up and load the css swf -->
+	<TestCase testID="classTypeSelector_basic_style" keywords="[CSS, type selector, class selector]"
+	    description="Does a basic Type selector with a class selector work defined within the Style tag?">
+	    <setup>
+	        <Pause timeout="1000" />
+	    </setup>
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="hbox1" />
+		</body>
+	</TestCase>
+	<TestCase testID="classTypeSelector_basic_style_neg" keywords="[CSS, type selector, class selector]"
+	    description="Be sure that a style on HBox.pinkButton doesn't affect a VBox with pinkButton styleName">
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="vbox1" />
+		</body>
+	</TestCase>
+	<TestCase testID="classTypeSelector_basic_style_neg2" keywords="[CSS, type selector, class selector]"
+	    description="Be sure that a style on HBox.pinkButton doesn't affect a HBox with no styleName">
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="hbox2" />
+		</body>
+	</TestCase>
+	<TestCase testID="classTypeSelector_basic_style_nested" keywords="[CSS, type selector, class selector]"
+	    description="Does a basic Type selector with a class selector work even if the type is nested in containers?">
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="hbox3" />
+		</body>
+	</TestCase>
+	<TestCase testID="classTypeSelector_basic_style_setAtRuntime" keywords="[CSS, type selector, class selector]"
+	    description="Does a basic Type selector with a class selector work even if the styleName is set at runtime?">
+	    <setup>
+	        <ResetComponent target="hbox2" className="mx.containers.HBox" waitTarget="hbox2" waitEvent="updateComplete" />
+	        <SetProperty propertyName="width" target="hbox2" value="20" waitTarget="hbox2" waitEvent="updateComplete" />
+	        <SetProperty propertyName="height" target="hbox2" value="30" waitTarget="hbox2" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <SetProperty propertyName="styleName" target="hbox2" value="pinkBox" waitTarget="hbox2" waitEvent="updateComplete" />
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="hbox2" timeout="2500" />
+		</body>
+	</TestCase>
+	<TestCase testID="classSelector_basic_PopUp_style" keywords="[CSS, type selector, class selector, PopUpManager]"
+	    description="Does a type selector with class selector work for component added to a popUp when defined within the Style tag?">
+	    <body>
+		    <DispatchMouseClickEvent target="openButton" localX="10" localY="10" waitTarget="iPopUp" waitEvent="updateComplete" />
+            <AssertPixelValue target="iPopUp" x="10" y="10" value="0xFF99CC" />
+		</body>
+	</TestCase>
+	<TestCase testID="classSelector_basic_module_style" keywords="[CSS, type selector, class selector, Modules]"
+	    description="(Module) Does a basic type selector with a class selector work defined within the Style tag?">
+	    <setup>
+		    <DispatchMouseClickEvent target="closeButton" localX="10" localY="10" />
+	    </setup>
+		<body>
+		    <AssertPixelValue target="hbox_module" x="10" y="10" value="0xFF99CC" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendant_classSelector_basic_style" keywords="[CSS, type selector, class selector]"
+	    description="Test descendant type selector with a class selector within the Style tag?">
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="button2" />
+		    <AssertStyleValue target="button2" styleName="color" value="0x697493" />
+		    <CompareBitmap url="../classSelectors/baselines/$testID_2.png" target="button3" />
+		    <AssertStyleValue target="button3" styleName="color" value="0x697493" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendant_classSelector_basic_style_neg" keywords="[CSS, type selector, class selector]"
+	    description="Test descendant type selector with a class selector within the Style tag?">
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="button1" />
+		    <AssertStyleValue target="button1" styleName="color" value="0x000000" />
+		    <AssertStyleValue target="main_button1" styleName="color" value="0x000000" />
+		    <AssertStyleValue target="main_button2" styleName="color" value="0x000000" />
+		</body>
+	</TestCase>
+	<TestCase testID="id_classSelector_basic_style" keywords="[CSS, class selector, id selector]"
+	    description="Test id selectors, with a class selector within the Style tag">
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="myDateField" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		    <DispatchMouseClickEvent target="myDateField.getChildAt(1)" localX="5" localY="5" waitTarget="myDateField" waitEvent="open" />
+		    <WaitForEffectsToEnd />
+		    <CompareBitmap url="../classSelectors/baselines/$testID_2.png" target="myDateField.dropdown" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		    <AssertStyleValue target="myDateField" styleName="color" value="0xFF0000" />
+		</body>
+	</TestCase>
+	<TestCase testID="id_classSelector_basic_style_neg" keywords="[CSS, class selector, id selector]"
+	    description="Test id selectors, with a class selector within the Style tag">
+	    <setup>
+	        <ResetComponent target="myDateField" className="mx.controls.DateField" waitTarget="myDateField" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="myDateField2" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		    <DispatchMouseClickEvent target="myDateField2.getChildAt(1)" localX="5" localY="5" waitTarget="myDateField2" waitEvent="open" />
+		    <WaitForEffectsToEnd />
+		    <CompareBitmap url="../classSelectors/baselines/$testID_2.png" target="myDateField2.dropdown" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>
+	<TestCase testID="descendant_anyType_classSelector_style" keywords="[CSS, descendant selector, type selector, class selector]"
+	    description="Test descendant type selector with any type and a class selector within the Style tag?">
+	    <body>
+	        <AssertPixelValue target="greenCanvas" x="3" y="3" value="0x00DD00" />
+	        <AssertPixelValue target="greenBox" x="3" y="3" value="0x00DD00" />
+	        <AssertPixelValue target="greenVBox" x="3" y="4" value="0x00DD00" />
+	        <RunCode code="application.newBox = new HBox()" />
+	        <SetProperty target="newBox" propertyName="width" value="10" />
+	        <SetProperty target="newBox" propertyName="height" value="10" />
+	        <SetProperty target="newBox" propertyName="styleName" value="greenBox" />
+	        <RunCode code="application.greenContainer.addChild(application.newBox)" waitEvent="updateComplete" waitTarget="greenContainer" />
+            <AssertPixelValue target="greenContainer.getChildAt(4)" x="3" y="4" value="0x00DD00" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendant_anyType_classSelector_style_neg" keywords="[CSS, descendant selector, type selector, class selector]"
+	    description="Test descendant type selector with any type and a class selector within the Style tag?">
+	    <body>
+	        <AssertPixelValue target="whiteVBox" x="3" y="4" value="0xFFFFFF" />
+	        <AssertPixelValue target="canvas2" x="3" y="4" value="0x99FFCC" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantWithClassSelector_typeSelector_style" keywords="[CSS, descendant selector, type selector, class selector]"
+	    description="Test a style like: ApplicationControlBar.iconAdditionStyle Button">
+	    <setup>
+	        <DispatchMouseClickEvent target="" waitTarget="" waitEvent="mouseUp" />
+	    </setup>
+	    <body>
+	        <CompareBitmap url="../classSelectors/baselines/$testID.png" target="acb_button1" />
+		</body>
+	</TestCase>
+	<TestCase testID="descendantWithClassSelector_typeSelector_style_precedence" keywords="[CSS, descendant selector, type selector, class selector]"
+	    description="Test a style like: ApplicationControlBar.iconAdditionStyle Button">
+	    <body>
+	        <CompareBitmap url="../classSelectors/baselines/$testID.png" target="acb_button2" />
+		</body>
+	</TestCase>
+	<TestCase testID="TypeWithClassSelector_separatedByCommas_style" keywords="[CSS, type selector, class selector]"
+	    description="Test a style like: Label,Text.redTheme ">
+	    <setup>
+	        <ResetComponent target="myDateField2" className="mx.controls.DateField" waitTarget="myDateField2" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <AssertStyleValue target="text1" styleName="color" value="0xFF0000" />
+	        <AssertStyleValue target="text2" styleName="color" value="0xFF0000" />
+	        <AssertStyleValue target="label2" styleName="color" value="0xFF0000" />
+	        <CompareBitmap url="../classSelectors/baselines/$testID.png" target="label2" />
+		</body>
+	</TestCase>
+	<TestCase testID="TypeWithClassSelector_separatedByCommas_style_neg" keywords="[CSS, type selector, class selector]"
+	    description="Test a style like: Label,Text.redTheme">
+	    <body>
+	        <AssertStyleValue target="label1" styleName="color" value="0x000000" />
+	        <CompareBitmap url="../classSelectors/baselines/$testID.png" target="label1" />
+		</body>
+	</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/AdvancedCSS/pseudoSelectors/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+    testSWF="PseudoSelectors_spark_runtimeCSS.mxml">
+       <mx:Script>
+		<![CDATA[
+
+		import comps.CustomPanel;
+
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+	    <TestCase testID="PseudoSelector_spark_basicSkinState_start" keywords="[CSS, pseudoSelector, FxButton]"
+	        description="Test that a basic pseudo selector works on an FxButton when no state has changed: FxButton:up.">
+	        <setup>
+	            <ResetComponent target="firstButton" className="spark.components.Button" waitTarget="firstButton" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="firstButton" styleName="chromeColor" value="0xB00000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_subclassedSkinState_start" keywords="[CSS, pseudoSelector, FxToggleButton]"
+	        description="Test that a component (FxToggleButton) pseudo selector matches an FxButton selector when no state has changed: FxButton:up.">
+	        <setup>
+	            <ResetComponent target="firstToggle" className="spark.components.ToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <SetProperty target="firstToggle" propertyName="label" value="FxToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="firstToggle" styleName="chromeColor" value="0xB00000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_SkinStateHeirarchy_stateChanged" keywords="[CSS, pseudoSelector, FxToggleButton]"
+	        description="Test that a component (FxToggleButton) pseudo selector matches an FxToggleButton selector when a state has changed: FxToggleButton:upSelected. It should no longer match a FxButton:up selector">
+	        <setup>
+	            <ResetComponent target="firstToggle" className="spark.components.ToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <SetProperty target="firstToggle" propertyName="label" value="FxToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstToggle" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="firstToggle" />
+	            <AssertPropertyValue target="firstToggle" propertyName="selected" value="true" />
+	            <AssertStyleValue target="firstToggle" styleName="chromeColor" value="0x660099" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_basicSkinState_stateChanged" keywords="[CSS, pseudoSelector, FxButton]"
+	        description="Test that a basic pseudo selector works on an FxButton when a state has changed: FxButton:down.">
+	        <setup>
+	            <ResetComponent target="firstButton" className="spark.components.Button" waitTarget="firstButton" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <DispatchMouseClickEvent target="firstButton" localX="10" localY="8" waitEvent="updateComplete" waitTarget="firstButton.skin" />
+	            <DispatchMouseEvent target="firstButton" type="mouseDown" localX="15" localY="8" waitEvent="mouseDown" waitTarget="firstButton" />
+	            <AssertStyleValue target="firstButton" styleName="chromeColor" value="0x66CCFF" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_subclassedSkinState_stateChanged" keywords="[CSS, pseudoSelector, FxToggleButton]"
+	        description="Test that a component (FxToggleButton) pseudo selector matches an FxButton selector when no state has changed: FxButton:up.">
+	        <setup>
+	            <ResetComponent target="firstButton" className="spark.components.Button" waitTarget="firstButton" waitEvent="updateComplete" />
+	            <ResetComponent target="firstToggle" className="spark.components.ToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <SetProperty target="firstToggle" propertyName="label" value="FxToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <SetProperty target="firstToggle" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="firstToggle" />
+	        </setup>
+	        <body>
+	            <DispatchMouseClickEvent target="firstToggle" localX="10" localY="8" waitEvent="updateComplete" waitTarget="firstToggle" />
+	            <DispatchMouseEvent target="firstToggle" type="mouseDown" localX="10" localY="8" waitEvent="updateComplete" waitTarget="firstToggle" />
+	            <AssertStyleValue target="firstToggle" styleName="chromeColor" value="0x66CCFF" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_basicSkinState_disabled" keywords="[CSS, pseudoSelector, FxButton]"
+	        description="Test that a basic pseudo selector works on an FxButton in the disabled state: FxButton:disabled.">
+	        <setup>
+	            <ResetComponent target="firstButton" className="spark.components.Button" waitTarget="firstButton" waitEvent="updateComplete" />
+	            <SetProperty target="firstButton" propertyName="label" value="FxButton" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstButton" propertyName="enabled" value="false" waitTarget="firstButton" waitEvent="updateComplete" />
+	            <AssertStyleValue target="firstButton" styleName="chromeColor" value="0xFFCC66" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_subclassedSkinState_disabled" keywords="[CSS, pseudoSelector, FxToggleButton]"
+	        description="Test that a subclassed component (FxToggleButton) pseudo selector matches an FxButton selector in the disabled state: FxButton:disabled.">
+	        <setup>
+	            <ResetComponent target="firstToggle" className="spark.components.ToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <SetProperty target="firstToggle" propertyName="label" value="FxToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstToggle" propertyName="enabled" value="false" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <AssertStyleValue target="firstToggle" styleName="chromeColor" value="0xFFCC66" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_withDescendantSelector_start" keywords="[CSS, pseudoSelector, FxNumericStepper]"
+	        description="Test that a descendant selector and pseudo selector work when combined when no state has changed. FxPanel FxNumericStepper:normal.">
+	        <setup>
+	            <ResetComponent target="firstNS" className="spark.components.NumericStepper" waitTarget="firstNS" waitEvent="updateComplete" />
+	            <ResetComponent target="secondNS" className="spark.components.NumericStepper" waitTarget="secondNS" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="firstNS" styleName="symbolColor" value="0x000000" />
+	            <AssertStyleValue target="secondNS" styleName="symbolColor" value="0xFF0000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_withDescendantSelector_stateChanged" keywords="[CSS, pseudoSelector, FxNumericStepper]"
+	        description="Test that a descendant selector and pseudo selector work when combined when a state has changed. FxPanel FxNumericStepper:disabled.">
+	        <setup>
+	            <ResetComponent target="firstNS" className="spark.components.NumericStepper" waitTarget="firstNS" waitEvent="updateComplete" />
+	            <ResetComponent target="secondNS" className="spark.components.NumericStepper" waitTarget="secondNS" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstNS" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="firstNS" />
+	            <SetProperty target="secondNS" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="secondNS" />
+	            <AssertStyleValue target="firstNS" styleName="symbolColor" value="0x000000" />
+	            <AssertStyleValue target="secondNS" styleName="symbolColor" value="0xFF2266" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_FxButtonsOnNS_start" keywords="[CSS, pseudoSelector, FxNumericStepper]"
+	        description="Test that a pseudo selector for FxButton affects the buttons of an FxNumericStepper.">
+	        <setup>
+	            <ResetComponent target="firstNS" className="spark.components.NumericStepper" waitTarget="firstNS" waitEvent="updateComplete" />
+	            <ResetComponent target="secondNS" className="spark.components.NumericStepper" waitTarget="secondNS" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="firstNS.incrementButton" styleName="chromeColor" value="0xB00000" />
+	            <AssertStyleValue target="secondNS.incrementButton" styleName="chromeColor" value="0xB00000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_FxButtonInGroup_start" keywords="[CSS, pseudoSelector, FxButton, Group]"
+	        description="Test that a basic pseudo selector works on an FxButton when it is in a Group and no state has changed: FxButton:up.">
+	        <setup>
+	            <ResetComponent target="secondButton" className="spark.components.Button" waitTarget="secondButton" waitEvent="updateComplete" />
+	            <SetProperty target="secondButton" propertyName="label" value="Group FxButton" waitEvent="updateComplete" waitTarget="secondButton.skin" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="secondButton" styleName="chromeColor" value="0xB00000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_FxButtonInGroup_stateChanged" keywords="[CSS, pseudoSelector, FxButton, Group]"
+	        description="Test that a basic pseudo selector works on an FxButton when it is in a Group and a state has changed: FxButton:down.">
+	        <setup>
+	            <ResetComponent target="secondButton" className="spark.components.Button" waitTarget="secondButton" waitEvent="updateComplete" />
+	            <SetProperty target="secondButton" propertyName="label" value="Group FxButton" waitEvent="updateComplete" waitTarget="secondButton.skin" />
+	        </setup>
+	        <body>
+	            <DispatchMouseClickEvent target="secondButton" localX="10" localY="8" waitEvent="updateComplete" waitTarget="secondButton.skin" />
+	            <DispatchMouseEvent target="secondButton" type="mouseDown" localX="15" localY="8" waitEvent="mouseDown" waitTarget="secondButton" />
+	            <AssertStyleValue target="secondButton" styleName="chromeColor" value="0x66CCFF" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_FxTextInputAsItemRenderer_start" keywords="[CSS, pseudoSelector, FxTextInput, ItemRenderer, FxList]"
+	        description="Test that a basic pseudo selector works on an FxTextInput when it is an itemRenderer and no state has changed: FxTextInput:normal.">
+	        <setup>
+	            <ResetComponent target="firstList" className="comps.FxListComp" waitTarget="firstList" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.firstList.dataGroup.getElementAt(0).nameLabel.getStyle('contentBackgroundColor')" value="0x99CCFF" />
+	        </body>
+	    </TestCase>
+
+	    <TestCase testID="PseudoSelector_spark_HaloCompInFxApplication_start" keywords="[CSS, pseudoSelector, Text, FxApplication]"
+	        description="Test that a basic pseudo selector works on a TextInput when it is in a custom component in FxApplication.">
+	        <setup>
+	            <ResetComponent target="text1" className="comps.TextBasic" waitTarget="text1" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="text1.getChildAt(0)" value="12" styleName="fontSize" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_HaloCompInFxApplication_stateChanged" keywords="[CSS, pseudoSelector, Text, FxApplication]"
+	        description="Test that a basic pseudo selector works on a TextInput when it is in a custom component in FxApplication.">
+	        <setup>
+	            <ResetComponent target="text1" className="comps.TextBasic" waitTarget="text1" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="text1" propertyName="currentState" value="zoomed" waitEvent="updateComplete" waitTarget="text1" />
+	            <AssertStyleValue target="text1.getChildAt(0)" value="20" styleName="fontSize" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_Group_start" keywords="[CSS, pseudoSelector, Group, FxApplication]"
+	        description="Test that a basic pseudo selector works on a Group when it is in a custom component in FxApplication.">
+	        <setup>
+	            <ResetComponent target="group1" className="comps.GroupBasic" waitTarget="group1" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <AssertStyleValue target="group1.getElementAt(0)" value="0xFF0000" styleName="symbolColor" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_Group_stateChanged" keywords="[CSS, pseudoSelector, Group, FxApplication]"
+	        description="Test that a basic pseudo selector works on a Group when it is in a custom component in FxApplication.">
+	        <setup>
+	            <ResetComponent target="group1" className="comps.GroupBasic" waitTarget="group1" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="group1" propertyName="currentState" value="zoomed" waitEvent="updateComplete" waitTarget="group1" />
+	            <AssertStyleValue target="group1.getElementAt(0)" value="0x2299FF" styleName="symbolColor" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_classAndPseudo_start" keywords="[CSS, pseudoSelector, class selector, FxButton]"
+	        description="Test that a class and pseudo selector work: .blueStyle:up when a state hasn't changed.">
+	        <setup>
+	            <ResetComponent target="firstButton" className="spark.components.Button" waitTarget="firstButton" waitEvent="updateComplete" />
+	            <ResetComponent target="firstToggle" className="spark.components.ToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstButton" propertyName="styleName" value="blueStyle" waitEvent="updateComplete" waitTarget="firstButton" />
+	            <AssertStyleValue target="firstButton" styleName="chromeColor" value="0x0066CC" />
+	            <AssertStyleValue target="firstButton" styleName="focusColor" value="0x660066" />
+	            <AssertStyleValue target="firstToggle" styleName="chromeColor" value="0xB00000" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_classAndPseudo_stateChanged" keywords="[CSS, pseudoSelector, class selector, FxButton]"
+	        description="Test that a class and pseudo selector work: .blueStyle:up when a state has changed.">
+	        <setup>
+	            <ResetComponent target="firstButton" className="spark.components.Button" waitTarget="firstButton" waitEvent="updateComplete" />
+	            <ResetComponent target="firstToggle" className="spark.components.ToggleButton" waitTarget="firstToggle" waitEvent="updateComplete" />
+	            <SetProperty target="firstToggle"  propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="firstToggle.skin" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstButton" propertyName="styleName" value="blueStyle" waitEvent="updateComplete" waitTarget="firstButton.skin" />
+	            <DispatchMouseClickEvent target="firstButton" localX="10" localY="8" waitEvent="updateComplete" waitTarget="firstButton.skin" />
+	            <DispatchMouseEvent target="firstButton" type="mouseDown" localX="15" localY="8" waitEvent="mouseDown" waitTarget="firstButton" />
+	            <AssertStyleValue target="firstButton" styleName="chromeColor" value="0x33CC99" />
+	            <AssertStyleValue target="firstButton" styleName="focusColor" value="0x70B2EE" />
+	            <AssertStyleValue target="firstToggle" styleName="chromeColor" value="0x660099" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_tyepclassAndPseudo_start" keywords="[CSS, pseudoSelector, type selector,  class selector, FxButton]"
+	        description="Test that a class, type and pseudo selector work: FxTextInput.blueStyle:up when a state hasn't changed.">
+	        <setup>
+	            <ResetComponent target="firstTextInput" className="spark.components.TextInput" waitTarget="firstTextInput" waitEvent="updateComplete" />
+	            <ResetComponent target="firstTextArea" className="spark.components.TextArea" waitTarget="firstTextArea" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstTextInput" propertyName="styleName" value="redStyle" waitEvent="updateComplete" waitTarget="firstTextInput.skin" />
+	            <SetProperty target="firstTextArea" propertyName="styleName" value="redStyle"  />
+	            <AssertStyleValue target="firstTextInput" styleName="contentBackgroundColor" value="0xFF0000" />
+	            <AssertStyleValue target="firstTextArea" styleName="contentBackgroundColor" value="0xFFFFFF" />
+	            <AssertStyleValue target="secondTextInput" styleName="contentBackgroundColor" value="0x99CCFF" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_tyepclassAndPseudo_stateChange" keywords="[CSS, pseudoSelector, type selector,  class selector, FxButton]"
+	        description="Test that a class, type and pseudo selector work: FxTextInput.blueStyle:up when a state has changed.">
+	        <setup>
+	            <ResetComponent target="firstTextInput" className="spark.components.TextInput" waitTarget="firstTextInput" waitEvent="updateComplete" />
+	            <ResetComponent target="firstTextArea" className="spark.components.TextArea" waitTarget="firstTextArea" waitEvent="updateComplete" />
+	        </setup>
+	        <body>
+	            <SetProperty target="firstTextInput" propertyName="styleName" value="redStyle" waitEvent="updateComplete" waitTarget="firstTextInput.skin" />
+	            <SetProperty target="firstTextArea" propertyName="styleName" value="redStyle"  />
+	            <SetProperty target="firstTextInput" propertyName="enabled" value="false" waitTarget="firstTextInput" waitEvent="updateComplete"  />
+	            <AssertStyleValue target="firstTextInput" styleName="contentBackgroundColor" value="0xFFCC66" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_idAndPseudo_start" keywords="[CSS, pseudoSelector, class selector, FxButton]"
+	        description="Test that a class and pseudo selector work: #blueStyle:up when a state hasn't changed.">
+	        <body>
+	            <AssertStyleValue target="firstBar" styleName="chromeColor" value="0x339933" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_idAndPseudo_stateChanged" keywords="[CSS, pseudoSelector, class selector, FxButton]"
+	        description="Test that a class and pseudo selector work: #blueStyle:disabled when a state has changed.">
+	        <body>
+	            <SetProperty target="firstBar" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="firstBar.skin" />
+	            <AssertStyleValue target="firstBar" styleName="chromeColor" value="0x993333" />
+	  	    </body>
+	    </TestCase>
+	    <TestCase testID="PseudoSelector_spark_typeidAndPseudo_stateChanged" keywords="[CSS, pseudoSelector, class selector, FxButton]"
+	        description="Test that a class, type and pseudo selector work: FxTextInput#blueStyle:up when a state has changed.">
+	        <body>
+	            <AssertStyleValue target="secondBar" styleName="symbolColor" value="0x00FF00" />
+	  	    </body>
+	    </TestCase>
+
+	</testCases>
+</UnitTester>

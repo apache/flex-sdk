@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" width="150" height="120">
+        <s:itemRenderer>
+            <fx:Component>
+                <s:ItemRenderer>
+                    <s:states>
+                        <s:State name="normal" />
+                        <s:State name="hovered" />
+                        <s:State name="selected" />
+                     </s:states>
+                     <s:TextInput id="nameLabel" text="{data.lastName}, {data.firstName}"/>
+                </s:ItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+        <s:dataProvider>
+            <mx:ArrayCollection>
+               <fx:Object type="hr" firstName="Ann"  lastName="Green"  />
+               <fx:Object type="employee" firstName="Tom"  lastName="Smith"
+                  phone="415-155-1212" />
+               <fx:Object type="employee" firstName="John" lastName="Black"
+                        phone="408-344-1234" />
+            </mx:ArrayCollection>
+        </s:dataProvider>
+</s:List>

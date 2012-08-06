@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/AdvancedCSS/idSelectors/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="IDSelectors_main_source.mxml">
+       <mx:Script>
+        <![CDATA[
+
+        import comps.BoxComp;
+
+        public static function init(o:DisplayObject):void
+        {
+        }
+
+
+        ]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+    <testCases>
+
+    <TestCase testID="idSelector_basic_style" keywords="[CSS, id selector]"
+        description="Does a basic id selector work defined within the Style tag?">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground" />
+            <CompareBitmap url="../idSelectors/baselines/$testID_2.png" target="noBackground" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_basic_PopUp_style" keywords="[CSS, id selector, PopUpManager]"
+        description="Does a basic id selector work for component added to a popUp when defined within the Style tag?">
+        <body>
+            <DispatchMouseClickEvent target="open_btn" localX="10" localY="10" waitTarget="iPopUp" waitEvent="updateComplete" />
+            <AssertPropertyValue propertyName="y" value="10" target="iPopUp.label1" />
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_basic_module_style" keywords="[CSS, id selector, Modules]"
+        description="(Module) Does a basic id selector work defined within the Style tag?">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+            <!--ResetComponent target="boxComp" className="comps.BoxComp" waitTarget="boxComp" waitEvent="updateComplete" /-->
+        </setup>
+        <body>
+            <AssertPropertyValue target="boxComp.padding10" propertyName="x" value="15" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_basic_overrideWithStyleName_style" keywords="[CSS, id selector]"
+        description="Ensure that id selectors trump class selectors">
+        <setup>
+            <ResetComponent target="redBackground" className="mx.containers.Canvas" waitEvent="updateComplete"
+                waitTarget="redBackground" />
+            <SetProperty propertyName="width" value="30" target="redBackground" waitEvent="updateComplete" waitTarget="redBackground" />
+            <SetProperty propertyName="height" value="30" target="redBackground" waitEvent="updateComplete" waitTarget="redBackground" />
+        </setup>
+        <body>
+            <SetProperty propertyName="styleName" value="blueBackground" target="redBackground" waitEvent="updateComplete"
+                waitTarget="redBackground" />
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_basic_MXMLvsID_style" keywords="[CSS, id selector]"
+        description="Ensure that a mxml style declaration trumps an id selector">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="topPadding" propertyName="height" value="163" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_type_style" keywords="[CSS, id selector]"
+        description="Ensure that a mxml style declaration trumps an id selector">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </setup>
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground2" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_type_subclass_style" keywords="[CSS, id selector]"
+        description="Ensure that a mxml style declaration trumps an id selector">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </setup>
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground3" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_type_module_style" keywords="[CSS, id selector]"
+        description="Ensure that a mxml style declaration trumps an id selector">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </setup>
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground4" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_type_subclass_module_style" keywords="[CSS, id selector]"
+        description="Ensure that a mxml style declaration trumps an id selector">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </setup>
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground5" />
+        </body>
+    </TestCase>
+    <TestCase testID="idSelector_IDvsType_style" keywords="[CSS, id selector]"
+        description="Ensure that a an id type+selector trumps a type selector">
+        <setup>
+            <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
+        </setup>
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground6" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_descendantSelector_GumboComp_style" keywords="[CSS, id selector]"
+        description="Ensure that a an id type+descendant selector works correctly">
+        <body>
+            <AssertStyleValue styleName="fontWeight" target="headerText" value="bold" />
+            <AssertStyleValue styleName="fontWeight" target="holidayText" value="normal" />
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="headerText" />
+            <CompareBitmap url="../idSelectors/baselines/$testID_neg.png" target="holidayText" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_descendantSelector_GumboComp_style_neg" keywords="[CSS, id selector]"
+        description="Ensure that a component with an id that matches an type+id selector doesn't match if the type doesn't match">
+        <body>
+            <AssertStyleValue styleName="fontWeight" target="headerText2" value="normal" />
+            <Pause timeout="500" />
+            <CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../idSelectors/baselines/$testID_2.png" target="headerText2" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_multipleTypeSelector_GumboComp_style" keywords="[CSS, id selector]"
+        description="Ensure that the selector FxButton,DateField#redTheme matches any FxButton">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redButton" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_multipleTypeSelector_style" keywords="[CSS, id selector]"
+        description="Ensure that the selector FxButton,DateField#redTheme matches any only a DateField with id=redTheme">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redTheme" />
+            <CompareBitmap url="../idSelectors/baselines/$testID_neg.png" target="noTheme" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_multipleTypeSelector_style_neg2" keywords="[CSS, id selector]"
+        description="Ensure that the selector FxButton,DateField#redTheme doesn't match any component with id=redTheme">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redTheme2" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_AnydescendantSelector_style" keywords="[CSS, id selector]"
+        description="Ensure that a selector like Panel #ti matches any descendant with the id=ti in a Panel.">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="greenBox" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_AnydescendantSelector_subclass_style" keywords="[CSS, id selector]"
+        description="Ensure that a selector like Panel #ti matches any descendant with the id=ti in a TitleWindow.">
+        <body>
+            <CompareBitmap numColorVariances="4" maxColorVariance="7" url="../idSelectors/baselines/$testID.png" target="greenBox2" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_AnydescendantSelector_ControlBar_style" keywords="[CSS, id selector]"
+        description="Ensure that a selector like Panel #ti matches any descendant with the id=ti in a ControlBar in a Panel.">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="greenBox3" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_AnydescendantSelector_style_neg" keywords="[CSS, id selector]"
+        description="Ensure that a selector like Panel #ti doesn't match descendants of a Panel without the id=ti">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="noBoxColor" />
+        </body>
+    </TestCase>
+    <TestCase testID="id_AnydescendantSelector_style_neg2" keywords="[CSS, id selector]"
+        description="Ensure that a selector like Panel #ti doesn't match components with id=ti and are not Panel descendants">
+        <body>
+            <CompareBitmap url="../idSelectors/baselines/$testID.png" target="greenBox4" />
+        </body>
+    </TestCase>
+    </testCases>
+</UnitTester>

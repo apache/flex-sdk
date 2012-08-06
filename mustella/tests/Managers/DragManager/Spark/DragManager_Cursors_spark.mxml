@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_customcursors_spark.mxml">
+
+    <mx:Script>
+	<![CDATA[
+	   import data.ListDataAS;
+	   import comps.DragList;
+	   import comps.DragDataGrid;
+		import comps.CustomComp;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	    private function addData(component:Object): void
+	    {
+	        var newData:ListDataAS = new ListDataAS();
+	        component.dataProvider = newData.myData;
+	    }
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+        <TestCase testID="DragManager_copyCursor" description="Test that a custom copyCursor works." keywords="[DragManager, copyCursor, List]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <RunCode code="addData(application.firstList)" waitTarget="firstList" waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="85" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+	            <CompareBitmap target="secondList" url="../Spark/baselines/copyCursor_custom.png" timeout="2500" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="85" waitTarget="secondList" waitEvent="dragDrop" />
+	        </body>
+		</TestCase>
+        <TestCase testID="DragManager_moveCursor" description="Test that a custom moveCursor works." keywords="[DragManager, moveCursor, List]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dragMoveEnabled" value="true" target="firstList" />
+			   <RunCode code="addData(application.firstList)" waitTarget="firstList" waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="190" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="250" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="340" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="450" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+	            <CompareBitmap target="secondList" url="../Spark/baselines/moveCursor_custom.png" timeout="2500" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="450" localY="75" waitTarget="secondList" waitEvent="dragDrop" />
+	        </body>
+		</TestCase>
+        <TestCase testID="DragManager_rejectCursor" description="Test that a custom rejectCursor works." keywords="[DragManager, rejectCursor, List]">
+			<setup>
+			   <ResetComponent target="firstList" className="mx.controls.List" waitTarget="firstList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="dragEnabled" value="true" target="firstList" />
+			   <SetProperty propertyName="width" value="250" target="firstList" />
+			   <SetProperty propertyName="dragMoveEnabled" value="true" target="firstList" />
+			   <RunCode code="addData(application.firstList)" waitTarget="firstList" waitEvent="updateComplete" />
+			   <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
+			   <SetProperty propertyName="width" value="250" target="secondList" />
+			 </setup>
+			 <body>
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
+			    <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <WaitForEffectsToEnd />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="190" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <WaitForEffectsToEnd />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="250" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <WaitForEffectsToEnd />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="340" localY="75" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+			    <WaitForEffectsToEnd />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="450" localY="70" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+	            <WaitForEffectsToEnd />
+			    <CompareBitmap target="secondList" url="../Spark/baselines/rejectCursor_custom.png" timeout="2500" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="450" localY="70" />
+	        </body>
+		</TestCase>
+	</testCases>
+</UnitTester>

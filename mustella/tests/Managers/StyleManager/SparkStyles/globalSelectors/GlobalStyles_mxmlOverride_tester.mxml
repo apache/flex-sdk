@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/SparkStyles/globalSelectors/"  xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="http://ns.adobe.com/mxml/2009" xmlns:m="http://ns.adobe.com/mxml/2009"
+    xmlns="*" testSWF="SparkStyles_Globals_mxml.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<m:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</m:Script>
+
+	<m:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</m:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<m:Script>
+		<![CDATA[
+
+		]]>
+	</m:Script>
+
+	<testCases>
+		<TestCase testID="GlobalStyles_MxmlOverride_baseColor" keywords="[baseColor]" description="Ensure that baseColor defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="button1" styleName="chromeColor" value="0x0066CC"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="button1"/>
+			</body>
+		</TestCase>
+		<!-- commented out for SDK-21982
+		<TestCase testID="GlobalStyles_MxmlOverride_contentBackgroundColor" keywords="[contentBackgroundColor]" description="Ensure that contentBackgroundColor defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xFFFF99"/>
+				<CompareBitmap numColorVariances="10" maxColorVariance="14" url="../globalSelectors/baselines/$testID.png" target="textarea1"/>
+			</body>
+		</TestCase>-->
+		<TestCase testID="GlobalStyles_MxmlOverride_color" keywords="[color]" description="Ensure that color defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="buttonbar1" styleName="color" value="0xFF0066"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="7" url="../globalSelectors/baselines/$testID.png" target="buttonbar1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GlobalStyles_MxmlOverride_color_air" keywords="[color]" description="Ensure that color defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="buttonbar1" styleName="color" value="0xFF0066"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="7" url="../globalSelectors/baselines/$testID.png" target="buttonbar1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GlobalStyles_MxmlOverride_symbolColor" keywords="[symbolColor]" description="Ensure that symbolColor defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="radiobutton1" styleName="symbolColor" value="0x6633CC"/>
+				<CompareBitmap numColorVariances="8" maxColorVariance="16" url="../globalSelectors/baselines/$testID.png" target="radiobutton1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GlobalStyles_MxmlOverride_focusedTextSelectionColor" keywords="[focusedTextSelectionColor]" description="Ensure that focusedTextSelectionColor defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="textinput1" styleName="focusedTextSelectionColor" value="0x99FF66"/>
+				<RunCode code="application.textinput1.selectRange(0,3)" waitTarget="textinput1" waitEvent="selectionChange" />
+				<RunCode code="application.textinput1.setFocus()" waitTarget="textinput1" waitEvent="focusIn" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="7" url="../globalSelectors/baselines/$testID.png" target="textinput1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GlobalStyles_MxmlOverride_rollOverColor" keywords="[rollOverColor]" description="Ensure that rollOverColor defined in mxml overrides the global style">
+			<body>
+				<AssertStyleValue target="list1" styleName="rollOverColor" value="0xCC6666"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GlobalStyles_MxmlOverride_focusColor" keywords="[focusColor]" description="Ensure that focusColor defined in mxml overrides the global style">
+			<body>
+			    <RunCode code="application.radiobutton1.setFocus()" waitTarget="radiobutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="togglebutton1" />
+				<AssertStyleValue target="togglebutton1" styleName="focusColor" value="0x990000"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="togglebutton_box" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="GlobalStyles_MxmlOverride_colorContainer" keywords="[color]" description="Ensure that color defined in mxml on a Container overrides the global style">
+			<body>
+				<AssertStyleValue target="panel1" styleName="color" value="0x009900"/>
+				<AssertStyleValue target="ns1" styleName="color" value="0x009900"/>
+				<AssertStyleValue target="greenButton" styleName="color" value="0x009900"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+
+	</testCases>
+</UnitTester>

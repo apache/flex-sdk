@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="800" layout="absolute" creationComplete="showInitialStatus()">
+	<mx:Script>
+	<![CDATA[
+		private function changetabFocusEnabled():void{
+			checkTextInput1.tabFocusEnabled = !checkTextInput1.tabFocusEnabled;
+			checkTextInput2.tabFocusEnabled = !checkTextInput2.tabFocusEnabled;
+			checkTextInput3.tabFocusEnabled = !checkTextInput3.tabFocusEnabled;
+			checkTextInput4.tabFocusEnabled = !checkTextInput4.tabFocusEnabled;
+			displaytabFocusEnabled1.text = checkTextInput1.tabFocusEnabled.toString();
+			displaytabFocusEnabled2.text = checkTextInput2.tabFocusEnabled.toString();
+			displaytabFocusEnabled3.text = checkTextInput3.tabFocusEnabled.toString();
+			displaytabFocusEnabled4.text = checkTextInput4.tabFocusEnabled.toString();
+		}
+
+		private function changeFocusEnabled():void{
+			checkTextInput1.focusEnabled = !checkTextInput1.focusEnabled;
+			checkTextInput2.focusEnabled = !checkTextInput2.focusEnabled;
+			checkTextInput3.focusEnabled = !checkTextInput3.focusEnabled;
+			checkTextInput4.focusEnabled = !checkTextInput4.focusEnabled;
+			displayFocusEnabled1.text = checkTextInput1.focusEnabled.toString();
+			displayFocusEnabled2.text = checkTextInput2.focusEnabled.toString();
+			displayFocusEnabled3.text = checkTextInput3.focusEnabled.toString();
+			displayFocusEnabled4.text = checkTextInput4.focusEnabled.toString();
+		}
+
+		private function showInitialStatus():void{
+			displaytabFocusEnabled1.text = checkTextInput1.tabFocusEnabled.toString();
+			displaytabFocusEnabled2.text = checkTextInput2.tabFocusEnabled.toString();
+			displaytabFocusEnabled3.text = checkTextInput3.tabFocusEnabled.toString();
+			displaytabFocusEnabled4.text = checkTextInput4.tabFocusEnabled.toString();
+			displayFocusEnabled1.text = checkTextInput1.focusEnabled.toString();
+			displayFocusEnabled2.text = checkTextInput2.focusEnabled.toString();
+			displayFocusEnabled3.text = checkTextInput3.focusEnabled.toString();
+			displayFocusEnabled4.text = checkTextInput4.focusEnabled.toString();
+		}
+	]]>
+	</mx:Script>
+	<mx:Button label="change focusEnabled" click="changeFocusEnabled()" x="98" y="54"/>
+	<mx:Button label="change tabFocusEnabled" click="changetabFocusEnabled()" x="324" y="54"/>
+	<mx:TextInput id="checkTextInput1" x="60" y="107" tabFocusEnabled="true" focusEnabled="true" height="22"/>
+	<mx:TextInput id="checkTextInput2" x="60" y="154" tabFocusEnabled="false" focusEnabled="true" height="22"/>
+	<mx:TextInput id="checkTextInput3" x="60" y="196" tabFocusEnabled="true" focusEnabled="false" height="22"/>
+	<mx:TextInput id="checkTextInput4" x="60" y="245" tabFocusEnabled="false" focusEnabled="false" height="22"/>
+
+	<mx:Text text="focusEnabled=" x="228" y="107"/>
+	<mx:Text x="312" y="107" id="displayFocusEnabled1"/>
+	<mx:Text x="396" y="107" text="tabFocusEnabled="/>
+	<mx:Text x="559" y="107" id="displaytabFocusEnabled1"/>
+	<mx:Text text="focusEnabled=" x="228" y="156"/>
+	<mx:Text x="312" y="156" id="displayFocusEnabled2"/>
+	<mx:Text x="396" y="156" text="tabFocusEnabled="/>
+	<mx:Text x="559" y="156" id="displaytabFocusEnabled2"/>
+	<mx:Text text="focusEnabled=" x="228" y="198"/>
+	<mx:Text x="312" y="198" id="displayFocusEnabled3"/>
+	<mx:Text x="396" y="198" text="tabFocusEnabled="/>
+	<mx:Text x="559" y="198" id="displaytabFocusEnabled3"/>
+	<mx:Text text="focusEnabled=" x="228" y="245"/>
+	<mx:Text x="312" y="245" id="displayFocusEnabled4"/>
+	<mx:Text x="396" y="245" text="tabFocusEnabled="/>
+	<mx:Text x="559" y="245" id="displaytabFocusEnabled4"/>
+</mx:Application>

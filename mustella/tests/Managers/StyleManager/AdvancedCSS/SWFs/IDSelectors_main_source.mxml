@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="750" width="1050"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="comps.*"
+    backgroundColor="0xFFFFFF" >
+
+    <fx:Style source="assets/idStyles.css" />
+
+    <fx:Script>
+        <![CDATA[
+             import mx.managers.PopUpManager;
+             import mx.core.IFlexDisplayObject;
+             import comps.*;
+
+            public var iPopUp:IFlexDisplayObject;
+
+            public function openWindow(modalSetting:Boolean):void
+            {
+                iPopUp = PopUpManager.createPopUp(this, comps.BoxComp, modalSetting, "popup");
+            }
+
+            public function closeWindow():void
+            {
+                PopUpManager.removePopUp(iPopUp);
+            }
+
+        ]]>
+    </fx:Script>
+
+    <mx:Canvas id="redBackground" width="30" height="30" />
+    <mx:Canvas id="noBackground" width="30" height="30" />
+    <mx:Module id="module1" layout="horizontal">
+        <comps:BoxComp id="boxComp"/>
+        <mx:Box width="20" height="20" id="redBackground4" />
+        <mx:VBox width="20" height="20" id="redBackground5" />
+    </mx:Module>
+    <mx:HBox>
+        <mx:Panel>
+            <comps:BoxComp id="bottomPadding" />
+        </mx:Panel>
+        <comps:BoxComp id="topPadding" paddingTop="5"/>
+        <s:Button label="I am red" id="redButton" fontLookup="embeddedCFF"/>
+        <mx:DateChooser id="redTheme" selectedDate="{new Date(2005, 2, 5)}"/>
+    </mx:HBox>
+    <mx:HBox>
+        <mx:Button label="open" id="open_btn" click="openWindow(false)" />
+        <mx:Button label="open" id="close_btn" click="closeWindow()" />
+
+        <mx:Box width="20" height="20" id="redBackground2" />
+        <mx:VBox width="20" height="20" id="redBackground3" />
+        <mx:HBox width="20" height="20" id="redBackground6" />
+        <s:VGroup>
+            <s:TextInput text="Header" id="headerText" fontLookup="embeddedCFF" width="128" height="22"/>
+            <s:TextInput text="FxTextInput" id="holidayText" fontLookup="embeddedCFF" width="128" height="22"/>
+            <s:TextArea text="Header2" id="headerText2" fontLookup="embeddedCFF" width="130" height="55"/>
+        </s:VGroup>
+        <mx:Panel title="titleWindow">
+            <mx:VBox id="greenBox" width="20" height="20" />
+            <mx:VBox id="noBoxColor" width="20" height="20" />
+            <mx:ControlBar>
+               <mx:VBox id="greenBox3" width="20" height="20" />
+            </mx:ControlBar>
+        </mx:Panel>
+        <mx:VBox id="greenBox4" width="20" height="20" />
+        <mx:TitleWindow title="titleWindow">
+            <mx:VBox id="greenBox2" width="20" height="20" />
+        </mx:TitleWindow>
+        <mx:DateChooser id="noTheme" selectedDate="{new Date(2005, 2, 5)}"/>
+        <mx:Text id="redTheme2" text="I'm not red"/>
+    </mx:HBox>
+</mx:Application>

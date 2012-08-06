@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Managers/StyleManager/SparkStyles/globalSelectors/"  xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="http://ns.adobe.com/mxml/2009" xmlns:m="http://ns.adobe.com/mxml/2009"
+    xmlns="*" testSWF="SparkStyles_HaloComps.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<m:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</m:Script>
+
+	<m:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</m:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<m:Script>
+		<![CDATA[
+            import mx.controls.RadioButton;
+
+		]]>
+	</m:Script>
+
+	<testCases>
+		<TestCase testID="RadioButton_GlobalStyle_compileTime" keywords="[RadioButton]" description="Ensure that RadioButton looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="radiobutton1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="radiobutton1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="radiobutton1" styleName="symbolColor" value="0xFF0066"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="radiobutton_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_GlobalStyle_compileTime" keywords="[TextArea]" description="Ensure that TextArea looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<RunCode code="application.textarea1.setSelection(0,3)" waitEvent="updateComplete" waitTarget="textarea1" />
+				<AssertStyleValue target="textarea1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="textarea1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="textarea1" styleName="symbolColor" value="0xFF0066"/>
+				<AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="textarea1" numColorVariances="6" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_GlobalStyle_compileTime_AIR" keywords="[TextArea]" description="AIR:Ensure that TextArea looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<RunCode code="application.textarea1.setSelection(0,2)" waitEvent="updateComplete" waitTarget="textarea1" />
+				<AssertStyleValue target="textarea1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="textarea1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="textarea1" styleName="symbolColor" value="0xFF0066"/>
+				<AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="textarea1" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TextInput_GlobalStyle_compileTime" keywords="[TextInput]" description="Ensure that TextInput looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+			    <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textinput1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="textinput1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="textinput1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<CompareBitmap numColorVariances="15" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="textinput_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TextInput_GlobalStyle_compileTime_AIR" keywords="[TextInput]" description="AIR:Ensure that TextInput looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+			    <RunCode code="application.textinput1.setSelection(0,2)" waitTarget="textinput1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textinput1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="textinput1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="textinput1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<CompareBitmap numColorVariances="15" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="textinput_box" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_GlobalStyle_compileTime" keywords="[Button]" description="Ensure that Button looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="button1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="button1" styleName="focusColor" value="0xB80000"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="button_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="CheckBox_GlobalStyle_compileTime" keywords="[CheckBox]" description="Ensure that CheckBox looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="checkbox1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="checkbox1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="checkbox1" styleName="symbolColor" value="0xFF0066"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="checkbox_box"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="NumericStepper_GlobalStyle_compileTime_AIR" keywords="[NumericStepper]" description="AIR: Ensure that NumericStepper looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="datechooser1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="numericstepper1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="numericstepper1" styleName="symbolColor" value="0xFF0066"/>
+				<AssertStyleValue target="numericstepper1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<AssertStyleValue target="numericstepper1" styleName="selectionColor" value="0x00FF00"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="numericstepper_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="NumericStepper_GlobalStyle_compileTime" keywords="[NumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="datechooser1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="numericstepper1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="numericstepper1" styleName="symbolColor" value="0xFF0066"/>
+				<AssertStyleValue target="numericstepper1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<AssertStyleValue target="numericstepper1" styleName="selectionColor" value="0x00FF00"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="numericstepper_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_GlobalStyle_compileTime" keywords="[DateChooser]" description="Ensure that DateChooser looks correct when global styles are set.">
+			<setup>
+			    <SetProperty target="datechooser1" propertyName="selectedDate" valueExpression="value=new Date(2008, 2, 5)" waitEvent="updateComplete" waitTarget="datechooser1"/>
+			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="datechooser1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="datechooser1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="datechooser1" styleName="focusColor" value="0xB80000"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="datechooser_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="HSlider_GlobalStyle_compileTime" keywords="[HSlider]" description="Ensure that HSlider looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="hslider1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="hslider1" styleName="focusColor" value="0xB80000"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="hslider_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_GlobalStyle_compileTime" keywords="[VSlider]" description="Ensure that VSlider looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="vslider1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="vslider1" styleName="focusColor" value="0xB80000"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="vslider_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="List_GlobalStyle_compileTime" keywords="[List]" description="Ensure that List looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="list1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="list1" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="list1" styleName="symbolColor" value="0xFF0066"/>
+				<AssertStyleValue target="list1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<AssertStyleValue target="list1" styleName="selectionColor" value="0x00FF00"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ColorPicker_GlobalStyle_compileTime" keywords="[ColorPicker]" description="Ensure that ColorPicker looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton4.setFocus()" waitEvent="focusIn" waitTarget="defaultButton4" />
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="cp" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="cp" styleName="focusColor" value="0xB80000"/>
+				<AssertStyleValue target="cp" styleName="symbolColor" value="0xFF0066"/>
+			    <CompareBitmap  url="../globalSelectors/baselines/$testID.png" target="colorpicker_box"/>
+			</body>
+		</TestCase>
+        <TestCase testID="ButtonBar_GlobalStyle_compileTime" keywords="[ButtonBar]" description="Ensure that ButtonBar looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton4.setFocus()" waitEvent="focusIn" waitTarget="defaultButton4" />
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="buttonbar1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="buttonbar1" styleName="focusColor" value="0xB80000"/>
+				<CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="buttonbar_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_GlobalStyle_compileTime" keywords="[DateField]" description="Ensure that DateField looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton4.setFocus()" waitEvent="focusIn" waitTarget="defaultButton4" />
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="dataField1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="dataField1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="dataField1" styleName="focusColor" value="0xB80000"/>
+			    <CompareBitmap  url="../globalSelectors/baselines/$testID.png" target="datefield_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_GlobalStyle_compileTime" keywords="[MenuBar]" description="Ensure that MenuBar looks correct when global styles are set.">
+			<setup>
+			    <RunCode code="application.defaultButton4.setFocus()" waitEvent="focusIn" waitTarget="defaultButton4" />
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="dataField1" waitEvent="focusIn" />
+			    <DispatchKeyEvent key="TAB" waitTarget="menubar1" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="menubar1" styleName="chromeColor" value="0xFFCC99"/>
+				<AssertStyleValue target="menubar1" styleName="focusColor" value="0xB80000"/>
+			    <CompareBitmap  url="../globalSelectors/baselines/$testID.png" target="menubar_box" numColorVariances="6" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+        <TestCase testID="GlobalStyle_loadingCSS" keywords="[Runtime CSS]" description="This just loads the CSS">
+			<body>
+			    <RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
+			</body>
+		</TestCase>
+        <TestCase testID="RadioButton_GlobalStyle_runtimeCSS" keywords="[RadioButton]" description="Ensure that RadioButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="radiobutton1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="radiobutton1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="radiobutton1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="radiobutton_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TextArea_GlobalStyle_runtimeCSS" keywords="[TextArea]" description="Ensure that TextArea looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="textarea1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="textarea1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="textarea1" styleName="selectionColor" value="0x0099FF"/>
+                <RunCode code="application.textarea1.setSelection(0,3)" waitTarget="textarea1" waitEvent="updateComplete" />
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="textarea1" numColorVariances="6" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TextInput_GlobalStyle_runtimeCSS" keywords="[TextInput]" description="Ensure that TextInput looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textinput1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="textinput1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="textinput1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="textinput_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TextArea_GlobalStyle_runtimeCSS_AIR" keywords="[TextArea]" description="AIR:Ensure that TextArea looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="textarea1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="textarea1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="textarea1" styleName="selectionColor" value="0x0099FF"/>
+                <RunCode code="application.textarea1.setSelection(0, 4)" waitTarget="textarea1" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="textarea1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TextInput_GlobalStyle_runtimeCSS_AIR" keywords="[TextInput]" description="AIR:Ensure that TextInput looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textinput1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="textinput1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="textinput1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="textinput_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Button_GlobalStyle_runtimeCSS" keywords="[Button]" description="Ensure that Button looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="button1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBox_GlobalStyle_runtimeCSS" keywords="[CheckBox]" description="Ensure that CheckBox looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="checkbox1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButton_GlobalStyle_runtimeCSS_selected" keywords="[ToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selected" target="togglebutton1" value="true" waitEvent="updateComplete" waitTarget="togglebutton1" />
+                <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="togglebutton_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="NumericStepper_GlobalStyle_runtimeCSS" keywords="[NumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="datechooser1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="numericstepper1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="numericstepper1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="numericstepper1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="numericstepper1" styleName="selectionColor" value="0x0099FF"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="numericstepper_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="NumericStepper_GlobalStyle_runtimeCSS_AIR" keywords="[NumericStepper]" description="AIR:Ensure that NumericStepper looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="datechooser1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="numericstepper1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="numericstepper1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="numericstepper1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="numericstepper1" styleName="selectionColor" value="0x0099FF"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="numericstepper_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="HSlider_GlobalStyle_runtimeCSS" keywords="[HSlider]" description="Ensure that HSlider looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="hslider_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VSlider_GlobalStyle_runtimeCSS" keywords="[VSlider]" description="Ensure that VSlider looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="vslider1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="vslider1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="vslider_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="List_GlobalStyle_runtimeCSS" keywords="[List]" description="Ensure that List looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="list1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="list1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="list1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="list1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="list1" styleName="selectionColor" value="0x0099FF"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonBar_GlobalStyle_runtimeCSS" keywords="[ButtonBar]" description="Ensure that ButtonBar looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton4.setFocus()" waitEvent="focusIn" waitTarget="defaultButton4" />
+                <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="buttonbar1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="buttonbar1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../globalSelectors/baselines/$testID.png" target="buttonbar_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Halo_BaseColor_GlobalStyle_changeGlobalAtRuntime" keywords="[Button]" description="Ensure that Button looks correct when baseColor is changed at runtime.">
+            <setup>
+                <ResetComponent target="button1" className="mx.controls.Button" waitTarget="button1" waitEvent="updateComplete" />
+                <SetStyle target="" styleName="chromeColor" value="0xFF00FF" waitTarget="button1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0xFF00FF"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Halo_BaseColor_GlobalStyle_changeComponentStyleAtRuntime" keywords="[Button]" description="Change Button's style at runtime and be sure it wins over Application's style" >
+            <setup>
+                <ResetComponent target="button1" className="mx.controls.Button" waitTarget="button1" waitEvent="updateComplete" />
+                <SetStyle target="button1" styleName="chromeColor" value="0x6600CC" waitTarget="button1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0x6600CC"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Halo_ContentBackground_GlobalStyle_changeGlobalAtRuntime" keywords="[TextArea]" description="Ensure that TextArea looks correct when contentBackground is changed at runtime.">
+            <setup>
+                <SetStyle target="" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="textarea1" className="mx.controls.TextArea" waitTarget="textarea1" waitEvent="updateComplete" />
+                <SetStyle target="" styleName="contentBackgroundColor" value="0xFF00FF" />
+                <SetProperty target="textarea1" propertyName="width" value="100" />
+                <SetProperty target="textarea1" propertyName="height" value="60" waitTarget="textarea1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xFF00FF"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="textarea1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Halo_ContentBackground_GlobalStyle_changeComponentStyleAtRuntime" keywords="[TextArea]" description="Ensure that TextArea looks correct when contentBackground is changed at runtime.">
+            <setup>
+                <SetStyle target="" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="textarea1" className="mx.controls.TextArea" waitTarget="textarea1" waitEvent="updateComplete" />
+                <SetStyle target="textarea1" styleName="contentBackgroundColor" value="0xFFCC99" waitTarget="textarea1" waitEvent="updateComplete" />
+                <SetProperty target="textarea1" propertyName="width" value="100" />
+                <SetProperty target="textarea1" propertyName="height" value="60"  waitTarget="textarea1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xFFCC99"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="textarea1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Halo_FocusColor_GlobalStyle_changeGlobalAtRuntime" keywords="[CheckBox]" description="Ensure that CheckBox looks correct when global styles are set at runtime.">
+            <setup>
+                <SetStyle target="" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="checkbox1" className="mx.controls.CheckBox" waitTarget="checkbox1" waitEvent="updateComplete" />
+                <SetStyle target="" styleName="focusColor" value="0x00ff00" />
+                <SetProperty target="checkbox_box" propertyName="height" value="28"/>
+                <SetProperty target="checkbox1" propertyName="height" value="18" waitEvent="updateComplete"/>                
+                <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0x00FF00"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Halo_FocusColor_GlobalStyle_changeComponentStyleAtRuntime" keywords="[CheckBox]" description="Ensure that CheckBox looks correct when global styles are set at runtime on the CheckBox.">
+            <setup>
+                <SetStyle target="" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="checkbox1" className="mx.controls.CheckBox" waitTarget="checkbox1" waitEvent="updateComplete" />
+                <SetStyle target="checkbox1" styleName="focusColor" value="0xff0000" />
+                <SetProperty target="checkbox_box" propertyName="height" value="28"/>
+                <SetProperty target="checkbox1" propertyName="height" value="18" waitEvent="updateComplete"/>
+                <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0xFF0000"/>
+                <CompareBitmap url="../globalSelectors/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

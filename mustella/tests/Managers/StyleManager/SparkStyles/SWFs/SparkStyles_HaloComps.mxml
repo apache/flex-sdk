@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="0xFFFFFF" width="700" height="650">
+
+    <mx:Script>
+        <![CDATA[
+	        import mx.styles.StyleManager;
+	        import mx.collections.ArrayCollection;
+
+			public var eventDispatcher:IEventDispatcher;
+
+			public function loadCSS(): void
+			{
+				eventDispatcher = StyleManager.loadStyleDeclarations("assets/globalStyles2.swf");
+			}
+
+        ]]>
+    </mx:Script>
+
+    <mx:Style source="assets/globalStyles.css" />
+    <mx:HBox>
+        <mx:Button width="15" id="defaultButton1" />
+	    <mx:Box id="textarea_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	       <mx:TextArea id="textarea1" text="Dispatched when a display _bject is about t_ be rem_ved fr_m the display list.play _bject is ab_ut t_ be rem_ved fr_m the display listplay _bject is ab_ut t_ be rem_ved fr_m the display list" height="90"/>
+	    </mx:Box>
+	    <mx:Box id="textinput_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:TextInput id="textinput1" text="TextInput" />
+	    </mx:Box>
+	    <mx:Box id="button_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+		    <mx:Button id="button1" label="Button" />
+	    </mx:Box>
+	</mx:HBox>
+	<mx:HBox id="hgroup1">
+	    <mx:Button width="15" id="defaultButton2" />
+	    <mx:Box id="radiobutton_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:RadioButton id="radiobutton1" label="Radi_Butt_n" selected="true"/>
+	    </mx:Box>
+	    <mx:Box id="togglebutton_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:Button label="ToggleButton" toggle="true" id="togglebutton1" width="100" height="45"/>
+	    </mx:Box>
+		<mx:Box id="datechooser_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+			 <mx:DateChooser id="datechooser1" />
+		</mx:Box>
+	    <mx:Box id="numericstepper_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:NumericStepper id="numericstepper1" />
+	    </mx:Box>
+	</mx:HBox>
+	<mx:HBox id="hgroup2">
+	    <mx:Button width="15" id="defaultButton3" />
+	    <mx:Box id="checkbox_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+		    <mx:CheckBox label="CheckBox" id="checkbox1" selected="true" />
+	    </mx:Box>
+	    <mx:Box id="hslider_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:HSlider maximum="20" minimum="0" id="hslider1" width="140" height="20" />
+	    </mx:Box>
+	    <mx:Box id="vslider_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:VSlider maximum="20" minimum="0" id="vslider1" />
+	    </mx:Box>
+	    <mx:Box id="list_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:List id="list1" selectedIndex="1"
+	            dataProvider="['Joan', 'Jacob', 'Rob', 'Joann', 'Lauren', 'Ella']" />
+	    </mx:Box>
+	</mx:HBox>
+    <mx:HBox>
+        <mx:Button width="15" id="defaultButton4" />
+		<mx:Box id="colorpicker_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+			<mx:ColorPicker id="cp" />
+		</mx:Box>
+	    <mx:Box id="buttonbar_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+	        <mx:ButtonBar id="buttonbar1" dataProvider="{new ArrayCollection(['Christmas', 'Hannukah', 'Kwanza', 'Snowman'])}" />
+	    </mx:Box>
+
+		<mx:Box id="datefield_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+			<mx:DateField id="dataField1"/>
+		</mx:Box>
+    </mx:HBox>
+		<mx:Box id="menubar_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+			<mx:MenuBar id="menubar1" dataProvider="['Church', 'Ballroom', 'Flowers', 'Rings']" />
+		</mx:Box>
+</mx:Application>

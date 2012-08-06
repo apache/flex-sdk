@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="600" width="700" xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:comps="comps.*" backgroundColor="0xFFFFFF" >
+
+	<mx:Script>
+	<![CDATA[
+
+
+	]]>
+	</mx:Script>
+
+
+	<mx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: myArial;
+			embedAsCFF: false;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myArial;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myArial;
+			embedAsCFF: false;
+		}
+
+		global {
+		    fontFamily: myArial;
+		}
+
+        mx|Button:SubmitState {
+            cornerRadius: 15;
+        }
+
+        mx|Button:ClearState {
+            cornerRadius: 0;
+        }
+        
+        mx|Button:down {
+            chromeColor: #FF0000;
+        }        
+
+        mx|Box:normal {
+			fontSize: 12;
+		}
+
+		mx|Box:zoomed {
+			fontSize: 20;
+		}
+
+		mx|Panel mx|DateChooser:enabledState {
+		    color: #0000DD;
+		}
+
+		mx|Panel mx|DateChooser:disabledState {
+		    color: #FF00FF;
+		}
+
+		#peepComboBox:normalState {
+		    rollOverColor: #FF0033;
+		}
+
+		#peepComboBox:errorState {
+		    rollOverColor: #CC3399;
+		}
+
+		mx|HBox #peepComboBox3:normalState {
+		    rollOverColor: #FF0033;
+		}
+
+		mx|HBox #peepComboBox3:errorState {
+		    rollOverColor: #CC3399;
+		}
+
+		.purpleBox:state1 {
+		    backgroundColor: #990099;
+		}
+
+		.purpleBox:state2 {
+		    backgroundColor: #660066;
+		}
+	</mx:Style>
+
+    <comps:ButtonComp id="button1" />
+    <comps:TextBasic id="box1" />
+    <mx:Panel title="stuff" layout="horizontal">
+        <comps:VBoxStatesComp id="vbox1" />
+        <comps:ButtonComp id="button2" />
+        <comps:DateChooserComp id="datechooser1" />
+    </mx:Panel>
+
+    <comps:DateChooserComp id="datechooser2" />
+    <comps:ComboBoxStatesComp id="peepComboBox" />
+    <comps:ComboBoxStatesComp id="peepComboBox2" />
+    <mx:HBox>
+        <comps:ComboBoxStatesComp id="peepComboBox3" />
+        <comps:ComboBoxStatesComp id="peepComboBox4" />
+    </mx:HBox>
+    <comps:CanvasStatesComp id="canvas1" />
+</mx:Application>
