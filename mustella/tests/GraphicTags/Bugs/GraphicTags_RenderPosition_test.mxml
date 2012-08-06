@@ -1,0 +1,32 @@
+<UnitTester    
+    testDir="GraphicTags/Bugs/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*"
+    testSWF="GraphicTags_RenderPosition.mxml" >
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+    
+    <TestCase testID="GraphicTags_RenderPosition_1" keywords="[FXG, Bitmap, Graphic, Render]" description="Test rendering location of a bitmap graphic" >
+                <setup>            
+                    <ResetComponent target="myG" className="comps.myGroup" waitEvent="updateComplete" />
+                </setup>
+                <body>
+                    <CompareBitmap target="myG" url="../Bugs/baselines/$testID_1.png" />
+                </body>
+        </TestCase> 
+    
+    </testCases>
+</UnitTester>

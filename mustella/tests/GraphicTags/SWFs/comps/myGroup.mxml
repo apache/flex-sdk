@@ -1,0 +1,8 @@
+<s:Group
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+
+    <s:BitmapImage id="bg1" source="@Embed('../../../../Assets/Images/orangerect.jpg')" left="-57.0" top="50.0"/>
+
+</s:Group>

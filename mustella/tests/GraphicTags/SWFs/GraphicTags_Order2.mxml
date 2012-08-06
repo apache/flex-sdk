@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+		xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:local="comps.*"
+		click="doStep()">
+
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+
+    <fx:Script>
+    <![CDATA[
+        import spark.components.Group;
+        import mx.graphics.SolidColor;
+		import spark.primitives.Rect;
+		import spark.components.Button;
+
+		private static var step:int = 0;
+		
+		public function doStep():void
+		{
+		    ++step;
+	
+		    if (step == 1) 
+		    {
+		        var r1:Rect = new Rect();
+				r1.x = 50; 
+				r1.y = 10;
+				r1.width = 60; 
+				r1.height = 60;
+				r1.fill = new SolidColor(0x000000);
+				addElement(r1);
+				return;
+		    }
+
+		    if (step == 2) 
+		    {
+				var g:Group = new Group();
+				var r2:Rect = new Rect();
+				r2.x = 60; 
+				r2.y = 40;
+				r2.width = 60; 
+				r2.height = 60;
+				r2.fill = new SolidColor(0x00FF00);
+				g.addElement(r2);
+				addElement(g);
+		    }
+		    
+		    if (step == 3) 
+	    	{
+				var r3:Rect = new Rect();
+				r3.x = 70; 
+				r3.y = 70;
+				r3.width = 60; 
+				r3.height = 60;
+				r3.fill = new SolidColor(0x0000FF);
+				addElement(r3);
+				return;
+	    	}
+		}
+    ]]>
+    </fx:Script>
+
+    <local:myRect2 id="aRect" />
+
+</s:Application>

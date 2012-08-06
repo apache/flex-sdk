@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:dt="http://ns.adobe.com/fxg/2008/dt"
+    xmlns:local="comps.*"
+    alpha="1"
+    width="500"
+    height="400" >
+
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+    
+    
+    <fx:DesignLayer dt:userLabel="Layer 1"/>
+    
+    <s:Rect top="65.0" height="82" left="221.0" width="185" radiusX="7" radiusY="7" alpha="0.5">
+        <s:fill>
+            <mx:SolidColor color="0xf46702"/>
+        </s:fill>
+        <s:stroke>
+            <mx:SolidColorStroke color="0x000000" weight="2"/>
+        </s:stroke>
+    </s:Rect>
+
+    <s:Rect top="262" height="79" left="116" width="157">
+        <s:fill>
+            <mx:SolidColor color="0x1f45ad"/>
+        </s:fill>
+        <s:stroke>
+            <mx:SolidColorStroke color="0x666666" weight="1"/>
+        </s:stroke>
+    </s:Rect>
+   
+    <local:myRect id="topRect" />
+   
+    <s:Button id="downButton" label="down+{topRect.alpha}" mouseDown="topRect.alpha-=0.1"/>
+
+    <s:Button id="upButton" left="3.0" top="31.0" label="up+{topRect.alpha}" mouseDown="topRect.alpha+=0.1"/>
+    
+</s:Application>

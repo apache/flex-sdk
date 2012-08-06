@@ -1,0 +1,40 @@
+<UnitTester 
+    testDir="GraphicTags/Bugs/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"   
+    xmlns="*" 
+    testSWF="GraphicTags_Order.mxml">
+            
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+                                 
+	<TestCase testID="GraphicTags_ObjectOrder_1" keywords="[FXG, GraphicTags, Z-Order]" description="Test" >
+            <setup>
+                <ResetComponent target="topRect" className="comps.myRect" waitEvent="updateComplete" />                
+            </setup>
+            <body>                
+                <DispatchMouseClickEvent target="downButton" localX="5" localY="5" waitEvent="click" waitTarget="downButton"/>
+                <AssertPixelValue target="stage" x="244" y="280" value="0xD31520" />
+                
+                <DispatchMouseClickEvent target="downButton" localX="5" localY="5" waitEvent="click" waitTarget="downButton"/>		
+		<AssertPixelValue target="stage" x="244" y="280" value="0xBE1A2F" />
+		
+		<DispatchMouseClickEvent target="downButton" localX="5" localY="5" waitEvent="click" waitTarget="downButton"/>		
+		<AssertPixelValue target="stage" x="244" y="280" value="0xAB203F" />					
+            </body>
+        </TestCase>   
+                    
+    </testCases>
+    
+</UnitTester>  
