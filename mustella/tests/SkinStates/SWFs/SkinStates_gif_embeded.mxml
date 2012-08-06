@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="0xFFFFFF" width="1200" height="800">
+    <mx:Script>
+        <![CDATA[
+            import mx.controls.Alert;
+
+            [Bindable]
+            public var scaleTypedp:Array = ["showAll", "fillPage", "none", "matchWidth", "matchHeight"];
+
+            import mx.managers.PopUpManager;
+            import mx.containers.TitleWindow;
+             import flash.geom.Point;
+
+            private var point1:Point = new Point();
+            private function showWindow():void {
+                var login:SimpleTitleWindowExample=SimpleTitleWindowExample(PopUpManager.createPopUp( this, SimpleTitleWindowExample , true));
+                point1.x=0;
+                point1.y=0;
+                login.x=point1.x+100;
+                login.y=point1.y+100;
+                login.loginName=returnedName;
+            }
+        ]]>
+    </mx:Script>
+    <mx:Style>
+        PopUpButton {
+            skin: ClassReference("comps.PUMB_Skin_gif_embeded");
+        }
+        PopUpMenuButton {
+            skin: ClassReference("comps.PUMB_Skin_gif_embeded");
+        }
+        DateChooser
+        {
+            nextYearSkin: ClassReference("comps.Arrow_Top_gif_embeded");
+            prevYearSkin: ClassReference("comps.Arrow_Bottom_gif_embeded");
+            nextMonthSkin: ClassReference("comps.Arrow_Right_gif_embeded");
+            prevMonthSkin: ClassReference("comps.Arrow_Left_gif_embeded");
+        }
+        DateField
+        {
+            nextYearSkin: ClassReference("comps.Arrow_Top_gif_embeded");
+            prevYearSkin: ClassReference("comps.Arrow_Bottom_gif_embeded");
+            nextMonthSkin: ClassReference("comps.Arrow_Right_gif_embeded");
+            prevMonthSkin: ClassReference("comps.Arrow_Left_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        NumericStepper
+        {
+            upArrowSkin: ClassReference("comps.Arrow_Top_gif_embeded");
+            downArrowSkin: ClassReference("comps.Arrow_Bottom_gif_embeded");
+        }
+        .myAccordionHeader
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        Accordion
+        {
+            headerStyleName: "myAccordionHeader";
+        }
+        Button
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+        }
+        .myButton
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        LinkButton
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        .myToggleButtonBar
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        .myTabBar
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+        }
+    
+        ComboBox
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        TitleWindow
+        {
+            closeButtonSkin: ClassReference("comps.button_gif_embeded");
+            closeButtonDisabledSkin: ClassReference(null);
+            closeButtonDownSkin: ClassReference(null);
+            closeButtonOverSkin: ClassReference(null);
+            closeButtonUpSkin: ClassReference(null);
+            icon: ClassReference("comps.icon_gif_embeded");
+
+        }
+        HSlider
+        {
+            thumbSkin: ClassReference("comps.Arrow_Top_gif_embeded");
+        }
+        VSlider
+        {
+            thumbSkin: ClassReference("comps.Arrow_Top_gif_embeded");
+        }
+        CheckBox
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        RadioButton
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+            icon: ClassReference("comps.icon_gif_embeded");
+        }
+        ScrollBar
+        {
+            upArrowSkin: ClassReference("comps.Arrow_Top_gif_embeded");
+            downArrowSkin: ClassReference("comps.Arrow_Bottom_gif_embeded");
+            thumbSkin: ClassReference("comps.scroll_thumb_gif_embeded");
+            <!--trackSkin: ClassReference("comps.scroll_track_gif_embeded");-->
+        }
+    </mx:Style>
+    <mx:Box backgroundColor="0xFFFFFF">
+   <mx:Button id="myButton_gif_embeded" label="Button components" styleName="myButton" />
+
+   <mx:PopUpButton id="myPopUpButton_gif_embeded" label="Check popUpOverSkin is displayed." width="250" height="23" paddingTop="0" paddingBottom="0" paddingRight="0" paddingLeft="0" >
+    <mx:popUp>
+        <mx:List>
+            <mx:dataProvider>
+                <mx:Array>
+                    <mx:Object label="Smily" data="icon11"/>
+                    <mx:Object label="no" data="icon12"/>
+                    <mx:Object label="yes" data="icon13"/>
+                </mx:Array>
+            </mx:dataProvider>
+        </mx:List>
+    </mx:popUp>
+   </mx:PopUpButton>
+
+    <mx:PopUpMenuButton id="myPopUpMenuButton_gif_embeded" label="Check popUpOverSkin is displayed." width="250" height="23" paddingTop="0" paddingBottom="0" paddingRight="0" paddingLeft="0" >
+    <mx:dataProvider>
+        <mx:Array>
+            <mx:Object label="Smily" data="icon11"/>
+            <mx:Object label="no" data="icon12"/>
+            <mx:Object label="yes" data="icon13"/>
+        </mx:Array>
+    </mx:dataProvider>
+    </mx:PopUpMenuButton>
+
+   <mx:DateChooser id="myDateChooser_gif_embeded"  yearNavigationEnabled="true" />
+
+   <mx:DateField id="myDateField_gif_embeded" yearNavigationEnabled="true" />
+
+   <mx:NumericStepper id="myNumericStepper_gif_embeded"  />
+
+    <mx:VBox id="myVBox_gif_embeded"  height="120" >
+        <mx:Button height="100" label="high button"/>
+        <mx:TextInput height="50"/>
+    </mx:VBox>
+
+    <mx:Accordion id="myAccordion_gif_embeded">
+        <mx:VBox label="VBox 1" width="200" height="100">
+            <mx:Button label="Blah Blah" />
+            <mx:Button label="Wah Wah" />
+            <mx:Button label="Wow wow" />
+            <mx:Button label="Yay yay" />
+        </mx:VBox>
+        <mx:VBox label="VBox 2" width="200" height="100">
+            <mx:Button label="Blah Blah" width="100" height="30"/>
+            <mx:Button label="Wah Wah" />
+            <mx:Button label="Wow wow" />
+            <mx:Button label="Yay yay" />
+        </mx:VBox>
+        <mx:VBox label="VBox 3" width="200" height="100">
+            <mx:Button label="Blah Blah" />
+            <mx:Button label="Wah Wah" />
+            <mx:Button label="Wow wow" />
+            <mx:Button label="Yay yay" />
+        </mx:VBox>
+    </mx:Accordion>
+
+    <mx:ToggleButtonBar id="myToggleButtonBar_gif_embeded" dataProvider="{scaleTypedp}" buttonStyleName="myToggleButtonBar" />
+
+    <mx:ButtonBar id="myButtonBar_gif_embeded" dataProvider="{scaleTypedp}" buttonStyleName="myToggleButtonBar" />
+
+    <mx:LinkButton id="myLinkButton_gif_embeded" label="LinkButton control" fontWeight="bold" click="Alert.show('LinkButton selected!');" />
+
+        <mx:TabNavigator id="myTabNavigator_gif_embeded"  width="100%" height="50" tabStyleName="myTabBar" >
+            <mx:VBox label="Panel 1">
+                <mx:Label text="TabNavigator container panel 1"/>
+            </mx:VBox>
+            <mx:VBox label="Panel 2">
+                <mx:Label text="TabNavigator container panel 2"/>
+            </mx:VBox>
+            <mx:VBox label="Panel 3">
+                <mx:Label text="TabNavigator container panel 3"/>
+            </mx:VBox>
+        </mx:TabNavigator>
+
+    <mx:ViewStack id="myViewStack" borderStyle="solid" width="100%" height="50">
+        <mx:Canvas id="search" backgroundColor="#FFFFCC" label="Search" width="100%" height="50">
+        <mx:Label text="Search Screen" color="#000000"/>
+        </mx:Canvas>
+
+        <mx:Canvas id="custInfo" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="50">
+        <mx:Label text="Customer Info" color="#000000"/>
+        </mx:Canvas>
+
+        <mx:Canvas id="accountInfo" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="50">
+        <mx:Label text="Account Info" color="#000000"/>
+        </mx:Canvas>
+        </mx:ViewStack>
+        <mx:LinkBar id="myLinkBar_gif_embeded" dataProvider="{myViewStack}" />
+
+    <mx:TabBar id="myTabBar_gif_embeded" dataProvider="{scaleTypedp}" tabStyleName="myTabBar" />
+
+    <mx:ComboBox id="myComboBox_gif_embeded" dataProvider="{scaleTypedp}" />
+
+    <mx:TitleWindow id="myTitleWindow_gif_embeded" title="TitleWindow" showCloseButton="true" >
+        <mx:Button label="Pop up a TitleWindow" click="showWindow();" />
+    </mx:TitleWindow>
+
+    <mx:Text id="returnedName" text="" width="100%"/>
+
+    <mx:HSlider id="myHSlider_gif_embeded" minimum="0" maximum="100" value="100" dataTipPlacement="top" tickColor="black"
+     snapInterval="1" tickInterval="10" labels="['0%','100%']" allowTrackClick="true" liveDragging="true"/>
+
+    <mx:VSlider id="myVSlider_gif_embeded" minimum="0" maximum="100" value="100" dataTipPlacement="top" tickColor="black"
+     snapInterval="1" tickInterval="10" labels="['0%','100%']" allowTrackClick="true" liveDragging="true"/>
+
+    <mx:VBox>
+        <mx:Text id="myCheckBox_gif_embeded" text="Below are Check Boxes"/>
+
+                 <mx:CheckBox id="checkbox1_gif_embeded" label="milk" />
+                 <mx:CheckBox id="checkbox2_gif_embeded" label="eggs" />
+                 <mx:CheckBox id="checkbox3_gif_embeded" label="bread" />
+
+            <mx:Text text="Below are Radio Buttons"/>
+
+            <mx:RadioButtonGroup id="myRadioButtonGroup_gif_embeded" />
+                <mx:RadioButton groupName="cardtype" id="radiobutton1_gif_embeded" value="AmEx" label="Credit Card One" width="150" />
+                <mx:RadioButton groupName="cardtype" id="radiobutton2_gif_embeded" value="MC" label="Credit Card Two" width="150" />
+                <mx:RadioButton groupName="cardtype" id="radiobutton3_gif_embeded" value="Visa" label="Visa" width="150" />
+        </mx:VBox>
+  </mx:Box>
+</mx:Application>

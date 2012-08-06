@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="SkinStates/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SkinStates_swfsymbol_embeded.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+    import mx.controls.*;
+    import mx.containers.*;
+    import mx.core.*;
+    import flash.events.*;
+    use namespace mx_internal;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+
+
+    public function doTheValidate():void{
+        UIComponentGlobals.layoutManager.validateNow();
+    }
+    public function setButtonStyle_swfsymbol_embeded():void{
+        application.myButton_swfsymbol_embeded.setStyle("styleName","myButton");
+        application.myButton_swfsymbol_embeded.label="Button components";
+
+    }
+    public function makeButtonDisabled_swfsymbol_embeded():void{
+        application.myButton_swfsymbol_embeded.styleName="myButton";
+        application.myButton_swfsymbol_embeded.label="Button components";
+
+        application.myButton_swfsymbol_embeded.enabled=false;
+    }
+    public function setDateHardCoded_swfsymbol_embeded():void{
+        application.myDateChooser_swfsymbol_embeded.yearNavigationEnabled=true;
+        application.myDateChooser_swfsymbol_embeded.selectedDate=new Date(2007, 00, 01);
+
+    }
+    public function disableDateChooser_swfsymbol_embeded():void{
+        application.myDateChooser_swfsymbol_embeded.enabled=false;
+
+    }
+
+    public function disableNumericStepper_swfsymbol_embeded():void{
+        application.myNumericStepper_swfsymbol_embeded.enabled=false;
+
+    }
+    public function setAccordion_swfsymbol_embeded():void{
+        var myVBox1:VBox=new VBox();
+        myVBox1.label="VBox 1";
+        myVBox1.width=200;
+        myVBox1.height=100;
+        var myVBox2:VBox=new VBox();
+        myVBox2.label="VBox 2";
+        myVBox2.width=200;
+        myVBox2.height=100;
+        var myVBox3:VBox=new VBox();
+        myVBox3.label="VBox 3";
+        myVBox3.width=200;
+        myVBox3.height=100;
+
+        var myBtn1:Button = new Button();
+        myBtn1.label="Blah Blah";
+        var myBtn2:Button = new Button();
+        myBtn2.label="Wah Wah";
+        var myBtn3:Button = new Button();
+        myBtn3.label="Wow wow";
+        var myBtn4:Button = new Button();
+        myBtn4.label="Yay yay";
+        myVBox1.addChild(myBtn1);
+        myVBox1.addChild(myBtn2);
+        myVBox1.addChild(myBtn3);
+        myVBox1.addChild(myBtn4);
+
+        var myBtn5:Button = new Button();
+        myBtn5.label="Blah Blah";
+        var myBtn6:Button = new Button();
+        myBtn6.label="Wah Wah";
+        var myBtn7:Button = new Button();
+        myBtn7.label="Wow wow";
+        var myBtn8:Button = new Button();
+        myBtn8.label="Yay yay";
+        myVBox2.addChild(myBtn5);
+        myVBox2.addChild(myBtn6);
+        myVBox2.addChild(myBtn7);
+        myVBox2.addChild(myBtn8);
+
+        var myBtn9:Button = new Button();
+        myBtn9.label="Blah Blah";
+        var myBtn10:Button = new Button();
+        myBtn10.label="Wah Wah";
+        var myBtn11:Button = new Button();
+        myBtn11.label="Wow wow";
+        var myBtn12:Button = new Button();
+        myBtn12.label="Yay yay";
+        myVBox3.addChild(myBtn9);
+        myVBox3.addChild(myBtn10);
+        myVBox3.addChild(myBtn11);
+        myVBox3.addChild(myBtn12);
+
+        application.myAccordion_swfsymbol_embeded.addChild(myVBox1);
+        application.myAccordion_swfsymbol_embeded.addChild(myVBox2);
+        application.myAccordion_swfsymbol_embeded.addChild(myVBox3);
+
+
+    }
+    public function disableAccordion_swfsymbol_embeded():void{
+        application.myAccordion_swfsymbol_embeded.enabled=false;
+
+    }
+    public function setToggleButtonBar_swfsymbol_embeded():void{
+        application.myToggleButtonBar_swfsymbol_embeded.dataProvider=application.scaleTypedp;
+        application.myToggleButtonBar_swfsymbol_embeded.setStyle("buttonStyleName", "myToggleButtonBar");
+
+    }
+    public function setButtonBar_swfsymbol_embeded():void{
+        application.myButtonBar_swfsymbol_embeded.dataProvider=application.scaleTypedp;
+        application.myButtonBar_swfsymbol_embeded.setStyle("buttonStyleName", "myToggleButtonBar");
+
+    }
+    public function disableToggleButtonBar_swfsymbol_embeded():void{
+        application.myToggleButtonBar_swfsymbol_embeded.enabled=false;
+
+    }
+    public function disableButtonBar_swfsymbol_embeded():void{
+        application.myButtonBar_swfsymbol_embeded.enabled=false;
+
+    }
+    public function setLinkButton_swfsymbol_embeded():void{
+        application.myLinkButton_swfsymbol_embeded.label="LinkButton control";
+        application.myLinkButton_swfsymbol_embeded.setStyle("fontWeight", "bold");
+
+    }
+    public function disableLinkButton_swfsymbol_embeded():void{
+        application.myLinkButton_swfsymbol_embeded.enabled=false;
+
+    }
+    public function disablePopUpButton_swfsymbol_embeded():void{
+        application.myPopUpButton_swfsymbol_embeded.enabled=false;
+
+    }
+    public function setDateHardCodedField_swfsymbol_embeded():void{
+        application.myDateField_swfsymbol_embeded.yearNavigationEnabled=true;
+        application.myDateField_swfsymbol_embeded.selectedDate=new Date(2007, 00, 01);
+
+    }
+    public function disableDateField_swfsymbol_embeded():void{
+        application.myDateField_swfsymbol_embeded.enabled=false;
+
+    }
+    public function set_VBox_swfsymbol_embeded():void{
+        var highBtn:Button=new Button();
+        highBtn.label="high button";
+        highBtn.height=100;
+        var highText:TextInput=new TextInput();
+        highText.height=50;
+        application.myVBox_swfsymbol_embeded.height=120;
+        application.myVBox_swfsymbol_embeded.addChild(highBtn);
+        application.myVBox_swfsymbol_embeded.addChild(highText);
+
+
+    }
+    public function disableVBox_swfsymbol_embeded():void{
+        application.myVBox_swfsymbol_embeded.enabled=false;
+
+    }
+    public function disableTabBar_swfsymbol_embeded():void{
+        application.myTabBar_swfsymbol_embeded.enabled=false;
+
+    }
+
+    public function set_TabBar_swfsymbol_embeded():void{
+        application.myTabBar_swfsymbol_embeded.dataProvider=application.scaleTypedp;
+        application.myTabBar_swfsymbol_embeded.setStyle("tabStyleName","myTabBar");
+
+
+    }
+    public function disableComboBox_swfsymbol_embeded():void{
+        application.myComboBox_swfsymbol_embeded.enabled=false;
+
+    }
+
+    public function set_ComboBox_swfsymbol_embeded():void{
+        application.myComboBox_swfsymbol_embeded.dataProvider=application.scaleTypedp;
+
+    }
+    public function disableHSlider_swfsymbol_embeded():void{
+        application.myHSlider_swfsymbol_embeded.enabled=false;
+
+    }
+
+    public function set_HSlider_swfsymbol_embeded():void{
+        application.myHSlider_swfsymbol_embeded.minimum=0;
+        application.myHSlider_swfsymbol_embeded.maximum=100;
+        application.myHSlider_swfsymbol_embeded.value=100;
+        application.myHSlider_swfsymbol_embeded.setStyle("tickColor", 0x000000);
+        application.myHSlider_swfsymbol_embeded.snapInterval=1;
+        application.myHSlider_swfsymbol_embeded.tickInterval=10;
+        application.myHSlider_swfsymbol_embeded.labels=["0%","100%"];
+
+    }
+    public function disableVSlider_swfsymbol_embeded():void{
+        application.myVSlider_swfsymbol_embeded.enabled=false;
+
+    }
+    public function set_VSlider_swfsymbol_embeded():void{
+        application.myVSlider_swfsymbol_embeded.minimum=0;
+        application.myVSlider_swfsymbol_embeded.maximum=100;
+        application.myVSlider_swfsymbol_embeded.value=100;
+        application.myVSlider_swfsymbol_embeded.setStyle("tickColor", 0x000000);
+        application.myVSlider_swfsymbol_embeded.snapInterval=1;
+        application.myVSlider_swfsymbol_embeded.tickInterval=10;
+        application.myVSlider_swfsymbol_embeded.labels=["0%","100%"];
+
+    }
+
+    public function disableCheckBox1_swfsymbol_embeded():void{
+        application.checkbox1_swfsymbol_embeded.enabled=false;
+
+    }
+
+
+    public function set_CheckBox1_swfsymbol_embeded():void{
+        application.checkbox1_swfsymbol_embeded.label="milk";
+
+    }
+
+    public function disableCheckBox2_swfsymbol_embeded():void{
+        application.checkbox2_swfsymbol_embeded.enabled=false;
+
+    }
+
+    public function set_CheckBox2_swfsymbol_embeded():void{
+        application.checkbox2_swfsymbol_embeded.label="eggs";
+        application.checkbox2_swfsymbol_embeded.selected=true;
+
+    }
+
+    public function disableRadioButton1_swfsymbol_embeded():void{
+        application.radiobutton1_swfsymbol_embeded.enabled=false;
+
+    }
+
+
+    public function set_radiobutton1_swfsymbol_embeded():void{
+        application.radiobutton1_swfsymbol_embeded.label="Credit Card One";
+        application.radiobutton1_swfsymbol_embeded.width=150;
+
+    }
+
+    public function disableRadioButton2_swfsymbol_embeded():void{
+        application.radiobutton2_swfsymbol_embeded.enabled=false;
+
+    }
+
+    public function set_radiobutton2_swfsymbol_embeded():void{
+        application.radiobutton2_swfsymbol_embeded.label="Credit Card Two";
+        application.radiobutton2_swfsymbol_embeded.width=150;
+        application.radiobutton2_swfsymbol_embeded.selected=true;
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Test_pumb_Skin_over_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, over]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" waitTarget="myPopUpButton_swfsymbol_embeded" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+                    <DispatchMouseClickEvent localX="10" localY="10" target="myPopUpButton_swfsymbol_embeded" timeout="2000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="mouseUp"/>
+                    <DispatchMouseEvent localX="10" localY="10" buttonDown="false" type="mouseOver" target="myPopUpButton_swfsymbol_embeded" timeout="1000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="mouseOver" />
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpButton_swfsymbol_embeded" x="10" y="10" value="0xB5E0D9" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_pumb_Skin_up_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, up]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myPopUpMenuButton_swfsymbol_embeded" timeout="1000" waitTarget="myPopUpMenuButton_swfsymbol_embeded" waitEvent="mouseUp"/>
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpButton_swfsymbol_embeded" x="10" y="10" value="0xEEEEEE" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_pumb_Skin_down_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, down]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                    <DispatchMouseEvent localX="10" localY="10" target="myPopUpButton_swfsymbol_embeded" type="mouseDown"  timeout="1000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpButton_swfsymbol_embeded" x="10" y="10" value="0x54BCB5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Test_Button_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, Button, up]">
+            <setup>
+                <ResetComponent target="myButton_swfsymbol_embeded" className="mx.controls.Button" waitEvent="updateComplete" />
+                <RunCode code="setButtonStyle_swfsymbol_embeded();" timeout="1000" waitTarget="myButton_swfsymbol_embeded" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myButton_swfsymbol_embeded" url="../Styles/Baselines/Button_Skinned_up_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_Button_Skin_over_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, Button, over]">
+            <setup>
+                <ResetComponent target="myButton_swfsymbol_embeded" className="mx.controls.Button" waitEvent="updateComplete" />
+                    <RunCode code="setButtonStyle_swfsymbol_embeded();" timeout="1000" waitTarget="myButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+
+                    <DispatchMouseClickEvent localX="10" localY="10" target="myButton_swfsymbol_embeded" timeout="2000" waitTarget="myButton_swfsymbol_embeded" waitEvent="mouseUp"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="myButton_swfsymbol_embeded" url="../Styles/Baselines/Button_Skinned_over_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_Button_Skin_down_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, Button, down]">
+            <setup>
+                <ResetComponent target="myButton_swfsymbol_embeded" className="mx.controls.Button" waitEvent="updateComplete" />
+                    <RunCode code="setButtonStyle_swfsymbol_embeded();" timeout="1000" waitTarget="myButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+
+                    <DispatchMouseEvent target="myButton_swfsymbol_embeded" localX="10" localY="10" type="mouseDown" waitTarget="myButton_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myButton_swfsymbol_embeded" url="../Styles/Baselines/Button_Skinned_down_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_Button_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, Button, disabled]">
+            <setup>
+                <ResetComponent target="myButton_swfsymbol_embeded" className="mx.controls.Button" waitEvent="updateComplete" />
+                <RunCode code="makeButtonDisabled_swfsymbol_embeded();" timeout="1000" waitTarget="myButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myButton_swfsymbol_embeded" timeout="2000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myButton_swfsymbol_embeded" url="../Styles/Baselines/Button_Skinned_diabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_DateChooser_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, DateChooser, navigaion, buttons]">
+            <setup>
+                 <ResetComponent target="myDateChooser_swfsymbol_embeded" className="mx.controls.DateChooser" waitEvent="updateComplete" />
+                <RunCode code="setDateHardCoded_swfsymbol_embeded();" timeout="1000" waitTarget="myDateChooser_swfsymbol_embeded" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myDateChooser_swfsymbol_embeded" url="../Styles/Baselines/DateChooser_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_DateChooser_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, DateChooser, navigaion, buttons, disabled]">
+            <setup>
+                <ResetComponent target="myDateChooser_swfsymbol_embeded" className="mx.controls.DateChooser" waitEvent="updateComplete" />
+                <RunCode code="setDateHardCoded_swfsymbol_embeded();" timeout="1000" waitEvent="updateComplete" />
+
+                <RunCode code="disableDateChooser_swfsymbol_embeded();" timeout="1000" waitTarget="myDateChooser_swfsymbol_embeded" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myDateChooser_swfsymbol_embeded" url="../Styles/Baselines/DateChooser_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_NumericStepper_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, NumericStepper, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myNumericStepper_swfsymbol_embeded" className="mx.controls.NumericStepper" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myNumericStepper_swfsymbol_embeded" url="../Styles/Baselines/NumericStepper_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_NumericStepper_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, NumericStepper, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myNumericStepper_swfsymbol_embeded" className="mx.controls.NumericStepper" waitEvent="updateComplete" />
+
+                <RunCode code="disableNumericStepper_swfsymbol_embeded();" timeout="1000" waitTarget="myNumericStepper_swfsymbol_embeded" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myNumericStepper_swfsymbol_embeded" url="../Styles/Baselines/NumericStepper_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_Accordion_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, Accordion, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myAccordion_swfsymbol_embeded" className="mx.containers.Accordion" waitEvent="updateComplete" />
+                <RunCode code="setAccordion_swfsymbol_embeded();" timeout="1000" waitTarget="myAccordion_swfsymbol_embeded" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myAccordion_swfsymbol_embeded" url="../Styles/Baselines/Accordion_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_Accordion_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, Accordion, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myAccordion_swfsymbol_embeded" className="mx.containers.Accordion" waitEvent="updateComplete" />
+
+                <RunCode code="setAccordion_swfsymbol_embeded();" timeout="1000" waitTarget="myAccordion_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <RunCode code="disableAccordion_swfsymbol_embeded();" waitTarget="myAccordion_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myAccordion_swfsymbol_embeded" url="../Styles/Baselines/Accordion_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_ToggleButtonBar_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, ToggleButtonBar, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myToggleButtonBar_swfsymbol_embeded" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" />
+                <RunCode code="setToggleButtonBar_swfsymbol_embeded();" timeout="1000" waitTarget="myToggleButtonBar_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myToggleButtonBar_swfsymbol_embeded" timeout="2000" waitTarget="myToggleButtonBar_swfsymbol_embeded" waitEvent="mouseUp"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myToggleButtonBar_swfsymbol_embeded" url="../Styles/Baselines/TBB_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_ToggleButtonBar_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, ToggleButtonBar, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myToggleButtonBar_swfsymbol_embeded" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" />
+                <RunCode code="setToggleButtonBar_swfsymbol_embeded();" timeout="1000" waitTarget="myToggleButtonBar_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myToggleButtonBar_swfsymbol_embeded" timeout="2000" waitTarget="myToggleButtonBar_swfsymbol_embeded" waitEvent="mouseUp"/>
+
+                <RunCode code="disableToggleButtonBar_swfsymbol_embeded();" timeout="1000" waitTarget="myToggleButtonBar_swfsymbol_embeded" waitEvent="updateComplete"/>
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myToggleButtonBar_swfsymbol_embeded" url="../Styles/Baselines/TBB_Disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_ButtonBar_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, ButtonBar, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myButtonBar_swfsymbol_embeded" className="mx.controls.ButtonBar" waitEvent="updateComplete" />
+                <RunCode code="setButtonBar_swfsymbol_embeded();" timeout="1000" waitTarget="myButtonBar_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myButtonBar_swfsymbol_embeded" timeout="2000"  waitTarget="myButtonBar_swfsymbol_embeded" waitEvent="mouseUp" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myButtonBar_swfsymbol_embeded" url="../Styles/Baselines/ButtonBar_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_ButtonBar_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, ButtonBar, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myButtonBar_swfsymbol_embeded" className="mx.controls.ButtonBar" waitEvent="updateComplete" />
+                <RunCode code="setButtonBar_swfsymbol_embeded();" timeout="1000" waitTarget="myButtonBar_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myButtonBar_swfsymbol_embeded" timeout="2000"  waitTarget="myButtonBar_swfsymbol_embeded" waitEvent="mouseUp" />
+
+                <RunCode code="disableButtonBar_swfsymbol_embeded();" timeout="1000" waitTarget="myButtonBar_swfsymbol_embeded" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myButtonBar_swfsymbol_embeded" url="../Styles/Baselines/ButtonBar_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_LinkButton_Skin_normal_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, LinkButton, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myLinkButton_swfsymbol_embeded" className="mx.controls.LinkButton" waitEvent="updateComplete" />
+                <RunCode code="setLinkButton_swfsymbol_embeded();" timeout="1000" waitTarget="myLinkButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myLinkButton_swfsymbol_embeded" url="../Styles/Baselines/LinkButton_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_LinkButton_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, LinkButton, navigaion, buttons]">
+            <setup>
+                <ResetComponent target="myLinkButton_swfsymbol_embeded" className="mx.controls.LinkButton" waitEvent="updateComplete" />
+                <RunCode code="setLinkButton_swfsymbol_embeded();" timeout="1000" waitTarget="myLinkButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <RunCode code="disableLinkButton_swfsymbol_embeded();" waitTarget="myLinkButton_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myLinkButton_swfsymbol_embeded" url="../Styles/Baselines/LinkButton_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_PopUpButton_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpButton, disabled]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                    <RunCode code="disablePopUpButton_swfsymbol_embeded();" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myPopUpButton_swfsymbol_embeded" url="../Styles/Baselines/PopUpButton_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_DateField_Skin_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, DateField, enabled]">
+            <setup>
+                <ResetComponent target="myDateField_swfsymbol_embeded" className="mx.controls.DateField" waitEvent="updateComplete" />
+                <RunCode code="setDateHardCodedField_swfsymbol_embeded();" waitTarget="myDateField_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myDateField_swfsymbol_embeded" url="../Styles/Baselines/DateField_Skinned_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_DateField_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, DateField, disabled]">
+            <setup>
+                <ResetComponent target="myDateField_swfsymbol_embeded" className="mx.controls.DateField" waitEvent="updateComplete" />
+                <RunCode code="setDateHardCodedField_swfsymbol_embeded();" waitTarget="myDateField_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+                <RunCode code="disableDateField_swfsymbol_embeded();" waitTarget="myDateField_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+                <DispatchMouseClickEvent localX="10" localY="10" target="myDateField_swfsymbol_embeded" timeout="2000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myDateField_swfsymbol_embeded" url="../Styles/Baselines/DateField_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_VBox_Skin_enabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, VBox, enabled]">
+            <setup>
+                <ResetComponent target="myVBox_swfsymbol_embeded" className="mx.containers.VBox" waitEvent="updateComplete" />
+                    <RunCode code="set_VBox_swfsymbol_embeded();" waitTarget="myVBox_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+                <DispatchMouseClickEvent stageX="10" stageY="10" timeout="2000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myVBox_swfsymbol_embeded" url="../Styles/Baselines/VBox_Skinned_enabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_VBox_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, VBox, enabled]">
+            <setup>
+                <ResetComponent target="myVBox_swfsymbol_embeded" className="mx.containers.VBox" waitEvent="updateComplete" />
+                    <RunCode code="set_VBox_swfsymbol_embeded();" waitTarget="myVBox_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+                <RunCode code="disableVBox_swfsymbol_embeded();" waitTarget="myVBox_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myVBox_swfsymbol_embeded" url="../Styles/Baselines/VBox_Skinned_disabled_swfsymbol_embeded.png" />
+                    <DispatchMouseClickEvent stageX="1195" stageY="750" timeout="2000" waitTarget="stage" waitEvent="mouseUp"/>
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Test_TabBar_Skin_enabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, TabBar, enabled]">
+            <setup>
+                <DispatchMouseClickEvent stageX="1195" stageY="760" timeout="2000" waitTarget="stage" waitEvent="mouseUp"/>
+
+                <ResetComponent target="myTabBar_swfsymbol_embeded" className="mx.controls.TabBar" waitEvent="updateComplete" />
+                    <RunCode code="set_TabBar_swfsymbol_embeded();" waitTarget="myTabBar_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myTabBar_swfsymbol_embeded" url="../Styles/Baselines/TabBar_Skinned_enabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_TabBar_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, TabBar, enabled]">
+            <setup>
+                <ResetComponent target="myTabBar_swfsymbol_embeded" className="mx.controls.TabBar" waitEvent="updateComplete" />
+                    <RunCode code="set_TabBar_swfsymbol_embeded();" waitTarget="myTabBar_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <DispatchMouseClickEvent localX="10" localY="10" target="myTabBar_swfsymbol_embeded" timeout="2000" waitTarget="myTabBar_swfsymbol_embeded" waitEvent="mouseUp" />
+
+                    <RunCode code="disableTabBar_swfsymbol_embeded();" waitTarget="myTabBar_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"  />
+            </setup>
+            <body>
+                    <CompareBitmap target="myTabBar_swfsymbol_embeded" url="../Styles/Baselines/TabBar_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+    
+        <TestCase testID="Test_ComboBox_Skin_enabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, ComboBox, enabled]">
+            <setup>
+                <ResetComponent target="myComboBox_swfsymbol_embeded" className="mx.controls.ComboBox" waitEvent="updateComplete" />
+                    <RunCode code="set_ComboBox_swfsymbol_embeded();" waitTarget="myComboBox_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myComboBox_swfsymbol_embeded" url="../Styles/Baselines/ComboBox_Skinned_enabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_ComboBox_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, ComboBox, enabled]">
+            <setup>
+                <ResetComponent target="myComboBox_swfsymbol_embeded" className="mx.controls.ComboBox" waitEvent="updateComplete" />
+                    <RunCode code="set_ComboBox_swfsymbol_embeded();" waitTarget="myComboBox_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                <RunCode code="disableComboBox_swfsymbol_embeded();" waitTarget="myComboBox_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myComboBox_swfsymbol_embeded" url="../Styles/Baselines/ComboBox_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_HSlider_Skin_enabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, HSlider, enabled]">
+            <setup>
+                <ResetComponent target="myHSlider_swfsymbol_embeded" className="mx.controls.HSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_HSlider_swfsymbol_embeded();" waitTarget="myHSlider_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myHSlider_swfsymbol_embeded" url="../Styles/Baselines/HSlider_Skinned_enabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_HSlider_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, HSlider, enabled]">
+            <setup>
+                <ResetComponent target="myHSlider_swfsymbol_embeded" className="mx.controls.HSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_HSlider_swfsymbol_embeded();" waitTarget="myHSlider_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableHSlider_swfsymbol_embeded();" waitTarget="myHSlider_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <CompareBitmap target="myHSlider_swfsymbol_embeded" url="../Styles/Baselines/HSlider_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_VSlider_Skin_enabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, VSlider, enabled]">
+            <setup>
+                <ResetComponent target="myVSlider_swfsymbol_embeded" className="mx.controls.VSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_VSlider_swfsymbol_embeded();" waitTarget="myVSlider_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myVSlider_swfsymbol_embeded" url="../Styles/Baselines/VSlider_Skinned_enabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_VSlider_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, VSlider, enabled]">
+            <setup>
+                <ResetComponent target="myVSlider_swfsymbol_embeded" className="mx.controls.VSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_VSlider_swfsymbol_embeded();" waitTarget="myVSlider_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableVSlider_swfsymbol_embeded();" waitTarget="myVSlider_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"  />
+
+            </setup>
+            <body>
+                    <CompareBitmap target="myVSlider_swfsymbol_embeded" url="../Styles/Baselines/VSlider_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+
+
+
+
+        <TestCase testID="Test_checkbox1_Skin_up_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, enabled, up, Icon]">
+            <setup>
+                <ResetComponent target="checkbox1_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox1_swfsymbol_embeded();" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox1_swfsymbol_embeded" url="../Styles/Baselines/checkbox1_Skinned_up_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_checkbox1_Skin_over_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, enabled, over, Icon]">
+            <setup>
+                <ResetComponent target="checkbox1_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox1_swfsymbol_embeded();" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                <!--<DispatchMouseEvent localX="7" localY="7" target="checkbox1_swfsymbol_embeded" type="mouseOver" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" /> -->
+                    <DispatchMouseClickEvent localX="5" localY="5" target="checkbox1_swfsymbol_embeded" timeout="2000"  waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete"/>
+                    <DispatchMouseClickEvent localX="5" localY="5" target="checkbox1_swfsymbol_embeded" timeout="2000"  waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox1_swfsymbol_embeded" url="../Styles/Baselines/checkbox1_Skinned_over_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_checkbox1_Skin_down_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, enabled, down, Icon]">
+            <setup>
+                <ResetComponent target="checkbox1_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox1_swfsymbol_embeded();" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <DispatchMouseEvent localX="7" localY="7" target="checkbox1_swfsymbol_embeded" type="mouseDown" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete"  timeout="1000"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox1_swfsymbol_embeded" url="../Styles/Baselines/checkbox1_Skinned_down_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_checkbox1_Skin_Disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, disabled ]">
+            <setup>
+                <ResetComponent target="checkbox1_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox1_swfsymbol_embeded();" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableCheckBox1_swfsymbol_embeded();" waitTarget="checkbox1_swfsymbol_embeded" waitEvent="updateComplete"  timeout="1000" />
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox1_swfsymbol_embeded" url="../Styles/Baselines/checkbox1_Skinned_Disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+
+
+
+
+        <TestCase testID="Test_checkbox2_Skin_selectedUp_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, enabled, selectedUp, Icon]">
+            <setup>
+                <ResetComponent target="checkbox2_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox2_swfsymbol_embeded();" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox2_swfsymbol_embeded" url="../Styles/Baselines/checkbox2_Skinned_selectedUp_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_checkbox2_Skin_selectedOver_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, enabled, selectedOver, Icon]">
+            <setup>
+                <ResetComponent target="checkbox2_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox2_swfsymbol_embeded();" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <!--<DispatchMouseEvent localX="5" localY="5" target="checkbox2_swfsymbol_embeded" type="mouseOver" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/> -->
+                    <DispatchMouseClickEvent localX="5" localY="5" target="checkbox2_swfsymbol_embeded" timeout="2000"  waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete"/>
+                    <DispatchMouseClickEvent localX="5" localY="5" target="checkbox2_swfsymbol_embeded" timeout="2000"  waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox2_swfsymbol_embeded" url="../Styles/Baselines/checkbox2_Skinned_selectedOver_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_checkbox2_Skin_selectedDown_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, enabled, selectedDown, Icon]">
+            <setup>
+                <ResetComponent target="checkbox2_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox2_swfsymbol_embeded();" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <DispatchMouseEvent localX="5" localY="5" target="checkbox2_swfsymbol_embeded" type="mouseDown" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox2_swfsymbol_embeded" url="../Styles/Baselines/checkbox2_Skinned_selectedDown_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_checkbox2_Skin_selectedDisabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, CheckBox, disabled, selectedDisabled]">
+            <setup>
+                <ResetComponent target="checkbox2_swfsymbol_embeded" className="mx.controls.CheckBox" waitEvent="updateComplete" />
+                    <RunCode code="set_CheckBox2_swfsymbol_embeded();" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableCheckBox2_swfsymbol_embeded();" waitTarget="checkbox2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+
+                    <CompareBitmap target="checkbox2_swfsymbol_embeded" url="../Styles/Baselines/checkbox2_Skinned_selectedDisabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Test_radiobutton1_Skin_up_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, enabled, up, Icon]">
+            <setup>
+                <ResetComponent target="radiobutton1_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton1_swfsymbol_embeded();" waitTarget="radiobutton1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton1_swfsymbol_embeded" url="../Styles/Baselines/radiobutton1_Skinned_up_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_radiobutton1_Skin_over_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, enabled, over, Icon]">
+            <setup>
+                <ResetComponent target="radiobutton1_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton1_swfsymbol_embeded();" waitTarget="radiobutton1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <DispatchMouseEvent localX="8" localY="8" target="radiobutton1_swfsymbol_embeded" type="mouseOver"  timeout="2000"/>
+            </setup>
+            <body>
+                <Pause timeout="200" />
+                    <CompareBitmap target="radiobutton1_swfsymbol_embeded" url="../Styles/Baselines/radiobutton1_Skinned_over_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_radiobutton1_Skin_down_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, enabled, down, Icon]">
+            <setup>
+                <ResetComponent target="radiobutton1_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton1_swfsymbol_embeded();" waitTarget="radiobutton1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <DispatchMouseEvent localX="5" localY="5" target="radiobutton1_swfsymbol_embeded" type="mouseDown" timeout="2000"  waitTarget="radiobutton1_swfsymbol_embeded" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton1_swfsymbol_embeded" url="../Styles/Baselines/radiobutton1_Skinned_down_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_radiobutton1_Skin_Disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, disabled ]">
+            <setup>
+                <ResetComponent target="radiobutton1_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton1_swfsymbol_embeded();" waitTarget="radiobutton1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableRadioButton1_swfsymbol_embeded();" waitTarget="radiobutton1_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton1_swfsymbol_embeded" url="../Styles/Baselines/radiobutton1_Skinned_Disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+
+
+
+        <TestCase testID="Test_radiobutton2_Skin_down_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, enabled, selectedUp, Icon]">
+            <setup>
+                <ResetComponent target="radiobutton2_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton2_swfsymbol_embeded();" waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton2_swfsymbol_embeded" url="../Styles/Baselines/radiobutton2_Skinned_selectedUp_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_radiobutton2_Skin_selectedOver_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, enabled, selectedOver, Icon]">
+            <setup>
+                <ResetComponent target="radiobutton2_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton2_swfsymbol_embeded();" waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            <!--    <DispatchMouseEvent localX="5" localY="5" target="radiobutton2_swfsymbol_embeded" type="mouseOver" timeout="2000"  waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete"/> -->
+                <DispatchMouseClickEvent localX="5" localY="5" target="radiobutton2_swfsymbol_embeded" timeout="2000"  waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton2_swfsymbol_embeded" url="../Styles/Baselines/radiobutton2_Skinned_selectedOver_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_radiobutton2_Skin_selectedDown_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, enabled, selectedDown, Icon]">
+            <setup>
+                <ResetComponent target="radiobutton2_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton2_swfsymbol_embeded();" waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <DispatchMouseEvent localX="5" localY="5" target="radiobutton2_swfsymbol_embeded" type="mouseDown" timeout="2000" waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton2_swfsymbol_embeded" url="../Styles/Baselines/radiobutton2_Skinned_selectedDown_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_radiobutton2_Skin_selectedDisabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, RadioButton, disabled, selectedDisabled]">
+            <setup>
+                <ResetComponent target="radiobutton2_swfsymbol_embeded" className="mx.controls.RadioButton" waitEvent="updateComplete" />
+                    <RunCode code="set_radiobutton2_swfsymbol_embeded();" waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableRadioButton2_swfsymbol_embeded();" waitTarget="radiobutton2_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+
+                    <CompareBitmap target="radiobutton2_swfsymbol_embeded" url="../Styles/Baselines/radiobutton2_Skinned_selectedDisabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

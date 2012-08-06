@@ -1,0 +1,143 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+
+	<mx:Style>
+		.myTabNavGifEmbeded
+		{
+			skin: ClassReference("comps.button_gif_embeded");
+		}
+
+		.myLinkBarGifEmbeded
+		{
+			skin: ClassReference("comps.button_gif_embeded");
+			icon: ClassReference("comps.icon_gif_embeded");
+            paddingBottom: 2;
+	        paddingLeft: 2;
+	        paddingRight: 2;
+	        paddingTop: 2;
+	        horizontalGap: 8;
+		}
+
+		.myTabNavJpgEmbeded
+		{
+			skin: ClassReference("comps.button_jpg_embeded");
+		}
+
+		.myLinkBarJpgEmbeded
+		{
+			icon: ClassReference("comps.icon_jpg_embeded");
+            skin: ClassReference("comps.button_jpg_embeded");
+            paddingBottom: 2;
+	        paddingLeft: 2;
+	        paddingRight: 2;
+	        paddingTop: 2;
+	        horizontalGap: 8;
+		}
+
+		.myTabNavPngEmbeded
+		{
+			skin: ClassReference("comps.button_png_embeded");
+		}
+
+		.myLinkBarPngEmbeded
+		{
+			skin: ClassReference("comps.button_png_embeded");
+			icon: ClassReference("comps.icon_png_embeded");
+            paddingBottom: 2;
+	        paddingLeft: 2;
+	        paddingRight: 2;
+	        paddingTop: 2;
+	        horizontalGap: 8;
+		}
+
+		.myTabNavSwfsymbolEmbeded
+		{
+			skin: ClassReference("comps.button_swfsymbol_embeded");
+		}
+
+		.myLinkBarSwfsymbolEmbeded
+		{
+			skin: ClassReference("comps.button_swfsymbol_embeded");
+			icon: ClassReference("comps.icon_swfsymbol_embeded");
+            paddingBottom: 2;
+	        paddingLeft: 2;
+	        paddingRight: 2;
+	        paddingTop: 2;
+	        horizontalGap: 8;
+		}
+
+	</mx:Style>
+        <mx:TabNavigator id="myTabNavigator_gif_embeded"  width="100%" height="50" tabStyleName="myTabNavGifEmbeded" >
+		    <mx:Canvas id="search1" backgroundColor="#FFFFCC" label="Search" width="100%" height="50">
+			<mx:Label text="Search Screen" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="custInfo1" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="50">
+			<mx:Label text="Customer Info" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="accountInfo1" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="50">
+			<mx:Label text="Account Info" color="#000000"/>
+		    </mx:Canvas>
+        </mx:TabNavigator>
+
+        <mx:TabNavigator id="myTabNavigator_jpg_embeded"  width="100%" height="50" tabStyleName="myTabNavJpgEmbeded" >
+		    <mx:Canvas id="search2" backgroundColor="#FFFFCC" label="Search" width="100%" height="50">
+			<mx:Label text="Search Screen" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="custInfo2" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="50">
+			<mx:Label text="Customer Info" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="accountInfo2" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="50">
+			<mx:Label text="Account Info" color="#000000"/>
+		    </mx:Canvas>
+        </mx:TabNavigator>
+
+        <mx:TabNavigator id="myTabNavigator_png_embeded"  width="100%" height="50" tabStyleName="myTabNavPngEmbeded" >
+		    <mx:Canvas id="search3" backgroundColor="#FFFFCC" label="Search" width="100%" height="50">
+			<mx:Label text="Search Screen" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="custInfo3" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="50">
+			<mx:Label text="Customer Info" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="accountInfo3" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="50">
+			<mx:Label text="Account Info" color="#000000"/>
+		    </mx:Canvas>
+        </mx:TabNavigator>
+
+        <mx:TabNavigator id="myTabNavigator_swfsymbol_embeded"  width="100%" height="50" tabStyleName="myTabNavSwfsymbolEmbeded" >
+		    <mx:Canvas id="search4" backgroundColor="#FFFFCC" label="Search" width="100%" height="50">
+			<mx:Label text="Search Screen" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="custInfo4" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="50">
+			<mx:Label text="Customer Info" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="accountInfo4" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="50">
+			<mx:Label text="Account Info" color="#000000"/>
+		    </mx:Canvas>
+        </mx:TabNavigator>
+
+        <mx:LinkBar id="myLinkBar_gif_embeded" dataProvider="{myViewStack}" linkButtonStyleName="myLinkBarGifEmbeded" />
+		<mx:ViewStack id="myViewStack" borderStyle="solid" width="100%" height="50">
+		    <mx:Canvas id="search" backgroundColor="#FFFFCC" label="Search" width="100%" height="50">
+			<mx:Label text="Search Screen" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="custInfo" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="50">
+			<mx:Label text="Customer Info" color="#000000"/>
+		    </mx:Canvas>
+
+		    <mx:Canvas id="accountInfo" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="50">
+			<mx:Label text="Account Info" color="#000000"/>
+		    </mx:Canvas>
+		</mx:ViewStack>
+
+	<mx:LinkBar id="myLinkBar_jpg_embeded" dataProvider="{myViewStack}" linkButtonStyleName="myLinkBarJpgEmbeded" />
+	<mx:LinkBar id="myLinkBar_png_embeded" dataProvider="{myViewStack}" linkButtonStyleName="myLinkBarPngEmbeded" />
+	<mx:LinkBar id="myLinkBar_swfsymbol_embeded" dataProvider="{myViewStack}" linkButtonStyleName="myLinkBarSwfsymbolEmbeded" />
+</mx:VBox>
