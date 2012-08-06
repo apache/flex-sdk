@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="PerModuleStyles/inheritance/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="App_loadsModuleInCurrentDomain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+		<TestCase testID="styleInheritanceCurrentDomain" keywords="[Styles,Module]" description="Test to make sure modules can define their own styles.." >
+		    <body>		
+			<RunCode code="application.iniit();"  waitTarget="mod_loader" waitEvent="ready" />
+			<Pause timeout="1000" />
+
+			<CompareBitmap url="../inheritance/baselines/$testID.png" target="mod_loader" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			
+			
+			<AssertStyleValue styleName="openDuration" target="mod_loader.child.cb" value="1000"/>
+			<AssertStyleValue styleName="color" target="mod_loader.child.cb" value="0xFF0000"/>
+			<AssertStyleValue styleName="fontSize" target="mod_loader.child.cb" value="15"/>
+			<AssertStyleValue styleName="openDuration" target="mod_loader.child.cbOne" value="1500"/>
+			<AssertStyleValue styleName="color" target="mod_loader.child.cbOne" value="0x00FF00"/>
+			<AssertStyleValue styleName="fontSize" target="mod_loader.child.cbOne" value="10"/>
+		    </body>
+		</TestCase>
+	</testCases>
+
+</UnitTester>

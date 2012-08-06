@@ -1,0 +1,11 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+   <s:layout>
+       <s:VerticalLayout />
+   </s:layout>
+   
+   <mx:SWFLoader id="swfloader1" />
+    <mx:Button label="source 1" click="swfloader1.source='assets/SparkAlphaMain.swf'" id="btn1"/>
+    
+    <mx:Button label="source 2" click="swfloader1.source='assets/SparkImageMain.swf'" id="btn2"/>
+</s:Application>

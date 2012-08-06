@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- basic swf for subModule tests, module is loaded by ModuleLoader -->
+<s:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	creationComplete="initApp()"
+	>
+ <!-- 
+ <fx:Style source="../../../Assets/Fonts/myStyles.css" />
+ <fx:Style>
+ 	@namespace mx "library://ns.adobe.com/flex/mx/";
+	@namespace s "library://ns.adobe.com/flex/spark/";
+
+ 		
+ 
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: MyVeraSpark;
+			fontLookup: "embeddedCFF";
+		} 
+	
+</fx:Style>
+-->
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		mx|Label,
+		mx|DataGrid
+		{
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+		}
+		mx|ComboBox  {
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+		}
+		
+		.myComboBox {
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+			color: #00FF00;
+			fontSize: 10;
+			openDuration: 1500;
+		}
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: SparkVera;
+			fontLookup: "embeddedCFF";
+		}
+		
+	</fx:Style>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ModuleEvent;	
+			import mx.events.FlexEvent;	
+			import mx.controls.Alert;	
+			import mx.events.ModuleEvent;
+			import mx.modules.Module;
+			import mx.collections.ArrayList;
+			import mx.managers.PopUpManager;
+			PopUpManager;
+			private var moduleErrorMsg:String="";
+			private function errorModuleHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				moduleErrorMsg=e.errorText;
+				trace("###error:"+e.errorText);
+				Alert.show(e.errorText);
+				
+				
+				
+			}
+					
+			private var arr:Array = [ { moduleName: "assets/AlertModule.swf"},
+				{ moduleName: "assets/ModuleAppOne.swf"},
+				{ moduleName: "assets/ModuleAppTwo.swf"},
+				{ moduleName: "assets/ModuleAppThree.swf"},
+				{ moduleName: "assets/ModuleAppFour.swf"},
+				{ moduleName: "assets/ModuleAppFive.swf"},
+				{ moduleName: "assets/CreatePopUpModule.swf"}
+			];
+
+			private function initApp():void
+			{
+				dg.dataProvider = new ArrayList(arr);
+				setModuleLoaderListeners();
+
+			}
+			public function setModuleLoaderListeners():void
+			{
+				mod_loader.addEventListener(ModuleEvent.READY,handleModuleLoaded);
+				mod_loader.addEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				mod_loader.addEventListener(ModuleEvent.UNLOAD,removeModuleLoaded);
+
+			}
+			public function setModuleLoaderListeners2(ml:ModuleLoader):void
+			{
+				ml.addEventListener(ModuleEvent.READY,handleModuleLoaded);
+				ml.addEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				ml.addEventListener(ModuleEvent.UNLOAD,removeModuleLoaded);
+			
+			}
+			public function handleModuleLoaded(e:ModuleEvent):void
+			{
+		    		e.currentTarget.removeEventListener(e.type, handleModuleLoaded);
+		    		dispatchEvent(new FlexEvent("moduleLoaded"));
+		    		trace("handleModuleLoaded is called ");
+			}
+			
+			public function removeModuleLoaded(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+				dispatchEvent(new FlexEvent("moduleRemoved"));
+			}
+			private function loadModule(ml:ModuleLoader, moduleURL:String):void
+			{
+				if (ml.url==null)
+					ml.url = moduleURL;
+				else ml.loadModule();
+			}
+
+			public function loadAModule():void
+			{
+				if (mod_loader.url==null)
+					mod_loader.url =dg.selectedItem.moduleName ;
+				else mod_loader.loadModule();
+			}
+			public function unloadModule(ml:ModuleLoader):void
+			{	
+				ml.unloadModule();
+				ml.url=null;
+
+			}
+			public function resetModuleLoader():void
+			{
+				
+				setModuleLoaderListeners();
+			}
+		
+			
+			
+		]]>
+	</fx:Script>	
+		
+	<mx:DataGrid id="dg" />
+	<mx:ModuleLoader id="mod_loader"/>
+	<mx:ModuleLoader id="mod_loader2"    />
+	<s:Button label="Load Module" click="loadAModule()" />
+	<s:Button id="btn1" label="load Module1" click="loadModule(mod_loader,dg.selectedItem.moduleName)" />
+	<s:Button id="btn2" label="unload Module1" click="unloadModule(mod_loader);unloadModule(mod_loader2);" />
+
+</s:Application>

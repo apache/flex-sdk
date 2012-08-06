@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="PerModuleStyles/api/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="CSSDeclarationApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+		<TestCase testID="modifyAppStyle" keywords="[Styles,Module]" description="Test to make sure getStyleDeclaration return local only styles" >
+		    <body>	
+			<RunCode code="application.iniit();"  waitTarget="mod_loader2" waitEvent="ready" />	
+			<Pause timeout="1000" />	
+			<CompareBitmap url="../api/baselines/$testID_before.png" target="hgroupContainer"/>		
+
+			<SetProperty target="selector" propertyName="text" value="spark.components.List" />
+			<SetProperty target="styleNameField" propertyName="text" value="color" />
+			<SetProperty target="newStyle" propertyName="text" value="#0000FF" />
+			<DispatchMouseClickEvent target="localButton" waitEvent="click" waitTarget="localButton" />
+
+			<SetProperty target="selector" propertyName="text" value="spark.components.List" />
+			<SetProperty target="styleNameField" propertyName="text" value="borderColor" />
+			<SetProperty target="newStyle" propertyName="text" value="#00FF00" />
+			<DispatchMouseClickEvent target="localButton" waitEvent="click" waitTarget="localButton" />
+
+			<SetProperty target="selector" propertyName="text" value="spark.components.List" />
+			<SetProperty target="styleNameField" propertyName="text" value="fontSize" />
+			<SetProperty target="newStyle" propertyName="text" value="10" />
+			
+			<DispatchMouseClickEvent target="localButton" waitEvent="click" waitTarget="localButton" />
+			
+			<CompareBitmap url="../api/baselines/$testID_after.png" target="hgroupContainer"/>	
+		    </body>
+		</TestCase>
+
+
+		<TestCase testID="modifyAppStyleAfterReload" keywords="[Styles,Module]" description="Test to make sure getStyleDeclaration return local only styles" >
+			<setup>
+				<RunCode code="application.unload();"  waitTarget="mod_loader2" waitEvent="unload" />
+				<Pause timeout="1000" />
+			</setup>
+		      <body>	
+			<RunCode code="application.iniit();"  waitTarget="mod_loader2" waitEvent="ready" />	
+			<Pause timeout="1500" />	
+			
+			<AssertStyleValue styleName="color" target="mod_loader.child.moduleList" value="0xFF0000"/>
+			<AssertStyleValue styleName="color" target="mod_loader2.child.moduleList" value="0x0000FF"/>
+
+			<AssertStyleValue styleName="borderColor" target="mod_loader.child.moduleList" value="0x00FF00"/>
+			<AssertStyleValue styleName="borderColor" target="mod_loader2.child.moduleList" value="0xFF0000"/>
+
+			<AssertStyleValue styleName="fontSize" target="mod_loader.child.moduleList" value="10"/>
+			<AssertStyleValue styleName="fontSize" target="mod_loader2.child.moduleList" value="10"/>	
+		    </body>
+		</TestCase>
+	</testCases>
+
+</UnitTester>

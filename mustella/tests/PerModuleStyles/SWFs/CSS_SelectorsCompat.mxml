@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"  minWidth="1024" minHeight="768" width="700" height="700" creationComplete="application1_creationCompleteHandler(event)">
+	<mx:Style>
+		@namespace mx "http://www.adobe.com/2006/mxml" ;
+
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: HaloVera;
+
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		
+		global {
+			borderColor: #FF0000;	
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+			
+		}
+		
+		mx|ComboBox
+		{
+			borderColor: #00FF00;
+			fontSize: 16;
+		}
+		
+		mx|Button
+		{
+			fontSize: 16;
+		}
+		
+		
+		mx|Button.myStyle
+		{
+			borderColor: #0000FF;
+			fontSize: 14;
+		}
+		
+		.classOfStyle
+		{
+			color: #0FFFFA;	
+			fontSize: 20;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.collections.ArrayList;
+			import mx.events.ModuleEvent;
+			
+			private var arr:Array =
+				[
+					{ label:'Apple', data:10.00},
+					{ label:'Banana', data:15.00 },
+					{ label:'Melon', data:3.50 },
+					{ label:'Kiwi', data:7.65},
+					{ label:'Strawberry',data:12.35 },
+					{ label:'Other', data:00.00}
+				];
+			
+			private var listArr :ArrayList = new ArrayList(arr);
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				appList.dataProvider = listArr;
+			}
+			
+
+			public function iniit():void
+			{
+				mod_loader.url = "assets/CSS_SelectorModuleCompat.swf";
+			}
+
+		]]>
+	</mx:Script>
+
+	<mx:VBox id="groupId">
+		<mx:CheckBox id="checkBox" label="Check Box" />
+		<mx:Label text="Label Outside Panel"  />
+		<mx:HBox rotation="-10">
+			<mx:NumericStepper id="numericStepper" stepSize="1" minimum="1" maximum="10" />
+			
+		</mx:HBox>
+		<mx:Panel title="Mx Panel" id="appPanel" rotation="-5">
+						
+			<mx:Button id="MXButton" label="MX Button"  />
+			<mx:Button id="MXButton2" label="Second MX Button" styleName="myStyle"  />
+			<mx:Label text="MX Label"  />
+			<mx:Label text="MX Label class selector" styleName="classOfStyle"  />
+			<mx:ComboBox id="appList"  />
+		</mx:Panel>
+	</mx:VBox>	
+	
+	<mx:ModuleLoader id="mod_loader"/>
+	<mx:Button label="Load Module" click="iniit()" />
+</mx:Application>

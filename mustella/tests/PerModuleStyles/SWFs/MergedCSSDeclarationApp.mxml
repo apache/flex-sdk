@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="768" creationComplete="application1_creationCompleteHandler(event)">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+	
+		@font-face{
+			src: url("../../../assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+		
+		@font-face{
+			src: url("../../../assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+		
+		@font-face{
+			src: url("../../../assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: SparkVera;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: SparkVera;
+
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: HaloVera;
+
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		@font-face{
+			src: url("../../../assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: HaloVera;
+			embedAsCFF: false;
+		}
+		
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: SparkVera;
+			fontLookup: "embeddedCFF";
+		}
+		
+		s|List
+		{
+			
+			borderColor: #0000FF;
+			fontSize: 16;
+		}
+		
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
+			import mx.events.ModuleEvent;
+
+			import spark.components.TextInput;
+			
+			private var arr:Array =
+				[
+					{ label:'Apple', data:10.00},
+					{ label:'Banana', data:15.00 },
+					{ label:'Melon', data:3.50 },
+					{ label:'Kiwi', data:7.65},
+					{ label:'Strawberry',data:12.35 },
+					{ label:'Other', data:00.00}
+				];
+			
+			private var listArr :ArrayList = new ArrayList(arr);
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				appList.dataProvider = listArr;
+				myStyleManager = StyleManager.getStyleManager(null);
+			}
+			
+			private var myStyleManager: IStyleManager2;
+			
+			public function iniit():void
+			{
+				mod_loader.url = "assets/CSSDeclarationModule.swf";
+			}
+			
+			private function readyHandler(event:ModuleEvent):void
+			{
+				mod_loader2.url = 'assets/CSSDeclarationModule2.swf';
+			}
+
+			public function unload():void
+			{
+				mod_loader.unloadModule();
+				mod_loader.url = "";
+				
+				mod_loader2.unloadModule();
+				mod_loader2.url = "";
+			}
+			
+			public function modifyStyleValue(  ):void
+			{
+				var cssDecl:CSSStyleDeclaration = myStyleManager.getStyleDeclaration(selector.text);
+				style.text =  cssDecl.getStyle(styleNameField.text);
+				cssDecl.setStyle(styleNameField.text, newStyle.text);
+			}
+			
+			public function modifyMergedStyleValue( ):void
+			{
+				var cssDecl:CSSStyleDeclaration = myStyleManager.getMergedStyleDeclaration(selector.text);
+				style.text =  cssDecl.getStyle(styleNameField.text);
+				cssDecl.setStyle(styleNameField.text, newStyle.text);
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout paddingLeft="5"/>
+	</s:layout>
+	<s:HGroup id="hgroupContainer"  >
+		<s:List id="appList"  />
+		<mx:ModuleLoader id="mod_loader" ready="readyHandler(event)"/>
+		<mx:ModuleLoader id="mod_loader2"/>
+	</s:HGroup>
+			  
+	<s:Button label="Load Module" click="iniit()" />
+	<s:Button label="UnLoad Module" click="unload()" />
+	
+	<s:Label text="selector" />
+	<s:TextInput id="selector" />
+	<s:Label text="style name" />
+	<s:TextInput id="styleNameField" />
+	<s:Label text="New style Value" />	
+	<s:TextInput id="newStyle" />
+	
+	<s:Label text="current style Value" />	
+	<s:TextInput id="style" editable="false"/>
+	
+	<s:Button id="localButton" label="Modify Local Style" click="modifyStyleValue( )" />
+	<s:Button id="mergedButton"  label="Modify Merged Style" click="modifyMergedStyleValue( )" />
+	
+</s:Application>

@@ -1,0 +1,7 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    width="300" height="250" >
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    <s:Button id="buttonId" label="Test1"/>
+</s:Application>

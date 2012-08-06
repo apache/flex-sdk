@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="module1_creationCompleteHandler(event)">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		mx|Button  {
+			fontAntiAliasType: "normal";
+			fontFamily: HaloVera;
+		}
+		
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.StyleEvent;
+			
+			private var arr:Array =
+				[
+					{ label:'Apple', data:10.00},
+					{ label:'Banana', data:15.00 },
+					{ label:'Melon', data:3.50 },
+					{ label:'Kiwi', data:7.65},
+					{ label:'Strawberry',data:12.35 },
+					{ label:'Other', data:00.00}
+				];
+			
+			private var listArr :ArrayList = new ArrayList(arr);
+			
+			
+			protected function module1_creationCompleteHandler(event:FlexEvent):void
+			{
+				moduleList.dataProvider = listArr;
+				localStyleManager  = StyleManager.getStyleManager(this.moduleFactory);
+			}
+			
+			private var localStyleManager:IStyleManager2 = null;
+			
+			public var eventDispatcher:IEventDispatcher = null;
+			protected function loadStylesButton_clickHandler(event:MouseEvent):void
+			{
+				
+				eventDispatcher = localStyleManager.loadStyleDeclarations("assets/testStyles.swf");
+			}
+			
+			
+			protected function unloadStylesButton_clickHandler(event:MouseEvent):void
+			{
+				localStyleManager.unloadStyleDeclarations("assets/testStyles.swf");
+			}
+		]]>
+	</fx:Script>
+	<s:VGroup>
+		<s:CheckBox id="checkBox" label="Check Box Module" />
+		<s:Label text="Label Outside Panel"  />
+		<s:HGroup rotation="-10">
+			<s:NumericStepper id="numericStepper" stepSize="1" minimum="1" maximum="10" />
+			<s:RichText text="This Text is Rich Module !!" />
+		</s:HGroup>
+		<s:RichText text="This Text is also Rich !!" />
+		<s:Panel title="" id="appPanel" rotation="-5">
+			<s:layout>
+				<s:VerticalLayout />
+			</s:layout>
+			
+			<s:Button id="gumboButton" label="Gumbo Module Button"  />
+			<s:Button id="gumboButton2" label="Second Gumbo Module Button" styleName="myStyle"  />
+			<s:Label text="Spark Module Label"  />
+			<s:Label text="Spark Label Module class selector" styleName="classOfStyle"  />
+			<s:ComboBox id="moduleList" height="24" width="147" />
+		</s:Panel>
+	</s:VGroup>	
+	<mx:Button label="Load styles" id="loadStylesButton" click="loadStylesButton_clickHandler(event)" />
+	<mx:Button label="Unload styles" id="unloadStylesButton" click="unloadStylesButton_clickHandler(event)" />
+	
+</mx:Module>
