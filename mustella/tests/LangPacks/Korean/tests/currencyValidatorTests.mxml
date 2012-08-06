@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnitTester testDir="LangPacks/Korean/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+			import mx.controls.TextInput;
+			import mx.validators.CurrencyValidator;
+			import mx.validators.ValidationResult;
+			import mx.managers.SystemManager;
+	        import mx.managers.ToolTipManager;
+	        import mx.core.IToolTip;
+	
+	        public var curTip:IToolTip;
+	
+	        private function getErrorTip():void{
+	            curTip = ToolTipManager.currentToolTip;
+	        }
+    	]]>
+	</mx:Script>
+
+	<testCases>		
+		<TestCase testID="KO_CurrencyValidator_currencySymbolError"  keywords="[currencySymbolError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="98,765.4321￦" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_decimalPointCountError"  keywords="[decimalPointCountError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="￦98,765.43.21" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_exceedsMaxError"  keywords="[exceedsMaxError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.myCu" propertyName="maxValue" value="7000" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="￦98,765.4321" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_invalidCharError"  keywords="[invalidCharError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.myCu" propertyName="maxValue" value="7000" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="@911" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_invalidFormatCharsError"  keywords="[invalidFormatCharsError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="98월765.4321" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_lowerThanMinError"  keywords="[lowerThanMinError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.myCu" propertyName="minValue" value="7000" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="￦321" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_precisionError"  keywords="[precisionError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.myCu" propertyName="precision" value="3" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="￦98,765.4321" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_separationError"  keywords="[separationError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.myCu" propertyName="precision" value="3" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="￦98,76,5.4321" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_negativeError"  keywords="[negativeError, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCurrencyV.myCu" propertyName="allowNegative" value="false" />
+				<SetProperty target="ct.myCurrencyV.ti1" propertyName="text" value="-￦98,765.4321" waitEvent="updateComplete" waitTarget="ct.myCurrencyV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCurrencyV.myCu.validate(application.ct.myCurrencyV.ti1.text)"/> 
+				<AssertEvent target="ct.myCurrencyV.myCu" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCurrencyV.myCu" eventName="valid" /> 
+				<DispatchMouseEvent target="ct.myCurrencyV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCurrencyV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="KO_CurrencyValidator_Properties_alignSymbol"  keywords="[alignSymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="alignSymbol" value="left" />
+			</body>
+		</TestCase>	
+    
+		<TestCase testID="KO_CurrencyValidator_Properties_currencySymbol"  keywords="[currencySymbol, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="currencySymbol" value="￦" />
+			</body>
+		</TestCase>	
+    
+		<TestCase testID="KO_CurrencyValidator_Properties_allowNegative"  keywords="[allowNegative, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="allowNegative" value="true" />
+			</body>
+		</TestCase>	
+
+		<TestCase testID="KO_CurrencyValidator_Properties_decimalSeparator"  keywords="[decimalSeparator, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="decimalSeparator" value="." />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_Properties_thousandsSeparator"  keywords="[thousandsSeparator, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="thousandsSeparator" value="," />
+			</body>
+		</TestCase>	
+
+		<TestCase testID="KO_CurrencyValidator_Properties_maxValue"  keywords="[maxValue, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="maxValue" value="NaN" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="KO_CurrencyValidator_Properties_minValue"  keywords="[minValue, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="minValue" value="NaN" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="KO_CurrencyValidator_Properties_currencyValidatorPrecision"  keywords="[precision, CurrencyValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCurrencyV.myCu" propertyName="precision" value="2" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

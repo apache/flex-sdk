@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Korean/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.TextInput;
+    import mx.formatters.NumberFormatter;
+    import mx.managers.SystemManager;
+    
+   
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="KO_Formatters_Number" description="Test the properties of Number Formatters." keywords="[Simple, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format(98765);" />                
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_precision" description="Test the properties of Number Formatters." keywords="[precision, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format(98765.123);" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.123'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_useThousandsSeparator" description="Test the properties of Number Formatters." keywords="[useThousandsSeparator, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format(98765);" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765'" />
+            </body>
+        </TestCase>        
+        <TestCase testID="KO_Formatters_Number_Rounding" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <SetProperty target="mf.nf" propertyName="precision" value="3"/>
+                <RunCode code="application.tin.text= application.mf.nf.format(98765.4999);" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.499'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_ThousandsSeparatorFrom" description="Test the properties of Number Formatters." keywords="[thousandsSeparatorFrom, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text=application.mf.nf.format('98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_ThousandsSeparatorFrom_Ko" description="Test the properties of Number Formatters." keywords="[thousandsSeparatorFrom, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <SetProperty target="mf.nf" propertyName="thousandsSeparatorFrom" value="천"/>
+                <RunCode code="application.tin.text=application.mf.nf.format('98천765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_DecimalSeparatorFrom" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorFrom, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format('98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_DecimalSeparatorFrom_Ko" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorFrom, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <SetProperty target="mf.nf" propertyName="decimalSeparatorFrom" value="월"/>
+                <RunCode code="application.tin.text= application.mf.nf.format('98,765월4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_ThousandsSeparatorTo" description="Test the properties of Number Formatters." keywords="[ThousandsSeparatorTo, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format('98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_ThousandsSeparatorTo_Ko" description="Test the properties of Number Formatters." keywords="[ThousandsSeparatorTo, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <SetProperty target="mf.nf" propertyName="thousandsSeparatorTo" value="월"/>
+                <RunCode code="application.tin.text= application.mf.nf.format('98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98월765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_DecimalSeparatorTo" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorTo, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format('98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_DecimalSeparatorTo_Ko" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorTo, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <SetProperty target="mf.nf" propertyName="decimalSeparatorTo" value="월"/>
+                <RunCode code=" application.tin.text= application.mf.nf.format('98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765월4321'" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_UseNegativeSign" description="Test the properties of Number Formatters." keywords="[useNegativeSign, true, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+                <RunCode code="application.tin.text= application.mf.nf.format('-98,765.4321');" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tin" propertyName="text" valueExpression="value='-98,765.4321'" />
+            </body>
+        </TestCase>      
+        <TestCase testID="KO_Formatters_Number_Properties_Rounding" description="Test the properties of Number Formatters." keywords="[rounding, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="rounding" value="none" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_UseNegativeSign" description="Test the properties of Number Formatters." keywords="[UseNegativeSign, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="useNegativeSign" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_UseThousandsSeparator" description="Test the properties of Number Formatters." keywords="[UseThousandsSeparator, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="useThousandsSeparator" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_NumberFormatterPrecision" description="Test the properties of Number Formatters." keywords="[NumberFormatterPrecision, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="precision" value="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_DecimalSeparatorFrom" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorFrom, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="decimalSeparatorFrom" value="." />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_DecimalSeparatorTo" description="Test the properties of Number Formatters." keywords="[DecimalSeparatorTo, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="decimalSeparatorTo" value="." />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_ThousandsSeparatorFrom" description="Test the properties of Number Formatters." keywords="[ThousandsSeparatorFrom, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="thousandsSeparatorFrom" value="," />
+            </body>
+        </TestCase>
+        <TestCase testID="KO_Formatters_Number_Properties_ThousandsSeparatorTo" description="Test the properties of Number Formatters." keywords="[ThousandsSeparatorTo, Property, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mf.nf" propertyName="thousandsSeparatorTo" value="," />
+            </body>
+        </TestCase>
+		<!-- -->
+		<TestCase testID="KO_Formatters_Number_UseNegativeSign_false" description="Test the default value of useNegativeSign property.(true)  If false, format  a negative number." keywords="[useNegativeSign,false, inline, Number, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+				<SetProperty target="mf.nf" propertyName="useNegativeSign" value="false"/>
+				<RunCode code=" application.tin.text= application.mf.nf.format('-98,765.4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" valueExpression="value='(98,765.4321)'" />
+			</body>
+		</TestCase>
+		<TestCase testID="KO_Formatters_Number_Formatter" description="Display correct formatter  when the number is incorrectly formatted." keywords="[Number, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+				<RunCode code="application.tin.text= application.mf.nf.format('987,65.4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" valueExpression="value='98,765.4321'" />
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

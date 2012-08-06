@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnitTester testDir="LangPacks/ChineseSimplified/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a tZCplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import mx.validators.ZipCodeValidator;
+	import mx.validators.ValidationResult;
+	import mx.managers.SystemManager;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="CN_ZipCodeValidator_invalidCharError"  keywords="[invalidCharError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myZipV.myZC" propertyName="property" value="text"/>
+				
+			</setup>
+			<body>
+				<SetProperty target="ct.myZipV.ti1" propertyName="text" value="67656!" waitEvent="updateComplete" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="application.ct.myZipV.myZC.validate(application.ct.myZipV.ti1.text)"/> 
+				<AssertEvent target="ct.myZipV.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myZipV.myZC" eventName="valid" />
+				<DispatchMouseEvent target="ct.myZipV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="CN_ZipCodeValidator_invalidDomainError"  keywords="[invalidDomainError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myZipV.myZC" propertyName="property" value="text"/>
+				<SetProperty target="ct.myZipV.myZC" propertyName="domain" value="India"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myZipV.ti1" propertyName="text" value="562117" waitEvent="updateComplete" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="application.ct.myZipV.myZC.validate(application.ct.myZipV.ti1.text)"/> 
+				<AssertEvent target="ct.myZipV.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myZipV.myZC" eventName="valid" />
+				<DispatchMouseEvent target="ct.myZipV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />				
+			</body>  
+		</TestCase> 
+		<TestCase testID="CN_ZipCodeValidator_wrongCAFormatError"  keywords="[wrongCAFormatError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myZipV.myZC" propertyName="property" value="text"/>
+				<SetProperty target="ct.myZipV.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myZipV.ti1" propertyName="text" value="B14342" waitEvent="updateComplete" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="application.ct.myZipV.myZC.validate(application.ct.myZipV.ti1.text)"/> 
+				<AssertEvent target="ct.myZipV.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myZipV.myZC" eventName="valid" />
+				<DispatchMouseEvent target="ct.myZipV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="CN_ZipCodeValidator_wrongLengthError"  keywords="[wrongLengthError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myZipV.myZC" propertyName="property" value="text"/>
+				<SetProperty target="ct.myZipV.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myZipV.ti1" propertyName="text" value="454342" waitEvent="updateComplete" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="application.ct.myZipV.myZC.validate(application.ct.myZipV.ti1.text)"/> 
+				<AssertEvent target="ct.myZipV.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myZipV.myZC" eventName="valid" />
+				<DispatchMouseEvent target="ct.myZipV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="CN_ZipCodeValidator_wrongUSFormatError"  keywords="[wrongUSFormatError, ZipCodeValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myZipV.myZC" propertyName="property" value="text"/>
+				<SetProperty target="ct.myZipV.myZC" propertyName="domain" value="US or Canada"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myZipV.ti1" propertyName="text" value="B4543" waitEvent="updateComplete" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="application.ct.myZipV.myZC.validate(application.ct.myZipV.ti1.text)"/> 
+				<AssertEvent target="ct.myZipV.myZC" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myZipV.myZC" eventName="valid" />
+				<DispatchMouseEvent target="ct.myZipV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myZipV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />				
+			</body>  
+		</TestCase>	
+                <TestCase testID="CN_ZipCodeValidator_Properties_AllowedFormatChars"  keywords="[AllowedFormatChars, Property, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myZipV.myZC" propertyName="allowedFormatChars" value=" -" />
+			</body>
+		</TestCase>	
+                <TestCase testID="CN_ZipCodeValidator_Properties_Domain"  keywords="[Domain, Property, ZipCodeValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myZipV.myZC" propertyName="domain" value="仅限美国" />
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

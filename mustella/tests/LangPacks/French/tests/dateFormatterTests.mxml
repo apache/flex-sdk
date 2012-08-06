@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/French/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+	    import mx.controls.TextInput;
+	    import mx.formatters.DateFormatter;
+	    import mx.managers.SystemManager;
+    ]]>
+    </mx:Script>
+	<testCases>
+		<TestCase testID="FR_Formatters_Date_Simple" description="Test the properties of Number Formatters." keywords="[Simple, Date, inline, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="EEEE, MMMM DD, YYYY at HH:NN:SS A"/>
+				<RunCode code="application.tin.text= application.mf.df.format('2009/03/30');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Lundi, Mars 30, 2009 at 24:00:00 AM" />
+			</body>
+		</TestCase>
+		<TestCase testID="FR_Formatters_Date_Properties_DateFormat"  keywords="[DateFormat, Date, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+		</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="formatString" value="D MMM YYYY" />
+			</body>
+		</TestCase>	
+		<!-- -->
+		<TestCase testID="FR_DateFormatter_Medium_Time_Error" description="Set the date format by medium time ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Medium,Time,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="BB.BB.BB"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Medium_Time_Check" description="Set the date format by medium time ,ensure that it generates a correct date string of medium time ." keywords="[DateFormat,Medium,Time,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="HH.NN.SS"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="13.15.20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Short_Time_Error" description="Set the date format by short time ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Short,Time,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="BB.BB"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Short_Time_Check" description="Set the date format by short time ,ensure that it generates a correct date string of short time ." keywords="[DateFormat,Short,Time,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="HH.NN"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" valueExpression="value=13.15+''"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Full_Date_Error" description="Set the date format by full date ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Full,Date,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="BBBB 'den' B. BBBB B"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Full_Date_Check" description="Set the date format by full date ,ensure that it generates a correct date string of full date ." keywords="[DateFormat,Full,Date,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="EEEE 'den' D. MMMM Y"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Jeudi 'den' 15. Juillet 10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Long_Date_Error" description="Set the date format by long date ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Long,Date,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="B. BBB B"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Long_Date_Check" description="Set the date format by long date ,ensure that it generates a correct date string of long date ." keywords="[DateFormat,Long,Date,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="D. MMM Y"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="15. Jul 10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Medium_Date_Error" description="Set the date format by medium date ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Medium,Date,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="BB/BB/BBBB"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Medium_Date_Check" description="Set the date format by medium date ,ensure that it generates a correct date string of medium date ." keywords="[DateFormat,Medium,Date,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="DD/MM/YYYY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="15/07/2010"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Short_Date_Error" description="Set the date format by short date ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Short,Date,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="BB/BB/BB"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Short_Date_Check" description="Set the date format by short date ,ensure that it generates a correct date string of short date ." keywords="[DateFormat,Short,Date,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="DD/MM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="15/07/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Date-Time_Pattern_Error" description="Set the date format by Date-Time pattern,{0} = time, {1} = date ,then error message when the inputFormat property is not in the correct format. " keywords="[DateFormat,Date-Time,Pattern,Error]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="BB/BB/BB BB.BB"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.df" propertyName="error" value="Format incorrect"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Date-Time_Pattern_Check" description="Set the date format by Date-Time pattern,{0} = time, {1} = date ,ensure that it generates a correct date string." keywords="[DateFormat,Date-Time,Pattern,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="DD/MM/YY HH.NN"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="15/07/10 13.15"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Formatting_AM_Check" description="Set AM by Formatting, the output string should be correct." keywords="[DateFormat,Formatting,AM,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="HH.NN.SS A"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 1, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="01.15.20 AM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Formatting_PM_Check" description="Set PM by Formatting, the output string should be correct." keywords="[DateFormat,Formatting,PM,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="HH.NN.SS A"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="13.15.20 PM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_AM_Stand_Alone_Check" description="Set AM by Stand-alone, the output string should be correct." keywords="[DateFormat,Standalone,AM,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="A"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 1, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="AM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_PM_Stand_Alone_Check" description="Set PM by  Stand-alone, the output string should be correct." keywords="[DateFormat,Standalone,,PM,Check]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="A"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010, 6, 15, 13, 15, 20, 30));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="PM"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_January_Formatting_ShortNames" description="set the month  January by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,January,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,0));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Jan/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_February_Formatting_ShortNames" description="set the month  February by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,February,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,1));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Fév/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_March_Formatting_ShortNames" description="set the month  March by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,March,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,2));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Mar/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_April_Formatting_ShortNames" description="set the month  April by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,April,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,3));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Avr/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_May_Formatting_ShortNames" description="set the month  May by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,May,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,4));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Mai/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_June_Formatting_ShortNames" description="set the month  June by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,June,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,5));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Jun/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_July_Formatting_ShortNames" description="set the month  July by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,July,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,6));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Jul/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_August_Formatting_ShortNames" description="set the month  August by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,August,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,7));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Aoû/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_September_Formatting_ShortNames" description="set the month  September by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,September,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,8));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Sep/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_October_Formatting_ShortNames" description="set the month  October by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,October,Formatting,ShortNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,9));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Oct/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_November_Formatting_ShortNames" description="set the month  November by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,November,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,10));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Nov/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_December_Formatting_ShortNames" description="set the month  December by Formatting and Short Names, all the output string should be correct" keywords="[DateFormat,Month,December,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,11));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Déc/10"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FR_DateFormatter_Month_January_Formatting_LongNames" description="set the month  January by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,January,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,0));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Janvier/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_February_Formatting_LongNames" description="set the month  February by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,February,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,1));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Février/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_March_Formatting_LongNames" description="set the month  March by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,March,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,2));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Mars/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_April_Formatting_LongNames" description="set the month  April by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,April,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,3));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Avril/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_May_Formatting_LongNames" description="set the month  May by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,May,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,4));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Mai/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_June_Formatting_LongNames" description="set the month  June by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,June,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,5));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Juin/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_July_Formatting_LongNames" description="set the month  July by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,July,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,6));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Juillet/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_August_Formatting_LongNames" description="set the month  August by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,August,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,7));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Août/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_September_Formatting_LongNames" description="set the month  September by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,September,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,8));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Septembre/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_October_Formatting_LongNames" description="set the month  October by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,October,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,9));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Octobre/10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FR_DateFormatter_Month_November_Formatting_LongNames" description="set the month  November by Formatting and Long Names, all the output string should be correct" keywords="[DateFormat,Month,November,Formatting,LongNames]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.df" propertyName="formatString" value="MMMM/YY"/>
+				<RunCode code="application.tin.text= application.mf.df.format( new Date(2010,10));"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="Novembre/10"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+

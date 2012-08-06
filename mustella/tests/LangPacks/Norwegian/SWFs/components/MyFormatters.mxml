@@ -1,0 +1,10 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+	<!-- Formatters -->
+	<mx:CurrencyFormatter id="cf" />
+	<mx:DateFormatter id="df" />
+	<mx:NumberFormatter id="nf" />
+	<mx:PhoneFormatter id="pf"/>
+    <mx:ZipCodeFormatter id="zf" />
+
+</mx:VBox>

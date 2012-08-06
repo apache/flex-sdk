@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Swedish/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.TextInput;
+			import mx.formatters.CurrencyFormatter;
+			import mx.managers.SystemManager;
+	
+		]]>
+	</mx:Script>
+
+	<testCases>
+	  
+		<TestCase testID="SV_Formatters_Currency_Default" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text=application.mf.cf.format(98765);" />				
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765 kr" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SV_Formatters_Currency_currencySymbol_Sv" description="Test the properties of Currency Formatters." keywords="[currencySymbol, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty propertyName="currencySymbol" target="mf.cf" value="ŠÂÅÕÁŽ"/>
+				<RunCode code="application.tin.text=application.mf.cf.format(98765);"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765ŠÂÅÕÁŽ" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SV_Formatters_Currency_precision" description="Test that the default precision is -1." keywords="[precision, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="	application.tin.text=application.mf.cf.format('98765,123');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,123 kr" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SV_Formatters_Currency_useThousandsSeparator" description="Test the properties of Currency Formatters." keywords="[useThousandsSeparator, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text=application.mf.cf.format(98765432);" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765 432 kr" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SV_Formatters_Currency_Rounding" description="Test the properties of Currency Formatters." keywords="[rounding, up, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.cf" propertyName="precision" value="3"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98765,4999');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,499 kr" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SV_Formatters_Currency_ThousandsSeparatorFrom" description="Test the properties of Currency Formatters." keywords="[thousandsSeparatorFrom, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98 765,4321')" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,4321 kr" />
+			</body>
+		</TestCase>
+		       
+        <TestCase testID="SV_Formatters_Currency_ThousandsSeparatorFrom_Sv" description="Test the properties of Currency Formatters." keywords="[thousandsSeparatorFrom, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.cf" propertyName="thousandsSeparatorFrom" value="Š"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98Š765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,4321 kr" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="SV_Formatters_Currency_DecimalSeparatorFrom" description="Test the properties of Currency Formatters." keywords="[DecimalSeparatorFrom, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,4321 kr" />
+			</body>
+		</TestCase>
+ 
+        <TestCase testID="SV_Formatters_Currency_DecimalSeparatorFrom_Sv" description="Test the properties of Currency Formatters." keywords="[DecimalSeparatorFrom, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.cf" propertyName="decimalSeparatorFrom" value="Š"/>
+				<RunCode code="application.tin.text=application.mf.cf.format('98 765Š4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,4321 kr" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="SV_Formatters_Currency_ThousandsSeparatorTo" description="Test the properties of Currency Formatters." keywords="[ThousandsSeparatorTo, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text=application.mf.cf.format('98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,4321 kr" />
+			</body>
+		</TestCase>
+     
+        <TestCase testID="SV_Formatters_Currency_ThousandsSeparatorTo_Sv" description="Test the properties of Currency Formatters." keywords="[ThousandsSeparatorTo, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.cf" propertyName="thousandsSeparatorTo" value="Š"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98Š765,4321 kr" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="SV_Formatters_Currency_DecimalSeparatorTo" description="Test the properties of Currency Formatters." keywords="[DecimalSeparatorTo, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765,4321 kr" />
+			</body>
+		</TestCase>
+    
+        <TestCase testID="SV_Formatters_Currency_DecimalSeparatorTo_Sv" description="Test the properties of Currency Formatters." keywords="[DecimalSeparatorTo, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<SetProperty target="mf.cf" propertyName="decimalSeparatorTo" value="Š"/>
+				<RunCode code="application.tin.text= application.mf.cf.format('98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="98 765Š4321 kr" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="SV_Formatters_Currency_UseNegativeSign" description="Test the properties of Currency Formatters." keywords="[useNegativeSign, true, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="application.tin.text=application.mf.cf.format('-98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="-98 765,4321 kr" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SV_Formatters_Currency_AlignSymbol" description="Test the properties of Currency Formatters." keywords="[alignSymbol, left, inline, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+				<RunCode code="	application.tin.text=application.mf.cf.format('-98 765,4321');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="-98 765,4321 kr"/>
+			</body>
+		</TestCase>
+        
+        <TestCase testID="SV_Formatters_Currency_Properties_Rounding" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+            	<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                    <AssertPropertyValue target="mf.cf" propertyName="rounding" value="none" />
+            </body>
+	    </TestCase>
+	    
+	    <TestCase testID="SV_Formatters_Currency_Properties_UseNegativeSign" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+            	<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+    			<AssertPropertyValue target="mf.cf" propertyName="useNegativeSign" value="true" />
+            </body>
+	    </TestCase>
+	    
+	    <TestCase testID="SV_Formatters_Currency_Properties_UseThousandsSeparator" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="useThousandsSeparator" value="true" />
+            </body>
+	    </TestCase>
+       
+        <TestCase testID="SV_Formatters_Currency_Properties_CurrencyFormatterPrecision" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="precision" value="-1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SV_Formatters_Currency_Properties_AlignSymbol" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="alignSymbol" value="right" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SV_Formatters_Currency_Properties_CurrencySymbol" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+               <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="currencySymbol" value=" kr" />
+            </body>
+   		</TestCase>
+
+        <TestCase testID="SV_Formatters_Currency_Properties_DecimalSeparatorFrom" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+              <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                    <AssertPropertyValue target="mf.cf" propertyName="decimalSeparatorFrom" value="," />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SV_Formatters_Currency_Properties_DecimalSeparatorTo" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+            	<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="decimalSeparatorTo" value="," />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SV_Formatters_Currency_Properties_ThousandsSeparatorFrom" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+               <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="thousandsSeparatorFrom" value=" " />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SV_Formatters_Currency_Properties_ThousandsSeparatorTo" description="Test the properties of Number Formatters." keywords="[rounding, up, inline, Number, Formatter]">
+            <setup>
+                <ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf"/>
+			</setup>
+            <body>
+                <AssertPropertyValue target="mf.cf" propertyName="thousandsSeparatorTo" value=" " />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Norwegian/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+
+	<testCases>
+                <TestCase testID="NO_DateField_Dropdown_Norwegian_Layout" description="Test that Norwegian DateField dropdown layout is correct." keywords="[DateField, dropdown, layout]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField"  waitEvent="updateComplete" waitTarget="df"/> 
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+		        <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../tests/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="NO_DateField_Property_yearSymbol"  keywords="[yearSymbol, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField"  waitEvent="updateComplete" waitTarget="df"/> 
+			</setup>
+			<body> 
+ 				<RunCode code="application.df.open()" />
+				<AssertPropertyValue target="df" propertyName="yearSymbol" value="" />
+			</body>
+		</TestCase>
+                <TestCase testID="NO_DateField_Property_monthSymbol"  keywords="[monthSymbol, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField"  waitEvent="updateComplete" waitTarget="df"/> 
+			</setup>
+			<body> 
+				<AssertPropertyValue target="df" propertyName="monthSymbol" value="" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NO_DateField_Property_MonthNames"  keywords="[monthNames, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField"  waitEvent="updateComplete" waitTarget="df"/> 
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertPropertyValue target="df" propertyName="monthNames" value="[ 'Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember' ]" />
+			</body>
+		</TestCase>
+		
+                <TestCase testID="NO_DateField_Property_DayNames"  keywords="[dayNames, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField"  waitEvent="updateComplete" waitTarget="df"/> 
+			</setup>
+			<body> 
+				<AssertPropertyValue target="df" propertyName="dayNames" value="['S','M','T','O','T','F','L']" />
+			</body>
+		</TestCase>
+		
+                <TestCase testID="NO_DateField_Property_FormatString"  keywords="[formatString, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField"  waitEvent="updateComplete" waitTarget="df"/> 
+			</setup>
+			<body> 
+				<AssertPropertyValue target="df" propertyName="formatString" value="D.MMM YYYY" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

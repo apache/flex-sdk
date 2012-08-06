@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/Dutch/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a tNbplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import 	mx.validators.NumberValidator;
+	import 	mx.validators.ValidationResult;
+	import mx.managers.SystemManager;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		
+		<TestCase testID="NL_NumberValidator_decimalPointCountError"  keywords="[decimalPointCountError, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="98.765,43,21" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_exceedsMaxError"  keywords="[exceedsMaxError, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.myNb" propertyName="maxValue" value="1000"/>				
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="98.765,4321" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_integerError"  keywords="[integerError, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.myNb" propertyName="domain" value="int"/>	
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="98765,4321" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_invalidFormatCharsError_Decimal"  keywords="[invalidFormatCharsError, NumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="321-12" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+				
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_invalidFormatCharsError_Thousand"  keywords="[invalidFormatCharsError, NumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="98-765" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+				
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_lowerThanMinError"  keywords="[lowerThanMinError, NumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.myNb" propertyName="minValue" value="60"/>				
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="14" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+				
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_negativeError"  keywords="[negativeError, NumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.myNb" propertyName="allowNegative" value="false"/>
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="-123" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+				
+			</setup>
+			<body>
+				
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_precisionError"  keywords="[precisionError, NumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.myNb" propertyName="precision" value="4"/>
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="321,12345" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+				
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_invalidCharError"  keywords="[invalidCharError, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myNumV.ti1" propertyName="text" value="98#765,4321" waitEvent="updateComplete" waitTarget="ct.myNumV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myNumV.myNb.validate(application.ct.myNumV.ti1.text)"/> 
+				<AssertEvent target="ct.myNumV.myNb" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myNumV.myNb" eventName="valid" />
+				<DispatchMouseEvent target="ct.myNumV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myNumV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_Properties_Domain"  keywords="[Domain, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="domain" value="reëel" />
+			</body>
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_Properties_Precision"  keywords="[Precision, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="precision" value="-1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="NL_NumberValidator_Properties_allowNegative"  keywords="[allowNegative, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="allowNegative" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_Properties_decimalSeparator"  keywords="[decimalSeparator, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="decimalSeparator" value="," />
+			</body>
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_Properties_maxValue"  keywords="[maxValue, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="maxValue" value="NaN" />
+			</body>
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_Properties_minValue"  keywords="[minValue, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="minValue" value="NaN" />
+			</body>
+		</TestCase>
+		<TestCase testID="NL_NumberValidator_Properties_thousandsSeparator"  keywords="[thousandsSeparator, Property, NumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myNumV.myNb" propertyName="thousandsSeparator" value="." />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

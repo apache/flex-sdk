@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/Korean/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml" >
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+	]]>
+	</mx:Script>
+
+    <testCases>
+        <TestCase frequency="all" testID="KO_CreditCardValidator_allowedFormatChars_Ko" description="Test that the validator recognized Korean chacters that is valid." keywords="[Runtime Localization,CreditCardValidator,allowedFormatChars]" >
+            <setup>
+                <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+                    <SetProperty target="ct.myCreditV.myCCV" propertyName="allowedFormatChars" value="월년" />
+                    <SetProperty target="ct.myCreditV.ti1" propertyName="text" value="Visa" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti1"/>
+                    <SetProperty target="ct.myCreditV.ti2" propertyName="text" value="4207월년7340월년0997월년7262" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+            </setup>
+            <body>
+                <RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+                <AssertEvent target="ct.myCreditV.myCCV" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+                <AssertNoEvent target="ct.myCreditV.myCCV" eventName="invalid" />
+            </body>
+        </TestCase>        
+        
+        <TestCase testID="KO_CreditCardValidator_InvalidCharError" keywords="[InvalidCharError, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.ti1" propertyName="text" value="Visa" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti1"/>
+				<SetProperty target="ct.myCreditV.ti2" propertyName="text" value="4207ㅊ73400997262" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+			</setup>
+            <body>
+                <RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+                <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti2" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti2" timeout="5000"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti2" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="KO_CreditCardValidator_invalidNumberError"  keywords="[invalidNumberError, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.ti1" propertyName="text" value="Visa" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti1"/>
+				<SetProperty target="ct.myCreditV.ti2" propertyName="text" value="8207073400997262" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+	            <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti2" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti2"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="KO_CreditCardValidator_wrongLengthError"  keywords="[wrongLengthError, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.ti1" propertyName="text" value="Visa" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti1"/>
+				<SetProperty target="ct.myCreditV.ti2" propertyName="text" value="420773400997726234" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+				<SetProperty target="ct.myCreditV.myCCV" propertyName="noNumError" value="Please enter the number!"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+	            <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti2" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti2"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="KO_CreditCardValidator_wrongTypeError"  keywords="[wrongTypeError, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.ti1" propertyName="text" value=" " waitEvent="updateComplete" waitTarget="ct.myCreditV.ti1"/>
+				<SetProperty target="ct.myCreditV.ti2" propertyName="text" value="4207734009977262" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+	            <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="KO_CreditCardValidator_FieldRequired"  keywords="[FieldRequired, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.ti2" propertyName="text" value="4207734009972621" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+	            <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="KO_CreditCardValidator_TypeRequired"  keywords="[TypeRequired, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.myCCV" propertyName="required" value="false" />
+				<SetProperty target="ct.myCreditV.ti2" propertyName="text" value="4207734009972621" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti2"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+	            <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="KO_CreditCardValidator_NumberRequired"  keywords="[NumberRequired, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myCreditV.myCCV" propertyName="required" value="false" />
+				<SetProperty target="ct.myCreditV.ti1" propertyName="text" value="Visa" waitEvent="updateComplete" waitTarget="ct.myCreditV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myCreditV.myCCV.validate(application.ct.myCreditV.def)"/>  
+	            <AssertEvent target="ct.myCreditV.myCCV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myCreditV.myCCV" eventName="valid" /> 
+				<Pause timeout="20"/>
+				<DispatchMouseEvent target="ct.myCreditV.ti2" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myCreditV.ti2"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>
+		</TestCase>
+	    
+	    <TestCase testID="KO_CreditCardValidator_Properties_AllowedFormatChars"  keywords="[AllowedFormatChars, CreditCardValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myCreditV.myCCV" propertyName="allowedFormatChars" value=" -" />
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

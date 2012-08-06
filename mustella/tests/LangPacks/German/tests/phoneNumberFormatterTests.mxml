@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/German/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import mx.formatters.PhoneFormatter;
+	import mx.managers.SystemManager;
+	
+	]]>
+	</mx:Script>
+	<testCases>
+	
+		<TestCase testID="DE_Formatters_Phone_Simple" description="Test the properties of Number Formatters." keywords="[Simple, Phone, inline, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+				<RunCode code="application.tin.text= application.mf.pf.format('22818218410');" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tin" propertyName="text" value="(228) 182 184 10" />
+			</body>
+		</TestCase>
+		
+                <TestCase testID="DE_Formatters_Phone_Properties_AreaCode" description="Test the properties of Number Formatters." keywords="[AreaCode, Property, Phone, inline, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.pf" propertyName="areaCode" value="-1" />
+			</body>
+		</TestCase>
+		<TestCase testID="DE_Formatters_Phone_Properties_AreaCodeFormat" description="Test the properties of Number Formatters." keywords="[AreaCodeFormat, Property, Phone, inline, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.pf" propertyName="areaCodeFormat" value="(###)" />
+			</body>
+		</TestCase>
+		
+                <TestCase testID="DE_Formatters_Phone_Properties_PhoneNumberFormat" description="Test the properties of Number Formatters." keywords="[PhoneNumberFormat, Property, Phone, inline, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.pf" propertyName="formatString" value="(###) ### ### ##" />
+			</body>
+		</TestCase>
+		
+                <TestCase testID="DE_Formatters_Phone_Properties_ValidPatternChars" description="Test the properties of Number Formatters." keywords="[ValidPatternChars, Property, Phone, inline, Formatter]">
+			<setup>
+				<ResetComponent target="mf" className="components.MyFormatters" waitEvent="updateComplete" waitTarget="mf" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mf.pf" propertyName="validPatternChars" value="+()#- ." />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

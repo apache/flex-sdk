@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnitTester testDir="LangPacks/Danish/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a tPhNplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.TextInput;
+		import 	mx.validators.PhoneNumberValidator;
+		import 	mx.validators.ValidationResult;
+		import mx.managers.SystemManager;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+        
+     ]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="DA_PhoneNumberValidator_allowedFormatChars_Da"  keywords="[allowedFormatChars, PhoneNumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myPhoneV.myPhN" propertyName="property" value="text"/>
+				<SetProperty target="ct.myPhoneV.myPhN" propertyName="allowedFormatChars" value="Æ"/>
+				<SetProperty target="ct.myPhoneV.ti1" propertyName="text" value="ÆÆ45ÆÆ33Æ75Æ40Æ07" waitEvent="updateComplete" waitTarget="ct.myPhoneV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myPhoneV.myPhN.validate(application.ct.myPhoneV.ti1.text)"/> 
+				<AssertEvent target="ct.myPhoneV.myPhN" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myPhoneV.myPhN" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="DA_PhoneNumberValidator_invalidCharError"  keywords="[invalidCharError, PhoneNumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myPhoneV.myPhN" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myPhoneV.ti1" propertyName="text" value="K9488543610" waitEvent="updateComplete" waitTarget="ct.myPhoneV.ti1"/>
+				<RunCode code="application.ct.myPhoneV.myPhN.validate(application.ct.myPhoneV.ti1.text)"/> 
+				<AssertEvent target="ct.myPhoneV.myPhN" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myPhoneV.myPhN" eventName="valid" />
+				<DispatchMouseEvent target="ct.myPhoneV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myPhoneV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="DA_PhoneNumberValidator_wrongLengthError"  keywords="[wrongLengthError, PhoneNumberValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myPhoneV.myPhN" propertyName="property" value="text"/>
+				<SetProperty target="ct.myPhoneV.myPhN" propertyName="minDigits" value="10"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myPhoneV.ti1" propertyName="text" value="984544926" waitEvent="updateComplete" waitTarget="ct.myPhoneV.ti1"/>
+				<RunCode code="application.ct.myPhoneV.myPhN.validate(application.ct.myPhoneV.ti1.text)"/> 
+				<AssertEvent target="ct.myPhoneV.myPhN" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myPhoneV.myPhN" eventName="valid" />
+				<DispatchMouseEvent target="ct.myPhoneV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myPhoneV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>	
+                <TestCase testID="DA_PhoneNumberValidator_Properties_AllowedFormatChars" description="Test the properties of Number Formatters." keywords="[AllowedFormatChars, PhoneNumberValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.myPhoneV.myPhN" propertyName="allowedFormatChars" value="-()+ ." />
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

@@ -1,0 +1,13 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import 	mx.validators.DateValidator;
+	import mx.managers.SystemManager;
+	
+	]]>
+	</mx:Script>
+	
+	<mx:TextInput id="ti1" />
+	<mx:DateValidator id="myDV" source="{ti1}"/>	
+</mx:VBox>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnitTester testDir="LangPacks/Japanese/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a tSSNplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.TextInput;
+		import 	mx.validators.SocialSecurityValidator;
+		import 	mx.validators.ValidationResult;
+		import mx.managers.SystemManager;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="JA_SocialSecurityValidator_allowedFormatChars_Ja"  keywords="[allowedFormatChars, SocialSecurityValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+				<SetProperty target="ct.mySocV.mySSN" propertyName="property" value="text"/>
+				<SetProperty target="ct.mySocV.mySSN" propertyName="allowedFormatChars" value="語"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.mySocV.ti1" propertyName="text" value="944語85語3610" waitEvent="updateComplete" waitTarget="ct.mySocV.ti1"/>
+				<RunCode code="application.ct.mySocV.mySSN.validate(application.ct.mySocV.ti1.text)"/> 
+				<AssertEvent target="ct.mySocV.mySSN" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.mySocV.mySSN" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_SocialSecurityValidator_invalidCharError"  keywords="[invalidCharError, SocialSecurityValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.mySocV.mySSN" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.mySocV.ti1" propertyName="text" value="K9488543610" waitEvent="updateComplete" waitTarget="ct.mySocV.ti1"/>
+				<RunCode code="application.ct.mySocV.mySSN.validate(application.ct.mySocV.ti1.text)"/> 
+				<AssertEvent target="ct.mySocV.mySSN" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.mySocV.mySSN" eventName="valid" />
+				<DispatchMouseEvent target="ct.mySocV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.mySocV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" ignoreMaxColorVariance="true" numColorVariances="25"/>				
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_SocialSecurityValidator_wrongFormatError"  keywords="[wrongFormatError, SocialSecurityValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.mySocV.mySSN" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.mySocV.ti1" propertyName="text" value="988-45-44926" waitEvent="updateComplete" waitTarget="ct.mySocV.ti1"/>
+				<RunCode code="application.ct.mySocV.mySSN.validate(application.ct.mySocV.ti1.text)"/> 
+				<AssertEvent target="ct.mySocV.mySSN" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.mySocV.mySSN" eventName="valid" />
+				<DispatchMouseEvent target="ct.mySocV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.mySocV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_SocialSecurityValidator_zeroStartError"  keywords="[zeroStartError, SocialSecurityValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.mySocV.mySSN" propertyName="property" value="text"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.mySocV.ti1" propertyName="text" value="000-45-4260" waitEvent="updateComplete" waitTarget="ct.mySocV.ti1"/>
+				<RunCode code="application.ct.mySocV.mySSN.validate(application.ct.mySocV.ti1.text)"/> 
+				<AssertEvent target="ct.mySocV.mySSN" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.mySocV.mySSN" eventName="valid" />
+				<DispatchMouseEvent target="ct.mySocV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.mySocV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+                <TestCase testID="JA_SocialSecurityValidator_Properties_AllowedFormatChars"  keywords="[AllowedFormatChars, Property, SocialSecurityValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="ct.mySocV.mySSN" propertyName="allowedFormatChars" value=" -" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

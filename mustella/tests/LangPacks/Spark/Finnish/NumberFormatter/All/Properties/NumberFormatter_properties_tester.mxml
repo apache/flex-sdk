@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/Spark/Finish/NumberFormatter/Properties/"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns="*"
+			testSWF="NumberFormatter_main.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		[Mixin]
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<testCases>
+		<TestCase testID="fi_FI_NumberFormatter_Properties_default" description="Test for NumberFormatter default property" keywords="[NumberFormatter, default]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234560.799)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1 234 560,80">
+					<ConditionalValue os="mac" value="1 234 560,799"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_trailingZeros_false" description="Test for NumberFormatter trailingZeros property false" keywords="[NumberFormatter, trailingZeros, false]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="trailingZeros" value="false" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="{'1 235'}">
+					<ConditionalValue os="mac" value="{'1 235'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_trailingZeros_true" description="Test for NumberFormatter trailingZeros property true" keywords="[NumberFormatter, trailingZeros, true]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="trailingZeros" value="true" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234.4444)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1 234,444">
+					<ConditionalValue os="mac" value="1 234,444"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_default_fullNumber" description="Test for NumberFormatter default property fullNumber" keywords="[NumberFormatter, default, fulNumber]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="errorText" value="Määritelmää" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" value="１２３４,７８９" waitEvent="updateComplete"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(application.customComp.lb.text)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="Määritelmää">
+					<ConditionalValue os="mac" value="Määritelmää"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_default_char" description="Test for NumberFormatter default property char" keywords="[NumberFormatter, default, char]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="errorText" value="Määritelmää" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format('Mää')" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="Määritelmää">
+					<ConditionalValue os="mac" value="Määritelmää"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_negativeNumberFormat_Pattern0" description="Test for NumberFormatter negativeNumberFormat property Pattern0" keywords="[NumberFormatter, negativeNumberFormat, Pattern0]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="negativeNumberFormat" value="0" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(-123.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="(123,79)">
+					<ConditionalValue os="mac" value="(123,789)"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_negativeNumberFormat_Pattern1" description="Test for NumberFormatter negativeNumberFormat property Pattern1" keywords="[NumberFormatter, negativeNumberFormat, Pattern1]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="negativeNumberFormat" value="1" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(-123.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="{'-123,79'}">
+					<ConditionalValue os="mac" value="{'-123,789'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_negativeNumberFormat_Pattern2" description="Test for NumberFormatter negativeNumberFormat property Pattern2" keywords="[NumberFormatter, negativeNumberFormat, Pattern2]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="negativeNumberFormat" value="2" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(-123.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="- 123,79">
+					<ConditionalValue os="mac" value="- 123,789"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_negativeNumberFormat_Pattern3" description="Test for NumberFormatter negativeNumberFormat property Pattern3" keywords="[NumberFormatter, negativeNumberFormat, Pattern3]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="negativeNumberFormat" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(-123.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="123,79-">
+					<ConditionalValue os="mac" value="123,789-"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_negativeNumberFormat_Pattern4" description="Test for NumberFormatter negativeNumberFormat property Pattern4" keywords="[NumberFormatter, negativeNumberFormat, Pattern4]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="negativeNumberFormat" value="4" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(-123.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="123,79 -">
+					<ConditionalValue os="mac" value="123,789 -"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_leadingZero_true" description="Test for NumberFormatter leadingZero property true" keywords="[NumberFormatter, leadingZero, true]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="leadingZero" value="true" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(0.12)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="{'0,12'}">
+					<ConditionalValue os="mac" value="{'0,12'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_leadingZero_false" description="Test for NumberFormatter leadingZero property false" keywords="[NumberFormatter, leadingZero, false]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="leadingZero" value="false" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="2" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(0.12)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="{',12'}">
+					<ConditionalValue os="mac" value="{',12'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_groupingSeparator" description="Test for NumberFormatter groupingSeparator property" keywords="[NumberFormatter, groupingSeparator]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingSeparator" value="äöö" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234560.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1äöö234äöö560,79">
+					<ConditionalValue os="mac" value="1äöö234äöö560,789"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fi_FI_NumberFormatter_Properties_decimalSeparator" description="Test for NumberFormatter decimalSeparator property" keywords="[NumberFormatter, decimalSeparator]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="fi_FI" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="decimalSeparator" value="äÅ" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234560.789)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1 234 560äÅ79">
+					<ConditionalValue os="mac" value="1 234 560äÅ789"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

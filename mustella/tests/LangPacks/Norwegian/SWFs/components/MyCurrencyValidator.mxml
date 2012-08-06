@@ -1,0 +1,12 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+	
+	<mx:TextInput id="ti1" />
+
+       	<mx:CurrencyValidator id="myCu" precision="2" source="{ti1}" property="text" />
+       
+</mx:VBox>

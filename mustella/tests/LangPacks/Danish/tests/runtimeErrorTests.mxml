@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Danish/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml" >
+
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+    <mx:Script>
+<![CDATA[
+    import mx.formatters.*;
+    import mx.messaging.channels.*;
+    import mx.controls.videoClasses.VideoError;
+    import mx.logging.LogLogger;
+    import mx.core.FlexVersion;
+    import mx.controls.Label;
+    import mx.containers.utilityClasses.CanvasLayout;
+    import mx.containers.*;
+    import mx.collections.*;
+    import mx.validators.*;
+    import mx.core.mx_internal;
+    import mx.utils.StringUtil;
+    import mx.utils.Base64Decoder;
+    
+    private function triggerOutOfBoundsRTE():void{
+        new ArrayCollection().getItemAt(1);
+    }
+
+    private function triggerMissingCardTypeRTE():void{
+        var obj:Object;
+        CreditCardValidator.validateCreditCard(application.ct.myCreditV.myCCV, obj, "");
+    }
+
+    private function triggerMissingCardNumberRTE():void{
+        var ccv:CreditCardValidator = new CreditCardValidator();
+        var obj:Object = new Object();
+        obj.cardType=CreditCardValidatorCardType.MASTER_CARD;
+        obj.cardNumber=null;
+        CreditCardValidator.validateCreditCard(ccv, obj, "");
+    }
+    
+    // fieldNotFound RTE can never be reached.
+    // Function never called
+    private function triggerFieldNotFound():void{
+    }
+    
+    private function triggerSAttributeMissingRTE():void{
+    	var v:Validator = new Validator();
+    	v.source = null;
+    	v.property = "text";
+    	v.validate();
+    }
+    
+    private function triggerPAttributeMissingRTE():void{
+    	var v:Validator = new Validator();
+    	v.source = application.ct.myCreditV.ti1;
+    	v.property = null;
+    	v.validate();
+    }
+       
+    private function triggerinvalidIndexRTE():void{
+    	var lcv:ListCollectionView = new ListCollectionView();
+    	lcv.mx_internal::getBookmark(-1);
+    }
+
+    private function triggerUnknownPropertyRTE():void{
+        var c:ListCollectionView = new ListCollectionView();
+    	var o:Object = c;
+    	o.something;
+    }
+
+    private function triggerIncorrectAdditionRTE():void{
+    	var c:ListCollectionView = new ListCollectionView();
+    	var aL:ArrayList = new ArrayList();
+    	c.sort = new Sort();
+    	c.sort.unique = true;
+    	aL.addItem(new Object());
+    	c.list = aL;
+    	aL.addItem(new Object());
+    }
+
+    private function triggerItemNotFoundRTE():void{
+    	var c:ListCollectionView = new ListCollectionView();
+    	c.mx_internal::findItem(new Object(), "string");
+    }
+
+    private function triggerBookmarkNotFoundRTE():void{
+    	var c:ListCollectionView = new ListCollectionView();
+    	c.mx_internal::getBookmarkIndex(new CursorBookmark(new Object()));
+    }
+
+    private function triggerInvalidInsertRTE():void{
+    	var c:ListCollectionView = new ListCollectionView();
+    	var aL:ArrayList = new ArrayList();
+    	aL.addItem(new Object());
+    	c.list = aL;
+    	var s:IViewCursor = c.createCursor();
+    	s.movePrevious();
+    	s.insert(new Object());
+    }
+
+    private function triggerInvalidRemoveRTE():void{
+    	var c:ListCollectionView = new ListCollectionView();
+    	var s:IViewCursor = c.createCursor();
+        s.remove();
+    }
+
+    private function triggerBookmarkInvalidRTE():void{
+    	var c:ListCollectionView = new ListCollectionView();
+    	var aL:ArrayList = new ArrayList();
+    	aL.addItem(new Object());
+    	c.list = aL;
+    	var s:IViewCursor = c.createCursor();
+    	s.seek(new CursorBookmark(new Object())); 
+    }
+
+    private function triggerNoItemsRTE():void{
+    	var s:Sort = new Sort();
+    	s.findItem(null, null, null);
+    }
+
+    private function cmpFn(o1:Object, o2:Object):void{
+    	
+    }
+
+    private function triggerFindConditionRTE():void{
+    	var a:Array = new Array();
+    	var s:Sort = new Sort();
+    	a.push("a");
+    	s.compareFunction = cmpFn;
+    	var sfArray:Array = new Array();
+    	sfArray.push(new SortField("0"));
+    	sfArray.push(new SortField("field1"));
+    	var o:Object = new Object();
+    	o["0"] = undefined;
+    	o["field1"] = 2;
+    	s.fields = sfArray;
+    	s.findItem(a, o, null);
+    }
+
+    private function triggerFindRestrictionRTE():void{
+    	var a:Array = new Array();
+    	var s:Sort = new Sort();
+    	a.push("a");
+    	s.compareFunction = cmpFn;
+    	var sfArray:Array = new Array();
+    	sfArray.push(new SortField("0"));
+    	var o:Object = new Object();
+    	o["0"] = undefined;
+    	s.fields = sfArray;
+    	s.findItem(a, o, null);
+    }
+
+    private function triggerUnknownModeRTE():void{
+    	var a:Array = new Array();
+    	var s:Sort = new Sort();
+    	a.push(new Object());
+    	s.compareFunction = cmpFn;
+    	s.findItem(a, new Object(), null);
+    }
+
+    private function triggerNonUniqueRTE():void{
+    	var a:Array = new Array();
+    	var s:Sort = new Sort();
+    	a.push("a");
+    	a.push("b");
+    	var sfArray:Array = new Array();
+    	sfArray.push(new SortField("0"));
+    	s.fields = sfArray;
+    	s.unique = true;
+    	s.sort(a);
+    }
+
+    private function triggerNoComparatorSortFieldRTE():void{
+    	var a:Array = new Array();
+    	var s:Sort = new Sort();
+    	var o2:Object = new Object();
+    	o2["0"] = new Bitmap();
+    	a.push(null);
+    	a.push(o2);
+    	var sfArray:Array = new Array();
+    	sfArray.push(new SortField("0"));
+    	sfArray.push(new SortField("1"));
+    	s.fields = sfArray;
+    	s.unique = true;
+    	s.sort(a);
+    }
+
+    private function triggerInvalidTypeRTE():void{
+    	var x:XMLListAdapter = new XMLListAdapter();
+    	x.addItemAt(new Object(), 0);
+    }
+
+    private function triggerColumnNotFoundRTE():void{
+    	var c:Canvas = new Canvas();
+    	var l:CanvasLayout = new CanvasLayout();
+    	var lb:Label = new Label();
+    	lb.setConstraintValue("left", "col1:10");
+    	c.addChild(lb);
+    	l.target = c;
+    	l.updateDisplayList(100,100);
+    }
+
+    private function triggerNoRowsFoundRTE():void{
+    	var c:Canvas = new Canvas();
+    	var l:CanvasLayout = new CanvasLayout();
+    	var lb:Label = new Label();
+    	lb.setConstraintValue("top", "col1:10");
+    	c.addChild(lb);
+    	l.target = c;
+    	l.updateDisplayList(100,100);
+    }
+
+    /*private function triggerUnsupportedModeRTE():void{
+    	IME.enabled = true;
+    	IME.conversionMode = IMEConversionMode.DANISH_CHARACTERS;
+    	application.myCustomTester.ti1.imeMode = "abc";
+    	application.myCustomTester.ti1.setFocus();
+    }*/
+
+    private function triggerVersionAlreadyReadRTE():void{
+    	FlexVersion.compatibilityVersion = 1;
+    }
+
+    private function triggerLevelLimitRTE():void{
+    	var l:LogLogger = new LogLogger("");
+    	l.log(0, "something");
+    }
+
+    private function triggerPollingNotSupportedAMFRTE():void{
+    	var s:StreamingAMFChannel = new StreamingAMFChannel();
+    	s.pollingEnabled = true;
+    }
+
+    private function triggerPollingNotSupportedHTTPRTE():void{
+    	var s:StreamingHTTPChannel = new StreamingHTTPChannel();
+    	s.pollingEnabled = true;
+    }
+
+    private function triggerVideoErrorRTE_NO_CONNECTION():void{
+        throw new VideoError(VideoError.NO_CONNECTION);
+    }
+
+    private function triggerVideoErrorRTE_NO_CUE_POINT_MATCH():void{
+        throw new VideoError(VideoError.NO_CUE_POINT_MATCH);
+    }
+
+    private function triggerVideoErrorRTE_ILLEGAL_CUE_POINT():void{
+        throw new VideoError(VideoError.ILLEGAL_CUE_POINT);
+    }
+
+    private function triggerVideoErrorRTE_INVALID_SEEK():void{
+        throw new VideoError(VideoError.INVALID_SEEK);
+    }
+
+    private function triggerVideoErrorRTE_INVALID_CONTENT_PATH():void{
+        throw new VideoError(VideoError.INVALID_CONTENT_PATH);
+    }
+
+    private function triggerVideoErrorRTE_INVALID_XML():void{
+        throw new VideoError(VideoError.INVALID_XML);
+    }
+
+    private function triggerVideoErrorRTE_NO_BITRATE_MATCH():void{
+        throw new VideoError(VideoError.NO_BITRATE_MATCH);
+    }
+
+    private function triggerVideoErrorRTE_DELETE_DEFAULT_PLAYER():void{
+        throw new VideoError(VideoError.DELETE_DEFAULT_PLAYER);
+    }
+
+    private function triggerInvalidValueError():String{
+        var f:NumberFormatter = new NumberFormatter();
+        f.format("abc");
+        return f.error;
+    }
+
+    private function triggerDefaultInvalidFormatError():String{
+        var f:NumberFormatter = new NumberFormatter();
+        f.decimalSeparatorFrom = ",";
+     	f.thousandsSeparatorFrom = ",";
+        f.format("12");
+        return f.error;
+    }
+
+    private function triggerPartialBlockDroppedRTE():void{
+        var d:Base64Decoder = new Base64Decoder();
+     	d.decode("==");
+     	d.flush();
+    }
+
+]]>
+</mx:Script>
+
+    <testCases>   
+        <!-- Validators Shared -->
+        <TestCase testID="DA_RTE_Validator_Shared_InvalidFormatChars" description="RTE Tests" keywords="[Runtime Localization,Shared,Validator,InvalidFormatChars]" >
+            <setup>
+                <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myCreditV.myCCV" propertyName="allowedFormatChars" value="1" />
+                <AssertError value="Error: Parameteren allowedFormatChars er ugyldig. Den må ikke indeholde cifre." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <!-- CreditCardValidator -->
+        <TestCase testID="DA_RTE_CreditCardValidator_MissingCardType" description="RTE Tests" keywords="[Runtime Localization,CreditCardValidator,MissingCardType]" >
+            <setup>
+                 <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { triggerMissingCardTypeRTE(); } catch (e:Error) { value = e.message }" value="Den værdi, der valideres, indeholder ikke egenskaben cardType." />
+            </body>
+        </TestCase>
+<!-- missingCardNumber RTE cannot be reached
+        <TestCase testID="DA_RTE_CreditCardValidator_MissingCardNumber" description="RTE Tests" keywords="[Runtime Localization,CreditCardValidator,MissingCardNumber]" >
+            <setup>
+                 <ResetComponent target="myCustomTester" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { triggerMissingCardNumberRTE(); } catch (e:Error) { value = e.message }" value="Den værdi, der valideres, indeholder ikke egenskaben cardNumber." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+-->  
+
+        <TestCase testID="DA_RTE_CreditCardValidator_CNSAtrribute" description="RTE Tests" keywords="[Runtime Localization,CreditCardValidator,CNSAttribute]" >
+            <setup>
+                 <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myCreditV.myCCV" propertyName="cardNumberSource" value="" />
+                <AssertError value="Error: Attributten cardNumberSource, '{}', kan ikke have typen Streng." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_CreditCardValidator_CTSAtrribute" description="RTE Tests" keywords="[Runtime Localization,CreditCardValidator,CTSAttribute]" >
+            <setup>
+                <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myCreditV.myCCV" propertyName="cardTypeSource" value="" />
+                <AssertError value="Error: Attributten cardTypeSource, '{}', kan ikke have typen Streng." />
+            </body>
+        </TestCase>
+        
+        <!-- DateValidator -->
+        <TestCase testID="DA_RTE_DateValidator_DSAtrribute" description="RTE Tests" keywords="[Runtime Localization,DateValidator,DSAttribute]" >
+            <setup>
+                <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myDateV.myDV" propertyName="daySource" value="" />
+                <AssertError value="Error: Attributten daySource, '{}', kan ikke have typen Streng." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_DateValidator_MSAtrribute" description="RTE Tests" keywords="[Runtime Localization,DateValidator,MSAttribute]" >
+            <setup>
+                 <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myDateV.myDV" propertyName="monthSource" value="" />
+                <AssertError value="Error: Attributten monthSource, '{}', kan ikke have typen Streng." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_DateValidator_YSAtrribute" description="RTE Tests" keywords="[Runtime Localization,DateValidator,YSAttribute]" >
+            <setup>
+                 <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myDateV.myDV" propertyName="yearSource" value="" />
+                <AssertError value="Error: Attributten yearSource, '{}', kan ikke have typen Streng." />
+            </body>
+        </TestCase>
+
+        <!-- Validator -->
+<!-- FieldNotFound cannot be reached
+        <TestCase testID="DA_RTE_Validator_FieldNotFound" description="RTE Tests" keywords="[Runtime Localization,Validator,FieldNotFound]" >
+            <setup>
+                 <ResetComponent target="myCustomTester" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { triggerFieldNotFound(); } catch (e:Error) { value = e.message }" value="Feltet '{}' blev ikke fundet." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+-->
+        <TestCase testID="DA_RTE_Validator_SAttribute" description="RTE Tests" keywords="[Runtime Localization,Validator,SAttribute]" >
+            <setup>
+                 <ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ct.myCreditV.myCCV" propertyName="source" value="" />
+                <AssertError value="Error: Kildeattributten, '{}', kan ikke have typen Streng." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Validator_SAttributeMissing" description="RTE Tests" keywords="[Runtime Localization,Validator,SAttributeMissing]" >
+            <body>
+                <AssertMethodValue method="try { triggerSAttributeMissingRTE(); } catch (e:Error) { value = e.message }" value="Kildeattributten skal være angivet, når egenskabsattributten er angivet." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Validator_PAttributeMissing" description="RTE Tests" keywords="[Runtime Localization,Validator,PAttributeMissing]" >
+            <body>
+                <AssertMethodValue method="try { triggerPAttributeMissingRTE(); } catch (e:Error) { value = e.message }" value="Egenskabsattributten skal være angivet, når kildeattributten er angivet." />
+            </body>
+        </TestCase>
+
+        <!-- Collections Shared -->
+        <TestCase testID="DA_RTE_Collections_OutOfBounds" description="RTE Tests" keywords="[Runtime Localization,Collection,OutOfBounds]" >
+            <body>
+                <AssertMethodValue method="try { triggerOutOfBoundsRTE(); } catch (e:Error) { value = e.message }" value="Det angivne indeks '{1}' er uden for grænserne." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Collections_InvalidIndex" description="RTE Tests" keywords="[Runtime Localization,Collection,InvalidIndex]" >
+            <body>
+                <AssertMethodValue method="try { triggerinvalidIndexRTE(); } catch (e:Error) { value = e.message }" value="Ugyldigt indeks: '{-1}'." />
+            </body>
+        </TestCase>
+
+        <!-- ListCollectionView -->
+        <TestCase testID="DA_RTE_ListCollectionView_UnknownProperty" description="RTE Tests" keywords="[Runtime Localization,ListCollectionView,UnknownProperty]" >
+            <body>
+                <AssertMethodValue method="try { triggerUnknownPropertyRTE(); } catch (e:Error) { value = e.message }" value="Ukendt egenskab: 'something'." />
+            </body>
+        </TestCase>
+<!-- Exception window problem
+        <TestCase testID="DA_RTE_ListCollectionView_IncorrectAddition" description="RTE Tests" keywords="[Runtime Localization,ListCollectionView,IncorrectAddition]" >
+            <setup>
+                 <ResetComponent target="myCustomTester" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { triggerIncorrectAdditionRTE(); } catch (e:Error) { value = e.message }" value="Der blev gjort forsøg på at tilføje et element, der allerede findes i visningen." timeout ="100" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+-->
+        <TestCase testID="DA_RTE_ListCollectionView_ItemNotFound" description="RTE Tests" keywords="[Runtime Localization,ListCollectionView,ItemNotFound]" >
+            <body>
+                <AssertMethodValue method="try { triggerItemNotFoundRTE(); } catch (e:Error) { value = e.message }" value="Søgningen kan ikke udføres, når visningen ikke er sorteret." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_ListCollectionView_BookmarkNotFound" description="RTE Tests" keywords="[Runtime Localization,ListCollectionView,BookmarkNotFound]" >
+            <body>
+                <AssertMethodValue method="try { triggerBookmarkNotFoundRTE(); } catch (e:Error) { value = e.message }" value="Bogmærket er ikke fra denne visning." />
+            </body>
+        </TestCase>
+
+        <!-- ListCollectionViewCursor -->
+        <TestCase testID="DA_RTE_ListCollectionViewCursor_InvalidInsert" description="RTE Tests" keywords="[Runtime Localization,ListCollectionViewCursor,InvalidInsert]" >
+            <body>
+                <AssertMethodValue method="try { triggerInvalidInsertRTE(); } catch (e:Error) { value = e.message }" value="Kan ikke indsættes, når aktuelt element er beforeFirst." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_ListCollectionViewCursor_InvalidRemove" description="RTE Tests" keywords="[Runtime Localization,ListCollectionViewCursor,InvalidRemove]" >
+            <body>
+                <AssertMethodValue method="try { triggerInvalidRemoveRTE(); } catch (e:Error) { value = e.message }" value="Kan ikke fjernes, når aktuelt element er beforeFirst eller afterLast." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_ListCollectionViewCursor_BookmarkInvalid" description="RTE Tests" keywords="[Runtime Localization,ListCollectionViewCursor,BookmarkInvalid]" >
+            <body>
+                <AssertMethodValue method="try { triggerBookmarkInvalidRTE(); } catch (e:Error) { value = e.message }" value="Bogmærket er ikke længere gyldigt." />
+            </body>
+        </TestCase>
+        
+<!-- Invalid flag is always false, invalidCursor error never reached
+        <TestCase testID="DA_RTE_ListCollectionViewCursor_InvalidCursor" description="RTE Tests" keywords="[Runtime Localization,ListCollectionViewCursor,InvalidCursor]" >
+            <setup>
+                 <ResetComponent target="myCustomTester" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { triggerInvalidCursorRTE(); } catch (e:Error) { value = e.message }" value="Markøren er ikke længere gyldig." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+-->
+
+        <!-- Sort -->
+        <TestCase testID="DA_RTE_Sort_NoItems" description="RTE Tests" keywords="[Runtime Localization,Sort,NoItems]" >
+            <body>
+                <AssertMethodValue method="try { triggerNoItemsRTE(); } catch (e:Error) { value = e.message }" value="Der er intet at søge efter." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Sort_FindCondition" description="RTE Tests" keywords="[Runtime Localization,Sort,FindCondition]" >
+              <body>
+                <AssertMethodValue method="try { triggerFindConditionRTE(); } catch (e:Error) { value = e.message }" value="Søgekriterier skal indeholde alle sorteringsfelter indtil 'field1'." />
+              </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Sort_FindRestriction" description="RTE Tests" keywords="[Runtime Localization,Sort,FindRestriction]" >
+            <body>
+                <AssertMethodValue method="try { triggerFindRestrictionRTE(); } catch (e:Error) { value = e.message }" value="Søgekriterier skal indeholde mindst én sorteringsfeltværdi." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Sort_UnknownMode" description="RTE Tests" keywords="[Runtime Localization,Sort,UnknownMode]" >
+            <body>
+                <AssertMethodValue method="try { triggerUnknownModeRTE(); } catch (e:Error) { value = e.message }" value="Ukendt søgetilstand." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Sort_NonUnique" description="RTE Tests" keywords="[Runtime Localization,Sort,NonUnique]" >
+            <body>
+                <AssertMethodValue method="try { triggerNonUniqueRTE(); } catch (e:Error) { value = e.message }" value="Der findes værdier, som ikke er entydige, i elementerne." />
+            </body>
+        </TestCase>
+<!-- Sort.noComparator can never be reached as SortError can never be thrown in SortField.initCompare, bug? -->
+
+        <!-- SortField -->
+        <TestCase testID="DA_RTE_SortField_NoComparatorSortField" description="RTE Tests" keywords="[Runtime Localization,SortField,NoComparatorSortField]" >
+            <body>
+                <AssertMethodValue method="try { triggerNoComparatorSortFieldRTE(); } catch (e:Error) { value = e.message }" value="Komparator for SortField med navnet '0' kan ikke fastlægges." />
+            </body>
+        </TestCase>
+
+        <!-- XMLListAdapter -->
+        <TestCase testID="DA_RTE_XMLListAdapter_InvalidType" description="RTE Tests" keywords="[Runtime Localization,XMLListAdapter,InvalidType]" >
+            <body>
+                <AssertMethodValue method="try { triggerInvalidTypeRTE(); } catch (e:Error) { value = StringUtil.trim(e.message) }" value="Forkert type. Typen skal være XML eller XMLList, der indeholder ét XML-objekt." />
+            </body>
+        </TestCase>
+
+        <!-- CanvasLayout -->
+        <TestCase testID="DA_RTE_CanvasLayout_ColumnNotFound" description="RTE Tests" keywords="[Runtime Localization,CanvasLayout,ColumnNotFound]" >
+            <body>
+                <AssertMethodValue method="try { triggerColumnNotFoundRTE(); } catch (e:Error) { value = StringUtil.trim(e.message) }" value="ConstraintColumn 'col1' blev ikke fundet." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_CanvasLayout_NoRowsFound" description="RTE Tests" keywords="[Runtime Localization,CanvasLayout,NoRowsFound]" >
+            <body>
+                <AssertMethodValue method="try { triggerNoRowsFoundRTE(); } catch (e:Error) { value = StringUtil.trim(e.message) }" value="Der blev ikke fundet nogen ConstraintRow." />
+            </body>
+        </TestCase>
+
+        <!-- TextInput, TextArea -->
+<!-- IME has to be available for this test
+        <TestCase testID="DA_RTE_TextInput_UnsupportedMode" description="RTE Tests" keywords="[Runtime Localization,TextInput,TextArea,UnsupportedMode]" >
+            <setup>
+                 <ResetComponent target="myCustomTester" className="components.CustomTester" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { triggerUnsupportedModeRTE(); } catch (e:Error) { value = StringUtil.trim(e.message) }" value="IMEMode '{}' understøttes ikke." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+-->
+
+        <!-- FlexVersion -->
+        <TestCase testID="DA_RTE_FlexVersion_VersionAlreadyRead" description="RTE Tests" keywords="[Runtime Localization,FlexVersion,VersionAlreadyRead]" >
+            <body>
+                <AssertMethodValue method="try { triggerVersionAlreadyReadRTE(); } catch (e:Error) { value = e.message }" value="Kompatibilitetsversionen er allerede læst." />
+            </body>
+        </TestCase>
+
+        <!-- LogLogger -->
+        <TestCase testID="DA_RTE_LogLogger_LevelLimit" description="RTE Tests" keywords="[Runtime Localization,LogLogger,LevelLimit]" >
+             <body>
+                <AssertMethodValue method="try { triggerLevelLimitRTE(); } catch (e:Error) { value = e.message }" value="Logføringsniveauet kan ikke angives som LogEventLevel.ALL." />
+             </body>
+        </TestCase>
+
+        <!-- StreamingAMFChannel -->
+        <TestCase testID="DA_RTE_StreamingAMFChannel_PollingNotSupportedAMF" description="RTE Tests" keywords="[Runtime Localization,StreamingAMFChannel,PollingNotSupportedAMF]" >
+            <body>
+                <AssertMethodValue method="try { triggerPollingNotSupportedAMFRTE(); } catch (e:Error) { value = e.message }" value="StreamingAMFChannel understøtter ikke polling. " />
+            </body>
+        </TestCase>
+
+        <!-- StreamingHTTPChannel -->
+        <TestCase testID="DA_RTE_StreamingHTTPChannel_PollingNotSupportedHTTP" description="RTE Tests" keywords="[Runtime Localization,StreamingHTTPChannel,PollingNotSupportedHTTP]" >
+             <body>
+                <AssertMethodValue method="try { triggerPollingNotSupportedHTTPRTE(); } catch (e:Error) { value = e.message }" value="StreamingHTTPChannel understøtter ikke polling. " />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+        
+        <!-- VideoError - There are 8 different error messages in the single string.  The resulting messages are always combined with other error messages, so throwing VideoError exception to test the base messages -->
+        <TestCase testID="DA_RTE_VideoError_NO_CONNECTION" description="RTE Tests" keywords="[Runtime Localization,VideoError,NO_CONNECTION]" >
+             <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_NO_CONNECTION(); } catch (e:Error) { value = e.message }" value="1000: Der kan ikke oprettes forbindelse til serveren" />
+             </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_NO_CUE_POINT_MATCH" description="RTE Tests" keywords="[Runtime Localization,VideoError,NO_CUE_POINT_MATCH]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_NO_CUE_POINT_MATCH(); } catch (e:Error) { value = e.message }" value="1001: eller FLV kan ikke findes på serveren." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_ILLEGAL_CUE_POINT" description="RTE Tests" keywords="[Runtime Localization,VideoError,ILLEGAL_CUE_POINT]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_ILLEGAL_CUE_POINT(); } catch (e:Error) { value = e.message }" value="1002: Intet tilsvarende kontrolpunkt blev fundet." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_INVALID_SEEK" description="RTE Tests" keywords="[Runtime Localization,VideoError,INVALID_SEEK]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_INVALID_SEEK(); } catch (e:Error) { value = e.message }" value="1003: Ugyldigt kontrolpunkt." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_INVALID_CONTENT_PATH" description="RTE Tests" keywords="[Runtime Localization,VideoError,INVALID_CONTENT_PATH]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_INVALID_CONTENT_PATH(); } catch (e:Error) { value = e.message }" value="1004: Ugyldig søgning." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_INVALID_XML" description="RTE Tests" keywords="[Runtime Localization,VideoError,INVALID_XML]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_INVALID_XML(); } catch (e:Error) { value = e.message }" value="1005: Ugyldig contentPath." />
+			</body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_NO_BITRATE_MATCH" description="RTE Tests" keywords="[Runtime Localization,VideoError,NO_BITRATE_MATCH]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_NO_BITRATE_MATCH(); } catch (e:Error) { value = e.message }" value="1006: Ugyldigt XML." />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_VideoError_DELETE_DEFAULT_PLAYER" description="RTE Tests" keywords="[Runtime Localization,VideoError,DELETE_DEFAULT_PLAYER]" >
+            <body>
+                <AssertMethodValue method="try { triggerVideoErrorRTE_DELETE_DEFAULT_PLAYER(); } catch (e:Error) { value = e.message }" value="1007: Ingen tilsvarende bithastighed; må ikke være standard-FLV." />
+            </body>
+        </TestCase>
+
+        <!-- Invalid Format Value Errors -->
+        <TestCase testID="DA_RTE_Formatter_DefaultInvalidValueError" description="RTE Tests" keywords="[Runtime Localization,Formatter,DefaultInvalidValueError]" >
+            <body>
+                <AssertMethodValue method="value = triggerInvalidValueError()" value="Ugyldig værdi" />
+            </body>
+        </TestCase>
+        <TestCase testID="DA_RTE_Formatter_DefaultInvalidFormatError" description="RTE Tests" keywords="[Runtime Localization,Formatter,DefaultInvalidFormatError]" >
+             <body>
+                <AssertMethodValue method="value = triggerDefaultInvalidFormatError()" value="Ugyldigt format" />
+             </body>
+        </TestCase>
+
+        <!-- Base64Decoder -->
+        <TestCase testID="DA_RTE_Base64Decoder_PartialBlockDropped" description="RTE Tests" keywords="[Runtime Localization,Base64Decoder,PartialBlockDropped]" >
+            <body>
+                <AssertMethodValue method="try { triggerPartialBlockDroppedRTE(); } catch (e:Error) { value = e.message }" value="En delvis blok ({2} på 4 byte) er kasseret. De afkodede data er formentlig afkortet!" />
+               </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

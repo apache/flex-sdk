@@ -1,0 +1,21 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+	 <mx:XML id="def">
+		    <mx:root> 	
+		    <cardType>{ti1.text}</cardType>
+		    <cardNumber>{ti2.text}</cardNumber>
+		    </mx:root>
+	  </mx:XML>
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+	
+	<mx:TextInput id="ti1" />
+	<mx:TextInput id="ti2" />
+
+        <!-- Validators -->	
+	<mx:CreditCardValidator id="myCCV" cardTypeProperty="cardType" cardTypeSource="{def}" cardTypeListener="{ti1}" cardNumberListener="{ti2}" cardNumberSource="{def}" cardNumberProperty="cardNumber"/>
+
+</mx:VBox>

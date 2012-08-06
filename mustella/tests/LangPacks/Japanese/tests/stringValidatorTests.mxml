@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/Japanese/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a tSVplate that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.TextInput;
+		import 	mx.validators.StringValidator;
+		import 	mx.validators.ValidationResult;
+		import mx.managers.SystemManager;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="JA_StringValidator_maxLength"  keywords="[maxLength, StringValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="maxLength" value="6"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="???12!" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_minLength"  keywords="[minLength, StringValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="minLength" value="6"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="??? ?? !" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_maxLength1"  keywords="[maxLength, StringValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="maxLength" value="6.7"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="???12!" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_minLength1"  keywords="[minLength, StringValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="minLength" value="6.5"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="??? ?? !" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="invalid" />
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_tooLongError"  keywords="[tooLongError, StringValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="maxLength" value="6.5"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="??? ?? !" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myStringV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png"  ignoreMaxColorVariance="true" numColorVariances="25"/>				
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_tooLongError1"  keywords="[tooLongError, StringValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="maxLength" value="6"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="???12 !" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myStringV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myStringV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png"  numColorVariances="3" ignoreMaxColorVariance="true"/>				
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_tooShortError"  keywords="[tooLongError, StringValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="minLength" value="6.5"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="???" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myStringV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myStringV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png"  />				
+			</body>  
+		</TestCase>
+		<TestCase testID="JA_StringValidator_tooShortError1"  keywords="[tooShortError, StringValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myStringV.mySV" propertyName="minLength" value="6"/>
+			</setup>
+			<body>
+				<SetProperty target="ct.myStringV.ti1" propertyName="text" value="???" waitEvent="updateComplete" waitTarget="ct.myStringV.ti1"/>
+				<RunCode code="application.ct.myStringV.mySV.validate(application.ct.myStringV.ti1.text)"/> 
+				<AssertEvent target="ct.myStringV.mySV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myStringV.mySV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myStringV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myStringV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png"  />				
+			</body>  
+		</TestCase>		
+	</testCases>
+</UnitTester>

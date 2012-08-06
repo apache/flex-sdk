@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/Spark/Win/Japanese/NumberFormatter/Properties/"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns="*"
+			testSWF="NumberFormatter_main.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		[Mixin]
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<testCases>
+		<TestCase testID="ja_JP_NumberFormatter_Properties_default" description="Test for NumberFormatter default property" keywords="[NumberFormatter, default]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(1234560.799)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="1,234,560.80">
+					<ConditionalValue os="win" value="1,234,560.80"/>
+					<ConditionalValue os="mac" value="1,234,560.799"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_trailingZeros_false" description="Test for NumberFormatter trailingZeros property false" keywords="[NumberFormatter, trailingZeros, false]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="fractionalDigits" value="3"/>
+				<SetProperty target="nf" propertyName="trailingZeros" value="false"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(1234.9999)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="1,235">
+					<ConditionalValue os="win" value="1,235"/>
+					<ConditionalValue os="mac" value="1,235"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_trailingZeros_true" description="Test for NumberFormatter trailingZeros property true" keywords="[NumberFormatter, trailingZeros, true]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="fractionalDigits" value="3"/>
+				<SetProperty target="nf" propertyName="trailingZeros" value="true"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(1234.4444)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="1,234.444">
+					<ConditionalValue os="win" value="1,234.444"/>
+					<ConditionalValue os="mac" value="1,234.444"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_default_fullNumber" description="Test for NumberFormatter default property fullNumber" keywords="[NumberFormatter, default, fulNumber]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="errorText" value="エラーが発生する"/>
+				<SetProperty target="lb" propertyName="text" value="１２３４.７８９"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(application.lb.text)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="エラーが発生する">
+					<ConditionalValue os="win" value="エラーが発生する"/>
+					<ConditionalValue os="mac" value="エラーが発生する"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_default_char" description="Test for NumberFormatter default property char" keywords="[NumberFormatter, default, char]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="errorText" value="エラーが発生する"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format('エラー')"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="エラーが発生する">
+					<ConditionalValue os="win" value="エラーが発生する"/>
+					<ConditionalValue os="mac" value="エラーが発生する"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_negativeNumberFormat_Pattern0" description="Test for NumberFormatter negativeNumberFormat property Pattern0" keywords="[NumberFormatter, negativeNumberFormat, Pattern0]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" value="0"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(-123.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="(123.79)">
+					<ConditionalValue os="win" value="(123.79)"/>
+					<ConditionalValue os="mac" value="(123.789)"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_negativeNumberFormat_Pattern1" description="Test for NumberFormatter negativeNumberFormat property Pattern1" keywords="[NumberFormatter, negativeNumberFormat, Pattern1]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" value="1"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(-123.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="{'-123.79'}">
+					<ConditionalValue os="win" value="{'-123.79'}"/>
+					<ConditionalValue os="mac" value="{'-123.789'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_negativeNumberFormat_Pattern2" description="Test for NumberFormatter negativeNumberFormat property Pattern2" keywords="[NumberFormatter, negativeNumberFormat, Pattern2]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" value="2"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(-123.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="- 123.79">
+					<ConditionalValue os="win" value="- 123.79"/>
+					<ConditionalValue os="mac" value="- 123.789"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_negativeNumberFormat_Pattern3" description="Test for NumberFormatter negativeNumberFormat property Pattern3" keywords="[NumberFormatter, negativeNumberFormat, Pattern3]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" value="3"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(-123.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="123.79-">
+					<ConditionalValue os="win" value="123.79-"/>
+					<ConditionalValue os="mac" value="123.789-"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_negativeNumberFormat_Pattern4" description="Test for NumberFormatter negativeNumberFormat property Pattern4" keywords="[NumberFormatter, negativeNumberFormat, Pattern4]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="negativeNumberFormat" value="4"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(-123.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="123.79 -">
+					<ConditionalValue os="win" value="123.79 -"/>
+					<ConditionalValue os="mac" value="123.789 -"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_leadingZero_true" description="Test for NumberFormatter leadingZero property true" keywords="[NumberFormatter, leadingZero, true]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="leadingZero" value="true"/>
+				<SetProperty target="nf" propertyName="fractionalDigits" value="2"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(0.12)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="{'0.12'}">
+					<ConditionalValue os="win" value="{'0.12'}"/>
+					<ConditionalValue os="mac" value="{'0.12'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_leadingZero_false" description="Test for NumberFormatter leadingZero property false" keywords="[NumberFormatter, leadingZero, false]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP" waitTarget="nf"/>
+				<SetProperty target="nf" propertyName="leadingZero" value="false"/>
+				<SetProperty target="nf" propertyName="fractionalDigits" value="2"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(0.12)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="{'.12'}">
+					<ConditionalValue os="win" value="{'.12'}"/>
+					<ConditionalValue os="mac" value="{'.12'}"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_groupingSeparator" description="Test for NumberFormatter groupingSeparator property" keywords="[NumberFormatter, groupingSeparator]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP"/>
+				<SetProperty target="nf" propertyName="groupingSeparator" value="セパレ"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(1234560.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="1セパレ234セパレ560.79">
+					<ConditionalValue os="win" value="1セパレ234セパレ560.79"/>
+					<ConditionalValue os="mac" value="1セパレ234セパレ560.789"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ja_JP_NumberFormatter_Properties_decimalSeparator" description="Test for NumberFormatter decimalSeparator property" keywords="[NumberFormatter, decimalSeparator]">
+			<setup>
+				<ResetComponent target="lb" waitTarget="lb"/>
+				<ResetComponent target="nf" waitTarget="nf"/>
+				<SetStyle target="nf" styleName="locale" value="ja_JP"/>
+				<SetProperty target="nf" propertyName="decimalSeparator" value="ドット"/>
+				<SetProperty target="lb" propertyName="text" valueExpression="value=application.nf.format(1234560.789)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="lb" propertyName="text" value="1,234,560ドット79">
+					<ConditionalValue os="win" value="1,234,560ドット79"/>
+					<ConditionalValue os="mac" value="1,234,560ドット789"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

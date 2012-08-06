@@ -1,0 +1,11 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:components="components.*">
+	<components:MyCurrencyValidator id="myCurrencyV"/>
+	<components:MyCreditValidator id="myCreditV"/>
+	<components:MyDateValidator id="myDateV"/>
+	<components:MyEmailValidator id="myEmailV"/>
+	<components:MyNumberValidator id="myNumV"/>
+	<components:MyPhoneValidator id="myPhoneV"/>
+	<components:MySocialValidator id="mySocV"/>
+	<components:MyStringValidator id="myStringV"/>
+	<components:MyZipCodeValidator id="myZipV"/>
+</mx:VBox>

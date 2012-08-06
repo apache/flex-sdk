@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Portuguese/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.TextInput;
+		import 	mx.validators.DateValidator;
+		import 	mx.validators.ValidationResult;
+		import mx.managers.SystemManager;
+		import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+        public var curTip:IToolTip;
+
+        private function getErrorTip():void{
+            curTip = ToolTipManager.currentToolTip;
+        }
+  
+	]]>
+	</mx:Script>
+
+	<testCases>
+	  
+		<TestCase testID="PT_DateValidator_allowedFormatChars_Pt" description="Test format character with a double byte character" keywords="[DateSymbol, DateValidator]"> 
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.myDV" propertyName="allowedFormatChars" value="Ç" />
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="27Ç03Ç2009" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+                <RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="invalid" />
+			</body>  
+		</TestCase>
+    
+		<TestCase testID="PT_DateValidator_formatError" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.myDV" propertyName="inputFormat" value="DD/MM"/>
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="27/mars" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myDateV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myDateV.ti1" />
+                <RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" />
+			</body>  
+		</TestCase>
+		<TestCase testID="PT_DateValidator_invalidCharError"  keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="27Ç03/2009" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myDateV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myDateV.ti1"/>
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="PT_DateValidator_wrongDayError"  keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="32/03/2009" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myDateV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myDateV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="PT_DateValidator_wrongMonthError"  keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="27/13/2009" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myDateV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myDateV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />				
+			</body>  
+		</TestCase>	
+		<TestCase testID="PT_DateValidator_wrongYearError"  keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="27/03/20091" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myDateV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myDateV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="PT_DateValidator_dateFormat"  keywords="[DateSymbol, DateValidator]">
+			<setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
+				<SetProperty target="ct.myDateV.myDV" propertyName="inputFormat" value="DD/MM/YYYY"/>
+				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="2009/27/03" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
+			</setup>
+			<body>
+				<RunCode code="application.ct.myDateV.myDV.validate(application.ct.myDateV.ti1.text)"/> 
+				<AssertEvent target="ct.myDateV.myDV" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="ct.myDateV.myDV" eventName="valid" />
+				<DispatchMouseEvent target="ct.myDateV.ti1" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShown" waitTarget="ct.myDateV.ti1" />
+				<RunCode code="getErrorTip()" />
+				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png" timeout="5000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="PT_DateValidator_Properties_AllowedFormatChars"  keywords="[AllowedFormatChars, DateValidator]">
+		        <setup>
+					<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				</setup>
+			<body>
+				<AssertPropertyValue target="ct.myDateV.myDV" propertyName="allowedFormatChars" value="/- \." />
+			</body>
+		</TestCase>
+		<TestCase testID="PT_DateValidator_Properties_validateAsString"  keywords="[validateAsString, DateValidator]">
+		        <setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				</setup>
+			<body>
+				<AssertPropertyValue target="ct.myDateV.myDV" propertyName="validateAsString" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PT_DateValidator_Properties_dateFormat"  keywords="[dateFormat, DateValidator]">
+		        <setup>
+				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
+				</setup>
+			<body>
+				<AssertPropertyValue target="ct.myDateV.myDV" propertyName="inputFormat" value="DD/MM/YYYY" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

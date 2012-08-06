@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Norwegian/tests/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LangPackApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+
+	<testCases>
+                <TestCase testID="NO_DateChooser_Norwegian_Layout" description="Test that Norwegian DateChooser layout is correct." keywords="[DateChooser, layout]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser"  waitEvent="updateComplete" waitTarget="dc"/> 
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			</setup>
+			<body>
+				<CompareBitmap target="dc" url="../tests/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="NO_DateChooser_Property_DayNames_Default" keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser"  waitEvent="updateComplete" waitTarget="dc"/> 
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc" propertyName="dayNames" value="['S','M','T','O','T','F','L']" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="NO_DateChooser_Property_MonthNames_Default" keywords="[monthNames, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser"  waitEvent="updateComplete" waitTarget="dc"/> 
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc" propertyName="monthNames" value="[ 'Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember' ]" />
+			</body>
+		</TestCase>
+		
+                <TestCase testID="NO_DateChooser_Property_yearSymbol_Default"  keywords="[yearSymbol, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser"  waitEvent="updateComplete" waitTarget="dc"/> 
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>				
+			</setup>
+			<body> 
+				<AssertPropertyValue target="dc" propertyName="yearSymbol" value="" />
+			</body>
+		</TestCase>
+                <TestCase testID="NO_DateChooser_Property_monthSymbol_Default"  keywords="[monthSymbol, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser"  waitEvent="updateComplete" waitTarget="dc"/> 
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>				
+			</setup>
+			<body> 
+				<AssertPropertyValue target="dc" propertyName="monthSymbol" value="" />
+			</body>
+		</TestCase>
+	</testCases>
+
+</UnitTester>

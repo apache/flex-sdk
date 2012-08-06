@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="LangPacks/Spark/Portuguese/NumberFormatter/Properties/"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns="*"
+			testSWF="NumberFormatter_main.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		[Mixin]
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<testCases>
+		<TestCase testID="pt_BR_NumberFormatter_Properties_fractionalDigits_roundingLow_winOnly" description="Test for NumberFormatter fractionalDigits property roundingLow" keywords="[NumberFormatter, fractionalDigits, roundingLow]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="pt_BR" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234560)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1.234.560,000"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="pt_BR_NumberFormatter_Properties_fractionalDigits_roundingHigh_winOnly" description="Test for NumberFormatter fractionalDigits property roundingHigh" keywords="[NumberFormatter, fractionalDigits, roundingHigh]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="pt_BR" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1.235,000"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="pt_BR_NumberFormatter_Properties_groupingPattern_fullPattern_winOnly" description="Test for NumberFormatter groupingPattern property fullPattern" keywords="[NumberFormatter, groupingPattern, fullPattern]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="pt_BR" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingSeparator" value="ãéí" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingPattern" value="3;2;*" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(123456789.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="12ãéí34ãéí56ãéí790,00"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="pt_BR_NumberFormatter_Properties_groupingPattern_partPattern_winOnly" description="Test for NumberFormatter groupingPattern property partPattern" keywords="[NumberFormatter, groupingPattern, partPattern]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="pt_BR" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingSeparator" value="ãéí" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingPattern" value="3;1" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(123456789.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="12345ãéí6ãéí790,00"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

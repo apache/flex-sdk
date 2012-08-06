@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="LangPacks/Spark/Danish/NumberFormatter/Properties/"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns="*"
+			testSWF="NumberFormatter_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		[Mixin]
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+		<TestCase testID="da_DK_NumberFormatter_Properties_fractionalDigits_roundingLow_winOnly" description="Test for NumberFormatter fractionalDigits property roundingLow" keywords="[NumberFormatter, fractionalDigits, roundingLow]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="da-DK" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234560)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1.234.560,000"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="da_DK_NumberFormatter_Properties_fractionalDigits_roundingHigh_winOnly" description="Test for NumberFormatter fractionalDigits property roundingHigh" keywords="[NumberFormatter, fractionalDigits, roundingHigh]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="da-DK" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="fractionalDigits" value="3" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(1234.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="1.235,000"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="da_DK_NumberFormatter_Properties_groupingPattern_fullPattern_winOnly" description="Test for NumberFormatter groupingPattern property fullPattern" keywords="[NumberFormatter, groupingPattern, fullPattern]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="da-DK" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingSeparator" value="øær" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingPattern" value="3;2;*" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(123456789.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="12øær34øær56øær790,00"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="da_DK_NumberFormatter_Properties_groupingPattern_partPattern_winOnly" description="Test for NumberFormatter groupingPattern property partPattern" keywords="[NumberFormatter, groupingPattern, partPattern]">
+			<setup>
+				<ResetComponent target="customComp" className="assets.DefaultLocaleComponent" waitEvent="updateComplete"/>
+				<SetStyle target="customComp.nf" styleName="locale" value="da-DK" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingSeparator" value="øær" waitEvent="change"/>
+				<SetProperty target="customComp.nf" propertyName="groupingPattern" value="3;1" waitEvent="change"/>
+				<SetProperty target="customComp.lb" propertyName="text" valueExpression="value=application.customComp.nf.format(123456789.9999)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="customComp.lb" propertyName="text" value="12345øær6øær790,00"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
