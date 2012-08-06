@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- basic swf for subModule tests, module is loaded by ModuleLoader -->
+<s:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	backgroundColor="0xffffff" creationComplete="init()"
+	>
+ 
+ <fx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+ <fx:Style>
+ 	@namespace mx "library://ns.adobe.com/flex/mx/";
+	@namespace s "library://ns.adobe.com/flex/spark/";
+
+ 		mx|Module,
+ 		mx|DataGrid{
+ 		    fontFamily: MyVeraHalo;
+ 		    fontLookup: embeddedCFF;
+ 		    fontAntiAliasType: normal;
+ 		}
+ 		s|Label,
+ 		s|Button,
+ 		s|TitleWindow{
+ 		    fontFamily: MyVeraSpark;
+		    fontLookup: embeddedCFF;
+ 		    fontAntiAliasType: normal;
+ 		}
+ 
+ 		
+</fx:Style>
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ModuleEvent;	
+			import mx.events.FlexEvent;	
+			import mx.controls.Alert;	
+			import mx.events.ModuleEvent;
+			import mx.modules.Module;
+			
+			private var moduleErrorMsg:String="";
+			private function errorModuleHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				moduleErrorMsg=e.errorText;
+				Alert.show(e.errorText);
+				
+				
+			}
+					
+			 
+
+			private function init():void
+			{
+				setModuleLoaderListeners();
+				loadModule("assets/SimpleASModuleTest.swf")
+
+			}
+			public function setModuleLoaderListeners():void
+			{
+				moduleLoader1.addEventListener(ModuleEvent.READY,handleModuleLoaded);
+				moduleLoader1.addEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				moduleLoader1.addEventListener(ModuleEvent.UNLOAD,removeModuleLoaded);
+
+			}
+			public function handleModuleLoaded(e:ModuleEvent):void
+			{
+		    		e.currentTarget.removeEventListener(ModuleEvent.READY, handleModuleLoaded);
+		    		dispatchEvent(new FlexEvent("moduleLoaded"));
+			}
+			public function removeModuleLoaded(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+				dispatchEvent(new FlexEvent("moduleRemoved"));
+			}
+			public function loadModule(moduleURL:String):void
+			{
+				if (moduleLoader1.url==null)
+					moduleLoader1.url = moduleURL;
+				else moduleLoader1.loadModule();
+			}
+
+			public function unloadModule():void
+			{	
+				//moduleLoader1.unloadModule(); 
+				moduleLoader1.unloadModule();
+				moduleLoader1.url=null;
+
+			}
+			public function resetModuleLoader():void
+			{
+				
+				setModuleLoaderListeners();
+			}
+		
+			
+			
+		]]>
+	</fx:Script>	
+		
+	<s:Label text="From SubApp4" />
+	<mx:ModuleLoader id="moduleLoader1" />
+
+</s:Application>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Modules/Constraints/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ConstraintBasedLayout_PercentModule.mxml">
+       <mx:Script>
+		<![CDATA[
+
+        import comps.PercentageRowColumnPercentModuleComp;
+        import comps.ContentRowColumnModuleComp;
+		import mx.containers.utilityClasses.ConstraintColumn;
+		import mx.containers.utilityClasses.ConstraintRow;
+		import mx.modules.*;
+		import mx.controls.Button;
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+
+	<!-- Tests for ConstraintColumns with width as percentages -->
+	<TestCase testID="constraintColumns_percentage_mxml" keywords="[constraintColumns, constraintRows, MXML]"
+	    description="Verify the constraintColumns and constraintRows work correctly when their width/height is a percentage set in mxml">
+		<body>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="270" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" valueExpression="value=Math.round(application.module1.height*.70-25)" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="280" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="height" valueExpression="value=Math.round(application.module1.height*.70-40)" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="y" value="20" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumns_percentage_mxml_resizeModule" keywords="[Button, percentage sized, Module, constraintColumn]"
+	    description="ConstraintColumns with percentage width and then resize Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="350" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_percentage_mxml_resizeModule" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="ConstraintRows with percentage height and then resize Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="percentHeight" value="76" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" valueExpression="value=Math.round(application.module1.height*.70-25)" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowsColumns_percentage_mxml_resizeModule" keywords="[Button, percentage sized, Module, constraintRow]"
+	description="ConstraintRows and ConstraintColumns with percentage height and width and then resize Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="module1" propertyName="percentHeight" value="40" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+		    <AssertPropertyValue target="module1.getChildAt(2)" propertyName="height" value="130" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="y" value="20" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="360" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumns_percentage_mxml_changeleftright" keywords="[Button, percentage sized, Module, constraintColumn]"
+	  description="change left value on a component constrained by percentage-constraintColumns">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(0)" styleName="left" value="col1:30" waitEvent="updateComplete" waitTarget="module1.getChildAt(0)"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="250" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="30" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_percentage_mxml_changetopbottom" keywords="[Button, percentage sized, Module, constraintRow]"
+	  description="change top value on a component constrained by percentage-constraintRows">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(1)" styleName="top" value="row1:45" waitEvent="updateComplete" waitTarget="module1.getChildAt(1)"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" valueExpression="value=Math.round(application.module1.height*.70-60)" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="45" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumnspercentage_rightModule" keywords="[Button, percentage sized, Module, constraintColumn]"
+	  description="change right value on a component constrained by percentage-constraintColumns and the Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(0)" styleName="right" value="25" waitEvent="updateComplete" waitTarget="module1.getChildAt(0)"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="365" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumnspercentage_rightModule_changeModule" keywords="[Button, percentage sized, Module, constraintColumn]"
+	    description="change right value on a component constrained by percentage-constraintColumns and the Module. Edit the Module size at runtime.">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(0)" styleName="right" value="25" waitEvent="updateComplete" waitTarget="module1.getChildAt(0)"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="465" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowspercentage_bottomModule" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="change bottom value on a component constrained by percentage-constraintRows and the Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(1)" styleName="bottom" value="row2:50" waitEvent="updateComplete" waitTarget="module1.getChildAt(1)"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" valueExpression="value=Math.round(application.module1.height*.70-60)" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowspercentage_bottomModule_editSize" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="change bottom value on a component constrained by percentage-constraintRows and the Module. Change the Module size at runtime.">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnPercentModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="percentHeight" value="76" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(1)" styleName="bottom" value="row2:50" waitEvent="updateComplete" waitTarget="module1.getChildAt(1)"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" valueExpression="value=Math.round(application.module1.height*.70-60)" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+	</testCases>
+</UnitTester>

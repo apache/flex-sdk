@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Modules/Constraints/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ConstraintBasedLayout_Module.mxml">
+       <mx:Script>
+		<![CDATA[
+
+        import comps.ContentRowColumnModuleComp;
+        import comps.ContentRowColumnModuleComp;
+		import mx.containers.utilityClasses.ConstraintColumn;
+		import mx.containers.utilityClasses.ConstraintRow;
+		import mx.modules.*;
+		import mx.controls.Button;
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+        public var newColumns:Array = [];
+        public var newConstraintColumn:ConstraintColumn;
+        public var newConstraintRow:ConstraintRow;
+        public var newConstraintColumn2:ConstraintColumn;
+        public var newConstraintRow2:ConstraintRow;
+        public var newRows:Array = [];
+        public var newButton:Button;
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+
+	<!-- Tests for ConstraintColumns with width as content-sizeds -->
+	<TestCase testID="constraintColumnsRows_contentSized_mxml_allConstraints" keywords="[constraintColumns, constraintRows, MXML]"
+	    description="Verify the constraintColumns and constraintRows work correctly when their width/height is a content-sized set in mxml">
+		<body>
+			<AssertPropertyValue target="module2.getChildAt(0)" propertyName="width" value="200" />
+			<AssertPropertyValue target="module2.getChildAt(0)" propertyName="x" value="155" />
+			<AssertPropertyValue target="module2.getChildAt(0)" propertyName="height" value="50" />
+			<AssertPropertyValue target="module2.getChildAt(0)" propertyName="y" value="20" />
+			<AssertPropertyValue target="module2.constraintRows.0" propertyName="height" value="90" />
+			<AssertPropertyValue target="module2.constraintColumns.1" propertyName="width" value="240" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumn_contentSized_mxml" keywords="[constraintColumns, MXML]"
+	    description="Verify the constraintColumns work correctly when their width is a content-sized set in mxml">
+		<body>
+			<AssertPropertyValue target="module2.constraintColumns.0" propertyName="width" value="135" />
+			<AssertPropertyValue target="module2.getChildAt(1)" propertyName="width" value="100" />
+			<AssertPropertyValue target="module2.getChildAt(1)" propertyName="x" value="25" />
+			<AssertPropertyValue target="module2.getChildAt(1)" propertyName="y" value="0" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRow_contentSized_mxml" keywords="[constraintRows, MXML]"
+	    description="Verify the constraintRows work correctly when their height is a content-sized set in mxml">
+		<body>
+			<AssertPropertyValue target="module2.getChildAt(2)" propertyName="height" value="35" />
+			<AssertPropertyValue target="module2.getChildAt(2)" propertyName="x" value="0" />
+			<AssertPropertyValue target="module2.getChildAt(2)" propertyName="y" value="70" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRow_contentSized_mxml_noHeightOnComponent" keywords="[constraintRows, MXML]"
+	    description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
+		<body>
+			<AssertPropertyValue target="module2.constraintRows.2" propertyName="height" valueExpression="value=application.module2.getChildAt(3).height + 20" />
+			<AssertPropertyValue target="module2.getChildAt(3)" propertyName="height" value="180" />
+			<AssertPropertyValue target="module2.getChildAt(3)" propertyName="x" value="0" />
+			<AssertPropertyValue target="module2.getChildAt(3)" propertyName="y" valueExpression="value=application.module2.constraintRows[0].height + application.module2.constraintRows[1].height + 10" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumn_contentSized_mxml_noWidthOnComponent" keywords="[constraintRows, MXML]"
+	    description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
+		<body>
+			<AssertPropertyValue target="module2.constraintColumns.2" propertyName="width" valueExpression="value=application.module2.getChildAt(4).width + 20" />
+			<AssertPropertyValue target="module2.getChildAt(4)" propertyName="width" value="95" />
+			<AssertPropertyValue target="module2.getChildAt(4)" propertyName="y" value="0" />
+			<AssertPropertyValue target="module2.getChildAt(4)" propertyName="x" valueExpression="value=application.module2.constraintColumns[0].width + application.module2.constraintColumns[1].width + 10" />
+		</body>
+	</TestCase>
+	<TestCase testID="constraintColumns_contentsized_mxml_resizeComponent" keywords="[content-sized sized, Module, constraintColumn]"
+	    description="ConstraintColumns with content-sized width and then resize a component changing the column size">
+		<setup>
+		    <ResetComponent target="module2" className="comps.ContentRowColumnModuleComp" waitTarget="module2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <SetProperty target="module2.getChildAt(0)" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="module2.getChildAt(0)"/>
+			<AssertPropertyValue target="module2.getChildAt(0)" propertyName="width" value="100" />
+			<AssertPropertyValue target="module2.constraintColumns.1" propertyName="width" value="140" />
+		</body>
+	</TestCase>
+
+    <TestCase testID="constraintRows_contentsized_mxml_resizeComponent" keywords="[content-sized sized, Module, constraintRow]"
+	    description="ConstraintRows with content-sized height and then resize Component">
+		<setup>
+		    <ResetComponent target="module2" className="comps.ContentRowColumnModuleComp" waitTarget="module2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module2.getChildAt(0)" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="module2.getChildAt(0)"/>
+			<AssertPropertyValue target="module2.getChildAt(0)" propertyName="height" value="120" />
+			<AssertPropertyValue target="module2.constraintRows.0" propertyName="height" value="160" />
+		</body>
+	</TestCase>
+	<TestCase testID="constraintColumns_empty" keywords="[content-sized sized, Module, constraintColumn, minWidth]"
+	description="Ensure that width is zero for ConstraintRows that are empty.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" waitEvent="updateComplete" waitTarget="emptyModule"/>
+			<AssertPropertyValue target="emptyModule.constraintColumns" propertyName="length" value="1" />
+		    <AssertPropertyValue target="emptyModule.constraintColumns.0" propertyName="width" value="0" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_empty" keywords="[content-sized sized, Module, constraintRows, minHeight]"
+	description="Ensure that height is zero for constraintRows that are empty.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintRow = new ConstraintRow()" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows" waitEvent="updateComplete" waitTarget="emptyModule"/>
+			<AssertPropertyValue target="emptyModule.constraintRows" propertyName="length" value="1" />
+		    <AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="0" />
+		</body>
+	</TestCase>
+<!-- minWidth/minHeight-->
+    <TestCase testID="constraintColumns_minWidth_empty" keywords="[content-sized sized, Module, constraintColumn, minWidth]"
+	description="Ensure that minWidth is honored for ConstraintRows that are empty.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <RunCode code="newColumns=[]" />
+		    <RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<SetProperty target="script:newConstraintColumn" propertyName="minWidth" value="100" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" waitEvent="updateComplete" waitTarget="emptyModule"/>
+			<AssertPropertyValue target="emptyModule.constraintColumns.0" propertyName="width" value="100" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_minHeight_empty" keywords="[content-sized sized, Module, constraintRows, minHeight]"
+	description="Ensure that minHeight is honored for constraintRows that are empty.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="newRows=[]" />
+		    <RunCode code="newConstraintRow = new ConstraintRow()" />
+			<SetProperty target="script:newConstraintRow" propertyName="minHeight" value="100" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows" waitEvent="updateComplete" waitTarget="emptyModule"/>
+			<AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="100" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumns_minWidth_validChild" keywords="[content-sized sized, Module, constraintColumn, minWidth]"
+	description="Ensure that minWidth is honored for ConstraintRows that have valid constrained children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newColumns=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<SetProperty target="script:newConstraintColumn" propertyName="minWidth" value="300" />
+			<SetProperty target="script:newConstraintColumn" propertyName="id" value="col1" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="left" valueExpression="value='col1:20'" target="script:newButton"  />
+			<SetProperty propertyName="width" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<AssertPropertyValue target="emptyModule.constraintColumns.0" propertyName="width" value="300" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="x" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="width" value="200" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumns_minWidth_percentChild" keywords="[content-sized sized, Module, constraintColumn, minWidth]"
+	description="Ensure that minWidth is honored for ConstraintColumns that have percent-sized constrained children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newColumns=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<SetProperty target="script:newConstraintColumn" propertyName="minWidth" value="150" />
+			<SetProperty target="script:newConstraintColumn" propertyName="id" value="col1" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetProperty propertyName="percentWidth" target="script:newButton" value="80" />
+			<SetStyle styleName="left" valueExpression="value='col1:20'" target="script:newButton"  />
+	        <RunCode code="application.emptyModule.addChild(newButton)" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<AssertPropertyValue target="emptyModule.constraintColumns.0" propertyName="width" value="150" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="x" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="width" value="240" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumns_minWidth_smallChild" keywords="[content-sized sized, Module, constraintColumn, minWidth]"
+	description="Ensure that minWidth of a ConstraintColumn overrides the width of its children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newColumns=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<SetProperty target="script:newConstraintColumn" propertyName="minWidth" value="300" />
+			<SetProperty target="script:newConstraintColumn" propertyName="id" value="col1" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Easter Bunny" />
+			<SetStyle styleName="left" valueExpression="value='col1:20'" target="script:newButton"  />
+			<SetStyle styleName="right" valueExpression="value='col1:20'" target="script:newButton"  />
+			<SetProperty propertyName="width" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<AssertPropertyValue target="emptyModule.constraintColumns.0" propertyName="width" value="300" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="x" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="width" value="260" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_minHeight_validChild" keywords="[content-sized sized, Module, constraintColumn, minHeight]"
+	description="Ensure that minHeight is honored for ConstraintRows that have valid constrained children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newRows=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintRow = new ConstraintRow()" />
+			<SetProperty target="script:newConstraintRow" propertyName="minHeight" value="300" />
+			<SetProperty target="script:newConstraintRow" propertyName="id" value="row1" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="top" valueExpression="value='row1:20'" target="script:newButton"  />
+			<SetProperty propertyName="height" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="300" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="y" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="height" value="200" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_minHeight_percentChild" keywords="[content-sized sized, Module, constraintColumn, minHeight]"
+	description="Ensure that minHeight is honored for ConstraintRows that have valid constrained children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newRows=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintRow = new ConstraintRow()" />
+			<SetProperty target="script:newConstraintRow" propertyName="minHeight" value="150" />
+			<SetProperty target="script:newConstraintRow" propertyName="id" value="row1" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetProperty propertyName="percentHeight" target="script:newButton" value="80" />
+			<SetStyle styleName="top" valueExpression="value='row1:20'" target="script:newButton"  />
+	        <RunCode code="application.emptyModule.addChild(newButton)" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="150" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="y" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="height" value="240" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_minHeight_smallChild" keywords="[content-sized sized, Module, constraintColumn, minHeight]"
+	description="Ensure that minHeight of a ConstraintRows overrides the height of its children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newRows=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintRow = new ConstraintRow()" />
+			<SetProperty target="script:newConstraintRow" propertyName="minHeight" value="300" />
+			<SetProperty target="script:newConstraintRow" propertyName="id" value="row1" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows"/>
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="top" valueExpression="value='row1:20'" target="script:newButton"  />
+			<SetStyle styleName="bottom" valueExpression="value='row1:20'" target="script:newButton"  />
+			<SetProperty propertyName="height" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="300" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="y" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="height" value="260" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumns_maxWidth_validChild" keywords="[content-sized sized, Module, constraintColumn, maxWidth]"
+	description="Ensure that maxWidth is honored for ConstraintRows that have valid constrained children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newColumns=[]" />
+		</setup>
+		<body>
+			<RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<SetProperty target="script:newConstraintColumn" propertyName="id" value="col1" />
+			<SetProperty target="script:newConstraintColumn" propertyName="maxWidth" value="150" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" waitEvent="updateComplete" waitTarget="emptyModule" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="left" valueExpression="value='col1:20'" target="script:newButton"  />
+			<SetStyle styleName="right" valueExpression="value='col1:20'" target="script:newButton"  />
+			<SetProperty propertyName="width" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)" waitEvent="updateComplete" waitTarget="emptyModule" />
+			<AssertPropertyValue target="emptyModule.constraintColumns.0" propertyName="width" value="150" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="x" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="width" value="110" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintColumns_maxWidth_TooManyConstraints" keywords="[content-sized sized, Module, constraintColumn, maxWidth]"
+	description="Ensure that maxWidth is honored over width if a Button cannot obey its constraints.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newColumns=[]" />
+        </setup>
+		<body>
+			<RunCode code="newConstraintColumn = new ConstraintColumn()" />
+			<SetProperty target="script:newConstraintColumn" propertyName="id" value="col1" />
+			<SetProperty target="script:newConstraintColumn" propertyName="maxWidth" value="150" />
+			<RunCode code="newColumns.push(newConstraintColumn)" />
+			<SetProperty target="emptyModule" propertyName="constraintColumns" valueExpression="value=newColumns" waitEvent="updateComplete" waitTarget="emptyModule" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="left" valueExpression="value='col1:20'" target="script:newButton"  />
+			<SetStyle styleName="right" valueExpression="value='col1:20'" target="script:newButton" />
+			<SetProperty propertyName="width" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)" waitEvent="updateComplete" waitTarget="emptyModule" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="x" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="width" value="110" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_maxHeight_validChild" keywords="[content-sized sized, Module, constraintRow, maxHeight]"
+	description="Ensure that maxHeight is honored for ConstraintRows that have valid constrained children.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newRows=[]" />
+		    <SetProperty propertyName="width" target="emptyModule" value="400" waitTarget="emptyModule" waitEvent="updateComplete" />
+		    <SetProperty propertyName="height" target="emptyModule" value="400" waitTarget="emptyModule" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <RunCode code="newConstraintRow = new ConstraintRow()" />
+			<SetProperty target="script:newConstraintRow" propertyName="id" value="row1" />
+			<SetProperty target="script:newConstraintRow" propertyName="maxHeight" value="150" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows" waitEvent="updateComplete" waitTarget="emptyModule" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="top" valueExpression="value='row1:20'" target="script:newButton"  />
+			<SetProperty propertyName="height" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)"  waitEvent="updateComplete" waitTarget="emptyModule" />
+			<AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="150" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="y" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="height" value="200" />
+		</body>
+	</TestCase>
+    <TestCase testID="constraintRows_maxHeight_TooManyConstraints" keywords="[content-sized sized, Module, constraintRow, maxHeight]"
+	description="Ensure that maxHeight is honored over height if a Button cannot obey its constraints.">
+		<setup>
+		    <ResetComponent target="emptyModule" className="comps.EmptyModuleComp" waitTarget="emptyModule" waitEvent="updateComplete" />
+			<RunCode code="newRows=[]" />
+		</setup>
+		<body>
+		    <RunCode code="newConstraintRow = new ConstraintRow()" />
+			<SetProperty target="script:newConstraintRow" propertyName="id" value="row1" />
+			<SetProperty target="script:newConstraintRow" propertyName="maxHeight" value="150" />
+			<RunCode code="newRows.push(newConstraintRow)" />
+			<SetProperty target="emptyModule" propertyName="constraintRows" valueExpression="value=newRows"  waitEvent="updateComplete" waitTarget="emptyModule" />
+			<RunCode code="newButton = new Button()" />
+			<SetProperty propertyName="label" target="script:newButton" value="Tooth Fairy" />
+			<SetStyle styleName="top" valueExpression="value='row1:20'" target="script:newButton"  />
+			<SetStyle styleName="bottom" valueExpression="value='row1:50'" target="script:newButton" />
+			<SetProperty propertyName="height" value="200" target="script:newButton" />
+			<RunCode code="application.emptyModule.addChild(newButton)"  waitEvent="updateComplete" waitTarget="emptyModule" />
+			<AssertPropertyValue target="emptyModule.constraintRows.0" propertyName="height" value="150" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="y" value="20" />
+			<AssertPropertyValue target="emptyModule.getChildAt(0)" propertyName="height" value="80" />
+		</body>
+	</TestCase>
+	</testCases>
+</UnitTester>

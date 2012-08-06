@@ -1,0 +1,43 @@
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+				layout="absolute"
+				showCloseButton="true"
+				title="TitleWindow"
+				width="300"
+				height="200">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.core.IFlexDisplayObject;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+		
+		]]>
+	</mx:Script>
+	<mx:Label  id="label1" text="MXTitleWindow loaded" />
+	<mx:Form id="myForm" height="200">
+		<mx:FormItem id="frmitem" label="From :">
+			<mx:TextInput id="ti1"/>				
+		</mx:FormItem>
+		<mx:FormItem label="To :">
+			<mx:TextInput/>
+		</mx:FormItem>
+		<mx:FormItem label="Subject :">
+			<mx:TextInput/>
+		</mx:FormItem>
+		<mx:FormItem label="Body :">
+			<mx:TextArea width="100%" height="50" maxChars="120"/>
+		</mx:FormItem>
+		<mx:FormItem direction="horizontal">
+			<mx:Button label="Send" />  
+			<mx:Button label="Cancel" click="PopUpManager.removePopUp(this);" />
+		</mx:FormItem>
+	</mx:Form>
+	
+	
+	<mx:ControlBar>
+		<mx:CheckBox id="chk1" selected="true" label="toggle moveable" />
+		<mx:CheckBox id="chk2" selected="true" label="toggle closeButton" />
+		
+	</mx:ControlBar>
+	
+</mx:TitleWindow>

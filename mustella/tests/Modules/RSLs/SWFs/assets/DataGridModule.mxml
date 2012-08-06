@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module width="640" height="480"
+	xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:XMLList id="employees">
+        <employee>
+            <name>Christina W</name>
+            <phone>555-219-2270</phone>
+            <email>cq@fictitious.com</email>
+            <active>true</active>
+        </employee>
+        <employee>
+            <name>Joanne X</name>
+            <phone>555-219-2012</phone>
+            <email>jx@fictitious.com</email>
+            <active>true</active>
+        </employee>
+        <employee>
+            <name>Maurice Y</name>
+            <phone>555-219-2012</phone>
+            <email>my@fictitious.com</email>
+            <active>false</active>
+        </employee>
+        <employee>
+            <name>Mary Z</name>
+            <phone>555-219-2000</phone>
+            <email>mz@fictitious.com</email>
+            <active>true</active>
+        </employee>
+    </mx:XMLList>
+
+    <mx:Panel title="DataGrid Control Example" height="100%" width="100%" 
+        paddingTop="10" paddingLeft="10" paddingRight="10">
+
+        <mx:Label width="100%" color="blue"
+            text="Select a row in the DataGrid control."/>
+
+        <mx:DataGrid id="dg" width="100%" height="100%" rowCount="5" dataProvider="{employees}">
+            <mx:columns>
+                <mx:DataGridColumn dataField="name" headerText="Name"/>
+                <mx:DataGridColumn dataField="phone" headerText="Phone"/>
+                <mx:DataGridColumn dataField="email" headerText="Email"/>
+            </mx:columns>
+        </mx:DataGrid>
+
+        <mx:Form width="100%" height="100%">
+            <mx:FormItem label="Name">
+                <mx:Label text="{dg.selectedItem.name}"/>
+            </mx:FormItem>
+            <mx:FormItem label="Email">
+                <mx:Label text="{dg.selectedItem.email}"/>
+            </mx:FormItem>
+            <mx:FormItem label="Phone">
+                <mx:Label text="{dg.selectedItem.phone}"/>
+            </mx:FormItem>
+        </mx:Form>
+        
+    </mx:Panel>
+
+	
+</mx:Module>

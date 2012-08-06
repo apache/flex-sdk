@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="Modules/Constraints/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ConstraintBasedLayout_Module.mxml">
+       <mx:Script>
+		<![CDATA[
+
+        import comps.PercentageRowColumnModuleComp;
+        import comps.ContentRowColumnModuleComp;
+		import mx.containers.utilityClasses.ConstraintColumn;
+		import mx.containers.utilityClasses.ConstraintRow;
+		import mx.modules.*;
+		import mx.controls.Button;
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+
+	<!-- Tests for ConstraintColumns with width as percentages -->
+	<TestCase testID="constraintColumns_percentage_mxml" keywords="[constraintColumns, constraintRows, MXML]"
+	    description="Verify the constraintColumns and constraintRows work correctly when their width/height is a percentage set in mxml">
+		<body>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="270" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="185" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="280" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="height" value="170" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="y" value="20" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+	<TestCase testID="constraintColumns_percentage_changeAtRuntime" keywords="[percentage sized, Module, constraintColumn]"
+	    description="ConstraintColumns with percentage width set at runtime">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.0" propertyName="percentWidth" value="40" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="310" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+	<TestCase testID="constraintColumns_percentage_changeCol2AtRuntime" keywords="[percentage sized, Module, constraintColumn]"
+	    description="ConstraintColumns 2 with percentage width set at runtime">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.0" propertyName="percentWidth" value="40" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="310" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+	<TestCase testID="constraintColumns_percentage_mxml_resizeModule" keywords="[Button, percentage sized, Module, constraintColumn]"
+	    description="ConstraintColumns with percentage width and then resize Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="width" value="500" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="350" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_percentage_mxml_resizeModule" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="ConstraintRows with percentage height and then resize Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="325" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_percentage_changeAtRuntime" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="ConstraintRows with percentage height set at runtime">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintRows.0" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="260" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_percentage_changeRow2AtRuntime" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="ConstraintRows with percentage height set at runtime">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintRows.1" propertyName="percentHeight" value="30" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="140" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowsColumns_percentage_mxml_resizeModule" keywords="[Button, percentage sized, Module, constraintRow]"
+	description="ConstraintRows and ConstraintColumns with percentage height and width and then resize Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1" propertyName="width" value="500" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="height" value="310" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="y" value="20" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="360" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowsColumns_percentage_changeAtRuntime" keywords="[percentage sized, Module, constraintRow]"
+	description="ConstraintRows and ConstraintColumns with percentage height and width set at runtime">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.0" propertyName="percentWidth" value="35" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.constraintRows.1" propertyName="percentHeight" value="40" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="height" value="155" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="y" value="20" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="300" />
+			<AssertPropertyValue target="module1.getChildAt(2)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumns_percentage_mxml_changeleftright" keywords="[Button, percentage sized, Module, constraintColumn]"
+	  description="change left value on a component constrained by percentage-constraintColumns">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(0)" styleName="left" value="col1:30" waitEvent="updateComplete" waitTarget="module1.getChildAt(0)"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="250" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="30" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_percentage_mxml_changetopbottom" keywords="[Button, percentage sized, Module, constraintRow]"
+	  description="change top value on a component constrained by percentage-constraintRows">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(1)" styleName="top" value="row1:45" waitEvent="updateComplete" waitTarget="module1.getChildAt(1)"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="150" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="45" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumnspercentage_rightModule" keywords="[Button, percentage sized, Module, constraintColumn]"
+	  description="change right value on a component constrained by percentage-constraintColumns and the Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(0)" styleName="right" value="25" waitEvent="updateComplete" waitTarget="module1.getChildAt(0)"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="365" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintColumnspercentage_rightModule_changeModule" keywords="[Button, percentage sized, Module, constraintColumn]"
+	    description="change right value on a component constrained by percentage-constraintColumns and the Module. Edit the Module size at runtime.">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="width" value="500" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(0)" styleName="right" value="25" waitEvent="updateComplete" waitTarget="module1.getChildAt(0)"/>
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="465" />
+			<AssertPropertyValue target="module1.getChildAt(0)" propertyName="x" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowspercentage_bottomModule" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="change bottom value on a component constrained by percentage-constraintRows and the Module">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="module1.getChildAt(1)" styleName="bottom" value="50" waitEvent="updateComplete" waitTarget="module1.getChildAt(1)"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="240" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRowspercentage_bottomModule_editSize" keywords="[Button, percentage sized, Module, constraintRow]"
+	    description="change bottom value on a component constrained by percentage-constraintRows and the Module. Change the Module size at runtime.">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(1)" styleName="bottom" value="50" waitEvent="updateComplete" waitTarget="module1.getChildAt(1)"/>
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="440" />
+			<AssertPropertyValue target="module1.getChildAt(1)" propertyName="y" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Module_verticalCenter_mxml" keywords="[verticalCenter, percentage sized, Module, constraintColumn]"
+	    description="Verify verticalCenter works when set in mxml and is relative to a constraintColumn">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="module1.getChildAt(3)" propertyName="y" valueExpression="value=Math.round((application.module1.constraintRows[0].height/2) +5)" />
+		</body>
+	</TestCase>
+	<TestCase testID="Module_verticalCenter_zero" keywords="[verticalCenter, percentage sized, Module, constraintColumn]"
+		    description="Verify verticalCenter works when set to zero and is relative to a constraintColumn">
+			<setup>
+			    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="module1.getChildAt(3)" styleName="verticalCenter" valueExpression="value='row1:0'" waitTarget="module1" waitEvent="updateComplete" />
+			    <AssertPropertyValue target="module1.getChildAt(3)" propertyName="y" valueExpression="value=Math.round((application.module1.constraintRows[0].height/2) -15)" />
+			</body>
+	</TestCase>
+		<TestCase testID="Module_verticalCenter_positive" keywords="[verticalCenter, percentage sized, Module, constraintColumn]"
+		    description="Verify verticalCenter works when set at runtime and is relative to a constraintColumn">
+			<setup>
+			    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="module1.getChildAt(3)" styleName="verticalCenter" valueExpression="value='row1:50'" waitTarget="module1" waitEvent="updateComplete" />
+			    <AssertPropertyValue target="module1.getChildAt(3)" propertyName="y" valueExpression="value=Math.round((application.module1.constraintRows[0].height/2)+35)" />
+			</body>
+	</TestCase>
+
+	<TestCase testID="Module_horizontalCenter_mxml" keywords="[horizontalCenter, percentage sized, Module, constraintColumn]"
+	    description="Verify horizontalCenter works when set in mxml and is relative to a constraintColumn">
+		<setup>
+		    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="module1.getChildAt(4)" propertyName="x" valueExpression="value=Math.round((application.module1.constraintColumns[1].width/2)+125)" />
+		</body>
+	</TestCase>
+	<TestCase testID="Module_horizontalCenter_zero" keywords="[horizontalCenter, percentage sized, Module, constraintColumn]"
+		    description="Verify horizontalCenter works when set to zero and is relative to a constraintColumn">
+			<setup>
+			    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="module1.getChildAt(4)" styleName="horizontalCenter" valueExpression="value='col2:0'" waitTarget="module1" waitEvent="updateComplete" />
+			    <AssertPropertyValue target="module1.getChildAt(4)" propertyName="x" valueExpression="value=Math.round((application.module1.constraintColumns[1].width/2) +95)" />
+			</body>
+	</TestCase>
+		<TestCase testID="Module_horizontalCenter_positive" keywords="[horizontalCenter, percentage sized, Module, constraintColumn]"
+		    description="Verify horizontalCenter works when set at runtime and is relative to a constraintColumn">
+			<setup>
+			    <ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="module1.getChildAt(4)" styleName="horizontalCenter" valueExpression="value='col2:50'" waitTarget="module1" waitEvent="updateComplete" />
+			    <AssertPropertyValue target="module1.getChildAt(4)" propertyName="x" valueExpression="value=Math.round((application.module1.constraintColumns[1].width/2)+145)" />
+			</body>
+	</TestCase>
+<!-- horizontalCenter and verticalCenter tests -->
+	<TestCase testID="fixedColumns_PercentColumns_horizontalCenter_positive" keywords="[horizontalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="horizontalCenter" valueExpression="value='col1:10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="x" value="40" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentColumns_horizontalCenter_zero" keywords="[horizontalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="horizontalCenter" valueExpression="value='col1:0'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="x" value="30" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentRows_verticalCenter_positive" keywords="[verticalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="verticalCenter" valueExpression="value='row1:10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="y" value="18" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentRows_verticalCenter_zero" keywords="[verticalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="verticalCenter" valueExpression="value='row1:0'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="y" value="8" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentColumns_horizontalCenter_negative" keywords="[horizontalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="horizontalCenter" valueExpression="value='col1:-10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentRows_verticalCenter_negative" keywords="[verticalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="verticalCenter" valueExpression="value='row1:-10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="y" value="-2" />
+		</body>
+	</TestCase>
+	<!-- minWidth/maxWidth/minHeight/maxHeight -->
+	<TestCase testID="percentRows_minHeight_basic" keywords="[minHeight, ConstraintRow, percentage sized]"
+	    description="Ensure that minHeight works for percentage sized rows" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintRows.0" propertyName="minHeight" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.constraintRows.0" propertyName="height" value="100" />
+		    <AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="210" />
+		    <AssertPropertyValue target="module1.getChildAt(2)" propertyName="height" value="195" />
+		    <AssertPropertyValue target="module1.getChildAt(3)" propertyName="y" valueExpression="value=Math.round((100/2) + 20 - 15)" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentColumns_minWidth_basic" keywords="[minWidth, ConstraintColumn, percentage sized]"
+	    description="Ensure that minWidth works for percentage sized columns" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.1" propertyName="minWidth" value="250" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.constraintColumns.1" propertyName="width" value="250" />
+		    <AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="320" />
+		    <AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="330" />
+		    <AssertPropertyValue target="module1.getChildAt(4)" propertyName="x" valueExpression="value=Math.round(120 + (250/2) + 30 - 25)" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentRows_minHeight_overrideHeight" keywords="[minHeight, ConstraintRow, percentage sized]"
+	    description="Ensure that minHeight works for percentage sized rows" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintRows.0" propertyName="minHeight" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.getChildAt(5)" propertyName="height" value="40" waitEvent="updateComplete" waitTarget="module1.getChildAt(5)"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="top" valueExpression="value='row1:5'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="bottom" valueExpression="value='row1:10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="height" value="85" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentColumns_minWidth_overrideWidth" keywords="[minWidth, ConstraintColumn, percentage sized]"
+	    description="Ensure that minWidth works for percentage sized columns" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.0" propertyName="minWidth" value="150" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.getChildAt(5)" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="module1.getChildAt(5)"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="left" valueExpression="value='col1:20'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="right" valueExpression="value='col1:10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="width" value="120" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentRows_maxHeight_basic" keywords="[maxHeight, ConstraintRow, percentage sized]"
+	    description="Ensure that maxHeight works for percentage sized rows" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintRows.0" propertyName="maxHeight" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.constraintRows.0" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.constraintRows.0" propertyName="height" value="100" />
+		    <AssertPropertyValue target="module1.getChildAt(1)" propertyName="height" value="210" />
+		    <AssertPropertyValue target="module1.getChildAt(3)" propertyName="y" valueExpression="value=Math.round((100/2) + 20 - 15)" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentColumns_maxWidth_basic" keywords="[maxWidth, ConstraintColumn, percentage sized]"
+	    description="Ensure that maxWidth works for percentage sized columns" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.1" propertyName="maxWidth" value="150" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.constraintColumns.1" propertyName="width" value="150" />
+		    <AssertPropertyValue target="module1.getChildAt(0)" propertyName="width" value="220" />
+		    <AssertPropertyValue target="module1.getChildAt(2)" propertyName="width" value="230" />
+		    <AssertPropertyValue target="module1.getChildAt(4)" propertyName="x" valueExpression="value=Math.round(120 + (150/2) + 30 - 25)" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentRows_maxHeight_spillingComponent" keywords="[maxHeight, ConstraintRow, percentage sized]"
+	    description="Ensure that maxHeight works for percentage sized rows" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintRows.0" propertyName="maxHeight" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.constraintRows.0" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="top" valueExpression="value='row1:50'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.getChildAt(5)" propertyName="height" value="90" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.constraintRows.0" propertyName="height" value="100" />
+		    <AssertPropertyValue target="module1.getChildAt(5)" propertyName="height" value="90" />
+		    <AssertPropertyValue target="module1.getChildAt(5)" propertyName="y" value="50" />
+		</body>
+	</TestCase>
+	<TestCase testID="percentColumns_maxWidth_spillingComponent" keywords="[maxWidth, ConstraintColumn, percentage sized]"
+	    description="Ensure that maxWidth works for percentage sized columns" >
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.constraintColumns.0" propertyName="maxWidth" value="100" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="left" valueExpression="value='col1:50'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetProperty target="module1.getChildAt(5)" propertyName="width" value="90" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.constraintColumns.0" propertyName="width" value="100" />
+		    <AssertPropertyValue target="module1.getChildAt(5)" propertyName="width" value="90" />
+		    <AssertPropertyValue target="module1.getChildAt(5)" propertyName="x" value="50" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentColumns_horizontalCenter_OverrideLeftRight" keywords="[horizontalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="horizontalCenter" valueExpression="value='col1:10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="left" valueExpression="value='col1:30'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="right" valueExpression="value='col1:30'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="x" value="40" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PercentRows_verticalCenter_OverrideTopBottom" keywords="[verticalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="module1" className="comps.PercentageRowColumnModuleComp" waitTarget="module1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="module1.getChildAt(5)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="verticalCenter" valueExpression="value='row1:10'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="top" valueExpression="value='row1:8'" waitEvent="updateComplete" waitTarget="module1"/>
+			<SetStyle target="module1.getChildAt(5)" styleName="bottom" valueExpression="value='row1:8'" waitEvent="updateComplete" waitTarget="module1"/>
+			<AssertPropertyValue target="module1.getChildAt(5)" propertyName="y" value="18" />
+		</body>
+	</TestCase>
+	</testCases>
+</UnitTester>

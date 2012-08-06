@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" 
+		   layout="vertical" width="400" height="300"
+		   creationComplete="initApp()">
+  <fx:Script>
+    <![CDATA[
+	import mx.core.IVisualElement;
+	import mx.events.ModuleEvent;
+	import mx.events.FlexEvent;
+	import mx.modules.IModuleInfo;
+	import mx.modules.ModuleManager;
+	import mx.controls.Alert;
+	
+	private var moduleErrorMsg:String;
+        public var assetModule:IModuleInfo;
+        public var sm:Object;
+        
+        [Bindable]
+        public var answer:String ="0";
+
+		public function initApp():void {        
+			// Get the IModuleInfo interface for the specified URL.
+			assetModule = ModuleManager.getModule("assets/SimpleModule.swf");    
+			assetModule.addEventListener(ModuleEvent.READY, getModuleInstance);
+			assetModule.addEventListener(ModuleEvent.ERROR, modErrEventHandler);
+			assetModule.addEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+			assetModule.load(new ApplicationDomain(ApplicationDomain.currentDomain), null,null, this.moduleFactory);
+		}
+		
+		public function getModuleInstance(e:Event):void {
+            	// Get an instance of the module.
+            		sm = assetModule.factory.create();
+			trace("getModuleInstance:sm="+sm);
+			dispatchEvent(new FlexEvent("moduleLoaded"));
+        	}            
+        	public function removeModuleLoaded(e:ModuleEvent):void
+		{
+			e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+			dispatchEvent(new FlexEvent("moduleRemoved"));
+			
+		}
+		private function modErrEventHandler(e:ModuleEvent):void
+		{
+			e.currentTarget.removeEventListener(ModuleEvent.ERROR,modErrEventHandler);
+			moduleErrorMsg=e.errorText;
+			Alert.show(e.errorText);
+		}	
+        	public function addNumbers(n:Number, m:Number):void {
+            		answer =sm.computeAnswer(n,m).toString();
+        	}
+    ]]>
+  </fx:Script>
+  <s:Label id="label1" width="100" text="{answer}"/>
+  <s:Button id="b1" label="Compute" click="addNumbers(5,7)"/>
+</mx:Module>

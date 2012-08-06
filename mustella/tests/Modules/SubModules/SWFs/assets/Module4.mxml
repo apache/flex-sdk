@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" 
+		   layout="vertical" width="400" height="300"
+		   creationComplete="initApp()">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IVisualElement;
+			import mx.events.ModuleEvent;
+			import mx.events.FlexEvent;
+			import mx.modules.IModuleInfo;
+			import mx.modules.ModuleManager;
+			import mx.controls.Alert;
+			
+			private var moduleErrorMsg:String;
+			
+			public var info:IModuleInfo;
+			
+			public var ccm:IVisualElement;
+			private function initApp():void {
+				info = ModuleManager.getModule("assets/SimpleModuleWithLabel.swf");
+				info.addEventListener(ModuleEvent.READY, modEventHandler); 
+				info.addEventListener(ModuleEvent.ERROR, modErrEventHandler);
+				info.addEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+				info.load(new ApplicationDomain(ApplicationDomain.currentDomain), null,null, this.moduleFactory);
+			}
+			
+					
+			public function removeModuleLoaded(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+				dispatchEvent(new FlexEvent("moduleRemoved"));
+			}
+			
+			
+			private function modEventHandler(e:ModuleEvent):void {
+			        e.currentTarget.removeEventListener(ModuleEvent.READY,modEventHandler);
+				ccm=info.factory.create() as IVisualElement;
+				vg.addElement(ccm);
+				dispatchEvent(new FlexEvent("moduleLoaded"));
+			}
+			private function modErrEventHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.ERROR,modErrEventHandler);
+				moduleErrorMsg=e.errorText;
+				Alert.show(e.errorText);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Label text="Module4" />
+	<s:VGroup id="vg" />
+	
+</mx:Module>

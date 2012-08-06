@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+   <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="900" height="800"
+       xmlns:comps="comps.*">
+
+      <mx:HBox>
+           <mx:Module width="400" height="300" backgroundColor="0xFF0000" layout="absolute" id="module1">
+               <mx:constraintColumns>
+			       <mx:ConstraintColumn id="col1" width="100" />
+			       <mx:ConstraintColumn id="col2" width="200" />
+			   </mx:constraintColumns>
+			   <mx:constraintRows>
+			       <mx:ConstraintRow id="row1" height="200" />
+			       <mx:ConstraintRow id="row2" height="150" />
+               </mx:constraintRows>
+               <mx:Button top="row1:10" left="col1:10" />
+          </mx:Module>
+          <mx:Panel id="panel2" width="400" height="300" backgroundColor="0x000000"
+              layout="absolute">
+             <mx:constraintColumns>
+			    <mx:ConstraintColumn id="col3" width="{col1.width}" />
+			    <mx:ConstraintColumn id="col4" width="{col2.width}" />
+			 </mx:constraintColumns>
+			 <mx:constraintRows>
+			    <mx:ConstraintRow id="row3" height="{row1.height}" />
+			    <mx:ConstraintRow id="row4" height="{row2.height}" />
+             </mx:constraintRows>
+             <mx:Button top="row3:10" left="col3:10" />
+          </mx:Panel>
+      </mx:HBox>
+
+      <mx:HBox>
+         <mx:Module id="module2" width="400" height="300" backgroundColor="0xFFDD00" layout="absolute">
+			 <mx:constraintColumns>
+				 <mx:ConstraintColumn id="col5" width="50%" minWidth="120" maxWidth="400"/>
+				 <mx:ConstraintColumn id="col6" width="40%" minWidth="200" maxWidth="300"/>
+			 </mx:constraintColumns>
+			 <mx:constraintRows>
+				 <mx:ConstraintRow id="row5" height="60%" minHeight="220" maxHeight="400"/>
+				 <mx:ConstraintRow id="row6" height="35%" minHeight="120" maxHeight="300"/>
+			 </mx:constraintRows>
+             <mx:Button top="row5:10" left="col5:10" />
+        </mx:Module>
+        <mx:Panel id="panel4" width="400" height="300" backgroundColor="0x22DDFF" layout="absolute">
+             <mx:constraintColumns>
+			    <mx:ConstraintColumn id="col7" width="50%" minWidth="{col5.minWidth}" maxWidth="{col5.maxWidth}" />
+			    <mx:ConstraintColumn id="col8" width="40%" minWidth="{col6.minWidth}" maxWidth="{col6.maxWidth}" />
+			 </mx:constraintColumns>
+			 <mx:constraintRows>
+			    <mx:ConstraintRow id="row7" height="60%" minHeight="{row5.minHeight}" maxHeight="{row5.maxHeight}" />
+			    <mx:ConstraintRow id="row8" height="35%" minHeight="{row6.minHeight}" maxHeight="{row6.maxHeight}" />
+             </mx:constraintRows>
+             <mx:Button top="row7:10" left="col8:10" />
+        </mx:Panel>
+     </mx:HBox>
+
+   </mx:Application>
