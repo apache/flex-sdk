@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- basic swf for subModule tests, module is loaded by ModuleLoader -->
+<s:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	creationComplete="init()"
+	>
+	
+	<fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+	<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+  		s|Module,
+  		mx|TitleWindow,
+  		mx|Label,
+  		mx|DataGrid{
+  		    fontFamily: MyVeraHalo;
+  		    fontLookup: embeddedCFF;
+  		    fontAntiAliasType: normal;
+  		}
+  		s|Label,
+  		s|TitleWindow{
+  		    fontFamily: MyVeraSpark;
+ 		    fontLookup: embeddedCFF;
+  		    fontAntiAliasType: normal;
+  		}
+  
+  		
+</fx:Style>
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ModuleEvent;
+			import mx.events.FlexEvent;
+			import mx.controls.Alert;	
+			import mx.utils.ObjectUtil;
+			import mx.events.ModuleEvent;
+			//import mx.modules.Module;
+			//import spark.modules.Module;
+			import mx.collections.ArrayList;
+			import mx.managers.PopUpManager;
+			import mx.modules.IModuleInfo;
+			import mx.modules.ModuleManager;
+			import mx.core.IVisualElement;
+			PopUpManager;
+			public var moduleCnt:IVisualElement;
+			private var moduleErrorMsg:String="";
+			private var info:IModuleInfo;
+			
+			private function errorModuleHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				moduleErrorMsg=e.errorText;
+				Alert.show(e.errorText);
+				
+				
+			}
+					
+			private var arr:Array = [ { moduleName: "assets/Module1.swf"},
+							{ moduleName: "assets/Module2.swf"},
+							{ moduleName: "assets/Module3.swf"},
+							{ moduleName: "assets/Module4.swf"},
+							{ moduleName: "assets/SimpleASModuleTest.swf"}
+			];
+	
+	
+
+			private function init():void
+			{
+				dg.dataProvider = new ArrayList(arr);
+			}
+			
+			private function getModuleAndLoad(moduleURL:String):void
+			{
+				info=ModuleManager.getModule(moduleURL);
+				info.addEventListener(ModuleEvent.READY,handleModuleLoaded);
+				info.addEventListener(ModuleEvent.ERROR,errorModuleHandler);
+				info.addEventListener(ModuleEvent.UNLOAD,removeModuleLoaded);
+				info.load(new ApplicationDomain(ApplicationDomain.currentDomain), null,null, this.moduleFactory);
+
+
+			}
+			
+			public function handleModuleLoaded(e:ModuleEvent):void
+			{
+		    		e.currentTarget.removeEventListener(ModuleEvent.READY, handleModuleLoaded);
+		    		moduleCnt=info.factory.create() as IVisualElement;
+		    		moduleHolder.addElement(moduleCnt);
+					
+		    		dispatchEvent(new FlexEvent("moduleLoaded"));
+					trace("*************************handleModuleLoaded*************************");
+					trace(" : " + ObjectUtil.toString(moduleHolder.numChildren) + " : ");
+					trace("*************************handleModuleLoaded*************************");
+			}
+			public function removeModuleLoaded(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, removeModuleLoaded);
+				dispatchEvent(new FlexEvent("moduleRemoved"));
+				resetModuleHolder();
+				
+			}
+			
+			private function unloadModule():void
+			{	
+				info.release();
+				info.unload();
+			}
+			
+			public function resetModuleHolder():void
+			{
+				moduleHolder.removeAllElements();
+			}
+		]]>
+	</fx:Script>	
+		
+	<mx:DataGrid id="dg" />
+	<s:Button id="btn1" label="load Module1" click="getModuleAndLoad(dg.selectedItem.moduleName)" />
+	<s:Button id="btn2" label="unload Module1" click="unloadModule();" />
+	<s:VGroup id="moduleHolder"/>
+	
+</s:Application>

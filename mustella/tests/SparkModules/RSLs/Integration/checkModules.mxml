@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="SparkModules/RSLs/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="MainApp.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<!-- end of set of lines that must be in each unit test -->
+	<testCases>
+		<TestCase testID="modulesRSL001" keywords="[RSL,Module]" description="Test for module when using rsl" >
+			<setup>								
+				
+				<RunCode code="FlexGlobals.topLevelApplication.comboModule.loadModule()" />
+				<Pause timeout="1000"/>
+				
+
+			</setup>
+			
+ 			<body>		
+				
+				<CompareBitmap url="../Integration/baselines/$testID_comboModule.png" target="comboModule" numColorVariances="10" ignoreMaxColorVariance="true" />
+				<!--
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid.loadModule()" />
+				<Pause timeout="500"/>
+				<CompareBitmap url="../Integration/baselines/$testID_dataGrid.png" target="dataGrid" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.anotherDataGrid.loadModule()" />
+				<Pause timeout="500"/>
+				<CompareBitmap url="../Integration/baselines/$testID_anotherDataGrid.png" target="anotherDataGrid" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				-->
+	
+			</body>
+			
+		</TestCase>
+
+	</testCases>
+</UnitTester>

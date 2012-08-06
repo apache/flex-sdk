@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   creationComplete="init()"
+			   minWidth="955" minHeight="600">
+	<fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+	<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		s|Module,
+		mx|DataGrid{
+			fontFamily: MyVeraHalo;
+			fontLookup: embeddedCFF;
+			fontAntiAliasType: normal;
+		}
+		s|Label,
+		s|TitleWindow{
+			fontFamily: MyVeraSpark;
+			fontLookup: embeddedCFF;
+			fontAntiAliasType: normal;
+		}
+		
+		
+	</fx:Style>
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.controls.Image;
+			import mx.events.FlexEvent;
+			import mx.events.ModuleEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Image;
+			import spark.modules.Module;
+			import spark.modules.ModuleLoader;
+			PopUpManager;
+			public var moduleErrorMsg:String="";
+			
+			public var moduleStateError:Boolean=false;
+			public var moduleStateLoading:Boolean=false;
+			public var moduleStateProgress:Boolean=false;
+			public var moduleStateReady:Boolean=false;
+			public var moduleStateSetup:Boolean=false;
+			public var moduleStateUnload:Boolean=false;
+			public var moduleStateUrlChanged:Boolean=false;
+			public var moduleStateIconChanged:Boolean=false;
+			public var img:Class;
+
+			[Embed(source="assets/bulletCheck.png")]
+			private static const ico:Class;
+
+			private var arr:Array = [ { moduleName: "assets/IDoNotExist.swf"},
+				{ moduleName: "assets/SimpleModuleComp.swf"},
+				{ moduleName: "assets/CoverageDataModule.swf"}
+				
+			];
+			
+			private function init():void
+			{
+				dg.dataProvider = new ArrayList(arr);
+				//code coverage
+				var bool:Boolean = moduleLoader1.deferredContentCreated
+				
+				setModuleLoaderListeners();
+				
+			}
+			public function setModuleLoaderListeners():void
+			{
+				moduleLoader1.addEventListener(Event.CHANGE,propertyChangedModuleEventHandler);
+				moduleLoader1.addEventListener(ModuleEvent.ERROR,errorModuleEventHandler);
+				moduleLoader1.addEventListener(FlexEvent.LOADING,loadingModuleEventHandler);
+				moduleLoader1.addEventListener(ModuleEvent.PROGRESS,progressModuleEventHandler);
+				moduleLoader1.addEventListener(ModuleEvent.READY,readyModuleEventHandler);
+				moduleLoader1.addEventListener(ModuleEvent.SETUP,setupModuleEventHandler);
+				moduleLoader1.addEventListener(ModuleEvent.UNLOAD,unloadModuleEventHandler);
+				moduleLoader1.addEventListener(FlexEvent.URL_CHANGED,urlChangedModuleEventHandler);
+				
+				var lbl:String=moduleLoader1.label;
+				moduleLoader1.label="moduleLoader1";
+			}
+			
+			private function errorModuleEventHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.ERROR,errorModuleEventHandler);
+				moduleStateError=true;
+				moduleErrorMsg=e.errorText;
+				trace(e.errorText+" : errors");
+				dispatchEvent(new FlexEvent("moduleFailedToLoad"));
+			}
+			private function loadingModuleEventHandler(e:FlexEvent):void
+			{
+				e.currentTarget.removeEventListener(FlexEvent.LOADING,loadingModuleEventHandler);
+				moduleStateLoading=true;
+				trace("LOADING");
+			}
+			private function progressModuleEventHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.PROGRESS,progressModuleEventHandler);
+				moduleStateProgress=true;
+				trace("PROGRESS");
+			}
+			public function readyModuleEventHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.READY, readyModuleEventHandler);
+				moduleStateReady=true;
+				trace("READY");
+				dispatchEvent(new FlexEvent("moduleLoaded"));
+			}
+			public function setupModuleEventHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.SETUP, setupModuleEventHandler);
+				moduleStateSetup=true;
+				trace("SETUP");
+			}
+			
+			public function unloadModuleEventHandler(e:ModuleEvent):void
+			{
+				e.currentTarget.removeEventListener(ModuleEvent.UNLOAD, unloadModuleEventHandler);
+				moduleStateUnload=true;
+				trace("UNLOAD");	
+				dispatchEvent(new FlexEvent("moduleUnLoaded"));
+			}
+			public function urlChangedModuleEventHandler(e:FlexEvent):void
+			{
+				e.currentTarget.removeEventListener(FlexEvent.URL_CHANGED, urlChangedModuleEventHandler);
+				moduleStateUrlChanged=true;
+				trace("URL_CHANGED");
+				dispatchEvent(new FlexEvent("urlChanged"));
+			}
+			public function propertyChangedModuleEventHandler(e:Event):void
+			{
+				e.currentTarget.removeEventListener(Event.CHANGE, propertyChangedModuleEventHandler);
+				moduleStateIconChanged=true;
+				trace("ICON_CHANGED");
+			}
+			private function loadModule(ml:ModuleLoader, moduleURL:String):void
+			{
+				trace(ml.url + "url**************");
+				if (ml.url==null)
+					ml.url = moduleURL;
+				else ml.loadModule();
+			}
+			
+			private function unloadModule(ml:ModuleLoader):void
+			{	
+				ml.unloadModule();
+				ml.url=null;
+				
+			}
+			public function resetModuleLoader():void
+			{
+				
+				setModuleLoaderListeners();
+			}
+			
+		]]>
+	</fx:Script>	
+	
+	<mx:DataGrid id="dg" />
+	<s:Button id="btn1" label="load Module1" click="loadModule(moduleLoader1,dg.selectedItem.moduleName)" />
+	<s:Button id="btn2" label="unload Module1" click="unloadModule(moduleLoader1);" />
+	<s:Button id="btn3" label="trigger urlChanged" click="moduleLoader1.url=null;" />
+	<s:Button id="btn4" label="get icon" click="this.img=moduleLoader1.icon;" />
+	<s:ModuleLoader id="moduleLoader1" icon="{ico}" />	
+</s:Application>
