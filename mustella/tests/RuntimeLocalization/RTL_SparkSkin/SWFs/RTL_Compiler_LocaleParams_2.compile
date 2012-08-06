@@ -1,0 +1,2 @@
+-locale=en_US,fr_FR,ja_JP
+-library-path=${mustella.dir},${mustella.dir}/classes,${sdk.dir}/frameworks/locale/en_US,${sdk.dir}/frameworks/libs/core.swc,${sdk.dir}/frameworks/libs/framework.swc,${sdk.dir}/frameworks/libs/mx/mx.swc,${sdk.dir}/frameworks/libs/rpc.swc,${sdk.dir}/frameworks/libs/authoringsupport.swc,Assets/bundles/framework/frResources.swc,Assets/bundles/framework/jaResources.swc,${sdk.dir}/frameworks/libs/sparkskins.swc,${sdk.dir}/frameworks/libs/spark.swc,${sdk.dir}/frameworks/libs/textLayout.swc

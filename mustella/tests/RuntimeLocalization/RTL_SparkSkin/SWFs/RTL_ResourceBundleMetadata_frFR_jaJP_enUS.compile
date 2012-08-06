@@ -1,0 +1,2 @@
+-locale=fr_FR,ja_JP,en_US
+-source-path+=Assets/bundles/custom/{locale}

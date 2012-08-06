@@ -1,0 +1,1476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="RuntimeLocalization/RTL_SparkSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_FrameworkStrings_File01.mxml" xmlns:Components="Components.*">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Script><![CDATA[
+        import mx.controls.Alert;
+        import mx.validators.CreditCardValidatorCardType;
+        import mx.collections.ArrayList;
+        import mx.collections.ListCollectionView;
+        
+        use namespace mx_internal;  
+
+        public var validationObject:Object = {};
+        private var obj:Object;
+        public var curAlert:Alert;
+        private var monthIndex:int;
+        private var qaMonths:Array = ["QJanuaryQ","QFebruaryQ","QMarchQ","QAprilQ","QMayQ","QJuneQ","QJulyQ","QAugustQ","QSeptemberQ","QOctoberQ","QNovemberQ","QDecemberQ"];
+        
+        /**
+        * > and < cannot be used in mxml, so 
+        * use this function to compare values. Returns:
+        * 0:  equal
+        * 1:  x larger
+        * -1: y larger
+        **/
+        public function compare(x:int, y:int):int{
+            trace("compare: x=" + x.toString() + ", y=" + y.toString());
+            return (x==y?0:(x>y?1:-1));
+        }
+        
+        [Bindable] private var HLOCToolTipHTMLText:String = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\">1</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\"><I>Qopen:</I> 40.55</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\"><I>Qclose:</I> 40.31</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\"><I>Qhigh:</I> 40.75</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\"><I>Qlow:</I> 40.24</FONT></P></TEXTFORMAT>";
+             
+    ]]></mx:Script>
+
+    <!-- 
+        Outstanding issues:
+        
+            All validators:
+            validators.properties
+                required (different SWC; this one needs it to be false)
+                
+            CurrencyFormatter:
+            formatters.properties:
+                useThousandsSeparator getting read from the locale...need a different SWC.
+                            
+            Notes regarding date related resources: Because putting anything fancy in the dateFormat will break one of the date controls,
+            use a different SWC for further testing.
+                    Note: Need another SWC file to test day=EEE and month=MMM.  This will allow testing of
+                        formatters.properties
+                            monthNamesShort = JaQ, FeQ...
+                            dayNamesShort = SuQ, MoQ...
+                        Same with formatters.properties
+                            am = AQ
+                            pm = PQ
+                        Same with these from ShardResources.properties:
+                            monthSymbol = Q
+                            monthNames = QJanuary, QFebruary, QMarch, QApril, QMay, QJune, QJuly, QAugust, QSeptember, QOctober, QNovember, QDecember
+                            dayNames = QSunday, QMonday, QTuesday, QWednesday, QThursday, QFriday, QSaturday
+    
+            Notes from DateValidator:
+                Need another SWC and test file to verify that validateAsString can be set to false.
+
+            Notes from NumberFormatter:
+                Need another swc for useThousandsSeparator = false.
+                
+    -->
+        
+
+    <testCases>
+
+<!--
+==============================================================================
+Alert
+==============================================================================
+-->
+
+        <TestCase frequency="all" testID="RTL_Alert_okLabel_yesLabel_noLabel_cancelLabel" description="Be sure the Alert button labels come from the qa_QA locale." keywords="[Runtime Localization,Alert,okLabel,yesLabel,noLabel,cancelLabel]" >
+            <body>
+                <RunCode code="curAlert=Alert.show('Check all four buttons.  (BTW Qcel is the Cancel button.)', 'Alert Test', mx.controls.Alert.YES|
+                        mx.controls.Alert.NO|mx.controls.Alert.OK|mx.controls.Alert.CANCEL)" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="QOK" />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="label" value="QYes" />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.2" propertyName="label" value="QNo" />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.3" propertyName="label" value="Qcel" />
+                <DispatchKeyEvent key="TAB" />
+                <DispatchKeyEvent key="ESCAPE" />
+                <WaitForEffectsToEnd />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+ArrayList
+    outOfBounds from collections.properties
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ArrayList_outOfBounds" description="Confirm that the out of bounds message is from the qa_QA locale" keywords="[Runtime Localization,ArrayList,outOfBounds]" >
+            <setup>
+                 <RunCode code="application.al=new ArrayList()" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { application.al.getItemAt(1) } catch ( e:Error ) { value = e.message }" value="QIndex '1' Qspecified Qis Qout Qof Qbounds." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+CreditCardValidator
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_sanity_check_positive" description="Basic test to confirm that the CreditCardValidator test component works for valid values." keywords="[Runtime Localization,CreditCardValidator]" >
+            <setup>
+                <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA, cardNumber: '4111111111111111'})" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_sanity_check_negative" description="Basic test to confirm that the CreditCardValidator test component works for invalid values." keywords="[Runtime Localization,CreditCardValidator]" >
+            <setup>
+                <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: 'x', cardNumber: 'y'})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="2" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QIncorrect Qcard Qtype Qis Qspecified." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="QInvalid Qcharacters Qin Qyour Qcredit Qcard Qnumber. (QEnter Qnumbers Qonly.)" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_allowedFormatChars" description="Confirm that the letter Q is an allowable format character when using the qa_QA locale." keywords="[Runtime Localization,CreditCardValidator,allowedFormatChars]" >
+            <setup>
+                <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA, cardNumber: '4111Q1111Q1111Q1111'})" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_invalidCharErrorCCV" description="Confirm that invalid characters in the number shows the correct error message from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,invalidCharErrorCCV]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA, cardNumber: '4111]111111111111'})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="2" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QInvalid Qcharacters Qin Qyour Qcredit Qcard Qnumber. (QEnter Qnumbers Qonly.)" />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_invalidNumberError" description="Confirm that an invalid number shows the correct error message from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,invalidNumberError]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA, cardNumber: '4211111111111111'})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="2" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qcredit Qcard Qnumber Qis Qinvalid." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_wrongLengthErrorCCV" description="Confirm that a number of invalid length shows the correct error message from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,wrongLengthErrorCCV]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA, cardNumber: '41111111111111111'})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="2" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QYour Qcredit Qcard Qnumber Qcontains Qthe Qwrong Qnumber Qof Qdigits." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_noNumError" description="Confirm that no number passed to the validator shows the correct error message from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,noNumError]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="3" />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="QNo Qcredit Qcard Qnumber Qis Qspecified." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_wrongTypeError" description="Confirm that an invalid type shows the correct error message from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,wrongTypeError]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ccv.validate({cardType: 'x', cardNumber: '4111111111111111'})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="2" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QIncorrect Qcard Qtype Qis Qspecified." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <!-- Excluded -->
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_noTypeError" description="Confirm that no type shows the correct error message from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,noTypeError]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>                            
+                <AssertMethodValue method="value=application.ccv.validate({cardType: 'x', cardNumber: '4111111111111111'})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="2" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="(Fails due to bug 197781.)  QNo Qcredit Qcard Qtype Qis Qspecified Qor Qthe Qtype Qis Qnot Qvalid." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_CNSAtrribute" description="Confirm that when the CNSAtribute is a string, the message is from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,CNSAttribute]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <SetProperty target="ccv" propertyName="cardNumberSource" value="a field" />
+                <AssertError value="Error: QThe QcardNumberSource Qattribute, Q'a field', Qcan Qnot Qbe Qof Qtype QString." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_CTSAtrribute" description="Confirm that when the CTSAtribute is a string, the message is from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,CTSAttribute]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <SetProperty target="ccv" propertyName="cardTypeSource" value="a field" />
+                <AssertError value="Error: QThe QcardTypeSource Qattribute, Q'a field', Qcan Qnot Qbe Qof Qtype QString." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_invalidFormatChars" description="Confirm that when the allowedFormatChars parameter is invalid, the message is from the qa_QA locale" keywords="[Runtime Localization,CreditCardValidator,invalidFormatChars]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <SetProperty target="ccv" propertyName="allowedFormatChars" value="5" />
+                <AssertError value="Error: QThe QallowedFormatChars Qparameter Qis Qinvalid. QIt Qcannot Qcontain Qany Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <!-- Excluded -->
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_missingCardType" description="Confirm that the missingCardType string is from the qa_QA locale.  This is not a duplicate of the noTypeError message." keywords="[Runtime Localization,CreditCardValidator,missingCardType]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { value=application.ccv.validate({cardNumber: '4111111111111111'}); } catch (e:Error) { value = e.message } " value="QThe Qvalue Qbeing Qvalidated Qdoesn't Qcontain Qa QcardType Qproperty.  (Fails due to bug 198480.)"  />
+                <Pause timeout="1" />
+            </body>   
+        </TestCase>     
+
+        <!-- Excluded -->
+        <TestCase frequency="all" testID="RTL_CreditCardValidator_missingCardNumber" description="Confirm that the missingCardNumber string is from the qa_QA locale.  This is not a duplicate of the noNumError message." keywords="[Runtime Localization,CreditCardValidator,missingCardNumber]" >
+            <setup>
+                 <ResetComponent target="ccv" className="mx.validators::CreditCardValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { value=application.ccv.validate({cardType: CreditCardValidatorCardType.VISA}); } catch (e:Error) { value = e.message } " value="QThe Qvalue Qbeing Qvalidated Qdoesn't Qcontain Qa QcardNumber Qproperty.  (Fails due to bug 198480.)"  />
+                <Pause timeout="1" />
+            </body>   
+        </TestCase>                     
+<!--
+==============================================================================
+CurrencyFormatter
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_CurrencyFormatter_currencySymbol_alignSymbol_currencyFormatterPrecision" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyFormatter,currencySymbol,alignSymbol,currencyFormatterPrecision]" >
+            <setup>
+                <ResetComponent target="cf" className="mx.formatters::CurrencyFormatter" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cf.format('5')" value="5,000Q" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyFormatter_useNegativeSign" description="Whether the negative sign appears should come from the qa_QA locale" keywords="[Runtime Localization,CurrencyFormatter,useNegativeSign]" >
+            <setup>
+                <ResetComponent target="cf" className="mx.formatters::CurrencyFormatter" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cf.format('-5')" value="(5,000Q)" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyFormatter_decimalSeparatorFromTo" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyFormatter,decimalSeparatorFrom,decimalSeparatorTo]" >
+            <setup>
+                <ResetComponent target="cf" className="mx.formatters::CurrencyFormatter" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cf.format('5,0')" value="5,000Q" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyFormatter_thousandsSeparatorFromTo" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyFormatter,thousandsSeparatorFrom,thousandsSeparatorTo]" >
+            <setup>
+                <ResetComponent target="cf" className="mx.formatters::CurrencyFormatter" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cf.format('1.000.000')" value="1.000.000,000Q" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyFormatter_rounding" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyFormatter,thousandsSeparatorFrom,rounding]" >
+            <setup>
+                <ResetComponent target="cf" className="mx.formatters::CurrencyFormatter" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cf.format('1,0001')" value="1,001Q" />
+            <Pause timeout="1" /></body>
+        </TestCase>
+        
+<!--
+==============================================================================
+CurrencyValidator
+==============================================================================
+-->
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_currencySymbolError_alignSymbol_Fails due to 200759." description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,currencySymbolError,alignSymbol]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('Q5')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qcurrency Qsymbol Qoccurs Qin Qan Qinvalid Qlocation." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_alignSymbol" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,alignSymbol]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('50Q')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_invalidCharError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,invalidCharError]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('x')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qinput Qcontains Qinvalid Qcharacters." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_allowNegative_negativeError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,allowNegative]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('-5')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qmay Qnot Qbe Qnegative." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_decimalSeparator" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,decimalSeparator]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('5,0')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_decimalPointCountError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,decimalPointCountError]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('5,0,0')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qdecimal Qseparator Qcan Qoccur Qonly Qonce." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_maxValue_exceedsMaxErrorCV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,maxValue,exceedsMaxErrorCV]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('10000000')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qentered Qis Qtoo Qlarge." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_minValue_lowerThanMinError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,minValue,lowerThanMinError]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('2')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qentered Qis Qtoo Qsmall." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_thousandsSeparator" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,thousandsSeparator]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('1.000.000')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_separationError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,separationError]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('1.0')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qthousands Qseparator Qmust Qbe Qfollowed Qby Qthree Qdigits." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_precision" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,precision]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('3,234')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_precisionError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,precisionError]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.cv.validate('3,2345')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qentered Qhas Qtoo Qmany Qdigits Qbeyond Qthe Qdecimal Qpoint." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_CurrencyValidator_invalidFormatCharsError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,CurrencyValidator,invalidFormatCharsError]" >
+            <setup>
+                <ResetComponent target="cv" className="mx.validators.CurrencyValidator" />
+            </setup>
+            <body>
+                <SetProperty target="cv" propertyName="thousandsSeparator" value="." />
+                <SetProperty target="cv" propertyName="currencySymbol" value="." />
+                <AssertMethodValue method="value=application.cv.validate('5')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QOne Qof Qthe Qformatting Qparameters Qis Qinvalid." />            
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+<!--
+==============================================================================
+DateChooser
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_DateChooser_monthNames_and_monthSymbol" description="Confirms that the month names come from the qa_QA locale" keywords="[Runtime Localization,DateChooser,monthNames]" >
+            <setup>
+                <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+                <SetProperty target="dc" propertyName="displayedMonth" valueExpression="value = monthIndex = (application.dc.displayedMonth == 11 ? 0 : application.dc.displayedMonth + 1);" waitEvent="updateComplete" waitTarget="dc" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dc.mx_internal:monthDisplay" propertyName="text" valueExpression="value=qaMonths[monthIndex]" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateChooser_dateFormat" description="Confirms that the dateFormat from the qa_QA locale changes the control to make the year appear to the left of the month." keywords="[Runtime Localization,DateChooser,dateFormat]" >
+            <setup>
+                <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+            </setup>
+            <body>
+                <AssertMethodValue target="dc" method="value=compare(application.dc.yearDisplay.x, application.dc.monthDisplay.x)" value="-1" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>        
+ 
+         <TestCase frequency="all" testID="RTL_DateChooser_dayNames(Shortest)" description="Confirms that the day names come from the qa_QA locale's dayNamesShortest property." keywords="[Runtime Localization,DateChooser,dayNames]" >
+            <setup>
+                <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="dc" propertyName="dayNames" value="['QS', 'QM', 'QT', 'QW', 'QT', 'QF', 'QS']" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_DateChooser_yearSymbol" description="Confirms that the yearSymbol comes from the qa_QA locale" keywords="[Runtime Localization,DateChooser,yearSymbol]" >
+            <setup>
+                <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="dc" propertyName="yearSymbol" value="Q" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_DateChooser_firstDayOfWeek" description="Confirms that the firstDayOfWeek comes from the qa_QA locale" keywords="[Runtime Localization,DateChooser,firstDayOfWeek]" >
+            <setup>
+                <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="dc" propertyName="firstDayOfWeek" value="2" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+<!--
+==============================================================================
+DateField
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_DateField_monthNames" description="Confirms that the month names come from the qa_QA locale" keywords="[Runtime Localization,DateField,monthNames]" >
+            <setup>
+                <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="df" propertyName="monthNames" value="['QJanuary', 'QFebruary', 'QMarch', 'QApril', 'QMay', 'QJune', 'QJuly', 'QAugust', 'QSeptember', 'QOctober', 'QNovember', 'QDecember']" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateField_monthSymbol" description="Confirms that the monthSymbol comes from the qa_QA locale" keywords="[Runtime Localization,DateField,monthSymbol]" >
+            <setup>
+                <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="df" propertyName="monthSymbol" value="Q" />
+                <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_DateField_yearSymbol" description="Confirms that the yearSymbol comes from the qa_QA locale" keywords="[Runtime Localization,DateField,yearSymbol]" >
+            <setup>
+                <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="df" propertyName="yearSymbol" value="Q" />
+                <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_DateField_dayNames(Shortest)" description="Confirms that the day names come from the qa_QA locale's dayNamesShortest property." keywords="[Runtime Localization,DateField,dayNames]" >
+            <setup>
+                <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="df" propertyName="dayNames" value="['QS', 'QM', 'QT', 'QW', 'QT', 'QF', 'QS']" />
+                <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_DateField_firstDayOfWeek" description="Confirms that the firstDayOfWeek comes from the qa_QA locale" keywords="[Runtime Localization,DateField,firstDayOfWeek]" >
+            <setup>
+                <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+            </setup>
+             <body>
+                 <AssertPropertyValue target="df" propertyName="firstDayOfWeek" value="2" />
+                <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+<!--
+==============================================================================
+DateFormatter
+==============================================================================
+-->
+         <TestCase frequency="all" testID="RTL_DateFormatter_dateFormat" description="Confirms that the dateFormat comes from the qa_QA locale" keywords="[Runtime Localization,DateFormatter,dateFormat]" >
+            <setup>
+                <ResetComponent target="dfo" className="mx.formatters.DateFormatter" />
+            </setup>
+             <body>
+                 <AssertMethodValue method="value=application.dfo.format(new Date(1971, 2, 16))" value="1971 03 16" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+<!--
+==============================================================================
+DateValidator
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_DateValidator_dateValidatorAllowedFormatChars" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,dateValidatorAllowedFormatChars]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.dv.validate('1971Q03Q16')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>            
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_dateFormat_wrongLengthErrorDV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,dateFormat,wrongLengthErrorDV]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.dv.validate('03Q1971Q16')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="4" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QType Qthe Qdate Qin Qthe Qformat. YYYY MM DD" />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.2" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.3" propertyName="errorMessage" value="" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_invalidFormatChars" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,invalidFormatChars]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <SetProperty target="dv" propertyName="allowedFormatChars" value="2" />
+                <AssertError value="Error: QThe QallowedFormatChars Qparameter Qis Qinvalid. QIt Qcannot Qcontain Qany Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_DSAttribute" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,DSAttribute]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <SetProperty target="dv" propertyName="daySource" value="hello" />
+                <AssertError value="Error: QThe QdaySource Qattribute, Q'hello', Qcan Qnot Qbe Qof Qtype QString." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_MSAttribute" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,MSAttribute]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <SetProperty target="dv" propertyName="monthSource" value="hello" />
+                <AssertError value="Error: QThe QmonthSource Qattribute, Q'hello', Qcan Qnot Qbe Qof Qtype QString." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_YSAttribute" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,YSAttribute]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <SetProperty target="dv" propertyName="yearSource" value="hello" />
+                <AssertError value="Error: QThe QyearSource Qattribute, Q'hello', Qcan Qnot Qbe Qof Qtype QString." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_invalidCharErrorDV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,invalidCharErrorDV]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.dv.validate('19]1Q03Q16')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="4" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qdate Qcontains Qinvalid Qcharacters." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.2" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.3" propertyName="errorMessage" value="" />                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_wrongMonthError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,wrongMonthError]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.dv.validate('1971Q13Q16')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="4" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QEnter Qa Qmonth Qbetween 1 Qand 12." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.2" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.3" propertyName="errorMessage" value="" />                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_wrongDayError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,wrongDayError]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.dv.validate('1971Q03Q32')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="4" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QEnter Qa Qvalid Qday Qfor Qthe Qmonth." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.2" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.3" propertyName="errorMessage" value="" />               
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_wrongYearError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,wrongYearError]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.dv.validate({year:10000, month:10, day:17})" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="3" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QEnter Qa Qyear Qbetween 0 Qand 9999." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.2" propertyName="errorMessage" value="" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_DateValidator_formatError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,DateValidator,formatError]" >
+            <setup>
+                <ResetComponent target="dv" className="mx.validators.DateValidator" />
+            </setup>
+            <body>
+                <SetProperty target="dv" propertyName="inputFormat" value="MMM YYY" />
+                <AssertMethodValue method="value=application.dv.validate('Jan 123')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="4" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QConfiguration Qerror: QIncorrect Qformatting Qstring." />
+                <AssertPropertyValue target="script:value.results.1" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.2" propertyName="errorMessage" value="" />
+                <AssertPropertyValue target="script:value.results.3" propertyName="errorMessage" value="" />                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+Label
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_UITextField_truncationIndicator" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,UITextField,truncationIndicator]" >
+            <setup>
+                <ResetComponent target="lbl" className="Components.CLabel" waitEvent="updateComplete" waitTarget="lbl" />
+                <SetProperty target="lbl" propertyName="width" value="40" />
+                <SetProperty target="lbl" propertyName="text" value="I am the very model of a modern major general." waitTarget="lbl" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.lbl.getTextFromTextField()" value="I a.Q." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+        
+<!--
+==============================================================================
+ListCollectionView - All from collections.properties
+    outOfBounds
+    invalidIndex
+    unknownProperty
+    incorrectAddition
+    itemNotFound
+    bookmarkNotFound
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ListCollectionView_outOfBounds" description="Confirm that the out of bounds message is from the qa_QA locale" keywords="[Runtime Localization,ListCollectionView,outOfBounds]" >
+            <setup>
+                 <RunCode code="application.lcv=new ListCollectionView()" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { application.lcv.getItemAt(1) } catch ( e:Error ) { value = e.message }" value="QIndex '1' Qspecified Qis Qout Qof Qbounds." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ListCollectionView_unknownProperty" description="Confirm that the unknownProperty message is from the qa_QA locale" keywords="[Runtime Localization,ListCollectionView,unknownProperty]" >
+            <setup>
+                 <RunCode code="application.lcv=new ListCollectionView()" />
+            </setup>
+            <body>
+                <AssertMethodValue method="try { obj = application.lcv['hi']; } catch ( e:Error ) { value = e.message }" value="QUnknown QProperty: 'hi'." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+        
+<!--
+==============================================================================
+NumberFormatter
+==============================================================================
+-->
+         <TestCase frequency="all" testID="RTL_NumberFormatter_precision_decimalSeparatorTo" description="Confirms that the numberFormat comes from the qa_QA locale" keywords="[Runtime Localization,NumberFormatter,precision,decimalSeparatorTo]" >
+            <setup>
+                <ResetComponent target="nf" className="mx.formatters::NumberFormatter" />
+            </setup>
+             <body>
+                 <AssertMethodValue method="value=application.nf.format('4')" value="4,0000" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_NumberFormatter_precision_decimalSeparatorFrom" description="Confirms that the numberFormat comes from the qa_QA locale" keywords="[Runtime Localization,NumberFormatter,precision,decimalSeparatorFrom]" >
+            <setup>
+                <ResetComponent target="nf" className="mx.formatters::NumberFormatter" />
+            </setup>
+            <body>
+                 <AssertMethodValue method="value=application.nf.format('4,0')" value="4,0000" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_NumberFormatter_rounding" description="Confirms that the numberFormat comes from the qa_QA locale" keywords="[Runtime Localization,NumberFormatter,rounding]" >
+            <setup>
+                <ResetComponent target="nf" className="mx.formatters::NumberFormatter" />
+            </setup>
+             <body>
+                 <AssertMethodValue method="value=application.nf.format('4,00001')" value="4,0001" />
+                 <Pause timeout="1" />
+             </body>
+        </TestCase>
+
+         <TestCase frequency="all" testID="RTL_NumberFormatter_useNegativeSign" description="Confirms that the numberFormat comes from the qa_QA locale" keywords="[Runtime Localization,NumberFormatter,useNegativeSign]" >
+            <setup>
+                <ResetComponent target="nf" className="mx.formatters::NumberFormatter" />
+            </setup>
+             <body>
+                 <AssertMethodValue method="value=application.nf.format('-4')" value="(4,0000)" />
+             <Pause timeout="1" /></body>
+        </TestCase>
+<!--
+==============================================================================
+NumberValidator
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_NumberValidator_allowNegative_negativeError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,allowNegative,negativeError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('-5')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qmay Qnot Qbe Qnegative." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_decimalSeparator" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,decimalSeparator]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('4,0')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_numberValidatorDomain_integerError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,numberValidatorDomain,integerError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('4,5')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qnumber Qmust Qbe Qan Qinteger." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_maxValue_exceedsMaxErrorNV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,maxValue,exceedsMaxErrorNV]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('10000000')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qnumber Qentered Qis Qtoo Qlarge." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_minValue_lowerThanMinError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,minValue,lowerThanMinError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('2')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qentered Qis Qtoo Qsmall." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_thousandsSeparator" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,thousandsSeparator]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('2.000.000')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_separationError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,separationError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('2.00.0.000')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qthousands Qseparator Qmust Qbe Qfollowed Qby Qthree Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_numberValidatorPrecision_precisionError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,numberValidatorPrecision,precisionError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('2,0000')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qamount Qentered Qhas Qtoo Qmany Qdigits Qbeyond Qthe Qdecimal Qpoint." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_decimalPointCountError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,decimalPointCountError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('2,0,0')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qdecimal Qseparator Qcan Qoccur Qonly Qonce." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_invalidCharError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,invalidCharError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('x')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qinput Qcontains Qinvalid Qcharacters." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_NumberValidator_invalidFormatCharsError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,NumberValidator,invalidFormatCharsError]" >
+            <setup>
+                <ResetComponent target="nv" className="mx.validators.NumberValidator" />
+                <SetProperty target="nv" propertyName="decimalSeparator" value="." />
+                <SetProperty target="nv" propertyName="thousandsSeparator" value="." />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.nv.validate('7')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QOne Qof Qthe Qformatting Qparameters Qis Qinvalid." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+PhoneNumberValidator
+==============================================================================
+-->
+
+        <TestCase frequency="all" testID="RTL_PhoneNumberValidator_phoneNumberValidatorAllowedFormatChars" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,PhoneNumberValidator,phoneNumberValidatorAllowedFormatChars]" >
+            <setup>
+                <ResetComponent target="pnv" className="mx.validators.PhoneNumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.pnv.validate('Q415Q555Q1212')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_PhoneNumberValidator_invalidCharErrorPNV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,PhoneNumberValidator,invalidCharErrorPNV]" >
+            <setup>
+                <ResetComponent target="pnv" className="mx.validators.PhoneNumberValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.pnv.validate(']415Q555Q1212')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QYour Qtelephone Qnumber Qcontains Qinvalid Qcharacters." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_PhoneNumberValidator_wrongLengthErrorPNV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,PhoneNumberValidator,wrongLengthErrorPNV]" >
+            <setup>
+                <ResetComponent target="pnv" className="mx.validators.PhoneNumberValidator" />
+            </setup>
+            <body>
+                <SetProperty target="pnv" propertyName="minDigits" value="2" />
+                <AssertMethodValue method="value=application.pnv.validate('4')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QYour Qtelephone Qnumber Qmust Qcontain Qat Qleast 10 Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_PhoneNumberValidator_invalidFormatChars" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,PhoneNumberValidator,invalidFormat]" >
+            <setup>
+                <ResetComponent target="pnv" className="mx.validators.PhoneNumberValidator" />
+            </setup>            
+            <body>
+                <SetProperty target="pnv" propertyName="allowedFormatChars" value="'7'" />
+                <AssertError value="Error: QThe QallowedFormatChars Qparameter Qis Qinvalid. QIt Qcannot Qcontain Qany Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+ProgressBar
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ProgressBar_label" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ProgressBar,label]" >
+            <setup>
+                <ResetComponent target="pb" className="mx.controls.ProgressBar" waitEvent="updateComplete" waitTarget="pb" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pb" propertyName="label" value="QLOADING %3%%" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+        
+<!--
+==============================================================================
+SocialSecurityValidator
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_SocialSecurityValidator_socialSecurityValidatorAllowedFormatChars" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,SocialSecurityValidator,socialSecurityValidatorAllowedFormatChars]" >
+            <setup>
+                <ResetComponent target="ssv" className="mx.validators.SocialSecurityValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ssv.validate('111Q22Q3333')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_SocialSecurityValidator_invalidCharErrorSSV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,SocialSecurityValidator,invalidCharErrorSSV]" >
+            <setup>
+                <ResetComponent target="ssv" className="mx.validators.SocialSecurityValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ssv.validate('111]22]3333')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QYou Qentered Qinvalid Qcharacters Qin Qyour QSocial QSecurity Qnumber." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_SocialSecurityValidator_wrongFormatError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,SocialSecurityValidator,wrongFormatError]" >
+            <setup>
+                <ResetComponent target="ssv" className="mx.validators.SocialSecurityValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ssv.validate('11122333')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe QSocial QSecurity Qnumber Qmust Qbe 9 Qdigits Qor Qin Qthe Qform QQQ-QQ-QQQQ." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_SocialSecurityValidator_zeroStartError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,SocialSecurityValidator,zeroStartError]" >
+            <setup>
+                <ResetComponent target="ssv" className="mx.validators.SocialSecurityValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ssv.validate('000Q22Q3333')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>                
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QInvalid QSocial QSecurity Qnumber; Qthe Qnumber Qcannot Qstart Qwith 000." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_SocialSecurityValidator_invalidFormatChars" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,SocialSecurityValidator,invalidFormatChars]" >
+            <setup>
+                <ResetComponent target="ssv" className="mx.validators.SocialSecurityValidator" />
+            </setup>
+            <body>
+                <SetProperty target="ccv" propertyName="allowedFormatChars" value="4" />
+                <AssertError value="Error: QThe QallowedFormatChars Qparameter Qis Qinvalid. QIt Qcannot Qcontain Qany Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+<!--
+==============================================================================
+StringValidator
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_StringValidator_minLength_tooShortError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,StringValidator,minLength,tooShortError]" >
+            <setup>
+                <ResetComponent target="sv" className="mx.validators.StringValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.sv.validate('hi')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThis Qstring Qis Qshorter Qthan Qthe Qminimum Qallowed Qlength. QThis Qmust Qbe Qat Qleast 3 Qcharacters Qlong." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_StringValidator_maxLength_tooLongError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,StringValidator,maxLength,tooLongError]" >
+            <setup>
+                <ResetComponent target="sv" className="mx.validators.StringValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.sv.validate('12345678901')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThis Qstring Qis Qlonger Qthan Qthe Qmaximum Qallowed Qlength. QThis Qmust Qbe Qless Qthan 10 Qcharacters Qlong." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+<!--
+==============================================================================
+ZipCodeValidator
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_zipCodeValidatorAllowedFormatChars_zipCodeValidatorDomain" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,zipCodeValidatorAllowedFormatChars,zipCodeValidatorDomain]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.zcv.validate('N2L+0A1')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_zipCodeValidatorDomain_wrongCAFormatError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,zipCodeValidatorDomain,wrongUSFormatError]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.zcv.validate('12345')" >
+                    <value>
+                        <mx:String>[Event type="valid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_invalidCharErrorZCV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,invalidCharErrorZCV]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.zcv.validate('N2L]0A1')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe QZIP Qcode Qcontains Qinvalid Qcharacters." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_invalidDomainErrorZCV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,invalidDomainErrorZCV]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+                <SetProperty target="zcv" propertyName="domain" value="hotdog" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.zcv.validate('N2L+0A1')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe Qdomain Qparameter Qis Qinvalid. QIt Qmust Qbe Qeither Q'US QOnly' Qor Q'US Qor QCanada'." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_wrongLengthErrorZCV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,wrongLengthErrorZCV]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.zcv.validate('12345-67890')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe QZIP Qcode Qmust Qbe 5 Qdigits Qor 5+4 Qdigits." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_wrongUSFormatError" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,wrongUSFormatError]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+                <SetProperty target="zcv" propertyName="domain" value="US Only" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.zcv.validate('123-456789')" >
+                    <value>
+                        <mx:String>[Event type="invalid" bubbles=false cancelable=false eventPhase=2]</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <AssertPropertyValue target="script:value.results" propertyName="length" value="1" />
+                <AssertPropertyValue target="script:value.results.0" propertyName="errorMessage" value="QThe QZIP+4 Qcode Qmust Qbe Qformatted '12345-6789'." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ZipCodeValidator_invalidFormatCharsZCV" description="Confirms that the locale info comes from the qa_QA locale" keywords="[Runtime Localization,ZipCodeValidator,invalidFormatCharsZCV]" >
+            <setup>
+                <ResetComponent target="zcv" className="mx.validators.ZipCodeValidator" />
+            </setup>
+            <body>
+                <SetProperty target="zcv" propertyName="allowedFormatChars" value="7" />
+                <AssertError value="Error: QThe QallowedFormatChars Qparameter Qis Qinvalid. QAlphanumeric Qcharacters Qare Qnot Qallowed (a-z A-Z 0-9)." />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

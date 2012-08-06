@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="RuntimeLocalization/RTL_SparkSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_ResourceBundleMetadata_frFR_Read.mxml" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script><![CDATA[
+        import mx.controls.sliderClasses.SliderDataTip;
+        import mx.managers.SystemManager;
+
+        private var monthIndex:int;
+        private var frMonths:Array = ["fr_January","fr_February","fr_March","fr_April","fr_May","fr_June","fr_July","fr_August","fr_September","fr_October","fr_November","fr_December"];
+    ]]></mx:Script>
+
+    <testCases>
+
+<!-- 
+======================================================== 
+The associated swf launches in the fr_FR locale. 
+======================================================== 
+--> 
+    
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_String_Framework_Property_en" description="Test that resourceManager.getXX() can be used to specify a framework resource as a String in a property." keywords="[Runtime Localization,ResourceBundleMetadata,String,Property]" > 
+            <setup>
+                <ResetComponent target="lbl1" className="Components.CLabelTextGetStringFramework" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" />              
+            </body> 
+        </TestCase> 
+ 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_String_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a String in a property." keywords="[Runtime Localization,ResourceBundleMetadata,String,Property]" > 
+            <setup>
+                <ResetComponent target="lbl2" className="Components.CLabelTextGetStringCustom" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <AssertPropertyValue target="lbl2" propertyName="text" value="Vérifiez les mises à jour" />                 
+            </body> 
+        </TestCase> 
+ 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Number_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Number]" > 
+            <setup>
+                <ResetComponent target="ti1" className="Components.CTextInputAlphaGetNumber" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <AssertPixelValue target="ti1" x="10" y="10" value="0x4BAB4B" />                 
+            </body> 
+        </TestCase> 
+ 
+        <!-- Don't test that maxChars works...just check the property. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Int_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as an int in a property." keywords="[Runtime Localization,ResourceBundleMetadata,int]" > 
+            <setup>
+                <ResetComponent target="ti2" className="Components.CTextInputMaxCharsGetInt" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <AssertPropertyValue target="ti2" propertyName="maxChars" value="7" />                 
+            </body> 
+        </TestCase> 
+ 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Uint_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a uint in a property." keywords="[Runtime Localization,ResourceBundleMetadata,uint]" > 
+            <setup>
+                <ResetComponent target="cp1" className="Components.CColorPickerSelectedColorGetUint" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <AssertPixelValue target="cp1" x="10" y="10" value="0x0000FF" />                 
+            </body> 
+        </TestCase> 
+ 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should not be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_False_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <ResetComponent target="ck1" className="Components.CCheckBoxSelectedGetBooleanLeft" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <CompareBitmap target="ck1" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_True_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <ResetComponent target="ck2" className="Components.CCheckBoxSelectedGetBooleanRight" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck2" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <CompareBitmap target="ck2" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_StringArray_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a StringArray in a property." keywords="[Runtime Localization,ResourceBundleMetadata,StringArray]" > 
+            <setup>
+                <ResetComponent target="dc1" className="Components.CDateChooserMonthNamesGetStringArray" waitEvent="updateComplete" />
+                <SetProperty target="dc1" propertyName="displayedMonth" valueExpression="value = monthIndex = (application.dc1.displayedMonth == 11 ? 0 : application.dc1.displayedMonth + 1);" waitEvent="updateComplete" waitTarget="dc1" />
+            </setup> 
+            <body> 
+                <AssertPropertyValue target="dc1.mx_internal:monthDisplay" propertyName="text" valueExpression="value=frMonths[monthIndex]" />                 
+            </body> 
+        </TestCase> 
+ 
+        <!-- This checks a horizontal line through the French flag image. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Class]" > 
+            <setup>
+                <ResetComponent target="img1" className="Components.CImageSourceGetClass" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPixelValue target="img1" x="14" y="25" value="0x000063" />
+                <AssertPixelValue target="img1" x="15" y="25" value="0x000063" />
+                <AssertPixelValue target="img1" x="17" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="18" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="19" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="20" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="21" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="22" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="23" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="24" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="25" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="26" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="27" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="28" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="29" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="30" y="25" value="0xFFFFFF" />
+                <AssertPixelValue target="img1" x="32" y="25" value="0xD60818" />
+                <AssertPixelValue target="img1" x="33" y="25" value="0xD60818" />
+                <AssertPixelValue target="img1" x="34" y="25" value="0xD60818" />                
+            </body> 
+        </TestCase> 
+         
+        <!-- Just check the style. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_String_Bundle1_Style_fr_1" description="Test that resourceManager.getXX() can be used to specify a custom resource as a String in a style." keywords="[Runtime Localization,ResourceBundleMetadata,String,Style]" > 
+            <setup>
+                <ResetComponent target="lbl3" className="Components.CLabelFontStyleGetStringLeft" waitEvent="updateComplete" />
+           </setup>
+           <body>
+               <AssertStyleValue target="lbl3" styleName="fontStyle" value="normal" />      
+           </body>
+        </TestCase> 
+
+        <!-- Just check the style. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_String_Bundle1_Style_fr_2" description="Test that resourceManager.getXX() can be used to specify a custom resource as a String in a style." keywords="[Runtime Localization,ResourceBundleMetadata,String,Style]" > 
+            <setup>
+                <ResetComponent target="lbl4" className="Components.CLabelFontStyleGetStringRight" waitEvent="updateComplete" />
+           </setup>
+           <body>
+               <AssertStyleValue target="lbl4" styleName="fontStyle" value="italic" />               
+           </body>
+        </TestCase> 
+ 
+        <!-- Just check the style. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Number_Bundle1_Style_fr_1" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Number,Style]" > 
+            <setup>
+                <ResetComponent target="lbl5" className="Components.CLabelFontSizeGetNumberLeft" waitEvent="updateComplete" />
+           </setup>
+            <body>
+                <AssertStyleValue target="lbl5" styleName="fontSize" value="12" />               
+            </body>         
+    </TestCase> 
+
+        <!-- Just check the style. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Number_Bundle1_Style_fr_2" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Number,Style]" > 
+            <setup>
+                <ResetComponent target="lbl6" className="Components.CLabelFontSizeGetNumberRight" waitEvent="updateComplete" />
+           </setup>
+            <body>
+                <AssertStyleValue target="lbl6" styleName="fontSize" value="3" />                
+            </body>         
+    </TestCase> 
+ 
+        <!-- Check the precision of the HSlider. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Int_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as an Int in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Int,Style]" > 
+            <setup>
+                <ResetComponent target="slider1" className="Components.CSliderPrecisionGetInt" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="slider1" localX="50" localY="15" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" target="slider1" localX="50" localY="15" />
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value=SliderDataTip(application.systemManager.toolTipChildren.getChildAt(0)).text" valueExpression="value='1,000'" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseUp" target="slider1" localX="50" localY="15" />
+                <WaitForEffectsToEnd />            
+            </cleanup>
+        </TestCase> 
+ 
+        <!-- Check the vertical line of the letter R and make sure it's red.. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Number_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Number,Style]" > 
+            <setup>
+                <ResetComponent target="lbl7" className="Components.CLabelColorGetUint" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <CompareBitmap target="lbl7" url="../Integration/Baselines/$testID.png" />
+            </body> 
+        </TestCase> 
+ 
+         <!-- Left's lineThrough is false, right's lineThrough is true, for French. -->
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_fr_1" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup> 
+                <ResetComponent target="btn1" className="Components.CFxButtonLineThroughGetBooleanLeft" waitEvent="updateComplete" />
+           </setup>
+           <body> 
+               <CompareBitmap target="btn1" url="../Integration/Baselines/$testID.png" />
+           </body> 
+        </TestCase> 
+ 
+        <!-- Left's lineThrough is false, right's lineThrough is true, for French. -->
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_fr_2" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup> 
+                <ResetComponent target="btn2" className="Components.CFxButtonLineThroughGetBooleanRight" waitEvent="updateComplete" />
+           </setup>
+           <body> 
+               <CompareBitmap target="btn2" url="../Integration/Baselines/$testID.png" />
+           </body> 
+        </TestCase> 
+
+        <!-- Check that alternatingColors are green and blue. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_StringArray_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a StringArray in a style." keywords="[Runtime Localization,ResourceBundleMetadata,StringArray,Style]" > 
+            <setup>
+                <ResetComponent target="list1" className="Components.CListAlternatingColorsGetStringArray" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <CompareBitmap target="list1" url="../Integration/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20" />
+            </body> 
+        </TestCase> 
+ 
+        <!-- French flag. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_Embed_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using Embed." keywords="[Runtime Localization,ResourceBundleMetadata,Class,Style,Embed]" > 
+            <setup>
+                <ResetComponent target="btn3" className="Components.CButtonOverSkinGetClass" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <CompareBitmap target="btn3" url="../Integration/Baselines/$testID.png" />
+            </body> 
+        </TestCase> 
+ 
+        <!-- Verify the backwards checkmark by examining a line across the upper half of the check box.  The tail of the check should be on the left. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_ClassReference_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using ClassReference." keywords="[Runtime Localization,ResourceBundleMetadata,Class,Style,ClassReference]" > 
+            <setup>
+                <ResetComponent target="ck3" className="Components.CCheckBoxSelectedIconsGetClass" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck3" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <CompareBitmap target="ck3" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+
+    </testCases>
+</UnitTester>

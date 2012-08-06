@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="RuntimeLocalization/RTL_SparkSkin/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_DefaultLocale.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Script><![CDATA[
+        import mx.utils.*;
+        import mx.resources.ResourceManager;
+        import mx.resources.ResourceBundle;
+    ]]></mx:Script>
+
+<!-- 
+For this file, no locale information has been compiled one way or another, so
+we're using the default, en_US. 
+-->
+
+    <testCases>
+<!--
+==============================================================================
+getLocales: We have en_US by deafult.
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getLocales_DefaultLocale" description="Confirm that getLocales returns the default (en_US) when no locale info is specified." keywords="[Runtime Localization,ResourceManager,getLocales]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()" >
+                    <value>
+                        <mx:String>en_US</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getBundleNamesForLocale
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').length" value="11" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_effects" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('effects') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_controls" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('controls') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_styles" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('styles') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_core" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('core') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_validators" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('validators') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_SharedResources" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('SharedResources') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_formatters" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('formatters') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_skins" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('skins') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBundleNamesForLocale_DefaultLocale_collections" description="Confirm that getBundleNamesForLocale returns the locales." keywords="[Runtime Localization,ResourceManager,getBundleNamesForLocale]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').indexOf('collections') != -1" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getResourceBundle: Get the ResourceBundle object for core, then verify a few ways:
+    1. Be sure we get back a ResourceBundle.
+    2. Check bundleName property
+    3. Check locale property
+    
+    Also test some error conditions:
+    - Call for a locale which doesn't exist.
+    - Call for en_US, but for a bundle that doesn't exist.
+==============================================================================
+-->
+        <!-- en_US, core -->
+        
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getResourceBundle_DefaultLocale_core_ClassCorrect" description="Confirm that getResourceBundle returns the correct bundle." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getResourceBundle('en_US', 'core')) is ResourceBundle" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getResourceBundle_DefaultLocale_core_bundleNameCorrect" description="Confirm that getResourceBundle returns the correct bundle." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+            <body>
+                <AssertMethodValue method="value=ResourceBundle(ResourceManager.getInstance().getResourceBundle('en_US', 'core')).bundleName" value="core" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getResourceBundle_DefaultLocale_core_localeCorrect" description="Confirm that getResourceBundle returns the correct bundle." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+            <body>
+                <AssertMethodValue method="value=ResourceBundle(ResourceManager.getInstance().getResourceBundle('en_US', 'core')).locale" value="en_US" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getResourceBundle_DefaultLocale_core_sampleValueCorrect" description="Confirm that getResourceBundle returns the correct bundle." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('en_US', 'core').content['viewSource']" value="View Source" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <!-- Erroroneous situations -->
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getResourceBundle_DefaultLocale_NonexistantLocale" description="Confirm that getResourceBundle fails correctly if the locale it is given does not exist." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+            <body>
+                <AssertMethodValue method="value=ResourceBundle(ResourceManager.getInstance().getResourceBundle('xx_YY', 'core'))" value="null" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getResourceBundle_DefaultLocale_NonexistantBundle" description="Confirm that getResourceBundle fails correctly if the bundle it is given does not exist." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+            <body>
+                <AssertMethodValue method="value=ResourceBundle(ResourceManager.getInstance().getResourceBundle('en_US', 'hotdog'))" value="null" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+
+<!--
+==============================================================================
+getObject: All of the getXX() functions call getObject(), so we don't
+have to do a thorough testing of it in this section.
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getObject_DefaultLocale_Class" description="Confirm that getObject returns an Object." keywords="[Runtime Localization,ResourceManager,getObject]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getObject('core', 'viewSource')) is Object" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+        
+<!--
+==============================================================================
+getString
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getString_DefaultLocale_Class" description="Confirm that getString returns a String." keywords="[Runtime Localization,ResourceManager,getString]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getString('core', 'viewSource')) is String" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getString_DefaultLocale_CheckString" description="Perform a simple string retrieval." keywords="[Runtime Localization,ResourceManager,getString]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('core', 'viewSource')" value="View Source" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getStringArray:
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getStringArray_DefaultLocale_Class" description="Confirm that getStringArray returns an Array." keywords="[Runtime Localization,ResourceManager,getStringArray]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getStringArray('controls', 'dayNamesShortest')) is Array" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getStringArray_DefaultLocale_CheckArray" description="Perform a simple string array retrieval." keywords="[Runtime Localization,ResourceManager,getStringArray]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getStringArray('controls', 'dayNamesShortest')" >
+                    <value>
+                        <mx:String>S</mx:String>
+                        <mx:String>M</mx:String>
+                        <mx:String>T</mx:String>
+                        <mx:String>W</mx:String>
+                        <mx:String>T</mx:String>
+                        <mx:String>F</mx:String>
+                        <mx:String>S</mx:String>
+                    </value>
+                </AssertMethodValue>
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getNumber
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getNumber_DefaultLocale_Class" description="Confirm that getNumber returns a Number." keywords="[Runtime Localization,ResourceManager,getNumber]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getNumber('validators', 'currencyValidatorPrecision')) is Number" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getNumber_DefaultLocale_CheckNumber" description="Perform a simple number retrieval." keywords="[Runtime Localization,ResourceManager,getNumber]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getNumber('validators', 'currencyValidatorPrecision')" value="2" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getBoolean
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getBoolean_DefaultLocale_Class" description="Confirm that getNumber returns a Bloolean." keywords="[Runtime Localization,ResourceManager,getBoolean]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getBoolean('formatters', 'useThousandsSeparator')) is Boolean" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_Boolean_CheckBoolean" description="Perform a simple boolean retrieval." keywords="[Runtime Localization,ResourceManager,getBoolean]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBoolean('formatters', 'useThousandsSeparator')" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getInt
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getInt_DefaultLocale_Class" description="Confirm that getInt returns a Int." keywords="[Runtime Localization,ResourceManager,getInt]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getInt('validators', 'currencyValidatorPrecision')) is int" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getInt_DefaultLocale_CheckInt" description="Perform a simple int retrieval." keywords="[Runtime Localization,ResourceManager,getInt]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getInt('validators', 'currencyValidatorPrecision')" value="2" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getUint
+==============================================================================
+-->
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getUint_DefaultLocale_Class" description="Confirm that getUint returns a Uint." keywords="[Runtime Localization,ResourceManager,getUint]" >
+            <body>
+                <AssertMethodValue method="value=(ResourceManager.getInstance().getUint('validators', 'currencyValidatorPrecision')) is uint" value="true" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_getUint_DefaultLocale_CheckUint" description="Perform a simple uint retrieval." keywords="[Runtime Localization,ResourceManager,getUint]" >
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().getUint('validators', 'currencyValidatorPrecision')" value="2" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+<!--
+==============================================================================
+getClass - Not available in default locale at this time.
+==============================================================================
+-->
+
+
+    </testCases>
+</UnitTester>

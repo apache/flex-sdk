@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="RuntimeLocalization/RTL_HaloSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_ResourceBundleMetadata_frFR_jaJP_enUS_Halo.mxml" > 
+ 
+    <!-- this set of lines form a template that must be in each unit test --> 
+        <mx:Script><![CDATA[ 
+            public static function init(o:DisplayObject):void{} 
+        ]]></mx:Script> 
+ 
+        <mx:Metadata><![CDATA[ 
+            [Mixin] 
+        ]]></mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test --> 
+ 
+    <mx:Script><![CDATA[ 
+        import mx.controls.sliderClasses.SliderDataTip;
+        import mx.managers.SystemManager;
+    	import mx.resources.ResourceManager;
+	
+        private var monthIndex:int; 
+        private var frMonths:Array = ["fr_January","fr_February","fr_March","fr_April","fr_May","fr_June","fr_July","fr_August","fr_September","fr_October","fr_November","fr_December"]; 
+        private var jaMonths:Array = ["ja_January","ja_February","ja_March","ja_April","ja_May","ja_June","ja_July","ja_August","ja_September","ja_October","ja_November","ja_December"]; 
+        private var enMonths:Array = ["en_January","en_February","en_March","en_April","en_May","en_June","en_July","en_August","en_September","en_October","en_November","en_December"]; 
+
+    ]]></mx:Script> 
+ 
+    <testCases> 
+	
+    <!-- General approach:
+         <setup>
+           - Set to an undesired locale chain.  No need to wait for an event.
+           - ResetComponent: Do this with a custom component, because we're using binding expressions.
+            - Wait for updateComplete.
+         </setup>
+         <body>
+           - Set to a desired locale chain and wait for the updateComplete that should result from the locale chain change.
+           (- Assert that the ResourceManager dispatches a change event...slight override of the test case, maybe should move to Events.)
+           - Verify that the controls are updated.
+         </body>
+    -->
+     
+<!-- 
+======================================================== 
+The associated swf launches in the fr_FR locale. 
+======================================================== 
+-->  
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should not be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_False_fr_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" />
+                <ResetComponent target="ck1" className="Components.CCheckBoxSelectedGetBooleanLeft" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="ck1" />
+                <CompareBitmap target="ck1" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_True_fr_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" />
+                <ResetComponent target="ck2" className="Components.CCheckBoxSelectedGetBooleanRight" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck2" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="ck2" />
+                <CompareBitmap target="ck2" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <!-- The panel on the left has square bottom corners, and the panel on the right has round bottom corners. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_fr_1_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup>	
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" />
+                <ResetComponent target="pnl1" className="Components.CPanelRoundedCornersGetBooleanLeft" waitEvent="updateComplete" />
+           </setup>
+           <body> 
+               <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="pnl1" />
+               <AssertPixelValue target="pnl1" x="19" y="19" value="0x5AAB5A" />               
+           </body> 
+        </TestCase> 
+ 
+        <!-- The panel on the left has square bottom corners, and the panel on the right has round bottom corners. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_fr_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup>	
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" />
+                <ResetComponent target="pnl2" className="Components.CPanelRoundedCornersGetBooleanRight" waitEvent="updateComplete" />
+           </setup>
+           <body> 
+               <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="pnl2" />
+               <AssertPixelValue target="pnl2" x="19" y="19" value="0x006600" />               
+           </body> 
+        </TestCase> 
+ 
+        <!-- Check that the button is green on top and blue at the bottom. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_StringArray_Bundle1_Style_fr_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a StringArray in a style." keywords="[Runtime Localization,ResourceBundleMetadata,StringArray,Style]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" />
+                <ResetComponent target="btn1" className="Components.CButtonFillColorsGetStringArray" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="btn1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="btn1" />
+                <AssertPixelValue target="btn1" x="20" y="1" value="0x4CA74C" /> 
+                <AssertPixelValue target="btn1" x="20" y="17" value="0x003D88" />                 
+            </body> 
+        </TestCase> 
+ 
+        <!-- Verify the backwards checkmark by examining a line across the upper half of the check box.  The tail of the check should be on the left. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_ClassReference_Bundle1_Style_fr_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using ClassReference." keywords="[Runtime Localization,ResourceBundleMetadata,Class,Style,ClassReference]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" />
+                <ResetComponent target="ck3" className="Components.CCheckBoxSelectedIconsGetClass" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck3" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="ck3" />
+                <CompareBitmap target="ck3" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+<!-- 
+======================================================== 
+Verify that things are correct when we switch to ja_JP. 
+======================================================== 
+--> 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_True_ja_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="ck1" className="Components.CCheckBoxSelectedGetBooleanLeft" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="ck1" />
+                <CompareBitmap target="ck1" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_True2_ja_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" />
+                <ResetComponent target="ck2" className="Components.CCheckBoxSelectedGetBooleanRight" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck2" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="ck2" />
+                <CompareBitmap target="ck2" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+
+        <!-- Check for the rounded corner of the panel on the left. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_ja_1_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup>	
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="pnl1" className="Components.CPanelRoundedCornersGetBooleanLeft" waitEvent="updateComplete" />
+           </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="pnl1" />
+                <AssertPixelValue target="pnl1" x="19" y="19" value="0x006600" />                 
+            </body> 
+        </TestCase> 
+ 
+       <!-- Check for the rounded corner of the panel on the right. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_ja_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup>	
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" />
+                <ResetComponent target="pnl2" className="Components.CPanelRoundedCornersGetBooleanRight" waitEvent="updateComplete" /> 
+           </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="pnl2" /> 
+                <AssertPixelValue target="pnl2" x="19" y="19" value="0x006600" />                
+            </body> 
+        </TestCase> 
+
+        <!-- Check that the button is white on top and red at the bottom. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_StringArray_Bundle1_Style_ja_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a StringArray in a style." keywords="[Runtime Localization,ResourceBundleMetadata,StringArray,Style]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="btn1" className="Components.CButtonFillColorsGetStringArray" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="btn1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="btn1" /> 
+                <AssertPixelValue target="btn1" x="20" y="1" value="0xD2EAD2" /> 
+                <AssertPixelValue target="btn1" x="20" y="17" value="0xAA4F22" />                  
+            </body> 
+        </TestCase> 
+ 
+        <!-- Verify the box by examining a line across the middle of the check box. (The checkmark is a square.) --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_ClassReference_Bundle1_Style_ja_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using ClassReference." keywords="[Runtime Localization,ResourceBundleMetadata,Class,Style,ClassReference]" > 
+            <setup> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="ck3" className="Components.CCheckBoxSelectedIconsGetClass" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck3" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" /> 
+            </setup> 
+            <body>
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="ck3" /> 
+                <CompareBitmap target="ck3" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+<!-- 
+======================================================== 
+Verify that things are right when we switch to en_US. 
+======================================================== 
+--> 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_en_1_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="ck1" className="Components.CCheckBoxSelectedGetBooleanLeft" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="ck1" />
+                <CompareBitmap target="ck1" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <!-- This checks a horizontal line through the checkbox, where the checkmark should not be. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Property_en_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="ck2" className="Components.CCheckBoxSelectedGetBooleanRight" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck2" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="ck2" />
+                <CompareBitmap target="ck2" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+        <!-- Check for the rounded corner of the panel on the left. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_en_1_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup>	
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="pnl1" className="Components.CPanelRoundedCornersGetBooleanLeft" waitEvent="updateComplete" />
+           </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="lbl7" />
+                <AssertPixelValue target="pnl1" x="19" y="19" value="0x006600" />                                 
+            </body> 
+        </TestCase> 
+ 
+       <!-- Check for the square corner of the panel on the right. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Boolean_Bundle1_Style_en_2_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ResourceBundleMetadata,Boolean,Style]" > 
+            <setup>	
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="pnl2" className="Components.CPanelRoundedCornersGetBooleanRight" waitEvent="updateComplete" />
+           </setup>
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="pnl2" />
+                <AssertPixelValue target="pnl2" x="19" y="19" value="0x5AAB5A" />
+            </body> 
+        </TestCase> 
+ 
+        <!-- Check that the button is red on top and blue at the bottom. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_StringArray_Bundle1_Style_en_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a StringArray in a style." keywords="[Runtime Localization,ResourceBundleMetadata,StringArray,Style]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="btn1" className="Components.CButtonFillColorsGetStringArray" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="btn1" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="btn1" />
+                <AssertPixelValue target="btn1" x="20" y="1" value="0x93634C" /> 
+                <AssertPixelValue target="btn1" x="20" y="17" value="0x122D48" />                 
+            </body> 
+        </TestCase> 
+ 
+        <!-- Verify the standard checkmark by examining a line across the upper half of the check box.  The tail of the check should be on the right. --> 
+        <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_ClassReference_Bundle1_Style_en_Halo" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using ClassReference." keywords="[Runtime Localization,ResourceBundleMetadata,Class,Style,ClassReference]" > 
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" />
+                <ResetComponent target="ck3" className="Components.CCheckBoxSelectedIconsGetClass" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="ck3" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
+            </setup> 
+            <body> 
+               <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="ck3" />
+               <CompareBitmap target="ck3" url="../Integration/Baselines/$testID.png"  />
+            </body> 
+        </TestCase> 
+ 
+    </testCases> 
+</UnitTester> 

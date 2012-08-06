@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application width="800" height="800" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:Components="Components.*" backgroundColor="0x008800" backgroundImage="" >
+
+<mx:Metadata>
+    [ResourceBundle("bundle1")]
+    [ResourceBundle("bundle2")]
+    [ResourceBundle("bundle3")]
+    [ResourceBundle("bundle4")]
+</mx:Metadata>
+
+<mx:Script><![CDATA[
+    import mx.resources.ResourceManager;
+]]></mx:Script>
+
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+    <!-- Fields needed to pull in framework bundles. -->
+    <mx:DateField />
+    <mx:NumberValidator />
+    <mx:NumberFormatter />
+    <mx:Array />
+
+
+<!-- Fields needed by RTL_ResourceBundleMetadata_1Locale.mxml -->
+
+    <mx:HBox>
+        <mx:Label text="Feel free to change the locale chain manually here." />
+        <mx:TextInput id="tiLocaleChain" width="100" />
+        <mx:Button label="Apply!" click="{resourceManager.localeChain=tiLocaleChain.text.split(',')}" />
+    </mx:HBox>
+
+<!-- 
+    There are many custom classes so that we can call ResetComponent and still
+    have our binding expressions.
+-->
+
+<!--
+===================================================================
+ResourceBundle Metadata Properties
+===================================================================
+-->
+
+    <mx:Label color="0xffffff" text="Property ResourceBundle Metadata tests (resourceManager.getXX()):" />
+
+    <mx:HBox>
+        <mx:Label text="Framework string:" />
+        <Components:CLabelTextGetStringFramework id="lbl1" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Label text="Non-framework string, as a property:" />
+        <Components:CLabelTextGetStringCustom id="lbl2" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Label text="Number (alpha=0.3 for French, 0.7 for English, 0.5 for Japanese):"  />
+        <Components:CTextInputAlphaGetNumber id="ti1" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Label text="int (maxChars=7 for French, 12 for English, 3 for Japanese):"  />
+        <Components:CTextInputMaxCharsGetInt id="ti2" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Label text="uint (selectedColor=blue for French, green for English, red for Japanese):"  />
+        <Components:CColorPickerSelectedColorGetUint id="cp1" />
+    </mx:HBox>
+    
+    <mx:HBox>
+        <mx:Label text="Boolean (unchecked/checked for French, checked/unchecked for English, both checked for Japanese):"  />
+        <Components:CCheckBoxSelectedGetBooleanLeft id="ck1" />
+        <Components:CCheckBoxSelectedGetBooleanRight id="ck2" />
+    </mx:HBox>    
+
+    <mx:HBox>
+        <mx:Label text="StringArray (month names begin with fr, en, or ja):"  />
+        <Components:CDateChooserMonthNamesGetStringArray id="dc1" />
+    </mx:HBox>
+
+    <mx:HBox id="img1Container">
+        <mx:Label text="Class with Embed (image is the country's flag.):"  />
+        <Components:CImageSourceGetClass id="img1"  />
+    </mx:HBox>
+
+<!--
+===================================================================
+ResourceBundle Metadata Styles
+===================================================================
+-->
+    <mx:Label color="0xffffff" text="Style ResourceBundle Metadata tests (resourceManager.getXX()):" />
+    
+    <mx:HBox>
+        <mx:Label text="String (right italicized for French, left one for English, both for Japanese):"  />
+        <Components:CLabelFontStyleGetStringLeft id="lbl3" />
+        <Components:CLabelFontStyleGetStringRight id="lbl4" />
+    </mx:HBox>    
+
+    <mx:HBox>
+        <mx:Label text="Number (right tiny for French, left tiny for English, both tiny for Japanese):"  />
+        <Components:CLabelFontSizeGetNumberLeft id="lbl5" />
+        <Components:CLabelFontSizeGetNumberRight id="lbl6" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Label text="int (3 zeroes for French, 4 for English, 6 for Japanese):"  />
+        <Components:CSliderPrecisionGetInt id="slider1" />
+    </mx:HBox>
+   
+    <mx:HBox>
+        <mx:Label text="uint (Red for French, blue for English, green for Japanese):"  />
+        <Components:CLabelColorGetUint id="lbl7" />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Label text="Boolean (right panel's bottom corners rounded for French, left for English, both for Japanese):"  />
+        <mx:HBox>
+            <Components:CPanelRoundedCornersGetBooleanLeft id="pnl1" />
+            <Components:CPanelRoundedCornersGetBooleanRight id="pnl2" />
+        </mx:HBox>
+    </mx:HBox>
+ 
+     <mx:HBox>
+         <mx:Label text="StringArray (gradient is green (top) to blue (bottom) for French, red to blue for English, white to red for Japanese):"  />
+         <Components:CButtonFillColorsGetStringArray id="btn1" />
+    </mx:HBox>    
+ 
+    <mx:HBox>
+         <mx:Label text="Class style using Embed (Button skins are the country's flag):"  />
+         <Components:CButtonOverSkinGetClass id="btn2" />
+    </mx:HBox>
+    
+    <mx:HBox>
+        <mx:Label text="Class style using ClassReference (French has a backwards check, English has a forwards one, Japanese has a square):"  />
+        <Components:CCheckBoxSelectedIconsGetClass id="ck3" />
+    </mx:HBox>
+
+
+</mx:Application>

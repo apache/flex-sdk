@@ -1,0 +1,4 @@
+-locale=qa_QA
+-source-path+=Assets/bundles/framework/qa_QA
+-library-path=${mustella.dir},${mustella.dir}/classes,${sdk.dir}/frameworks/libs/core.swc,${sdk.dir}/frameworks/libs/framework.swc,${sdk.dir}/frameworks/libs/mx/mx.swc,${sdk.dir}/frameworks/libs/rpc.swc,${sdk.dir}/frameworks/libs/authoringsupport.swc,${sdk.dir}/frameworks/libs/sparkskins.swc,${sdk.dir}/frameworks/libs/spark.swc,${sdk.dir}/frameworks/libs/textLayout.swc
+-theme=${flexlib}/themes/Halo/halo.swc

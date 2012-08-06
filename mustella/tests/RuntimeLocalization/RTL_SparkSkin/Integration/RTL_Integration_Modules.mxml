@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="RuntimeLocalization/RTL_SparkSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_Modules.mxml" > 
+ 
+    <!-- this set of lines form a template that must be in each unit test --> 
+        <mx:Script><![CDATA[ 
+            public static function init(o:DisplayObject):void{} 
+        ]]></mx:Script> 
+ 
+        <mx:Metadata><![CDATA[ 
+            [Mixin] 
+        ]]></mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test --> 
+ 
+    <mx:Script><![CDATA[ 
+       
+        import mx.events.ResourceEvent;
+        import mx.events.ModuleEvent;
+        import mx.resources.ResourceManager;
+        
+        private var monthIndex:int; 
+        private var frMonths:Array = ["fr_January","fr_February","fr_March","fr_April","fr_May","fr_June","fr_July","fr_August","fr_September","fr_October","fr_November","fr_December"]; 
+        private var enMonths:Array = ["January","February","March","April","May","June","July","August","September","October","November","December"]; 
+        
+        public var ed1:IEventDispatcher;
+        
+        /*
+        * Reset the localized resources to what they were when the app. started up.
+        * This means locale=en_US, and bundles=styles, containers, skins, effects, and core.
+        * We have to do this because loading a module will contribute its resources to the
+        * ResourceManager, which can taint further tests.
+        */
+        private function clearLocaleData():void{      
+            
+            var bundles:Array;
+            
+            for(var i:int = ResourceManager.getInstance().getLocales().length; i > 0; --i){
+                if(ResourceManager.getInstance().getLocales()[i-1] != "en_US"){
+                    ResourceManager.getInstance().removeResourceBundlesForLocale(ResourceManager.getInstance().getLocales()[i-1]);
+                }
+                else{
+                    bundles = ResourceManager.getInstance().getBundleNamesForLocale("en_US");
+                    for(var j:int = 0; j < bundles.length; ++j){
+                        if( bundles[j] != "styles" &&
+                            bundles[j] != "containers" &&
+                            bundles[j] != "skins" &&
+                            bundles[j] != "effects" &&
+                            bundles[j] != "core" ){
+                            
+                            ResourceManager.getInstance().removeResourceBundle("en_US", bundles[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        /*
+        * We may or may not have something to unload, so we can't blindly call unload() and wait
+        * for an unload event.
+        */
+        private function handleUnload():void{
+            if(application.ml.child != null){
+                application.ml.unloadModule();            
+            }
+            else{
+                application.ml.dispatchEvent(new ModuleEvent("unload"));
+            }                
+        }
+        
+        // Event handlers
+        private function handleResourceErrorEvent(e:ResourceEvent):void{trace("Resource Error Event: " + e.toString())}
+        private function handleResourceProgressEvent(e:ResourceEvent):void{trace("Resource Progress Event: " + e.toString())}
+        private function handleResourceCompleteEvent(e:ResourceEvent):void{trace("Resource Complete Event: " + e.toString())}
+        private function handleModuleErrorEvent(e:ModuleEvent):void{trace("Module Error Event: " + e.toString())}
+        private function handleModuleProgressEvent(e:ModuleEvent):void{trace("Module Progress Event: " + e.toString())}
+        private function handleModuleReadyEvent(e:ModuleEvent):void{trace("Module Ready Event: " + e.toString())}
+        private function handleModuleUnloadEvent(e:ModuleEvent):void{trace("Module Unload Event: " + e.toString())}    
+    
+    ]]></mx:Script> 
+
+<!-- 
+======================================================== 
+Notes: 
+It seems that a ModuleLoader automatically
+unloads a previously loaded module when you load a new
+one.  
+ModuleLoader does not let you reload a module.
+Start every test with a call to unloadModule() to be sure
+we can reload the module.
+======================================================== 
+--> 
+ 
+    <testCases> 
+
+<!-- 
+======================================================== 
+Parent: en_US
+Module: en_US
+Should work fine.
+======================================================== 
+-->     
+       <TestCase frequency="all" testID="RTL_Integration_FrameworkModule_ParentChildSameLocale" description="Testing loading a module containing a framework component, when the parent and module were compiled using the same locale." keywords="[Runtime Localization,Module,ModuleLoader]" >
+            <setup>
+                <RunCode code="handleUnload()" />
+                <AssertEvent target="ml" eventName="unload" eventClass="mx.events::ModuleEvent" />
+				<RunCode code="trace('1a')" />
+                <RunCode code="clearLocaleData()" />
+				<RunCode code="trace('2a')" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').length" value="5" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="en_US" />
+            </setup>
+            <body>
+                <SetProperty target="ml" propertyName="url" value="Assets/Modules/module_framework_enUS.swf" />
+				<RunCode code="trace('3a')" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.READY, handleModuleReadyEvent)" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.ERROR, handleModuleErrorEvent)" />
+				<RunCode code="trace('4a')" />
+                <AssertMethodValue method="value=application.ml.loadModule()" valueExpression="value=null" />
+				<AssertEvent target="ml" eventName="ready" eventClass="mx.events::ModuleEvent" />
+				<AssertEvent target="ml.child.dc1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertPropertyValue target="ml.child.dc1.mx_internal:monthDisplay" propertyName="text" valueExpression="value=enMonths[application.ml.child.dc1.displayedMonth]" />
+            </body>
+        </TestCase>
+
+       <TestCase frequency="all" testID="RTL_Integration_NonFrameworkModule_ParentChildSameLocale" description="Testing loading a module containing a nonframework component, when the parent and module were compiled using the same locale." keywords="[Runtime Localization,Module,ModuleLoader]" >
+            <setup>
+                <RunCode code="handleUnload()" />
+                <AssertEvent target="ml" eventName="unload" eventClass="mx.events::ModuleEvent" />
+				<RunCode code="trace('1b')" />
+                <RunCode code="clearLocaleData()" />
+				<RunCode code="trace('2b')" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').length" value="5" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="en_US" />
+            </setup>
+            <body>
+                <SetProperty target="ml" propertyName="url" value="Assets/Modules/module_nonframework_enUS.swf" />
+				<RunCode code="trace('3b')" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.READY, handleModuleReadyEvent)" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.ERROR, handleModuleErrorEvent)" />
+                <AssertMethodValue method="value=application.ml.loadModule()" valueExpression="value=null" />
+                <AssertEvent target="ml" eventName="ready" eventClass="mx.events::ModuleEvent" />
+                <AssertEvent target="ml.child.lbl1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+				<RunCode code="trace('4b')" />
+                <AssertPropertyValue target="ml.child.lbl1" propertyName="text" value="Shut down" />
+            </body>
+        </TestCase>
+
+<!-- 
+======================================================== 
+Parent: en_US
+Module: ja_JP
+Should fail because the en_US resources for the control
+in the module are not present anywhere.
+Not testing for now.  We cannot catch this RTE unless
+we write a custom component, since the RTE occurs
+as the component is loading.  It is a lower priority
+to test this when we know it is the wrong thing to do.
+======================================================== 
+--> 
+
+<!-- 
+======================================================== 
+Parent: en_US, and using loadResourceModule() to load
+additional resources which the module will need.
+Module: ja_JP
+Should pass because we are loading the necessary
+localization resources first.
+======================================================== 
+--> 
+       
+       <TestCase frequency="all" testID="RTL_Integration_FrameworkModule_ParentLoadsNecessaryResources" description="Testing loading a module containing a framework component, when the parent and module were compiled using different locales, and the parent late-loads the resources the module needs." keywords="[Runtime Localization,Module,ModuleLoader]" >
+            <setup>
+                <RunCode code="clearLocaleData()" />
+				<RunCode code="trace('1c')" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').length" value="5" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="en_US" />
+            </setup>
+            <body>
+                <RunCode code="ed1=ResourceManager.getInstance().loadResourceModule('Assets/bundles/framework/resMod_framework_enUS_004.swf')" />
+                <RunCode code="ed1.addEventListener(ResourceEvent.ERROR, handleResourceErrorEvent)" />
+                <RunCode code="ed1.addEventListener(ResourceEvent.COMPLETE, handleResourceCompleteEvent)" />
+                <RunCode code="trace('2c')" />
+				<AssertEvent target="script:ed1" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <SetProperty target="ml" propertyName="url" value="Assets/Modules/module_framework_jaJP.swf" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.READY, handleModuleReadyEvent)" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.ERROR, handleModuleErrorEvent)" />
+                <RunCode code="trace('3c')" />
+				<AssertMethodValue method="value=application.ml.loadModule()" valueExpression="value=null" />
+                <AssertEvent target="ml" eventName="ready" eventClass="mx.events::ModuleEvent" />
+                <AssertEvent target="ml.child.dc1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <RunCode code="trace('4c')" />
+				<AssertPropertyValue target="ml.child.dc1.mx_internal:monthDisplay" propertyName="text" valueExpression="value=enMonths[application.ml.child.dc1.displayedMonth]" />
+            </body>
+        </TestCase>
+
+        <!-- Exclude this due to bug 204163.  The combination of this test case and the one above it will cause an RTE to occur. -->
+        <TestCase frequency="all" testID="RTL_Integration_NonFrameworkModule_ParentLoadsNecessaryResources" description="Testing loading a module containing a framework component, when the parent and module were compiled using different locales, and the parent late-loads the resources the module needs." keywords="[Runtime Localization,Module,ModuleLoader]" >
+            <setup>
+                <RunCode code="handleUnload()" />
+                <AssertEvent target="ml" eventName="unload" eventClass="mx.events::ModuleEvent" />
+				<RunCode code="trace('1d')" />
+                <RunCode code="clearLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('en_US').length" value="5" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="en_US" />
+            </setup>
+            <body>
+                <RunCode code="trace('2d')" />
+				<RunCode code="ed1=ResourceManager.getInstance().loadResourceModule('Assets/bundles/custom/resMod_enUS_bundle1_010.swf')" />
+                <RunCode code="ed1.addEventListener(ResourceEvent.ERROR, handleResourceErrorEvent)" />
+                <RunCode code="ed1.addEventListener(ResourceEvent.COMPLETE, handleResourceCompleteEvent)" />
+                <AssertEvent target="script:ed1" eventName="complete" eventClass="mx.events::ResourceEvent" />
+				<RunCode code="trace('3d')" />
+                <SetProperty target="ml" propertyName="url" value="Assets/Modules/module_nonframework_jaJP.swf" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.READY, handleModuleReadyEvent)" />
+                <RunCode code="application.ml.addEventListener(ModuleEvent.ERROR, handleModuleErrorEvent)" />
+                <AssertMethodValue method="value=application.ml.loadModule()" valueExpression="value=null" />
+                <AssertEvent target="ml" eventName="ready" eventClass="mx.events::ModuleEvent" />
+                <AssertEvent target="ml.child.lbl1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <RunCode code="trace('4d')" />
+				<AssertPropertyValue target="ml.child.lbl1" propertyName="text" value="Shut down" />
+            </body>
+        </TestCase>
+    </testCases> 
+</UnitTester> 
+
