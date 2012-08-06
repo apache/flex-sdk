@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="apache" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+			<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/apache_rb.swc"/>
+
+			<!-- Load the <compc> task. We can't do this at the <project> level -->
+			<!-- because targets that run before flexTasks.jar gets built would fail. -->
+			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+			<compc fork="true"
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/apache_rb.swc"
+				   locale="@{locale}">
+				<jvmarg line="${compc.jvm.args}"/>
+				<target-player>${playerglobal.version}</target-player>
+				<include-resource-bundles bundle="validators"/>
+				<include-namespaces/>
+				<include-classes/>
+				<source-path path-element="${basedir}/bundles/@{locale}"/>
+				<source-path path-element="${FLEX_HOME}/frameworks/projects/apache/src"/>
+				<include-libraries/>
+				<library-path/>
+				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+					<include name="${playerglobal.version}/playerglobal.swc"/>
+				</external-library-path>
+				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+	                <include name="framework.swc"/>
+				</external-library-path>
+			</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/apache_rb.swc" update="true">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+				<zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
+					<include name="packages.dita"/>
+				</zipfileset>
+			</zip>
+		</sequential>
+	</macrodef>	
+
+	<macrodef name="bundle-clean">
+		<attribute name="locale"/>
+		<sequential>
+			<delete failonerror="false">
+				<fileset dir="${FLEX_HOME}/frameworks/locale">
+					<include name="@{locale}/apache_rb.swc"/>
+					<include name="@{locale}/apache_rb.swc.incr"/>
+				</fileset>
+			</delete>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<element name="run.fat.swc" optional="yes"/>
+		<sequential>
+			<bundle-clean locale="@{locale}"/>
+			<bundle locale="@{locale}"/>
+			<run.fat.swc/>
+		</sequential>
+	</macrodef>
+	
+	<target name="main" depends="clean,compile" description="Clean build of apache.swc and default locale">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+	
+	<!-- This is a private target for building apache.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundles">
+		<!-- these languages have localized docs -->
+		<!-- TODO add misisng locales -->
+		<bundler locale="en_AU"/><!-- Australian resources -->
+		<bundler locale="en_GB"/><!-- United Kingdom resources -->
+		<bundler locale="en_CA"/><!-- Canadian resources -->
+	</target>
+	
+	<target name="clean" depends="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			    <include name="bundles/en_US/packages.dita"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs/apache">
+				<include name="apache.swc"/>
+				<include name="apache.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/apache_rb.swc"/>
+				<include name="*/apache_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="compile" description="Compiles apache.swc">
+		<echo message="Compiling frameworks/libs/apache.swc"/>
+
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the Apache classes
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in ApacheClasses.as,
+			because these aren't referenced by the manifest classes.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/libs/apache.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>${playerglobal.version}</target-player>
+			<namespace uri="http://flex.apache.org/ns" manifest="${basedir}/manifest.xml"/>
+			<include-classes>ApacheClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                  <include name="mx.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
+			<locale/>
+			<accessible>true</accessible>
+			<keep-as3-metadata name="Bindable"/>
+			<keep-as3-metadata name="Managed"/>
+			<keep-as3-metadata name="ChangeEvent"/>
+			<keep-as3-metadata name="NonCommittingChangeEvent"/>
+			<keep-as3-metadata name="Transient"/>
+		</compc>
+	</target>
+	
+	<target name="doc" depends="clean-temp-docs" description="updates apache.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+		    <doc-classes class="ApacheClasses"/>
+		    <doc-namespaces uri="http://flex.apache.org/ns"/>
+		    <namespace uri="http://flex.apache.org/ns" manifest="${basedir}/manifest.xml"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+
+		<!-- updates apache.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/apache_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+		<copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+		<delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+	</target>
+</project>
