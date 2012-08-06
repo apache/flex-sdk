@@ -1,0 +1,18 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+        preloaderChromeColor="0xFF6633" width="300" height="250" preloader="SparkDelayedProgressBar">
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+    <s:Button label="Test"/>
+
+</s:Application>

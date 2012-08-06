@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="DownloadProgressBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+    testSWF="DownloadProgressBar_Main.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+
+	]]>
+	</mx:Script>
+
+   <testCases>
+	<TestCase testID="SparkDownloadProgressBar_default" keywords="[SparkDownloadProgressBar, backgroundColor"
+	      description="Test the default Spark preloader.">
+	      <setup>
+		   <SetProperty propertyName="source" target="swfloader1" value="assets/MainSpark.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+	         <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" target="swfloader1" timeout="2500" />
+	     </body>
+	  </TestCase>
+	<TestCase testID="SparkDownloadProgressBar_properties_backgroundColor" keywords="[SparkDownloadProgressBar, backgroundColor"
+	      description="The backgroundColor of the application should be red while the preloader is up.">
+	      <setup>
+		      <SetProperty propertyName="source" target="swfloader1" value="assets/SparkRedMain.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+	          <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <AssertPixelValue value="0xFF0000" x="5" y="5" target="swfloader1" />
+	     </body>
+	  </TestCase>
+	<TestCase testID="SparkDownloadProgressBar_properties_backgroundAlpha" keywords="[SparkDownloadProgressBar, backgroundAlpha"
+	    description="Test setting backgroundAlpha=0.2. The backgroundColor is red, so, the actual color should be pink.">
+	      <setup>
+		   <SetProperty propertyName="source" target="swfloader1" value="assets/SparkAlphaMain.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+		   <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <AssertPixelValue value="0xFFB3B3" x="5" y="5" target="swfloader1" />
+	     </body>
+	  </TestCase>
+	<TestCase testID="SparkDownloadProgressBar_properties_backgroundImage" keywords="[SparkDownloadProgressBar, backgroundImage"
+	    description="Test that the backgroundImage should be a Flex flag in the preloader.">
+	      <setup>
+		   <SetProperty propertyName="source" target="swfloader1" value="assets/SparkImageMain.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+	       <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" target="swfloader1" timeout="2500" />
+	     </body>
+	  </TestCase>
+	<TestCase testID="SparkDownloadProgressBar_properties_preloaderBaseColor" keywords="[SparkDownloadProgressBar, 	preloaderBaseColor"
+	    description="Test that the 	preloaderBaseColor changes the preloader's colors correctly.">
+	      <setup>
+		   <SetProperty propertyName="source" target="swfloader1" value="assets/SparkPreloaderBaseColorMain.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+	       <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" target="swfloader1" timeout="2500" />
+	     </body>
+	  </TestCase>
+	<!--TestCase testID="SparkDownloadProgressBar_RSL_Error" keywords="[SparkDownloadProgressBar, 	runtime shared library, error]"
+	    description="Test that the Preloader puts up an error in the application when RSls can't be loaded.">
+	      <setup>
+		   <SetProperty propertyName="source" target="swfloader1" value="assets/SparkPreloaderRSLErrorMain.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+	       <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" target="swfloader1" timeout="2500" />
+	     </body>
+	  </TestCase-->
+	<TestCase testID="SparkDownloadProgressBar_RSL_NoError" keywords="[SparkDownloadProgressBar, 	runtime shared library, error]"
+	    description="Test that the Preloader works when RSLs are loaded.">
+	      <setup>
+		   <SetProperty propertyName="source" target="swfloader1" value="assets/SparkPreloaderRSLMain.swf" waitEvent="complete"
+		       waitTarget="swfloader1"/>
+	       <Pause timeout="500" />
+	     </setup>
+	    <body>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" target="swfloader1" timeout="2500" />
+	     </body>
+	  </TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,4 @@
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" preloader="LabelProgressBar"
+    width="300" height="250" >
+    <mx:Button label="Test"/>
+</mx:Application>
