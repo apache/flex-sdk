@@ -418,6 +418,10 @@
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number}"/>
 		<!-- spark_dmv RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number}"/>		
+		<!-- apache RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number}"/>		
+		<!-- experimental RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number}"/>		
 	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
@@ -809,7 +813,9 @@
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
                 <exclude name="osmf.swc"/>
-                <exclude name="textLayout.swc"/>
+            	<exclude name="textLayout.swc"/>
+            	<exclude name="apache.swc"/>
+                <exclude name="experimental.swc"/>
             </fileset>
         </copy>
 
