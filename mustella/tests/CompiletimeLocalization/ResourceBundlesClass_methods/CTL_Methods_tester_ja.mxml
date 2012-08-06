@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="CompiletimeLocalization/ResourceBundlesClass_methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CTL_main_ja.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	
+	[Bindable]
+	public var simpleDP:Array = ['ルから', 'る「私の」', 'かな演', 'に目が離'];
+	
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.resources.*;
+	import mx.controls.*;
+	
+	[ResourceBundle("MyBundle")]
+	private static var myBundle:ResourceBundle;
+
+	
+	
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	
+	public function doTest1():void
+	{
+		application.myLabel.enabled = myBundle.getBoolean('myBooleanValue');
+	}
+	
+	public function doTest2():void
+	{
+		application.myLabel.text = String(myBundle.getNumber('myNumericStepper1_maximum'));
+	}
+	
+	public function doTest3():void
+	{
+		
+	 	application.myLabel.text = myBundle.getString('myButton1_label');
+	}
+	
+	public function doTest4():void
+		{
+			
+		 	application.myList.dataProvider = myBundle.getStringArray('myComboBox1_labels');
+		}
+		
+	
+
+
+	
+	
+	]]>
+	</mx:Script>
+	<testCases>
+	<TestCase testID="Checking_the_method_getBoolean" keywords="[CompileTime, Localization, Method, getBoolean]" description="Checking the method getBoolean">
+		<setup>
+			<ResetComponent target="myLabel" className="mx.controls::Label" waitEvent="updateComplete" />
+			<RunCode code="doTest1()"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myLabel" propertyName="enabled" value="false" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Checking_the_method_getNumber" keywords="[CompileTime, Localization, Method, getNumber]" description="Checking the method getNumber">
+			<setup>
+				<ResetComponent target="myLabel" className="mx.controls::Label" waitEvent="updateComplete" />
+				<RunCode code="doTest2()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLabel" propertyName="text" value="20" />
+			</body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="Checking_the_method_getString" keywords="[CompileTime, Localization, Method, getString]" description="Checking the method getString">
+			<setup>
+				<ResetComponent target="myLabel" className="mx.controls::Label" waitEvent="updateComplete" />
+				<RunCode code="doTest3()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLabel" propertyName="text" value="演の成" />
+			</body>
+	</TestCase>
+	
+	
+	<TestCase testID="Checking_the_method_getStringArray" keywords="[CompileTime, Localization, Method, getStringArray]" description="Checking the method getStringArray">
+		<setup>
+			<RunCode code="doTest4()" waitTarget="myList" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myList" propertyName="dataProvider" valueExpression="value=simpleDP" />
+		</body>
+	</TestCase>
+	
+	
+	
+</testCases>
+</UnitTester>

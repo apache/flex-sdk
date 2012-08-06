@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="CompiletimeLocalization/ResourceBundlesClass_properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CTL_main_en.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.resources.*;
+    import mx.controls.*;
+    import mx.managers.SystemManager;
+    public function scriptFunction(a:String, b:int):String
+    {
+        return a + ":" + b.toString();
+    }
+    public var styleDecl:Object;
+    public var styleObj:Object;
+    public function setCountry():void{
+        application.myLabel.text=Locale.getCurrent(application.systemManager).country;
+    }
+    public function setLanguage():void{
+        application.myLabel.text=Locale.getCurrent(application.systemManager).language;
+    }
+    ]]>
+    </mx:Script>
+    <testCases>
+    <TestCase testID="Checking_the_property_value_of_country" keywords="[CompileTime,Localization,Property]" description="Checking the property value of country">
+        <setup>
+            <ResetComponent target="myLabel" className="mx.controls::Label" waitEvent="updateComplete" />
+            <RunCode code="setCountry()"/>
+        </setup>
+        <body>
+            <AssertPropertyValue target="myLabel" propertyName="text" value="US" />
+        </body>
+    </TestCase>
+    <TestCase testID="Checking_the_property_value_of_language" keywords="[CompileTime, Localization, Property]" description="Checking the property value of language">
+        <setup>
+            <ResetComponent target="myLabel" className="mx.controls::Label" waitEvent="updateComplete" />
+            <RunCode code="setLanguage()"/>
+        </setup>
+        <body>
+            <AssertPropertyValue target="myLabel" propertyName="text" value="en" />
+        </body>
+    </TestCase>
+</testCases>
+</UnitTester>

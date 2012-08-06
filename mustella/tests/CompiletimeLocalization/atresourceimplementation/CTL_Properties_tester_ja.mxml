@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="CompiletimeLocalization/atresourceimplementation/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CTL_atResource_ja.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	[Bindable]
+	public var simpleDP:String = "演の成";
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.resources.*;
+	import mx.controls.*;
+	import mx.resources.ResourceManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+	public function setCountry():void{
+		//application.myLabel.text=@Resource(bundle='MyResources', key='MyResources_label');
+		//application.myLabel.text="I am from Resources Properties File"
+	}
+	]]>
+	</mx:Script>
+	<testCases>
+	<TestCase testID="Checking_the_atResourceImplementation_of_a_string" keywords="[CompileTime,Localization,atResourceImplementation]" description="Checking the atResourceImplementation of a string">
+		<setup>
+			<RunCode code="setCountry()"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myLabel" propertyName="text" valueExpression="value=simpleDP" />
+		</body>
+	</TestCase>
+	<TestCase testID="Checking_the_atResourceImplementation_of_a_boolean" keywords="[CompileTime,Localization,atResourceImplementation]" description="Checking the atResourceImplementation of a boolean">
+		<setup>
+			<RunCode code="setCountry()"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myCheckBox" propertyName="selected" value="true" />
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>
