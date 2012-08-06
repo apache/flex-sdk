@@ -101,6 +101,8 @@
         <antcall target="halo"/>
         <antcall target="wireframe"/>
         <antcall target="aeongraphical"/>
+    	<antcall target="apache"/>
+    	<antcall target="experimental"/>
         
         <antcall target="compile-automation"/>
     </target>
@@ -170,7 +172,9 @@
         <ant dir="${basedir}/projects/automation" target="other.locales"/>
         <ant dir="${basedir}/projects/automation_agent" target="other.locales"/>
         <ant dir="${basedir}/projects/tool" target="other.locales"/>
-        <ant dir="${basedir}/projects/tool_air" target="other.locales"/>
+    	<ant dir="${basedir}/projects/tool_air" target="other.locales"/>
+    	<ant dir="${basedir}/projects/apache" target="other.locales"/>
+        <ant dir="${basedir}/projects/experimental" target="other.locales"/>
     </target>
     
     <target name="doc" >
@@ -194,6 +198,8 @@
         <!--
         <ant dir="${basedir}/projects/automation" target="doc" />
         -->
+    	<ant dir="${basedir}/projects/apache" target="doc" />
+    	<ant dir="${basedir}/projects/experimental" target="doc" />
     </target>
    
     <!--
@@ -225,8 +231,10 @@
         <ant dir="${basedir}/projects/authoringsupport" target="clean"/>
         <ant dir="${basedir}/projects/charts" target="clean"/>
         <ant dir="${basedir}/projects/advancedgrids" target="clean"/>
+    	<ant dir="${basedir}/projects/apache" target="clean"/>
+        <ant dir="${basedir}/projects/experimental" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
-        <ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
+    	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- Delete empty folders -->
         <delete dir="${basedir}/locale">
             <exclude name="**/metadata.properties"/>
@@ -404,5 +412,13 @@
 
     <target name="tool_air" description="Clean build of tool_air swc">
         <ant dir="${basedir}/projects/tool_air"/>
+    </target>
+	
+    <target name="apache" description="Clean build of apache.swc">
+        <ant dir="${basedir}/projects/apache"/>
+    </target>
+	
+    <target name="experimental" description="Clean build of experimental.swc">
+        <ant dir="${basedir}/projects/experimental"/>
     </target>
 </project>
