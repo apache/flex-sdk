@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/methods/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    xmlns:custom="assets.*"
+    testSWF="wa_app2.mxml">
+    
+<!-- this set of lines form a template that must be in each unit test -->
+    
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+     import mx.core.*;
+     import spark.components.*;
+     
+     public var theButton:Button;
+     public var theButton2:Button;
+    ]]>
+    </mx:Script>
+    
+    <testCases>
+
+    <TestCase testID="getChildByName_test1" keywords="[WindowedApplication,methods,getChildByName]" description="Try to get nonexistant item.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getChildByName('Peanut')" value="null" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="getChildByName_test2" keywords="[WindowedApplication,methods,getChildByName]" description="Try to get an item.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+            <RunCode code="theButton = FlexGlobals.topLevelApplication.addButtonToGroup('Butter', FlexGlobals.topLevelApplication.group2)" waitTarget="group2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getChildByName('Butter')" valueExpression="script:theButton" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="getChildByName_test3" keywords="[WindowedApplication,methods,getChildByName]" description="Try to get an item when several have the same name.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+            <RunCode code="theButton = FlexGlobals.topLevelApplication.addButtonToGroup('Jelly', FlexGlobals.topLevelApplication.group2)" waitTarget="group2" waitEvent="updateComplete" />
+            <RunCode code="theButton2 = FlexGlobals.topLevelApplication.addButtonToGroup('Jelly', FlexGlobals.topLevelApplication.group2)" waitTarget="group2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getChildByName('Jelly')" valueExpression="script:theButton" />
+        </body>
+    </TestCase>
+
+</testCases>
+
+</UnitTester>

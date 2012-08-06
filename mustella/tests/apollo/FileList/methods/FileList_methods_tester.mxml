@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/FileList/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FileList_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	
+	import mx.controls.FileSystemList;
+	import flash.filesystem.File;
+	import mx.collections.ArrayCollection;
+	public var myAC:ArrayCollection = new ArrayCollection();
+
+	[Bindable]
+	public var contentLength:int = -1;
+	
+		private function setDir(): void
+			{
+				var newDirectory:File = new File("c:\\windows");
+				application.myFileSystemList.directory=newDirectory;	
+				
+			}
+		private function setVal(): void
+			{
+				var newDirectory:File = new File("c:\\windows");
+				application.myFileSystemList.directory=newDirectory;
+
+				application.myFileSystemList.extensions=[".txt"];	
+					
+				
+			}
+
+		private function updateBackHis():String{
+			myAC.source = application.myFileSystemList.backHistory;
+			return String(myAC.source.length);
+
+		}
+
+		private function checkcurrentpath():String{
+
+			return String(application.myFileSystemList.directory.name);
+
+		}
+		private function setDirC(): void{
+
+			var newDirectory:File = new File("c:\\");
+			application.myFileSystemList.directory=newDirectory;	
+		}
+		private function checkContentLength():String{
+			return String(application.myFileSystemList.dataProvider.length);
+		}
+
+      		private function setContentLength():void{
+	      		contentLength = application.myFileSystemList.dataProvider.length;
+      		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		
+		<TestCase testID="FileSystemList_Method_clear_set" keywords="[clear, FileSystemList]">
+			<setup>
+			 	<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<RunCode code="application.myFileSystemList.clear()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="myFileSystemList" method="value=checkContentLength()" value="0"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemList_Method_refresh_set" keywords="[Refresh, FileSystemList]">
+			<setup>
+			 	<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<RunCode code="setContentLength()"/>
+				<RunCode code="application.myFileSystemList.clear()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+				<RunCode code="application.myFileSystemList.refresh()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="myFileSystemList" method="value=checkContentLength()" value="{contentLength}"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FileSystemList_Method_navigateDown_aftersetting" keywords="[canNavigateBack, FileSystemList]">
+			<setup>
+			 	<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemList"/>
+				<DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemList" />
+				<RunCode code="application.myFileSystemList.navigateDown()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myFileSystemList" propertyName="canNavigateUp" value="true" />
+			</body>
+		</TestCase>
+		
+<TestCase testID="FileSystemList_Method_navigateUp_aftersetting" keywords="[canNavigateBack, FileSystemList]">
+			<setup>
+			 	<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemList"/>
+				<DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemList"/>
+				<RunCode code="application.myFileSystemList.navigateUp()" waitEvent="directoryChange" waitTarget="myFileSystemList"/>
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myFileSystemList" propertyName="canNavigateUp" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemList_Method_navigateBack_aftersetting" keywords="[canNavigateBack, FileSystemList]">
+			<setup>
+			 	<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemList"/>
+				<DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemList"/>
+				<RunCode code="application.myFileSystemList.navigateBack()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myFileSystemList" propertyName="canNavigateBack" value="false" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="FileSystemList_Method_navigateForward_aftersetting" keywords="[canNavigateBack, FileSystemList]">
+			<setup>
+			 	<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemList"/>
+				<DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemList" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemList"/>
+				<RunCode code="application.myFileSystemList.navigateBack()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+				<RunCode code="application.myFileSystemList.navigateForward()" waitEvent="updateComplete" waitTarget="myFileSystemList"/>
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myFileSystemList" propertyName="canNavigateBack" value="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+    	xmlns:local="*" close="closeAllChildWindow()">
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		    fontWeight: bold;           
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		    fontStyle: italic;          
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+		s|WindowedApplication{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		s|Window{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|TitleBar{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Button{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|TextArea{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|Label{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	
+	        s|CheckBox{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        mx|Label{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        mx|DataGrid{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+ 
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+	</fx:Style>
+	<fx:Script>
+	    <![CDATA[
+		import spark.components.Window;
+		import mx.core.IWindow;
+		import flash.display.NativeWindow;
+		import mx.core.FlexGlobals;
+		import spark.components.WindowedApplication; 
+		import mx.events.FlexEvent;
+		import mx.controls.Label;
+		import mx.core.IVisualElement;
+		import mx.collections.ArrayCollection;
+		import comps.*;
+
+		public var childWindowList:Array=new Array();
+
+		public var myWin:MyWindowWithContents;
+		
+
+		public function createAWindow():void
+		{
+		    myWin=new MyWindowWithContents();
+		    myWin.systemChrome="standard";
+		    myWin.alwaysInFront=true;
+		    myWin.title="test window";
+
+		    myWin.width=400;
+		    myWin.height=400;
+		    childWindowList.push(myWin);
+		    myWin.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		    myWin.open(true);
+
+		}	
+		public function createANoOpenWindowByClass(c:Class, title:String,yPos:Number=100):Window
+		{
+			var win:Window=new c();
+			c(win).y=yPos;
+			win.title=title;
+			win.systemChrome="standard";
+			win.width=400;
+		        win.height=400;
+			childWindowList.push(win);
+			win.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			return win;
+		}
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    e.target.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("myWindowComplete"));
+		}
+
+
+		public function resetWindow():void
+		{
+			closeAllChildWindow();
+			createAWindow();
+		}
+		public function testAddElement():void
+		{
+			var b:spark.components.Button=new spark.components.Button();
+			b.label="new Button";
+			b.name="addElementTest";
+			b.y=70;
+			myWin.addElement(b);
+		}	  
+		public function testAddElementAt(index:Number):Boolean
+		{
+			var lb:Label=new Label();
+			lb.text="new label";
+			lb.x=30*(index+1)
+			var elementCount:Number=myWin.numElements;
+			myWin.addElementAt(lb,index);
+			var n:Number=myWin.numElements;
+			if ((elementCount+1)!=n)
+				return false;
+			var  vElement:IVisualElement=myWin.getElementAt(index);
+			if (!(vElement is Label) || Label(vElement).text!=lb.text)
+				return false;
+			else return true;
+
+		}
+		public function testAddElementAtNegative(index:Number):Boolean
+		{
+			var lb:Label=new Label();
+			lb.text="new label";
+			lb.x=30;
+			try{
+			myWin.addElementAt(lb,index);//index isn't available
+			return false;//if no error, then test fails
+			}catch(e:Error)
+			{
+
+			}
+
+			return true;
+		}
+
+
+		public function testGetElementAt(pos:Number):Boolean
+		{
+			var iv:IVisualElement=myWin.getElementAt(pos);//this should return a button
+			var index:Number=myWin.getElementIndex(iv);
+
+			if (index!=pos)
+			{ 
+			return false;
+			}else 
+			return true;
+		}
+		public function testGetElementIndexNegative():Boolean
+		{
+
+			var lb:Label=new Label();
+			lb.text="new label";
+			lb.x=30;
+			var index:Number=-1;
+			try
+			{
+				index=myWin.getElementIndex(lb);
+			}catch(e:Error)
+			{
+			}
+			if (index!=-1)
+			{
+				trace("###index="+index)
+				return false;
+			}
+			else return true;
+		}
+		public function testGetFirstButton():Boolean
+		{
+
+			var iv:IVisualElement=myWin.getElementAt(1);//this should return a button
+			if (iv is spark.components.Button)
+			{
+			 var b:spark.components.Button=spark.components.Button(iv);
+			if (b.label.indexOf("test Button")>-1)
+			{
+				return true;
+			}
+			else 
+			{
+				trace("###button label not expected");
+				return false;
+			}
+			}else 
+			{
+			trace("###first element isn't a button");
+			return false;
+		}
+
+		}
+		public function testGetElementAtNegative(index:Number):Boolean
+		{
+
+			var iv:IVisualElement=null;
+			try
+			{
+			iv=myWin.getElementAt(index);
+			return false;
+			}catch(e:Error)
+			{
+			}
+			if (iv!=null)
+			return false;
+			else
+			return true;
+		}
+
+		public function closeAllChildWindow():void
+		{
+			var win:Window=null;
+			while(childWindowList.length>0)
+			{
+				win=Window(childWindowList.pop());
+				if (win!=null && !win.closed)
+				{	
+					win.close();
+					win=null;
+				}
+			}
+
+		}
+		public function testRemoveElement():Boolean
+		{
+
+			var iv:IVisualElement=myWin.getElementAt(2);//this should return the drop down list
+			myWin.removeElement(iv); //the drop down list is removed
+			var displayObj:DisplayObject=myWin.getChildByName("datagrid1");//try to get the dropdown list again
+			if (displayObj !=null)
+			return false;
+			else 
+			return true;
+
+		}
+		public function testRemoveElement2():Boolean
+		{
+
+			testAddElement();
+			var num:Number=myWin.numElements;
+			var iv:IVisualElement;
+			var coll:ArrayCollection=new  ArrayCollection();
+
+			for (var i:Number=0;i<num;i++)
+			{	
+			iv=myWin.getElementAt(i);
+			coll.addItem(iv);
+			}
+			for (i=0;i<num;i++)
+			{	
+			myWin.removeElement(IVisualElement(coll.getItemAt(i))); 
+			}
+			num=myWin.numElements;
+			if (num!=0)
+			return false;
+			else 
+			return true;
+
+		}
+
+	      public function testRemoveElementNegative():Boolean
+	      {
+
+			var iv:IVisualElement=myWin.getElementAt(2);
+			myWin.removeElement(iv); 
+			try{
+				//try to remove it again, will receive an error
+				myWin.removeElement(iv);//remove it again
+				return false;//if no error, then return false as we are expecting an error
+
+			}catch(e:Error)
+			{
+				trace(e);
+				return true;
+			}
+
+				return true;
+		}
+
+	      public function testRemoveElementNegative2():Boolean
+	      {
+
+			try{
+			myWin.removeElement(button1);//remove an element not own, should receive an error
+			return false;
+			}catch(e:Error)
+			{
+				trace(e);
+				return true;
+			}
+				return true;
+	      }
+
+
+
+		public function testRemoveElementAt():Boolean
+		{
+			var iv:DisplayObject=null;
+			try{
+				myWin.removeElementAt(4); //remove the drop down list
+				iv=myWin.contentGroup.getChildByName("datagrid1");//try to get the dropdown list again
+			}catch(e:Error)
+			{
+				trace("###ERROR:"+e);
+				return false;
+			}
+			if (iv !=null) 
+				return false;
+			else 
+				return true;
+		}
+
+		public function testRemoveElementAtNegative(index:Number):Boolean
+		{
+
+			var element:IVisualElement=null;
+			try{
+				element=myWin.removeElementAt(index); 
+				return false;
+			}catch(e:Error)
+			{
+				trace(e);
+			}
+			if (element!=null)
+				return false;
+			else 
+				return true;
+		}
+
+		public function testRemoveElementAt2():Boolean
+		{
+			var num:Number=myWin.numElements;
+			var iv:IVisualElement;
+			var coll:ArrayCollection=new  ArrayCollection();
+
+			for (var i:Number=0;i<num;i++)
+			{	
+				myWin.removeElementAt(0); 
+			}
+			num=myWin.numElements;
+			if (num!=0)
+				return false;
+			else 
+				return true;
+
+		}
+
+		public function testRemoveAllElements():String
+		{
+			var errMsg:String="";
+			myWin.removeAllElements();
+			var iv:DisplayObject=myWin.contentGroup.getChildByName("datagrid1");//try to get the dropdown list again
+			if (iv !=null)
+				errMsg+="wrong, datagrid should be removed, expect NUll\n";
+			iv=myWin.getChildByName("childLabel");
+			if (iv !=null)
+				errMsg+="wrong, the childLabel should be removed, expect NUll\n";
+
+			iv=myWin.getChildByName("childButton");
+			if (iv !=null)
+				errMsg+="wrong, the childButton should be removed, expect NUll\n";
+
+			var tmp:IVisualElement=null;
+			try{
+
+				tmp= myWin.getElementAt(0);
+				errMsg+="wrong, element already removed, should get an error\n";
+			}catch(e:Error)
+			{
+			}
+			if (tmp !=null)
+				errMsg+="wrong, expect no child for the window\n";
+			return errMsg;
+
+		}
+		public function testOwns(win:IWindow,b:DisplayObject,expect:Boolean):Boolean
+		{
+			var flag:Boolean=false;
+			if (win is Window)
+				flag=Window(win).owns(b);
+			else if (win is  spark.components.WindowedApplication)
+				flag=WindowedApplication(win).owns(b);
+			if (flag==expect)
+			{
+				return true;
+			}else 
+				return false;
+
+		}
+		public function testOwns2():Boolean
+		{
+			var flag:Boolean=false;
+			var displayObj:DisplayObject=DisplayObject(myWin.getElementAt(1));
+			flag=myWin.owns(displayObj);
+
+			if (!flag)
+				return false;
+
+			myWin.removeElementAt(1);
+			flag=myWin.owns(displayObj);
+
+			if (flag) return false;
+			else return true;
+		}
+
+		]]>
+	</fx:Script>
+  <s:Button id="button1" name="button1" label="button1" />
+ 
+</s:WindowedApplication>

@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" dockIconMenu="{compContext}" systemTrayIconMenu="{compContext}" windowComplete="create()">
+    <mx:Script>
+        <![CDATA[
+        import mx.events.FlexNativeMenuEvent;
+        import flash.ui.Keyboard;
+        
+        public function create():void{
+             var icon:BitmapData = new BitmapData(16,16,true,0x00FF0000);
+             NativeApplication.nativeApplication.icon.bitmaps = [icon];
+        }
+        
+        [Bindable]
+        private var foodData:XMLList = 
+            <>
+            <menuitem myLabel="Fruit" myEnabled="true">
+                <menuitem myLabel="Strawberry" myToggled="true" myEnabled="false"/>
+                <menuitem myLabel="Banana" type="fruit"/>
+                <menuitem type="separator" myEnabled="false"/>
+                <menuitem myLabel="Citrus"/>
+                <menuitem myLabel="Orange">
+                    <menuitem myLabel="Blood" myToggled="false"/>
+                    <menuitem myLabel="Navel" myToggled="true"/>
+                    <menuitem myLabel="Valencia" myToggled="false"/>
+                </menuitem>
+                <menuitem myLabel="Grapefruit">
+                    <menuitem myLabel="Ruby Red" type="check" myToggled="true"/>
+                </menuitem>
+                <menuitem myLabel="Peach" changeMe="one"/>
+            </menuitem>
+            <menuitem myLabel="Meat">
+                <menuitem myLabel="Chicken"/>
+                <menuitem myLabel="Beef"/>
+                <menuitem myLabel="Lamb"/>
+                <menuitem myLabel="Pork"/>
+            </menuitem>
+            </>;
+        
+        [Bindable]
+        private var pastaData:XMLList = 
+            <>
+            <menuitem label="Pasta" keys="1">
+                <menuitem label="elbow macaroni" underscore="2" keys="M" />
+                <menuitem label="cavatappi" underscore="1" keys="C"/>
+                <menuitem label="rotini" keys="R" shiftKey="true"/>
+                <menuitem label="spaghetti" keys="COMMA"/>
+            </menuitem>
+            <menuitem type="separator" underscore="3" keys="DELETE"/>
+            <menuitem label="Candy" underscore="0" keys="BACKSPACE" cmdKey="true" ctrlKey="true">
+                <menuitem label="Rock" cmdKey="true"/>
+                <menuitem label="Caramel" altKey="true"/>
+                <menuitem label="Taffy" underscore="3" ctrlKey="true"/>
+            </menuitem>
+            </>;
+        
+        [Bindable]
+        private var mnemonicData:XMLList = 
+            <>
+            <menuitem label="G_eneric">
+                <menuitem label="hone_y"/>
+                <menuitem label="1234_567"/>
+                <menuitem label="strawberryjamandpeanutbuttersandwic_h"/>
+                <menuitem label="012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678_9"/>
+                <menuitem label="thequickbrownfoxjumpsoverthelazydogthequickbrownf_oxjumpsoverthelazydogthequickbrownfoxjumpsoverthelazydogthequickbrownfoxjumpsoverthelazydog"/>
+                <menuitem label="!@#$%^&*(()_+="/>
+            </menuitem>
+            <menuitem label="G_eneric">
+                <menuitem label="te_a"/>
+                <menuitem label="glas_s"/>
+                <menuitem label="bees__wax"/>
+                <menuitem label="honey_s"/>
+                <menuitem label="roses"/>
+                <menuitem label="_water"/>
+            </menuitem>
+            </>;
+        
+        [Bindable]
+        public var japaneseData:XMLList = 
+            <>
+            <menuitem label="_コンテンツストア" 忘年会向けの="ト">
+                <menuitem label="グルメ" data="10" 忘年会向けの="グ" スポーツ="ル"/>
+                <menuitem label="保_険" data="10" 忘年会向けの="保" スポーツ="険"/>
+                <menuitem label="求人" data="0" 忘年会向けの="求" スポーツ="人"/>
+            </menuitem>
+            <menuitem label="ボランティア" >
+                <menuitem label="政治" data="10" 忘年会向けの="政" スポーツ="治"/>
+                <menuitem label="旅行" data="5" 忘年会向けの="行" スポーツ="政"/>
+                <menuitem type="separator" />
+                <menuitem label="翻訳" data="0" 忘年会向けの="翻" スポーツ="訳"/>
+                <menuitem label="ブログ" data="0" 忘年会向けの="ブ" スポーツ="P"/>
+            </menuitem>
+            </>;
+
+        [Bindable]
+        public var cakeData:XMLList =
+           <>
+            <menuitem label="Frosting" keys="1">
+                <menuitem label="Whipped Creme" data="10" keys="W" aKey="C"/>
+                <menuitem label="Fondant" data="10" keys="O" aKey="D"/>
+                <menuitem label="None" data="0" keys="N" aKey="E"/>
+            </menuitem>
+            <menuitem label="Decorations" >
+                <menuitem label="Flowers" data="10" keys="F" aKey="W"/>
+                <menuitem label="Candy" data="5" keys="C" aKey="Y"/>
+                <menuitem type="separator" />
+                <menuitem label="Ribbon" data="0" keys="B" aKey="R"/>
+                <menuitem label="Topper" data="0" keys="T" aKey="P"/>
+            </menuitem>
+            </>;
+
+        [Bindable]
+        public var cakeDataArray:Array = 
+            [{label:"Frosting", keys:"1", children: [
+                {label:"Whipped Creme", data:"10", keys:"W", aKey:"C"},
+                {label:"Fondant", data:"10", keys:"O", aKey:"D"},
+                {label:"None", data:"0", keys:"N", aKey:"E"}
+             ]},
+            {label:"Decorations", children: [
+                {label:"Flowers", data:"10", keys:"F", aKey:"W"},
+                {label:"Candy", data:"10", keys:"C", aKey:"Y"},
+                {type:"separator"},
+                {label:"Ribbon", data:"0", keys:"B", aKey:"1"},
+                {label:"Topper", data:"0", keys:"T", aKey:"2"}
+            ]}
+            ];
+            
+        private function myMnemonicFn(item:Object):int
+        {
+            var key:int = -1;
+            key = (item.@myLabel.toString().length - 1);
+            trace("Key: " + key);
+            trace("item: " + item.@myLabel.toString().length, item);
+            return key; 
+        }
+        
+        private function myLabelFn(item:Object):String
+        {
+            var newLabel:String;
+            newLabel = item.@myLabel.toString() + "_1";
+            return newLabel;
+        }
+        
+        private function getKeyEquivalentField(item:Object):String
+        {
+            if(item.@data > 5) 
+            {  
+               return item.@keys;
+            }
+            else 
+            {
+               return item.@aKey;
+            } 
+        }
+        
+        private function getKeyEquivalentField2(item:Object):String
+        {
+            if(item.data > 5) 
+            {  
+                 return item.keys;
+            }
+            else 
+            {
+                 return item.aKey;
+            } 
+        }
+        
+        public function setKeyFunction(fnm:FlexNativeMenu, i:int): void
+        {
+            if(i==0)
+            { 
+                fnm.keyEquivalentFunction = getKeyEquivalentField;
+            }
+            else
+            {
+                fnm.keyEquivalentFunction = getKeyEquivalentField2;
+            }
+        }
+        
+        private function getModifiers(item:Object):Array
+        {
+            var myOS:String = Capabilities.os;
+            var newArray:Array = [];
+            if(item.@data == "0")
+            {
+                newArray.push(Keyboard.SHIFT);
+            }
+            else
+            {
+                newArray.push(Keyboard.SHIFT);
+                if(myOS.indexOf('Windows', 0) != -1)
+                {
+                    newArray.push(Keyboard.CONTROL);
+                }
+                else if(myOS.indexOf('Mac', 0) != -1)
+                {
+                    newArray.push(Keyboard.COMMAND);
+                }
+                
+                newArray.push(Keyboard.ALTERNATE);
+            }
+            
+            return newArray;
+        }
+        
+        public function setModifierFunction(fnm:FlexNativeMenu):void
+        {
+            fnm.keyEquivalentModifiersFunction = getModifiers;
+        }
+        
+    ]]>
+    </mx:Script>
+            
+    <mx:menu>
+        <mx:FlexNativeMenu id="fnm_1" dataProvider="{foodData}" labelField="@myLabel" labelFunction="myLabelFn" mnemonicIndexFunction="myMnemonicFn"/>
+    </mx:menu>
+    
+    <mx:flexContextMenu>
+        <mx:FlexNativeMenu id="mainContext" dataProvider="{foodData}" labelFunction="myLabelFn"/>
+    </mx:flexContextMenu>
+    
+    <mx:MenuBar dataProvider="{foodData}" labelField="@myLabel" />
+    
+    <mx:FlexNativeMenu id="compContext" dataProvider="{pastaData}" labelField="@label" mnemonicIndexField="@underscore" keyEquivalentField="@keys"/>
+    <mx:FlexNativeMenu id="underlineContext" dataProvider="{mnemonicData}" labelField="@label"/>
+    <mx:FlexNativeMenu id="keyfunctions" dataProvider="{cakeData}"  labelField="@label" keyEquivalentFunction="getKeyEquivalentField" 
+        keyEquivalentModifiersFunction="getModifiers" />
+    <mx:FlexNativeMenu id="jpMenus" dataProvider="{japaneseData}"  labelField="@label" keyEquivalentField="@忘年会向けの"/>
+    <mx:FlexNativeMenu id="emptyFNM" />
+    
+    <mx:VBox id="myVBox" borderStyle="solid" flexContextMenu="{compContext}">
+        <mx:Label text="My VBox"/>
+    </mx:VBox>
+    
+    <mx:VBox id="anotherVBox" borderStyle="solid" flexContextMenu="{underlineContext}">
+        <mx:Label text="My VBox"/>
+    </mx:VBox>
+    
+    <mx:VBox id="VBox3" borderStyle="solid" flexContextMenu="{keyfunctions}">
+        <mx:Label text="My VBox"/>
+    </mx:VBox>  
+    
+    <mx:VBox id="jpVBox" borderStyle="solid" flexContextMenu="{jpMenus}">
+        <mx:Label text="My VBox"/>
+    </mx:VBox> 
+
+    <mx:VBox id="VBox4" borderStyle="solid" >
+        <mx:Label text="My VBox"/>
+    </mx:VBox>  
+    
+</mx:WindowedApplication>

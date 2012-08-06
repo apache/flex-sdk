@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/HTML/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AIRHTMLMain.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }           
+
+        ]]>
+
+    </mx:Script>
+
+    
+
+    <mx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </mx:Metadata>  
+
+    
+
+    <!-- end of set of lines that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+        <![CDATA[
+
+            private var htmlTextToPut:String = "<b>Hello <i>How are</b> you... <br>What</i> News<h3>????</h3>";
+
+        ]]>
+
+    </mx:Script>
+
+
+
+    <testCases>
+
+        <TestCase testID="AIR_HTML_location_default" description="checks location property" keywords="[AIR, HTML, property, location, default]">            
+
+             <setup>
+
+                  <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="location" value="null" target="myHTML"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="AIR_HTML_location_set" description="checks location property" keywords="[AIR, HTML, property, location, set]">            
+
+             <setup>
+
+                  <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+
+                  <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+
+            </setup>
+
+            <body>
+
+                <AssertEvent target="myHTML" eventName="htmlDOMInitialize" eventClass="flash.events::Event" timeout="10000"/>
+
+                
+
+                <AssertPropertyValue propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="AIR_HTML_loaded_default" description="checks loaded property" keywords="[AIR, HTML, property, loaded, default]">          
+
+             <setup>
+
+                <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML" />
+
+            </setup>
+
+            <body>
+
+                 <AssertPropertyValue propertyName="loaded" value="false" target="myHTML"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="AIR_HTML_loaded_set" description="checks loaded property" keywords="[AIR, HTML, property, loaded]">           
+
+             <setup>
+
+                  <ResetComponent target="myHTML" className="mx.controls::HTML"  waitEvent="updateComplete" waitTarget="myHTML"/>
+
+                  <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+
+            </setup>
+
+            <body>
+
+                <AssertEvent target="myHTML" eventName="complete" eventClass="flash.events::Event" timeout="10000"/>
+
+                <WaitForEffectsToEnd />
+
+                
+
+                <AssertPropertyValue propertyName="loaded" value="true" target="myHTML"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="AIR_HTML_htmlText" description="checks htmlText property" keywords="[AIR, HTML, property, htmlText]">         
+
+             <setup>
+
+                  <ResetComponent target="myHTML" className="mx.controls::HTML"  waitEvent="updateComplete" waitTarget="myHTML"/>
+
+                  <SetProperty propertyName="htmlText" valueExpression="value=htmlTextToPut" target="myHTML" waitEvent="move" waitTarget="myHTML"/>
+
+            </setup>
+
+            <body>
+
+                <!--Because CompareBitmap is sensitive to rendering on different machines (AIR goes through the system fonts.  We just check that the height and width of the component is consistent.-->
+
+                <AssertPropertyValue target="myHTML" value="1" propertyName="width"/>
+
+                <AssertPropertyValue target="myHTML" value="1" propertyName="height"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="AIR_HTML_location_complete" description="checks location property" keywords="[AIR, HTML, property, location, complete]">          
+
+             <setup>
+
+                  <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+
+                  <SetProperty propertyName="location" value="http://www.google.com/" target="myHTML"/>
+
+            </setup>
+
+            <body>
+
+                <AssertEvent target="myHTML" eventName="complete" eventClass="flash.events::Event" timeout="10000"/>
+
+                
+
+                <AssertPropertyValue propertyName="location" value="http://www.google.com/" target="myHTML"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="AIR_HTML_loaded_complete" description="checks location property" keywords="[AIR, HTML, property, location, complete]">            
+
+             <setup>
+
+                  <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+
+                  <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+
+            </setup>
+
+            <body>
+
+                <AssertEvent target="myHTML" eventName="complete" eventClass="flash.events::Event" timeout="10000"/>
+
+                
+
+                <AssertPropertyValue propertyName="loaded" value="true" target="myHTML"/>
+
+            </body>
+
+        </TestCase>     
+        <TestCase testID="AIR_HTML_layoutDirection_RTL_onParent" description="Check that the HTML component doesn't mirror when layoutDirection is set on its parent"
+            keywords="[AIR, HTML, layoutDirection, Mirroring]">            
+             <setup>
+                  <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+                  <ResetComponent target="myHTML2" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML2"/>
+                  <SetProperty propertyName="location" value="html/sample.html" target="myHTML2" waitEvent="complete" waitTarget="myHTML2"/>
+             </setup>
+             <body>
+                 <SetProperty propertyName="layoutDirection" value="rtl" target="box1" waitEvent="updateComplete" waitTarget="box1" />
+                 <CompareBitmap url="../Properties/baselines/$testID.png" target="myHTML2" />
+            </body>
+         </TestCase> 
+        <TestCase testID="AIR_HTML_layoutDirection_RTL" description="Check that the HTML component mirrors when layoutDirection is set on the component itself"
+            keywords="[AIR, HTML, layoutDirection, Mirroring]">            
+             <setup>
+                  <SetProperty propertyName="layoutDirection" value="ltr" target="box1"  />
+                  <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+                  <ResetComponent target="myHTML2" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML2"/>
+                  <SetProperty propertyName="height" value="200" target="myHTML2" waitEvent="updateComplete" waitTarget="myHTML2"/>
+                  <SetProperty propertyName="width" value="200" target="myHTML2" waitEvent="updateComplete" waitTarget="myHTML2"/>
+                  <SetProperty propertyName="location" value="html/sample.html" target="myHTML2" waitEvent="complete" waitTarget="myHTML2"/>
+             </setup>
+             <body>
+                 <SetProperty propertyName="layoutDirection" value="rtl" target="myHTML2" waitEvent="updateComplete" waitTarget="myHTML2" />
+                 <CompareBitmap url="../Properties/baselines/$testID.png" target="myHTML2" />
+            </body>
+         </TestCase> 
+    </testCases>
+
+</UnitTester>
+

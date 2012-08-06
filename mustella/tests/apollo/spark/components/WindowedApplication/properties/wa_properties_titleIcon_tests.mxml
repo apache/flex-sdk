@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_app2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test titleIcon
+========================================================
+-->
+<TestCase testID="titleIcon_test1_mac" keywords="[WindowedApplication,titleIcon]" description="Set to something." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test1_win" keywords="[WindowedApplication,titleIcon]" description="Set to something." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test2_mac" keywords="[WindowedApplication,titleIcon]" description="Set to something and change it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare2" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test2_win" keywords="[WindowedApplication,titleIcon]" description="Set to something and change it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare2" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test3_mac" keywords="[WindowedApplication,titleIcon]" description="Set to something and remove it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = null" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test3_win" keywords="[WindowedApplication,titleIcon]" description="Set to something and remove it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = null" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test4_mac" keywords="[WindowedApplication,titleIcon]" description="Set to something and change to a larger icon." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test4_win" keywords="[WindowedApplication,titleIcon]" description="Set to something and change to a larger icon." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test5_mac" keywords="[WindowedApplication,titleIcon]" description="Set to something and change to a smaller icon." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test5_win" keywords="[WindowedApplication,titleIcon]" description="Set to something and change to a smaller icon." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.smallSquare1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test6_mac" keywords="[WindowedApplication,titleIcon]" description="Bindable" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theTitleIcon" valueExpression="value = '[class wa_app2_longRect1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test6_win" keywords="[WindowedApplication,titleIcon]" description="Bindable" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theTitleIcon" valueExpression="value = '[class wa_app2_longRect1]'" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test7_mac" keywords="[WindowedApplication,titleIcon]" description="Title truncates when switching to a longer icon." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="title" value="The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="titleIcon_test7_win" keywords="[WindowedApplication,titleIcon]" description="Title truncates when switching to a longer icon." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="title" value="The q_ick, brown fox j_mps over the lazy dog. The q_ick, brown fox j_mps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="titleIcon" valueExpression="value = FlexGlobals.topLevelApplication.longRect1" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.titleBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+
+	</testCases>
+</UnitTester>

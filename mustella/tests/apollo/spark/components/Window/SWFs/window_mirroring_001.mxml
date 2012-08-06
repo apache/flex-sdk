@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+    	xmlns:local="*" close="closeAllChildWindow()"
+    	direction="rtl" layoutDirection="rtl">
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		    fontWeight: bold;           
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		    fontStyle: italic;          
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+		s|WindowedApplication{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		s|Window{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|TitleBar{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Button{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|Label{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	
+ 		mx|Label{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        mx|DataGrid{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+	</fx:Style>
+	<fx:Script>
+	    <![CDATA[
+		import spark.components.Window;
+		import 	flash.display.NativeWindow;
+		import mx.core.FlexGlobals;
+		import spark.components.windowClasses.TitleBar;
+		import comps.*;
+		import flash.system.Capabilities;
+		import spark.components.WindowedApplication; 
+		import mx.events.FlexEvent;
+		public var childWindowList:Array=new Array();
+
+		public var myWin:MyWindow,windowObj:Window;
+
+		 
+
+		public function createAWindow(layoutDir:String="rtl"):void
+		{
+		    myWin=new MyWindow();
+		    myWin.title="window test";
+		    myWin.titleBar=new TitleBar();
+		    myWin.titleBar.title="titlebar";
+		    myWin.width=300;
+		    myWin.height=350;
+		    myWin.minimizable=true;
+		    myWin.maximizable=true;
+		    myWin.resizable=true;
+		    myWin.systemChrome="standard";
+		    myWin.transparent=false;
+		    myWin.type="normal";
+		    if (layoutDir!=null)
+		    {
+			myWin.layoutDirection=layoutDir;
+			myWin.setStyle("direction",layoutDir);
+		    }
+		    childWindowList.push(myWin);
+		    myWin.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		    myWin.open(true);
+
+		}	
+		public function createAWindowByClass(c:Class, layoutDir:String="rtl", yPos:Number=100):Window
+		{
+			windowObj=new c();
+			c(windowObj).y=yPos;
+			windowObj.title="test window";
+			windowObj.systemChrome="standard";
+			if (layoutDir!=null)
+			{
+				windowObj.layoutDirection=layoutDir;
+				windowObj.setStyle("direction",layoutDir);
+			}
+			childWindowList.push(windowObj);
+			windowObj.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			windowObj.open(true);
+			return windowObj;
+		}
+		public function createAWindowWithScroller(layoutDir:String="rtl"):void
+		{
+			windowObj=new WindowWithClippedContent();
+			windowObj.setStyle("skinClass", comps.SkinWithScroller);
+			windowObj.title="scroller window 1";
+			windowObj.systemChrome="standard";
+			if (layoutDir!=null)
+			{
+				windowObj.layoutDirection=layoutDir;
+				windowObj.setStyle("direction",layoutDir);
+			}
+			childWindowList.push(windowObj);
+			windowObj.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			windowObj.open(true);
+		}
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("myWindowComplete"));
+		}
+
+
+		
+
+
+		public function updateWindow():void
+		{
+		    myWin.width=400;
+		    myWin.height=400;
+		    myWin.title="updated title";
+		    dispatchEvent(new FlexEvent("updateComplete"));
+		}
+		public function verifyNativeWindowUpdate():String
+		{
+		    var errMsg:String="";
+		    var current_os:String=Capabilities.os.toLowerCase();
+		    var expect_width:Number=192, expect_height:Number=166;
+		    if (current_os.indexOf("mac")>-1)
+		    {
+			expect_width=200;
+			expect_height=178;
+		    }else if (current_os.indexOf("linux")>-1)
+		    {
+		    }
+		    trace("myWin.width="+myWin.width+";myWin.height="+myWin.height);
+		    
+		    if (myWin.width!=expect_width)
+			errMsg+="width not expected, myWin.width="+myWin.width+";expect="+expect_width+"\n";
+		    if (myWin.height!=expect_height)
+			errMsg+="height not expected, myWin.height="+myWin.height+";expect="+expect_height+"\n";
+		    if( myWin.title=="test window")
+		       errMsg+="title not expected, title should be changed in systemchrome skin, actual="+myWin.title;
+		    return errMsg;
+		}
+
+
+		public function closeAllChildWindow():void
+		{
+
+			var win:Window;
+		    while(childWindowList.length>0)
+		    {
+				win=Window(childWindowList.pop());
+				if (win!=null && !win.closed)
+					win.close();
+		    }
+
+		}
+		/**
+		*   compare the actual value with expected value based on os.  It returns an error string if comparison fails, otherwise an empty string.
+		*   description: a string you can use to describe what is the test for, you can set it to null.
+		*   actualVal: actual value used to compare for
+		*   expectWinVal: expected value on window os
+		*   expectMacVal: expected value on mac os
+		*   expectLinuxVal: expected value on linux os 
+		*/
+		public function assertValueBaseOnOS(description:String,actualVal:*,expectWinVal:*=null,expectMacVal:*=null,expectLinuxVal:*=null):String
+		{
+			var errMsg:String="";
+			var current_os:String=Capabilities.os.toLowerCase();
+			if (current_os.indexOf("window")>-1)
+			{
+				if (actualVal!=expectWinVal)
+					errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectWinVal;
+			}else if (current_os.indexOf("mac")>-1)
+			{
+				if (actualVal!=expectMacVal)
+					errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectMacVal;
+			}else if (current_os.indexOf("linux")>-1)
+			{
+				if (actualVal!=expectLinuxVal)
+					errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectLinuxVal;
+
+			}else {
+				errMsg+="on os="+current_os+" isn't supported";
+			}
+			if (description!=null && errMsg!="")
+				errMsg=description+" "+errMsg;
+			return errMsg;
+		}
+	    ]]>
+	</fx:Script>
+</s:WindowedApplication>

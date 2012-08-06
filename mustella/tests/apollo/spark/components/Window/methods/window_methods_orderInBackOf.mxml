@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	 import spark.components.WindowedApplication;
+	 import spark.components.Window;
+	 import comps.PlainWindow;
+	 public var windowA:PlainWindow, windowB:PlainWindow;
+	 public var app:WindowedApplication;
+	]]>
+    </mx:Script>
+
+	
+    <testCases>
+	<!--
+	========================================================
+	Test method orderInBackOf
+	========================================================
+	-->
+	<TestCase testID="method_orderInBackOf_test1" keywords="[Window,methods,orderInBackOf]" 
+		description="send WindowA to back of WindowB with orderInBackOf(), vice versa, verify method return true">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="windowA=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+		<RunCode code="windowB=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowB',150);" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		 <AssertMethodValue method="value=windowA.orderInBackOf(windowB)" value="true"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=windowB.orderInBackOf(windowA)" value="true"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="method_orderInBackOf_test2" keywords="[Window,methods,orderInBackOf]" 
+		description="send WindowA to back of WindowB, but WindowA is invisible,verify method return false">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.window2=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowB',350);" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		<RunCode code="FlexGlobals.topLevelApplication.window1.visible=false" waitTarget="window1" waitEvent="hide"/>
+		<!-- have to use a local variable to reference the window as waitTarget has different variable scope -->
+		<RunCode code="windowB=FlexGlobals.topLevelApplication.window2;"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(windowB)" value="false"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="method_orderInBackOf_test3" keywords="[Window,methods,orderInBackOf]" 
+		description="send WindowA to back of WindowB, but WindowB is invisible,verify method return false">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.window2=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowB',350);" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		<RunCode code="FlexGlobals.topLevelApplication.window2.visible=false" waitTarget="window2" waitEvent="hide"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<!-- have to use a local variable to reference the window as waitTarget has different variable scope -->
+		<RunCode code="windowB=FlexGlobals.topLevelApplication.window2;"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(windowB)" value="false"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="method_orderInBackOf_test4" keywords="[Window,methods,orderInBackOf]" 
+		description="send WindowA to back of WindowB, but WindowB is minimized,verify method return false">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.window2=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowB',350);" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		<RunCode code="FlexGlobals.topLevelApplication.window2.minimize()" waitTarget="window2" waitEvent="displayStateChange"/>
+		<!-- have to use a local variable to reference the window as waitTarget has different variable scope -->
+		<RunCode code="windowB=FlexGlobals.topLevelApplication.window2;"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(windowB)" value="false"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="method_orderInBackOf_test5" keywords="[Window,methods,orderInBackOf]" 
+		description="send WindowA to back of WindowB, but WindowA is minimized,verify method return false, when it is restored, call the method, return true">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.window2=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowB',350);" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		<RunCode code="FlexGlobals.topLevelApplication.window1.minimize()" waitTarget="window1" waitEvent="displayStateChange"/>
+		<!-- have to use a local variable to reference the window as waitTarget has different variable scope -->
+		<RunCode code="windowB=FlexGlobals.topLevelApplication.window2;"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(windowB)" value="false"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1.restore()" waitTarget="window1" waitEvent="displayStateChange"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(windowB)" value="true"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="method_orderInBackOf_test6" keywords="[Window,methods,orderInBackOf]" 
+		description="negative case, send WindowA to back of itself,verify method return true">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		<!-- have to use a local variable to reference the window as waitTarget has different variable scope -->
+		<RunCode code="windowA=FlexGlobals.topLevelApplication.window1;"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(windowA)" value="true"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="method_orderInBackOf_test7" keywords="[Window,methods,orderInBackOf]" 
+		description="negative case, send WindowA to back of its parent, windowedApplication,verify method return true">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.window1=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'windowA');" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- wait time here for both window showing up -->
+		<!-- have to use a local variable to reference the window as waitTarget has different variable scope -->
+		<RunCode code="app=WindowedApplication(FlexGlobals.topLevelApplication);"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.window1.orderInBackOf(app)" value="true"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+	
+
+    </testCases>
+
+</UnitTester>

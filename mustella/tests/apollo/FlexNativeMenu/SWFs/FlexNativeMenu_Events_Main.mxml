@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+    width="400" height="300" menu="{fnm}" initialize="init()">
+    <mx:Script>
+    <![CDATA[
+
+        private function init(): void
+        {
+            addEventListener("menuChanged", traceEvent);
+        }
+
+        private function traceEvent(event:Event): void
+        {
+            text1.text += "menuChanged received." ;
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:XML id="nativeMenuDP">
+       <root>
+           <item label="Drinks">
+               <subitem label="Water" />
+               <subitem label="Coke" />
+               <subitem label="Orange Juice" />
+           </item>
+           <item label="Sides" >
+               <subitem label="Soup" type="check" />
+               <subitem label="Salad" type="check" />
+           </item>
+           <item label="Main" >
+               <subitem label="Past of the day" />
+               <subitem label="Meat of the day" />
+               <subitem label="Fish of the day" />
+               <subitem label="Vegetarian of the day" />
+           </item>
+       </root>
+    </mx:XML>
+
+    <mx:FlexNativeMenu id="fnm" dataProvider="{nativeMenuDP}" labelField="@label" showRoot="false" />
+
+    <mx:FlexNativeMenu id="fnm2" dataProvider="{nativeMenuDP}" labelField="@label" showRoot="false" />
+
+    <mx:Button id="button1" label="right click me" />
+    <mx:TextInput id="text1" />
+</mx:WindowedApplication>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_flexchrome.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import comps.*;
+	public var expectSize:Number=0;
+	public function configureExpectSize(expectWinVal:Number, expectMacVal:Number,expectLinuxVal:Number):void
+	{
+		var current_os:String=Capabilities.os.toLowerCase();
+		if (current_os.indexOf("window")>-1)
+		{
+			expectSize=expectWinVal;
+		}else if (current_os.indexOf("mac")>-1)
+		{
+			expectSize=expectMacVal;
+		}else if (current_os.indexOf("linux")>-1)
+		{
+			expectSize=expectLinuxVal;
+		}
+	}
+	public function checkMaxSizeValue(actualSize:Number, expectSize:Number, delta:Number,description:String=null):String
+	{
+		var errMsg:String="";
+		if ((expectSize-actualSize)>delta) 
+		{
+			errMsg+="expectSize="+expectSize+";actualSize="+actualSize+";delta="+delta;
+			if (description!=null)
+			errMsg=description+":"+errMsg;
+		}
+		return errMsg;
+	}
+	]]>
+    </mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test maximizable = false
+	- This tests the minimizable property.
+	- These are not tests specifically for the minimize
+	button or the minimize() method; those are tested
+	elsewhere.
+	- Pauses are necessary. There is no event because
+	we're making sure things *don't* happen.
+	========================================================
+	-->
+	<TestCase testID="maximizable_false_test1_SystemChrome" keywords="[Window,maximizable]" description="Click the maximize button to maximize." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxWidth=600;"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxHeight=600;" waitTarget="myWin" waitEvent="updateComplete" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+	    <body>
+		<DispatchMouseClickEvent target="myWin.skin.titleBar.maximizeButton" localX="2" localY="2" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="configureExpectSize(Capabilities.screenResolutionX,600,Capabilities.screenResolutionX)"/>
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.width,expectSize,100,'width')" value="width:expectSize=600;actualSize=300;delta=100" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="configureExpectSize(Capabilities.screenResolutionY,600,Capabilities.screenResolutionY)"/>
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.height,expectSize,100,'height')" value="height:expectSize=600;actualSize=350;delta=100" />
+
+		<AssertPropertyValue target="myWin.nativeWindow" propertyName="displayState" value="maximized" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maximizable_false_test2_SystemChrome" keywords="[Window,maximizable]" description="Call the maximize method to maximize." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/> 
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxWidth=600;"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxHeight=600;" waitTarget="myWin" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maximize()" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<!-- there is 2 pixel difference -->
+		<RunCode code="configureExpectSize(Capabilities.screenResolutionX,600,Capabilities.screenResolutionX)"/>
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.width,expectSize,100,'width')" value="" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="configureExpectSize(Capabilities.screenResolutionY,600,Capabilities.screenResolutionY)"/>
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.height,expectSize,100,'height')" value="" />
+		<AssertPropertyValue target="myWin.nativeWindow" propertyName="displayState" value="maximized" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maximizable_false_test3dowedApplicationSkin" keywords="[Window,maximizable]" description="Call the maximize method to maximize." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/> 
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxWidth=600;"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxHeight=600;" waitTarget="myWin" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<SetStyle target="myWin" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maximize()" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="configureExpectSize(Capabilities.screenResolutionX,600,Capabilities.screenResolutionX)"/>
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.width,expectSize,100,'width')" value="" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="configureExpectSize(Capabilities.screenResolutionY,600,Capabilities.screenResolutionY)"/>
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.height,expectSize,100,'height')" value="" />
+		<AssertPropertyValue target="myWin.nativeWindow" propertyName="displayState" value="maximized" />
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="maximizable_false_test4_SparkChrome" keywords="[Window,maximizable]" description="Be sure the maximize button appears disabled." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MySubWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.maximizable='false'"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<MyCompareBitmap url="../Properties/Baselines/$testID.png" mac_url="../Properties/Baselines/$testID_mac.png" target="myWin.skin.titleBar.maximizeButton" />
+	    </body>
+	</TestCase>
+
+    </testCases>
+</UnitTester>

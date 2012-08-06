@@ -1,0 +1,129 @@
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabledGroup="0.5" >
+
+    <fx:Metadata>
+      /**
+       *  The host component of this skin.
+       */
+      [HostComponent("Object")]
+    </fx:Metadata>
+
+    <fx:Script>
+        /*  Define the skin elements that should not be colorized. 
+         *  For WindowedApplication, border and status bar background are colorized,
+         *  but the content area and status text are not. 
+         *  Exclude the titleBar because it is a SparkSkin and we 
+         *  don't want to colorize it twice.
+         */
+        static private const exclusions:Array = ["backgroundRect", "contentGroup", "titleBar",
+                                                 "titleBarBackgroundRect", "statusText",
+                                                 "borderBgFill"];
+
+        /** 
+         * @inheritDoc
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" stateGroups="disabledGroup" />
+        <s:State name="normalAndInactive" stateGroups="inactiveGroup" />
+        <s:State name="disabledAndInactive" stateGroups="disabledGroup, inactiveGroup" />
+    </s:states>
+
+    <!-- layer 1: background fill -->
+    <!--- Defines the background color of the skin. -->
+    <s:Rect id="backgroundRect" left="1" right="1" top="1" bottom="25">
+        <s:fill>
+            <s:SolidColor color="0xffff00" />
+        </s:fill>
+    </s:Rect>
+
+    <!-- title bar background fill for when the title bar is inactive -->
+    <!--- Defines the background color of the title bar. -->
+    <s:Rect id="titleBarBackgroundRect" left="0" right="0" top="0" height="24" visible="{titleBar.visible}" >
+        <s:fill>
+            <!--- @private -->
+            <s:SolidColor id="titleBarBgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+
+        
+    <!-- layer 2: titlebar + content + status bar -->
+    <s:Group left="1" right="1" top="1" bottom="1" minHeight="24" minWidth="0" >
+        <s:layout>
+            <s:VerticalLayout gap="0"/>
+        </s:layout>
+    
+        <!-- title bar to display when not using 'systemChrome' -->
+        <!--- Defines the TitleBar container for the title bar, button,s and icon. -->
+        <s:TitleBar id="titleBar" width="100%" height="24" alpha.inactiveGroup="0.5" />
+        
+        <!-- content -->
+        <!--- Defines the Group container where the content children get pushed into and laid out. -->
+        <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
+        
+        <!-- status bar -->
+        <!--- Defines the Group container for the status bar. -->
+        <s:Group id="statusBar" width="100%" minHeight="24" >
+        
+            <!-- status bar fill -->
+            <s:Rect>
+               <s:fill>
+                    <s:LinearGradient rotation="90">
+                        <s:GradientEntry color="0xE2E2E2" />
+                        <s:GradientEntry color="0xD9D9D9" />
+                    </s:LinearGradient>
+               </s:fill>
+            </s:Rect>
+            
+            <!-- status bar highlight -->
+            <s:Rect left="1" right="1" top="1" bottom="0" >
+               <s:stroke>
+                    <s:LinearGradientStroke rotation="90" weight="1">
+                        <s:GradientEntry color="0xEAEAEA" />
+                        <s:GradientEntry color="0xBEBEBE" />
+                    </s:LinearGradientStroke>
+               </s:stroke>
+            </s:Rect>
+        
+            <!-- status text -->
+            <!--- Defines the Label control for the text in the status bar. -->
+            <s:Label id="statusText" top="2" bottom="2" left="10" right="10" verticalAlign="middle" 
+                fontSize="10" color="0x585858" width="100%" maxDisplayedLines="1" />
+                    
+        </s:Group> 
+
+    </s:Group>
+    
+    <!-- layer 3: gripper -->
+    <!--- 
+        Defines the Button control for the gripper button. 
+        By default, the button uses the spark.skins.spark.windowChrome.GripperSkin class
+        to define the skin for the gripper button.
+            
+        @see spark.skins.spark.windowChrome.GripperSkin 
+    -->
+    <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.spark.windowChrome.GripperSkin" /> 
+
+    <!-- layer 4: border -->
+    
+    <!-- background of border for when it is alpha=0.5 -->
+    <!--- Defines the background color of the border. -->
+    <s:Group id="borderBgFill" left="0" right="0" top="0" bottom="0" >
+        <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:stroke>
+                <s:SolidColorStroke weight="1" color="0xFFFFFF" />
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+
+    <!-- the border -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke alpha.inactiveGroup="0.5" weight="1" color="0xA6A6A6" />
+        </s:stroke>
+    </s:Rect>
+        
+</s:SparkSkin>

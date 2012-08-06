@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_app2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test status.
+========================================================
+-->
+<TestCase testID="status_test1_SparkChromeWindowedApplicationSkin_mac" keywords="[WindowedApplication,status]" description="Set it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="A slow, green, toad hopped under an active cat." waitEvent="updateComplete" />
+        <CompareBitmap target="skin.statusBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="status_test1_SparkChromeWindowedApplicationSkin_win" keywords="[WindowedApplication,status]" description="Set it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="A slow, green, toad hopped under an active cat." waitEvent="updateComplete" />
+        <CompareBitmap target="skin.statusBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="status_test2_SparkChromeWindowedApplicationSkin_mac" keywords="[WindowedApplication,status]" description="Set it and clear it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="A slow, green, toad hopped under an active cat." waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.statusBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="status_test2_SparkChromeWindowedApplicationSkin_win" keywords="[WindowedApplication,status]" description="Set it and clear it." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="A slow, green, toad hopped under an active cat." waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.statusBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="status_test3_SparkChromeWindowedApplicationSkin_mac" keywords="[WindowedApplication,status]" description="Set it and then decrease the width." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="A slow, green, toad hopped under an active cat.  A slow, green, toad hopped under an active cat." waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="width" value="100" waitEvent="updateComplete" />
+        <CompareBitmap target="skin.statusBar" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="status_test4_SparkChromeWindowedApplicationSkin" keywords="[WindowedApplication,status]" description="binding" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="status" value="A slow, green, toad hopped under an active cat." waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theStatus" value="A slow, green, toad hopped under an active cat." />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

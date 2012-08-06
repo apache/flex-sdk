@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                    
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    	 import mx.core.FlexGlobals;
+    	 import spark.components.Window;
+   
+	 import comps.*;
+	
+	
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="Window_integration_basiclayout_1" keywords="[Window,integration,basiclayout]" description="verify window with basicLayout without width/height set, it uses default width, height">
+            <setup>
+            	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <!-- create a window without set size, the window component has no size set either, so 
+                initial display is the default size for window
+                -->
+                <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowChildSizeDefault,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+            	<SetProperty propertyName="width" target="windowObj" value="115" waitEvent="updateComplete"/>
+                <MyCompareBitmap target="windowObj" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_integration_basiclayout_2" keywords="[Window,integration,basiclayout]" description="verify window with basicLayout without width/height set, resize the window">
+            <setup>
+            	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <!-- create a window with size set, the window component has no size set either, so 
+                initial display is the default size for window
+                -->
+                <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowChildSizeDefault,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+                <SetProperty target="windowObj" propertyName="width" value="300" waitTarget="windowObj" waitEvent="updateComplete"/>
+                <SetProperty target="windowObj" propertyName="height" value="300" waitTarget="windowObj"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <MyCompareBitmap target="windowObj" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Window_integration_basiclayout_3" keywords="[Window,integration,basiclayout]" description="verify window with basicLayout, its children with default size should be positioned, layout correctly">
+            <setup>
+            	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <!-- create a window with size set, the window component has no size set either,
+                children wrapped insize of a group which set explict size, verify children should be based on the group, not window
+                -->
+            	<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowChildSizeExplicitSet,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+                <SetProperty target="windowObj" propertyName="width" value="400" waitTarget="windowObj" waitEvent="updateComplete"/>
+                <SetProperty target="windowObj" propertyName="height" value="300" waitTarget="windowObj"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <MyCompareBitmap target="windowObj" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body> 
+        </TestCase>
+
+
+
+        <TestCase testID="Window_integration_basiclayout_4" keywords="[Window,integration,basiclayout]" description="verify window with basicLayout without width.height set, resize the window">
+            <setup>
+            	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <!-- create a window with size set, the window component has no size set either,
+                children wrapped insize of a group which NO explict size, verify children should be based on the window
+                -->
+                <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowSizeSet,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+                <SetProperty target="windowObj" propertyName="width" value="400" waitTarget="windowObj" waitEvent="updateComplete"/>
+                <SetProperty target="windowObj" propertyName="height" value="300" waitTarget="windowObj"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <MyCompareBitmap target="windowObj" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body> 
+        </TestCase>
+
+    </testCases>
+        
+</UnitTester>

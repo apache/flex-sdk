@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_002.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	]]>
+    </mx:Script>
+
+	
+    <testCases>
+	<!--
+	========================================================
+	Test method setFocus
+	========================================================
+	-->
+	<TestCase testID="method_setFocus_test1" keywords="[Window,methods,setFocus]" 
+		description="call the method on a button child of a Window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+		<RunCode code="FlexGlobals.topLevelApplication.addKeyDownListener()"  />  
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.setFocus()"  waitTarget="myWin" waitEvent="updateComplete"/>
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.activate()" /> 
+		<RunCode code="dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN))"/>
+		<DispatchKeyEvent key="TAB"/>
+		<!--  the event not triggered due to dispatchKeyEvent doesn't work for multi window
+		<DispatchKeyEvent key="DOWN" waitTarget="" waitEvent="keyPressed"/>
+		<DispatchKeyEvent keys="[RIGHT, DOWN, SPACE]" waitTarget="" waitEvent="keyPressed"/>   
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertKeyPressed()" value="true" />	
+		 -->
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+
+</testCases>
+
+</UnitTester>

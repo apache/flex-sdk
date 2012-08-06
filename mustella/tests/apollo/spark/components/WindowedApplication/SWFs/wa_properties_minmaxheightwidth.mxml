@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.*;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+    import spark.skins.spark.*;
+
+    public var heightResetVal:int = 100;
+    public var widthResetVal:int = 150;
+    public var maxHeightResetVal:int = 200;
+    public var maxWidthResetVal:int = 200;
+    public var minHeightResetVal:int = 34;
+    public var minWidthResetVal:int = 123;
+        
+    /**
+    * Reset things.  We can't use ResetComponent.
+    **/
+    public function doReset():void{
+        var app:WindowedApplication = FlexGlobals.topLevelApplication as WindowedApplication;
+
+        app.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+
+        if(app.nativeWindow.displayState == "normal"){
+            handleResetDisplayStateChange(new NativeWindowDisplayStateEvent("displayStateChange"));
+        }else{
+            app.restore();
+        }
+    }
+
+    private function handleResetDisplayStateChange(e:NativeWindowDisplayStateEvent):void{
+        var app:WindowedApplication = FlexGlobals.topLevelApplication as WindowedApplication;
+
+        app.removeEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+        app.addEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+
+        app.maxHeight = maxHeightResetVal;
+        app.maxWidth = maxWidthResetVal;
+        app.minHeight = minHeightResetVal;
+        app.minWidth = minWidthResetVal;
+
+        if(app.height == heightResetVal &&
+           app.width == widthResetVal &&
+           getStyle('skinClass').type == spark.skins.spark.WindowedApplicationSkin){
+           handleResetUpdateComplete(new FlexEvent("updateComplete"));
+        }else{
+           app.height = heightResetVal;
+           app.width = widthResetVal;
+           setStyle('skinClass', WindowedApplicationSkin);
+        }
+    }
+  
+    private function handleResetUpdateComplete(e:FlexEvent):void{
+        var app:WindowedApplication = FlexGlobals.topLevelApplication as WindowedApplication;
+        
+        app.removeEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        dispatchEvent(new FlexEvent("resetComplete"));
+    }
+    
+    /**
+    *   compare the actual value with expected value based on os.  It returns an error string if comparison fails, otherwise an empty string.
+    *   actualVal: actual value used for comparison
+    *   expectedWinVal: expected value on window os.
+    *   expectedMacVal: expected value on mac os, for window comparision, you can ignore it as it will take default=null. For linux comparision, you need set to null.
+    *   expectedLinuxVal: expected value on linux os, for other os comparision, you can ignore it as it will take default=null. 
+    */
+    public function assertValueBasedOnOS(actualVal:*, expectedWinVal:*, expectedMacVal:*, expectedLinuxVal:*):String{
+        var result:String = "pass";
+        var current_os:String = Capabilities.os.toLowerCase();
+
+        if (current_os.indexOf("win") > -1){
+            if (actualVal != expectedWinVal)
+                result = "actual value = " + actualVal + "; expected value = " + expectedWinVal;
+        }else if (current_os.indexOf("mac") > -1){
+            if (actualVal != expectedMacVal)
+                result = "actual value = " + actualVal + "; expected value = " + expectedMacVal;
+        }else if (current_os.indexOf("linux") > -1){
+            if (actualVal != expectedLinuxVal)
+                result = "actual value = " + actualVal + "; expected value = " + expectedLinuxVal;
+        }else {
+            result = current_os + " isn't supported";
+        }
+
+        return result;
+    }
+
+]]>
+</fx:Script>
+
+<fx:Declarations>    
+    <fx:Object id="bindingTarget" 
+        theMaxHeight="{maxHeight}"
+        theMinHeight="{minHeight}"
+        theMaxWidth="{maxWidth}"
+        theMinWidth="{minWidth}" />
+</fx:Declarations>
+
+</s:WindowedApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

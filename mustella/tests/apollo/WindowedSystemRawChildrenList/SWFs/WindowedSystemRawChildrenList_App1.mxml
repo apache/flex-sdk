@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" maxHeight="600" maxWidth="600" minHeight="100" minWidth="100" height="500" width="600">
+
+<mx:Script>
+<![CDATA[
+    import flash.display.DisplayObject;
+    import flash.events.Event;
+    import mx.events.AIREvent;
+    import mx.controls.HRule;
+    import mx.core.Application;
+    import mx.core.Window;
+    import mx.managers.WindowedSystemManager;
+    import mx.managers.WindowedSystemRawChildrenList;
+
+    public var mostRecentDO:DisplayObject;
+    public var win:Window;
+    public var winSysMgr:WindowedSystemManager;
+    public var listUnderTest:WindowedSystemRawChildrenList;
+
+
+
+
+    public function doTest():void{
+        trace("***************");
+        trace("Hello from doTest()");
+        trace("***************");
+    }
+
+
+
+
+
+
+
+
+
+    public function doReset():void{
+
+        if(win)
+            win.close();
+
+        if(winSysMgr)
+            winSysMgr = null;
+
+        if(listUnderTest)
+            listUnderTest = null;
+
+        win = new Window();
+        win.addEventListener(AIREvent.WINDOW_COMPLETE, handleWindowComplete);
+        win.width = 100;
+        win.height = 100;
+        win.open();
+
+    }
+    
+    private function handleWindowComplete(e:AIREvent):void{
+        winSysMgr = WindowedSystemManager(win.systemManager);
+        listUnderTest = WindowedSystemRawChildrenList(winSysMgr.rawChildren);    
+        dispatchEvent(new Event("resetComplete"));
+    }
+    
+    // Add something which is visible, and very simple.
+    public function addAControl(newName:String):void{
+        var hr:HRule = new HRule();
+        hr.name = newName;
+        mostRecentDO = hr;
+        listUnderTest.addChild(hr);
+        dispatchEvent(new Event("controlAdded"));
+    }
+
+    // Add something which is visible, and very simple.
+    public function addAControlAt(newName:String, position:int):void{
+        var hr:HRule = new HRule();
+        
+        trace("***************");
+        trace("addAControlAt(" + newName + "," + position + ")");
+        trace("numChildren is " + listUnderTest.numChildren);
+        traceListContents();
+        trace("***************");
+        
+        hr.name = newName;
+        mostRecentDO = hr;
+        listUnderTest.addChildAt(hr, position);
+        dispatchEvent(new Event("controlAdded"));
+    }
+    
+    // Confirm that a control is present, in one place.
+    public function confirmControl(controlName:String):Boolean{
+        var i:int;
+        var obj:Object;
+        var found:Boolean = false;
+        var ret:Boolean = false;
+
+        trace("***************");
+        trace("confirmControl(" + controlName + ")");
+        traceListContents();
+        trace("***************");
+
+        for(i = 0; i < listUnderTest.numChildren; ++i){
+            obj = listUnderTest.getChildAt(i);
+            
+            if(obj.name){
+                if(obj.name == controlName){                    
+                    // If we already found it, then we've found another.  Bad.
+                    if(found){
+                        ret = false;
+                        break;
+                    }
+                    else{
+                        ret = true; // but don't break.  check for dupes.
+                    }
+                        
+                    found = true;
+                }
+            }
+        }
+        
+        return ret;
+    }
+
+    // Yes, this could go in a RunCode.
+    // This is a separate method so we can put debugging code around it.
+    public function removeTheControlAt(index:int):String{
+        var ret:String = "";
+        
+        trace("***************");
+        trace("removeTheControlAt(" + index + ") before");
+        traceListContents();
+        trace("***************");
+
+        try{        
+            listUnderTest.removeChildAt(index);
+        }catch(e:Error){
+            ret = e.toString();
+        }
+        
+        trace("***************");
+        trace("removeTheControlAt(" + index + ") after");
+        traceListContents();
+        trace("***************");
+
+        dispatchEvent(new Event("controlRemoved"));
+        
+        return ret;
+    }
+    
+    // Confirm that a control with the given name is in that position,
+    // and only in that position.
+    public function confirmControlAtPosition(controlName:String,index:int):Boolean{
+        var i:int;
+        var obj:Object;
+        var ret:Boolean = false;
+
+        trace("***************");
+        trace("confirmControlAtPosition(" + controlName + "," + index + ")");
+        traceListContents();
+        trace("***************");
+        
+        for(i = 0; i < listUnderTest.numChildren; ++i){
+            obj = listUnderTest.getChildAt(i);
+            
+            if(obj.name){
+                if(obj.name == controlName){                    
+                    if(i == index){
+                        ret = true; // but don't break.  check for dupes.
+                    }
+                    else{
+                        ret = false;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return ret;
+    }
+
+    // Use getChildAt to confirm that the child at the index has that name.
+    public function getTheChildAt(controlName:String, index:int):Boolean{
+        return(listUnderTest.getChildAt(index).name == controlName);
+    }
+
+    // Use getChildByName to get the child.
+    public function getTheChildByName(controlName:String):Boolean{
+        return(listUnderTest.getChildByName(controlName) == mostRecentDO);
+    }
+
+    // Use getChildIndex to get an index.
+    public function getTheChildIndex(index:int):Boolean{
+        return(listUnderTest.getChildIndex(mostRecentDO) == index);
+    }
+
+    public function setTheChildIndex(index:int):void{
+        listUnderTest.setChildIndex(mostRecentDO, index);
+        dispatchEvent(new Event("indexSet"));
+    }
+
+    public function testGetObjectsUnderPoint():Boolean{
+        var arr:Array = listUnderTest.getObjectsUnderPoint(new Point((win.x + win.width)/2, (win.y + win.height)/2));
+        var ret:Boolean = false;
+        
+        if(String(arr[0]).indexOf('mouseCatcher') > -1 && String(arr[1]).indexOf('Window') > -1){
+             ret = true;
+        }else{
+            trace(arr[0]);
+            trace(arr[1]);
+        }
+            
+        return ret;
+    }
+    
+    public function testContains():Boolean{
+        return (listUnderTest.contains(mostRecentDO));
+    }
+
+    // Debugging
+    public function traceListContents():void{
+        var child:DisplayObject;
+        var i:int;
+        
+        for(i = 0; i < winSysMgr.rawChildren.numChildren; ++i){
+            child = listUnderTest.getChildAt(i);
+            trace("    " + child);
+
+            if(child.name)
+                trace("        name: " + child.name);
+        }    
+    }
+    
+
+]]>
+</mx:Script>
+
+</mx:WindowedApplication>

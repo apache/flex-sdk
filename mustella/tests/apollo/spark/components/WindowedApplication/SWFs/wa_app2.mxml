@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*"
+    width="800" height="600"
+    title.state2="Title in state2"
+    skinClass.state2="spark.skins.spark.SparkChromeWindowedApplicationSkin"
+    invoke="invoked = 'invoke'"
+    windowComplete="windowCompleted = 'windowComplete'">
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.*;
+    import mx.collections.*;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+    import spark.skins.spark.*;
+
+    public var heightResetVal:int = 600;
+    public var widthResetVal:int = 600;
+	public var windowObj:Window;
+    public var childWindowList:Array = new Array();
+    public var eventArray:Array;
+    public var invoked:String;
+    public var windowCompleted:String;
+    
+    [Bindable]
+    private var ac1:ArrayCollection = new ArrayCollection([{slno:"1",name:"Joseph",age:"23"},{slno:"2",name:"Jeena",age:"21"},{slno:"3",name:"Jerry",age:"4"}
+	   	 ,{slno:"4",name:"Tom",age:"1"},{slno:"5",name:"Rick",age:"12"},{slno:"6",name:"John",age:"52"}]);
+
+    private var xResetVal:int = 150;
+    private var yResetVal:int = 150;
+
+    [Embed(source="../../../../../../Assets/Images/smallgreenrect.jpg")]
+    [Bindable]
+    public var smallSquare1:Class;
+
+    [Embed(source="../../../../../../Assets/Images/smallbluerect.jpg")]
+    [Bindable]
+    public var smallSquare2:Class;
+
+    [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+    [Bindable]
+    public var longRect1:Class;
+
+    public var screenHeightFudged:int = flash.system.Capabilities.screenResolutionY - 100;
+    public var screenWidthFudged:int = flash.system.Capabilities.screenResolutionX - 4;
+
+    /**
+    * Reset things.  We can't use ResetComponent for the WindowedApplication.  Here's
+    * what these next few methods do:
+    *    - Be sure we're not minimized or maximized.
+    *    - Be sure we're in state1.
+    *    - Set various properties and styles.
+    *    - Dispatch resetComplete.
+    * Any time a test is added which affects anything, you need to come to this
+    * section and be sure to reset it.
+    **/
+    public function doReset():void{
+        addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+	if (nativeWindow != null){
+        if(nativeWindow.displayState == "normal"){
+            handleResetDisplayStateChange(new NativeWindowDisplayStateEvent(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE));
+        }else{
+            restore();
+        }
+    }
+	}
+    private function handleResetDisplayStateChange(e:NativeWindowDisplayStateEvent):void{
+        removeEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+        addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+        
+        if(currentState == "state1"){
+            handleCurrentStateChange();
+        }else{
+            addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent = null):void{
+        removeEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+        addEventListener(FlexNativeWindowBoundsEvent.WINDOW_MOVE, handleWindowMove);
+        
+        if(nativeWindow.bounds.x == xResetVal &&
+           nativeWindow.bounds.y == yResetVal){
+            handleWindowMove();
+        }else{
+            move(xResetVal, yResetVal);
+        }
+    }
+
+    private function handleWindowMove(e:FlexNativeWindowBoundsEvent = null):void{
+        removeEventListener(FlexNativeWindowBoundsEvent.WINDOW_MOVE, handleWindowMove);
+        addEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+
+        eventArray = new Array();
+        removeEventListener(flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING, logEvent);
+        removeEventListener(flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, logEvent);
+
+        setStyle("minimizeEffect", null);
+        setStyle("unminimizeEffect", null);
+        setStyle("chromeColor", 0xCCCCCC);
+        setStyle("contentBackgroundColor", 0xFFFFFF);
+        setStyle("focusColor", 0x70B2EE);
+        setStyle("rollOverColor", 0xCEDBEF);
+        setStyle("selectionColor", 0xA8C6EE);
+        setStyle("symbolColor", 0);
+        
+        alwaysInFront = false;
+        activate();
+
+        if(height == heightResetVal &&
+           width == widthResetVal &&
+           getStyle('skinClass').type == spark.skins.spark.WindowedApplicationSkin &&
+           title == "" &&
+           titleIcon == null &&
+           enabled == true &&
+           status == "" &&
+           showStatusBar == true &&
+           visible == true &&
+           alpha == 1 &&
+           group1.visible == false &&
+           group2.numElements == 0 &&
+           sl1.content == null){
+           handleResetUpdateComplete();
+        }else{
+            setStyle('skinClass', WindowedApplicationSkin);
+            height = heightResetVal;
+            width = widthResetVal;
+            title = "";
+            titleIcon = null;
+            enabled = true;
+            status="";
+            showStatusBar = true;
+            visible = true;
+            alpha = 1;
+            group1.visible = false;
+            group2.removeAllElements();
+            sl1.unloadAndStop();
+        }
+    }
+
+    private function handleResetUpdateComplete(e:FlexEvent = null):void{
+        removeEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        dispatchEvent(new FlexEvent("resetComplete"));
+    }
+
+    private function logEvent(e:Event):void{
+        eventArray.push(e.type);
+    }
+
+    public function setUpDisplayStateListeners():void{
+        addEventListener(flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING, logEvent);
+        addEventListener(flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, logEvent);
+    }
+
+    public function setUpWindowMoveListener():void{
+        addEventListener(mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE, logEvent);
+    }
+    
+    public function createAWindow():void{
+    	windowObj = new Window();
+    	windowObj.x = 200;
+    	windowObj.title = "plain window 1";
+    	windowObj.systemChrome = "standard";
+    	childWindowList.push(windowObj);
+    	windowObj.addEventListener("creationComplete", handleNewWindowCreationComplete);
+    	windowObj.open(true);
+    }
+
+    public function handleNewWindowCreationComplete(e:Event):void{
+        e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+        dispatchEvent(new Event("windowHasBeenCreated"));
+    }
+    
+    public function closeAllChildWindows():void{
+        while(childWindowList.length>0){
+            var win:Window = Window(childWindowList.pop());
+            win.close();
+        }
+    }
+
+    public function addButtonToGroup(theName:String, theGroup:Group):Button{
+        var b:Button = new Button();
+        b.name = theName;
+        theGroup.addElement(b);
+        return b;
+    }
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera2;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera2;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera2;
+        embedAsCFF: false;
+    }
+    
+    mx|DataGrid{
+        fontFamily: EmbeddedVera2;
+        fontAntiAliasType: normal;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|CheckBox{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+    
+    s|TextArea{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|TitleBar{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|WindowedApplication{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+</fx:Style>
+
+<fx:Declarations>
+    <fx:Object id="bindingTarget" 
+        theTitle="{title}" 
+        theTitleIcon="{titleIcon}"
+        theStatus="{status}"
+        theVisibility="{visible}" />
+
+    <mx:Fade id="fade1" alphaFrom="1" alphaTo="0" duration="500" /> 
+    <mx:Fade id="fade2"  alphaFrom="0" alphaTo="1" duration="500"/>	 	
+        
+</fx:Declarations>
+
+<s:states>
+    <s:State name="state1" />
+    <s:State name="state2" />
+    <s:State name="state3" />
+</s:states>
+
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+
+<s:Button id="btnState2" label="state2 button" includeIn="state2" />
+
+<!-- 
+    visible = false so they won't break existing tests
+    which do bitmap compares of the entire stage.
+    The reset method may set visible to false too.
+-->
+<custom:GroupWithComponents id="group1" />
+<custom:GroupWithoutComponents id="group2" />
+<mx:SWFLoader id="sl1" />
+
+</s:WindowedApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

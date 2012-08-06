@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/Window/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Window_bindable.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</mx:Script>
+
+	<mx:Metadata>
+		<![CDATA[
+
+			[Mixin]
+		]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<testCases>
+		<TestCase testID="Window_height_property_bindable" description="Verifies that height is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+				<SetProperty propertyName="height" value="100" target="aw" waitEvent="updateComplete" waitTarget="aw.taHeight"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taHeight" propertyName="text" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WindowedApplication_width_property_bindable" description="Verifies that width is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+				<SetProperty propertyName="width" value="200" target="aw" waitEvent="updateComplete" waitTarget="aw.taWidth"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taWidth" propertyName="text" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WindowedApplication_maxWidth_property_bindable" description="Verifies that maxWidth is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+				<RunCode code="application.aw.maxWidth=500;" />
+				<RunCode code="application.aw.width=600;" waitEvent="updateComplete" waitTarget="aw"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taMaxWidth" propertyName="text" value="500"/>
+				<AssertPropertyValue target="aw.taWidth" propertyName="text" value="500"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WindowedApplication_maxHeight_property_bindable" description="Verifies that maxHeight is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+				<RunCode code="application.aw.maxHeight=500;" />
+				<RunCode code="application.aw.height=600;" waitEvent="updateComplete" waitTarget="aw"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taMaxHeight" propertyName="text" value="500"/>
+				<AssertPropertyValue target="aw.taHeight" propertyName="text" value="500"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="WindowedApplication_minWidth_property_bindable" description="Verifies that minWidth is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+				<RunCode code="application.aw.minWidth=200;" />
+				<RunCode code="application.aw.width=100;" waitEvent="updateComplete" waitTarget="aw"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taMinWidth" propertyName="text" value="200"/>
+				<AssertPropertyValue target="aw.taWidth" propertyName="text" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WindowedApplication_minHeight_property_bindable" description="Verifies that minHeight is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+				<RunCode code="application.aw.minHeight=200;" />
+				<RunCode code="application.aw.height=100;" waitEvent="updateComplete" waitTarget="aw"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taMinHeight" propertyName="text" value="200"/>
+				<AssertPropertyValue target="aw.taHeight" propertyName="text" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WindowedApplication_visible_property_bindable" description="Verifies that visible is bindable for WindowedApplication" keywords="[WindowedApplication, height, property]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>	
+				<RunCode code="application.aw.open()" waitEvent="updateComplete" waitTarget="aw.taHeight"/>
+				<RunCode code="application.aw.visible=false;" waitEvent="updateComplete" waitTarget="aw.taVisible" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="aw.taVisible" propertyName="text" value="false"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+

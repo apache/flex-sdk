@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="600" height="600">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:layout><s:HorizontalLayout/></s:layout>
+	<s:VGroup>
+		<s:Label text="Spark Components"/>
+		<s:Button id="sBtn"/>
+		<s:CheckBox label="CheckBox" id="sCB"/>
+		<s:ToggleButton label="ToggleButton" id="sTgBtn"/>
+		<s:NumericStepper id="sNS" height="20" />
+		<s:List id="sList">
+			<mx:ArrayCollection>
+				<fx:String>1. Alabama</fx:String>
+				<fx:String>2. Alaska</fx:String>
+				<fx:String>3. Arizona</fx:String>
+				<fx:String>4. Arkansas</fx:String>
+				<fx:String>5. California</fx:String>
+			</mx:ArrayCollection>
+		</s:List>
+		<s:TextArea id="sTA" height="150" />
+		<s:TextInput id="sTI" height="20"/>	
+	</s:VGroup>
+	<s:VGroup>
+		<s:Label text="Halo Components"/>
+		<mx:Button id="hBtn"/>
+		<mx:CheckBox id="hCB"/>
+		<mx:Button id="hTgBtn" toggle="true" label="Toggle Button" />
+		<mx:NumericStepper id="hNS" height="20"/>
+		<mx:List id="hList">
+			<mx:ArrayCollection>
+				<fx:String>1. Alabama</fx:String>
+				<fx:String>2. Alaska</fx:String>
+				<fx:String>3. Arizona</fx:String>
+				<fx:String>4. Arkansas</fx:String>
+				<fx:String>5. California</fx:String>
+			</mx:ArrayCollection>	
+		</mx:List>
+		<mx:TextArea id="hTA" height="150"/>
+		<mx:TextInput id="hTI" height="20"/>	
+	</s:VGroup>
+	<s:VGroup>
+		<s:SkinnableContainer width="100" height="50">
+			<s:NumericStepper height="20" />
+			<mx:NumericStepper y="80" height="20"/>
+		</s:SkinnableContainer>	
+		<s:Panel width="100" height="80">
+			<s:NumericStepper height="20" />
+			<mx:NumericStepper height="20" y="30"/>
+		</s:Panel>	
+		<mx:Panel width="100" height="80" headerHeight="30">
+			<s:NumericStepper height="20" />
+			<mx:NumericStepper height="20" y="30"/>
+		</mx:Panel>		
+	</s:VGroup>
+</s:Group>

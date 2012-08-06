@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_generic_systemchrome.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test height
+Note SDK-21672 for 1 and 2.
+========================================================
+-->
+<TestCase testID="height_test1_systemChrome" keywords="[WindowedApplication,height]" description="Negative" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="minHeight" value="-10"/>
+        <SetProperty target="" propertyName="height" value="-1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="height" value="600" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test2_systemChrome" keywords="[WindowedApplication,height]" description="Zero" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="minHeight" value="0"/>
+        <SetProperty target="" propertyName="height" value="0" waitEvent="resize" />
+        <AssertPropertyValue target="" propertyName="height" value="600" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test3_systemChrome" keywords="[WindowedApplication,height]" description="One" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="minHeight" value="-10"/>
+        <SetProperty target="" propertyName="height" value="1" waitEvent="resize" />
+        <AssertPropertyValue target="" propertyName="height" value="1" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test4_systemChrome" keywords="[WindowedApplication,height]" description="Set height to a positive, reasonable value." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="height" value="30" waitEvent="resize" />
+        <AssertPropertyValue target="" propertyName="height" value="30" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test5_systemChrome" keywords="[WindowedApplication,height]" description="Set height to a positive, reasonable value." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="height" value="253" waitEvent="resize" />
+        <AssertPropertyValue target="" propertyName="height" value="253" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test6_systemChrome" keywords="[WindowedApplication,height]" description="Less than minHeight" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="minHeight" value="150" />
+        <SetProperty target="" propertyName="height" value="130" waitEvent="resize" />
+        <AssertPropertyValue target="" propertyName="height" value="150" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test7_systemChrome" keywords="[WindowedApplication,height]" description="More than maxHeight" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxHeight" value="160" />
+        <SetProperty target="" propertyName="height" value="170" waitEvent="resize" />
+        <AssertPropertyValue target="" propertyName="height" value="160" />
+        <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_test8_binding" keywords="[WindowedApplication,height]" description="Bind to the height" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="height" value="130" waitEvent="resize" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theHeight" value="130" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/WindowedSystemRawChildrenList/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="WindowedSystemRawChildrenList_App1.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+public static function init(o:DisplayObject):void
+{
+}					
+]]>
+</mx:Script>
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>	
+<!-- end of set of lines that must be in each unit test -->
+
+<mx:Script>
+<![CDATA[
+
+    import mx.core.Application;
+
+]]>
+</mx:Script>
+
+<!-- 
+    Test Notes:
+    
+    We have some special stuff to do each time a new test is run.  We can't
+    use ResetComponent.
+
+    It seems we can't wait for an event on the "win" variable.  So we
+    dispatch our own events from methods instead.
+-->
+
+<testCases>
+
+    <TestCase testID="WindowedSystemRawChildrenList_addChild_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Add a child.  This method is called by many other tests." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControl('control1')" waitEvent="controlAdded" />            
+        </setup>
+        <body>
+            <AssertPropertyValue target="listUnderTest" propertyName="numChildren" value="3" />
+            <AssertMethodValue method="value=application.confirmControl('control1')" value="true" />
+        </body>
+    </TestCase>     
+
+    <TestCase testID="WindowedSystemRawChildrenList_addChildAt_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Add a child at position 0." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />            
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control1',0)" value="true" />
+        </body>
+    </TestCase>     
+
+    <TestCase testID="WindowedSystemRawChildrenList_addChildAt_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Add a child at position 1." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',1)" waitEvent="controlAdded" />            
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control1',1)" value="true" />
+        </body>
+    </TestCase>     
+
+    <TestCase testID="WindowedSystemRawChildrenList_addChildAt_test3" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Add a child at a position greater than the number of children." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',application.listUnderTest.numChildren)" waitEvent="controlAdded" />            
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control1',application.listUnderTest.numChildren - 1)" value="true" />
+        </body>
+    </TestCase>     
+
+    <TestCase testID="WindowedSystemRawChildrenList_addChildAt_test5" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Add a child at the last position." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',2)" waitEvent="controlAdded" />            
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control1',2)" value="true" />
+        </body>
+    </TestCase>     
+
+    <TestCase testID="WindowedSystemRawChildrenList_removeChild_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Add a child, then remove it." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControl('control1')" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.listUnderTest.removeChild(Application.application.mostRecentDO)" />
+            <AssertMethodValue method="value=application.confirmControl('control1')" value="false" />
+        </body>
+    </TestCase>     
+
+    <TestCase testID="WindowedSystemRawChildrenList_removeChildAt_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Remove a child from position 0.  Also verify that the item at index 1 is moved to 0." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+            <RunCode code="application.addAControlAt('control2',1)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.removeTheControlAt(0)" />
+            <AssertMethodValue method="value=application.confirmControl('control1')" value="false" />
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control2',0)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_removeChildAt_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Remove a child from the last position.  Also verify that the item in the second to last position is then in the last position." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',2)" waitEvent="controlAdded" />
+            <RunCode code="application.addAControlAt('control2',3)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.removeTheControlAt(3)" waitEvent="controlRemoved" />
+            <AssertMethodValue method="value=application.confirmControl('control2')" value="false" />
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control1',2)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_removeChildAt_test3" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Remove a child from a position after the last position." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',2)" waitEvent="controlAdded" />
+            <RunCode code="application.addAControlAt('control2',3)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.removeTheControlAt(4)" waitEvent="controlRemoved" />
+            <AssertMethodValue method="value=application.confirmControl('control3')" value="false" />
+            <AssertMethodValue method="value=application.confirmControlAtPosition('control1',2)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildAt_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Get the child at 0." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildAt('control1',0)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildAt_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Get the child at 1." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',1)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildAt('control1',1)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildAt_test3" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Get the child at the end." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',2)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildAt('control1',2)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildByName_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Get an existing child." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',2)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildByName('control1')" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildByName_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Get a non-existing child." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',2)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildByName('argyleSock')" value="false" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildIndex_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Index 0." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildIndex(0)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildIndex_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Index 1." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',1)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildIndex(1)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getChildIndex_test3" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Index invalid." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',1)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.getTheChildIndex(98)" value="false" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_setChildIndex_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Set control 0's index to 1." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.setTheChildIndex(1)" waitEvent="indexSet" />
+            <AssertMethodValue method="value=application.getTheChildIndex(1)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_setChildIndex_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Set control 1's index to 0." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',1)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.setTheChildIndex(0)" waitEvent="indexSet" />
+            <AssertMethodValue method="value=application.getTheChildIndex(0)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_setChildIndex_test3" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Set control 0's index to the end." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <RunCode code="application.setTheChildIndex(2)" waitEvent="indexSet" />
+            <AssertMethodValue method="value=application.getTheChildIndex(2)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_getObjectsUnderPoint_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Get the objects under the point in the middle of the window." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.testGetObjectsUnderPoint()" value="true" />
+        </body>
+    </TestCase>
+    
+    <TestCase testID="WindowedSystemRawChildrenList_contains_test1" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Call contains() when it does." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.testContains()" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="WindowedSystemRawChildrenList_contains_test2" keywords="[Window,WindowedSystemRawChildrenList]"
+        description="Call contains() when it does not." >
+        <setup>
+            <RunCode code="application.doReset()" waitEvent="resetComplete" />
+            <RunCode code="application.addAControlAt('control1',0)" waitEvent="controlAdded" />
+            <RunCode code="application.listUnderTest.removeChild(Application.application.mostRecentDO)" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.testContains()" value="false" />
+        </body>
+    </TestCase>
+
+</testCases>
+
+</UnitTester>
+	

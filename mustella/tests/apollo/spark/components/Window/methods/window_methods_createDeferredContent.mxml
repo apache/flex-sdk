@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_001.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	 import spark.components.Window;
+	 import comps.*;
+	 public var className:Class;
+	]]>
+    </mx:Script>
+
+	
+    <testCases>
+	<!--
+	========================================================
+	Test method createDeferredContent
+	========================================================
+	-->
+	<TestCase testID="method_createDeferredContent_test1" keywords="[Window,methods,createDeferredContent]" 
+		description="a window overrides createDeferredContent(), however creationPolicy=none, contents created in the method will not be created">
+
+            <setup> 
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="className=WindowWithDeferredContent;"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(className,'none')" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <MyCompareBitmap target="windowWithDefferContent" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+
+
+	<TestCase testID="method_createDeferredContent_test2" keywords="[Window,methods,createDeferredContent]" 
+		description="a window overrides createDeferredContent(), however creationPolicy=none, contents created in the method will not be created until the method is invoked">
+
+            <setup> 
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="className=WindowWithDeferredContent;"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(className,'none')" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.windowWithDefferContent.createDeferredContent();" waitTarget="windowWithDefferContent" waitEvent="updateComplete" /> 	
+                <MyCompareBitmap target="windowWithDefferContent" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+	
+	
+	<TestCase testID="method_createDeferredContent_test3" keywords="[Window,methods,createDeferredContent]" 
+		description="a window overrides createDeferredContent(), however creationPolicy=auto, contents created in the method will be created automatically">
+
+            <setup> 
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="className=WindowWithDeferredContent;"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(className,'auto')" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <MyCompareBitmap target="windowWithDefferContent" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+
+	<TestCase testID="method_createDeferredContent_test4" keywords="[Window,methods,createDeferredContent]" 
+		description="a window overrides createDeferredContent(), however creationPolicy=auto, contents created in the method will be created, calling createDeferredContent() again should create a new content">
+
+            <setup> 
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="className=WindowWithDeferredContent;"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(className,'auto')" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <RunCode code="className(FlexGlobals.topLevelApplication.windowWithDefferContent).yValue=200"/>
+                <!-- this will create another button, but yValue=200 instead of default=100 -->
+                <RunCode code="FlexGlobals.topLevelApplication.windowWithDefferContent.createDeferredContent();" waitTarget="windowWithDefferContent" waitEvent="updateComplete" /> 	
+                <MyCompareBitmap target="windowWithDefferContent" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+	
+	<TestCase testID="method_createDeferredContent_test5" keywords="[Window,methods,createDeferredContent]" 
+		description="a window overrides createDeferredContent(), however creationPolicy=all, contents created in the method will be created automatically">
+
+            <setup> 
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="className=WindowWithDeferredContent;"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(className,'all')" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <MyCompareBitmap target="windowWithDefferContent" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+
+	<TestCase testID="method_createDeferredContent_test6" keywords="[Window,methods,createDeferredContent]" 
+		description="a window overrides createDeferredContent(), however creationPolicy=all, contents created in the method will be created, calling createDeferredContent() again should create a new content">
+
+            <setup> 
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="className=WindowWithDeferredContent;"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(className,'all')" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <RunCode code="className(FlexGlobals.topLevelApplication.windowWithDefferContent).yValue=200"/>
+                <!-- this will create another button, but yValue=200 instead of default=100 -->
+                <RunCode code="FlexGlobals.topLevelApplication.windowWithDefferContent.createDeferredContent();" waitTarget="windowWithDefferContent" waitEvent="updateComplete" /> 	
+                <MyCompareBitmap target="windowWithDefferContent" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+	
+</testCases>
+
+</UnitTester>

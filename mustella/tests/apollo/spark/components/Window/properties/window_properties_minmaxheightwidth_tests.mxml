@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import mx.binding.utils.*;
+        import comps.*;
+        public var btn1:Button=new Button();
+        public function setBinding():void
+        {
+	    BindingUtils.bindProperty( btn1, "label",
+	    FlexGlobals.topLevelApplication.windowObj, "minWidth" );
+	}
+	public function setBinding2():void
+	{
+	    BindingUtils.bindProperty( btn1, "label",
+	    FlexGlobals.topLevelApplication.windowObj, "minHeight" );
+	}
+	
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	maxHeight
+	Most tests decreaes it from 200.
+	========================================================
+	-->
+
+	<TestCase testID="maxHeight_test1" keywords="[Window,maxHeight]" description="Decrease to negative val" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-10;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=-1;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,-1,-1,-1)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxHeight_test2" keywords="[Window,maxHeight]" description="Decrease to zero" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-10;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=0;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,0,0)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxHeight_test3" keywords="[Window,maxHeight]" description="Decrease to 1" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=1;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,1,1,1)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxHeight_test4" keywords="[Window,maxHeight]" description="Decrease to reasonable value" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=99;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,99,99,99)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxHeight_test5" keywords="[Window,maxHeight]" description="Increase." >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=500;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="600" waitEvent="updateComplete" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,500,500,500)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxHeight_test6" keywords="[Window,maxHeight]" description="Bindable" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeightVal=500;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('maxHeight',FlexGlobals.topLevelApplication.windowObj.maxHeight,500,500,500)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<!--
+	========================================================
+	maxWidth
+	Most tests decreaes it from 200.
+	========================================================
+	-->
+
+	<TestCase testID="maxWidth_test1" keywords="[Window,maxWidth]" description="Decrease to negative val" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=-10;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=-1;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('width',FlexGlobals.topLevelApplication.windowObj.width,-1,-1,-1)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxWidth_test2" keywords="[Window,maxWidth]" description="Decrease to zero" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=-10;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=0;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('width',FlexGlobals.topLevelApplication.windowObj.width,0,0,0)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxWidth_test3" keywords="[Window,maxWidth]" description="Decrease to 1" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	     </setup> 
+	     <body>
+	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=1;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('width',FlexGlobals.topLevelApplication.windowObj.width,1,1,1)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxWidth_test4" keywords="[Window,maxWidth]" description="Decrease to reasonable value" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	     </setup> 
+	     <body>
+	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=99;" />
+		 <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('width',FlexGlobals.topLevelApplication.windowObj.width,99,99,99)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxWidth_test5" keywords="[Window,maxWidth]" description="Increase." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=500;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('width',FlexGlobals.topLevelApplication.windowObj.width,400,400,400)" value=""/>
+		<SetProperty target="windowObj" propertyName="width" value="600" waitEvent="updateComplete" />
+	        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('width',FlexGlobals.topLevelApplication.windowObj.width,500,500,500)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="maxWidth_test6" keywords="[Window,maxWidth]" description="Bindable" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidthVal=500;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertPropertyValue target="windowObj" propertyName="maxWidth" value="500" />
+	    </body>
+	</TestCase>
+
+	<!--
+	========================================================
+	minHeight
+
+	========================================================
+	-->
+	<TestCase testID="minHeight_test1" keywords="[Window,minHeight]" description="Negative" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-1;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=-2;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,0,0)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="minHeight_test2" keywords="[Window,minHeight]" description="Zero" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=0;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=-2;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,0,0)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="minHeight_test3" keywords="[Window,minHeight]" description="1" >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=1;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=-2;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,1,1,1)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="minHeight_test4" keywords="[Window,minHeight]" description="Greater than the height." >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=51;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=50;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,51,51,51)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="minHeight_test5" keywords="[Window,minHeight]" description="Less than the height. There's no event to wait for." >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=49;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=50;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,50,50,50)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="minHeight_test6" keywords="[Window,bindable]" description="Be sure it's bindable." >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeightVal=49;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<RunCode code="setBinding2()" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('minHeight',FlexGlobals.topLevelApplication.windowObj.minHeight,49,49,49)" value=""/>
+	    	<AssertPropertyValue target="script:btn1" propertyName="label" value="49" />
+	    	<SetProperty target="windowObj" propertyName="minHeight" value="170" waitEvent="updateComplete" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="170" />
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	minWidth
+	========================================================
+	-->
+	
+
+	<TestCase testID="minWidth_test6" keywords="[Window,bindable]" description="Be sure it's bindable." >
+	    <setup>
+	       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+	         <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	        <RunCode code="setBinding()" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidthVal=150;" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('minWidth',FlexGlobals.topLevelApplication.windowObj.minWidth,150,150,150)" value=""/>
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="150" />
+		<SetProperty target="windowObj" propertyName="minWidth" value="170" waitEvent="updateComplete" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="170" />
+	    </body>
+	</TestCase>
+    </testCases>
+</UnitTester>

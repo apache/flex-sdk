@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/FlexNativeMenu/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FNM_MnemonicsKeys_Main.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }           
+
+        ]]>
+
+    </mx:Script>
+
+    
+
+    <mx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </mx:Metadata>  
+
+    
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script>
+
+        <![CDATA[
+
+        
+
+        import flash.ui.Keyboard;
+
+        
+
+        public function checkMenu():Boolean
+
+        {
+
+            var matches:Boolean = false;
+
+            if(NativeApplication.supportsDockIcon){
+
+                var dock:DockIcon = NativeApplication.nativeApplication.icon as DockIcon;
+
+                matches = (dock.menu == application.compContext.nativeMenu);
+
+            }
+
+            else if(NativeApplication.supportsSystemTrayIcon){
+
+                var sys:SystemTrayIcon = NativeApplication.nativeApplication.icon as SystemTrayIcon;
+
+                matches = (sys.menu == application.compContext.nativeMenu)
+
+            }
+
+            return matches;
+
+        }   
+
+        public function getOSAndModifiers(): Number
+        {
+             var myOS:String = Capabilities.os;
+             trace('Keyboard.CONTROL: ' + Keyboard.CONTROL);
+trace('Keyboard.COMMAND: ' + Keyboard.COMMAND);
+trace('Keyboard.ALTERNATE: ' + Keyboard.ALTERNATE);
+trace('Keyboard.SHIFT: ' + Keyboard.SHIFT);
+             if(myOS.indexOf('Windows', 0) != -1)
+             {
+                 return Keyboard.CONTROL;
+             }
+             else
+             {
+                 return Keyboard.COMMAND;
+             }
+        }
+        
+
+        ]]>
+
+    </mx:Script>
+
+    
+
+    <testCases>
+
+        
+
+        <!--Mnemonic tests-->
+
+        
+
+        <TestCase testID="FlexNativeMenu_mnemonicIndexFunction_properties" keywords="[FlexNativeMenu, mnemonicIndexFunction, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.fnm_1.nativeMenu.getItemAt(0).mnemonicIndex" value="4"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_mnemonicIndexFunction_submenu_properties" keywords="[FlexNativeMenu, mnemonicIndexFunction, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(0).mnemonicIndex" value="9"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_labelFunction_properties" keywords="[FlexNativeMenu, labelFunction, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.fnm_1.nativeMenu.getItemAt(0).label" value="Fruit1"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_labelFunction_submenu_properties" keywords="[FlexNativeMenu, labelFunction, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(0).label" value="Strawberry1"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_labelFunction_separator" keywords="[FlexNativeMenu, labelFunction, separator]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(2).label" value=""/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_mnemonicIndexField_properties" keywords="[FlexNativeMenu, mnemonicIndexField, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).mnemonicIndex" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_mnemonicIndexField_separator_properties" keywords="[FlexNativeMenu, mnemonicIndexField, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(1).mnemonicIndex" value="-1"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_mnemonicIndexField_submenu_properties" keywords="[FlexNativeMenu, mnemonicIndexField, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).mnemonicIndex" value="2"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_mnemonicUnderscores_firstLetter_properties" keywords="[FlexNativeMenu, mnemonics, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.anotherVBox.flexContextMenu.nativeMenu.getItemAt(0).mnemonicIndex" value="1"/>
+
+            </body>
+
+        </TestCase>
+
+
+        <TestCase testID="FlexNativeMenu_mnemonicNumbers_short_properties" keywords="[FlexNativeMenu, mnemonicIndex, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.anotherVBox.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(1).mnemonicIndex" value="4"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!--dockIconMenu, systemTrayIconMenu tests-->
+
+        
+
+        <TestCase testID="FlexNativeMenu_dockIconMenu_properties" keywords="[FlexNativeMenu, dockIconMenu, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=checkMenu()" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_systemTrayIconMenu_properties" keywords="[FlexNativeMenu, systemTrayIconMenu, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=checkMenu()" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!--key Equivalents tests-->
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_letter_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalent" value="M"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_number_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(0).keyEquivalent" value="1"/>
+
+            </body>
+
+        </TestCase>
+
+        
+        <TestCase testID="FlexNativeMenu_keyEquivalent_doubleByte_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.jpMenus.nativeMenu.getItemAt(0).keyEquivalent" value="ト"/>
+
+                <AssertMethodValue method="value=application.jpMenus.nativeMenu.getItemAt(0).submenu.getItemAt(1).keyEquivalent" value="保"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="FlexContextMenu_keyEquivalent_doubleByte_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.jpVBox.flexContextMenu.nativeMenu.getItemAt(0).keyEquivalent" value="ト"/>
+
+                <AssertMethodValue method="value=application.jpVBox.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(1).keyEquivalent" value="保"/>
+
+            </body>
+
+        </TestCase>
+
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_ctrlKey_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).submenu.getItemAt(2).keyEquivalentModifiers" value="[17]"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_cmdKey_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).submenu.getItemAt(0).keyEquivalentModifiers" value="[15]"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_shiftKey_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(2).keyEquivalent" value="R"/>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(2).keyEquivalentModifiers" value="[16]"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_altKey_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).submenu.getItemAt(1).keyEquivalent" value=""/>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).submenu.getItemAt(1).keyEquivalentModifiers" value="[18]"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalent_ctrlKey_cmdKey_properties" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).keyEquivalent" value="BACKSPACE"/>
+
+                <AssertMethodValue method="value=application.myVBox.flexContextMenu.nativeMenu.getItemAt(2).keyEquivalentModifiers" value="[15, 16, 17]"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FlexNativeMenu_keyEquivalentFunction_MXML_XMLData" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalent" value="W"/>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(1).submenu.getItemAt(3).keyEquivalent" value="R"/>
+
+            </body>
+
+        </TestCase>             
+
+        <TestCase testID="FlexNativeMenu_keyEquivalentFunction_AS_XMLData" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <setup>
+
+                <ResetComponent target="emptyFNM" className="mx.controls.FlexNativeMenu" />
+
+                <SetProperty propertyName="labelField" value="@label" target="emptyFNM" />
+
+                <RunCode code="application.setKeyFunction(application.emptyFNM, 0)" />
+
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.cakeData" target="emptyFNM"
+
+                    waitEvent="updateComplete" waitTarget="emptyFNM" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=application.emptyFNM.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalent" value="W"/>
+
+                <AssertMethodValue method="value=application.emptyFNM.nativeMenu.getItemAt(1).submenu.getItemAt(3).keyEquivalent" value="R"/>
+
+            </body>
+
+        </TestCase>             
+
+        <TestCase testID="FlexNativeMenu_keyEquivalentFunction_AS_ArrayData" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <setup>
+
+                <ResetComponent target="emptyFNM" className="mx.controls.FlexNativeMenu" />
+
+                <RunCode code="application.setKeyFunction(application.emptyFNM, 1)" />
+
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.cakeDataArray" target="emptyFNM"
+
+                    waitEvent="updateComplete" waitTarget="emptyFNM" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=application.emptyFNM.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalent" value="W"/>
+
+                <AssertMethodValue method="value=application.emptyFNM.nativeMenu.getItemAt(1).submenu.getItemAt(3).keyEquivalent" value="1"/>
+
+            </body>
+
+        </TestCase>              
+
+        <TestCase testID="FlexNativeMenu_keyEquivalentFunction_precedence" keywords="[FlexNativeMenu, keyEquivalents, properties]"
+
+            description="Test that keyEquivalentFunction takes precedence over keyEquivalentField">
+
+            <setup>
+
+                <ResetComponent target="emptyFNM" className="mx.controls.FlexNativeMenu" />
+
+                <RunCode code="application.setKeyFunction(application.emptyFNM, 0)" />
+
+                <SetProperty propertyName="keyEquivalentField" value="@keys" target="emptyFNM" />
+
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.cakeData" target="emptyFNM"
+
+                    waitEvent="updateComplete" waitTarget="emptyFNM" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=application.emptyFNM.nativeMenu.getItemAt(0).submenu.getItemAt(2).keyEquivalent" value="E"/>
+
+                <AssertMethodValue method="value=application.emptyFNM.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalent" value="P"/>
+
+            </body>
+
+        </TestCase> 
+
+        <TestCase testID="ContextMenu_keyEquivalentFunction_MXML_XMLData" keywords="[flexContextMenu, FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.VBox3.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalent" value="W"/>
+
+                <AssertMethodValue method="value=application.VBox3.flexContextMenu.nativeMenu.getItemAt(1).submenu.getItemAt(3).keyEquivalent" value="R"/>
+
+            </body>
+
+        </TestCase>   
+
+        <TestCase testID="ContextMenu_keyEquivalentFunction_AS_XMLData" keywords="[flexContextMenu, FlexNativeMenu, keyEquivalents, properties]">
+
+            <setup>
+
+                <ResetComponent target="emptyFNM" className="mx.controls.FlexNativeMenu" />
+
+                <SetProperty propertyName="labelField" value="@label" target="emptyFNM" />
+
+                <RunCode code="application.setKeyFunction(application.emptyFNM, 0)" />
+
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.cakeData" target="emptyFNM"
+
+                    waitEvent="updateComplete" waitTarget="emptyFNM" />
+
+                <SetProperty target="VBox4" propertyName="flexContextMenu" valueExpression="value=application.emptyFNM" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=application.VBox4.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalent" value="W"/>
+
+                <AssertMethodValue method="value=application.VBox4.flexContextMenu.nativeMenu.getItemAt(1).submenu.getItemAt(3).keyEquivalent" value="R"/>
+
+            </body>
+
+        </TestCase> 
+
+        <TestCase testID="FlexNativeMenu_keyEquivalentModifiersFunction_MXML_XMLData" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers.length" value="3"/>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers[1]" 
+
+                    valueExpression="value=getOSAndModifiers()"/>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers.length" value="1" />
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers[0]" 
+
+                    valueExpression="value=Keyboard.SHIFT"/>
+
+            </body>
+
+        </TestCase>    
+
+        <TestCase testID="FlexNativeMenu_keyEquivalentModifiersFunction_AS_XMLData" keywords="[FlexNativeMenu, keyEquivalents, properties]">
+
+            <setup>
+
+                <ResetComponent target="emptyFNM" className="mx.controls.FlexNativeMenu" />
+
+                <SetProperty propertyName="labelField" value="@label" target="emptyFNM" />
+
+                <RunCode code="application.setModifierFunction(application.emptyFNM)" />
+
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.cakeData" target="emptyFNM"
+
+                    waitEvent="updateComplete" waitTarget="emptyFNM" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers.length" value="3"/>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers[1]" 
+
+                    valueExpression="value=getOSAndModifiers()"/>
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers.length" value="1" />
+
+                <AssertMethodValue method="value=application.keyfunctions.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers[0]" 
+
+                    valueExpression="value=Keyboard.SHIFT"/>
+
+            </body>
+
+        </TestCase> 
+
+        <TestCase testID="flexContextMenu_keyEquivalentModifiersFunction_MXML_XMLData" keywords="[flexContextMenu,FlexNativeMenu, keyEquivalents, properties]">
+
+            <body>
+
+                <AssertMethodValue method="value=application.VBox3.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers.length" value="3"/>
+
+                <AssertMethodValue method="value=application.VBox3.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers[1]" 
+
+                    valueExpression="value=getOSAndModifiers()"/>
+
+                <AssertMethodValue method="value=application.VBox3.flexContextMenu.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers.length" value="1" />
+
+                <AssertMethodValue method="value=application.VBox3.flexContextMenu.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers[0]" 
+
+                    valueExpression="value=Keyboard.SHIFT"/>
+
+            </body>
+
+        </TestCase>    
+
+        <TestCase testID="flexContextMenu_keyEquivalentModifiersFunction_AS_XMLData" keywords="[flexContextMenu,FlexNativeMenu, keyEquivalents, properties]">
+
+            <setup>
+
+                <ResetComponent target="emptyFNM" className="mx.controls.FlexNativeMenu" />
+
+                <SetProperty propertyName="labelField" value="@label" target="emptyFNM" />
+
+                <RunCode code="application.setModifierFunction(application.emptyFNM)" />
+
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.cakeData" target="emptyFNM"
+
+                    waitEvent="updateComplete" waitTarget="emptyFNM" />
+
+                <SetProperty target="VBox4" propertyName="flexContextMenu" valueExpression="value=application.emptyFNM" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=application.VBox4.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers.length" value="3"/>
+
+                <AssertMethodValue method="value=application.VBox4.flexContextMenu.nativeMenu.getItemAt(0).submenu.getItemAt(0).keyEquivalentModifiers[1]" 
+
+                    valueExpression="value=getOSAndModifiers()"/>
+
+                <AssertMethodValue method="value=application.VBox4.flexContextMenu.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers.length" value="1" />
+
+                <AssertMethodValue method="value=application.VBox4.flexContextMenu.nativeMenu.getItemAt(1).submenu.getItemAt(4).keyEquivalentModifiers[0]" 
+
+                    valueExpression="value=Keyboard.SHIFT"/>
+
+            </body>
+
+        </TestCase> 
+
+    </testCases>
+
+</UnitTester>

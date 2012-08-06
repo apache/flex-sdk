@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_flexchrome.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import mx.binding.utils.*;
+        import comps.*;
+        public var btn1:Button=new Button();
+        public function setBinding():void
+        {
+	    BindingUtils.bindProperty( btn1, "label",
+	    FlexGlobals.topLevelApplication.windowObj, "width" );
+	}
+
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test width
+	========================================================
+	-->
+	
+	<TestCase testID="width_test4_flexChrome" keywords="[Window,width]" description="Set width to a positive, reasonable value." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<SetProperty target="myWin" propertyName="width" value="140" waitEvent="resize" />
+		<AssertPropertyValue target="myWin" propertyName="width" value="140" />
+		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="width_test5_flexChrome" keywords="[Window,width]" description="Set width to a positive, reasonable value." >
+	     <setup>
+		 <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<SetProperty target="myWin" propertyName="width" value="253" waitEvent="resize" />
+		<AssertPropertyValue target="myWin" propertyName="width" value="253" />
+		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="width_test6_flexChrome" keywords="[Window,width]" description="Less than minWidth" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<SetProperty target="myWin" propertyName="minWidth" value="150" />
+		<SetProperty target="myWin" propertyName="width" value="130" waitEvent="resize" />
+		<AssertPropertyValue target="myWin" propertyName="width" value="150" />
+		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="width_test7_flexChrome" keywords="[Window,width]" description="More than maxWidth" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<SetProperty target="myWin" propertyName="maxWidth" value="160" />
+		<SetProperty target="myWin" propertyName="width" value="170" waitEvent="resize" />
+		<AssertPropertyValue target="myWin" propertyName="width" value="160" />
+		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="width_test8_binding" keywords="[Window,width]" description="Bind to the width" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithBindableSettings,'window1')"  waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+	        <RunCode code="setBinding()" />
+		<AssertPropertyValue target="windowObj" propertyName="width" value="400" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="400" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.widthVal=140"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertPropertyValue target="windowObj" propertyName="width" value="140" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="140" />
+	    </body>
+	</TestCase>	
+		
+    </testCases>
+</UnitTester>

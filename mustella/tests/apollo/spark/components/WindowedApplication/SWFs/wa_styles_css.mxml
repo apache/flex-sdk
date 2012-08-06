@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*">
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.*;
+    import mx.collections.ArrayCollection;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+    import spark.skins.spark.*;
+
+    public var heightResetVal:int = 600;
+    public var widthResetVal:int = 600;
+	public var windowObj:Window;
+    public var childWindowList:Array = new Array();
+
+    private var xResetVal:int = 150;
+    private var yResetVal:int = 150;
+
+    /**
+    * Reset things.  We can't use ResetComponent for the WindowedApplication.  Here's
+    * what these next few methods do:
+    *    - Be sure we're not minimized or maximized.
+    *    - Be sure we're in state1.
+    *    - Set various properties.
+    *    - Dispatch resetComplete.
+    **/
+    public function doReset():void{
+        addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+
+        if(nativeWindow.displayState == "normal"){
+            handleResetDisplayStateChange(new NativeWindowDisplayStateEvent(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE));
+        }else{
+            restore();
+        }
+    }
+
+    private function handleResetDisplayStateChange(e:NativeWindowDisplayStateEvent):void{
+        removeEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+        addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+        
+        if(currentState == "state1"){
+            handleCurrentStateChange();
+        }else{
+            addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent = null):void{
+        removeEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+        addEventListener(FlexNativeWindowBoundsEvent.WINDOW_MOVE, handleWindowMove);
+        
+        if(nativeWindow.bounds.x == xResetVal &&
+           nativeWindow.bounds.y == yResetVal){
+            handleWindowMove();
+        }else{
+            move(xResetVal, yResetVal);
+        }
+    }
+
+    private function handleWindowMove(e:FlexNativeWindowBoundsEvent = null):void{
+        removeEventListener(FlexNativeWindowBoundsEvent.WINDOW_MOVE, handleWindowMove);
+        addEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        
+        setStyle("minimizeEffect", null);
+        setStyle("unminimizeEffect", null);
+
+/**
+    Cannot set styles with setStyle, otherwise setting styles in CSS won't work.
+        setStyle("chromeColor", 0xCCCCCC);
+        setStyle("contentBackgroundColor", 0xFFFFFF);
+        setStyle("focusColor", 0x70B2EE);
+        setStyle("rollOverColor", 0xCEDBEF);
+        setStyle("selectionColor", 0xA8C6EE);
+        setStyle("symbolColor", 0);
+**/
+        
+        alwaysInFront = false;
+        activate();
+
+        if(height == heightResetVal &&
+           width == widthResetVal &&
+           getStyle('skinClass').type == spark.skins.spark.WindowedApplicationSkin &&
+           title == "" &&
+           titleIcon == null &&
+           enabled == true &&
+           status == "" &&
+           showStatusBar == true &&
+           visible == true &&
+           alpha == 1 &&
+           group1.visible == false){
+           handleResetUpdateComplete();
+        }else{
+            setStyle('skinClass', WindowedApplicationSkin);
+            height = heightResetVal;
+            width = widthResetVal;
+            title = "";
+            titleIcon = null;
+            enabled = true;
+            status="";
+            showStatusBar = true;
+            visible = true;
+            alpha = 1;
+            group1.visible = false;
+        }
+    }
+
+    private function handleResetUpdateComplete(e:FlexEvent = null):void{
+        removeEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        dispatchEvent(new FlexEvent("resetComplete"));
+    }
+]]>
+</fx:Script>
+
+<s:states>
+    <s:State name="state1" />
+    <s:State name="state2" />
+    <s:State name="state3" />
+</s:states>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera2;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera2;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera2;
+        embedAsCFF: false;
+    }
+    
+    mx|DataGrid{
+        fontFamily: EmbeddedVera2;
+        fontAntiAliasType: normal;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|CheckBox{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+    
+    s|TextArea{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|TitleBar{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|WindowedApplication{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    .baseColorStyle1{
+        chromeColor: #880000;
+    }
+
+    .contentBackgroundColorStyle1{
+        contentBackgroundColor: #008800;
+    }
+    
+    .focusColorStyle1{
+        focusColor: #000088;
+    }
+    
+    .rollOverColorStyle1{
+        rollOverColor: #ff0000;
+    }
+    
+    .selectionColorStyle1{
+        selectionColor: #00ff00;
+    }
+    
+    .symbolColorStyle1{
+        symbolColor: #0000ff;
+    }
+    
+</fx:Style>
+
+<custom:GroupWithComponents id="group1" />
+
+</s:WindowedApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

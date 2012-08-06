@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import mx.binding.utils.*;
+        import comps.*;
+        public var btn1:Button=new Button();
+        public function setBinding():void
+        {
+	    BindingUtils.bindProperty( btn1, "label",
+	    FlexGlobals.topLevelApplication.windowObj, "height" );
+	}
+	]]>
+    </mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test height
+	========================================================
+	-->
+	<TestCase testID="height_test1_systemChrome" keywords="[Window,height]" description="Negative" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-10"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="-1" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,400,400)" value=""/>
+		
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test2_systemChrome" keywords="[Window,height]" description="Zero" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-10"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="0" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,400,400)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test3_systemChrome" keywords="[Window,height]" description="One" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-10"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="1" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test4_systemChrome" keywords="[Window,height]" description="Set height to a positive, reasonable value." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=-10"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="30" waitEvent="resize" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="30" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test5_systemChrome" keywords="[Window,height]" description="Set height to a positive, reasonable value." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="253" waitEvent="resize" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="253" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test6_systemChrome" keywords="[Window,height]" description="Less than minHeight" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=150"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="150" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test7_systemChrome" keywords="[Window,height]" description="More than maxHeight" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=150"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=160"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<SetProperty target="windowObj" propertyName="height" value="170" waitEvent="updateComplete" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="160" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test8_binding" keywords="[Window,height]" description="Bind to the height" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+	    	
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.heightVal=130"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>  
+		<AssertPropertyValue target="windowObj" propertyName="height" value="130" />
+		<RunCode code="setBinding()" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="130" />
+		<SetProperty target="windowObj" propertyName="height" value="170" waitEvent="updateComplete" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="170" />
+	    </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

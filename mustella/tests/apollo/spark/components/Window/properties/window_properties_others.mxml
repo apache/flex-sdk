@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_flexchrome.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import mx.controls.FlexNativeMenu;
+        import comps.*;
+
+	public var myMenuData:XML=
+	    <root>
+		<menuitem label="MenuItem A">    
+		</menuitem>
+		<menuitem label="MenuItem B" type="check" toggled="true"/>
+		<menuitem label="MenuItem C" type="check" toggled="false"/>
+		<menuitem type="separator"/>
+		<menuitem label="MenuItem D">   
+		</menuitem>
+    	    </root>;
+	[Embed(source="../../../../../../Assets/Images/yellowrect.jpg")]
+	private var testTitleIcon:Class;
+	private var b:Button =new Button();
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Tests here are mainly for code coverage
+	========================================================
+	-->
+
+	<TestCase testID="get_colorCorrection_test1" keywords="[Window,colorCorrection]" description="Confirm colorCorrection is default." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<AssertPropertyValue target="myWin" propertyName="colorCorrection" value="default" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="set_colorCorrection_test1" keywords="[Window,colorCorrection]" description="Confirm colorCorrection is on once set." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+		<SetProperty target="myWin" propertyName="colorCorrection" value="on" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<AssertPropertyValue target="myWin" propertyName="colorCorrection" value="on" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="set_colorCorrection_test2" keywords="[Window,colorCorrection]" description="Confirm colorCorrection is off once set." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+		<SetProperty target="myWin" propertyName="colorCorrection" value="off" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<AssertPropertyValue target="myWin" propertyName="colorCorrection" value="off" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="get_menu_test1" keywords="[Window,menu]" description="get menu which not set" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<AssertPropertyValue target="myWin" propertyName="menu" value="null" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="get_menu_test2" keywords="[Window,menu]" description="get menu which is set" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(Window,'window1')" />
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.systemChrome='standard'"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)"
+		waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.menu=new FlexNativeMenu();FlexGlobals.topLevelApplication.windowObj.menu.dataProvider=myMenuData;"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.windowObj.menu!=null" value="true" />
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="get_alwaysInFront_test1" keywords="[Window,alwaysInFront]" description="get alwaysInFront" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertPropertyValue target="myWin" propertyName="alwaysInFront" value="false" />
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="get_cursorManager_test1" keywords="[Window,alwaysInFront]" description="get alwaysInFront" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.cursorManager!=null" value="true" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="getWindow_test1" keywords="[Window,getWindow]" description="getWindow should return the window" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(Window,'window1')" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=Window.getWindow(FlexGlobals.topLevelApplication.windowObj)==FlexGlobals.topLevelApplication.windowObj" value="true" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="getWindow_test2" keywords="[Window,getWindow]" description="getWindow should return the window" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(Window,'window1')" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=Window.getWindow(b)" value="null" />
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="get_titleIcon" keywords="[Window,titleIcon]" description="getTitleIcon" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+	    </setup>
+	    <body>
+		<AssertPropertyValue target="myWin" propertyName="titleIcon" value="null" />
+		<SetProperty target="myWin" propertyName="titleIcon" valueExpression="value=testTitleIcon" waitEvent="updateComplete" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.titleIcon" valueExpression="value=testTitleIcon" />
+	    </body>
+	</TestCase>
+
+
+
+
+    </testCases>
+</UnitTester>

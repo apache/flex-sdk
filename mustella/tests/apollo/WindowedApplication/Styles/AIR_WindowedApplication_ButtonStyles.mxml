@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/WindowedApplication/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="WindowedApplication_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.core.WindowedApplication;
+	import mx.core.windowClasses.TitleBar;
+	import mx.controls.Button;
+
+	public var cbms:String;
+	public var cbs:String;
+	public var hh:Number;
+	public var mbms:String;
+	public var mbs:String;
+	public var mbmsn:String;
+	public var mbsn:String;
+	public var rbsn:String;
+	public var sfc:String;
+	public var sbgs:Class;
+	public var sbbc:uint;
+	public var stsn:String;
+	public var ta:String;
+	public var tbbs:Class;
+	public var tbbp:Number;
+	public var tbc:Array;
+	public var ttsn:String;
+	public var ba:String;
+     	public var bp:Number;
+	
+	public var minBtn:Button;
+	public var maxBtn:Button;
+	public var closeBtn:Button;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/redrect.jpg")]
+	public var extraButtonSkin:Class;
+
+	public function setButtons():void
+	{
+		minBtn = mx.core.windowClasses.TitleBar(application.titleBar).minimizeButton;
+		maxBtn = mx.core.windowClasses.TitleBar(application.titleBar).maximizeButton;
+		closeBtn = mx.core.windowClasses.TitleBar(application.titleBar).closeButton;
+	}
+
+      /*	public function set():void
+      	{
+      		ba=application.getStyle('buttonAlignment');
+      		bp=application.getStyle('buttonPadding');
+      		cbms=application.getStyle('closeButtonSkin');
+      		cbs=application.getStyle('closeButtonSkin');
+      		hh=application.getStyle('headerHeight');
+      		mbms=application.getStyle('maximizeButtonSkin');
+      		mbs=application.getStyle('maximizeButtonSkin');
+      		mbmsn=application.getStyle('minimizeButtonSkin');
+      		mbsn=application.getStyle('minimizeButtonSkin');
+      		rbsn=application.getStyle('restoreButtonSkin');
+      		sfc=application.getStyle('showFlexChrome');
+      		sbgs=application.getStyle('statusBackgroundSkin');
+      		sbbc=application.getStyle('statusBarBackgroundColor');
+      		stsn=application.getStyle('statusTextStyleName');
+      		ta=application.getStyle('titleAlignment');
+      		tbbs=application.getStyle('titleBarBackgroundSkin');
+      		tbbp=application.getStyle('titleBarButtonPadding');
+      		tbc=application.getStyle('titleBarColors');
+      		ttsn=application.getStyle('titleTextStyleName');
+      		trace(hh);
+      	}
+      	public function reset():void
+      	{
+		application.setStyle('buttonAlignment',ba);
+		application.setStyle('buttonPadding',bp);
+		application.setStyle('closeButtonSkin', extraButtonSkin);
+		application.setStyle('closeButtonSkin', extraButtonSkin);
+		application.setStyle('headerHeight',22);
+		application.setStyle('maximizeButtonSkin',mbms);
+		application.setStyle('maximizeButtonSkin',mbs);
+		application.setStyle('minimizeButtonSkin',mbmsn);
+		application.setStyle('minimizeButtonSkin',mbsn);
+		application.setStyle('restoreButtonSkin',rbsn);
+		application.setStyle('showFlexChrome',sfc);
+		application.setStyle('statusBackgroundSkin',sbgs);
+		application.setStyle('statusBarBackgroundColor',sbbc);
+		application.setStyle('statusTextStyleName',stsn);
+		application.setStyle('titleAlignment',ta);
+		application.setStyle('titleBarBackgroundSkin',tbbs);
+		application.setStyle('titleBarButtonPadding',tbbp);
+		application.setStyle('titleBarColors',tbc);
+		application.setStyle('titleTextStyleName',ttsn);
+		
+	}     */
+      	
+      	]]>
+	</mx:Script>
+
+	<testCases>
+
+		<TestCase testID="Window_Style_maximizeButtonStyleName" keywords="[Window,Style, maximizeButtonStyleName]">
+			<body>
+				<RunCode code="setButtons()"/>
+				<SetStyle styleName="maximizeButtonSkin" value="{extraButtonSkin}" target="" waitEvent="updateComplete" waitTarget=""/>
+				<CompareBitmap target="script:maxBtn" url="../Styles/baselines/maximizeButtonStyleName.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Window_Style_closeButtonStyleName" keywords="[Window,Style, closeButtonStyleName]">
+			<body>
+				<SetStyle styleName="closeButtonSkin" value="{extraButtonSkin}" target="" waitEvent="updateComplete" waitTarget=""/>
+				<CompareBitmap target="script:closeBtn" url="../Styles/baselines/closeButtonStyleName.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="Window_Style_restoreButtonStyleName" keywords="[Window,Style, restoreButtonStyleName]">
+			<body>
+				<SetStyle styleName="restoreButtonSkin" value="{extraButtonSkin}" target="" waitEvent="updateComplete" waitTarget=""/>
+				<RunCode code="application.maximize()"  waitEvent="displayStateChange" waitTarget=""/>
+				<WaitForEffectsToEnd/>
+				<CompareBitmap target="script:maxBtn" url="../Styles/baselines/restoreButtonStyleName.png" timeout="5000" />
+				<RunCode code="application.restore()"  waitEvent="displayStateChanging" waitTarget=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="Window_Style_minimizeButtonStyleName" keywords="[Window,Style, minimizeButtonStyleName]">
+			<body>
+				<SetStyle styleName="minimizeButtonSkin" value="{extraButtonSkin}" target="" waitEvent="updateComplete" waitTarget=""/>
+				<WaitForEffectsToEnd/>
+				<CompareBitmap target="script:minBtn" url="../Styles/baselines/minimizeButtonStyleName.png" timeout="5000" />
+			</body>
+		</TestCase>		
+	</testCases>
+
+</UnitTester>
+	
+

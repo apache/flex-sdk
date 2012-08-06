@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/spark/components/Window/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_style_001.mxml">
+
+
+
+	
+
+<!-- this set of lines form a template that must be in each unit test -->
+
+	
+
+    <mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}
+
+	]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+    </mx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+	<![CDATA[
+
+	 import mx.core.FlexGlobals;
+
+	 import spark.components.Window;
+
+	 import spark.components.TextArea;
+
+	 import comps.*;
+
+	
+
+	]]>
+
+    </mx:Script>
+
+
+
+	
+
+    <testCases>
+
+	<!-- 
+
+	========================================================
+
+	Test Style baseColor
+
+	========================================================
+
+	-->
+
+	<TestCase testID="selector_baseColor_test1" keywords="[Window,style,baseColor]" 
+
+		description="a window with baseColor style set, verify the baseColor is efffective">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+
+
+
+	    </setup>
+
+	    <body>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+	
+
+	<!-- 
+
+	========================================================
+
+	Test Style contentBackgroundColor, already covered in baseColor
+
+	since the image comparision already is included to verfy contentBackgroundColor
+
+	for textarea, datagrid
+
+	========================================================
+
+	-->
+
+
+
+	<!--
+
+	========================================================
+
+	Test Style focusColor
+
+	========================================================
+
+	-->
+
+	
+
+	<TestCase testID="selector_focusColor_test1" keywords="[Window,style,focusColor]" 
+
+		description="a window with focusColor style set, verify the focusColor is efffective">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+
+
+
+	    </setup>
+
+	    <body> 
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<DispatchMouseEvent target="myWin.ta" type="mouseDown" localX="10" localY="10" waitEvent="focusIn" />
+
+		<WaitForEffectsToEnd />
+
+		<!--
+
+		<AssertStyleValue target="myWin.ta" styleName="focusColor" value="0x0000CD"/>
+
+		-->
+
+		<MyCompareBitmap target="myWin.ta"  numColorVariances="10" maxColorVariance="10" url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+	
+
+	
+
+	<!--
+
+	========================================================
+
+	Test Style rollOverColor
+
+	========================================================
+
+	-->
+
+	
+
+	<TestCase testID="selector_rolloverColor_test1" keywords="[Window,style,rolloverColor]" 
+
+		description="a window with rolloverColor style set, verify the rolloverColor is efffective">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+
+
+
+	    </setup>
+
+	    <body>
+
+		<DispatchMouseEvent type="mouseMove" target="myWin.dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="myWin.dg1" waitEvent="itemRollOver" />
+
+		<WaitForEffectsToEnd />
+
+		<CompareBitmap target="myWin.dg1"  numColorVariances="10" maxColorVariance="10" url="../styles/baselines/$testID.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+	<!--
+
+	========================================================
+
+	Test Style selectionColor
+
+	========================================================
+
+	-->
+
+	<TestCase testID="selector_selectionColor_test1" keywords="[Window,style,selectionColor]" 
+
+		description="a window with selectionColor style set, verify the selectionColor is efffective">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+
+
+
+	    </setup>
+
+	    <body>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<DispatchMouseEvent type="mouseMove" target="myWin.dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="myWin.dg1" waitEvent="itemRollOver"/>
+
+		<DispatchMouseClickEvent localX="10" localY="40" target="myWin.dg1" waitTarget="myWin.dg1" waitEvent="change" />
+
+		<WaitForEffectsToEnd />
+
+		<!--
+
+		<AssertStyleValue target="myWin" styleName="selectionColor" value="0x800080"/>
+
+		-->
+
+		<CompareBitmap target="myWin.dg1"  numColorVariances="10" maxColorVariance="10" url="../styles/baselines/$testID.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+	<!--
+
+	========================================================
+
+	Test Style symbolColor
+
+	========================================================
+
+	-->
+
+	<TestCase testID="selector_symbolColor_test1" keywords="[Window,style,symbolColor]" 
+
+		description="a window with symbolColor style set, verify the symbolColor is efffective">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+
+
+
+	    </setup>
+
+	    <body>
+
+		<!-- need wait for style is applied -->
+
+		<DispatchMouseEvent type="mouseMove" target="myWin.checkBox1" localX="2" localY="2" />
+
+		<DispatchMouseClickEvent target="myWin.checkBox1" localX="2" localY="2" waitTarget="myWin.checkBox1" waitEvent="click"/>
+
+		<WaitForEffectsToEnd />
+
+		<MyCompareBitmap target="myWin.checkBox1"  numColorVariances="10" maxColorVariance="10" url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+	
+
+    </testCases>
+
+
+
+</UnitTester>
+

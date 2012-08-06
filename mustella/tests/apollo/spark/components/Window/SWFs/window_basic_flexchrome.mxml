@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+    	xmlns:local="*" close="closeAllChildWindow()">
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		    fontWeight: bold;           
+		    fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		    fontStyle: italic;          
+		    fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+		    fontFamily: EmbeddedMeiryo;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedMeiryo;
+		    embedAsCFF: true;
+		}
+	        s|Window
+	        {
+	            skinClass: ClassReference("spark.skins.spark.SparkChromeWindowedApplicationSkin");
+	        }
+		s|WindowedApplication{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		s|Window{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|TitleBar{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Button{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|DropDownList{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Label{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	
+
+	        mx|Label{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	       .testStyle3{
+	    	    fontFamily: EmbeddedMeiryo;
+	            fontLookup: embeddedCFF;
+	            fontAntiAliasType: normal;
+	        }   	        
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+	</fx:Style>
+    	
+        <fx:Declarations> 
+	         <mx:Fade id="myFade1" alphaFrom="1" alphaTo="0" duration="1000" /> 
+		 <mx:Fade id="myFade2"  alphaFrom="0" alphaTo="1" duration="2000"/>	 	
+        </fx:Declarations> 
+	<fx:Script>
+		<![CDATA[
+
+		import spark.components.Window;
+		import 	flash.display.NativeWindow;
+		import mx.core.FlexGlobals;
+		import spark.components.windowClasses.TitleBar;
+		import comps.*;
+		import flash.system.Capabilities;
+		import spark.components.WindowedApplication; 
+		import mx.events.FlexEvent;
+		public var childWindowList:Array=new Array();
+
+		public var myWin:MySubWindow;
+		public var windowObj:Window;
+		[Bindable]
+		public var statusStr:String="this is a test, this is a test, this is a test, this is a test";
+		public function createAWindow():void
+		{
+		    myWin=new MySubWindow();
+		    myWin.title="window test";
+		    myWin.titleBar=new TitleBar();
+		    myWin.titleBar.title="titlebar";
+		    myWin.width=300;
+		    myWin.height=350;
+		    myWin.systemChrome="none";
+		    childWindowList.push(myWin);
+		    myWin.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		    myWin.open(true);
+
+		}	
+
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("myWindowComplete"));
+		}
+		public function createAWindowByClass(c:Class, title:String,yPos:Number=100):Window
+		{
+			windowObj=createANoOpenWindowByClass(c,title,yPos);
+			windowObj.open(true);
+			return windowObj;
+		}
+
+		public function createANoOpenWindowByClass(c:Class, title:String,yPos:Number=100):Window
+		{
+			var win:Window=new c();
+			c(win).y=yPos;
+			win.title=title;
+			win.systemChrome="none";
+			childWindowList.push(win);
+			win.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			return win;
+		}                  
+		public function checkNativeWindow():String
+		{
+		    var nw:NativeWindow=myWin.nativeWindow;
+		    var errMsg:String="";
+		    if (nw.width!=myWin.width)
+			errMsg+="width not expected, nw.width="+nw.width+";expect="+myWin.width+"\n";
+		    if (nw.height!=myWin.height)
+			errMsg+="height not expected, nw.height="+nw.height+";expect="+myWin.height+"\n";
+		    if (nw.resizable!=myWin.resizable)
+			errMsg+="resizable not expected, nw.resizable="+nw.resizable+";expect="+myWin.resizable+"\n";
+		    if (nw.minimizable!=myWin.minimizable)
+			errMsg+="minimizable not expected, nw.minimizable="+nw.minimizable+";expect="+myWin.minimizable+"\n";
+		    if (nw.maximizable!=myWin.maximizable)
+			errMsg+="maximizable not expected, nw.maximizable="+nw.maximizable+";expect="+myWin.maximizable+"\n";
+		    if (nw.type!=myWin.type)
+			errMsg+="type not expected, nw.type="+nw.type+";expect="+myWin.type+"\n";
+		    if (nw.systemChrome!=myWin.systemChrome)
+		       errMsg+="systemChrome not expected, nw.systemChrome="+nw.systemChrome+";expect="+myWin.systemChrome+"\n";
+		    return errMsg;
+		}
+
+		public function updateNativeWindow():void
+		{
+		    var nw:NativeWindow=myWin.nativeWindow;
+		    nw.bounds=new Rectangle(0,0,300,300);
+		    nw.width=200;
+		    nw.title="test title";
+		    nw.visible=true;
+		    myWin.addEventListener("updateComplete",handleNativeWindowUpdate);
+		    nw.height=200;
+		}
+		public function handleNativeWindowUpdate(e:FlexEvent):void
+		{
+		       myWin.removeEventListener("updateComplete", handleNativeWindowUpdate);
+			dispatchEvent(new FlexEvent("NativeWindowUpdateComplete"));
+		}
+
+		public function updateWindow():void
+		{
+		    myWin.width=400;
+		    myWin.height=400;
+		    myWin.title="updated title";
+		    myWin.addEventListener("updateComplete",handleWindowUpdate);
+
+		}
+		public function handleWindowUpdate(e:FlexEvent):void
+		{
+		    myWin.removeEventListener("updateComplete", handleWindowUpdate);
+		    dispatchEvent(new FlexEvent("WindowUpdateComplete"));
+
+		}
+		public function verifyNativeWindowUpdate():String
+		{
+		    var errMsg:String="";
+		    trace("myWin.width="+myWin.width+";myWin.height="+myWin.height);
+
+		    if (myWin.height!=200)
+			errMsg+="height not expected, myWin.height="+myWin.height+";expect=200; ";
+		    if( myWin.title!="window test")
+		       errMsg+="title not expected, title should not be changed in flexchrome skin";
+		     if (myWin.width!=200)
+			errMsg+="width not expected, myWin.width="+myWin.width+";expect=200;";
+		    return errMsg;
+		}
+
+
+
+		public function closeAllChildWindow():void
+		{
+
+		    while(childWindowList.length>0)
+		    {
+			var win:Window=Window(childWindowList.pop());
+			win.close();
+			win=null;
+		    }
+
+		}
+		public function assertValueBaseOnOS(description:String,actualVal:*,expectWinVal:*=null,expectMacVal:*=null,expectLinuxVal:*=null):String
+		{
+		var errMsg:String="";
+		var current_os:String=Capabilities.os.toLowerCase();
+		if (current_os.indexOf("window")>-1)
+		{
+			if (actualVal!=expectWinVal)
+				errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectWinVal;
+		}else if (current_os.indexOf("mac")>-1)
+		{
+			if (actualVal!=expectMacVal)
+				errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectMacVal;
+		}else if (current_os.indexOf("linux")>-1)
+		{
+			if (actualVal!=expectLinuxVal)
+				errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectLinuxVal;
+
+		}else {
+			errMsg+="on os="+current_os+" isn't supported";
+		}
+		if (description!=null && errMsg!="")
+			errMsg=description+" "+errMsg;
+		return errMsg;
+		}	
+		]]>
+	</fx:Script>
+</s:WindowedApplication>

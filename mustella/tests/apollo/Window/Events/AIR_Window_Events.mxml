@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/Window/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AIR_Window_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                    
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    
+        import mx.core.WindowedApplication;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="Window_Event_displayStateChange_1" keywords="[Window,Event, displayStateChange]">
+            <body>
+                <RunCode code="application.resetWindow()"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <RunCode code="application.aw.maximize()" />
+                <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+            </body> 
+        </TestCase> 
+
+        <TestCase testID="Window_Event_displayStateChange_2" keywords="[Window,Event, displayStateChange]">
+            <body>
+                <RunCode code="application.aw.restore()"/>
+                <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+            </body> 
+        </TestCase>
+
+        <TestCase testID="Window_Event_displayStateChange_3" keywords="[Window,Event, displayStateChange]">
+            <body>
+                <RunCode code="application.resetWindow()" />
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <RunCode code="application.aw.minimize()"  waitEvent="displayStateChange" waitTarget="aw"/>
+                <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+            </body> 
+        </TestCase>        
+
+        <TestCase testID="Window_Event_displayStateChanging_2" keywords="[Window,Event, displayStateChanging]">
+            <body>
+                <RunCode code="application.aw.restore()"  waitEvent="displayStateChanging" waitTarget="aw"/>
+                <AssertEvent target="aw" eventName="displayStateChanging" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+            </body> 
+        </TestCase>
+
+        <TestCase testID="Window_Event_displayStateChanging_3" keywords="[Window,Event, displayStateChanging]">
+            <body> 
+                <RunCode code="application.resetWindow()" />
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <RunCode code="application.aw.minimize()"  waitEvent="displayStateChanging" waitTarget="aw"/>
+                <AssertEvent target="aw" eventName="displayStateChanging" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+            </body> 
+        </TestCase>  
+
+        <TestCase testID="Window_Event_displayStateChanging_4" keywords="[Window,Event, displayStateChanging]">
+            <body>
+                <RunCode code="application.aw.restore()"  waitEvent="displayStateChanging" waitTarget="aw"/>
+            </body> 
+        </TestCase> 
+
+        <TestCase testID="Window_Event_displayStateChange_maximize" keywords="[Window,Event, displayStateChange]">
+             <body>
+                <RunCode code="application.aw.maximize()" />
+                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" />                 
+             </body> 
+         </TestCase> 
+         
+         <TestCase testID="Window_Event_displayStateChange_minimize" keywords="[Window,Event, displayStateChange]">
+             <body>
+                 <RunCode code="application.aw.minimize()"  waitEvent="displayStateChange" waitTarget="aw"/>
+                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+             </body> 
+        </TestCase>         
+
+        <TestCase testID="Window_Event_displayStateChange_restore" keywords="[Window,Event, displayStateChange]">
+             <body>
+                 <RunCode code="application.aw.restore()"  waitEvent="displayStateChange" waitTarget="aw"/>
+                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+             </body> 
+         </TestCase>
+
+         <TestCase testID="Window_Event_displayStateChange_maximize_fromExplicitSize" keywords="[Window,Event, displayStateChange]">
+             <body>
+                 <RunCode code="application.resetWindow()" />
+                <SetProperty propertyName="height" value="300" target="aw"/>
+                <SetProperty propertyName="width" value="300" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <RunCode code="application.aw.maximize()" />
+                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+             </body> 
+         </TestCase> 
+         
+         <!--<TestCase testID="Window_Event_windowCreate" keywords="[Window,Event, displayStateChange]">
+            <body>
+                <RunCode code="application.resetWindow()" />
+                <SetProperty propertyName="height" value="300" target="aw"/>
+                <SetProperty propertyName="width" value="300" target="aw"/>
+                <RunCode code="application.aw.open()" />
+                <AssertEvent target="aw" eventName="windowCreate" eventClass="mx.events::WindowExistenceEvent" /> 
+            </body> 
+         </TestCase> 
+         
+         <TestCase testID="Window_Event_windowClose" keywords="[Window,Event, displayStateChange]">
+            <body>
+                <RunCode code="application.resetWindow()" />
+                <SetProperty propertyName="height" value="300" target="aw"/>
+                <SetProperty propertyName="width" value="300" target="aw"/>
+                <RunCode code="application.aw.open()" />
+                <AssertEvent target="aw" eventName="windowCreate" eventClass="mx.events::WindowExistenceEvent" /> 
+                <RunCode code="application.aw.close()" />
+                <AssertEvent target="aw" eventName="windowClose" eventClass="mx.events::WindowExistenceEvent" /> 
+            </body> 
+         </TestCase> -->
+    </testCases>
+
+</UnitTester>

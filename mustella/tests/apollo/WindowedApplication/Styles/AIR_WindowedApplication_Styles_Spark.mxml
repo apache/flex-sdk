@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/WindowedApplication/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AIR_WindowedApplication_Basic_Styles_Spark.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.core.WindowedApplication;
+    public var cbms:String;
+    public var cbs:String;
+    public var hh:Number;
+    public var mbms:String;
+    public var mbs:String;
+    public var mbmsn:String;
+    public var mbsn:String;
+    public var rbsn:String;
+    public var sfc:String;
+    public var sbgs:Class;
+    public var sbbc:uint;
+    public var stsn:String;
+    public var ta:String;
+    public var tbbs:Class;
+    public var tbbp:Number;
+    public var tbc:Array;
+    public var ttsn:String;
+    public var ba:String;
+          public var bp:Number;
+          public function set():void
+          {
+              ba=application.getStyle('buttonAlignment');
+              bp=application.getStyle('buttonPadding');
+              cbms=application.getStyle('closeButtonSkin');
+              cbs=application.getStyle('closeButtonSkin');
+              hh=application.getStyle('headerHeight');
+              mbms=application.getStyle('maximizeButtonSkin');
+              mbs=application.getStyle('maximizeButtonSkin');
+              mbmsn=application.getStyle('minimizeButtonSkin');
+              mbsn=application.getStyle('minimizeButtonSkin');
+              rbsn=application.getStyle('restoreButtonSkin');
+              sfc=application.getStyle('showFlexChrome');
+              sbgs=application.getStyle('statusBackgroundSkin');
+              sbbc=application.getStyle('statusBarBackgroundColor');
+              stsn=application.getStyle('statusTextStyleName');
+              ta=application.getStyle('titleAlignment');
+              tbbs=application.getStyle('titleBarBackgroundSkin');
+              tbbp=application.getStyle('titleBarButtonPadding');
+              tbc=application.getStyle('titleBarColors');
+              ttsn=application.getStyle('titleTextStyleName');
+              trace(hh)
+          }
+          public function reset():void
+          {
+        application.setStyle('buttonAlignment',ba);
+        application.setStyle('buttonPadding',bp);
+        application.setStyle('closeButtonSkin',cbms);
+        application.setStyle('closeButtonSkin',cbs);
+        application.setStyle('headerHeight',22);
+        application.setStyle('maximizeButtonSkin',mbms);
+        application.setStyle('maximizeButtonSkin',mbs);
+        application.setStyle('minimizeButtonSkin',mbmsn);
+        application.setStyle('minimizeButtonSkin',mbsn);
+        application.setStyle('restoreButtonSkin',rbsn);
+        application.setStyle('showFlexChrome',sfc);
+        application.setStyle('statusBackgroundSkin',sbgs);
+        application.setStyle('statusBarBackgroundColor',sbbc);
+        application.setStyle('statusTextStyleName',stsn);
+        application.setStyle('titleAlignment',ta);
+        application.setStyle('titleBarBackgroundSkin',tbbs);
+        application.setStyle('titleBarButtonPadding',tbbp);
+        application.setStyle('titleBarColors',tbc);
+        application.setStyle('titleTextStyleName',ttsn);
+    }
+          [Bindable]
+    [Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+    public var kb:Class;
+          ]]>
+    </mx:Script>
+    <mx:Style>
+        .myStyle{
+            color: red;
+            fontSize: 14;
+            fontWeight: bold;
+        }
+    .buttonStyle{
+            upSkin: Embed(source="../../../../Assets/Images/smallredrect.jpg") ;
+    }
+    </mx:Style>
+    <testCases>
+        <TestCase testID="Window_Style_buttonAlignment_auto" keywords="[Window,Style, buttonAlignment]">
+            <setup>
+                <RunCode code="set()"/>
+                <SetProperty propertyName="height" value="500" target="" waitEvent="updateComplete" waitTarget=""/>
+                <SetProperty propertyName="width" value="500" target="" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="buttonAlignment" value="auto" />
+                <AssertStyleValue target="" styleName="titleAlignment" value="auto" />
+                <CompareBitmap target="" url="../Styles/baselines/buttonAlignment_auto_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_buttonAlignment_right" keywords="[Window,Style, buttonAlignment]">
+            <setup>
+                <SetStyle target="" styleName="buttonAlignment" value="right" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="buttonAlignment" value="right" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/buttonAlignment_right_Spark.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_buttonAlignment_left" keywords="[Window,Style, buttonAlignment]">
+            <setup>
+                <SetStyle target="" styleName="buttonAlignment" value="left" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="buttonAlignment" value="left" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/buttonAlignment_left_Spark.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_headerHeight_large" keywords="[Window,Style, headerHeight]">
+            <setup>
+                <SetStyle styleName="buttonAlignment" value="auto" target="" waitEvent="updateComplete" waitTarget=""/>
+                <SetStyle target="" styleName="headerHeight" value="30" waitEvent="updateComplete" waitTarget=""/>
+                <SetProperty target="" propertyName="title" value="Hello World!" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="headerHeight" value="30" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/headerHeight_large_Spark.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_headerHeight_small" keywords="[Window,Style, headerHeight]">
+            <setup>
+                <SetStyle target="" styleName="headerHeight" value="0.5" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="headerHeight" value="0.5" />
+                <CompareBitmap target="" url="../Styles/baselines/headerHeight_small_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_showFlexChrome_true" keywords="[Window,Style, showFlexChrome ]">
+            <setup>
+                <SetStyle target="" styleName="headerHeight" value="20" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="showFlexChrome" value="true" />
+            </body>
+        </TestCase>
+        <!-- Commenting out test case because showFlexChrome must be set before startup, it doesn't work to set it after the WindowedApplication appears
+        <TestCase testID="Window_Style_showFlexChrome_false" keywords="[Window,Style, showFlexChrome ]">
+            <setup>
+                <SetStyle target="" styleName="showFlexChrome" value="false" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="showFlexChrome" value="false" />
+                <CompareBitmap target="" url="../Styles/baselines/showFlexChrome_false_Spark.png"  />
+            </body>
+        </TestCase>-->
+        <TestCase testID="Window_Style_statusBarBackgroundColor" keywords="[Window,Style, statusBarBackgroundColor ]">
+            <setup>
+                <SetStyle target="" styleName="statusBarBackgroundColor" value="red" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="statusBarBackgroundColor" value="16711680" />
+                <CompareBitmap target="" url="../Styles/baselines/statusBarBackgroundColor_Spark.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_statusBackgroundSkin" keywords="[Window,Style, statusBackgroundSkin ]">
+            <setup>
+                <SetStyle target="" styleName="statusBarBackgroundSkin" value="{kb}" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <CompareBitmap target="" url="../Styles/baselines/statusBackgroundSkin_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_statusTextStyleName" keywords="[Window,Style, statusTextStyleName]">
+            <setup>
+                <SetStyle target="" styleName="statusBarBackgroundColor" value="0xC0C0C0" waitEvent="updateComplete" waitTarget=""/>
+                <SetStyle target="" styleName="statusTextStyleName" value="myStyle" waitEvent="updateComplete" waitTarget=""/>
+                <SetProperty target="" propertyName="status" value="Hello World" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="statusTextStyleName" value="myStyle" />
+                <CompareBitmap target="" url="../Styles/baselines/statusTextStyleName_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_titleAlignment_left" keywords="[Window,Style, titleAlignment]">
+            <setup>
+                <SetProperty target="" propertyName="title" value="Title Alignment Check" waitEvent="updateComplete" waitTarget=""/>
+                <SetStyle target="" styleName="titleAlignment" value="left" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="titleAlignment" value="left" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/titleAlignment_left_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_titleAlignment_center" keywords="[Window,Style, titleAlignment]">
+            <setup>
+                <SetStyle target="" styleName="titleAlignment" value="center" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="titleAlignment" value="center" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/titleAlignment_center_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_titleTextStyleName" keywords="[Window,Style, titleTextStyleName]">
+            <setup>
+                <SetStyle target="" styleName="titleTextStyleName" value="myStyle" waitEvent="updateComplete" waitTarget=""/>
+                <SetProperty target="" propertyName="title" value="Hello World!" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="titleTextStyleName" value="myStyle" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/titleTextStyleName_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_titleBarColors" keywords="[Window,Style, titleBarColors]">
+            <setup>
+                <SetStyle target="" styleName="titleBarColors" value="['red','green']" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="titleBarColors" value="[ 16711680,32768]" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/titleBarColors_Spark.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Window_Style_titleBarBackgroundSkin" keywords="[Window,Style, titleBarBackgroundSkin]">
+            <setup>
+                <SetStyle target="" styleName="titleBarBackgroundSkin" valueExpression="value=kb" waitEvent="updateComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertStyleValue target="" styleName="titleBarBackgroundSkin" valueExpression="value=kb" />
+                <CompareBitmap target="titleBar" url="../Styles/baselines/titleBarBackgroundSkin_Spark.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

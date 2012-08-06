@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*"
+    width="800" height="600">
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.*;
+    import mx.collections.ArrayCollection;
+    import mx.controls.FlexNativeMenu;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+    import spark.layouts.*;
+    import spark.skins.spark.*;
+
+    public var heightResetVal:int = 600;
+    public var widthResetVal:int = 600;
+	public var windowObj:Window;
+    public var childWindowList:Array = new Array();
+    public var mnu1:FlexNativeMenu;
+    public var mnu2:FlexNativeMenu;
+
+    private var xResetVal:int = 150;
+    private var yResetVal:int = 150;
+
+    [Embed(source="../../../../../../Assets/Images/smallgreenrect.jpg")]
+    [Bindable]
+    public var smallSquare1:Class;
+
+    [Embed(source="../../../../../../Assets/Images/smallbluerect.jpg")]
+    [Bindable]
+    public var smallSquare2:Class;
+
+    [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+    [Bindable]
+    public var longRect1:Class;
+
+    public var screenHeightFudged:int = flash.system.Capabilities.screenResolutionY - 100;
+    public var screenWidthFudged:int = flash.system.Capabilities.screenResolutionX - 4;
+
+    /**
+    * Set up the menu.
+    **/
+    public function setUpMenu():void{
+        mnu1 = new FlexNativeMenu();
+        mnu1.dataProvider = menuData1;
+        mnu1.labelField = "@label";
+        mnu1.showRoot = false;
+    }
+
+    /**
+    * Set up the dock icon menu (mac).
+    **/
+    public function setUpDockIconMenu():void{
+        mnu2 = new FlexNativeMenu();
+        mnu2.dataProvider = menuData2;
+        mnu2.labelField = "@label";
+        mnu2.showRoot = false;
+    }
+
+    /**
+    * Add some components for layout tests.
+    * labelVal: label for button
+    * xVal: x for button
+    * yVal: y for button
+    **/
+    public function addButton(labelVal:String, xVal:int = 0, yVal:int = 0):void{
+        var b:Button;
+        
+        trace("addButton");
+        
+        b = new Button();
+        b.label = labelVal;
+        b.x = xVal;
+        b.y = yVal;
+        addElement(b);
+    }
+
+    /**
+    * Reset things.  We can't use ResetComponent for the WindowedApplication.  Here's
+    * what these next few methods do:
+    *    - Be sure we're not minimized or maximized.
+    *    - Be sure we're in state1.
+    *    - Set various properties.
+    *    - Dispatch resetComplete.
+    **/
+    public function doReset():void{
+        addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+
+        if(nativeWindow.displayState == "normal"){
+            handleResetDisplayStateChange(new NativeWindowDisplayStateEvent(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE));
+        }else{
+            restore();
+        }
+    }
+
+    private function handleResetDisplayStateChange(e:NativeWindowDisplayStateEvent):void{
+        removeEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+        addEventListener(FlexNativeWindowBoundsEvent.WINDOW_MOVE, handleWindowMove);
+        
+        if(nativeWindow.bounds.x == xResetVal &&
+            nativeWindow.bounds.y == yResetVal){
+            handleWindowMove();
+        }else{
+            move(xResetVal, yResetVal);
+        }
+    }
+
+    private function handleWindowMove(e:FlexNativeWindowBoundsEvent = null):void{
+        removeEventListener(FlexNativeWindowBoundsEvent.WINDOW_MOVE, handleWindowMove);
+        addEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        
+        setStyle("minimizeEffect", null);
+        setStyle("unminimizeEffect", null);
+        setStyle("chromeColor", 0xCCCCCC);
+        setStyle("contentBackgroundColor", 0xFFFFFF);
+        setStyle("focusColor", 0x70B2EE);
+        setStyle("rollOverColor", 0xCEDBEF);
+        setStyle("selectionColor", 0xA8C6EE);
+        setStyle("symbolColor", 0);
+        
+        // Setting this to null causes an RTE.  AIR folks won't fix it b/c it's not a likely real-world case.
+        // systemTrayIconMenu = null;
+        
+        alwaysInFront = false;
+        activate();
+
+        if(height == heightResetVal &&
+           width == widthResetVal &&
+           getStyle('skinClass').type == spark.skins.spark.WindowedApplicationSkin &&
+           title == "" &&
+           titleIcon == null &&
+           enabled == true &&
+           status == "" &&
+           showStatusBar == true &&
+           visible == true &&
+           alpha == 1 &&
+           numElements == 0){
+           handleResetUpdateComplete();
+        }else{
+            setStyle('skinClass', WindowedApplicationSkin);
+            height = heightResetVal;
+            width = widthResetVal;
+            title = "";
+            titleIcon = null;
+            enabled = true;
+            status="";
+            showStatusBar = true;
+            visible = true;
+            alpha = 1;
+            trace("removing...");
+            removeAllElements();
+        }
+    }
+
+    private function handleResetUpdateComplete(e:FlexEvent = null):void{
+        removeEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        dispatchEvent(new FlexEvent("resetComplete"));
+    }
+
+    
+
+]]>
+</fx:Script>
+
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    s|WindowedApplication{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|TitleBar{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+</fx:Style>
+
+<fx:Declarations>
+    <fx:XML format="e4x" id="menuData1">
+        <root>
+            <menuitem label="1" >
+                <menuitem label="a" />
+                <menuitem label="b" />
+                <menuitem label="c" />
+            </menuitem>
+            <menuitem label="2" />
+            <menuitem label="3" />
+        </root>
+    </fx:XML>
+
+    <fx:XML format="e4x" id="menuData2">
+        <root>
+            <menuitem label="4" >
+                <menuitem label="d" />
+                <menuitem label="e" />
+                <menuitem label="f" />
+            </menuitem>
+            <menuitem label="5" />
+            <menuitem label="6" />
+        </root>
+    </fx:XML>
+
+</fx:Declarations>
+
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+
+</s:WindowedApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

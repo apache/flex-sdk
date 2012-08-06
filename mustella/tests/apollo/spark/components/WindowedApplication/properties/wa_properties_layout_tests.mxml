@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_generic_systemchrome_nocontrols.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.FlexGlobals;
+        import spark.layouts.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test layout.
+========================================================
+-->
+
+<TestCase testID="layout_test1" keywords="[WindowedApplication,layout]" description="Set to BasicLayout and add some controls." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new BasicLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1', 0, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2', 100, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3', 0, 100)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4', 100, 100)" waitTarget="" waitEvent="updateComplete" />        
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="100" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test2" keywords="[WindowedApplication,layout]" description="Minimize/restore with BasicLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new BasicLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1', 0, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2', 100, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3', 0, 100)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4', 100, 100)" waitTarget="" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.minimize()" waitTarget="" waitEvent="displayStateChange" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" waitTarget="" waitEvent="displayStateChange" />        
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="100" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test3" keywords="[WindowedApplication,layout]" description="Maximize with BasicLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new BasicLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1', 0, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2', 100, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3', 0, 100)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4', 100, 100)" waitTarget="" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="100" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test4" keywords="[WindowedApplication,layout]" description="Maximize/restore with BasicLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new BasicLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1', 0, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2', 100, 0)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3', 0, 100)" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4', 100, 100)" waitTarget="" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" waitTarget="" waitEvent="displayStateChange" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="100" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="100" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test5" keywords="[WindowedApplication,layout]" description="Set to HorizontalLayout and add some controls." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new HorizontalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="76" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="152" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="228" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test6" keywords="[WindowedApplication,layout]" description="Minimize/restore with HorizontalLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new HorizontalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <RunCode code="FlexGlobals.topLevelApplication.minimize()" waitTarget="" waitEvent="displayStateChange" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" waitTarget="" waitEvent="displayStateChange" />        
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="76" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="152" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="228" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test7" keywords="[WindowedApplication,layout]" description="Maximize with HorizontalLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new HorizontalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="76" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="152" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="228" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test8" keywords="[WindowedApplication,layout]" description="Maximize/restore with HorizontalLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new HorizontalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" waitTarget="" waitEvent="displayStateChange" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="76" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="152" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="228" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test9" keywords="[WindowedApplication,layout]" description="Set to VerticalLayout and add some controls." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new VerticalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="27" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="54" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="81" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test10" keywords="[WindowedApplication,layout]" description="Minimize/restore with VerticalLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new VerticalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <RunCode code="FlexGlobals.topLevelApplication.minimize()" waitTarget="" waitEvent="displayStateChange" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" waitTarget="" waitEvent="displayStateChange" />        
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="27" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="54" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="81" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test11" keywords="[WindowedApplication,layout]" description="Maximize with VerticalLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new VerticalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="27" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="54" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="81" />
+    </body>
+</TestCase>
+
+<TestCase testID="layout_test12" keywords="[WindowedApplication,layout]" description="Maximize/restore with VerticalLayout used." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="layout" valueExpression="value = new VerticalLayout()" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b1')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b2')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b3')" />
+        <RunCode code="FlexGlobals.topLevelApplication.addButton('b4')" waitTarget="" waitEvent="updateComplete" />        
+        <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" waitTarget="" waitEvent="displayStateChange" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(0).y" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(1).y" value="27" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(2).y" value="54" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).x" value="0" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getElementAt(3).y" value="81" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

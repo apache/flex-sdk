@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*"
+    width="800" height="600">
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.*;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+    import spark.skins.spark.*;
+
+    public var heightResetVal:int = 600;
+    public var widthResetVal:int = 800;
+
+    /**
+    *   compare the actual value with expected value based on os.  It returns an error string if comparison fails, otherwise an empty string.
+    *   actualVal: actual value used for comparison
+    *   expectedWinVal: expected value on window os.
+    *   expectedMacVal: expected value on mac os, for window comparision, you can ignore it as it will take default=null. For linux comparision, you need set to null.
+    *   expectedLinuxVal: expected value on linux os, for other os comparision, you can ignore it as it will take default=null. 
+    */
+    public function assertValueBasedOnOS(actualVal:*, expectedWinVal:*, expectedMacVal:*, expectedLinuxVal:*):String{
+        var result:String = "pass";
+        var current_os:String = Capabilities.os.toLowerCase();
+
+        if (current_os.indexOf("win") > -1){
+            if (actualVal != expectedWinVal)
+                result = "actual value = " + actualVal + "; expected value = " + expectedWinVal;
+        }else if (current_os.indexOf("mac") > -1){
+            if (actualVal != expectedMacVal)
+                result = "actual value = " + actualVal + "; expected value = " + expectedMacVal;
+        }else if (current_os.indexOf("linux") > -1){
+            if (actualVal != expectedLinuxVal)
+                result = "actual value = " + actualVal + "; expected value = " + expectedLinuxVal;
+        }else {
+            result = current_os + " isn't supported";
+        }
+
+        return result;
+    }
+
+    /**
+    * Reset things.  We can't use ResetComponent for the WindowedApplication.  Here's
+    * what these next few methods do:
+    *    - Be sure we're not minimized or maximized.
+    *    - Be sure we're in state1.
+    *    - Set various properties.
+    *    - Dispatch resetComplete.
+    **/
+    public function doReset():void{
+        addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+
+        if(nativeWindow.displayState == "normal"){
+            handleResetDisplayStateChange(new NativeWindowDisplayStateEvent(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE));
+        }else{
+            restore();
+        }
+    }
+
+    private function handleResetDisplayStateChange(e:NativeWindowDisplayStateEvent):void{
+        removeEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+        addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+        
+        if(currentState == "state1"){
+            handleCurrentStateChange(new StateChangeEvent(StateChangeEvent.CURRENT_STATE_CHANGE));
+        }else{
+            addEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        removeEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, handleCurrentStateChange);
+        addEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+
+        minWidth = 0;
+        minHeight = 0;
+        maxWidth = 10000;
+        maxHeight = 10000;
+
+        if(height == heightResetVal &&
+           width == widthResetVal &&
+           getStyle('skinClass').type == spark.skins.spark.WindowedApplicationSkin &&
+           title == "" &&
+           titleIcon == null &&
+           enabled == true &&
+           status == "" &&
+           showStatusBar == true &&
+           visible == true){
+           handleResetUpdateComplete(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+        }else{
+            setStyle('skinClass', WindowedApplicationSkin);
+            height = heightResetVal;
+            width = widthResetVal;
+            title = "";
+            titleIcon = null;
+            enabled = true;
+            status="";
+            showStatusBar = true;
+            visible = true;
+        }
+    }
+
+    private function handleResetUpdateComplete(e:FlexEvent):void{
+        removeEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        dispatchEvent(new FlexEvent("resetComplete"));
+    }
+
+
+]]>
+</fx:Script>
+
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    s|WindowedApplication{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|TitleBar{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+</fx:Style>
+
+<fx:Declarations>
+    <fx:Object id="bindingTarget" 
+        theStatus="{status}"
+        theWidth="{width}"
+        theHeight="{height}" />
+
+    <mx:Fade id="fade1" alphaFrom="1" alphaTo="0" duration="500" /> 
+    <mx:Fade id="fade2"  alphaFrom="0" alphaTo="1" duration="500"/>	 	
+        
+</fx:Declarations>
+
+<s:states>
+    <s:State name="state1" />
+    <s:State name="state2" />
+</s:states>
+
+<s:Group id="group1" left="0" right="0" top="0" bottom="0">
+    <s:Button id="btn1" left="0" top="0" width="20" height="20" />
+    <s:Button id="btn2" right="0" top="0" width="20" height="20" />
+    <s:Button id="btn3" left="0" bottom="0" width="20" height="20" />
+    <s:Button id="btn4" right="0" bottom="0" width="20" height="20" />
+</s:Group>
+
+</s:WindowedApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

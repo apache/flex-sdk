@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*"
+    width="800" height="600">
+
+<!--
+The purpose of this file is to provide a 
+doReset() method which does not set the
+skinClass. (See SDK-21916.)
+-->
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.*;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+    import spark.skins.spark.*;
+
+    public var heightResetVal:int = 600;
+    public var widthResetVal:int = 600;
+
+    [Embed(source="../../../../../../Assets/Images/smallgreenrect.jpg")]
+    [Bindable]
+    public var smallSquare1:Class;
+
+    [Embed(source="../../../../../../Assets/Images/smallbluerect.jpg")]
+    [Bindable]
+    public var smallSquare2:Class;
+
+    [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+    [Bindable]
+    public var longRect1:Class;
+
+    /**
+    * Reset things.  We can't use ResetComponent.
+    **/
+    public function doReset():void{
+        var app:WindowedApplication = FlexGlobals.topLevelApplication as WindowedApplication;
+
+        app.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+
+        // Save tests for a closed window for the end.  Once it's closed, it's closed for good.
+        if(app.closed){
+            dispatchEvent(new FlexEvent("resetComplete"));
+        }else{
+            if(app.nativeWindow.displayState == "normal"){
+                handleResetDisplayStateChange(new NativeWindowDisplayStateEvent("displayStateChange"));
+            }else{
+                app.restore();
+            }
+        }
+    }
+
+    private function handleResetDisplayStateChange(e:NativeWindowDisplayStateEvent):void{
+        var app:WindowedApplication = FlexGlobals.topLevelApplication as WindowedApplication;
+
+        app.removeEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, handleResetDisplayStateChange);
+        app.addEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+
+        if(app.height == heightResetVal &&
+           app.width == widthResetVal &&
+           app.title == "" &&
+           titleIcon == null){
+           handleResetUpdateComplete(new FlexEvent("updateComplete"));
+        }else{
+            app.height = heightResetVal;
+            app.width = widthResetVal;
+            app.title = "";
+            app.titleIcon = null;
+        }
+    }
+
+    private function handleResetUpdateComplete(e:FlexEvent):void{
+        var app:WindowedApplication = FlexGlobals.topLevelApplication as WindowedApplication;
+
+        app.removeEventListener(FlexEvent.UPDATE_COMPLETE, handleResetUpdateComplete);
+        dispatchEvent(new FlexEvent("resetComplete"));
+    }
+
+]]>
+</fx:Script>
+
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    .testStyle1{
+        skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
+    }
+
+    .testStyle2{
+        skinClass: ClassReference("spark.skins.spark.SparkChromeWindowedApplicationSkin");
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: true;
+    }
+
+    s|WindowedApplication{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|TitleBar{
+        fontFamily: EmbeddedVera;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+</fx:Style>
+
+<fx:Declarations>
+    <fx:Object id="bindingTarget" theTitle="{title}" theTitleIcon="{titleIcon}" />
+</fx:Declarations>
+
+</s:WindowedApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

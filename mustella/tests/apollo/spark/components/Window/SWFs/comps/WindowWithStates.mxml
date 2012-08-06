@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="500"
+	 skinClass="spark.skins.spark.SparkChromeWindowedApplicationSkin"  systemChrome="none"
+	  currentState="showMenu" creationComplete="initCollections();">
+	
+<s:states>
+<s:State name="showStatus"
+	enterState="enterShowStatusState()"/>
+<s:State name="showMenu" enterState="enterShowMenuState()"/>
+</s:states>
+	
+<fx:Script>
+	<![CDATA[
+		import mx.core.windowClasses.StatusBar;
+		import flash.events.Event;
+	     import mx.events.MenuEvent;
+        import mx.controls.Alert;
+        import mx.collections.*;
+        [Bindable]
+        public var menuBarCollection:XMLListCollection;
+        private var menubarXML:XMLList =
+            <>
+                <menuitem label="Menu1" data="top">
+                    <menuitem label="MenuItem 1-A" data="1A"/>
+                    <menuitem label="MenuItem 1-B" data="1B"/>
+                </menuitem>
+                <menuitem label="Menu2" data="top">
+                    <menuitem label="MenuItem 2-A" type="check"  data="2A"/>
+                    <menuitem type="separator"/>
+                    <menuitem label="MenuItem 2-B" >
+                        <menuitem label="SubMenuItem 3-A" type="radio"
+                            groupName="one" data="3A"/>
+                        <menuitem label="SubMenuItem 3-B" type="radio"
+                            groupName="one" data="3B"/>
+                    </menuitem>
+                </menuitem>
+            </>;
+            private function initCollections():void {
+                menuBarCollection = new XMLListCollection(menubarXML);
+            }
+        [Bindable]
+		private var d:ArrayCollection=new ArrayCollection([{slno:"1",name:"Joseph",age:"23"},{slno:"2",name:"Jeena",age:"21"},{slno:"3",name:"Jerry",age:"4"}
+	   	 ,{slno:"4",name:"Tom",age:"1"},{slno:"5",name:"Rick",age:"12"},{slno:"6",name:"John",age:"52"}]);
+	   	
+		public function onBtnClick(event:Event):void
+		{
+			trace(event.currentTarget.label);
+			ta.text=event.currentTarget.label+" is clicked";
+		}
+		public function enterShowStatusState():void
+		{
+			this.title="show status state: this is a new status";
+			this.status="show status: new title";  
+			this.alwaysInFront=true;
+			this.label1.visible=true;
+		}
+		public function enterShowMenuState():void
+		{
+			this.alwaysInFront=false;
+		}
+	]]>
+</fx:Script>	
+    <mx:MenuBar y="0" labelField="@label" dataProvider="{menuBarCollection}" itemCreationPolicy="immediate" includeIn="showMenu"/>
+	<s:Button id="button1" y="35" label="test Button" name="childButton" click="onBtnClick(event)" includeIn="showStatus" />
+	<mx:Label id="label1" y="60" name="childLabel" text="test labe in myWindow with content" fontSize="16" visible="false"  includeIn="showStatus" />
+	<mx:DataGrid y="75" name="dropdownList" height="150" id="slno"   dataProvider="{d}"  includeIn="showMenu"/>
+	<s:CheckBox y="225" label="available"   />
+	<s:TextArea id="ta" width="150" y="240" />
+</s:Window>

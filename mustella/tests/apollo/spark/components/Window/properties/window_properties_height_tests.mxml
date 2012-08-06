@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import mx.binding.utils.*;
+        import comps.*;
+        public var btn1:Button=new Button();
+        public function setBinding():void
+        {
+	    BindingUtils.bindProperty( btn1, "label",
+	    FlexGlobals.topLevelApplication.windowObj, "height" );
+	}
+	]]>
+    </mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test height
+	========================================================
+	-->
+	<TestCase testID="height_test1_SparkChrome" keywords="[Window,height]" description="Negative" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin;" waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
+		<SetProperty target="windowObj" propertyName="height" value="-1" waitEvent="resize" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,0)" value=""/>
+	
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test1_windowedApplicationSkin" keywords="[Window,height]" description="Negative" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
+		<SetProperty target="windowObj" propertyName="height" value="-1" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,0)" value=""/>
+	
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test2_SparkChrome" keywords="[Window,height]" description="Zero" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
+		<SetProperty target="windowObj" propertyName="height" value="0" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,0)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test2_windowedApplicationSkin" keywords="[Window,height]" description="Zero" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" /> 
+		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
+		<SetProperty target="windowObj" propertyName="height" value="0" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,100)" value=""/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test3_SparkChrome" keywords="[Window,height]" description="One" >
+	    <setup>
+		 <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
+		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="1" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,1,1,1)" value=""/>
+		
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="height_test3_windowedApplicationSkin" keywords="[Window,height]" description="One" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
+		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,1,1,1)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="height_test4_SparkChrome" keywords="[Window,height]" description="Set height to a positive, reasonable value." >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="height" value="30" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,30,30,30)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+
+	
+	<TestCase testID="height_test4_windowedApplicationSkin" keywords="[Window,height]" description="Set height to a positive, reasonable value." >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="height" value="33" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,33,33,33)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_test5_SparkChrome" keywords="[Window,height]" description="Set height to a positive, reasonable value." >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="height" value="253" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,253,253,253)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="height_test5_windowedApplicationSkin" keywords="[Window,height]" description="Set height to a positive, reasonable value." >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="height" value="183" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,183,183,183)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="height_test6_SparkChrome" keywords="[Window,height]" description="Less than minHeight" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="minHeight" value="150" />
+		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,150,150,150)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="height_test6_windowedApplicationSkin" keywords="[Window,height]" description="Less than minHeight" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="minHeight" value="150" />
+		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,150,150,150)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="height_test7_SparkChrome" keywords="[Window,height]" description="More than maxHeight" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="maxHeight" value="160" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="height" value="170" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,160,160,160)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="height_test7_windowedApplicationSkin" keywords="[Window,height]" description="More than maxHeight" >
+	   <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
+	    </setup> 
+	    <body>
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="maxHeight" value="200" />
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<SetProperty target="windowObj" propertyName="height" value="250" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,200,200,200)" value=""/>
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	
+	<TestCase testID="height_test8_binding" keywords="[Window,height]" description="Bind to the height" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.heightVal=130"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>  
+		<RunCode code="setBinding()" />
+		<AssertPropertyValue target="windowObj" propertyName="height" value="130" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="130" />
+		<SetProperty target="windowObj" propertyName="height" value="170" waitEvent="updateComplete" />
+		<AssertPropertyValue target="script:btn1" propertyName="label" value="170" />
+	    </body>
+	</TestCase>
+
+    </testCases>
+</UnitTester>

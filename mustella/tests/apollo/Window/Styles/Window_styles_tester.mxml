@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/Window/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Window_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+        [Bindable]
+        [Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+        public var kb:Class;
+
+        [Bindable]
+        [Embed(source="../../../../Assets/Images/redrect.jpg")]
+            public var buttonStyle:Class;
+
+    ]]>
+    </mx:Script>
+
+    <mx:Style>
+        .myStyle{
+            color: red;
+            fontSize: 14;
+            fontWeight: bold;
+        }
+
+    </mx:Style>
+
+    <testCases>
+        <TestCase testID="Window_styles_buttonAlignment_auto" keywords="[Window, buttonAlignment, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <AssertStyleValue styleName="buttonAlignment" target="aw" value="auto"/>
+            </body>
+        </TestCase>
+
+        <!--<TestCase testID="Window_styles_buttonAlignment_left" keywords="[Window, buttonAlignment, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" value="left" styleName="buttonAlignment"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_buttonAlignment_left.png" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_buttonAlignment_right" keywords="[Window, buttonAlignment, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" value="right" styleName="buttonAlignment"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_buttonAlignment_right.png" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_closeButtonStyleName" keywords="[Window, closeButtonStyleName, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="closeButtonSkin" value="{buttonStyle}"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_closeButtonStyleName.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_minimizeButtonStyleName" keywords="[Window, minimizeButtonStyleName, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="minimizeButtonSkin" value="{buttonStyle}"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_minimizeButtonStyleName.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_maximizeButtonStyleName" keywords="[Window, maximizeButtonStyleName, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                    <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="maximizeButtonSkin" value="{buttonStyle}"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_maximizeButtonStyleName.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_restoreButtonStyleName" keywords="[Window, restoreButtonStyleName, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="restoreButtonSkin" value="{buttonStyle}"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <DispatchMouseClickEvent target="aw.titleBar.maximizeButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_restoreButtonStyleName.png" target="aw.titleBar.maximizeButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_Styles_headerHeight_large" keywords="[Window, Style, headerHeight]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="headerHeight" value="30"/>
+                <SetProperty target="aw" propertyName="title" value="Header height 30"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"    />
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_headerHeight_large.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Window_Styles_headerHeight_small" keywords="[Window, Style, headerHeight]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="headerHeight" value="0.5"/>
+                <SetProperty target="aw" propertyName="title" value="Header height 0.5"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_headerHeight_small.png" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_showFlexChrome_default" keywords="[Window, styles, showFlexChrome]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <AssertStyleValue styleName="showFlexChrome" value="true" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_showFlexChrome_false" keywords="[Window, styles, showFlexChrome]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle styleName="showFlexChrome" value="false" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_showFlexChrome_false.png" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_statusBarBackgroundSkin" keywords="[Window, styles, statusBarBackgroundSkin]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <SetStyle target="aw" styleName="statusBarBackgroundSkin" value="{kb}" waitEvent="updateComplete" waitTarget="aw" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_statusBackgroundSkin.png" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_statusBarBackgroundColor" keywords="[Window, styles, statusBackgroundColor]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="statusBarBackgroundColor" value="red" />
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_statusBarBackgroundColor.png" target="aw"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_statusTextStyleName" keywords="[Window, styles, statusTextStyleName]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetStyle target="aw" styleName="statusTextStyleName" value="myStyle"/>
+                <SetProperty target="aw" propertyName="status" value="Status bar text"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_statusTextStyleName.png" target="aw"/>
+            </body>
+        </TestCase>
+	-->
+        <TestCase testID="Window_styles_titleAlignment_default" keywords="[Window, titleAlignment, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+                <DispatchMouseClickEvent target="aw.titleBar.maximizeButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <AssertStyleValue styleName="titleAlignment" value="auto" target="aw"/>
+            </body>
+        </TestCase>
+<!--
+        <TestCase testID="Window_styles_titleAlignment_left" keywords="[Window, titleAlignment, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty propertyName="title" value="Left title alignment" target="aw"/>
+                <SetProperty propertyName="width" value="600" target="aw"/>
+                <SetProperty propertyName="height" value="500" target="aw"/>
+                <SetStyle styleName="titleAlignment" value="left" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_titleAlignment_left.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_titleAlignment_center" keywords="[Window, titleAlignment, styles]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty propertyName="title" value="Center title alignment" target="aw"/>
+                <SetProperty propertyName="width" value="600" target="aw"/>
+                <SetProperty propertyName="height" value="500" target="aw"/>
+                <SetStyle styleName="titleAlignment" value="center" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_titleAlignment_center.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_titleBarBackgroundSkin" keywords="[Window, styles, titleBarBackgroundSkin]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetProperty propertyName="title" value="Center title alignment" target="aw"/>
+                <SetStyle styleName="titleBarBackgroundSkin" valueExpression="value=kb" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_titleBarBackgroundSkin.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_titleBarColors" keywords="[Window, styles, titleBarBackgroundColors]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetProperty propertyName="title" value="Colors" target="aw"/>
+                <SetStyle styleName="titleBarColors" value="[red,green]" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_titleBarColors.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Window_styles_titleTextStyleName" keywords="[Window, styles, titleBarBackgroundColors]">
+            <setup>
+                <RunCode code="application.resetWindow()"/>
+                <SetProperty target="aw" value="300" propertyName="height"/>
+                <SetProperty target="aw" value="300" propertyName="width"/>
+                <SetProperty propertyName="title" value="Title style" target="aw"/>
+                <SetStyle styleName="titleTextStyleName" value="myStyle" target="aw"/>
+                <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/Window_styles_titleTextStyleName.png" target="aw.titleBar"/>
+            </body>
+        </TestCase>
+        -->
+    </testCases>
+</UnitTester>

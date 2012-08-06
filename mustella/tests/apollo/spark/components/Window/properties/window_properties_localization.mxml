@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_006.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                    
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    	 import mx.core.FlexGlobals;
+    	 import spark.components.Window;
+         import spark.skins.spark.SparkChromeWindowedApplicationSkin ;
+	 import comps.*;
+	
+	
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+<TestCase testID="property_status_dbcharacters" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check showStatusBar=true, status string is double byte characters" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.showStatusBar=true" />
+    
+    </setup>
+    
+    <body>
+        
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		
+        <SetProperty target="windowObj" propertyName="status" value="江戸糸あやつり人形Japanese string" />
+        
+        <AssertPropertyValue target="windowObj" propertyName="showStatusBar" value="true" />
+  
+        <SetStyle target="windowObj" styleName="testStyle3"  waitEvent="updateComplete" waitTarget="windowObj" />      
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()"/>
+
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+   	
+	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+<TestCase testID="property_title_dbcharacters" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check title string is double byte characters" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.showStatusBar=true" />
+    
+    </setup>
+    
+    <body>
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		        
+      	<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />	
+        <SetProperty target="windowObj" propertyName="title" value="江戸糸あやつり人形Japanese string" />
+        
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+   	
+	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+	
+
+ </testCases>
+        
+</UnitTester>
+
+

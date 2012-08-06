@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/spark/components/Window/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_003.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	 import spark.components.Button;
+	 import spark.components.TextInput;
+	 import spark.components.CheckBox;
+	 import spark.components.TextArea;
+	 import spark.components.Window;
+	 import mx.controls.DataGrid;
+	 import mx.controls.Label;
+	 import mx.core.IVisualElement;
+	 import comps.*;
+	 import mx.collections.ArrayCollection;
+	 public var windowObj:Window;
+	 
+	 [Bindable]
+	 private var d:ArrayCollection=new ArrayCollection([{slno:"1",name:"Joseph",age:"23"},{slno:"2",name:"Jeena",age:"21"},{slno:"3",name:"Jerry",age:"4"}
+	 ,{slno:"4",name:"Tom",age:"1"},{slno:"5",name:"Rick",age:"12"},{slno:"6",name:"John",age:"52"}]);
+	   
+	 public function initWindowObj():void
+	 {
+	 	windowObj=new Window();
+		windowObj.width=400;
+		windowObj.height=500;
+	 }
+	 public function addButtonForPlainWindow():void
+	 {
+	 	var b:Button =new Button();
+	 	b.name="childButton2";
+	 	b.label="childButton2";
+	 	initWindowObj();
+	 	windowObj.addElement(b);		
+	 }
+	 public function addTextInputForPlainWindow():void
+	 {
+	 	var t:TextInput =new TextInput();
+	 	t.name="textInput2";
+	 	initWindowObj();
+	 	windowObj.addElement(t);		
+	 }
+	 
+	 
+	 public function addCheckBox():void
+	 {
+	 	var checkBox:CheckBox=new CheckBox();
+	 	checkBox.name="checkBox11";
+	 	checkBox.label="available";
+	 	checkBox.y=10;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(checkBox);
+	 }
+	 public function addTextInput():void
+	 {
+	 	var ti:TextInput=new TextInput();
+	 	ti.name="textInput11";
+	 	ti.text="this is a test";
+	 	ti.y=100;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(ti);
+	 }
+
+	 public function addTextArea():void
+	 {
+	 	var ti:TextArea=new TextArea();
+	 	ti.name="textArea11";
+	 	ti.text="this is a test";
+	 	ti.y=100;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(ti);
+	 }
+	 
+	 public function addDatagrid():void
+	 {
+	 	var dg1:DataGrid=new DataGrid();
+	 	dg1.y=120;
+	 	dg1.name="dataGrid11";
+	 	dg1.dataProvider=d;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(dg1);
+	 }
+
+	public function removeCheckBox():void
+	{
+		removeElementByClass(CheckBox);
+		
+	}
+	public function removeButton():void
+	{
+		
+		removeElementByClass(Button);
+	}
+	public function removeLabel():void
+	{
+		
+		removeElementByClass(mx.controls.Label);
+	}
+	public function removeDataGrid():void
+	{
+		
+		removeElementByClass(DataGrid);
+	}	
+	
+	public function removeTextArea():void
+	{
+		
+		removeElementByClass(TextArea);
+	}
+	
+	public function removeElementByClass(classObj:Class):void
+	{
+		
+		var numElements:Number=5;//FlexGlobals.topLevelApplication.myWin.contentGroup.numElements;
+		var element:IVisualElement;
+		for (var i:Number=0;i<numElements;i++)
+		{
+			element=FlexGlobals.topLevelApplication.myWin.getElementAt(i);
+			if (element as classObj)
+			{
+				FlexGlobals.topLevelApplication.myWin.removeElementAt(i);
+				break;
+			}
+		}
+		
+	}
+
+	public function removeAllElements():void
+	{
+		
+		var numElements:Number=FlexGlobals.topLevelApplication.myWin.numElements;
+		var element:IVisualElement;
+		while(numElements>0)
+		{
+		    FlexGlobals.topLevelApplication.myWin.removeElementAt(0);
+		    numElements=FlexGlobals.topLevelApplication.myWin.numElements;
+		}
+	}
+
+
+	]]>
+    </mx:Script>
+
+	
+    <testCases>
+
+	<!--
+	========================================================
+	Test method addElement before window open
+	========================================================
+	-->
+        
+        <TestCase testID="addElement_beforeWindowOpen_test1" keywords="[Window,methods,addElement]" 
+        description="add a button to an non opened Window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+	    </setup>
+
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.testAddElement()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('addElementTest')!=null" value="true" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+        </TestCase>
+
+
+        <TestCase testID="addElement_beforeWindowOpen_test2" keywords="[Window,methods,addElement]" 
+        description="add a textinput to an non opened Window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+	    </setup>
+
+	    <body>
+		<RunCode code="addTextInput()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('textInput11')!=null" value="true" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+        </TestCase>
+      
+        <TestCase testID="addElement_beforeWindowOpen_test3" keywords="[Window,methods,addElement]" 
+        description="add a textArea to an non opened Window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+	    </setup>
+
+	    <body>
+		<RunCode code="addTextArea()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('textArea11')!=null" value="true" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+        </TestCase>
+        
+ 
+         <TestCase testID="addElement_beforeWindowOpen_test4" keywords="[Window,methods,addElement]" 
+         description="add a datagrid to an non opened Window">
+ 
+ 	    <setup> 
+ 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  />   
+ 		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+ 	    </setup>
+ 
+ 	    <body>
+ 		<RunCode code="addDatagrid()"/>
+ 		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+ 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('dataGrid11')!=null" value="true" />
+ 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+ 	    </body>
+        </TestCase>
+ 
+          <TestCase testID="addElement_beforeWindowOpen_test5" keywords="[Window,methods,addElement]" 
+          description="add a checkbox to an non opened Window">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />   
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="addCheckBox()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('checkBox11')!=null" value="true" />
+ 		
+  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+  	    </body>
+        </TestCase>
+        
+  
+        <TestCase testID="addElement_beforeWindowOpen_test6" keywords="[Window,methods,addElement]" 
+        description="add a button to an non opened, plain Window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		<RunCode code="addButtonForPlainWindow()"/>
+	    </setup>
+
+	    <body>
+		<RunCode code="windowObj.open(true)"/>  
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=windowObj.contentGroup.getChildByName('childButton2')!=null" value="true" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="windowObj.close()"/>
+	    </body>
+        </TestCase>
+
+  
+        <TestCase testID="addElement_beforeWindowOpen_test7" keywords="[Window,methods,addElement]" 
+        description="add a textInput to an non opened, plain Window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		<RunCode code="addTextInputForPlainWindow()"/>
+	    </setup>
+
+	    <body>
+		<RunCode code="windowObj.open(true)"/>  
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=windowObj.contentGroup.getChildByName('textInput2')!=null" value="true" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="windowObj.close()"/>
+	    </body>
+        </TestCase>
+        
+        
+	
+	    <!--
+	========================================================
+	Test method removeElement before window.open
+	========================================================
+	-->
+
+          <TestCase testID="removeElement_beforeWindowOpen_test1" keywords="[Window,methods,removeElement]" 
+          description="remove a checkbox from an non opened Window">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  />   
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="removeCheckBox()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('checkBox1')==null" value="true" />
+ 		
+  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+  	    </body>
+        </TestCase>
+
+          <TestCase testID="removeElement_beforeWindowOpen_test2" keywords="[Window,methods,removeElement]" 
+          description="remove a Button from an non opened Window">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />   
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="removeButton()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childButton')==null" value="true" />
+ 		
+  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+  	    </body>
+        </TestCase>
+        
+          <TestCase testID="removeElement_beforeWindowOpen_test3" keywords="[Window,methods,removeElement]" 
+          description="remove a Label from an non opened Window">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="removeLabel()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childLabel')==null" value="true" />
+ 		
+  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+  	    </body>
+        </TestCase>
+        
+          <TestCase testID="removeElement_beforeWindowOpen_test4" keywords="[Window,methods,removeElement]" 
+          description="remove a datagrid from an non opened Window">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="removeDataGrid()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('datagrid1')==null" value="true" />
+ 		
+  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+  	    </body>
+        </TestCase>
+	<!--
+	========================================================
+	Test method removeAllElements
+	========================================================
+	-->
+          <TestCase testID="removeElement_beforeWindowOpen_test5" keywords="[Window,methods,removeElement]" 
+          description="remove a datagrid from an non opened Window">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  />   
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(MyWindowWithContents,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="removeAllElements()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.open(true)" waitTarget="" waitEvent="myWindowComplete" />  
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.numElements" value="0"/>
+ 		
+  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+  	    </body>
+        </TestCase>
+        
+
+</testCases>
+
+</UnitTester>

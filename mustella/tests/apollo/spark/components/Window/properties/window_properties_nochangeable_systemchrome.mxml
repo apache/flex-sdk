@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	 import comps.*;
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test no changeable property
+	========================================================
+	-->
+
+	<TestCase testID="syschrome_NCH_property_minimizable1" keywords="[Window,properties,minimizable]" description="once minimizable is set, verify it will not be changed" >
+	        <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.minimizable=true"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="minimizable" value ="true" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.minimizable=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="minimizable" value ="true" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_minimizable2" keywords="[Window,properties,minimizable]" description="once minimizable is set(false), verify it will not be changed" >
+	        <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.minimizable=false"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(false)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="minimizable" value ="false" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.minimizable=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="minimizable" value ="false" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_maximizable1" keywords="[Window,properties,maximizable]" description="once maximizable is set, verify it will not be changed" >
+	      <setup>
+	      	    <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.maximizable=true"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="maximizable" value ="true" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.maximizable=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="maximizable" value ="true" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_maximizable2" keywords="[Window,properties,maximizable]" description="once maximizable is set(false), verify it will not be changed" >
+	      <setup>
+	      	    <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.maximizable=false"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(false)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="maximizable" value ="false" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.maximizable=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="maximizable" value ="false" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="syschrome_NCH_property_resizable1" keywords="[Window,properties,resizable]" description="once resizable is set, verify it will not be changed" >
+	      <setup>
+	      	    <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.resizable=true"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="resizable" value ="true" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.resizable=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="resizable" value ="true" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_resizable2" keywords="[Window,properties,resizable]" description="once resizable is set(false), verify it will not be changed" >
+	      <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.resizable=false"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(false)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="resizable" value ="false" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.resizable=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="resizable" value ="false" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_transparent1" keywords="[Window,properties,transparent]" description="once transparent is set, verify it will not be changed" >
+	      <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  /> 
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.systemChrome='none'"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.transparent=true"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="transparent" value ="true" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.transparent=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="transparent" value ="true" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_transparent2" keywords="[Window,properties,transparent]" description="once transparent is set(false), verify it will not be changed" >
+	      <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.transparent=false"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(false)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="transparent" value ="false" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.transparent=true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="transparent" value ="false" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="syschrome_NCH_property_type1" keywords="[Window,properties,type]" description="once type is set, verify it will not be changed" >
+	      <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.type='normal'"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="type" value ="normal" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.type=NativeWindowType.UTILITY"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="type" value ="normal" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+
+	<TestCase testID="syschrome_NCH_property_systemChrome2" keywords="[Window,properties,systemChrome]" description="once systemChrome is set(false), verify it will not be changed" >
+	      <setup>
+	            <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.systemChrome='standard'"/>
+		</setup> 
+		<body>
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(false)" waitTarget="" waitEvent="myWindowComplete" />
+		    <AssertPropertyValue target="windowObj" propertyName="systemChrome" value ="standard" />
+		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.systemChrome='none'"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertPropertyValue target="windowObj" propertyName="systemChrome" value ="standard" />         
+		    <CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+    </testCases>
+</UnitTester>

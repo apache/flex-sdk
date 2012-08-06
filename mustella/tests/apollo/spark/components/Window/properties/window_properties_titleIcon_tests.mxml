@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_flexchrome.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import comps.*;
+ 	[Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+	[Bindable]
+	public var smallSquare1:Class;
+
+	[Embed(source="../../../../../../Assets/Images/smallbluerect.jpg")]
+	[Bindable]
+	public var smallSquare2:Class;
+
+	[Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+	[Bindable]
+	public var longRect1:Class;
+    
+        [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+    	[Bindable]
+	public var largeIcon:Class;
+    
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test titleIcon
+	========================================================
+	-->
+	<TestCase testID="titleIcon_test1" keywords="[Window,titleIcon]" description="Set to something." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="" propertyName="titleIcon" valueExpression="value =smallSquare1" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test2" keywords="[Window,titleIcon]" description="Set to something and change it." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="" propertyName="titleIcon" valueExpression="value = smallSquare1" waitEvent="updateComplete" />
+		<SetProperty target="" propertyName="titleIcon" valueExpression="value = smallSquare2" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test3" keywords="[Window,titleIcon]" description="Set to something and remove it." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = longRect1" waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = null" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test4" keywords="[Window,titleIcon]" description="Set to something and change to a larger icon." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = smallSquare1" waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = longRect1" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test5" keywords="[Window,titleIcon]" description="Set to something and change to a smaller icon." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value =longRect1" waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = smallSquare1" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test61" keywords="[Window,titleIcon]" description="Bindable" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithBindableSettings,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+	       <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       <RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()" waitEvent="enterFrame" waitTarget="stage"/>
+	       <!-- verify should get default binded titleIcon -->
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test62" keywords="[Window,titleIcon]" description="Bindable" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithBindableSettings,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.titleIconRef=longRect1" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<!-- verify the titleIcon now should be longRect1 -->
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test7" keywords="[Window,titleIcon]" description="Title truncates when switching to a longer icon." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithBindableSettings,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="windowObj" propertyName="title" value="The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = longRect1" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="titleIcon_test8" keywords="[Window,titleIcon]" description="large icon should be auto fit" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithBindableSettings,'window1')" waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup> 
+	    <body>
+		<SetProperty target="windowObj" propertyName="title" value="The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. " waitEvent="updateComplete" />
+		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = largeIcon" waitEvent="updateComplete" />
+		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+	    </body>
+	</TestCase>
+	
+    </testCases>
+</UnitTester>

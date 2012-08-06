@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_002.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	]]>
+    </mx:Script>
+
+	
+    <testCases>
+	<!--
+	========================================================
+	Test method move
+	========================================================
+	-->
+	<TestCase testID="method_move_test1" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=0,y=0">
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(0,0)" waitTarget="myWin" waitEvent="windowMove"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.x',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.x,0,0,0)" value=""/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.y',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.y,0,22,0)" value=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="method_move_test2" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=100,y=0">
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(100,0)" waitTarget="myWin" waitEvent="windowMove"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.x',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.x,100,100,100)" value=""/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.y',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.y,0,22,0)" value=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="method_move_test3" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=900,y=0">
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(900,0)" waitTarget="myWin" waitEvent="windowMove" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.x',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.x,900,900,900)" value=""/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.y',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.y,0,22,0)" value=""/>
+		 
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+            </body>
+	</TestCase>
+	
+
+	<TestCase testID="method_move_test4" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=0,y=500">
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(0,500)" waitTarget="myWin" waitEvent="windowMove"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertPropertyValue target="myWin.nativeWindow.bounds" propertyName="x" value="0" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertPropertyValue target="myWin.nativeWindow.bounds" propertyName="y" value="500" />
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="method_move_test5" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=-100,y=-100">
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(-100,-100)" waitTarget="myWin" waitEvent="windowMove"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.x',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.x,-100,-100,-100)" value=""/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.y',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.y,-100,22,-100)" value=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="method_move_test6" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=500,y=900">
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(500,900)" waitTarget="myWin" waitEvent="windowMove"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.x',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.x,500,500,500)" value=""/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.y',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.y,900,710,900)" value="bounds.y on os=mac os 10.7.4, actual value=900;expected value=710"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="method_move_test7" keywords="[Window,methods,move]" 
+		description="call the method window.move(x,y), x=3500,y=3900" >
+
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.move(3500,3900)" waitTarget="myWin" waitEvent="windowMove"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.x',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.x,3500,flash.system.Capabilities.screenResolutionX-40,3900)" value="bounds.x on os=mac os 10.7.4, actual value=3500;expected value=2520"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('bounds.y',FlexGlobals.topLevelApplication.myWin.nativeWindow.bounds.y,3900,710,3900)" value="bounds.y on os=mac os 10.7.4, actual value=1238;expected value=710"/>
+		 
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+		
+    </testCases>
+
+</UnitTester>

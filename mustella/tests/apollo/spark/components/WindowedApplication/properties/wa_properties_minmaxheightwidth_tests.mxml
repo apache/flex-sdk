@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_properties_minmaxheightwidth.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+maxHeight
+Most tests decreaes it from 200.
+========================================================
+-->
+
+<TestCase testID="maxHeight_test3" keywords="[WindowedApplication,maxHeight]" description="Decrease to 1" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxHeight" value="1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.height, 34, 2, 2)" value="pass" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_test4" keywords="[WindowedApplication,maxHeight]" description="Decrease to reasonable value" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxHeight" value="99" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="height" value="99" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_test5" keywords="[WindowedApplication,maxHeight]" description="Increase." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxHeight" value="500" />
+        <SetProperty target="" propertyName="height" value="600" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="height" value="500" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_test6" keywords="[WindowedApplication,maxHeight]" description="Bindable" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxHeight" value="500" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theMaxHeight" value="500" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="maxWidth_test4" keywords="[WindowedApplication,maxWidth]" description="Decrease to reasonable value" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxWidth" value="140" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="width" value="140" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_test4_mac" keywords="[WindowedApplication,maxWidth]" description="Decrease to reasonable value.  Take a screen shot for the Mac (SDK-22200)." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+        <SetStyle target="" styleName="skinClass" valueExpression="value = spark.skins.spark.SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxWidth" value="123" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="width" value="123" />
+        <CompareBitmap target="" url="../properties/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_test5" keywords="[WindowedApplication,maxWidth]" description="Increase." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxWidth" value="500" />
+        <SetProperty target="" propertyName="width" value="600" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="width" value="500" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_test6" keywords="[WindowedApplication,maxWidth]" description="Bindable" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="maxWidth" value="500" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theMaxWidth" value="500" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test4" keywords="[WindowedApplication,minHeight]" description="Greater than the height." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="height" value="50" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="minHeight" value="51" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="height" value="51" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test5" keywords="[WindowedApplication,minHeight]" description="Less than the height. There's no event to wait for." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="height" value="50" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="minHeight" value="49" />
+        <Pause timeout="100" />
+        <AssertPropertyValue target="" propertyName="height" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test6" keywords="[WindowedApplication,bindable]" description="Be sure it's bindable." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="minHeight" value="49" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theMinHeight" value="49" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="minWidth_test4" keywords="[WindowedApplication,minWidth]" description="Greater than the width." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="width" value="125" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="minWidth" value="140" waitEvent="updateComplete" />
+        <AssertPropertyValue target="" propertyName="width" value="140" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test5" keywords="[WindowedApplication,minWidth]" description="Less than the width. There's no event to wait for." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="width" value="125" waitEvent="updateComplete" />
+        <SetProperty target="" propertyName="minWidth" value="140" />
+        <Pause timeout="100" />
+        <AssertPropertyValue target="" propertyName="width" value="140" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test6" keywords="[WindowedApplication,bindable]" description="Be sure it's bindable." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="" propertyName="minWidth" value="140" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bindingTarget" propertyName="theMinWidth" value="140" />
+    </body>
+</TestCase>
+	</testCases>
+</UnitTester>

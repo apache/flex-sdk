@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/HTML/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AIRHTMLMain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+		<![CDATA[
+			private var htmlTextToPut:String = "<b>Hello <i>How are</b> you... <br>What</i> News<h3>????</h3>";
+		]]>
+	</mx:Script>
+
+	<testCases>
+	<!-- Test depends on external site that cannot be relied upon
+		<TestCase testID="AIR_HTML_setup" description="HTML Styles test setup" keywords="[AIR, HTML, style, setup]">			
+			 <setup>
+			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"  waitEvent="htmlDOMInitialize" waitTarget="myHTML"/>
+			</setup>
+			 <body>
+				<WaitForEffectsToEnd />
+
+			</body>  
+		</TestCase>-->
+		<TestCase testID="AIR_HTML_paddingTop" description="HTML paddingTop" keywords="[AIR, HTML, style, paddingTop]">			
+			 <setup>
+			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="width" value="300" target="myHTML"/>
+			      <SetProperty propertyName="height" value="300" target="myHTML"/>
+			       <SetStyle target="myHTML" styleName="paddingTop" value="50" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML" waitEvent="htmlDOMInitialize" waitTarget="myHTML"/>
+	  		</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<AssertPixelValue x="115" y="31" target="myHTML" value="0xFFFFFF" />
+			</body>
+		</TestCase> 
+		<TestCase testID="AIR_HTML_paddingBottom" description="HTML paddingBottom" keywords="[AIR, HTML, style, paddingBottom]">			
+			 <setup>
+			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML" waitEvent="htmlDOMInitialize" waitTarget="myHTML"/>
+			      <SetProperty propertyName="width" value="300" target="myHTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="height" value="300" target="myHTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+      			      <SetStyle target="myHTML" styleName="paddingBottom" value="100" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML" waitEvent="htmlDOMInitialize" waitTarget="myHTML"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<AssertPixelValue x="159" y="252" target="myHTML" value="0xFFFFFF" />
+			</body>
+		</TestCase>
+		<TestCase testID="AIR_HTML_paddingLeft" description="HTML paddingLeft" keywords="[AIR, HTML, style, paddingLeft]">			
+			 <setup>
+			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="width" value="300" target="myHTML"/>
+			      <SetProperty propertyName="height" value="300" target="myHTML"/>
+			      <SetStyle target="myHTML" styleName="paddingLeft" value="50" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"  waitEvent="htmlDOMInitialize" waitTarget="myHTML"/>
+			      
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<AssertPixelValue x="26" y="149" target="myHTML" value="0xFFFFFF" />
+			</body>
+		</TestCase>  
+		<TestCase testID="AIR_HTML_paddingRight" description="HTML paddingRight" keywords="[AIR, HTML, style, paddingRight]">			
+			 <setup>
+			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="width" value="300" target="myHTML"/>
+			      <SetProperty propertyName="height" value="300" target="myHTML"/>
+			      <SetStyle target="myHTML" styleName="paddingRight" value="100" waitEvent="updateComplete" waitTarget="myHTML"/>
+			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML" waitEvent="htmlDOMInitialize" waitTarget="myHTML"/>
+			      
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<AssertPixelValue x="216" y="237" target="myHTML" value="0xFFFFFF" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

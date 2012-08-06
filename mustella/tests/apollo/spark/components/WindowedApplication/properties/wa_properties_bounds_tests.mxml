@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_subclassed.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import assets.*;
+        import flash.geom.Rectangle;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+
+        public var origRect:Rectangle;
+
+        private function checkParts(parts:Object):Boolean{
+            var part:Object;
+            var partCounter:int = 0;
+            var foundGripper:Boolean = false;
+            var foundStatusBar:Boolean = false;
+            var foundStatusText:Boolean = false;
+            var foundTitleBar:Boolean = false;
+            var foundContentGroup:Boolean = false;
+            
+            for(part in parts){
+                ++partCounter;
+                
+                if(part.toString() == "gripper")
+                    foundGripper = true;
+                else if(part.toString() == "statusBar")
+                    foundStatusBar = true;
+                else if(part.toString() == "statusText")
+                    foundStatusText = true;
+                else if(part.toString() == "titleBar")
+                    foundTitleBar = true;
+                else if(part.toString() == "contentGroup")
+                    foundContentGroup = true;
+            }
+
+            return( foundGripper &&
+                    foundStatusBar &&
+                    foundStatusText &&
+                    foundTitleBar &&
+                    foundContentGroup &&
+                    partCounter == 5);
+        }
+
+        private function compareRectangles(r1:Rectangle, r2:Rectangle):Boolean{
+            return(
+                r1.width == r2.width &&
+                r1.height == r2.height &&
+                r1.x == r2.x &&
+                r1.y == r2.y );
+        }
+
+        /**
+        * Return a Rectangle which differs from the current
+        * bounds.  We just increase things by a little bit.
+        **/
+        private function getADifferentBoundsRect():Rectangle{
+            var theRect:Rectangle = new Rectangle();
+            
+            origRect = (FlexGlobals.topLevelApplication as SubclassedWA).getTheBounds();
+            theRect.x = origRect.x + 10;
+            theRect.y = origRect.y + 10;
+            theRect.width = origRect.width + 10;
+            theRect.height = origRect.height + 10;
+
+            return theRect;
+        }
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+bounds: 
+Just a simple get to be sure it matches the 
+NativeWindow's bounds, then set it.
+========================================================
+-->
+
+<TestCase testID="bounds_test1" keywords="[WindowedApplication,bounds]" description="Get the bounds." >
+    <body>
+        <AssertMethodValue method="value = compareRectangles(FlexGlobals.topLevelApplication.getTheBounds(), FlexGlobals.topLevelApplication.nativeWindow.bounds)" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="bounds_test2" keywords="[WindowedApplication,bounds]" description="Set the bounds. Do some trickery to be sure we're actually changing it!" >
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.setTheBounds(getADifferentBoundsRect())" />
+        <AssertPropertyValue target="script:origRect" propertyName="x" valueExpression="value = FlexGlobals.topLevelApplication.getTheBounds().x - 10" />
+        <AssertPropertyValue target="script:origRect" propertyName="y" valueExpression="value = FlexGlobals.topLevelApplication.getTheBounds().y - 10" />
+        <AssertPropertyValue target="script:origRect" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.getTheBounds().width - 10" />
+        <AssertPropertyValue target="script:origRect" propertyName="height" valueExpression="value = FlexGlobals.topLevelApplication.getTheBounds().height - 10" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_app2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test maximizable = true
+- Note that maximizable can only be set in the AIR XML
+file, so here we can only test true.  False is handled
+in another file.
+- This tests the maximizable property.
+- These are not tests specifically for the maximize
+button or the maximize() method; those are tested
+elsewhere.
+- We cannot compare the height of the app. with the
+height of the screen due to the Mac's toolbar, Windows'
+task bar, stuff like that.  So we just use the width,
+which should be consistent, and the nativeWindow's
+displayState property.
+- These are order dependent!  The last tests are on
+a closed window, so tests on an open window cannot
+be put after them.
+========================================================
+-->
+<TestCase testID="maximizable_true_test1" keywords="[WindowedApplication,maximizable]" description="Confirm default is true." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="maximizable" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="maximizable_true_test2_SparkChromeWindowedApplicationSkin" keywords="[WindowedApplication,maximizable]" description="Click the maximize button to maximize." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="skin.titleBar.maximizeButton" localX="2" localY="2" waitTarget="" waitEvent="windowResize" />
+        <Pause timeout="200"/>
+        <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
+        <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" />
+    </body>
+</TestCase>
+
+<TestCase testID="maximizable_true_test3_SparkChromeWindowedApplicationSkin" keywords="[WindowedApplication,maximizable]" description="Call the maximize method to maximize." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <RunCode code="WindowedApplication(FlexGlobals.topLevelApplication).maximize()" waitTarget="" waitEvent="windowResize" />
+        <Pause timeout="200"/>
+        <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
+        <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" />
+    </body>
+</TestCase>
+
+<TestCase testID="maximizable_true_test3_windowedApplicationSkin" keywords="[WindowedApplication,maximizable]" description="Call the maximize method to maximize." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <RunCode code="WindowedApplication(FlexGlobals.topLevelApplication).maximize()" waitTarget="" waitEvent="windowResize" />
+        <Pause timeout="200"/>
+        <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
+        <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
+        <RunCode code="FlexGlobals.topLevelApplication.restore()" />
+    </body>
+</TestCase>
+
+<TestCase testID="maximizable_true_test4_SparkChromeWindowedApplicationSkin_mac" keywords="[WindowedApplication,maximizable]" description="Be sure the maximize button appears enabled." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="skin.titleBar.maximizeButton" />
+    </body>
+</TestCase>
+
+<TestCase testID="maximizable_true_test4_SparkChromeWindowedApplicationSkin_win" keywords="[WindowedApplication,maximizable]" description="Be sure the maximize button appears enabled." >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+    </setup>
+    <body>
+        <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="skin.titleBar.maximizeButton" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

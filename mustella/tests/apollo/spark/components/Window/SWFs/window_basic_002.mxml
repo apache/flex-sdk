@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+    	xmlns:local="*" close="closeAllChildWindow()">
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		    fontWeight: bold;           
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		    fontStyle: italic;          
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+		s|WindowedApplication{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		s|Window{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|TitleBar{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Button{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|Label{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	
+
+	        mx|Label{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+	</fx:Style>
+	<fx:Script>
+	    <![CDATA[
+		import spark.components.Window;
+		import mx.core.FlexGlobals;
+
+		import spark.components.WindowedApplication; 
+		import mx.events.FlexEvent;
+		import mx.core.IWindow;
+
+		import comps.*;
+
+		public var childWindowList:Array=new Array();
+		public var myWin:MyWindowWithButton;
+
+		public function createAWindow():void
+		{
+		    myWin=new MyWindowWithButton();
+		    myWin.title="test window";
+		    myWin.width=300;
+		    myWin.height=350;
+		    myWin.systemChrome="standard";
+
+		    var b:Button=new Button();
+		    b.name="testButton";
+		    b.label="testButton";
+		    b.y=50;
+		    myWin.addElement(b);
+		    myWin.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		    childWindowList.push(myWin);
+		    myWin.open(true);
+
+		}	
+		public function keyDownFunc(event:KeyboardEvent):void
+		{
+		    myWin.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownFunc);
+		    info.text=event.keyCode+" Pressed";
+		    trace("###in keyDownFunc, info.text="+info.text);
+		    dispatchEvent(new FlexEvent("keyPressed"));
+		}
+		public function addKeyDownListener():void
+		{
+		    myWin.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunc);
+
+		}
+
+		public function assertKeyPressed():Boolean
+		{
+		    trace("###info.text="+info.text);
+		    return info.text!="info" && (info.text.indexOf("Pressed")>-1);
+		}
+
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    myWin.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("myWindowComplete"));
+		}
+
+
+		public function testGetChildByName(win:IWindow, name:String):Boolean
+		{
+		    var iv:DisplayObject=null;
+		    if (win is Window)
+			iv=Window(win).contentGroup.getChildByName(name);
+		    else if (win is  spark.components.WindowedApplication)
+			iv=WindowedApplication(win).contentGroup.getChildByName(name);
+		    if (iv!=null && iv is Button)
+		    {
+			var b:Button=Button(iv);
+			if (b.name.indexOf(name)>-1)
+			 return true;
+
+		    } return false;
+		}
+
+
+		public function closeAllChildWindow():void
+		{
+
+			var win:Window;
+		    while(childWindowList.length>0)
+		    {
+				win=Window(childWindowList.pop());
+				if (win!=null && !win.closed)
+					win.close();
+		    }
+
+		}
+	       public function testButtonOnWindow(name:String):Boolean
+	       {
+		    return testGetChildByName(myWin,name);
+	       }
+
+
+	       public function testButtonOnWindowedApplication(name:String):Boolean
+	       {
+		     return testGetChildByName(this,name);
+	       }
+		/**
+		*   compare the actual value with expected value based on os.  It returns an error string if comparison fails, otherwise an empty string.
+		*   description: a string you can use to describe what is the test for, you can set it to null.
+		*   actualVal: actual value used to compare for
+		*   expectWinVal: expected value on window os
+		*   expectMacVal: expected value on mac os
+		*   expectLinuxVal: expected value on linux os 
+		*/
+		public function assertValueBaseOnOS(description:String,actualVal:*,expectWinVal:*=null,expectMacVal:*=null,expectLinuxVal:*=null):String
+		{
+			var errMsg:String="";
+			var current_os:String=Capabilities.os.toLowerCase();
+			if (current_os.indexOf("window")>-1)
+			{
+				if (actualVal!=expectWinVal)
+					errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectWinVal;
+			}else if (current_os.indexOf("mac")>-1)
+			{
+				if (actualVal!=expectMacVal)
+					errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectMacVal;
+			}else if (current_os.indexOf("linux")>-1)
+			{
+				if (actualVal!=expectLinuxVal)
+					errMsg+="on os="+current_os+", actual value="+actualVal+";expected value="+expectLinuxVal;
+
+			}else {
+				errMsg+="on os="+current_os+" isn't supported";
+			}
+			if (description!=null && errMsg!="")
+				errMsg=description+" "+errMsg;
+			return errMsg;
+		}
+	    ]]>
+	</fx:Script>
+  <s:Button id="button1" name="button1" label="button1" />
+  <mx:Label id="info" name="info" text="info" />
+</s:WindowedApplication>

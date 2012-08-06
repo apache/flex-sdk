@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/WindowedApplication/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AIR_WindowedApplication_Basic_Spark.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	
+	import mx.core.WindowedApplication;
+	import flash.geom.Rectangle;
+	
+      	public var ht:Number;
+      	public var maxHt:Number;
+      	public var wd:Number;
+      	public var maxWd:Number;
+      	public var ssb: Boolean;
+      	public var tit: String;
+      	public var sta: String;
+      	public var titIcon: Class;
+      	/*public function set():void
+      	{
+      		ht=application.height;
+      		wd=application.width;
+      		ssb=application.showStatusBar;
+      		tit=application.title;
+      		sta=application.status;
+		
+      	}
+      	public function reset():void
+      	{
+      		application.height=ht;
+      		application.width=wd;
+      		application.showStatusBar=ssb;
+      		application.status=sta;
+      		application.title=tit;
+		
+	}*/     
+      	
+      	[Bindable]
+	[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+	public var kb:Class;
+      	
+      	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="Window_Property_height_positive" keywords="[Window,height, Property]">
+			<setup>
+				<SetProperty target="" propertyName="height" value="800" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="height" value="800" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Window_Property_height_negative" keywords="[Window,property, height]">
+			<setup>
+				<SetProperty target="" propertyName="height" value="-800" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="height" value="34" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Window_Property_maxHeight_positive" keywords="[Window,property, maximumHeight]">
+			<setup>
+				<SetProperty target="" propertyName="maxHeight" value="375"/> 
+				<SetProperty target="" propertyName="height" value="700" waitTarget="" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="maxHeight" value="375" /> 
+				<AssertPropertyValue target="" propertyName="height" value="375" />
+			</body> 
+		</TestCase>
+		<TestCase testID="Window_Property_maxHeight_negative" keywords="[Window,property, maximumHeight]">
+			<setup>
+				<SetProperty target="" propertyName="maxHeight" value="-300"/> 
+				<SetProperty target="" propertyName="height" value="375" waitTarget="" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="maxHeight" value="34" /> 
+				<AssertPropertyValue target="" propertyName="height" value="34" />
+			</body> 
+		</TestCase>		
+		<TestCase testID="Window_Property_width_positive" keywords="[Window,width, Property]">
+			<setup>
+				<SetProperty target="" propertyName="width" value="800" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="width" value="800" />
+			</body>
+		</TestCase>
+		
+	
+		<TestCase testID="Window_Property_maxWidth_positive" keywords="[Window,property, maximumWidth]">
+			<setup>
+				<SetProperty target="" propertyName="maxWidth" value="300"/> 
+				<SetProperty target="" propertyName="width" value="700" waitEvent="updateComplete" waitTarget=""/>
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="maxWidth" value="300" /> 
+				<AssertPropertyValue target="" propertyName="width" value="300" />
+			</body> 
+		</TestCase>
+		
+				<TestCase testID="Window_Property_showStatusBar_true" keywords="[Window,property, showStatusBar]">
+			<setup>
+				<SetProperty target="" propertyName="status" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="status" value="Hello World!" /> 
+				<AssertPropertyValue target="" propertyName="showStatusBar" value="true" />
+				<CompareBitmap target="" url="../Properties/baselines/showStatusBarTrue_Spark.png" timeout="5000" />
+			</body> 
+		</TestCase>
+		
+		<TestCase testID="Window_Property_showStatusBar_false" keywords="[Window,property, showStatusBar]">
+			<setup>
+				<SetProperty target="" propertyName="status" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
+				<SetProperty target="" propertyName="showStatusBar" value="false" waitEvent="updateComplete" waitTarget=""/> 
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="status" value="Hello World!" /> 
+				<AssertPropertyValue target="" propertyName="showStatusBar" value="false" />
+				<CompareBitmap target="" url="../Properties/baselines/showStatusBarFalse_Spark.png" timeout="5000" />
+			</body> 
+		</TestCase>		
+		<TestCase testID="Window_Property_title" keywords="[Window,property, title]">
+			<setup>
+				<SetProperty target="" propertyName="title" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="title" value="Hello World!" /> 
+				<CompareBitmap target="" url="../Properties/baselines/title1_Spark.png" timeout="5000" />
+			</body> 
+		</TestCase>
+		<TestCase testID="Window_Property_title_null" keywords="[Window,property, title]">
+			<setup>
+				<SetProperty target="" propertyName="title" value="" waitEvent="updateComplete" waitTarget=""/> 
+			</setup>  
+			<body>  
+				<CompareBitmap target="" url="../Properties/baselines/title2_Spark.png" timeout="5000" />
+				<AssertPropertyValue target="" propertyName="title" value="" /> 
+			</body> 
+		</TestCase>		
+        	<TestCase testID="Window_Property_title_doubleByte" keywords="[Window,property, title]">
+			<setup>
+				<SetProperty target="" propertyName="title" value="???" waitEvent="updateComplete" waitTarget=""/> 
+			</setup>  
+			<body>  
+				<CompareBitmap target="" url="../Properties/baselines/title3_Spark.png" timeout="5000" />
+				<AssertPropertyValue target="" propertyName="title" value="???" /> 
+			</body> 
+		</TestCase>	
+		<TestCase testID="Window_Property_status" keywords="[Window,property, status]">
+			<setup>
+				<SetProperty target="" propertyName="status" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
+				<SetProperty target="" propertyName="showStatusBar" value="true" waitEvent="updateComplete" waitTarget=""/>
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="status" value="Hello World!" /> 
+				<CompareBitmap target="" url="../Properties/baselines/status1_Spark.png" timeout="5000" />
+			</body> 
+		</TestCase>
+		<TestCase testID="Window_Property_statu_null" keywords="[Window,property, status]">
+			<setup>
+				<SetProperty target="" propertyName="showStatusBar" value="true" />
+				<SetProperty target="" propertyName="status" value="" waitEvent="updateComplete" waitTarget=""/> 
+			</setup>  
+			<body>  
+				<CompareBitmap target="" url="../Properties/baselines/status2_Spark.png" timeout="5000" />
+				<AssertPropertyValue target="" propertyName="status" value="" /> 
+			</body> 
+		</TestCase>		
+        	<TestCase testID="Window_Property_status_doubleByte" keywords="[Window,property, status]">
+			<setup>
+				<SetProperty target="" propertyName="showStatusBar" value="true" />
+				<SetProperty target="" propertyName="status" value="???" waitEvent="updateComplete" waitTarget=""/> 
+			</setup>  
+			<body>  
+				<CompareBitmap target="" url="../Properties/baselines/status3_Spark.png" timeout="5000" />
+				<AssertPropertyValue target="" propertyName="status" value="???" /> 
+			</body> 
+		</TestCase>	
+		
+		<TestCase testID="Window_Property_titleIcon" keywords="[Window,property, titleIcon]">
+			<setup>
+				<SetProperty target="" propertyName="titleIcon" valueExpression="value=kb" waitEvent="updateComplete" waitTarget=""/> 
+			</setup>  
+			<body>  
+				<CompareBitmap target="" url="../Properties/baselines/titleIcon_Spark.png" timeout="5000" />
+				<AssertPropertyValue target="" propertyName="titleIcon" valueExpression="value=kb" /> 
+			</body> 
+		</TestCase>
+		
+	</testCases>
+</UnitTester>
+	
+

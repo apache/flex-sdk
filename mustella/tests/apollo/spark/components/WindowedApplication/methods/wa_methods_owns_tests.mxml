@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/methods/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    xmlns:custom="assets.*"
+    testSWF="wa_app2.mxml">
+    
+<!-- this set of lines form a template that must be in each unit test -->
+    
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+     import mx.core.*;
+     import spark.components.*;
+     
+     public var theButton:Button;
+     public var theButton2:Button;
+    ]]>
+    </mx:Script>
+
+<!--
+    Just a few basic tests.
+-->
+    
+    <testCases>
+
+    <TestCase testID="owns_test1" keywords="[WindowedApplication,methods,owns]" description="Call when element is not present.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.owns(new Button())" value="false" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="owns_test2" keywords="[WindowedApplication,methods,owns]" description="Call when element is present.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+        </setup>
+        <body>
+            <RunCode code="theButton = FlexGlobals.topLevelApplication.addButtonToGroup('Peanut', FlexGlobals.topLevelApplication.group2)" waitTarget="group2" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.owns(theButton)" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="owns_test3" keywords="[WindowedApplication,methods,owns]" description="Call when element was present, but has been removed.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+        </setup>
+        <body>
+            <RunCode code="theButton = FlexGlobals.topLevelApplication.addButtonToGroup('Peanut', FlexGlobals.topLevelApplication.group2)" waitTarget="group2" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.group2.removeAllElements()" waitTarget="group2" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.owns(theButton)" value="false" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="owns_test4" keywords="[WindowedApplication,methods,owns]" description="Call when there are multiple elements.">
+        <setup>
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+        </setup>
+        <body>
+            <RunCode code="theButton = FlexGlobals.topLevelApplication.addButtonToGroup('Peanut', FlexGlobals.topLevelApplication.group2)" />
+            <RunCode code="theButton2 = FlexGlobals.topLevelApplication.addButtonToGroup('Butter', FlexGlobals.topLevelApplication.group2)" waitTarget="group2" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.owns(theButton)" value="true" />
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.owns(theButton2)" value="true" />
+        </body>
+    </TestCase>
+
+</testCases>
+
+</UnitTester>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/FileTree/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FileTree_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import flash.system.Capabilities;
+		import mx.controls.FileSystemTree;
+		import flash.filesystem.File;
+		import mx.collections.ArrayCollection;
+		public var myAC:ArrayCollection = new ArrayCollection();
+
+		[Bindable]
+		public var myOS:String;
+		[Bindable]
+		public var newDirectory:File;
+
+		private function whichOS():void
+	 	{
+			if (Capabilities.os.indexOf("Windows") != -1){
+				myOS="windows";
+				newDirectory = new File("c:\\windows");
+			}
+
+			else if (Capabilities.os.indexOf("Mac") != -1){
+				myOS="System";
+				newDirectory = new File("/System/");
+			}
+		}
+		
+		private function setDir(): void
+		{
+			application.myFileSystemTree.directory=newDirectory;	
+
+		}
+
+		private function setVal(): void
+		{
+			application.myFileSystemTree.directory=newDirectory;
+			application.myFileSystemTree.extensions=[".txt"];	
+		}
+
+		private function updateBackHis():String{
+			myAC.source = application.myFileSystemTree.backHistory;
+			return String(myAC.source.length);
+
+		}
+
+		private function checkcurrentpath():String{
+
+		return String(application.myFileSystemTree.directory.name);
+		}
+
+      	
+	]]>
+	</mx:Script>
+
+	<testCases>
+		
+		<TestCase testID="FileSystemTree_Event_directoryChange_afterCallingMethod" keywords="[directoryChange, FileSystemTree]">
+			<setup>
+				<RunCode code="whichOS()"/>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<RunCode code="setDir()" waitEvent="directoryChange" waitTarget="myFileSystemTree"/>
+				<AssertEvent target="myFileSystemTree" eventName="directoryChange" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemTree_Event_directoryOpening_afterInteraction" keywords="[directoryOpening, FileSystemTree]">
+			<setup>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemTree"/>
+				<DispatchMouseEvent type="mouseDown" localX="50" localY="10" target="myFileSystemTree" />
+				<DispatchMouseEvent type="mouseUp" localX="50" localY="10" target="myFileSystemTree"/>
+				<DispatchKeyEvent keys="[SPACE]" waitEvent="directoryOpening" waitTarget="myFileSystemTree"/>
+				<AssertEvent target="myFileSystemTree" eventName="directoryOpening" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemTree_Event_directoryClosing_afterInteraction" keywords="[directoryClosing, FileSystemTree]">
+			<setup>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemTree"/>
+				<DispatchMouseEvent type="mouseDown" localX="50" localY="10" target="myFileSystemTree" />
+				<DispatchMouseEvent type="mouseUp" localX="50" localY="10" target="myFileSystemTree"/>
+				<DispatchKeyEvent keys="[SPACE]" waitEvent="updateComplete" waitTarget="myFileSystemTree"/>
+				<WaitForEffectsToEnd />
+				<DispatchMouseEvent type="mouseDown" localX="50" localY="10" target="myFileSystemTree" />
+				<DispatchMouseEvent type="mouseUp" localX="50" localY="10" target="myFileSystemTree" />
+				<DispatchKeyEvent keys="[SPACE]" />
+				<AssertEvent target="myFileSystemTree" eventName="directoryClosing" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+
+		<!-- Tests commented out since inception
+		<TestCase testID="FileSystemTree_Event_directoryOpening_afterCallingMethod" keywords="[canNavigateBack, FileSystemTree]">
+			<setup>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemTree"/>
+				<DispatchMouseEvent type="mouseDown" localX="50" localY="10" target="myFileSystemTree"/>
+				<DispatchMouseEvent type="mouseUp" localX="50" localY="10" target="myFileSystemTree"/>
+				<RunCode code="application.myFileSystemTree.openSelectedSubdirectory()" waitEvent="updateComplete" waitTarget="myFileSystemTree"/>
+				<AssertEvent target="myFileSystemTree" eventName="directoryOpening" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="FileSystemTree_Event_directoryOpening_afterInteraction" keywords="[canNavigateBack, FileSystemTree]">
+			<setup>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemTree"/>
+				<DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemTree" />
+				<DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemTree"/>
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryOpening" waitTarget="myFileSystemTree"/>
+				<AssertEvent target="myFileSystemTree" eventName="directoryOpening" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemTree_Event_directoryOpening_afterCallingMethod" keywords="[canNavigateBack, FileSystemTree]">
+			<setup>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemTree"/>
+				<DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemTree" />
+				<DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemTree"/>
+				<RunCode code="application.myFileSystemTree.navigateDown()" waitEvent="directoryOpening" waitTarget="myFileSystemTree"/>
+				<AssertEvent target="myFileSystemTree" eventName="directoryOpening" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="FileSystemTree_Event_select_afterInteraction" keywords="[canNavigateBack, FileSystemTree]">
+			<setup>
+			 	<ResetComponent target="myFileSystemTree" className="mx.controls::FileSystemTree" waitEvent="updateComplete" waitTarget="myFileSystemTree"/> 
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemTree"/>
+				<DispatchMouseClickEvent localX="10" localY="10" target="myFileSystemTree" waitEvent="select" waitTarget="myFileSystemTree" />
+				<AssertEvent target="myFileSystemTree" eventName="select" eventClass="mx.events::FileEvent" />
+			</body>
+		</TestCase>
+
+
+		
+		-->
+	</testCases>
+
+</UnitTester>

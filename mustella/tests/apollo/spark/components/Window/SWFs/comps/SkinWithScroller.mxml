@@ -1,0 +1,137 @@
+<!--- A skin class for the Spark WindowedApplication and Window containers. 
+      This class defines just a border and status bar, but no gripper button, 
+      title bar, or title bar buttons.
+      
+      <p>You can either use  system chrome, the FlexChromSkin class, or 
+      the WindowedApplicationSkin class to define the appearance of 
+      the WindowedApplication and Window containers. 
+      To use the WindowedApplicationSkin class with the WindowedApplication container, 
+      set <code>systemChrome</code> to "none" 
+      in the application's .xml file, and set the <code>skinClass</code> style to
+      spark.skins.spark.WindowedApplicationSkin. 
+      To use the WindowedApplicationSkin class with the Window container, 
+      set the <code>Window.systemChrome</code> property to "none", 
+      and set the <code>skinClass</code> style to
+      spark.skins.spark.WindowedApplicationSkin.</p>
+
+      @see spark.components.WindowedApplication
+       
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4 
+      
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledGroup="0.5" >
+
+    <fx:Metadata>
+      /**
+       *  The host component of this skin.
+       * 
+       * @langversion 3.0
+       * @playerversion Flash 10
+       * @playerversion AIR 1.5
+       * @productversion Flex 4 
+       */
+      [HostComponent("Object")]
+    </fx:Metadata>
+
+    <fx:Script fb:purpose="styling">
+        /*  Define the skin elements that should not be colorized. 
+         *  For WindowedApplication, border and status bar background are colorized,
+         *  but the content area and status text are not. 
+         *  Exclude the titleBar and scroller because they are SparkSkins and we 
+         *  don't want to colorize them twice.
+         * 
+         * @langversion 3.0
+         * @playerversion Flash 10
+         * @playerversion AIR 1.5
+         * @productversion Flex 4 
+         */
+        static private const exclusions:Array = ["backgroundRect", "contentGroup", "statusText"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        } 
+        
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+        {
+            backgroundFill.color = getStyle("backgroundColor");
+            backgroundFill.alpha = getStyle("backgroundAlpha");
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+    </fx:Script>
+    
+     <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" stateGroups="disabledGroup" />
+        <s:State name="normalAndInactive" stateGroups="inactiveGroup" />
+        <s:State name="disabledAndInactive" stateGroups="disabledGroup, inactiveGroup" />
+    </s:states>
+
+    <!-- layer 1: background fill -->
+    <!--- Defines the background color of the skin. -->
+    <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0" >
+        <s:fill>
+            <!--- @private -->
+            <s:SolidColor id="backgroundFill" />
+        </s:fill>
+    </s:Rect>
+
+    <!-- layer 2: content + status bar -->
+    <s:Group left="0" right="0" top="0" bottom="0" minHeight="24" minWidth="0" >
+        <s:layout>
+            <s:VerticalLayout gap="0"/>
+        </s:layout>
+        <s:Scroller width="100%" height="100%" minHeight="0" minWidth="0" >
+        <!-- content -->
+        <!--- Defines the Group container where the content children get pushed into and laid out. -->
+        <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
+        </s:Scroller>
+        <!-- status bar -->
+        <!--- Defines the Group container for the status bar. -->
+        <s:Group id="statusBar" width="100%" minHeight="24" >
+        
+            <!-- status bar fill -->
+            <s:Rect left="0" right="0" top="0" bottom="0">
+               <s:fill>
+                    <s:LinearGradient rotation="90">
+                        <s:GradientEntry color="0xE2E2E2" />
+                        <s:GradientEntry color="0xD9D9D9" />
+                    </s:LinearGradient>
+               </s:fill>
+            </s:Rect>
+            
+            <!-- status bar highlight -->
+            <s:Rect left="1" right="1" top="1" bottom="0" >
+               <s:stroke>
+                    <s:LinearGradientStroke rotation="90" weight="1">
+                        <s:GradientEntry color="0xEAEAEA" />
+                        <s:GradientEntry color="0xBEBEBE" />
+                    </s:LinearGradientStroke>
+               </s:stroke>
+            </s:Rect>
+        
+            <!-- status text -->
+            <!--- Defines the Label control for the text in the status bar. -->
+            <s:Label id="statusText" top="2" bottom="2" left="10" right="10" verticalAlign="middle" 
+                fontSize="10" color="0x585858" width="100%" maxDisplayedLines="1" />
+
+        </s:Group> 
+    </s:Group>
+
+</s:SparkSkin>

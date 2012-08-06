@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_flexchrome.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+<mx:Script>
+
+    <![CDATA[
+	
+        public static function init(o:DisplayObject):void
+
+        {
+	}
+	
+      ]]>
+	
+</mx:Script>
+	
+<mx:Metadata>
+	
+    <![CDATA[
+		
+    [Mixin]
+	
+    ]]>
+	
+</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	
+<mx:Script>
+	
+    <![CDATA[
+	 
+
+        import mx.core.FlexGlobals;
+        import spark.components.Window;
+	import spark.components.Button;
+	import mx.binding.utils.*;
+        import comps.*;
+        public var btn1:Button=new Button();
+
+
+	public var statusLongStr:String="Money doesn't grow on trees, but a tree-care supervisor in New York City's Central Park found an old wallet inside a dead one. The blue leather wallet had been stolen by a pickpocket 27 years ago. It was found in the hollow of a dying cherry tree. It was near where Ruth Bendik had hers swiped while she watched the New York City Marathon in 1982.";
+	
+        public function checkStatusBarWidth():Boolean
+	{
+	    return (FlexGlobals.topLevelApplication.myWin.width-FlexGlobals.topLevelApplication.myWin.statusBar.width)<10;   
+         
+	}
+        
+        public function setBinding():void
+	{
+	    BindingUtils.bindProperty( btn1, "label",
+	    FlexGlobals.topLevelApplication.windowObj, "status" );
+
+	    	
+	}
+    ]]>
+	
+</mx:Script>
+
+	
+
+<testCases>
+
+
+<!--
+========================================================
+
+    Test showStatusBar, status string
+
+========================================================
+-->
+
+
+
+<TestCase testID="property_showStatusBar_test0" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check default value=true" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+        
+      
+    </setup>
+    
+   <body>
+              
+        <AssertPropertyValue target="myWin" propertyName="showStatusBar" value="true" />
+  
+        <AssertPropertyValue target="myWin" propertyName="status" value="" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.activate()" waitEvent="enterFrame" waitTarget="stage"/>
+
+        <MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+           <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="myWin" waitEvent="close"/>
+    
+   </body>
+
+</TestCase>
+
+
+
+
+
+<TestCase testID="property_showStatusBar_test1" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check showStatusBar=true property" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.showStatusBar=true" />
+    
+    </setup>
+    
+   <body>
+            
+        <AssertPropertyValue target="myWin" propertyName="showStatusBar" value="true" />
+        
+        <SetProperty target="myWin" propertyName="status" value="this is a status string test" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.activate()"/>
+        <MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+          <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="myWin" waitEvent="close"/>
+    
+   </body>
+
+</TestCase>
+
+
+
+
+
+
+<TestCase testID="property_showStatusBar_test2" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check showStatusBar=false property" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.showStatusBar=false" />
+    
+    </setup>
+    
+    <body>
+            
+        <SetProperty target="myWin" propertyName="status" value="this is a status string test" />
+        
+        <AssertPropertyValue target="myWin" propertyName="showStatusBar" value="false" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.activate()"/>
+
+        <MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+           <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="myWin" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+
+<TestCase testID="property_showStatusBar_resize1" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check window content when window is resized larger" >
+    
+    <setup>
+        
+         <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+ 
+    </setup>
+    
+    <body>
+            
+        <SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()"/>
+  
+	<RunCode code="FlexGlobals.topLevelApplication.windowObj.width=600;"/>
+ 	<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=600;" waitTarget="windowObj" waitEvent="updateComplete"/>
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+
+<TestCase testID="property_showStatusBar_resize2" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check window content when window is resized smaller" >
+    
+    <setup>
+        
+         <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+ 
+    </setup>
+    
+    <body>
+            
+        <SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()"/>
+  
+	<RunCode code="FlexGlobals.topLevelApplication.windowObj.width=200;"/>
+ 	<RunCode code="FlexGlobals.topLevelApplication.windowObj.height=200;" waitTarget="windowObj" waitEvent="updateComplete"/>
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>       
+      
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+<TestCase testID="property_showStatusBar_resize3" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check window content when window is minimized, restored" >
+    
+    <setup>
+        
+         <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+ 
+    </setup>
+    
+    <body>
+            
+        <SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test" />
+
+	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange"/>
+  
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.showStatusBar=false" />
+   
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	<RunCode code="FlexGlobals.topLevelApplication.windowObj.restore()" waitTarget="windowObj" waitEvent="displayStateChange" />
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />    
+      
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+
+<TestCase testID="property_showStatusBar_resize4" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check statusBar when window is maximized" >
+    
+    <setup>
+        
+         <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+ 
+    </setup>
+    
+    <body>
+            
+        <SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test,this is a status test" />
+
+	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <AssertMethodValue method="value=checkStatusBarWidth()" value="true" />     
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+<TestCase testID="property_showStatusBar_update1" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check window content when statusBar=false to true" >
+    
+    <setup>
+        
+         <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+ 
+    </setup>
+    
+    <body>
+        
+ 	<RunCode code="FlexGlobals.topLevelApplication.windowObj.showStatusBar=false" />
+       
+        <SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.showStatusBar=true" />
+   
+	<RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()"/>
+
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>    
+      
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+
+<TestCase testID="property_showStatusBar_update2" keywords="[Window,flexChrome,Properties,showStatusBar]" 
+	description="check window content when statusBar=true to false" >
+    
+    <setup>
+        
+         <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1');" waitTarget="" waitEvent="myWindowComplete" />
+ 
+    </setup>
+    
+    <body>
+        
+ 	<RunCode code="FlexGlobals.topLevelApplication.windowObj.showStatusBar=false" />
+       
+        <SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test" />
+
+	<RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()"/>
+
+        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>         <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+
+<TestCase testID="property_StatusString_test1" keywords="[Window,flexChrome,Properties,status]" 
+	description="check showStatusBar=true, status string is long string" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.showStatusBar=true" />
+    
+    </setup>
+    
+    <body>
+        
+        <SetProperty target="myWin" propertyName="status"  valueExpression="value =statusLongStr"  />
+        
+        <AssertPropertyValue target="myWin" propertyName="status" valueExpression="value =statusLongStr" />
+        
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.activate()"/>
+
+        <MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+       
+    <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="myWin" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+
+
+
+<TestCase testID="property_StatusString_test2" keywords="[Window,flexChrome,Properties,status]" 
+	description="check showStatusBar=true, status string is bindable" >
+    
+    <setup>   
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')"  />        
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.statusStr='this is a bindable status text'"/>
+    </setup> 
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
+	<RunCode code="setBinding()" />
+        <AssertPropertyValue target="windowObj" propertyName="status" value ="this is a bindable status text" />
+	<AssertPropertyValue target="script:btn1" propertyName="label" valueExpression="value=FlexGlobals.topLevelApplication.windowObj.status" />
+        <RunCode code="FlexGlobals.topLevelApplication.windowObj.statusStr='new bindable status text'"/>
+	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <AssertPropertyValue target="windowObj" propertyName="status" value ="new bindable status text" />
+	<AssertPropertyValue target="script:btn1" propertyName="label" value="new bindable status text" />
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
+    </body>
+</TestCase>
+
+
+
+
+<TestCase testID="property_StatusBar_read" keywords="[Window,flexChrome,Properties,statusBar]" 
+	description="check statusBar is readonly skin part" >
+    
+    <setup>
+        
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+         
+    </setup>
+    
+    <body>
+        
+	<SetProperty target="myWin" propertyName="status" value="this is a test"/>
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.statusBar!=null" value="true" />    
+        <AssertMethodValue method="value=checkStatusBarWidth()" value="true" />   
+        
+       <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="myWin" waitEvent="close"/>
+    
+    </body>
+
+</TestCase>
+
+
+
+
+</testCases>
+
+
+</UnitTester>

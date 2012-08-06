@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	    import mx.core.FlexGlobals;
+	    import spark.components.*;
+	    import spark.skins.spark.*;
+	    import flash.display.NativeWindowType;
+	    import comps.*;
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test type
+	========================================================
+	-->
+
+	<TestCase testID="type_normal_test1" keywords="[Window,type]" description="This is just 'normal', no matter what." >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.type=NativeWindowType.NORMAL"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<AssertPropertyValue target="windowObj" propertyName="type" valueExpression="value=NativeWindowType.NORMAL" />
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="type_normal_test2" keywords="[Window,type]" description="default type is normal" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<AssertPropertyValue target="windowObj" propertyName="type" valueExpression="value=NativeWindowType.NORMAL" />
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="type_lightweight_test3" keywords="[Window,type]" description="type is NativeWindowType.LIGHTWEIGHT" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.systemChrome='none'"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.type=NativeWindowType.LIGHTWEIGHT"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertPropertyValue target="windowObj" propertyName="type" valueExpression="value=NativeWindowType.LIGHTWEIGHT" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+
+	</TestCase>
+
+
+	<TestCase testID="type_utility_test4" keywords="[Window,type]" description="type is NativeWindowType.UTILITY" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(WindowWithBindableSettings,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.type=NativeWindowType.UTILITY"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertPropertyValue target="windowObj" propertyName="type" valueExpression="value=NativeWindowType.UTILITY" />
+		<CompareBitmap target="windowObj" url="../properties/baselines/$testID.png" />
+	    </body>
+
+
+	</TestCase>
+
+
+
+    </testCases>
+</UnitTester>

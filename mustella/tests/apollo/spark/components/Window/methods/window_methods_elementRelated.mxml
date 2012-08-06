@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+
+<UnitTester testDir="apollo/spark/components/Window/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_003.mxml">
+
+
+
+	
+
+<!-- this set of lines form a template that must be in each unit test -->
+
+	
+
+    <mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}
+
+	]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+    </mx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+	<![CDATA[
+
+	 import mx.core.FlexGlobals;
+
+	 private  var dispObj:DisplayObject;
+
+	]]>
+
+    </mx:Script>
+
+
+
+	
+
+    <testCases>
+
+
+
+	<!--
+
+	========================================================
+
+	Test method addElement
+
+	========================================================
+
+	-->
+
+
+
+        <TestCase testID="method_addElement_test1" keywords="[Window,methods,addElement]" 
+
+        description="add an element to a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<RunCode code="FlexGlobals.topLevelApplication.testAddElement()"/>
+
+		<WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="myWin" timeout="2000" /> 
+
+		<MyCompareBitmap target="myWin"  numColorVariances="15" maxColorVariance="20" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+
+
+		<!-- use pause in case if the close window happened so quickly, set myWin=null
+
+		this will give enough time for image comparision 
+
+		Rest Pause API has same purpose
+
+		-->
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="5"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+        </TestCase>
+
+
+
+	<!--
+
+	========================================================
+
+	Test method addElementAt
+
+	========================================================
+
+	-->
+
+
+
+
+
+    	<TestCase testID="method_addElementAt_test1" keywords="[Window,methods,addElementAt]" 
+
+    	description="add an element at a valid index=0 for a Window">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	   	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- make sure window has time to be ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAt(0)" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="myWin" timeout="2000" /> 
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_addElementAt_test2" keywords="[Window,methods,addElementAt]" 
+
+	description="add an element at a valid index=2 for a Window">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAt(2)" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_addElementAt_test3" keywords="[Window,methods,addElementAt,negative]" 
+
+	description="add an element at invalid index=-1 for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAtNegative(-1)" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_addElementAt_test4" keywords="[Window,methods,addElementAt,negative]" 
+
+	description="add an element at invalid index=9 for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAtNegative(9)" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<!--
+
+	========================================================
+
+	Test method getElementAt
+
+	========================================================
+
+	-->
+
+
+
+	<TestCase testID="method_getElementAt_test1" keywords="[Window,methods,getElementAt]" 
+
+	description="get an element at a valid index=0 for a Window">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(0)" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+
+
+	<TestCase testID="method_getElementAt_test2" keywords="[Window,methods,getElementAt]" 
+
+	description="get an element at a valid index=2 for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(2)" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_getElementAt_test3" keywords="[Window,methods,getElementAt]" 
+
+	description="get first element of a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetFirstButton()" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+
+
+
+
+	<TestCase testID="method_getElementAt_test4" keywords="[Window,methods,getElementAt,negative]" 
+
+	description="get an element at invalid index=-1 for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAtNegative(-1)" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="method_getElementAt_test5" keywords="[Window,methods,getElementAt,negative]" 
+
+	description="get an element at invalid index=10 for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAtNegative(10)" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<!--
+
+	========================================================
+
+	Test method getElementIndex
+
+	========================================================
+
+	-->
+
+
+
+	<TestCase testID="method_getElementIndex_test1" keywords="[Window,methods,getElementIndex]" 
+
+	description="get an element by index for a Window">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	   	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(0)" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="method_getElementIndex_test2" keywords="[Window,methods,getElementIndex]" 
+
+	description="get an element by index for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(2)" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="method_getElementIndex_test3" keywords="[Window,methods,getElementIndex,negative ]" 
+
+	description="get an element by invalid index for a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementIndexNegative()" value="true" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	    <!--
+
+	========================================================
+
+	Test method removeElement
+
+	========================================================
+
+	-->
+
+
+
+	<TestCase testID="method_removeElement_test1" keywords="[Window,methods,removeElement]" 
+
+	description="remove an element from window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElement()" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify the element should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_removeElement_test2" keywords="[Window,methods,removeElement]" 
+
+	description="remove all elements from  a Window even the one added">
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElement2()" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify all elements should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_removeElement_test3" keywords="[Window,methods,removeElement,negative]" 
+
+	description="remove the same elements twice from  a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementNegative()" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify all elements should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+
+
+	<TestCase testID="method_removeElement_test4" keywords="[Window,methods,removeElement,negative]" 
+
+	description="remove  an element not own from a Window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementNegative2()" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<!--
+
+	========================================================
+
+	Test method removeElementAt
+
+	========================================================
+
+	-->
+
+
+
+	<TestCase testID="method_removeElementAt_test1" keywords="[Window,methods,removeElementAt]" 
+
+	description="remove a dropdown list from window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAt()" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify the element should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="method_removeElementAt_test2" keywords="[Window,methods,removeElementAt]" 
+
+	description="remove all elements from window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAt2()" value="true" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify the element should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+
+
+
+
+	<TestCase testID="method_removeElementAt_test3" keywords="[Window,methods,removeElementAt,negativ]" 
+
+	description="remove an invalid indexed element from a window ">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAtNegative(-1)" value="true" />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify the element should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="method_removeElementAt_test4" keywords="[Window,methods,removeElementAt,negativ]" 
+
+	description="remove an invalid indexed element from a window ">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAtNegative(-9)" value="true" />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify the element should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<!--
+
+	========================================================
+
+	Test method removeAllElements
+
+	========================================================
+
+	-->
+
+
+
+	<TestCase testID="method_removeAllElements_test1" keywords="[Window,methods,removeAllElements]" 
+
+	description="remove all elements from window">
+
+
+
+	    <setup> 
+
+		<RunCode code="FlexGlobals.topLevelApplication.resetWindow()" waitTarget="" waitEvent="myWindowComplete" />   
+
+	    </setup>
+
+	    <body>
+	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- add timeout in case window isn't ready -->
+
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveAllElements()" value="" />
+
+		<!-- make sure the window has time to update added Element-->
+
+		<SetProperty target="myWin" propertyName="width" value="400"  waitTarget="myWin" waitEvent="updateComplete"/>
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<!-- verify all elements should be removed, image comparision -->
+
+		<MyCompareBitmap target="myWin"  numColorVariances="10" maxColorVariance="10" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
+
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+</testCases>
+
+
+
+</UnitTester>
+

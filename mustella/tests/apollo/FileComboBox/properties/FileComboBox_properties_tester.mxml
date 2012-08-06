@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/FileComboBox/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FileComboBox_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	
+	import mx.controls.FileSystemComboBox;
+	import flash.filesystem.File;
+	import mx.collections.ArrayCollection;
+	public var myAC:ArrayCollection = new ArrayCollection();
+
+		private function setDir(): void
+			{
+				var newDirectory:File = new File("c:\\windows");
+				application.myFileSystemComboBox.directory=newDirectory;	
+				
+			}
+		private function setVal(): void
+			{
+				var newDirectory:File = new File("c:\\windows");
+				application.myFileSystemComboBox.directory=newDirectory;
+
+				application.myFileSystemComboBox.extensions=[".txt"];	
+					
+				
+			}
+
+		private function updateBackHis():String{
+			myAC.source = application.myFileSystemComboBox.backHistory;
+			return String(myAC.source.length);
+
+		}
+
+		private function checkcurrentpath():String{
+
+		return String(application.myFileSystemComboBox.directory.name);
+		}
+
+      	
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+
+	<TestCase testID="FileSystemComboBox_Property_directory_Default" keywords="[directory, FileSystemComboBox]">
+		<setup>
+		 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+		</setup>
+		<body>
+			<AssertMethodValue target="myFileSystemComboBox" method="value=checkcurrentpath()" value="Computer"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="FileSystemComboBox_Property_showIcons_Default" keywords="[showIcons, FileSystemComboBox]">
+		<setup>
+			 <ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+		</setup>
+		<body>
+			<AssertPropertyValue target="myFileSystemComboBox" propertyName="showIcons" value="true" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="FileSystemComboBox_Property_indent_Default" keywords="[indent, FileSystemComboBox]">
+		<setup>
+			 <ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+		</setup>
+		<body>
+			<AssertPropertyValue target="myFileSystemComboBox" propertyName="indent" value="8" />
+		</body>
+	</TestCase>
+
+
+
+
+		<!-- Test depend on OS so they are commented out can be run manually via Mustella
+		
+		<TestCase testID="FileSystemComboBox_Property_canNavigateBack_Default" keywords="[canNavigateBack, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateBack" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FileSystemComboBox_Property_canNavigateBack_aftersetting" keywords="[canNavigateBack, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemComboBox"/>
+				
+						
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateBack" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateDown_Default" keywords="[canNavigateDown, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateDown" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateDown_aftersetting_1" keywords="[canNavigateDown, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateDown" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateDown_aftersetting_2" keywords="[canNavigateDown, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemComboBox"/>
+				<DispatchKeyEvent keys="[END]" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateDown" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateForward_Default" keywords="[canNavigateForward, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateForward" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateForward_aftersetting" keywords="[canNavigateForward, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemComboBox"/>
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateForward" value="false" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_canNavigateUp_Default" keywords="[canNavigateUp, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateUp" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateUp_aftersetting_1" keywords="[canNavigateUp, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateUp" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FileSystemComboBox_Property_canNavigateUp_aftersetting_2" keywords="[canNavigateUp, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemComboBox"/>
+				<DispatchKeyEvent keys="[END]" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="canNavigateUp" value="true" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_backHistory_Default" keywords="[backHistory, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="backHistory" value="" />
+			</body>
+		</TestCase>
+		
+
+<TestCase testID="FileSystemComboBox_Property_directory_set" keywords="[directory, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myFileSystemComboBox"/>
+				 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myFileSystemComboBox" />
+			     
+			     <DispatchMouseEvent type="mouseUp" localX="10" localY="10" target="myFileSystemComboBox" />
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="directoryChange" waitTarget="myFileSystemComboBox"/>
+				
+						
+			</setup>
+			<body>
+
+				<AssertMethodValue target="myFileSystemComboBox" method="value=updateBackHis()" value="1"/>
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_directory_Default" keywords="[directory, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertMethodValue target="myFileSystemComboBox" method="value=checkcurrentpath()" value="Computer"/>
+			</body>
+		</TestCase>
+		
+	
+		
+<TestCase testID="FileSystemComboBox_Property_directory_set" keywords="[directory, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<RunCode code="setDir()"/>
+				
+						
+			</setup>
+			<body>
+				<AssertMethodValue target="myFileSystemComboBox" method="value=checkcurrentpath()" value="windows"/>
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_enumerationMode_Default" keywords="[enumerationMode, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="enumerationMode" value="directoriesFirst" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_enumerationMode_set" keywords="[enumerationMode, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<RunCode code="setDir()"/>
+				<SetProperty target="myFileSystemComboBox" propertyName="enumerationMode" value="filesOnly" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="enumerationMode" value="filesOnly" />
+			</body>
+		</TestCase>
+
+
+<TestCase testID="FileSystemComboBox_Property_extensions_Default" keywords="[extensions, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<RunCode code="setDir()"/>
+				<SetProperty target="myFileSystemComboBox" propertyName="enumerationMode" value="filesOnly" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>				
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="extensions" value="null" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_extensions_set" keywords="[extensions, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<RunCode code="setVal()"/>
+				<SetProperty target="myFileSystemComboBox" propertyName="enumerationMode" value="filesOnly" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>				
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="extensions" value=".txt" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="FileSystemComboBox_Property_showIcons_Default" keywords="[showIcons, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="showIcons" value="true" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_showIcons_Set" keywords="[showIcons, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<SetProperty target="myFileSystemComboBox" propertyName="showIcons" value="false" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="showIcons" value="false" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_showExtensions_Default" keywords="[showExtensions, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="showExtensions" value="true" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_showExtensions_Set" keywords="[showExtensions, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<SetProperty target="myFileSystemComboBox" propertyName="showExtensions" value="false" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="showExtensions" value="false" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_showHidden_Default" keywords="[showHidden, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="showHidden" value="false" />
+			</body>
+		</TestCase>
+
+<TestCase testID="FileSystemComboBox_Property_showHidden_Set" keywords="[showHidden, FileSystemComboBox]">
+			<setup>
+			 	<ResetComponent target="myFileSystemComboBox" className="mx.controls::FileSystemComboBox" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/> 
+				<SetProperty target="myFileSystemComboBox" propertyName="showHidden" value="true" waitEvent="updateComplete" waitTarget="myFileSystemComboBox"/>				
+				
+						
+			</setup>
+			<body>
+				<AssertPropertyValue target="myFileSystemComboBox" propertyName="showHidden" value="true" />
+			</body>
+		</TestCase>
+		-->
+	</testCases>
+
+</UnitTester>

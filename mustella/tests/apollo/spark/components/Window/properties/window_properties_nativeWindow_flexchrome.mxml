@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_flexchrome.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test nativeWindow
+	========================================================
+	-->
+
+	<TestCase testID="flexChrome_nativeWindow_test1" keywords="[Window,flexChrome,nativeWindow]" description="check nativeWindow property, verify it gets same settings as window" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/><!-- give sometime to make sure nativeWindow is created -->
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkNativeWindow()" value="" />
+		<!-- 
+		<CompareBitmap target="FlexGlobals.topLevelApplication.myWin" url="../properties/baselines/$testID.png" />
+		-->
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="flexChrome_nativeWindow_test2" keywords="[Window,flexChrome,nativeWindow]" description="check when nativeWindow  update some properties, verify the change is effective" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=null;FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.nativeWindow.height = 200"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.nativeWindow.width = 200"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.nativeWindow.title = 'test title'"  />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+		<AssertPropertyValue target="myWin" propertyName="width" value="200" />
+		<AssertPropertyValue target="myWin" propertyName="height" value="200" />
+		<AssertPropertyValue target="myWin" propertyName="title" value="window test" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifyNativeWindowUpdate()" value="" />
+		<!-- 
+		<CompareBitmap target="myWin" url="../properties/baselines/$testID.png" />
+		-->
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="flexChrome_nativeWindow_test3" keywords="[Window,flexChrome,nativeWindow]" description="check when window  updates some properties, verify nativeWindow should get updated value" >
+	    <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.updateWindow()" waitTarget="" waitEvent="WindowUpdateComplete" />
+		<AssertPropertyValue target="myWin.nativeWindow" propertyName="width" value="400" />
+		<AssertPropertyValue target="myWin.nativeWindow" propertyName="height" value="400" />
+		 <AssertPropertyValue target="myWin.nativeWindow" propertyName="title" value="updated title" />
+		 <!-- 
+		<CompareBitmap target="myWin" url="../properties/baselines/$testID.png" />
+		-->
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+	    </body>
+	</TestCase>
+
+    </testCases>
+</UnitTester>

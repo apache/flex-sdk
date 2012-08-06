@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/FlexNativeMenu/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FNM_DataDescriptor_Main.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<testCases>
+
+		
+
+		<!--These test verify the overriding of everything other than the children methods of dataDescriptor-->
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_labelField" keywords="[FlexNativeMenu, labelField, properties]">
+
+			<!--<setup>
+
+				<ResetComponent target="fnm_2" className="mx.controls.FlexNativeMenu" waitEvent="windowComplete"/>
+
+			</setup>-->
+
+			<body>
+
+				<AssertMethodValue target="" method="value=application.fnm_2.nativeMenu.getItemAt(0).label" value="Fruit"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_doublebyte_label" keywords="[FlexNativeMenu, labelField, properties]">
+
+			<body>
+
+				<AssertMethodValue target="" method="value=application.doubleByteBox.flexContextMenu.nativeMenu.getItemAt(0).label" value="ありがと"/>
+
+				<AssertMethodValue target="" method="value=application.doubleByteBox.flexContextMenu.nativeMenu.getItemAt(1).label" value="二はお馬"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_toggled_true" keywords="[FlexNativeMenu, toggled, properties]">
+
+			<!--<setup>
+
+				<ResetComponent target="fnm_2" className="mx.controls.FlexNativeMenu" />
+
+			</setup>-->
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).enabled" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_toggled_false" keywords="[FlexNativeMenu, properties, toggled]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).submenu.getItemAt(0).enabled" value="false"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_toggled_default" keywords="[FlexNativeMenu, properties, toggled]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).submenu.getItemAt(1).enabled" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_getType_separator_true" keywords="[FlexNativeMenu, getType, properties]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).submenu.getItemAt(2).isSeparator" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_getType_separator_false" keywords="[FlexNativeMenu, getType, properties]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).isSeparator" value="false"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_getType_checked_true" keywords="[FlexNativeMenu, properties, getType]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).submenu.getItemAt(5).submenu.getItemAt(0).checked" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_getType_checked_false" keywords="[FlexNativeMenu, properties, getType]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).checked" value="false"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_getData" keywords="[FlexNativeMenu, properties, getType]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).submenu.getItemAt(6).data" value="one"/>
+
+			</body>
+
+		</TestCase>  
+
+		
+
+		<TestCase testID="FlexNativeMenu_flexContextMenu_properties_enabled" keywords="[FlexNativeMenu, properties, setEnabled]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_2" method="value=application.fnm_2.nativeMenu.getItemAt(0).submenu.getItemAt(0).enabled" value="false"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<!--These tests verify the overriding of dataDescriptor children functions that are called by FlexNativeMenu-->
+
+		
+
+		<TestCase testID="FlexNativeMenu_menu_properties_getChildren" keywords="[FlexNativeMenu, properties, getChildren]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_1" method="value=application.fnm_1.nativeMenu.getItemAt(0).label" value="colors"/>
+
+				<AssertMethodValue target="fnm_1" method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(0).label" value="two"/>
+
+				<AssertMethodValue target="fnm_1" method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(1).label" value="one"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_menu_properties_hasChildren" keywords="[FlexNativeMenu, properties, hasChildren]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_1" method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(0).submenu" value="null"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="FlexNativeMenu_menu_properties_isBranch" keywords="[FlexNativeMenu, properties, isBranch]">
+
+			<body>
+
+				<AssertMethodValue target="fnm_1" method="value=application.fnm_1.nativeMenu.getItemAt(0).submenu.getItemAt(1).submenu" value="null"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+	</testCases>
+
+</UnitTester>
+

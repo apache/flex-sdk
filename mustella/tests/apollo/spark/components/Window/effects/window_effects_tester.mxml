@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/spark/components/Window/effects/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_effect_flexchrome.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.core.FlexGlobals;
+	]]>
+	</mx:Script>
+
+	
+<testCases>
+
+
+<!--
+========================================================
+Test closeEffect
+========================================================
+-->
+
+<TestCase testID="effect_close_test1" keywords="[Window,flexChrome,effects,closeEffect]" description="check closeEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="myWin" waitEvent="windowComplete" />
+    </setup>
+    <body>    
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.close()" waitTarget="myWin" waitEvent="close" />  
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myWin" timeout="2000" />
+        <WaitForEffectsToEnd />
+        <AssertEvent target="myWin" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+        <!-- has to use Pause in case if the assertion not done, but window is closed early -->
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+Test minimizeEffect
+========================================================
+-->
+
+ 
+<TestCase testID="effect_minimize_test1" keywords="[Window,flexChrome,effects,minimizeEffect]" description="check  minimizeEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.minimize()" waitTarget="myWin" waitEvent="displayStateChanging" /> 
+        <AssertEvent target="myWin" eventName="windowMinimize" eventClass="flash.events::Event" />
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myWin" timeout="2000" />
+        <AssertEvent target="myWin" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+    </body>
+</TestCase>
+
+<!--
+========================================================
+Test unminimizeEffect
+========================================================
+-->
+
+<TestCase testID="effect_unminimize_test1" keywords="[Window,flexChrome,effects,unminimizeEffect]" description="check unminimizeEffect" >    
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+    </setup>
+    <body>
+    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.minimize()" waitTarget="myWin" waitEvent="displayStateChanging" />
+        <WaitForEffectsToEnd />
+        <RunCode code="FlexGlobals.topLevelApplication.myWin.restore()" waitTarget="myWin" waitEvent="displayStateChanging" /> 
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myWin" timeout="2000" />
+        <AssertEvent target="myWin" eventName="windowUnminimize" eventClass="flash.events::Event" />
+        <AssertEvent target="myWin" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+    </body>
+</TestCase>
+
+<TestCase testID="effect_hide_test1" keywords="[Window,flexChrome,effects,hideEffect]" description="check hideEffect" >    
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+        <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="myWin" propertyName="visible" value="false" waitTarget="myWin" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myWin" timeout="2000" />
+        <AssertEvent target="myWin" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()" />
+    </body>
+</TestCase>
+
+<TestCase testID="effect_hide_test2" keywords="[WindowedApplication,flexChrome,effects,hideEffect]" description="check hideEffect" >    
+    <body>
+        <SetProperty target="" propertyName="visible" value="false" waitTarget="" waitEvent="updateComplete" />
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="" timeout="2000" />
+        <AssertEvent target="" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+
+    </body>
+</TestCase>
+
+</testCases>
+
+</UnitTester>

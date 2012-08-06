@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="apollo/spark/components/Window/skin/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}
+
+	]]>
+
+	</mx:Script>
+
+	<mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+	</mx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+	<![CDATA[
+
+
+
+        import flash.system.Capabilities;
+
+        import mx.core.FlexGlobals;
+
+        import spark.components.*;
+
+        import spark.skins.spark.*;
+
+
+
+	]]>
+
+	</mx:Script>
+
+
+
+    <testCases>
+
+
+
+	<!--
+
+	========================================================
+
+	Test the minimize/maximize/close buttons.
+
+	Tests which click the minimize/maximize buttons to 
+
+	minimize/maximize, and tests verifying that they are 
+
+	enabled/disabled appropriately, are covered in:
+
+
+
+	    window_properties_maximizable_false.mxml and 
+
+	    window_properties_maximizable_true.mxml.
+
+	    window_properties_minimizable_false.mxml
+
+	    window_properties_minimizable_true.mxml
+
+
+
+	========================================================
+
+	-->
+
+
+
+	<TestCase testID="titleBar_test1_SparkChrome" keywords="[Window,titleBar]" description="Verify the appearance of the buttons when the application is disabled." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
+
+	    </setup>
+
+	    <body>
+
+	    	<SetProperty target="windowObj" propertyName="width" value="115"/>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<SetProperty target="windowObj" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+
+		<MyCompareBitmap target="windowObj.skin.titleBar"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test2_SparkChrome" keywords="[Window,titleBar]" description="Verify the appearance of the buttons when the application is enabled." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetProperty target="windowObj" propertyName="width" value="115"/>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test3_SparkChrome" keywords="[Window,titleBar]" description="Mouse over the maximize button and verify its appearance." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test4_SparkChrome" keywords="[Window,titleBar]" description="Mouse over the minimize button and verify its appearance." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.minimizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.minimizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test5_SparkChrome" keywords="[Window,titleBar]" description="Mouse over the close button and verify its appearance." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.closeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.closeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test6_SparkChrome" keywords="[Window,titleBar]" description="Mouse down on the maximize button and verify its appearance." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test7_SparkChrome" keywords="[Window,titleBar]" description="Mouse down on the minimize button and verify its appearance." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.minimizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.minimizeButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.minimizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test8_SparkChrome" keywords="[Window,titleBar]" description="Mouse down on the close button and verify its appearance." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.closeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.closeButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.closeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="titleBar_test9a_SparkChrome" keywords="[Window,titleBar]" description="Verify the appearance of the maximize button after clicking on it to maximize." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="5" localY="5" waitTarget="windowObj" waitEvent="displayStateChange" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="titleBar_test9b_SparkChrome" keywords="[Window,titleBar]" description="Verify the appearance of the maximize button, when maximized, on rollOver, in Windows." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin "  waitEvent="updateComplete"/>
+
+		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="5" localY="5" waitTarget="windowObj" waitEvent="displayStateChange" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5"/>
+
+		<WaitForEffectsToEnd />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="titleBar_test9c_SparkChrome" keywords="[Window,titleBar]" description="Verify the appearance of the maximize button, when maximized, on mouseDown, in Windows." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="5" localY="5" waitTarget="windowObj" waitEvent="displayStateChange" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+
+
+	<TestCase testID="titleBar_test10_SparkChrome" keywords="[Window,titleBar]" description="Be sure the maximize button is no longer in the over state after clicking on it to restore from maximize." >
+
+	    <setup>
+
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>  
+
+	    </setup>
+
+	    <body>
+
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+
+		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="5" localY="5" waitTarget="windowObj" waitEvent="displayStateChange" />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5"/>
+
+		<WaitForEffectsToEnd />
+
+		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="mouseDown" localX="5" localY="5"/>
+
+		<WaitForEffectsToEnd />
+
+		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="5" localY="5" waitTarget="windowObj" waitEvent="displayStateChange" />
+
+		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
+
+	    </body>
+
+	</TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>
+

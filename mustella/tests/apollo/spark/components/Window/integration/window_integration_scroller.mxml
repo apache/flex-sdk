@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                    
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    	 import mx.core.FlexGlobals;
+    	 import spark.components.Window;
+    	 import spark.components.Button;  
+	 import comps.*;
+	
+	 public function addAButton():void
+	 {
+		 var b:Button=new Button();
+	 	 b.name="testButton";
+	 	 b.label="testButton";
+		 b.y=500;
+		 b.x=400;
+		 if (FlexGlobals.topLevelApplication.windowObj!=null)
+		 FlexGlobals.topLevelApplication.windowObj.addElement(b);
+	 }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+       
+ 	<TestCase testID="Window_integration_scroller_1" keywords="[Window,integration,scroller]" description="make window content area scrollable">
+            <setup>
+            	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowWithScroller();" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <MyCompareBitmap  numColorVariances="10" maxColorVariance="10" target="windowObj" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body> 
+        </TestCase>
+        
+  	<TestCase testID="Window_integration_scroller_2" keywords="[Window,integration,scroller]" description="make window content area scrollable">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowWithScroller();" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <!-- the window should have scrollers, then compare images -->
+                <DispatchMouseClickEvent target="windowObj" stageX="600" stageY="500" />
+                <WaitForEffectsToEnd />
+                <!-- hopefully the window should show the Button at (600,500) -->
+                <MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body> 
+        </TestCase>
+        
+     	<TestCase testID="Window_integration_scroller_3" keywords="[Window,integration,scroller]" description="remove the element causes scroller, verify window should have no scroller">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowWithScroller();" waitTarget="" waitEvent="myWindowComplete" />
+                <!-- the window should have scrollers, then compare images -->
+                <!-- remove the button from the window caused scrolling -->
+                <RunCode code="FlexGlobals.topLevelApplication.windowObj.removeElementAt(1)" waitTarget="windowObj" waitEvent="updateComplete" />
+            </setup>
+            <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <!-- verify the window should not show scroller any more  -->
+                <MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body> 
+        </TestCase>
+        
+        
+      	<TestCase testID="Window_integration_scroller_4" keywords="[Window,integration,scroller]" description="add an element causes scroller, verify window should have scroller">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindowWithScroller();" waitTarget="" waitEvent="myWindowComplete" />
+                <!-- add a button from the window caused scrolling -->
+                <RunCode code="addAButton();" waitTarget="windowObj" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <!-- verify the window should show scroller -->
+                <MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png"  />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body> 
+        </TestCase>
+  
+    </testCases>
+        
+</UnitTester>

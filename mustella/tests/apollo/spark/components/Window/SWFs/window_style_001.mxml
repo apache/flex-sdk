@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+    	xmlns:local="*" close="closeAllChildWindow()">
+  
+   <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		    fontWeight: bold;           
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		    fontStyle: italic;          
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+		s|WindowedApplication{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		s|Window{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|TitleBar{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Button{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|TextArea{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|Label{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	
+	        s|CheckBox{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        mx|Label{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        mx|DataGrid{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	        
+		
+	       .testWindowStyle{
+		    chromeColor:"0xB0C4DE";
+		    contentBackgroundColor:"0xE0FFFF";
+		    focusColor:"0x0000CD";
+		    rollOverColor:"0x808000";
+		    selectionColor:"0x800080";
+		    symbolColor:"0x00FF7F";	
+		}
+    </fx:Style>	
+    
+	<fx:Script>
+	    <![CDATA[
+		import spark.components.Window;
+		import mx.events.FlexEvent;
+		import comps.*;
+
+		public var childWindowList:Array=new Array();
+
+		public var myWin:MyWindowWithContents;
+
+		public function createAWindow():void
+		{
+		    myWin=new MyWindowWithContents();
+		    myWin.systemChrome="standard";
+		    myWin.alwaysInFront=true;
+		    myWin.title="test window";
+
+		    myWin.width=400;
+		    myWin.height=400;
+		    myWin.styleName="testWindowStyle";
+		    childWindowList.push(myWin);
+		    myWin.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		    myWin.open(true);
+		    
+		}	
+
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    e.target.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("myWindowComplete"));
+		}
+
+
+
+		public function closeAllChildWindow():void
+		{
+
+			var win:Window;
+		    while(childWindowList.length>0)
+		    {
+				win=Window(childWindowList.pop());
+				if (win!=null && !win.closed)
+				{
+					win.close();
+					win=null;
+				}
+		    }
+
+		}
+
+	]]>
+	</fx:Script>
+  <s:Button id="button1" name="button1" label="button1" />
+ 
+</s:WindowedApplication>

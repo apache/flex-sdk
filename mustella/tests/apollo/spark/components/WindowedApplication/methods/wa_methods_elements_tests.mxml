@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_generic_systemchrome_nocontrols.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+    
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.collections.*;   
+        import mx.core.*;     
+        import spark.components.*;
+        
+        public var theUIC:UIComponent;
+        public var theUIC2:UIComponent;
+
+    ]]>
+    </mx:Script>
+
+    <!--
+    ========================================================
+    We just test these methods lightly.  They should be
+    tested elsewhere already, theoretically.
+    ========================================================
+    -->
+    
+    <testCases>
+
+    <TestCase testID="method_resetMethod_test1" keywords="[WindowedApplication,methods]" description="Let's be sure the reset method really starts us off clean.">
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new CheckBox())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <!--CompareBitmap target="" url="../methods/$testID.png" /-->
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElement_test1" keywords="[WindowedApplication,methods,addElement]" description="Add an element to a WindowedApplication">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="1" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElement_test2" keywords="[WindowedApplication,methods,addElement]" description="Add an element when one is already there.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new CheckBox())" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="2" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElementAt_test1" keywords="[WindowedApplication,methods,addElementAt]" description="Add at -1.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.addElementAt(new Button(), -1)}catch(e:Error){value = e.message}" value="Index -1 is out of range." />
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElementAt_test2" keywords="[WindowedApplication,methods,addElementAt]" description="Add at 0, no other items.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="1" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElementAt_test3" keywords="[WindowedApplication,methods,addElementAt]" description="Add at 0, one other item.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new CheckBox(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="2" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementAt(0) is CheckBox" value="true" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElementAt_test4" keywords="[WindowedApplication,methods,addElementAt]" description="Add at 1, no other items.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.addElementAt(new Button(), 1)}catch(e:Error){value = e.message}" value="Index 1 is out of range." />
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElementAt_test5" keywords="[WindowedApplication,methods,addElementAt]" description="Add at 1, one other item.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new CheckBox(), 1)" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="2" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementAt(1) is CheckBox" value="true" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_addElementAt_test6" keywords="[WindowedApplication,methods,addElementAt]" description="Add at 1, two other items.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new CheckBox(), 1)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new RadioButton(), 1)" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="3" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementAt(1) is RadioButton" value="true" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementAt_test1" keywords="[WindowedApplication,methods,getElementAt]" description="Call when there are no elements.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.getElementAt(1)}catch(e:Error){value = e.message}" value="Index 1 is out of range." />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementAt_test2" keywords="[WindowedApplication,methods,getElementAt]" description="Call with -1.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.getElementAt(-1)}catch(e:Error){value = e.message}" value="Index -1 is out of range." />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementAt_test3" keywords="[WindowedApplication,methods,getElementAt]" description="Call beyond bounds.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new CheckBox(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.getElementAt(2)}catch(e:Error){value = e.message}" value="Index 2 is out of range." />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementAt_test4" keywords="[WindowedApplication,methods,getElementAt]" description="Get 0th item.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new CheckBox(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementAt(0) is CheckBox" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementAt_test5" keywords="[WindowedApplication,methods,getElementAt]" description="Get 3rd item.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Button(), 0)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new CheckBox(), 1)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new RadioButton(), 2)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new HSlider(), 3)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(new Panel(), 4)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementAt(3) is HSlider" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementIndex_test1" keywords="[WindowedApplication,methods,getElementIndex]" description="Get when item hasn't been added.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.getElementIndex(new Button())}catch(e:Error){value = e.message.indexOf('is not found in this Group.') > -1}" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementIndex_test2" keywords="[WindowedApplication,methods,getElementIndex]" description="Get when item is at index 0.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="theUIC = new Button()" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(theUIC)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new CheckBox())" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementIndex(theUIC)" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_getElementIndex_test3" keywords="[WindowedApplication,methods,getElementIndex]" description="Get when item is at index 2.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="theUIC = new Button()" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new CheckBox())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new RadioButton())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElementAt(theUIC, 2)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.getElementIndex(theUIC)" value="2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElement_test1" keywords="[WindowedApplication,methods,removeElement]" description="Call when the item isn't there.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.removeElement(new Button())}catch(e:Error){value = e.message.indexOf('is not found in this Group.') > -1}" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElement_test2" keywords="[WindowedApplication,methods,removeElement]" description="Remove the only item.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="theUIC = new Button()" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(theUIC)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElement(theUIC)" valueExpression="value = theUIC" />
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElement_test3" keywords="[WindowedApplication,methods,removeElement]" description="Remove several items.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="theUIC = new Button()" />
+            <RunCode code="theUIC2 = new CheckBox()" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(theUIC)" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(theUIC2)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElement(theUIC)" valueExpression="value = theUIC" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElement(theUIC2)" valueExpression="value = theUIC2" />
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElement_test4" keywords="[WindowedApplication,methods,removeElement]" description="Remove an item twice.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="theUIC = new Button()" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(theUIC)" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElement(theUIC)" valueExpression="value = theUIC" />
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.removeElement(theUIC)}catch(e:Error){value = e.message.indexOf('is not found in this Group.') > -1}" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElementAt_test1" keywords="[WindowedApplication,methods,removeElementAt]" description="-1.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.removeElementAt(-1)}catch(e:Error){value = e.message}" value="Index -1 is out of range." />
+        </body> 
+    </TestCase>
+
+    <TestCase testID="method_removeElementAt_test2" keywords="[WindowedApplication,methods,removeElementAt]" description="Index too large.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.removeElementAt(1)}catch(e:Error){value = e.message}" value="Index 1 is out of range." />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElementAt_test3" keywords="[WindowedApplication,methods,removeElementAt]" description="No items present (same as index too large, essentially).">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <AssertMethodValue method="try{FlexGlobals.topLevelApplication.removeElementAt(0)}catch(e:Error){value = e.message}" value="Index 0 is out of range." />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElementAt_test4" keywords="[WindowedApplication,methods,removeElementAt]" description="Remove only element.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.removeElementAt(0)" waitTarget="" waitEvent="updateComplete" />
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="method_removeElementAt_test5" keywords="[WindowedApplication,methods,removeElementAt]" description="Remove multiple elements.">
+        <setup> 
+            <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />   
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new Button())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new RadioButton())" waitTarget="" waitEvent="updateComplete" />
+            <RunCode code="FlexGlobals.topLevelApplication.addElement(new CheckBox())" waitTarget="" waitEvent="updateComplete" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElementAt(2) is CheckBox" value="true" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElementAt(1) is RadioButton" value="true" />
+            <AssertMethodValue target="" method="value = FlexGlobals.topLevelApplication.removeElementAt(0) is Button" value="true" />
+            <AssertPropertyValue target="" propertyName="numElements" value="0" />
+            <CompareBitmap target="" url="../methods/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+</testCases>
+
+</UnitTester>

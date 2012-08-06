@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/FlexNativeMenu/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FlexNativeMenu_Properties_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    
+        import mx.managers.SystemManager;
+        import mx.events.MenuEvent;
+        import mx.controls.FlexNativeMenu;
+        import mx.collections.*;
+
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+        [Bindable]
+        public var myDP:Object = {label: "top", children: [
+            {label: "file", name: "FILE", children: [
+                {label:"I am a Menu", name:"MENU"},
+                {label:"here goes Nothing", name:"NOTHING", children: [
+                    {label:"aw, don't sell yourself short", name:"AW"},
+                    {type:"check", label:"can you check me?", name:"CHECK ME"}
+                ]}
+            ]}
+        ]};
+
+        [Bindable]
+        public var xmlObjE4X2:XML;
+
+        public function createXML(): void
+        {
+            xmlObjE4X2 = new XML("<topnode><node label='Mail'><node label='Inbox'><node label='Old' data='old' /></node><node label='Personal' data='personal'><node label='Old' data='old' /></node></node></topnode>");
+        }
+
+        [Bindable]
+        public var myCol:ArrayCollection;
+        
+        public var myDPArray:Array = 
+        [{label: "menu 2", children: [
+                {label: "mail", name: "MAIL", children: [
+                    {label:"inbox", name:"INBOX"},
+                    {label:"outbox", name:"OUTBOX", children: [
+                        {label:"you are a draft", name:"DRAFT"},
+                        {type:"check", label:"check me", name:"CHECK"}
+                    ]}
+                ]}
+          ]},
+          {label: "menu 1", children: [
+                {label: "file", name: "FILE", children: [
+                    {label:"I am a Menu", name:"MENU"},
+                    {label:"here goes Nothing", name:"NOTHING", children: [
+                        {label:"aw, don't sell yourself short", name:"AW"},
+                        {type:"check", label:"can you check me?", name:"CHECK ME"}
+                    ]}
+                ]}
+           ]}
+          ];
+        
+        public function setArrayCollectionDP() : void
+        {
+            myCol = new ArrayCollection(myDPArray);
+        }
+       
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+<mx:XML id="testXMLDP" format="e4x">
+   <topnode>
+        <node label="blue" name="BLUE">
+            <node label="I am a Menu" name="MENU"/>
+            <node label="here goes Nothing" name="NOTHING" >
+                <node label="aw, don't sell yourself short" name="AW"/>
+                <node type="check" label="can you check me?" name="CHECK ME"/>
+            </node>
+        </node>
+   </topnode>
+</mx:XML>
+
+<!-- note, these tests seem to fail without the short Pauses that I've added. -->
+
+    <testCases>
+        <TestCase testID="flexNativeMenu_dataProvider_null" description="Set an AS object as a dataProvider for FlexNativeMenu in AS" keywords="[FlexNativeMenu, dataProvider]">
+            <setup>
+                <SetProperty target="fnm" propertyName="dataProvider" value="null" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_dataProvider_oneItem" description="Set an AS object as a dataProvider for FlexNativeMenu in AS" keywords="[FlexNativeMenu, dataProvider]">
+            <setup>
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=myDP" waitTarget="fnm" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="1" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).label" value="file" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(1).label" value="here goes Nothing" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(1).submenu.getItemAt(0).label" value="aw, don't sell yourself short" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_XMLsetWithBinding" description="Set XML as a dataProvider for FlexNativeMenu With Binding" keywords="[FlexNativeMenu, dataProvider]">
+            <body>
+                <AssertPropertyValue target="fnmBinding.nativeMenu" propertyName="numItems" value="3" />
+                <AssertMethodValue target="" method="value=application.fnmBinding.nativeMenu.getItemAt(0).label" value="Drinks" />
+                <AssertMethodValue target="" method="value=application.fnmBinding.nativeMenu.getItemAt(1).label" value="Sides" />
+                <AssertMethodValue target="" method="value=application.fnmBinding.nativeMenu.getItemAt(2).label" value="Main" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_ASsetWithBinding" description="Set an AS Object as the dataProvider for FlexNativeMenu With Binding" keywords="[FlexNativeMenu, dataProvider]">
+            <body>
+                <AssertPropertyValue target="fnmBinding2.nativeMenu" propertyName="numItems" value="1" />
+                <AssertMethodValue target="" method="value=application.fnmBinding2.nativeMenu.getItemAt(0).label" value="FILE" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_XMLObject_setInAS" description="Set an XML object as a dataProvider for MenuBar in AS" keywords="[MenuBar, dataProvider, XML]">
+             <setup>
+                 <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                 <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=testXMLDP" />
+                 <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                 <SetProperty target="fnm" propertyName="labelField" value="@label" waitEvent="updateComplete" waitTarget="fnm"/>
+             </setup>
+             <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="1" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).label" value="blue" />
+             </body>
+        </TestCase>       
+        <TestCase testID="flexNativeMenu_XMLBuiltAS_setWithBinding" description="Set an XML object (built in AS) as a dataProvider for FlexNativeMenu with Binding" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <body>
+                <AssertPropertyValue target="MenuDP3.nativeMenu" propertyName="numItems" value="1" />
+                <AssertMethodValue target="" method="value=application.MenuDP3.nativeMenu.getItemAt(0).label" value="Mailbox" />
+             </body>
+        </TestCase>       
+        <TestCase testID="flexNativeMenu_XMLBuiltAS_setWithAS" description="Set an XML object as a dataProvider for FlexNativeMenu with AS" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <RunCode code="createXML()" />
+                <SetProperty propertyName="showRoot" value="false" target="fnm" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=xmlObjE4X2" waitEvent="updateComplete" waitTarget="fnm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="1" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).label" value="Mail" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_Model_setWithBinding" description="Set a Model as a dataProvider for FlexNativeMenu with Binding" keywords="[FlexNativeMenu, dataProvider, Model]">
+            <body>
+                <AssertPropertyValue target="MenuDP3B.nativeMenu" propertyName="numItems" value="4" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(0).label" value="Toys" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(1).label" value="Cookware" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(2).label" value="Clothing" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(3).label" value="Furniture" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_Model_setWithAS" description="Set Model as a dataProvider for FlexNativeMenu with AS" keywords="[FlexNativeMenu, dataProvider, Model]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.model1.Product" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="MenuDP3B.nativeMenu" propertyName="numItems" value="4" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(0).label" value="Toys" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(1).label" value="Cookware" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(2).label" value="Clothing" />
+                <AssertMethodValue target="" method="value=application.MenuDP3B.nativeMenu.getItemAt(3).label" value="Furniture" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_ArrayCollection_setWithAS" description="Set ArrayCollection as a dataProvider for FlexNativeMenu with AS" keywords="[FlexNativeMenu, dataProvider, ArrayCollection]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <RunCode code="setArrayCollectionDP()" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=myCol"  waitEvent="updateComplete" waitTarget="fnm"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="2" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).label" value="menu 2" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(1).label" value="menu 1" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_dataProviderHTTPService" description="Set the result of an HTTPService as a dataProvider for FlexNativeMenu with AS" keywords="[FlexNativeMenu, dataProvider, XML, HTTPServic]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <RunCode code="application.menuXML.send()" waitEvent="result" waitTarget="menuXML" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="3" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).label" value="Drinks" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(2).label" value="Beer" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(2).label" value="Baked" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(2).submenu.getItemAt(1).label" value="Lasagna" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_LargeXML" description="Set the dataProvider for FlexNativeMenu giving lots of top level items" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.bigModel.Food"  waitEvent="updateComplete" waitTarget="fnm"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="fnm.nativeMenu" propertyName="numItems" value="54" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).label" value="Drinks" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(2).label" value="Beer" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(20).label" value="Baked" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(32).submenu.getItemAt(1).label" value="Lasagna" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_mainMenuItemDisabled" description="Set a main menu item to be disabled for FlexNativeMenu " keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.nativeMenuDP" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label"  waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.nativeMenuDP.item[1], false)" waitEvent="updateComplete" waitTarget="fnm" />
+            </setup>
+            <body>
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(1).enabled" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_mainMenuItemDisabledToEnabled" description="Set a main menu item to be disabled for FlexNativeMenu" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty propertyName="updateCompletePendingFlag" target="fnm" value="false" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.nativeMenuDP" waitTarget="fnm"
+                   waitEvent="updateComplete" />
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.nativeMenuDP.item[0], false)" waitTarget="fnm"
+                   waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.nativeMenuDP.item[0], true)" waitTarget="fnm"
+                   waitEvent="updateComplete" />
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).enabled" value="true" />
+            </body>
+        </TestCase>
+        <!--TestCase testID="flexNativeMenu_mainMenuItemDisabled_AS" description="Set a main menu item to be disabled for FlexNativeMenu" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.myDP2" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="label" />
+                <Pause timeout="10" />
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.myDP2[0][0][0], false)" waitEvent="updateComplete"
+                   waitTarget="fnm" />
+            </setup>
+            <body>
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(1).enabled" value="false" />
+            </body>
+        </TestCase-->
+        <TestCase testID="flexNativeMenu_subMenuItemDisabled" description="Set a main menu item to be disabled for FlexNativeMenu" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.nativeMenuDP" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label"  waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.nativeMenuDP.item[0].subitem[1], false)"  waitEvent="updateComplete" waitTarget="fnm"/>
+            </setup>
+            <body>
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(1).enabled" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_subMenuItemDisabledToEnabled" description="Set a main menu item to be disabled for FlexNativeMenu" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.nativeMenuDP" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label"  waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.nativeMenuDP.item[0].subitem[1], false)"  waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setEnabled(application.nativeMenuDP.item[0].subitem[1], true)"  waitEvent="updateComplete" waitTarget="fnm"/>
+            </setup>
+            <body>
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(1).enabled" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_menuItemToggled" description="Set a main menu item to be toggled for FlexNativeMenu" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.nativeMenuDP" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label" waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setToggled(application.nativeMenuDP.item[1].subitem[0], true)" waitEvent="updateComplete" waitTarget="fnm"/>
+            </setup>
+            <body>
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(1).submenu.getItemAt(0).checked" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="flexNativeMenu_menuItemToggledThenUnToggled" description="Set a main menu item to be un-toggled for FlexNativeMenu" keywords="[FlexNativeMenu, dataProvider, XML]">
+            <setup>
+                <ResetComponent target="fnm" className="mx.controls.FlexNativeMenu" />
+                <SetProperty target="fnm" propertyName="dataProvider" valueExpression="value=application.nativeMenuDP" />
+                <SetProperty target="fnm" propertyName="showRoot" value="false" />
+                <SetProperty target="fnm" propertyName="labelField" value="@label" waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setToggled(application.nativeMenuDP.item[0].subitem[1], true)" waitEvent="updateComplete" waitTarget="fnm"/>
+                <RunCode code="application.fnm.dataDescriptor.setToggled(application.nativeMenuDP.item[0].subitem[1], false)" waitEvent="updateComplete" waitTarget="fnm"/>
+            </setup>
+            <body>
+                <AssertMethodValue target="" method="value=application.fnm.nativeMenu.getItemAt(0).submenu.getItemAt(1).checked" value="false" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/WindowedApplication/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="wa_properties_minmaxheightwidth_minmaxsize.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+In this file, just be sure the min/max height/width
+come from the XML file if not explicitly set in Flex.
+<minSize>200 300</minSize>
+<maxSize>700 800</maxSize>
+========================================================
+-->
+
+<TestCase testID="minHeight_minSize_test1" keywords="[WindowedApplication,minHeight]" description="minHeight comes from the AIR xml file if not set in Flex." >
+    <body>
+        <AssertPropertyValue target="" propertyName="minHeight" value="300" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_minSize_test2" keywords="[WindowedApplication,minWidth]" description="minWidth comes from the AIR xml file if not set in Flex." >
+    <body>
+        <AssertPropertyValue target="" propertyName="minWidth" value="200" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_maxSize_test3" keywords="[WindowedApplication,maxHeight]" description="maxHeight comes from the AIR xml file if not set in Flex." >
+    <body>
+        <AssertPropertyValue target="" propertyName="maxHeight" value="800" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_maxSize_test4" keywords="[WindowedApplication,maxWidth]" description="maxWidth comes from the AIR xml file if not set in Flex." >
+    <body>
+        <AssertPropertyValue target="" propertyName="maxWidth" value="700" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

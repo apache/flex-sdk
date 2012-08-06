@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+    	xmlns:local="*" close="closeAllChildWindow()">
+   <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		    fontWeight: bold;           
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		    fontStyle: italic;          
+		    fontFamily: EmbeddedArial;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdanaHalo;
+		    embedAsCFF: false;
+		}
+	        s|Window
+	        {
+	            skinClass: ClassReference("spark.skins.spark.SparkChromeWindowedApplicationSkin");
+	        }
+		s|WindowedApplication{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+		s|Window{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+
+	        s|TitleBar{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Button{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}
+	        s|Label{
+		    fontFamily: EmbeddedVerdana;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	
+
+	        mx|Label{
+		    fontFamily: EmbeddedVerdanaHalo;
+		    fontLookup: embeddedCFF;
+		    fontAntiAliasType: normal;
+		}	        
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Window;
+			import 	flash.display.NativeWindow;
+			import mx.core.FlexGlobals;
+			import mx.collections.ArrayCollection;
+			import spark.components.windowClasses.TitleBar;
+			import comps.*;
+		        import flash.system.Capabilities;
+			import spark.components.WindowedApplication; 
+			import mx.events.FlexEvent;
+		        public var childWindowList:ArrayCollection=new ArrayCollection();
+			
+		        public var myWin:MyWindow;
+		        
+	 		public var windowObj:Window;
+	 		public var window1:Window, window2:Window, window3:Window;
+			public function createAWindow():void
+			{
+			    myWin=new MyWindow();
+			    myWin.title="window test";
+			    myWin.titleBar=new TitleBar();
+			    myWin.titleBar.title="titlebar";
+			    myWin.width=300;
+			    myWin.height=350;
+			    myWin.minimizable=true;
+			    myWin.maximizable=true;
+			    myWin.resizable=true;
+			    myWin.systemChrome="standard";
+			    myWin.transparent=false;
+			    myWin.type="normal";
+			    childWindowList.addItem(myWin);
+		            myWin.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		            myWin.open(true);
+		            
+			}
+			
+			public function createAWindowByClass(c:Class,title:String, x:Number=100, y:Number=100):Window
+			{
+				windowObj=new c();
+				c(windowObj).y=y;
+				c(windowObj).x=x;
+				windowObj.title=title;
+				windowObj.systemChrome="standard";
+				childWindowList.addItem(windowObj);
+				windowObj.addEventListener("creationComplete", handleNewWindowCreationComplete);
+		           	windowObj.open(true);
+		           	return windowObj;
+			}
+			
+			public function handleNewWindowCreationComplete(e:FlexEvent):void
+			{
+			    e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+			    dispatchEvent(new FlexEvent("myWindowComplete"));
+                        }			 
+	
+			public function closeAllChildWindow():void
+			{
+			    var numWindows:Number=childWindowList.length;
+			    var win:Window;
+			    for (var i:Number=0;i<numWindows;i++)
+			    {
+					win=Window(childWindowList.getItemAt(i));
+					if (win!=null && !win.closed)win.close();
+			    }
+			    
+			}
+			
+		]]>
+	</fx:Script>
+<mx:Label id="testLabel" text="info" />
+<s:Button id="appButton" label="parent" />
+</s:WindowedApplication>

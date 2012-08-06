@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_004.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                    
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    	 import mx.core.FlexGlobals;
+    	 import spark.components.Window;
+   
+	 import comps.*;
+	
+	 public var booleanVal:Boolean=false;
+			
+	 public function assertValue(expect:Boolean):Boolean
+	 {
+	 	return booleanVal==expect;
+	 }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+       
+
+        <TestCase testID="Window_integration_open_multipleWindows_1" keywords="[Window,integration,multiple]" description="check open multiple windows">
+            <setup>
+            	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="12"/>
+                <!-- to allow the sub windows creation complete -->
+                <AssertPropertyValue target="subWinObjRef" propertyName="visible" value="true" />
+                <WaitForEvent numExpectedEvents="-1" eventName="subWindowComplete" target="" timeout="2000" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.objInSubWinRef=FlexGlobals.topLevelApplication.myWin.subWinObj.objInSubWin"/>
+                <AssertPropertyValue target="objInSubWinRef" propertyName="visible" value="true" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body> 
+        </TestCase>
+
+
+
+        <TestCase testID="Window_integration_close_multipleWindows_2" keywords="[Window,integration,multiple]" description="check close multiple windows">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />
+            </setup>
+            <body>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="12"/><!-- to allow the sub windows creation complete -->
+                <AssertPropertyValue target="subWinObjRef" propertyName="closed" value="false" />
+                <WaitForEvent numExpectedEvents="-1" eventName="subWindowComplete" target="" timeout="2000" />
+                <RunCode code="FlexGlobals.topLevelApplication.objInSubWinRef=FlexGlobals.topLevelApplication.myWin.subWinObj.objInSubWin"/>
+                <AssertPropertyValue target="objInSubWinRef" propertyName="closed" value="false" />
+                <!-- close the top level window, will also close window created by it as close handler does clean up -->
+                <RunCode code="FlexGlobals.topLevelApplication.myWin.close()" waitTarget="myWin" waitEvent="close" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <AssertPropertyValue target="subWinObjRef" propertyName="closed" value="true" />
+                <RunCode code="FlexGlobals.topLevelApplication.objInSubWinRef=FlexGlobals.topLevelApplication.myWin.subWinObj.objInSubWin"/>
+                <AssertPropertyValue target="objInSubWinRef" propertyName="closed" value="true" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
+            </body>
+        </TestCase>
+       
+    </testCases>
+        
+</UnitTester>

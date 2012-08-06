@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="apollo/spark/components/Window/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="window_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import flash.system.Capabilities;
+        import mx.core.FlexGlobals;
+        import spark.components.*;
+        import spark.skins.spark.*;
+        import comps.*;
+
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+	<!--
+	========================================================
+	Test height
+	Note: minSize and maxSize are:
+	    <minSize>100 100</minSize>
+	    <maxSize>750 650</maxSize>
+	========================================================
+	-->
+	<TestCase testID="height_minSize_test1_systemChrome_mac" keywords="[WindowedApplication,height]" description="Height less than AIR XML file's minSize height" >
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(PlainWindow,'window1')"  waitTarget="" waitEvent="myWindowComplete"/>        
+	    </setup>
+	    <body>
+	         <SetProperty target="windowObj" propertyName="height" value="100" waitEvent="resize" />
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,100,100,100)" value=""/>
+            </body>
+        </TestCase>
+	<TestCase testID="height_minSize_test1_systemChrome_win" keywords="[Window,height]" description="Height less than the window's minSize height" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')"  />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/>  
+		<SetProperty target="windowObj" propertyName="height" value="90" waitEvent="resize" />
+	        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,100,100,100)" value=""/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="height_maxSize_test2_systemChrome_mac" keywords="[Window,height]" description="Height more than Window's maxSize height" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<SetProperty target="windowObj" propertyName="height" value="700" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,650,650,650)" value=""/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="height_maxSize_test2_systemChrome_win" keywords="[Window,height]" description="Height more than Window's maxSize height" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createANoOpenWindowByClass(PlainWindow,'window1')" />        
+	    </setup> 
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxWidth=750"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=650"/>
+		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<SetProperty target="windowObj" propertyName="height" value="700" waitEvent="resize" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,650,650,650)" value=""/>
+	    </body>
+	</TestCase>
+
+    </testCases>
+</UnitTester>
