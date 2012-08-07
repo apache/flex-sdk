@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/List/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="List_itemRendererTests.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import data.ListDataAS;
+        import mx.controls.List;
+
+        private static var dateValue:Date = new Date(2007,4,24);
+		public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		private function createData(dgTarget:List): void
+		{
+			var newDP:ListDataAS = new ListDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--CheckBox renderer-->
+        <TestCase testID="CheckBoxRenderer_Basic" description="Edit data in a List with a CheckBox renderer" keywords="[CheckBox, List, itemRenderers]">
+			<setup>
+			    <RunCode code="createData(application.checkList);" waitTarget="checkList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="checkList.mx_internal:rendererArray.0.0" localX="8" localY="8" waitEvent="updateComplete" waitTarget="checkList" />
+			    <DispatchMouseClickEvent target="checkList.mx_internal:rendererArray.1.0" localX="38" localY="8" waitEvent="itemEditEnd" waitTarget="checkList" />
+			    <!--DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="checkList" /-->
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="checkList"/>
+			    <AssertPropertyValue target="checkList.dataProvider.0" propertyName="available" value="true" />
+			</body>
+		</TestCase>
+        <TestCase testID="CheckBoxRenderer_Scrolling" description="Edit data in a List with a CheckBox renderer and then scroll" keywords="[Scrolling, CheckBox, itemRenderers]">
+			<setup>
+			    <ResetComponent target="checkList" className="comps.ListCheckBox" waitEvent="updateComplete" waitTarget="checkList" />
+			    <RunCode code="createData(application.checkList);" waitTarget="checkList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="checkList.mx_internal:rendererArray.1.0" localX="8" localY="8" waitEvent="updateComplete" waitTarget="checkList" />
+	            <DispatchMouseEvent target="checkList.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="checkList.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="checkList" />
+	            <WaitForEffectsToEnd />
+	            <DispatchMouseEvent target="checkList.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="checkList.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="checkList" />
+	            <WaitForEffectsToEnd />
+	            <AssertPropertyValue target="checkList.dataProvider.1" propertyName="available" value="true" />
+			</body>
+		</TestCase>
+		 <TestCase testID="CheckBoxRenderer_VisualCheck" description="Visual Check of a CheckBox CellRenderer" keywords="[CheckBox, List, itemRenderers]">
+			<setup>
+			   <ResetComponent target="checkList" className="comps.ListCheckBox"  waitTarget="checkList" />
+			   <RunCode code="createData(application.checkList);" waitTarget="checkList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/checkBoxRenderer.png" target="checkList.mx_internal:rendererArray.3.0" />
+			</body>
+		</TestCase>
+<!--Button renderer-->
+        <TestCase testID="ButtonRenderer_Basic" description="Edit data in a List with a Button renderer" keywords="[Button, itemRenderers]">
+			<setup>
+			    <RunCode code="createData(application.buttonList);" waitTarget="buttonList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="buttonList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="buttonList" />
+	            <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="buttonList" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="buttonList"/>
+			    <AssertPropertyValue target="buttonList.dataProvider.0" propertyName="available" value="true" />
+			</body>
+		</TestCase>
+        <TestCase testID="ButtonRenderer_Scrolling" description="Edit data in a List with a Button renderer and then scroll" keywords="[Scrolling, Button, itemRenderers]">
+			<setup>
+			    <ResetComponent target="buttonList" className="comps.ListButton" waitEvent="updateComplete" waitTarget="buttonList" />
+			    <RunCode code="createData(application.buttonList);" waitTarget="buttonList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="buttonList.mx_internal:rendererArray.1.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="buttonList" />
+	            <DispatchMouseEvent target="buttonList.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="buttonList.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="buttonList" />
+	            <DispatchMouseEvent target="buttonList.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="buttonList.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="buttonList" />
+	            <AssertPropertyValue target="buttonList.dataProvider.1" propertyName="available" value="true" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ButtonRenderer_VisualCheck" description="Visual Check of a Button CellRenderer" keywords="[Button, itemRenderers]">
+			<setup>
+			   <ResetComponent target="buttonList" className="comps.ListButton"  waitTarget="buttonList" />
+			   <RunCode code="createData(application.buttonList);" waitTarget="buttonList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/buttonRenderer.png" target="buttonList.mx_internal:rendererArray.3.0" />
+			</body>
+		</TestCase>
+
+<!--NumericStepper renderer-->
+        <TestCase testID="NumericStepperRenderer_Basic" description="Edit data in a List with a NumericStepper renderer" keywords="[NumericStepper, itemRenderers]">
+			<setup>
+			    <RunCode code="createData(application.nsList);" waitTarget="nsList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="nsList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="nsList" />
+	            <DispatchKeyEvent keys="[UP, UP]" />
+			    <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemEditEnd" waitTarget="nsList" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="nsList"/>
+			    <AssertPropertyValue target="nsList.dataProvider.0" propertyName="quantity" value="2" />
+			</body>
+		</TestCase>
+        <TestCase testID="NumericStepperRenderer_Scrolling" description="Edit data in a List with a NumericStepper renderer and then scroll" keywords="[Scrolling, NumericStepper, itemRenderers]">
+			<setup>
+			    <ResetComponent target="nsList" className="comps.ListNumericStepper" waitEvent="updateComplete" waitTarget="nsList" />
+			    <RunCode code="createData(application.nsList);" waitTarget="nsList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="nsList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="nsList" />
+	            <DispatchKeyEvent keys="[UP, UP]" />
+			    <DispatchMouseEvent target="nsList.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="nsList.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="nsList" />
+	            <DispatchMouseEvent target="nsList.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="nsList.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="nsList" />
+	            <AssertPropertyValue target="nsList.dataProvider.0" propertyName="quantity" value="2" />
+			</body>
+		</TestCase>
+		 <TestCase testID="NumericStepperRenderer_VisualCheck" description="Visual Check of a NumericStepper CellRenderer" keywords="[NumericStepper, itemRenderers]">
+			<setup>
+			   <ResetComponent target="nsList" className="comps.ListNumericStepper"  waitTarget="nsList" />
+			   <RunCode code="createData(application.nsList);" waitTarget="nsList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/numStepperRenderer.png" target="nsList.mx_internal:rendererArray.3.0" />
+			</body>
+		</TestCase>
+
+<!--Label renderer-->
+		 <TestCase testID="LabelRenderer_VisualCheck" description="Visual Check of a Label CellRenderer" keywords="[Label, itemRenderers]">
+			<setup>
+			   <ResetComponent target="labelList" className="comps.ListLabel"  waitTarget="labelList" />
+			   <RunCode code="createData(application.labelList);" waitTarget="labelList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/labelRenderer.png" target="labelList.mx_internal:rendererArray.2.0" />
+			</body>
+		</TestCase>
+<!--Text renderer-->
+		 <TestCase testID="TextRenderer_VisualCheck" description="Visual Check of a Text CellRenderer" keywords="[Text, itemRenderers]">
+			<setup>
+			   <ResetComponent target="textList" className="comps.ListText"  waitTarget="textList" />
+			   <RunCode code="createData(application.textList);" waitTarget="textList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/textRenderer.png" target="textList.mx_internal:rendererArray.2.0" />
+			</body>
+		</TestCase>
+<!--ComboBox renderer-->
+        <TestCase testID="ComboBoxRenderer_Basic" description="Edit data in a List with a ComboBox renderer" keywords="[ComboBox, itemRenderers]">
+			<setup>
+			    <RunCode code="createData(application.comboList);" waitTarget="comboList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="comboList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="comboList" />
+			    <DispatchKeyEvent keys="[DOWN, ENTER]" waitEvent="itemFocusIn" waitTarget="comboList" />
+			    <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemFocusOut" waitTarget="comboList" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="comboList"/>
+			    <AssertPropertyValue target="comboList.dataProvider.0" propertyName="color" value="Green" />
+			</body>
+		</TestCase>
+		<TestCase testID="itemRenderers_bug145199" description="Bug #145199" keywords="[Bugs, 145199, itemRenderers]">
+			<setup>
+				<RunCode code="createData(application.comboList);" waitTarget="comboList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="comboList.mx_internal:rendererArray.0.0" propertyName="selectedItem" value="Red" />
+			</body>
+		</TestCase>
+        <TestCase testID="ComboBoxRenderer_Scrolling" description="Edit data in a List with a ComboBox renderer and then scroll" keywords="[Scrolling, ComboBox, itemRenderers]">
+			<setup>
+			    <ResetComponent target="comboList" className="comps.ListComboBox" waitEvent="updateComplete" waitTarget="comboList" />
+			    <RunCode code="createData(application.comboList);" waitTarget="comboList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="comboList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="comboList" />
+	            <DispatchKeyEvent keys="[DOWN, ENTER]" waitEvent="itemFocusIn" waitTarget="comboList"/>
+	            <DispatchKeyEvent key="TAB" waitEvent="itemFocusOut" waitTarget="comboList" />
+			    <DispatchMouseEvent target="comboList.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="comboList.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="comboList" />
+	            <DispatchMouseEvent target="comboList.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="comboList.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="comboList" />
+	            <AssertPropertyValue target="comboList.dataProvider.0" propertyName="color" value="Green" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ComboBoxRenderer_VisualCheck" description="Visual Check of a ComboBox CellRenderer" keywords="[ComboBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="comboList" className="comps.ListComboBox"  waitTarget="comboList" />
+			   <RunCode code="createData(application.comboList);" waitTarget="comboList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboList.mx_internal:rendererArray.2.0" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		 <TestCase testID="itemRenderers_Bug160800" description="Test for Bug #160800" keywords="[ComboBox, Bugs, 160800, itemRenderers]">
+			<setup>
+			   <ResetComponent target="comboList" className="comps.ListComboBox"  waitTarget="comboList" />
+			   <RunCode code="createData(application.comboList);" waitTarget="comboList" waitEvent="updateComplete" />
+			   <DispatchMouseClickEvent target="comboList.mx_internal:rendererArray.2.0" localX="4" localY="4" waitEvent="open" waitTarget="comboList.mx_internal:rendererArray.2.0" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/itemRenderer_Bug160800.png" target="comboList.mx_internal:rendererArray.2.0.dropdown" />
+			   <DispatchMouseClickEvent target="" localX="4" localY="4" />
+			</body>
+		</TestCase>
+<!--DateField renderer-->
+        <TestCase testID="DateFieldRenderer_Basic" description="Edit data in a List with a DateField renderer" keywords="[DateField, itemRenderers]">
+			<setup>
+			    <RunCode code="createData(application.dateList);" waitTarget="dateList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="dateList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="dateList" />
+	            <WaitForEffectsToEnd />
+	            <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, ENTER]" waitEvent="itemFocusIn" waitTarget="dateList"/>
+	            <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemFocusIn" waitTarget="dateList" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="dateList"/>
+			    <AssertPropertyValue target="dateList.dataProvider.0" propertyName="shipDate" valueExpression="value=dateValue" />
+			</body>
+		</TestCase>
+        <TestCase testID="DateFieldRenderer_Scrolling" description="Edit data in a List with a DateField renderer and then scroll" keywords="[Scrolling, DateField, itemRenderers]">
+			<setup>
+			    <ResetComponent target="dateList" className="comps.ListDateField" waitEvent="updateComplete" waitTarget="dateList" />
+			    <RunCode code="createData(application.dateList);" waitTarget="dateList"  waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="dateList.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="dateList" />
+	            <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, ENTER]" waitEvent="itemFocusIn" waitTarget="dateList"/>
+	            <DispatchKeyEvent key="TAB" waitEvent="itemFocusOut" waitTarget="dateList" />
+			    <DispatchMouseEvent target="dateList.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="dateList.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="dateList" />
+	            <DispatchMouseEvent target="dateList.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="dateList.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="dateList" />
+	            <AssertPropertyValue target="dateList.dataProvider.0" propertyName="shipDate" valueExpression="value=dateValue" />
+			</body>
+		</TestCase>
+		 <TestCase testID="DateFieldRenderer_VisualCheck" description="Visual Check of a DateField CellRenderer" keywords="[DateField, itemRenderers]">
+			<setup>
+			   <ResetComponent target="dateList" className="comps.ListDateField"  waitTarget="dateList" />
+			   <RunCode code="createData(application.dateList);" waitTarget="dateList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <CompareBitmap url="../baselines/dateFieldRenderer.png" target="dateList.mx_internal:rendererArray.3.0" />
+			</body>
+		</TestCase>
+	<!-- Image renderer -->
+	    <TestCase testID="ImageRenderer_VisualCheck" description="Visual Check of a Image CellRenderer" keywords="[Image, itemRenderers]">
+			<setup>
+				<ResetComponent target="imageList" className="comps.ListImage"  waitTarget="imageList" waitEvent="updateComplete" />
+				<RunCode code="createData(application.imageList);" waitTarget="imageList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertEvent target="imageList.mx_internal:rendererArray.2.0" eventName="complete" eventClass="flash.events::Event" />
+				<CompareBitmap url="../baselines/imageRenderer.png" target="imageList.mx_internal:rendererArray.2.0" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

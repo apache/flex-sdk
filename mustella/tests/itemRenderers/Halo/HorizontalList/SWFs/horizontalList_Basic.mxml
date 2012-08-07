@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="700"
+    xmlns:comps="comps.*" >
+<mx:Script>
+<![CDATA[
+        private var date1:Date = new Date(2007,4,20);
+		private	var date2:Date = new Date(2007,0,15);
+        private var date3:Date = new Date(2007,9,24);
+
+        [Bindable]
+        public var myData:Array = [
+						{label:"Toys", available:false, quantity: 0, shipDate: date1, url: "../../../../../Assets/Images/redrect.jpg", color: "Red"},
+						{label:"Stuffed Animals", available:false, quantity: 0, shipDate: date1, url: "../../../../../Assets/Images/redrect.jpg", color: "Red"},
+						{label:"Some Bears", available:true, quantity: 2, shipDate: date2, url: "../../../../../Assets/Images/greenrect.jpg", color: "Green"},
+						{label:"Dinosaur", available:true, quantity: 8, shipDate: date1, url: "../../../../../Assets/Images/purplerect.jpg", color: "Fuscia"},
+						{label:"Cars", available:true, quantity: 9, shipDate: date1, url: "../../../../../Assets/Images/yellowrect.jpg", color: "Yellow"},
+						{label:"Games", available:false, quantity: 0, shipDate: date2, url: "../../../../../Assets/Images/bluerect.jpg", color: "Black"},
+						{label:"Board Games", available:false, quantity: 0, shipDate: date3, url: "../../../../../Assets/Images/bluerect.jpg", color: "Black"},
+						{label:"Dice Game", available:true, quantity: 4, shipDate: date3, url: "../../../../../Assets/Images/orangerect.jpg", color: "White"},
+						{label:"Movie", available:false, quantity: 0, shipDate: date1, url: "../../../../../Assets/Images/redrect.jpg", color: "Rose"},
+						{label:"Video Game",available:true, quantity: 8, shipDate: date3, url: "../../../../../Assets/Images/purplerect.jpg", color: "Periwinkle"},
+					  ];
+]]>
+</mx:Script>
+
+<mx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+
+<mx:HBox>
+	<!-- CheckBox itemRenderer -->
+	<comps:HListCheckbox  id="checkHList" />
+
+	<!-- Button itemRenderer -->
+	<comps:HListButton  id="buttonHList" />
+</mx:HBox>
+
+<mx:HBox>
+	<!-- NumericStepper itemRenderer -->
+	<comps:HListNumericStepper  id="nsHList" />
+
+	<!-- ComboBox itemRenderer -->
+	<comps:HListCombobox  id="comboHList" />
+</mx:HBox>
+
+<mx:HBox>
+	<!--DateField itemRenderer -->
+	<comps:HListDateField  id="dateHList" />
+
+	<!-- Label itemRenderer -->
+	<comps:HListLabel  id="labelHList" />
+
+</mx:HBox>
+
+<mx:HBox>
+	<!-- Image itemRenderer -->
+	<comps:HListText  id="textHList" />
+
+	<!-- Text itemRenderer -->
+	<comps:HListImage  id="imageHList" />
+
+</mx:HBox>
+
+    <comps:HListTextinput id="textinputHList" />
+    <mx:HorizontalList id="HListBasic" width="300" dataProvider="{myData}" />
+ </mx:Application>

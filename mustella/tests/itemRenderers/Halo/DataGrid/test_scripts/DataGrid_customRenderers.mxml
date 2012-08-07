@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/DataGrid/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="dataGrid_customTests.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import mx.controls.*;
+		import mx.core.*;
+		import comps.MyHeader;
+		import comps.SimpleComp2;
+		import comps.LabelCheckComp;
+		import comps.LabelCheckComp2;
+		import data.AlbumDataAS;
+		import data.DaysDataAS;
+		import data.NameDataAS;
+
+        public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		private function createData(dgTarget:DataGrid): void
+		{
+			var newDP:AlbumDataAS = new AlbumDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+		private function createData2(dgTarget:DataGrid): void
+		{
+			var newDP:DaysDataAS = new DaysDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+		private function createData3(dgTarget:DataGrid): void
+		{
+			var newDP:NameDataAS = new NameDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--custom headerRenderer-->
+        <TestCase testID="CustomHeaderRenderer_VisualCheck" description="DataGrid with a custom headerRenderer set in mxml" keywords="[headerRenderer, DataGrid]">
+			<body>
+			   <!--AssertEvent target="dataGrid_custom.mx_internal:rendererArray.0.0.getChildAt(0)" eventName="complete" eventClass="flash.events::Event" /-->
+			   <!--Pause timeout="200" /-->
+			    <WaitForEffectsToEnd />
+			   <CompareBitmap url="../baselines/custom_headerRenderer.png" target="dataGrid_custom.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+	 <!-- Text headerRenderer-->
+	        <TestCase testID="TextHeaderRenderer_VisualCheck" description="DataGrid with a Text headerRenderer set in mxml" keywords="[headerRenderer, Text, DataGrid]">
+				<body>
+				   <CompareBitmap url="../baselines/text_headerRenderer.png" target="dataGrid_text.mx_internal:rendererArray.0.0" />
+				</body>
+		</TestCase>
+	 <!-- TextInput headerRenderer-->
+	        <TestCase testID="TextInputHeaderRenderer_VisualCheck" description="DataGrid with a TextInput headerRenderer set in mxml" keywords="[headerRenderer, TextInput, DataGrid]">
+				<body>
+				   <CompareBitmap url="../baselines/textinput_headerRenderer.png" target="dataGrid_textinput.mx_internal:rendererArray.0.0" />
+				</body>
+		</TestCase>
+	 <!-- Label headerRenderer-->
+	    <TestCase testID="LabelHeaderRenderer_VisualCheck" description="DataGrid with a Label headerRenderer set in mxml" keywords="[headerRenderer, Label, DataGrid]">
+				<body>
+				   <CompareBitmap url="../baselines/label_headerRenderer.png" target="dataGrid_label.mx_internal:rendererArray.0.0" />
+				</body>
+		</TestCase>
+     <!--custom headerRenderer in AS -->
+	         <TestCase testID="CustomHeaderRenderer_AS" description="DataGrid with a custom headerRenderer set in mxml" keywords="[headerRenderer, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <SetProperty target="dataGrid_basic" propertyName="dataProvider" valueExpression="value=application.contacts1"  waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic.columns.0" propertyName="headerRenderer" valueExpression="value=new ClassFactory(MyHeader)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <AssertEvent eventName="complete" target="dataGrid_basic.mx_internal:rendererArray.0.0.getChildAt(0)" eventClass="flash.events::Event" />
+	 			   <CompareBitmap url="../baselines/custom_headerRendererAS.png" target="dataGrid_basic.mx_internal:rendererArray.0.0" />
+	 			</body>
+		</TestCase>
+     <!-- createEditor test -->
+	         <TestCase testID="method_createEditor" description="Call createEditor in the itemEditBegin function for a DataGridColumn" keywords="[createEditor, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(CheckBox)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="selected"  />
+	 			   <RunCode code="application.dataGrid_basic.addEventListener('itemEditBegin', application.doTest)"   />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <DispatchMouseClickEvent target="dataGrid_basic.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="dataGrid_basic.itemEditorInstance" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				   <AssertPropertyValue target="dataGrid_basic.dataProvider.0" propertyName="Available" value="false" />
+	 			</body>
+		</TestCase>
+<!-- destroyEditor test -->
+	         <TestCase testID="method_destroyEditor" description="Call destroyEditor in the itemEditEnd function for a DataGridColumn" keywords="[destroyEditor, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData2(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="value"  />
+	 			   <RunCode code="application.dataGrid_basic.addEventListener('itemEditEnd', application.finishEdit)"   />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <DispatchMouseClickEvent target="dataGrid_basic.itemEditorInstance.getChildAt(2)" localX="3" localY="3" waitEvent="click" waitTarget="dataGrid_basic.itemEditorInstance.getChildAt(2)" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				   <AssertPropertyValue target="dataGrid_basic.dataProvider.0" propertyName="Tuesday" value="3" />
+	 			</body>
+		</TestCase>
+<!-- editedItemRenderer test -->
+	         <TestCase testID="property_editedItemRendererCustom" description="Property: editedItemRenderer for a custom itemRenderer" keywords="[editedItemRenderer, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(SimpleComp2)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="selectedProp"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="labelFunction" valueExpression="value=application.changeLabel" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <DispatchMouseClickEvent target="dataGrid_basic.itemEditorInstance.getChildAt(1)" localX="8" localY="8" waitEvent="click" waitTarget="dataGrid_basic.itemEditorInstance.getChildAt(1)" />
+	 			   <AssertPropertyValue target="dataGrid_basic.editedItemRenderer.data" propertyName="Available" value="true" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				   </body>
+		</TestCase>
+<!-- editorHeightOffset test -->
+	         <TestCase testID="property_editorHeightOffset_Positive" description="Property: Set editorHeightOffset to a positive number" keywords="[editorHeightOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorHeightOffset" value="40" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="height" value="100" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorHeightOffset_Zero" description="Property: Set editorHeightOffset to zero" keywords="[editorHeightOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorHeightOffset" value="0" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="height" value="60" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorHeightOffset_Negative" description="Property: Set editorHeightOffset to a negative number" keywords="[editorHeightOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorHeightOffset" value="-20" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="height" value="40" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+<!-- editorWidthOffset test -->
+	         <TestCase testID="property_editorWidthOffset_Positive" description="Property: Set editorWidthOffset to a positive number" keywords="[editorWidthOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorWidthOffset" value="40" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="width" value="100" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="width" value="140" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorWidthOffset_Zero" description="Property: Set editorWidthOffset to zero" keywords="[editorWidthOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorWidthOffset" value="0" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="width" value="100" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="width" value="100" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorWidthOffset_Negative" description="Property: Set editorWidthOffset to a negative number" keywords="[editorWidthOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorWidthOffset" value="-20" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="width" value="100" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="width" value="80" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+<!-- editorXOffset test -->
+	         <TestCase testID="property_editorXOffset_Positive" description="Property: Set editorXOffset to a positive number" keywords="[editorXOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorXOffset" value="41" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="x" value="239" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorXOffset_Zero" description="Property: Set editorXOffset to zero" keywords="[editorXOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorXOffset" value="0" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="x" value="198" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorXOffset_Negative" description="Property: Set editorXOffset to a negative number" keywords="[editorXOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorXOffset" value="-19" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="x" value="179" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+<!-- editorYOffset test -->
+	         <TestCase testID="property_editorYOffset_Positive" description="Property: Set editorYOffset to a positive number" keywords="[editorYOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorYOffset" value="40" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="y" value="40" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorYOffset_Zero" description="Property: Set editorYOffset to zero" keywords="[editorYOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorYOffset" value="0" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="y" value="0" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorYOffset_Negative" description="Property: Set editorYOffset to a negative number" keywords="[editorYOffset, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorYOffset" value="-20" />
+	 			   <SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="y" value="-20" />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				</body>
+		</TestCase>
+		<TestCase testID="itemEditors_customComponent" description="Property: itemEditor is set to a custom component" keywords="[itemEditor, Custom Component, DataGrid]">
+			 	<setup>
+			 		<ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 		<RunCode code="createData3(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 		<SetProperty propertyName="width" target="dataGrid_basic.columns.0" value="120" />
+			 	</setup>
+			 	<body>
+			 		<SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+			 		<SetProperty target="dataGrid_basic.columns.0" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp2)"  />
+			 		<SetProperty target="dataGrid_basic.columns.0" propertyName="editorDataField" value="mySelected"  />
+			 		<SetProperty target="dataGrid_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 		<DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.0" localX="10" localY="10" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			        <DispatchMouseClickEvent target="dataGrid_basic.itemEditorInstance.getChildAt(1)" localX="8" localY="8" waitEvent="click" waitTarget="dataGrid_basic.itemEditorInstance.getChildAt(1)" />
+			 		<DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+			        <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+			        <AssertPropertyValue target="dataGrid_basic.dataProvider.0" propertyName="cdata" value="false" />
+				 </body>
+		</TestCase>
+		<TestCase testID="DateField_nullItemRenderer" description="This is a test to cover bug SDK-11277 which uses null DateField itemRenderers"
+		    keywords="[DateField, itemRenderer, scroll, DataGrid]" >
+		         <setup>
+		    		<RunCode code="FlexGlobals.topLevelApplication.ac.setItemAt({col1:'col1-2',col2:'col2-2',col3:'col3-2',col4:new Date(2005, 2, 5),col5:'col5-2',col6:'col6-2'}, 1)" waitEvent="updateComplete" waitTarget="dataGrid_null"/>
+		         </setup>
+		         <body>
+		            <DispatchMouseClickEvent target="dataGrid_null.mx_internal:vScrollBar" localX="4" localY="109" waitEvent="scroll" waitTarget="dataGrid_null" />
+		            <DispatchMouseClickEvent target="dataGrid_null.mx_internal:vScrollBar" localX="4" localY="25" waitEvent="scroll" waitTarget="dataGrid_null" />
+		            <AssertPropertyValue target="dataGrid_null.mx_internal:rendererArray.1.1.getChildAt(2)" value="" propertyName="text" />
+		            <AssertPropertyValue target="dataGrid_null.mx_internal:rendererArray.2.1.getChildAt(2)" value="03/05/2005" propertyName="text" />
+		            <AssertPropertyValue target="dataGrid_null.mx_internal:rendererArray.4.1.getChildAt(2)" value="" propertyName="text" />
+		            <AssertPropertyValue target="dataGrid_null.mx_internal:rendererArray.3.1.getChildAt(2)" value="" propertyName="text" />
+		         </body>
+		 </TestCase>
+	</testCases>
+</UnitTester>

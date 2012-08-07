@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" verticalAlign="middle"
+    paddingLeft="2" paddingRight="2" horizontalScrollPolicy="off" horizontalGap="1"
+    mouseOver="onMouseOver()" mouseOut="onMouseOut()"
+    implements="mx.controls.listClasses.IListItemRenderer,mx.controls.listClasses.IDropInListItemRenderer">
+    <fx:Script>
+    <![CDATA[
+        import mx.controls.dataGridClasses.DataGridColumn;
+        import mx.controls.listClasses.BaseListData;
+
+        protected var _data:DataGridColumn;
+            protected var _listData:BaseListData;
+
+            [Bindable]
+            override public function get data():Object{
+                return _data;
+            }
+             override public function set data(value:Object):void{
+                if(value){
+                    _data = value as DataGridColumn;
+                }
+            }
+
+            [Bindable]
+            public function get listData():BaseListData{
+                return _listData;
+            }
+            public function set listData(value:BaseListData):void{
+                _listData = value;
+            }
+
+            private function onMouseOver():void{
+                over_icon.width = 8;
+                over_icon.visible = true;
+            }
+
+            private function onMouseOut():void{
+                over_icon.visible = false;
+                over_icon.width = 0;
+            }
+    ]]>
+    </fx:Script>
+    <mx:Image width="10" visible="false" id="over_icon" source="@Embed(source='../../../../../Assets/Images/smallredrect.jpg')"/>
+    <mx:Label text="{data.headerText}" paddingLeft="0" />
+</mx:HBox>

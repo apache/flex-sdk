@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/HorizontalList/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="horizontalList_Basic.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import mx.controls.HorizontalList;
+        import comps.MyComboBox;
+
+        private static var dateValue:Date = new Date(2007,4,24);
+		public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--CheckBox renderer-->
+		 <TestCase testID="CheckBoxRenderer_VisualCheckMXML" description="Visual Check of a CheckBox CellRenderer" keywords="[HorizontalList, CheckBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="checkHList" className="comps.HListCheckbox"  waitTarget="checkHList" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <!--Pause timeout="400" /-->
+				<CompareBitmap url="../baselines/checkBoxRenderer.png" target="checkHList.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+		 <TestCase testID="CheckBoxRenderer_ASVisualCheck" description="Visual Check of a CheckBox CellRenderer set at runtime" keywords="[HorizontalList, Runtime, CheckBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty propertyName="labelField" target="HListBasic" value="available" waitTarget="HListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.CheckBox)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/checkBoxRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--Button renderer-->
+		 <TestCase testID="ButtonRenderer_VisualCheckMXML" description="Visual Check of a Button CellRenderer" keywords="[HorizontalList,Button, itemRenderers]">
+			<setup>
+			   <ResetComponent target="buttonHList" className="comps.HListButton"  waitTarget="buttonHList"  waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <CompareBitmap url="../baselines/buttonRenderer.png" target="buttonHList.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ButtonRenderer_ASVisualCheck" description="Visual Check of a Button CellRenderer set at runtime" keywords="[HorizontalList, Runtime, Button, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.Button)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/buttonRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--NumericStepper renderer-->
+		 <TestCase testID="NumericStepperRenderer_VisualCheckMXML" description="Visual Check of a NumericStepper CellRenderer" keywords="[HorizontalList,NumericStepper, itemRenderers]">
+			<setup>
+			   <ResetComponent target="nsHList" className="comps.HListNumericStepper"  waitTarget="nsHList"  waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/numStepperRenderer.png" target="nsHList.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="NumericStepperRenderer_ASVisualCheck" description="Visual Check of a NumericStepper CellRenderer set at runtime" keywords="[HorizontalList, Runtime, NumericStepper, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty propertyName="labelField" target="HListBasic" value="quantity" waitTarget="HListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.NumericStepper)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/numericStepperRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--Label renderer-->
+		 <TestCase testID="LabelRenderer_VisualCheckMXML" description="Visual Check of a Label CellRenderer" keywords="[HorizontalList,Label, itemRenderers]">
+			<setup>
+			   <ResetComponent target="labelHList" className="comps.HListLabel"  waitTarget="labelHList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/labelRenderer.png" target="labelHList.mx_internal:rendererArray.0.2" />
+			</body>
+		</TestCase>
+		 <TestCase testID="LabelRenderer_ASVisualCheck" description="Visual Check of a Label CellRenderer set at runtime" keywords="[HorizontalList, Runtime, Label, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.Label)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/labelRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--Text renderer-->
+		 <TestCase testID="TextRenderer_VisualCheckMXML" description="Visual Check of a Text CellRenderer" keywords="[HorizontalList,Text, itemRenderers]">
+			<setup>
+			   <ResetComponent target="textHList" className="comps.HListText"  waitTarget="textHList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/textRenderer.png" target="textHList.mx_internal:rendererArray.0.2" />
+			</body>
+		</TestCase>
+		 <TestCase testID="TextRenderer_ASVisualCheck" description="Visual Check of a Text CellRenderer set at runtime" keywords="[HorizontalList, Runtime, Text, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.Text)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/textRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--ComboBox renderer-->
+		 <TestCase testID="ComboBoxRenderer_VisualCheckMXML" description="Visual Check of a ComboBox CellRenderer" keywords="[HorizontalList,ComboBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="comboHList" className="comps.HListCombobox"  waitTarget="comboHList"  waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				 <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboHList.mx_internal:rendererArray.0.2" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ComboBoxRenderer_ASVisualCheck" description="Visual Check of a ComboBox CellRenderer set at runtime" keywords="[HorizontalList, Runtime, ComboBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="labelField" target="HListBasic" value="color" waitTarget="HListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(MyComboBox)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/comboBoxRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--DateField renderer-->
+		 <TestCase testID="DateFieldRenderer_VisualCheckMXML" description="Visual Check of a DateField CellRenderer" keywords="[HorizontalList,DateField, itemRenderers]">
+			<setup>
+			   <ResetComponent target="dateHList" className="comps.HListDateField"  waitTarget="dateHList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/dateFieldRenderer.png" target="dateHList.mx_internal:rendererArray.0.2" />
+			</body>
+		</TestCase>
+		 <TestCase testID="DateFieldRenderer_ASVisualCheck" description="Visual Check of a DateField CellRenderer set at runtime" keywords="[HorizontalList, Runtime, DateField, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="HListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="labelField" target="HListBasic" value="shipDate" waitTarget="HListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.DateField)" waitTarget="HListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/dateFieldRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+	<!-- Image renderer -->
+	    <TestCase testID="ImageRenderer_VisualCheckMXML" description="Visual Check of a Image CellRenderer" keywords="[HorizontalList,Image, itemRenderers]">
+			<setup>
+				<ResetComponent target="imageHList" className="comps.HListImage"  waitTarget="imageHList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertEvent target="imageHList.mx_internal:rendererArray.0.3" eventName="complete" eventClass="flash.events::Event" />
+				<CompareBitmap url="../baselines/imageRenderer.png" target="imageHList.mx_internal:rendererArray.0.3" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ImageRenderer_ASVisualCheck" description="Visual Check of a Image CellRenderer set at runtime" keywords="[HorizontalList, Runtime, Image, itemRenderers]">
+			<setup>
+			   <ResetComponent target="HListBasic" className="mx.controls.HorizontalList"  waitTarget="HListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="HListBasic" propertyName="height" value="70" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="labelField" target="HListBasic" value="url" waitTarget="HListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="HListBasic" valueExpression="value=new ClassFactory(mx.controls.Image)" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="HListBasic" waitTarget="HListBasic" waitEvent="updateComplete"/>
+			    <AssertEvent target="HListBasic.mx_internal:rendererArray.0.1" eventName="complete" eventClass="flash.events::Event" />
+
+				<!--Pause timeout="2000" /-->
+				<CompareBitmap url="../baselines/imageRendererAS.png" target="HListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

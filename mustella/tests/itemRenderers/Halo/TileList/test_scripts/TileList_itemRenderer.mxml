@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/TileList/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="tileList_Basic.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import mx.controls.TileList;
+        import comps.MyComboBox;
+
+        private static var dateValue:Date = new Date(2007,4,24);
+		public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--CheckBox renderer-->
+		 <TestCase testID="CheckBoxRenderer_VisualCheckMXML" description="Visual Check of a CheckBox CellRenderer" keywords="[TileList, CheckBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="checkTList" className="comps.TListCheckbox"  waitTarget="checkTList" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <!--Pause timeout="400" /-->
+				<CompareBitmap url="../baselines/checkBoxRenderer.png" target="checkTList.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+		 <TestCase testID="CheckBoxRenderer_ASVisualCheck" description="Visual Check of a CheckBox CellRenderer set at runtime" keywords="[TileList, Runtime, CheckBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty propertyName="labelField" target="TListBasic" value="available" waitTarget="TListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.CheckBox)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/checkBoxRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--Button renderer-->
+		 <TestCase testID="ButtonRenderer_VisualCheckMXML" description="Visual Check of a Button CellRenderer" keywords="[TileList,Button, itemRenderers]">
+			<setup>
+			   <ResetComponent target="buttonTList" className="comps.TListButton"  waitTarget="buttonTList"  waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <CompareBitmap url="../baselines/buttonRenderer.png" target="buttonTList.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ButtonRenderer_ASVisualCheck" description="Visual Check of a Button CellRenderer set at runtime" keywords="[TileList, Runtime, Button, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.Button)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/buttonRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--NumericStepper renderer-->
+		 <TestCase testID="NumericStepperRenderer_VisualCheckMXML" description="Visual Check of a NumericStepper CellRenderer" keywords="[TileList,NumericStepper, itemRenderers]">
+			<setup>
+			   <ResetComponent target="nsTList" className="comps.TListNumericStepper"  waitTarget="nsTList"  waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/numStepperRenderer.png" target="nsTList.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="NumericStepperRenderer_ASVisualCheck" description="Visual Check of a NumericStepper CellRenderer set at runtime" keywords="[TileList, Runtime, NumericStepper, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty propertyName="labelField" target="TListBasic" value="quantity" waitTarget="TListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.NumericStepper)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/numericStepperRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--Label renderer-->
+		 <TestCase testID="LabelRenderer_VisualCheckMXML" description="Visual Check of a Label CellRenderer" keywords="[TileList,Label, itemRenderers]">
+			<setup>
+			   <ResetComponent target="labelTList" className="comps.TListLabel"  waitTarget="labelTList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/labelRenderer.png" target="labelTList.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="LabelRenderer_ASVisualCheck" description="Visual Check of a Label CellRenderer set at runtime" keywords="[TileList, Runtime, Label, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.Label)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/labelRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+<!--Text renderer-->
+		 <TestCase testID="TextRenderer_VisualCheckMXML" description="Visual Check of a Text CellRenderer" keywords="[TileList,Text, itemRenderers]">
+			<setup>
+			   <ResetComponent target="textTList" className="comps.TListText"  waitTarget="textTList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/textRenderer.png" target="textTList.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="TextRenderer_ASVisualCheck" description="Visual Check of a Text CellRenderer set at runtime" keywords="[TileList, Runtime, Text, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.Text)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/textRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--ComboBox renderer-->
+		 <TestCase testID="ComboBoxRenderer_VisualCheckMXML" description="Visual Check of a ComboBox CellRenderer" keywords="[TileList,ComboBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="comboTList" className="comps.TListCombobox"  waitTarget="comboTList"  waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				 <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboTList.mx_internal:rendererArray.1.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ComboBoxRenderer_ASVisualCheck" description="Visual Check of a ComboBox CellRenderer set at runtime" keywords="[TileList, Runtime, ComboBox, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="labelField" target="TListBasic" value="color" waitTarget="TListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(MyComboBox)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/comboBoxRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+<!--DateField renderer-->
+		 <TestCase testID="DateFieldRenderer_VisualCheckMXML" description="Visual Check of a DateField CellRenderer" keywords="[TileList,DateField, itemRenderers]">
+			<setup>
+			   <ResetComponent target="dateTList" className="comps.TListDateField"  waitTarget="dateTList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../baselines/dateFieldRenderer.png" target="dateTList.mx_internal:rendererArray.1.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="DateFieldRenderer_ASVisualCheck" description="Visual Check of a DateField CellRenderer set at runtime" keywords="[TileList, Runtime, DateField, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="height" value="70" />
+			   <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+			    <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
+			    <SetProperty propertyName="labelField" target="TListBasic" value="shipDate" waitTarget="TListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.DateField)" waitTarget="TListBasic" waitEvent="updateComplete" />
+				<CompareBitmap url="../baselines/dateFieldRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+	<!-- Image renderer -->
+	    <TestCase testID="ImageRenderer_VisualCheckMXML" description="Visual Check of a Image CellRenderer" keywords="[TileList,Image, itemRenderers]">
+			<setup>
+				<ResetComponent target="imageTList" className="comps.TListImage"  waitTarget="imageTList" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertEvent target="imageTList.mx_internal:rendererArray.0.0" eventName="complete" eventClass="flash.events::Event" />
+				<CompareBitmap url="../baselines/imageRenderer.png" target="imageTList.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ImageRenderer_ASVisualCheck" description="Visual Check of a Image CellRenderer set at runtime" keywords="[TileList, Runtime, Image, itemRenderers]">
+			<setup>
+			   <ResetComponent target="TListBasic" className="mx.controls.TileList"  waitTarget="TListBasic" waitEvent="updateComplete"/>
+			   <SetProperty target="TListBasic" propertyName="height" value="150" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="labelField" target="TListBasic" value="url" waitTarget="TListBasic" waitEvent="updateComplete" />
+			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(mx.controls.Image)" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=application.myData" target="TListBasic" waitTarget="TListBasic" waitEvent="updateComplete"/>
+			    <AssertEvent target="TListBasic.mx_internal:rendererArray.0.1" eventName="complete" eventClass="flash.events::Event" />
+
+				<!--Pause timeout="2000" /-->
+				<CompareBitmap url="../baselines/imageRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

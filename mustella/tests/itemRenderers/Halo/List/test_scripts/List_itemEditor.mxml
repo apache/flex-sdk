@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/List/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="List_itemEditorTests.mxml">
+    <mx:Script>
+	<![CDATA[
+
+		import data.ListDataAS;
+        import mx.controls.List;
+
+        private static var dateValue:Date = new Date(2007,4,24);
+		public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		private function createData(dgTarget:List): void
+		{
+			var newDP:ListDataAS = new ListDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--CheckBox renderer -->
+        <TestCase testID="CheckBoxItemEditor_Basic" description="Edit data in a List with a CheckBox itemEditor" keywords="[List, CheckBox, itemEditor]">
+			<setup>
+			    <RunCode code="createData(application.checkList2);" waitTarget="checkList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="checkList2.mx_internal:rendererArray.0.0" localX="10" localY="5" waitEvent="itemClick" waitTarget="checkList2" />
+	            <DispatchMouseClickEvent target="checkList2.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="checkList2.itemEditorInstance" />
+	            <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="checkList2" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="checkList2"/>
+			    <AssertPropertyValue target="checkList2.dataProvider.0" propertyName="available" value="true" />
+			</body>
+		</TestCase>
+        <TestCase testID="CheckBoxItemEditor_Scrolling" description="Edit data in a List with a CheckBox editor and then scroll" keywords="[Scrolling, CheckBox, itemEditors]">
+			<setup>
+			    <ResetComponent target="checkList2" className="comps.EditorListCheckBox" waitEvent="updateComplete" waitTarget="checkList2" />
+			    <RunCode code="createData(application.checkList2);" waitTarget="checkList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="checkList2.mx_internal:rendererArray.0.0" localX="10" localY="5" waitEvent="itemFocusIn" waitTarget="checkList2" />
+	            <DispatchMouseClickEvent target="checkList2.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="checkList2.itemEditorInstance" />
+	            <DispatchMouseEvent target="checkList2.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="checkList2.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="checkList2" />
+	            <DispatchMouseEvent target="checkList2.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="checkList2.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="checkList2" />
+	            <AssertPropertyValue target="checkList2.dataProvider.0" propertyName="available" value="true" />
+			</body>
+		</TestCase>
+		 <TestCase testID="CheckBoxItemEditor_VisualCheck" description="Visual Check of a CheckBox CellItemEditor" keywords="[List, CheckBox, itemEditors]">
+			<setup>
+			   <ResetComponent target="checkList2" className="comps.EditorListCheckBox"  waitTarget="checkList2" />
+			   <RunCode code="createData(application.checkList2);" waitTarget="checkList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <DispatchMouseClickEvent target="checkList2.mx_internal:rendererArray.0.0" localX="10" localY="5" waitEvent="itemFocusIn" waitTarget="checkList2" />
+			   <WaitForEffectsToEnd />
+			   <CompareBitmap url="../baselines/checkBoxItemEditor.png" target="checkList2.mx_internal:rendererArray.0.0" />
+			</body>
+		</TestCase>
+<!--NumericStepper renderer-->
+        <TestCase testID="NumericStepperItemEditor_Basic" description="Edit data in a List with a NumericStepper Editor" keywords="[List, NumericStepper, itemEditors]">
+			<setup>
+			    <RunCode code="createData(application.nsList2);" waitTarget="nsList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="nsList2.mx_internal:rendererArray.1.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="nsList2" />
+	            <DispatchKeyEvent keys="[UP, UP]" />
+			    <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemEditEnd" waitTarget="nsList2" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="nsList2"/>
+			    <AssertPropertyValue target="nsList2.dataProvider.1" propertyName="quantity" value="2" />
+			</body>
+		</TestCase>
+        <TestCase testID="NumericStepperItemEditor_Scrolling" description="Edit data in a List with a NumericStepper editor and then scroll" keywords="[Scrolling, NumericStepper, itemEditors]">
+			<setup>
+			    <ResetComponent target="nsList2" className="comps.EditorListNumericStepper" waitEvent="updateComplete" waitTarget="nsList2" />
+			    <RunCode code="createData(application.nsList2);" waitTarget="nsList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="nsList2.mx_internal:rendererArray.1.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="nsList2" />
+	            <DispatchKeyEvent keys="[UP, UP, UP]" />
+			    <DispatchMouseEvent target="nsList2.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="nsList2.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="nsList2" />
+	            <DispatchMouseEvent target="nsList2.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="nsList2.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="nsList2" />
+	            <AssertPropertyValue target="nsList2.dataProvider.1" propertyName="quantity" value="3" />
+			</body>
+		</TestCase>
+		 <TestCase testID="NumericStepperItemEditor_VisualCheck" description="Visual Check of a NumericStepper CellItemEditor" keywords="[List, NumericStepper, itemEditors]">
+			<setup>
+			   <ResetComponent target="nsList2" className="comps.EditorListNumericStepper"  waitTarget="nsList2" />
+			   <RunCode code="createData(application.nsList2);" waitTarget="nsList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="nsList2.mx_internal:rendererArray.1.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="nsList2" />
+	            <WaitForEffectsToEnd />
+			   <CompareBitmap url="../baselines/numStepperItemEditor.png" target="nsList2.mx_internal:rendererArray.1.0" />
+			</body>
+		</TestCase>
+		<TestCase testID="AIRNumericStepperItemEditor_VisualCheck" description="Visual Check of a NumericStepper CellItemEditor" keywords="[List, NumericStepper, itemEditors]">
+			<setup>
+			   <ResetComponent target="nsList2" className="comps.EditorListNumericStepper"  waitTarget="nsList2" />
+			   <RunCode code="createData(application.nsList2);" waitTarget="nsList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="nsList2.mx_internal:rendererArray.1.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="nsList2" />
+	            <WaitForEffectsToEnd />
+			   <CompareBitmap url="../baselines/AIRnumStepperItemEditor.png" target="nsList2.mx_internal:rendererArray.1.0" />
+			</body>
+		</TestCase>
+
+<!--DateField renderer-->
+        <TestCase testID="DateFieldItemEditor_Basic" description="Edit data in a List with a DateField renderer" keywords="[List, DateField, itemEditors]">
+			<setup>
+			    <RunCode code="createData(application.dateList2);" waitTarget="dateList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="dateList2.mx_internal:rendererArray.0.0" localX="4" localY="4"  waitEvent="updateComplete" waitTarget="dateList2"/>
+	            <DispatchMouseClickEvent target="dateList2.itemEditorInstance.getChildAt(1)" localX="4" localY="4" waitEvent="open" waitTarget="dateList2.itemEditorInstance" />
+	            <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, ENTER]" waitEvent="itemFocusIn" waitTarget="dateList2"/>
+	            <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemFocusIn" waitTarget="dateList2" />
+	            <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="dateList2"/>
+	            <AssertPropertyValue target="dateList2.dataProvider.0" propertyName="shipDate" valueExpression="value=dateValue" />
+			</body>
+		</TestCase>
+        <TestCase testID="DateFieldItemEditor_Scrolling" description="Edit data in a List with a DateField renderer and then scroll" keywords="[Scrolling, DateField, itemEditors]">
+			<setup>
+			    <ResetComponent target="dateList2" className="comps.EditorListDateField" waitEvent="updateComplete" waitTarget="dateList2" />
+			    <RunCode code="createData(application.dateList2);" waitTarget="dateList2"  waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="dateList2.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="updateComplete" waitTarget="dateList2"/>
+	            <DispatchMouseClickEvent target="dateList2.itemEditorInstance.getChildAt(1)" localX="4" localY="4" waitEvent="open" waitTarget="dateList2.itemEditorInstance" />
+	            <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, ENTER]" waitEvent="itemFocusIn" waitTarget="dateList2"/>
+	            <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="dateList2" />
+			    <DispatchMouseEvent target="dateList2.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="dateList2.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="dateList2" />
+	            <DispatchMouseEvent target="dateList2.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="dateList2.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="dateList2" />
+	            <AssertPropertyValue target="dateList2.dataProvider.0" propertyName="shipDate" valueExpression="value=dateValue" />
+			</body>
+		</TestCase>
+		 <TestCase testID="DateFieldItemEditor_VisualCheck" description="Visual Check of a DateField CellItemEditor" keywords="[List, DateField, itemEditors]">
+			<setup>
+			   <ResetComponent target="dateList2" className="comps.EditorListDateField"  waitTarget="dateList2" />
+			   <RunCode code="createData(application.dateList2);" waitTarget="dateList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <DispatchMouseClickEvent target="dateList2.mx_internal:rendererArray.3.0" localX="4" localY="4" waitEvent="itemEditBegin" waitTarget="dateList2" />
+	           <WaitForEffectsToEnd />
+			   <CompareBitmap url="../baselines/dateFieldItemEditor.png" target="dateList2.mx_internal:rendererArray.3.0" />
+			</body>
+		</TestCase>
+
+<!--ComboBox renderer-->
+        <TestCase testID="ComboBoxItemEditor_Basic" description="Edit data in a List with a ComboBox renderer" keywords="[ComboBox, itemEditors]">
+			<setup>
+			    <RunCode code="createData(application.comboList2);" waitTarget="comboList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="comboList2.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboList2" />
+	            <DispatchMouseClickEvent target="comboList2.itemEditorInstance.getChildAt(1)" localX="4" localY="4" waitEvent="open" waitTarget="comboList2.itemEditorInstance" />
+			    <DispatchMouseClickEvent target="comboList2.itemEditorInstance.dropdown" localX="72" localY="44" waitEvent="close" waitTarget="comboList2.itemEditorInstance" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemFocusIn" waitTarget="comboList2" />
+			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="comboList2"/>
+			    <AssertPropertyValue target="comboList2.dataProvider.0" propertyName="color" value="Blue" />
+			</body>
+		</TestCase>
+        <TestCase testID="ComboBoxItemEditor_Scrolling" description="Edit data in a List with a ComboBox renderer and then scroll" keywords="[Scrolling, ComboBox, itemEditors]">
+			<setup>
+			    <ResetComponent target="comboList2" className="comps.EditorListComboBox" waitEvent="updateComplete" waitTarget="comboList2" />
+			    <RunCode code="createData(application.comboList2);" waitTarget="comboList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="comboList2.mx_internal:rendererArray.0.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboList2" />
+	            <DispatchMouseClickEvent target="comboList2.itemEditorInstance.getChildAt(1)" localX="4" localY="4" waitEvent="open" waitTarget="comboList2.itemEditorInstance" />
+			    <DispatchMouseClickEvent target="comboList2.itemEditorInstance.dropdown" localX="70" localY="25" waitEvent="close" waitTarget="comboList2.itemEditorInstance" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="comboList2" />
+			    <DispatchMouseEvent target="comboList2.getChildAt(3)" type="mouseDown" localX="5" localY="90" />
+	            <DispatchMouseEvent target="comboList2.getChildAt(3)" type="mouseUp" localX="5" localY="90" waitEvent="scroll" waitTarget="comboList2" />
+	            <DispatchMouseEvent target="comboList2.getChildAt(3)" type="mouseDown" localX="5" localY="25" />
+	            <DispatchMouseEvent target="comboList2.getChildAt(3)" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="comboList2" />
+	            <AssertPropertyValue target="comboList2.dataProvider.0" propertyName="color" value="Green" />
+			</body>
+		</TestCase>
+		 <TestCase testID="ComboBoxItemEditor_VisualCheck" description="Visual Check of a ComboBox CellItemEditor" keywords="[ComboBox, itemEditors]">
+			<setup>
+			   <ResetComponent target="comboList2" className="comps.EditorListComboBox"  waitTarget="comboList2" />
+			   <RunCode code="createData(application.comboList2);" waitTarget="comboList2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <DispatchMouseClickEvent target="comboList2.mx_internal:rendererArray.2.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboList2" />
+			   <WaitForEffectsToEnd />
+			   <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboList2.mx_internal:rendererArray.2.0" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

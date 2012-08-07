@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="850"
+    xmlns:comps="comps.*" creationComplete="srv.send()">
+<mx:Script>
+    <![CDATA[
+
+import mx.collections.*;
+import mx.formatters.DateFormatter;
+import mx.controls.DateField;
+import mx.collections.ArrayCollection;
+
+[Bindable]
+   public var dp127773:Array = [
+		{ name: "Yukari Machiyama",
+		  cdata: true,
+		  phone: "415-832-6589",
+		  image: "assets/products/putty.jpg"},
+		{ name: "Ashish Goyal",
+		  cdata: false,
+		  phone: "415-832-3353",
+		  image: "assets/products/putty.jpg"},
+		{ name: "Belinda Nambooze",
+		  cdata: true,
+		  phone: "415-832-2453",
+		  image: "assets/products/putty.jpg"},
+		{ name: "Dan Radigan",
+		  cdata: false,
+		  phone: "415-832-6549",
+		  image: "assets/products/putty.jpg"}
+	];
+
+     private var today:Date = new Date(2007, 10,5);
+     public var newDate:Date = new Date(2007, 9,7);
+
+	 [Bindable]
+	 public var dp192034:ArrayCollection = new ArrayCollection([
+		 {Date:today, Price:11.99, Quantity:2.0, Description:"2.0 items at 11.99"},
+		 {Date:today, Price:1.50, Quantity:20.0, Description:"20.0 items at 1.50"},
+		 {Date:today, Price:0.99, Quantity:1.0, Description:"1.0 items at 0.99"},
+		 {Date:today, Price:4.00, Quantity:8.0, Description:"8.0 items at 4.00"}
+	 ]);
+
+	 private function formatDate(obj:Object, column:DataGridColumn):String
+	 {
+	    var value:Date = obj[column.dataField] as Date;
+	    var formatter:DateFormatter = new DateFormatter();
+	    formatter.formatString = "MM/DD/YYYY";
+	    return formatter.format(value);
+     }
+
+  ]]>
+</mx:Script>
+<mx:HBox>
+<!--mx:DataGrid id="dataGrid127773" dataProvider="{dp127773}" rowHeight="200" width="200" height="500" editable="true">
+     <mx:columns>
+		<mx:DataGridColumn dataField="Info" editable="true" rendererIsEditor="true" itemRenderer="comps.MyContact" editorDataField="name" />
+     </mx:columns>
+   </mx:DataGrid-->
+
+  <comps:CustomGrid id="dataGrid127773" rowHeight="200" dataProvider="{dp127773}" />
+
+   <mx:VBox>
+    <mx:DataGrid id="dataGrid192034" editable="true" dataProvider="{dp192034}">
+        <mx:columns>
+            <mx:DataGridColumn headerText="Date" dataField="Date" labelFunction="formatDate"
+                itemEditor="mx.controls.DateField" editorDataField="selectedDate"/>
+            <mx:DataGridColumn headerText="Price" dataField="Price"/>
+            <mx:DataGridColumn headerText="Quantity" dataField="Quantity"/>
+            <mx:DataGridColumn headerText="Description" dataField="Description"/>
+        </mx:columns>
+    </mx:DataGrid>
+    <mx:DataGrid id="dataGrid_basic" />
+
+    <mx:DataGrid id="dataGrid142954" rowHeight="75" editable="true" dataProvider="{dp127773}" width="300" height="300">
+	   <mx:columns>
+	     <mx:Array>
+	       <mx:DataGridColumn dataField="name" />
+	       <mx:DataGridColumn dataField="cdata" editable="true" itemEditor="comps.ScrollingComp"
+              editorDataField="dummy" />
+	     </mx:Array>
+	   </mx:columns>
+ </mx:DataGrid>
+
+    </mx:VBox>
+</mx:HBox>
+
+<mx:HTTPService id="srv" url="assets/weather.xml" />
+
+<mx:HBox>
+    <comps:ListImage id="dataGrid148528" />
+
+    <mx:DataGrid id="dataGrid164648" dataProvider="{srv.lastResult.weather.node}"
+	    variableRowHeight="true" editable="true" rowHeight="50"
+	    width="300" height="300">
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="Location"/>
+	        <mx:DataGridColumn dataField="Climate" editable="true" editorDataField="value">
+	            <mx:itemEditor>
+		            <mx:Component>
+		                <mx:ComboBox editable="true">
+			                <mx:dataProvider>
+			                    <mx:String>Mild</mx:String>
+			                    <mx:String>Hot</mx:String>
+			                    <mx:String>Foggy</mx:String>
+			                    <mx:String>Rainy</mx:String>
+			                    <mx:String>Snow</mx:String>
+			                </mx:dataProvider>
+		                </mx:ComboBox>
+		            </mx:Component>
+	            </mx:itemEditor>
+	        </mx:DataGridColumn>
+	    </mx:columns>
+</mx:DataGrid>
+</mx:HBox>
+
+</mx:Application>

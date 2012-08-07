@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/DataGrid/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="dataGrid_itemRendererTests.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+        import data.ListDataAS;
+        import mx.controls.DataGrid;
+
+        private static var dateValue:Date = new Date(2007,4,24);
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+        private function createData(dgTarget:DataGrid): void
+        {
+            var newDP:ListDataAS = new ListDataAS();
+            dgTarget.dataProvider = newDP.myData;
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+    <!--CheckBox renderer-->
+        <TestCase testID="CheckBoxRenderer_Basic" description="Edit data in a DataGrid with a CheckBox renderer" keywords="[CheckBox, itemRenderers]">
+            <setup>
+                <RunCode code="createData(application.checkDataGrid);" waitTarget="checkDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="checkDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="checkDataGrid" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="checkDataGrid" />
+                <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="checkDataGrid"/>
+                <AssertPropertyValue target="checkDataGrid.dataProvider.0" propertyName="available" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBoxRenderer_Scrolling" description="Edit data in a DataGrid with a CheckBox renderer and then scroll" keywords="[Scrolling, CheckBox, itemRenderers]">
+            <setup>
+                <ResetComponent target="checkDataGrid" className="comps.DataGridCheckBox" waitEvent="updateComplete" waitTarget="checkDataGrid" />
+                <RunCode code="createData(application.checkDataGrid);" waitTarget="checkDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="checkDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="checkDataGrid" />
+                <DispatchMouseEvent target="checkDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="70" />
+                <DispatchMouseEvent target="checkDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="70" waitEvent="scroll" waitTarget="checkDataGrid" />
+                <DispatchMouseEvent target="checkDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="25" />
+                <DispatchMouseEvent target="checkDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="checkDataGrid" />
+                <AssertPropertyValue target="checkDataGrid.dataProvider.0" propertyName="available" value="true" />
+            </body>
+        </TestCase>
+         <TestCase testID="CheckBoxRenderer_VisualCheck" description="Visual Check of a CheckBox CellRenderer" keywords="[CheckBox, itemRenderers]">
+            <setup>
+               <ResetComponent target="checkDataGrid" className="comps.DataGridCheckBox"  waitTarget="checkDataGrid" />
+               <RunCode code="createData(application.checkDataGrid);" waitTarget="checkDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/checkBoxRenderer.png" target="checkDataGrid.mx_internal:rendererArray.4.1" />
+            </body>
+        </TestCase>
+<!--Button renderer-->
+        <TestCase testID="ButtonRenderer_Basic" description="Edit data in a DataGrid with a Button renderer" keywords="[Button, itemRenderers]">
+            <setup>
+                <RunCode code="createData(application.buttonDataGrid);" waitTarget="buttonDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="buttonDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="buttonDataGrid" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="buttonDataGrid" />
+                <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="buttonDataGrid"/>
+                <AssertPropertyValue target="buttonDataGrid.dataProvider.0" propertyName="available" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonRenderer_Scrolling" description="Edit data in a DataGrid with a Button renderer and then scroll" keywords="[Scrolling, Button, itemRenderers]">
+            <setup>
+                <ResetComponent target="buttonDataGrid" className="comps.DataGridButton" waitEvent="updateComplete" waitTarget="buttonDataGrid" />
+                <RunCode code="createData(application.buttonDataGrid);" waitTarget="buttonDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="buttonDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="buttonDataGrid" />
+                <DispatchMouseEvent target="buttonDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="70" />
+                <DispatchMouseEvent target="buttonDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="70" waitEvent="scroll" waitTarget="buttonDataGrid" />
+                <DispatchMouseEvent target="buttonDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="25" />
+                <DispatchMouseEvent target="buttonDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="buttonDataGrid" />
+                <AssertPropertyValue target="buttonDataGrid.dataProvider.0" propertyName="available" value="true" />
+            </body>
+        </TestCase>
+         <TestCase testID="ButtonRenderer_VisualCheck" description="Visual Check of a Button CellRenderer" keywords="[Button, itemRenderers]">
+            <setup>
+               <ResetComponent target="buttonDataGrid" className="comps.DataGridButton"  waitTarget="buttonDataGrid" />
+               <RunCode code="createData(application.buttonDataGrid);" waitTarget="buttonDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/buttonRenderer.png" target="buttonDataGrid.mx_internal:rendererArray.4.1" />
+            </body>
+        </TestCase>
+<!--NumericStepper renderer-->
+        <TestCase testID="NumericStepperRenderer_Basic" description="Edit data in a DataGrid with a NumericStepper renderer" keywords="[NumericStepper, itemRenderers]">
+            <setup>
+                <RunCode code="createData(application.nsDataGrid);" waitTarget="nsDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="nsDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="nsDataGrid" />
+                <DispatchKeyEvent keys="[UP, UP]" />
+                <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="nsDataGrid" />
+                <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="nsDataGrid"/>
+                <AssertPropertyValue target="nsDataGrid.dataProvider.0" propertyName="quantity" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="NumericStepperRenderer_Scrolling" description="Edit data in a DataGrid with a NumericStepper renderer and then scroll" keywords="[Scrolling, NumericStepper, itemRenderers]">
+            <setup>
+                <ResetComponent target="nsDataGrid" className="comps.DataGridNumericStepper" waitEvent="updateComplete" waitTarget="nsDataGrid" />
+                <RunCode code="createData(application.nsDataGrid);" waitTarget="nsDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="nsDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="nsDataGrid" />
+                <DispatchKeyEvent keys="[UP, UP]" />
+                <DispatchMouseEvent target="nsDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="70" />
+                <DispatchMouseEvent target="nsDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="70" waitEvent="scroll" waitTarget="nsDataGrid" />
+                <DispatchMouseEvent target="nsDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="25" />
+                <DispatchMouseEvent target="nsDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="nsDataGrid" />
+                <AssertPropertyValue target="nsDataGrid.dataProvider.0" propertyName="quantity" value="2" />
+            </body>
+        </TestCase>
+         <TestCase testID="NumericStepperRenderer_VisualCheck" description="Visual Check of a NumericStepper CellRenderer" keywords="[NumericStepper, itemRenderers]">
+            <setup>
+               <ResetComponent target="nsDataGrid" className="comps.DataGridNumericStepper"  waitTarget="nsDataGrid" />
+               <RunCode code="createData(application.nsDataGrid);" waitTarget="nsDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/numStepperRenderer.png" target="nsDataGrid.mx_internal:rendererArray.2.1" />
+            </body>
+        </TestCase>
+<!--Label renderer-->
+         <TestCase testID="LabelRenderer_VisualCheck" description="Visual Check of a Label CellRenderer" keywords="[Label, itemRenderers]">
+            <setup>
+               <ResetComponent target="labelDataGrid" className="comps.DataGridLabel"  waitTarget="labelDataGrid" />
+               <RunCode code="createData(application.labelDataGrid);" waitTarget="labelDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/labelRenderer.png" target="labelDataGrid.mx_internal:rendererArray.2.0" />
+            </body>
+        </TestCase>
+<!--Text renderer-->
+         <TestCase testID="TextRenderer_VisualCheck" description="Visual Check of a Text CellRenderer" keywords="[Text, itemRenderers]">
+            <setup>
+               <ResetComponent target="textDataGrid" className="comps.DataGridText"  waitTarget="textDataGrid" />
+               <RunCode code="createData(application.textDataGrid);" waitTarget="textDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/textRenderer.png" target="textDataGrid.mx_internal:rendererArray.2.0" />
+            </body>
+        </TestCase>
+<!--ComboBox renderer-->
+        <TestCase testID="ComboBoxRenderer_Basic" description="Edit data in a DataGrid with a ComboBox renderer" keywords="[ComboBox, itemRenderers]">
+            <setup>
+                <RunCode code="createData(application.comboDataGrid);" waitTarget="comboDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="comboDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="comboDataGrid" />
+                <DispatchKeyEvent keys="[DOWN, ENTER]" waitEvent="itemFocusIn" waitTarget="comboDataGrid"/>
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="comboDataGrid" />
+                <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="comboDataGrid"/>
+                <AssertPropertyValue target="comboDataGrid.dataProvider.0" propertyName="color" value="Green" />
+            </body>
+        </TestCase>
+        <TestCase testID="ComboBoxRenderer_Scrolling" description="Edit data in a DataGrid with a ComboBox renderer and then scroll" keywords="[Scrolling, ComboBox, itemRenderers]">
+            <setup>
+                <WaitForEffectsToEnd />
+                <ResetComponent target="comboDataGrid" className="comps.DataGridComboBox" waitEvent="updateComplete" waitTarget="comboDataGrid" />
+                <RunCode code="createData(application.comboDataGrid);" waitTarget="comboDataGrid" waitEvent="updateComplete" />
+                </setup>
+            <body>
+                <DispatchMouseClickEvent target="comboDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="comboDataGrid" />
+                <DispatchKeyEvent keys="[DOWN, ENTER]" waitEvent="itemFocusIn" waitTarget="comboDataGrid"/>
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="comboDataGrid" />
+                <DispatchMouseEvent target="comboDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="70" />
+                <DispatchMouseEvent target="comboDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="70" waitEvent="scroll" waitTarget="comboDataGrid" />
+                <DispatchMouseEvent target="comboDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="25" />
+                <DispatchMouseEvent target="comboDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="comboDataGrid" />
+                <AssertPropertyValue target="comboDataGrid.dataProvider.0" propertyName="color" value="Green" />
+            </body>
+        </TestCase>
+         <TestCase testID="ComboBoxRenderer_VisualCheck" description="Visual Check of a ComboBox CellRenderer" keywords="[ComboBox, itemRenderers]">
+            <setup>
+               <WaitForEffectsToEnd />
+               <ResetComponent target="comboDataGrid" className="comps.DataGridComboBox"  waitTarget="comboDataGrid" />
+               <RunCode code="createData(application.comboDataGrid);" waitTarget="comboDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboDataGrid.mx_internal:rendererArray.2.1" />
+            </body>
+        </TestCase>
+<!--DateField renderer-->
+        <TestCase testID="DateFieldRenderer_Basic" description="Edit data in a DataGrid with a DateField renderer" keywords="[DateField, itemRenderers]">
+            <setup>
+                <RunCode code="createData(application.dateDataGrid);" waitTarget="dateDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dateDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="dateDataGrid" />
+                <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, ENTER]" waitEvent="itemFocusIn" waitTarget="dateDataGrid"/>
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="dateDataGrid" />
+                <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dateDataGrid"/>
+                <AssertPropertyValue target="dateDataGrid.dataProvider.0" propertyName="shipDate" valueExpression="value=dateValue" />
+            </body>
+        </TestCase>
+        <TestCase testID="DateFieldRenderer_Scrolling" description="Edit data in a DataGrid with a DateField renderer and then scroll" keywords="[Scrolling, DateField, itemRenderers]">
+            <setup>
+                <ResetComponent target="dateDataGrid" className="comps.DataGridDateField" waitEvent="updateComplete" waitTarget="dateDataGrid" />
+                <RunCode code="createData(application.dateDataGrid);" waitTarget="dateDataGrid"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dateDataGrid.mx_internal:rendererArray.1.1" localX="4" localY="4" waitEvent="updateComplete" waitTarget="dateDataGrid" />
+                <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, ENTER]" waitEvent="itemFocusIn" waitTarget="dateDataGrid"/>
+                <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="dateDataGrid" />
+                <DispatchMouseEvent target="dateDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="70" />
+                <DispatchMouseEvent target="dateDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="70" waitEvent="scroll" waitTarget="dateDataGrid" />
+                <DispatchMouseEvent target="dateDataGrid.mx_internal:vScrollBar" type="mouseDown" localX="5" localY="25" />
+                <DispatchMouseEvent target="dateDataGrid.mx_internal:vScrollBar" type="mouseUp" localX="5" localY="25" waitEvent="scroll" waitTarget="dateDataGrid" />
+                <AssertPropertyValue target="dateDataGrid.dataProvider.0" propertyName="shipDate" valueExpression="value=dateValue" />
+            </body>
+        </TestCase>
+         <TestCase testID="DateFieldRenderer_VisualCheck" description="Visual Check of a DateField CellRenderer" keywords="[DateField, itemRenderers]">
+            <setup>
+               <ResetComponent target="dateDataGrid" className="comps.DataGridDateField"  waitTarget="dateDataGrid" />
+               <RunCode code="createData(application.dateDataGrid);" waitTarget="dateDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+               <CompareBitmap url="../baselines/dateFieldRenderer.png" target="dateDataGrid.mx_internal:rendererArray.2.1" />
+            </body>
+        </TestCase>
+    <!-- Image renderer -->
+        <TestCase testID="ImageRenderer_VisualCheck" description="Visual Check of a Image CellRenderer" keywords="[Image, itemRenderers]">
+            <setup>
+                <ResetComponent target="imageDataGrid" className="comps.DataGridImage"  waitTarget="imageDataGrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="createData(application.imageDataGrid);" waitTarget="imageDataGrid" waitEvent="updateComplete" />
+		<Pause timeout="10" />
+                <!--AssertEvent target="imageDataGrid.mx_internal:rendererArray.3.0" eventName="complete" eventClass="flash.events::Event" timeout="25000"/-->
+                <CompareBitmap url="../baselines/imageRenderer.png" target="imageDataGrid.mx_internal:rendererArray.3.0" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

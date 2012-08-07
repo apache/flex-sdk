@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/DataGrid/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="dataGrid_customTests.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import mx.controls.DataGrid;
+		import data.ListDataAS;
+		import mx.controls.CheckBox;
+		import mx.controls.NumericStepper;
+
+        public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		private function createData(dgTarget:DataGrid): void
+		{
+			var newDP:ListDataAS = new ListDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+
+<!-- itemEditBegin test -->
+	         <TestCase testID="itemEditors_event_itemEditBegin" description="Ensure that itemBeginEdit is triggered for cells with custom itemEditors" keywords="[itemEditBegin, Events, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"  />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.2.3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditBegin" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				   <AssertEventPropertyValue propertyName="columnIndex" value="3" />
+	 			   <!--AssertEventPropertyValue propertyName="dataField" value="quantity" /-->
+	 			   <AssertEventPropertyValue propertyName="rowIndex" value="1" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	            </body>
+		</TestCase>
+<!-- itemEditBeginning test -->
+	         <TestCase testID="itemEditors_event_itemEditBeginning" description="Ensure that itemEditBeginning is triggered for cells with custom itemEditors" keywords="[itemEditBeginning, Events, DataGrid]">
+	 			<setup>
+	 			    <ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			    <RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+	 			   <SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"  />
+	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.2.3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+	               <AssertEvent eventName="itemEditBegin" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				   <AssertEventPropertyValue propertyName="columnIndex" value="3" />
+	 			   <!--AssertEventPropertyValue propertyName="dataField" value="quantity" /-->
+	 			   <AssertEventPropertyValue propertyName="rowIndex" value="1" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	            </body>
+		</TestCase>
+<!-- itemFocusIn test -->
+		<TestCase testID="itemEditors_event_itemFocusIn" description="Ensure that itemFocusIn is triggered for cells with custom itemEditors" keywords="[itemFocusIn , Events, DataGrid]">
+			 <setup>
+			 	<ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	<RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 </setup>
+			 <body>
+			 	<SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+			 	<SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+			 	<SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"  />
+			 	<DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.2.3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			    <AssertEvent eventName="itemFocusIn" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				<AssertEventPropertyValue propertyName="columnIndex" value="3" />
+			 	<!--AssertEventPropertyValue propertyName="dataField" value="quantity" /-->
+			 	<AssertEventPropertyValue propertyName="rowIndex" value="1" />
+			 	<DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+			 </body>
+		</TestCase>
+<!-- itemFocusOut test -->
+		<TestCase testID="itemEditors_event_itemFocusOut" description="Ensure that itemFocusOut is triggered for cells with custom itemEditors" keywords="[itemFocusOut, Events, DataGrid]">
+			<setup>
+			 	<ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	<RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			</setup>
+			<body>
+			 	<SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+			 	<SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+			 	<SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"  />
+			 	<DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.4.3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			    <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+			    <AssertEvent eventName="itemFocusOut" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+				<AssertEventPropertyValue propertyName="columnIndex" value="3" />
+			 	<!--AssertEventPropertyValue propertyName="dataField" value="quantity" /-->
+			 	<AssertEventPropertyValue propertyName="rowIndex" value="3" />
+			</body>
+		</TestCase>
+<!-- itemEndEdit test -->
+	    <TestCase testID="itemEditors_event_itemEditEnd_mouse" description="Ensure that itemEditEnd is triggered for cells with custom itemEditors" keywords="[itemEditEnd, Events, DataGrid]">
+			 	<setup>
+			 	 	<ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	 	<RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	</setup>
+			 	<body>
+			 	 	<SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+			 	 	<SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+			 	 	<SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"  />
+			 	 	<DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.2.3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	    <DispatchKeyEvent char="4" waitEvent="keyUp" waitTarget="dataGrid_basic" />
+			 	    <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+	                <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+			 		<AssertEventPropertyValue propertyName="columnIndex" value="3" />
+			 	 	<AssertEventPropertyValue propertyName="dataField" value="quantity" />
+			 	 	<AssertEventPropertyValue propertyName="rowIndex" value="1" />
+			 </body>
+	    </TestCase>
+	    <TestCase testID="itemEditors_event_itemEditEnd_TAB" description="Ensure that itemEditEnd is triggered for cells with custom itemEditors when you tab" keywords="[itemEditEnd, Events, DataGrid]">
+			 	<setup>
+			 	 	<ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	 	<RunCode code="createData(application.dataGrid_basic)" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	</setup>
+			 	<body>
+			 	 	<SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+			 	 	<SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+			 	 	<SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"  />
+			 	 	<DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.3.3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
+			 	    <DispatchKeyEvent char="2" waitEvent="keyUp" waitTarget="dataGrid_basic" />
+			 	    <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
+			 	    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
+			 		<AssertEventPropertyValue propertyName="columnIndex" value="3" />
+			 	 	<AssertEventPropertyValue propertyName="dataField" value="quantity" />
+			 	 	<AssertEventPropertyValue propertyName="rowIndex" value="2" />
+			 </body>
+	    </TestCase>
+	</testCases>
+</UnitTester>

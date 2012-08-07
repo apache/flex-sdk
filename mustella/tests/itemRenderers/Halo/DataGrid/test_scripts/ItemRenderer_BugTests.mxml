@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/DataGrid/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ItemRenderers_Bugs.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+        import data.ListDataAS;
+        import mx.controls.List;
+        import mx.controls.DataGrid;
+
+        public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		private function createData(dgTarget:List): void
+		{
+			var newDP:ListDataAS = new ListDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+		private function createDataDG(dgTarget:DataGrid): void
+		{
+			var newDP:ListDataAS = new ListDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+
+	</mx:Metadata>
+
+	<testCases>
+    <!-- bug #127773-->
+        <TestCase testID="itemRenderers_bug127773" description="Bug #127773" keywords="[Bugs, 127773, itemRenderers]">
+			<body>
+			    <DispatchMouseEvent type="mouseDown" target="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)" localX="5" localY="4"
+			        waitEvent="mouseDown" waitTarget="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)"  />
+			    <DispatchMouseEvent type="mouseUp" target="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)"
+					localX="5" localY="4" />
+				<DispatchKeyEvent char="Brad Pitt" waitEvent="change" waitTarget="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)" />
+			    <DispatchMouseClickEvent target="dataGrid127773.mx_internal:rendererArray.2.0" waitEvent="itemEditEnd" waitTarget="dataGrid127773" />
+			    <AssertPropertyValue target="dataGrid127773.dataProvider.0" propertyName="name" value="Brad Pitt" />
+			    <DispatchMouseClickEvent target="" localX="4" localY="5" />
+			</body>
+		</TestCase>
+    <!-- bug #148390-->
+        <TestCase testID="itemRenderers_bug148390" description="Bug #148390" keywords="[Bugs, 148390, itemRenderers]">
+			<setup>
+			    <ResetComponent target="dataGrid127773" className="comps.CustomGrid" waitTarget="dataGrid127773" waitEvent="updateComplete" />
+			    <SetProperty target="dataGrid127773" propertyName="rowHeight" value="100" />
+			    <SetProperty target="dataGrid127773" propertyName="dataProvider" valueExpression="value=application.dp127773" waitTarget="dataGrid127773"
+			         waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="dataGrid127773.mx_internal:rendererArray.1.0.rawChildren.getChildAt(2).getChildAt(3)" localX="5" localY="5" />
+			    <AssertEvent eventName="scroll" eventClass="mx.events::ScrollEvent" target="dataGrid127773.mx_internal:rendererArray.1.0" />
+			</body>
+		</TestCase>
+    <!-- bug #192034-->
+        <TestCase testID="itemRenderers_bug192034" description="bug #192034" keywords="[Bugs, 192034, itemRenderers]">
+			<body>
+			    <DispatchMouseClickEvent target="dataGrid192034.mx_internal:rendererArray.2.0" localX="5" localY="4" waitEvent="itemFocusIn" waitTarget="dataGrid192034" />
+                <DispatchMouseClickEvent target="dataGrid192034.itemEditorInstance" localX="25" localY="5" waitEvent="open" waitTarget="dataGrid192034.itemEditorInstance" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dataGrid192034.itemEditorInstance.dropdown.getChildAt(7)" localX="5" localY="5" />
+                <!--DispatchMouseClickEvent target="dataGrid192034.itemEditorInstance.dropdown.getChildAt(2).getChildAt(12)" localX="13" localY="9" waitEvent="change"
+                    waitTarget="dataGrid192034.itemEditorInstance" /-->
+                <DispatchKeyEvent keys="[RIGHT, RIGHT]" waitEvent="change"  waitTarget="dataGrid192034.itemEditorInstance" />
+                <DispatchMouseClickEvent target="dataGrid192034.mx_internal:rendererArray.2.1" localX="5" localY="4" waitEvent="itemFocusIn" waitTarget="dataGrid192034" />
+                <DispatchMouseClickEvent target="" localX="5" localY="4" waitEvent="itemEditEnd" waitTarget="dataGrid192034" />
+                <AssertPropertyValue target="dataGrid192034.dataProvider.1" propertyName="Date" valueExpression="value=application.newDate" />
+			</body>
+		</TestCase>
+
+    <!-- bug #171112 -->
+        <TestCase testID="itemRenderers_bug171112" description="bug #171112" keywords="[Bugs, 171112, itemRenderers]">
+			<setup>
+				<ResetComponent target="dataGrid_basic" className="mx.controls.DataGrid"  waitTarget="dataGrid_basic" waitEvent="updateComplete" />
+				<RunCode code="createDataDG(application.dataGrid_basic);" waitTarget="dataGrid_basic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty target="dataGrid_basic" propertyName="editable" value="true" />
+			    <SetProperty target="dataGrid_basic.columns.3" propertyName="itemEditor" valueExpression="value= new ClassFactory(mx.controls.NumericStepper)"/>
+			    <SetProperty target="dataGrid_basic.columns.3" propertyName="editorDataField" value="value"	 />
+			    <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.3.3" localX="5" localY="4" waitEvent="itemFocusIn" waitTarget="dataGrid_basic" />
+                <AssertPropertyValue target="dataGrid_basic.itemEditorInstance" propertyName="value" value="2" />
+			</body>
+		</TestCase>
+    <!-- bug #142954-->
+        <TestCase testID="itemRenderers_bug142954" description="Bug #142954" keywords="[Bugs, 142954, itemRenderers]">
+			<body>
+			    <DispatchMouseClickEvent target="dataGrid142954.mx_internal:rendererArray.1.1" localX="5" localY="5" waitEvent="itemFocusIn" waitTarget="dataGrid142954" />
+			    <DispatchMouseClickEvent target="dataGrid142954.itemEditorInstance.rawChildren.getChildAt(2).getChildAt(3)" localX="5" localY="5" />
+			    <AssertEvent eventName="scroll" eventClass="mx.events::ScrollEvent" target="dataGrid142954.itemEditorInstance" />
+			    <DispatchMouseClickEvent target="dataGrid142954.itemEditorInstance.getChildAt(1)" localX="8" localY="8" waitEvent="click"
+			        waitTarget="dataGrid142954.itemEditorInstance.getChildAt(1)" />
+			    <DispatchMouseClickEvent target="" localX="8" localY="8" waitEvent="itemEditEnd" waitTarget="dataGrid142954" />
+                <AssertPropertyValue target="dataGrid142954.dataProvider.0" propertyName="cdata" value="false" />
+			</body>
+		</TestCase>
+    <!-- bug #164648-->
+        <TestCase testID="itemRenderers_bug164648" description="Bug #164648" keywords="[Bugs, 164648, itemRenderers]">
+			<body>
+			    <DispatchMouseClickEvent target="dataGrid164648.mx_internal:rendererArray.1.1" localX="5" localY="5" waitEvent="itemFocusIn" waitTarget="dataGrid164648" />
+			    <DispatchMouseClickEvent target="dataGrid164648.itemEditorInstance.getChildAt(1)" localX="4" localY="4" waitEvent="open" waitTarget="dataGrid164648.itemEditorInstance" />
+			    <DispatchMouseClickEvent target="dataGrid164648.itemEditorInstance.dropdown" localX="72" localY="44" waitEvent="close" waitTarget="dataGrid164648.itemEditorInstance" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemEditEnd" waitTarget="dataGrid164648" />
+			    <AssertPropertyValue target="dataGrid164648.dataProvider.0" propertyName="Climate" value="Foggy" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

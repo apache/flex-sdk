@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" height="200" width="300">
+   <mx:HBox>
+      <mx:Label id="title" text="{data.name}"/>
+      <mx:Label id="updatedText" color="0xFF0000" />
+   </mx:HBox>
+   <mx:Label id="contactLabel" text="Phone Number:"/>
+   <mx:Label id="contact" text="{data.phone}"/>
+   <mx:CheckBox id="confirmed" label="Confirmed" selected="{data.cdata}" />
+   <mx:Label text="change name:"/>
+   <mx:TextInput id="contact2" text="{data.name}" change="updatedText.text = 'updated';data.name=contact2.text" />
+ </mx:VBox>

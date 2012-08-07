@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/Tree/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Tree_customTests.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    <!--custom parent renderers-->
+        <TestCase testID="CheckBoxRenderer_TreeBranches" description="This tests the visual appearance of a custom itemRenderer for Tree Branches that uses a CheckBox" keywords="[Tree, itemRenderers]">
+			<body>
+			    <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeCustomBranches" />
+			    <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="treeCustomBranches" />
+			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomBranches" />
+			    <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="treeCustomBranches" />
+			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomBranches" />
+				<CompareBitmap url="../baselines/TreeCustomBranches.png" target="treeCustomBranches" />
+			</body>
+		</TestCase>
+    <!--custom child renderers-->
+        <TestCase testID="CheckBoxRenderer_TreeNodes" description="This tests the visual appearance of a custom itemRenderer for Tree Nodes that uses a CheckBox" keywords="[CheckBox, Tree, itemRenderers]">
+			<body>
+			    <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeCustomNodes" />
+			    <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="treeCustomNodes" />
+			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes" />
+			    <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="treeCustomNodes" />
+			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes" />
+				<CompareBitmap url="../baselines/TreeCustomNodes.png" target="treeCustomNodes" />
+			</body>
+		</TestCase>
+    <!--custom child renderers-->
+        <TestCase testID="UpdatedCheckBoxRenderer_TreeNodes" description="This tests the visual appearance of a custom itemRenderer for Tree Nodes that uses a CheckBox" keywords="[CheckBox, Tree, itemRenderers]">
+			<body>
+			    <DispatchKeyEvent keys="[TAB,TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="treeCustomNodes1" />
+			    <DispatchKeyEvent keys="[DOWN,RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes1" />
+			    <DispatchKeyEvent keys="[DOWN,RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes1" />
+			    <WaitForEffectsToEnd/>
+			    <DispatchKeyEvent keys="[DOWN,DOWN,RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes1" />
+			    <WaitForEffectsToEnd/>
+			    <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes1" />
+			    <DispatchKeyEvent keys="[DOWN,RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes1" />
+			    <WaitForEffectsToEnd/>
+
+			    <CompareBitmap url="../baselines/TreeCustomNodesUpdated.png" target="treeCustomNodes1" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="itemRenderers/Halo/List/test_scripts/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="List_customTests.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+		import mx.controls.List;
+		import comps.SimpleComp2;
+		import comps.LabelCheckComp;
+		import comps.LabelCheckComp2;
+		import data.AlbumDataAS;
+		import data.DaysDataAS;
+		import data.NameDataAS;
+		import mx.controls.CheckBox;
+		import mx.controls.NumericStepper;
+
+        public static function init(o:DisplayObject):void
+		{
+
+		}
+
+		private function createData(dgTarget:List): void
+		{
+			var newDP:AlbumDataAS = new AlbumDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+		private function createData2(dgTarget:List): void
+		{
+			var newDP:DaysDataAS = new DaysDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+
+		private function createData3(dgTarget:List): void
+		{
+			var newDP:NameDataAS = new NameDataAS();
+			dgTarget.dataProvider = newDP.myData;
+		}
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+     <!-- createEditor test -->
+	         <TestCase testID="method_createEditor" description="Call createEditor in the itemEditBegin function for a ListColumn" keywords="[createEditor, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="Available" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(CheckBox)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="selected"  />
+	 			   <RunCode code="application.list_basic.addEventListener('itemEditBegin', application.doTest)"   />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <DispatchMouseClickEvent target="list_basic.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="list_basic.itemEditorInstance" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				   <AssertPropertyValue target="list_basic.dataProvider.1" propertyName="Available" value="true" />
+	 			</body>
+		</TestCase>
+<!-- destroyEditor test -->
+	         <TestCase testID="method_destroyEditor" description="Call destroyEditor in the itemEditEnd function for a ListColumn" keywords="[destroyEditor, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData2(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="Monday" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(NumericStepper)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="value"  />
+	 			   <RunCode code="application.list_basic.addEventListener('itemEditEnd', application.finishEdit)"   />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <DispatchMouseClickEvent target="list_basic.itemEditorInstance.getChildAt(2)" localX="4" localY="4" waitEvent="click" waitTarget="list_basic.itemEditorInstance.getChildAt(2)" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				   <AssertPropertyValue target="list_basic.dataProvider.0" propertyName="Monday" value="9" />
+	 			</body>
+		</TestCase>
+<!-- editedItemRenderer test -->
+	         <TestCase testID="property_editedItemRendererCustom" description="Property: editedItemRenderer for a custom itemRenderer" keywords="[editedItemRenderer, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="Available" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(SimpleComp2)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="selectedProp"  />
+	 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.0.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <DispatchMouseClickEvent target="list_basic.itemEditorInstance.getChildAt(1)" localX="8" localY="8" waitEvent="click" waitTarget="list_basic.itemEditorInstance.getChildAt(1)" />
+	 			   <AssertPropertyValue target="list_basic.editedItemRenderer.data" propertyName="Available" value="true" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				   </body>
+		</TestCase>
+		<!-- editorHeightOffset test -->
+			         <TestCase testID="property_editorHeightOffset_Positive" description="Property: Set editorHeightOffset to a positive number" keywords="[editorHeightOffset, List]">
+			 			<setup>
+			 			    <DispatchMouseClickEvent target="" localX="5" localY="5" />
+	                        <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+			 			</setup>
+			 			<body>
+			 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+			 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+			 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+			 			   <SetProperty target="list_basic" propertyName="editorHeightOffset" value="40" />
+			 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			           <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+			               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="height" value="100" />
+			 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+			               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+						</body>
+				</TestCase>
+		        <TestCase testID="property_editorHeightOffset_Zero" description="Property: Set editorHeightOffset to zero" keywords="[editorHeightOffset, List]">
+			 			<setup>
+			 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+			 			</setup>
+			 			<body>
+			 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+			 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+			 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+			 			   <SetProperty target="list_basic" propertyName="editorHeightOffset" value="0" />
+			 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			           <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+			               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="height" value="60" />
+			 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+			               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+						</body>
+				</TestCase>
+		        <TestCase testID="property_editorHeightOffset_Negative" description="Property: Set editorHeightOffset to a negative number" keywords="[editorHeightOffset, List]">
+			 			<setup>
+			 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+			 			</setup>
+			 			<body>
+			 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+			 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+			 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			           <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+			 			   <SetProperty target="list_basic" propertyName="editorHeightOffset" value="-20" />
+			 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+			 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+			               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="height" value="40" />
+			 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+			               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+<!-- editorWidthOffset test -->
+        <TestCase testID="property_editorWidthOffset_Zero" description="Property: Set editorWidthOffset to zero" keywords="[editorWidthOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorWidthOffset" value="0" />
+	 			   <SetProperty target="list_basic" propertyName="width" value="100" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="width" value="96" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorWidthOffset_Negative" description="Property: Set editorWidthOffset to a negative number" keywords="[editorWidthOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorWidthOffset" value="-20" />
+	 			   <SetProperty target="list_basic" propertyName="width" value="100" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="width" value="76" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+<!-- editorXOffset test -->
+	         <TestCase testID="property_editorXOffset_Positive" description="Property: Set editorXOffset to a positive number" keywords="[editorXOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorXOffset" value="41" />
+	 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="x" value="43" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorXOffset_Zero" description="Property: Set editorXOffset to zero" keywords="[editorXOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorXOffset" value="0" />
+	 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="x" value="2" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorXOffset_Negative" description="Property: Set editorXOffset to a negative number" keywords="[editorXOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorXOffset" value="-19" />
+	 			   <SetProperty target="list_basic" propertyName="width" value="400" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <WaitForEffectsToEnd />
+	 			   <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="x" value="-17" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+<!-- editorYOffset test -->
+	         <TestCase testID="property_editorYOffset_Positive" description="Property: Set editorYOffset to a positive number" keywords="[editorYOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorYOffset" value="40" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="y" value="100" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorYOffset_Zero" description="Property: Set editorYOffset to zero" keywords="[editorYOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorYOffset" value="0" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="y" value="60" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="property_editorYOffset_Negative" description="Property: Set editorYOffset to a negative number" keywords="[editorYOffset, List]">
+	 			<setup>
+	 			    <ResetComponent target="list_basic" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <RunCode code="createData3(application.list_basic)" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			    <SetProperty target="list_basic" propertyName="labelField" value="name" />
+	 			</setup>
+	 			<body>
+	 			   <SetProperty target="list_basic" propertyName="editable" value="true" />
+	 			   <SetProperty target="list_basic" propertyName="itemEditor" valueExpression="value=new ClassFactory(LabelCheckComp)"  />
+	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="checkBoxValue"  />
+	 			   <SetProperty target="list_basic" propertyName="editorYOffset" value="-20" />
+	 			   <SetProperty target="list_basic" propertyName="rowHeight" value="60" waitEvent="updateComplete" waitTarget="list_basic" />
+	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
+	               <AssertPropertyValue target="list_basic.itemEditorInstance" propertyName="y" value="40" />
+	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
+	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
+				</body>
+		</TestCase>
+        <TestCase testID="variableRowHeight_and_scrolling" description="This testcase came about from bug SDK-11080. It tests that you can continue to scroll to the bottom
+           when row heights have changed." keywords="[variableRowHeight, List]">
+	 			<body>
+	 			   <DispatchMouseClickEvent target="list_11080.mx_internal:rendererArray.0.0.getChildAt(2)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_11080"/>
+	 			   <DispatchMouseClickEvent target="list_11080.getChildAt(3).getChildAt(3)" localX="5" localY="5" waitEvent="scroll" waitTarget="list_11080"/>
+				   <DispatchMouseClickEvent target="list_11080.mx_internal:rendererArray.0.0.getChildAt(2)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_11080"/>
+				   <DispatchMouseClickEvent target="list_11080.getChildAt(3).getChildAt(3)" localX="5" localY="5" waitEvent="scroll" waitTarget="list_11080"/>
+				   <AssertPropertyValue propertyName="verticalScrollPosition" value="2" target="list_11080" />
+				</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
